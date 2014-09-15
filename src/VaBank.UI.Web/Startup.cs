@@ -1,10 +1,10 @@
-﻿using Owin;
+﻿using System.IO;
+using Owin;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.Owin;
+using VaBank.UI.Web.Views;
 
 namespace VaBank.UI.Web
 {    
@@ -20,7 +20,8 @@ namespace VaBank.UI.Web
         public Task Invoke(IDictionary<string, object> env)
         {
             var response = new OwinResponse(env);
-            return response.WriteAsync("Hello, World!");
+            var template = new Index();
+            return response.WriteAsync(template.TransformText());
         }
     }
 }
