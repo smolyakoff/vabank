@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Owin;
+using VaBank.UI.Web.Utils;
 using VaBank.UI.Web.Views;
 
 namespace VaBank.UI.Web
@@ -14,7 +15,9 @@ namespace VaBank.UI.Web
     {
         public void Configuration(IAppBuilder builder)
         {
-            builder.Use(new Func<AppFunc, AppFunc>(next => (AppFunc)Invoke));            
+            builder.Use(new Func<AppFunc, AppFunc>(next => (AppFunc)Invoke)); 
+           
+            Migrator.MigrateMaintenanceDatabase();
         }
 
         public Task Invoke(IDictionary<string, object> env)

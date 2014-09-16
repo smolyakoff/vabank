@@ -3,7 +3,7 @@
 namespace VaBank.Data.Migrations.M0_Initial
 {
     [Migration(1, "Maintenance tables")]
-    [Tags("Maintenance")]
+    [Profile("Maintenance")]
     public class Maintenance : Migration
     {
         public override void Up()

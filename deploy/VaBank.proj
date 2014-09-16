@@ -40,7 +40,6 @@
       UserPassword="$(DatabaseUserPassword)"/>
   </Target>
   
-  
   <Target Name="Clean">
     <Message Text="Cleaning up..."></Message>
     <MSBuild Projects="$(SolutionDir)\VaBank.sln" Targets="Clean"></MSBuild>
