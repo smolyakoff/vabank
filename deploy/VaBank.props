@@ -22,6 +22,9 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Environment)'=='Production'">
-    
+    <DatabaseServer>tcp:fm2cwqdyb9.database.windows.net,1433</DatabaseServer>
+    <DatabaseUserName>db_admin</DatabaseUserName>
+    <DatabaseUserPassword>dbJedi1!</DatabaseUserPassword>
+    <DatabaseName>VaBank.Database</DatabaseName>
   </PropertyGroup>
 </Project>
