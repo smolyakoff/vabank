@@ -8,10 +8,12 @@
     
     <SolutionDir>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)/..'))</SolutionDir>
     <ToolsDir>$(SolutionDir)/tools</ToolsDir>
+    <BuildDir>$(SolutionDir)/build</BuildDir>
     <ExtensionTasksPath>$(SolutionDir)/tools/MSBuild.ExtensionPack.1.5.0</ExtensionTasksPath>
     <MigrateToolPath>$(ToolsDir)/FluentMigrator.1.3.0.0/Migrate.exe</MigrateToolPath>
     <DbMigrationsProjectPath>$(SolutionDir)/src/VaBank.Data.Migrations/VaBank.Data.Migrations.csproj</DbMigrationsProjectPath>
-    <DbMigrationsAssemblyPath>$(SolutionDir)/src/VaBank.Data.Migrations/bin/$(Configuration)/VaBank.Data.Migrations.dll</DbMigrationsAssemblyPath>
+    <DbMigrationsAssemblyPath Condition="'$(OutDir)'==''">$(SolutionDir)/src/VaBank.Data.Migrations/bin/$(Configuration)/VaBank.Data.Migrations.dll</DbMigrationsAssemblyPath>
+    <DbMigrationsAssemblyPath Condition="'$(OutDir)'!=''">$(OutDir)/VaBank.Data.Migrations.dll</DbMigrationsAssemblyPath>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Environment)'=='Development'">
