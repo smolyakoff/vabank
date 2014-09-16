@@ -45,7 +45,7 @@ build/
 *.pidb
 *.log
 *.scc
-*.generated.cs
+#*.generated.cs
 
 # Visual C++ cache files
 ipch/
@@ -98,7 +98,7 @@ publish/
 
 # NuGet Packages Directory
 ## TODO: If you have NuGet Package Restore enabled, uncomment the next line
-#packages/
+packages/
 
 # Windows Azure Build Output
 csx
