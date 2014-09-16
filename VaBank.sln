@@ -13,8 +13,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{CAF1F08A-6305-4A18-9C85-5F588B1FE300}"
 	ProjectSection(SolutionItems) = preProject
+		deploy\build.bat = deploy\build.bat
+		deploy\build.ps1 = deploy\build.ps1
 		deploy\VaBank.proj = deploy\VaBank.proj
 		deploy\VaBank.props = deploy\VaBank.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{59742D03-4D93-476D-95EB-0DAC08B37AB1}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
 	EndProjectSection
 EndProject
 Global

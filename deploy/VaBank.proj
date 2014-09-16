@@ -1,14 +1,36 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
-  <Import Project="$(MSBuildProjectFullPath)\VaBank.proj"></Import>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="BuildAll" ToolsVersion="12.0">
+  <Import Project="$(MSBuildProjectDirectory)/VaBank.props"></Import>
+  <Import Project="$(ToolsDir)/MSBuild.ExtensionPack.1.5.0/MSBuild.ExtensionPack.tasks"/>
   
-  
-  <Target Name="Build">
-
+  <Target Name="Clean">
+    <Message Text="Cleaning up..."></Message>
+    <MSBuild Projects="$(SolutionDir)\VaBank.sln" Targets="Clean"></MSBuild>
   </Target>
 
-  <Target Name="Migrate">
+  <Target Name="CreateDatabase" Condition="'$(Environment)'=='Development'">
+      <MSBuild.ExtensionPack.Sql2012.Database TaskAction="Create" DatabaseItem="VaBank.Database" Force="true" MachineName="(LocalDb)\Projects"/>
+  </Target>
+
+  <Target Name="BuildMigrations">
+    <Message Text="Building migrations assembly..." Importance="High" />
+    <MSBuild Projects="$(DbMigrationsProjectPath)" Targets="Build"></MSBuild>
+  </Target>
+
+  <Target Name="BuildSources">
+    <Message Text="$(SolutionDir)/src" Importance="High"></Message>
+    <Message Text="$(ApplicationProjectsReferences)" Importance="High"></Message>
+    <MSBuild Projects="$(ApplicationProjectsReferences)" Targets="Build">
+      <Output TaskParameter="TargetOutputs" ItemName="AssembliesBuiltByChildProjects" />
+    </MSBuild>
+
+  </Target>
+  
+  <Target Name="BuildAll">
+    <Message Text="Running build for solution..." Importance="High" />
+    <MSBuild Projects="$(SolutionDir)\VaBank.sln" Targets="Build"></MSBuild>
+  </Target>
+
+  <Target Name="Migrate" DependsOnTargets="CreateDatabase;BuildMigrations">
     <Message Text="Running code based migrations..." Importance="High" />
   </Target>
-  
-
 </Project>
