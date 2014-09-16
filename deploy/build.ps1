@@ -1,14 +1,32 @@
-Set-ExecutionPolicy Unrestricted
-
+Param(
+	[Parameter(Position = 1)]
+	[String] $Targets = "BuildAll;Migrate",
+	[Parameter(Position = 2)]
+	[String] $Environment = "Development",
+	[String] $Configuration = "Release",
+	[String] $Verbosity = "normal"
+)
 $SolutionDir = Resolve-Path "$PSScriptRoot\.."
-$SuccessColor = "Green"
-$FailureColor = "Red"
-
+$ToolsDir = "$SolutionDir\tools"
+$BuildDir = "$SolutionDir\build"
 Import-Module -Name "$SolutionDir/tools/Invoke-MsBuild.psm1"
-$LogFilePath = Invoke-MsBuild -Path "$SolutionDir/deploy/VaBank.proj"-GetLogPath
-$BuildSuccessful = Invoke-MsBuild -Path "$SolutionDir/deploy/VaBank.proj" -P "/t:EnsureDatabaseExists /v:normal" -AutoLaunchBuildLogOnFailure -ShowBuildWindowAndPromptForInputBeforeClosing
+
+if (!(Test-Path $BuildDir)) {
+	New-Item -ItemType "Directory" -Path $BuildDir
+}
+Write-Host -BackgroundColor "Blue" "Invoking MSBuild..."
+$LogFilePath = Invoke-MsBuild -Path "$SolutionDir/deploy/VaBank.proj" -BuildLogDirectoryPath $BuildDir -GetLogPath
+$BuildSuccessful = Invoke-MsBuild -Path "$SolutionDir/deploy/VaBank.proj" -P "/t:$Targets /v:$Verbosity" -KeepBuildLogOnSuccessfulBuilds -BuildLogDirectoryPath $BuildDir -ShowBuildWindowAndPromptForInputBeforeClosing 
 if ($BuildSuccessful) {
-	Write-Host -ForegroundColor $SuccessColor -Object "Build was successfull. Log file path: [$LogFilePath]"
+	Write-Host -ForegroundColor "Green" -Object "Build was successfull. Log file path: [$LogFilePath]"
 } else {
-	Write-Host -ForegroundColor $FailureColor -Object "Build was failed."
+	Write-Host -ForegroundColor "Red" -Object "Build was failed. Log file path: [$LogFilePath]"
+}
+Write-Host "`r`nPress any key to continue..." -BackgroundColor Blue
+try 
+{
+    $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | Out-Null
+}
+catch [Exception]
+{
 }

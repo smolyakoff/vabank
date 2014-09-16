@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
@@ -9,11 +10,10 @@ using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.SQLite;
 using NLog;
-
-namespace VaBank.UI.Web.Utils
+namespace VaBank.Data.Migrations.Utils
 {
     //TODO: move to database project or migrations project
-    internal static class Migrator
+    public static class Migrator
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -21,23 +21,27 @@ namespace VaBank.UI.Web.Utils
 
         private const string MaintenanceConnectionStringName = "Vabank.Db.Maintenance";
 
-        private const string MaintenaneProfileName = "Maintenance";
+        private const string MaintenaneTagName = "Maintenance";
 
         public static void MigrateMaintenanceDatabase()
         {
             var connectionString = ConfigurationManager.ConnectionStrings[MaintenanceConnectionStringName].ConnectionString;
             var processorFactory = new SqliteProcessorFactory();
-            Migrate(connectionString, processorFactory, MaintenaneProfileName);
+            Migrate(connectionString, processorFactory, new [] {MaintenaneTagName});
         }
 
-        private static void Migrate(string connectionString, MigrationProcessorFactory processorFactory, string profile, int timeout = 60)
+        private static void Migrate(string connectionString, 
+            MigrationProcessorFactory processorFactory, 
+            IEnumerable<string> tags,
+            string profile = null, 
+            int timeout = 60)
         {
             //TODO: write log somewhere
             var builder = new StringBuilder();
             var sqlLogWriter = new StringWriter(builder);
             var announcer = new TextWriterAnnouncer(sqlLogWriter) {ShowSql = true};
-            var assembly = Assembly.Load(MigrationsAssemblyName);
-            var migrationContext = new RunnerContext(announcer) {Profile = profile};
+            var assembly = Assembly.GetExecutingAssembly();
+            var migrationContext = new RunnerContext(announcer) {Profile = profile, Tags = tags};
             var options = new ProcessorOptions
             {
                 PreviewOnly = false, 

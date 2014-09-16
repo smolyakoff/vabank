@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{CAF1F0
 	ProjectSection(SolutionItems) = preProject
 		deploy\build.bat = deploy\build.bat
 		deploy\build.ps1 = deploy\build.ps1
+		deploy\dev-migrate.bat = deploy\dev-migrate.bat
 		deploy\VaBank.proj = deploy\VaBank.proj
 		deploy\VaBank.props = deploy\VaBank.props
 	EndProjectSection
@@ -23,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Common", "src\VaBank.Common\VaBank.Common.csproj", "{E06FB03E-8249-4F94-9568-EC1247769273}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +41,10 @@ Global
 		{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E06FB03E-8249-4F94-9568-EC1247769273}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E06FB03E-8249-4F94-9568-EC1247769273}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E06FB03E-8249-4F94-9568-EC1247769273}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E06FB03E-8249-4F94-9568-EC1247769273}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,5 +52,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{BD4A180E-5912-4DED-87E8-2618544A6AA8} = {B2DC990F-6300-493F-B4AB-F5E7957FCE6B}
 		{4D842337-3816-4752-AAE1-ECE3EC9EDD5B} = {80F35BD9-1E60-4A69-A76A-750171DDA4D6}
+		{E06FB03E-8249-4F94-9568-EC1247769273} = {B2DC990F-6300-493F-B4AB-F5E7957FCE6B}
 	EndGlobalSection
 EndGlobal

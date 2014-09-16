@@ -4,6 +4,7 @@
 
   <!-- Database targets -->
   <Target Name="EnsureDatabaseExists">
+    <Message Text="Preparing database..." Importance="High"/>
     <MSBuild.ExtensionPack.Sql2012.Database 
       TaskAction="CheckExists" 
       DatabaseItem="$(DatabaseName)" 
@@ -14,52 +15,52 @@
     </MSBuild.ExtensionPack.Sql2012.Database>
     
     <MSBuild.ExtensionPack.Sql2012.Database 
-      Condition="'$(Environment)'=='Development'" 
-      TaskAction="CheckExists" 
-      DatabaseItem="$(TestDatabaseName)" 
-      MachineName="$(DatabaseServer)"
-      UserName="$(DatabaseUserName)"
-      UserPassword="$(DatabaseUserPassword)">
-      <Output TaskParameter="Exists" PropertyName="TestDatabaseExists"/>
-    </MSBuild.ExtensionPack.Sql2012.Database>
-    
-    <MSBuild.ExtensionPack.Sql2012.Database 
       Condition="'$(DatabaseExists)'=='False'" 
       TaskAction="Create" 
       DatabaseItem="$(DatabaseName)" 
       MachineName="$(DatabaseServer)"
       UserName="$(DatabaseUserName)"
       UserPassword="$(DatabaseUserPassword)"/>
-
-    <MSBuild.ExtensionPack.Sql2012.Database
-      Condition="'$(TestDatabaseExists)'=='False'AND'$(Environment)'=='Development'"
-      TaskAction="Create"
-      DatabaseItem="$(TestDatabaseName)"
-      MachineName="$(TestDatabaseServer)"
-      UserName="$(DatabaseUserName)"
-      UserPassword="$(DatabaseUserPassword)"/>
   </Target>
-  
+
+  <Target Name="Migrate" DependsOnTargets="EnsureDatabaseExists">
+    <Message Text="Running code based migrations..." Importance="High"/>
+    <MSBuild Projects="$(DbMigrationsProjectPath)" 
+             Targets="Build" 
+             Condition="'$(BuildingInsideVisualStudio)'=='False'">
+    </MSBuild>
+    <Exec ConsoleToMSBuild="True"
+      Command="&quot;$(MigrateToolPath)&quot; --target=&quot;$(DbMigrationsAssemblyPath)&quot; --connection=&quot;$(DatabaseConnectionString)&quot; --db=$(DatabaseType) --profile=$(Environment) --tag=$(Environment)"
+      ContinueOnError="True">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' &gt; '0'" Text="Failed to execute code based migrations. See msbuild output for details." />
+  </Target>
+  <!-- End of database targets -->
+
+  <!-- Build targets -->
   <Target Name="Clean">
-    <Message Text="Cleaning up..."></Message>
     <MSBuild Projects="$(SolutionDir)\VaBank.sln" Targets="Clean"></MSBuild>
   </Target>
-
-  <Target Name="CreateDatabase" Condition="'$(Environment)'=='Development'">
-      <MSBuild.ExtensionPack.Sql2012.Database TaskAction="Create" DatabaseItem="VaBank.Database" Force="true" MachineName="(LocalDb)\Projects"/>
-  </Target>
-
-  <Target Name="BuildMigrations">
-    <Message Text="Building migrations assembly..." Importance="High" />
-    <MSBuild Projects="$(DbMigrationsProjectPath)" Targets="Build"></MSBuild>
-  </Target>
   
-  <Target Name="BuildAll">
-    <Message Text="Running build for solution..." Importance="High" />
-    <MSBuild Projects="$(SolutionDir)\VaBank.sln" Targets="Build"></MSBuild>
+  <Target Name="BuildSources">
+    <Message Text="Building applicaiton sources..."></Message>
+    <MSBuild Projects="@(ApplicationSources)" Targets="Build"/>
   </Target>
 
-  <Target Name="Migrate" DependsOnTargets="CreateDatabase;BuildMigrations">
-    <Message Text="Running code based migrations..." Importance="High" />
+  <Target Name="BuildTests">
+    <Message Text="Building test sources..."></Message>
+    <MSBuild Projects="@(TestSources)" Targets="Build"/>
   </Target>
+
+  <Target Name="BuildAll" DependsOnTargets="BuildSources;BuildTests">
+    
+  </Target>
+  <!-- End of build targets -->
+  
+  <!-- CI targets -->
+  <Target Name="PrepareForDeploy" DependsOnTargets="Clean;BuildAll;Migrate">
+  </Target>
+  <!-- End of CI targets -->
+  
 </Project>

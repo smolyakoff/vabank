@@ -1,2 +1,2 @@
-mode con cols=200
-powershell -ExecutionPolicy Unrestricted -File ./build.ps1
+mode.com con cols=130
+powershell.exe -ExecutionPolicy Unrestricted -File ./build.ps1
