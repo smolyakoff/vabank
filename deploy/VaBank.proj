@@ -1,6 +1,45 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="BuildAll" ToolsVersion="12.0">
   <Import Project="$(MSBuildProjectDirectory)/VaBank.props"></Import>
   <Import Project="$(ToolsDir)/MSBuild.ExtensionPack.1.5.0/MSBuild.ExtensionPack.tasks"/>
+
+  <!-- Database targets -->
+  <Target Name="EnsureDatabaseExists">
+    <MSBuild.ExtensionPack.Sql2012.Database 
+      TaskAction="CheckExists" 
+      DatabaseItem="$(DatabaseName)" 
+      MachineName="$(DatabaseServer)"
+      UserName="$(DatabaseUserName)"
+      UserPassword="$(DatabaseUserPassword)">
+      <Output TaskParameter="Exists" PropertyName="DatabaseExists"/>
+    </MSBuild.ExtensionPack.Sql2012.Database>
+    
+    <MSBuild.ExtensionPack.Sql2012.Database 
+      Condition="'$(Environment)'=='Development'" 
+      TaskAction="CheckExists" 
+      DatabaseItem="$(TestDatabaseName)" 
+      MachineName="$(DatabaseServer)"
+      UserName="$(DatabaseUserName)"
+      UserPassword="$(DatabaseUserPassword)">
+      <Output TaskParameter="Exists" PropertyName="TestDatabaseExists"/>
+    </MSBuild.ExtensionPack.Sql2012.Database>
+    
+    <MSBuild.ExtensionPack.Sql2012.Database 
+      Condition="'$(DatabaseExists)'=='False'" 
+      TaskAction="Create" 
+      DatabaseItem="$(DatabaseName)" 
+      MachineName="$(DatabaseServer)"
+      UserName="$(DatabaseUserName)"
+      UserPassword="$(DatabaseUserPassword)"/>
+
+    <MSBuild.ExtensionPack.Sql2012.Database
+      Condition="'$(TestDatabaseExists)'=='False'AND'$(Environment)'=='Development'"
+      TaskAction="Create"
+      DatabaseItem="$(TestDatabaseName)"
+      MachineName="$(TestDatabaseServer)"
+      UserName="$(DatabaseUserName)"
+      UserPassword="$(DatabaseUserPassword)"/>
+  </Target>
+  
   
   <Target Name="Clean">
     <Message Text="Cleaning up..."></Message>
@@ -14,15 +53,6 @@
   <Target Name="BuildMigrations">
     <Message Text="Building migrations assembly..." Importance="High" />
     <MSBuild Projects="$(DbMigrationsProjectPath)" Targets="Build"></MSBuild>
-  </Target>
-
-  <Target Name="BuildSources">
-    <Message Text="$(SolutionDir)/src" Importance="High"></Message>
-    <Message Text="$(ApplicationProjectsReferences)" Importance="High"></Message>
-    <MSBuild Projects="$(ApplicationProjectsReferences)" Targets="Build">
-      <Output TaskParameter="TargetOutputs" ItemName="AssembliesBuiltByChildProjects" />
-    </MSBuild>
-
   </Target>
   
   <Target Name="BuildAll">

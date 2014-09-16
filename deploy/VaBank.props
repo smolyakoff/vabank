@@ -1,17 +1,27 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
 
   <PropertyGroup>
+    <!-- Common properties -->
+    <BuildingInsideVisualStudio Condition="'$(BuildingInsideVisualStudio)'==''">False</BuildingInsideVisualStudio>
     <Configuration Condition="'$(Configuration)'==''">Debug</Configuration>
     <Environment Condition="'$(Environment)'==''">Development</Environment>
     
     <SolutionDir>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)/..'))</SolutionDir>
     <ToolsDir>$(SolutionDir)/tools</ToolsDir>
     <ExtensionTasksPath>$(SolutionDir)/tools/MSBuild.ExtensionPack.1.5.0</ExtensionTasksPath>
-    
     <DbMigrationsProjectPath>$(SolutionDir)/src/VaBank.Data.Migrations/VaBank.Data.Migrations.csproj</DbMigrationsProjectPath>
   </PropertyGroup>
   
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+  <PropertyGroup Condition="'$(Environment)'=='Development'">
+    <DatabaseServer>(LocalDb)\Projects</DatabaseServer>
+    <TestDatabaseServer>(LocalDb)\Projects</TestDatabaseServer>
+    <DatabaseUserName></DatabaseUserName>
+    <DatabaseUserPassword></DatabaseUserPassword>
+    <DatabaseName>VaBank.Database</DatabaseName>
+    <TestDatabaseName>VaBank.Database.Test</TestDatabaseName>
   </PropertyGroup>
-  
+
+  <PropertyGroup Condition="'$(Environment)'=='Production'">
+    
+  </PropertyGroup>
 </Project>
