@@ -40,7 +40,7 @@
 
   <!-- Build targets -->
 
-  <Target Name="CopySQLiteInteropFiles">
+  <!--<Target Name="CopySQLiteInteropFiles">
     <PropertyGroup>
       <SQLitePackagePath>$(SolutionDir)/packages/System.Data.SQLite.Core.1.0.94.0</SQLitePackagePath>
     </PropertyGroup>
@@ -49,7 +49,7 @@
       <SQLiteInteropFiles Include="$(SQLitePackagePath)/build/net45/**/*.dll"/>
     </ItemGroup>
     <Copy SourceFiles="@(SQLiteInteropFiles)" DestinationFiles="$(BuildDir)/%(SQLiteInteropFiles.RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="True"/>
-  </Target>
+  </Target>-->
 
   <Target Name="RestorePackages">
     <Exec Command="&quot;$(NugetPath)&quot; restore &quot;$(SolutionPath)&quot;" ConsoleToMSBuild="true"/>
@@ -61,17 +61,17 @@
     <MakeDir Directories="$(BuildDir)"></MakeDir>
   </Target>
   
-  <Target Name="BuildSources" DependsOnTargets="RestorePackages;CopySQLiteInteropFiles">
+  <Target Name="BuildSources" DependsOnTargets="RestorePackages">
     <Message Text="Building applicaiton sources..."></Message>
     <MSBuild Projects="@(ApplicationSources)" Targets="Build"/>
-    <!-- SQLite hack -->
+    <!-- SQLite hack --><!--
     <ItemGroup>
       <OutputLibs Include="$(OutDir)/**/*.dll"></OutputLibs>
     </ItemGroup>
-    <Copy SourceFiles="@(OutputLibs)" DestinationFiles="$(PublishDir)/bin/%(OutputLibs.RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true"/>
+    <Copy SourceFiles="@(OutputLibs)" DestinationFiles="$(PublishDir)/bin/%(OutputLibs.RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="true"/>-->
   </Target>
 
-  <Target Name="BuildTests" DependsOnTargets="RestorePackages;CopySQLiteInteropFiles">
+  <Target Name="BuildTests" DependsOnTargets="RestorePackages">
     <Message Text="Building test sources..."></Message>
     <MSBuild Projects="@(TestSources)" Targets="Build"/>
   </Target>

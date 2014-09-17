@@ -1,6 +1,6 @@
 Param(
 	[Parameter(Position = 1)]
-	[String] $Targets = "BuildAll;Migrate",
+	[String] $Targets = "Clean;BuildAll;Migrate",
 	[Parameter(Position = 2)]
 	[String] $Environment = "Development",
 	[String] $Configuration = "Release",
