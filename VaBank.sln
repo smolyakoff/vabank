@@ -30,22 +30,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Common", "src\VaBank
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|AnyCPU = Debug|AnyCPU
+		Release|AnyCPU = Release|AnyCPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BD4A180E-5912-4DED-87E8-2618544A6AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD4A180E-5912-4DED-87E8-2618544A6AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD4A180E-5912-4DED-87E8-2618544A6AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD4A180E-5912-4DED-87E8-2618544A6AA8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E06FB03E-8249-4F94-9568-EC1247769273}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E06FB03E-8249-4F94-9568-EC1247769273}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E06FB03E-8249-4F94-9568-EC1247769273}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E06FB03E-8249-4F94-9568-EC1247769273}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD4A180E-5912-4DED-87E8-2618544A6AA8}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{BD4A180E-5912-4DED-87E8-2618544A6AA8}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{BD4A180E-5912-4DED-87E8-2618544A6AA8}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{BD4A180E-5912-4DED-87E8-2618544A6AA8}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{E06FB03E-8249-4F94-9568-EC1247769273}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{E06FB03E-8249-4F94-9568-EC1247769273}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{E06FB03E-8249-4F94-9568-EC1247769273}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{E06FB03E-8249-4F94-9568-EC1247769273}.Release|AnyCPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
