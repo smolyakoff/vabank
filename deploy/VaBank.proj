@@ -40,13 +40,21 @@
 
   <!-- Build targets -->
 
+  <Target Name="CopySQLiteInteropFiles">
+    <PropertyGroup>
+      <SQLitePackagePath>$(SolutionDir)/packages/System.Data.SQLite.Core.1.0.94.0</SQLitePackagePath>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SQLitePackagePath)')" Message="Check SQLite nuget package. Can't find interop libs to copy."></Error>
+    <ItemGroup>
+      <SQLiteInteropFiles Include="$(SQLitePackagePath)/build/net45/**/*.dll"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(SQLiteInteropFiles)" DestinationFiles="$(BuildDir)/%(SQLiteInteropFiles.RecursiveDir)%(Filename)%(Extension)" SkipUnchangedFiles="True"/>
+  </Target>
+
   <Target Name="RestorePackages">
     <Exec Command="&quot;$(NugetPath)&quot; restore &quot;$(SolutionPath)&quot;" ConsoleToMSBuild="true"/>
   </Target>
 
-  <!-- SQLite hack -->
-  <Import Project="$(SQLiteTargetsPath)"/>
-  
   <Target Name="Clean">
     <MSBuild Projects="$(SolutionDir)\VaBank.sln" Targets="Clean"></MSBuild>
     <RemoveDir Directories="$(BuildDir)"></RemoveDir>
