@@ -15,8 +15,8 @@ if (!(Test-Path $BuildDir)) {
 	New-Item -ItemType "Directory" -Path $BuildDir
 }
 Write-Host -BackgroundColor "Blue" "Invoking MSBuild..."
-$LogFilePath = Invoke-MsBuild -Path "$SolutionDir/deploy/VaBank.proj" -BuildLogDirectoryPath $BuildDir -GetLogPath
-$BuildSuccessful = Invoke-MsBuild -Path "$SolutionDir/deploy/VaBank.proj" -P "/t:$Targets /v:$Verbosity /p:Configuration=$Configuration /p:Environment=$Environment /p:OutDir=$BuildDir" -KeepBuildLogOnSuccessfulBuilds -BuildLogDirectoryPath $BuildDir -ShowBuildWindowAndPromptForInputBeforeClosing 
+$LogFilePath = Invoke-MsBuild -Path "$SolutionDir/deploy/VaBank.proj" -BuildLogDirectoryPath $SolutionDir -GetLogPath
+$BuildSuccessful = Invoke-MsBuild -Path "$SolutionDir/deploy/VaBank.proj" -P "/t:$Targets /v:$Verbosity /p:Configuration=$Configuration /p:Environment=$Environment /p:OutDir=$BuildDir" -KeepBuildLogOnSuccessfulBuilds -BuildLogDirectoryPath $SolutionDir -ShowBuildWindowAndPromptForInputBeforeClosing 
 if ($BuildSuccessful) {
 	Write-Host -ForegroundColor "Green" -Object "Build was successfull. Log file path: [$LogFilePath]"
 } else {

@@ -39,16 +39,23 @@
   <!-- End of database targets -->
 
   <!-- Build targets -->
-  <Target Name="Clean">
-    <MSBuild Projects="$(SolutionDir)\VaBank.sln" Targets="Clean"></MSBuild>
+
+  <Target Name="RestorePackages">
+    <Exec Command="&quot;$(NugetPath)&quot; restore &quot;$(SolutionPath)&quot;" ConsoleToMSBuild="true"/>
   </Target>
   
-  <Target Name="BuildSources">
+  <Target Name="Clean">
+    <MSBuild Projects="$(SolutionDir)\VaBank.sln" Targets="Clean"></MSBuild>
+    <RemoveDir Directories="$(BuildDir)"></RemoveDir>
+    <MakeDir Directories="$(BuildDir)"></MakeDir>
+  </Target>
+  
+  <Target Name="BuildSources" DependsOnTargets="RestorePackages">
     <Message Text="Building applicaiton sources..."></Message>
     <MSBuild Projects="@(ApplicationSources)" Targets="Build"/>
   </Target>
 
-  <Target Name="BuildTests">
+  <Target Name="BuildTests" DependsOnTargets="RestorePackages">
     <Message Text="Building test sources..."></Message>
     <MSBuild Projects="@(TestSources)" Targets="Build"/>
   </Target>
