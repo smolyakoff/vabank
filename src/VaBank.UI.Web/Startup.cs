@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.IO;
 using Hangfire;
 using Hangfire.SqlServer;
 using NLog;
@@ -20,6 +21,7 @@ namespace VaBank.UI.Web
         public void Configuration(IAppBuilder config)
         {
             Migrator.MigrateMaintenanceDatabase();
+            EnsureApplicationDataExists();
 
             config.UseHangfire(ConfigureHangfire);
             config.Use(Handler);
@@ -41,7 +43,22 @@ namespace VaBank.UI.Web
             config.UseDashboardPath("/admin/hangfire");
             var storageOptions = new SqlServerStorageOptions {QueuePollInterval = TimeSpan.FromMinutes(1)};
             config.UseStorage(new SqlServerStorage(connectionString, storageOptions));
+            //TODO: do auth as it's generally dangerous to keep no auth with hangfire
+            config.UseAuthorizationFilters();
             config.UseServer();
+        }
+
+        private static void EnsureApplicationDataExists()
+        {
+            var applicationData = AppDomain.CurrentDomain.GetData("DataDirectory") as string;
+            if (string.IsNullOrEmpty(applicationData))
+            {
+                return;
+            }
+            if (!Directory.Exists(applicationData))
+            {
+                Directory.CreateDirectory(applicationData);
+            }
         }
 
         public static void DummyJob()
