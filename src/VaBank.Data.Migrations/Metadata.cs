@@ -22,12 +22,12 @@ namespace VaBank.Data.Migrations
 
         public string TableName
         {
-            get { return "DatabaseVersions"; }
+            get { return "DbVersions"; }
         }
 
         public string UniqueIndexName
         {
-            get { return "UC_DatabaseVersions_Version"; }
+            get { return "UC_DbVersions_Version"; }
         }
     }
 }

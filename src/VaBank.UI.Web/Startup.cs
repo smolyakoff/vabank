@@ -1,15 +1,12 @@
 ﻿using System.Configuration;
-using System.IO;
+using System.Net;
 using Hangfire;
 using Hangfire.SqlServer;
 using NLog;
-using NLog.Common;
-using NLog.Targets;
 using Owin;
 using System;
 using System.Threading.Tasks;
 using Microsoft.Owin;
-using VaBank.Data.Migrations.Utils;
 using VaBank.UI.Web.Views;
 
 namespace VaBank.UI.Web
@@ -18,16 +15,15 @@ namespace VaBank.UI.Web
     {
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
+        private const string EveryTenMinutes = "*/10 * * * *";
+
         public void Configuration(IAppBuilder config)
         {
-            Migrator.MigrateMaintenanceDatabase();
-            EnsureApplicationDataExists();
-
             config.UseHangfire(ConfigureHangfire);
             config.Use(Handler);
 
             _logger.Info("Application is started!");
-            RecurringJob.AddOrUpdate("Dummy", () => DummyJob(), Cron.Hourly);
+            RecurringJob.AddOrUpdate("KeepAlive", () => KeepAlive(), EveryTenMinutes);
         }
 
         public Task Handler(IOwinContext context, Func<Task> next)
@@ -48,23 +44,12 @@ namespace VaBank.UI.Web
             config.UseServer();
         }
 
-        private static void EnsureApplicationDataExists()
+        public static void KeepAlive()
         {
-            var applicationData = AppDomain.CurrentDomain.GetData("DataDirectory") as string;
-            if (string.IsNullOrEmpty(applicationData))
-            {
-                return;
-            }
-            if (!Directory.Exists(applicationData))
-            {
-                Directory.CreateDirectory(applicationData);
-            }
-        }
-
-        public static void DummyJob()
-        {
+            var client = new WebClient();
+            client.DownloadData("https://vabank.azurewebsites.net");
             var logger = LogManager.GetCurrentClassLogger();
-            logger.Info("Hangfire job is triggered");
+            logger.Info("Keep alive was triggered.");
         }
     }
 }

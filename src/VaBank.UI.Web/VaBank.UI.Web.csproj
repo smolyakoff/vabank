@@ -19,7 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <NuGetPackageImportStamp>edbf11fb</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>2898bc41</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -76,10 +76,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.94.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.94.0\lib\net45\System.Data.SQLite.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Configuration" />
   </ItemGroup>
@@ -121,14 +117,8 @@
       <Project>{e06fb03e-8249-4f94-9568-ec1247769273}</Project>
       <Name>VaBank.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VaBank.Data.Migrations\VaBank.Data.Migrations.csproj">
-      <Project>{4d842337-3816-4752-aae1-ece3ec9edd5b}</Project>
-      <Name>VaBank.Data.Migrations</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -158,12 +148,10 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\..\packages\System.Data.SQLite.Core.1.0.94.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\packages\System.Data.SQLite.Core.1.0.94.0\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\System.Data.SQLite.Core.1.0.94.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Data.SQLite.Core.1.0.94.0\build\net45\System.Data.SQLite.Core.targets'))" />
     <Error Condition="!Exists('..\..\packages\RazorGenerator.MsBuild.2.2.6\build\RazorGenerator.MsBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\RazorGenerator.MsBuild.2.2.6\build\RazorGenerator.MsBuild.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -177,20 +165,9 @@
     <Environment Condition="'$(Environment)' == ''">Development</Environment>
     <BuildingInsideVisualStudio Condition="'$(BuildingInsideVisualStudio)'==''">False</BuildingInsideVisualStudio>
   </PropertyGroup>
+  <Import Project="..\..\packages\RazorGenerator.MsBuild.2.2.6\build\RazorGenerator.MsBuild.targets" Condition="Exists('..\..\packages\RazorGenerator.MsBuild.2.2.6\build\RazorGenerator.MsBuild.targets')" />
   <Target Name="AfterBuild">
     <MSBuild Condition="'$(Configuration)' == 'Debug' AND '$(BuildingInsideVisualStudio)' == 'True'" Projects="$(SolutionDir)\deploy\VaBank.proj" Targets="Migrate">
     </MSBuild>
   </Target>
-  <Import Project="..\..\packages\RazorGenerator.MsBuild.2.2.6\build\RazorGenerator.MsBuild.targets" Condition="Exists('..\..\packages\RazorGenerator.MsBuild.2.2.6\build\RazorGenerator.MsBuild.targets')" />
-  <Target Name="CopyBinDeployableAssemblies" AfterTargets="CopyFilesToOutputDirectory">
-    <ItemGroup>
-        <_binDeployableAssemblies Include="..\..\packages\System.Data.SQLite.Core.1.0.94.0\build\net45\**\*.dll" />
-        <FilesForPackagingFromProject Include="%(_binDeployableAssemblies.Identity)">
-            <DestinationRelativePath>bin\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
-        </FilesForPackagingFromProject>
-    </ItemGroup>
-    <Message Text="Copying third party libraries... @(_binDeployableAssemblies)" Importance="High"></Message>
-    <Copy SourceFiles="@(_binDeployableAssemblies)" DestinationFolder="$(OutDir)%(RecursiveDir)" SkipUnchangedFiles="true" />
-    <Copy Condition="'$(WebProjectOutputDir)' != ''" SourceFiles="@(_binDeployableAssemblies)"  DestinationFolder="$(WebProjectOutputDir)\bin\%(RecursiveDir)" SkipUnchangedFiles="true"/>
-</Target>
 </Project>
