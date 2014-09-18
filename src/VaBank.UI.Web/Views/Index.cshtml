@@ -1,0 +1,28 @@
+﻿@* Generator: Template *@
+@* Namespace: VaBank.UI.Web.Views *@
+@using System
+@using System.Data.SqlClient
+@using Dapper
+@using Newtonsoft.Json
+@{
+    var json = string.Empty;
+    var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Vabank.Db"].ConnectionString;
+    using (var connection = new SqlConnection(connectionString))
+    {
+        var results = connection.Query("SELECT TOP 30 * FROM [Maintenance].[Logs] ORDER BY [TimestampUtc] DESC");
+        json = JsonConvert.SerializeObject(results, Formatting.Indented);
+    }
+}
+<html>
+<head>
+    <title>VaBank</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+    Current time: @DateTime.Now
+    <a href="/admin/hangfire">Hangfire Admin</a>
+    <pre>
+        @json
+    </pre>
+</body>
+</html>

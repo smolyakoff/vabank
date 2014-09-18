@@ -1,0 +1,73 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="BuildAll" ToolsVersion="12.0">
+  <Import Project="$(MSBuildProjectDirectory)/VaBank.props"></Import>
+  <Import Project="$(ToolsDir)/MSBuild.ExtensionPack.1.5.0/MSBuild.ExtensionPack.tasks"/>
+
+  <!-- Database targets -->
+  <Target Name="EnsureDatabaseExists">
+    <Message Text="Preparing database..." Importance="High"/>
+    <MSBuild.ExtensionPack.Sql2012.Database 
+      TaskAction="CheckExists" 
+      DatabaseItem="$(DatabaseName)" 
+      MachineName="$(DatabaseServer)"
+      UserName="$(DatabaseUserName)"
+      UserPassword="$(DatabaseUserPassword)">
+      <Output TaskParameter="Exists" PropertyName="DatabaseExists"/>
+    </MSBuild.ExtensionPack.Sql2012.Database>
+    
+    <MSBuild.ExtensionPack.Sql2012.Database 
+      Condition="'$(DatabaseExists)'=='False'" 
+      TaskAction="Create" 
+      DatabaseItem="$(DatabaseName)" 
+      MachineName="$(DatabaseServer)"
+      UserName="$(DatabaseUserName)"
+      UserPassword="$(DatabaseUserPassword)"/>
+  </Target>
+
+  <Target Name="Migrate" DependsOnTargets="EnsureDatabaseExists">
+    <Message Text="Running code based migrations..." Importance="High"/>
+    <MSBuild Projects="$(DbMigrationsProjectPath)" 
+             Targets="Build" 
+             Condition="'$(BuildingInsideVisualStudio)'=='False'">
+    </MSBuild>
+    <Exec ConsoleToMSBuild="True"
+      Command="&quot;$(MigrateToolPath)&quot; --target=&quot;$(DbMigrationsAssemblyPath)&quot; --connection=&quot;$(DatabaseConnectionString)&quot; --db=$(DatabaseType) --profile=$(Environment) --tag=$(Environment)"
+      ContinueOnError="True">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' &gt; '0'" Text="Failed to execute code based migrations. See msbuild output for details." />
+  </Target>
+  <!-- End of database targets -->
+
+  <!-- Build targets -->
+
+  <Target Name="RestorePackages">
+    <Exec Command="&quot;$(NugetPath)&quot; restore &quot;$(SolutionPath)&quot;" ConsoleToMSBuild="true"/>
+  </Target>
+
+  <Target Name="Clean">
+    <MSBuild Projects="$(SolutionDir)\VaBank.sln" Targets="Clean"></MSBuild>
+    <RemoveDir Directories="$(BuildDir)"></RemoveDir>
+    <MakeDir Directories="$(BuildDir)"></MakeDir>
+  </Target>
+  
+  <Target Name="BuildSources" DependsOnTargets="RestorePackages">
+    <Message Text="Building applicaiton sources..."></Message>
+    <MSBuild Projects="@(ApplicationSources)" Targets="Build"/>
+  </Target>
+
+  <Target Name="BuildTests" DependsOnTargets="RestorePackages">
+    <Message Text="Building test sources..."></Message>
+    <MSBuild Projects="@(TestSources)" Targets="Build"/>
+  </Target>
+
+  <Target Name="BuildAll" DependsOnTargets="BuildSources;BuildTests">
+    
+  </Target>
+  <!-- End of build targets -->
+  
+  <!-- CI targets -->
+  <Target Name="PrepareForDeploy" DependsOnTargets="BuildAll;Migrate">
+  </Target>
+  <!-- End of CI targets -->
+  
+</Project>
