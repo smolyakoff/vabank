@@ -23,7 +23,9 @@ namespace VaBank.UI.Web
             config.Use(Handler);
 
             _logger.Info("Application is started!");
-            RecurringJob.AddOrUpdate("KeepAlive", () => KeepAlive(), EveryTenMinutes);
+            #if !DEBUG
+                RecurringJob.AddOrUpdate("KeepAlive", () => KeepAlive(), EveryTenMinutes);
+            #endif
         }
 
         public Task Handler(IOwinContext context, Func<Task> next)
