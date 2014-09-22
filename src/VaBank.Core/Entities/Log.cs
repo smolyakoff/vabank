@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.Entity;
 
-namespace VaBank.Data.EntityFramework
+namespace VaBank.Core.Entities
 {
-    public class VaBankContext: DbContext
+    public class Log: Entity<Guid>
     {
+        public string Message { get; set; }
     }
 }
