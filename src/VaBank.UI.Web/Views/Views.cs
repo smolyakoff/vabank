@@ -24,7 +24,11 @@ namespace VaBank.UI.Web.Views
         {
             var bundle = Bundle.JavaScript();
 
-            bundle.Add(BowerPath("angular/angular.js"));
+            bundle.Add(BowerPath("angular/angular.js"))
+                .Add(BowerPath("angular-resource/angular-resource.js"))
+                .Add(BowerPath("angular-ui-router/release/angular-ui-router.js"))
+                .Add(BowerPath("angular-bootstrap/ui-bootstrap.js"))
+                .Add(BowerPath("angular-bootstrap/ui-bootstrap-tpls.js"));
 
             bundle.Add(ApplicationPath("vabank.js"));
             return bundle.Render("~/app_#.js");
