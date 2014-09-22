@@ -8,12 +8,12 @@ using VaBank.Core.Entities;
 
 namespace VaBank.Core.Repositories
 {
-    public interface IRepository<TEntity, TKey> : IRepository where TEntity: Entity<TKey>
+    public interface IRepository<TEntity, in TId> : IRepository where TEntity: Entity<TId>
     {
+        TEntity Find(TId id);
         void Create(TEntity entity);
-        TEntity Read(TKey id);
         void Update(TEntity entity);
-        void Delete(TKey id);
+        void Delete(TEntity entity);
         IQueryable<TEntity> ReadAll();
         IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate);
     }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace VaBank.Core.Entities
 {
-    public class Entity<TKey>
+    public class Entity<TId>: Entity
     {
-        public TKey ID { get; set; }
+        public TId Id { get; set; }
     }
 }

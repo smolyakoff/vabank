@@ -7,7 +7,8 @@ using VaBank.Core.Entities;
 
 namespace VaBank.Core.Repositories
 {
-    public interface ILogRepository: IRepository<Log, Guid>
+    public interface IRepositoryFactory
     {
+        IRepository<Log, Guid> LogRepository { get; }
     }
 }
