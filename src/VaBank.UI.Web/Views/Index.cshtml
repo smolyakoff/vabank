@@ -1,9 +1,11 @@
 ﻿@* Generator: Template *@
 @* Namespace: VaBank.UI.Web.Views *@
+@inherits VaBank.UI.Web.Views.Index
 @using System
 @using System.Data.SqlClient
 @using Dapper
 @using Newtonsoft.Json
+@inherits VaBank.UI.Web.Views.IndexBase
 @{
     var json = string.Empty;
     var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Vabank.Db"].ConnectionString;
@@ -13,7 +15,7 @@
         json = JsonConvert.SerializeObject(results, Formatting.Indented);
     }
 }
-<html>
+@*<html>
 <head>
     <title>VaBank</title>
 </head>
@@ -25,4 +27,15 @@
         @json
     </pre>
 </body>
+</html>*@
+<!DOCTYPE html>
+<html ng-app="vabank.webapp">
+    <head>
+        <title>VaBank - Web</title>
+        @Styles()
+    </head>
+    <body>
+        <section id="root" ng-include="'/Client/app/main.html'"></section>
+        @Scripts()
+    </body>
 </html>

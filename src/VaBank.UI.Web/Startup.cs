@@ -7,6 +7,8 @@ using Owin;
 using System;
 using System.Threading.Tasks;
 using Microsoft.Owin;
+using SquishIt.Framework;
+using SquishIt.Sass;
 using VaBank.UI.Web.Views;
 
 namespace VaBank.UI.Web
@@ -19,6 +21,8 @@ namespace VaBank.UI.Web
 
         public void Configuration(IAppBuilder config)
         {
+            Bundle.RegisterStylePreprocessor(new SassPreprocessor());
+
             config.UseHangfire(ConfigureHangfire);
             config.Use(Handler);
 

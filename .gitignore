@@ -157,5 +157,4 @@ $RECYCLE.BIN/
 .DS_Store
 
 # Custom ignores
-/src/VaBank.UI.Web/Client/app/**/*.css
-/src/VaBank.UI.Web/Client/app/**/*.css.map
+/src/VaBank.UI.Web/Client/app/*.scss.squishit.debug.css
