@@ -55,19 +55,19 @@ namespace VaBank.Common.Filtration
                     return FilterOperator.GreaterThanOrEqual;
                 case "in":
                     return FilterOperator.In;
-                case "notin":
+                case "!in":
                     return FilterOperator.NotIn;
                 case "startswith":
                     return FilterOperator.StartsWith;
-                case "notstartswith":
+                case "!startswith":
                     return FilterOperator.NotStartsWith;
                 case "endswith":
                     return FilterOperator.EndsWith;
-                case "notendswith":
+                case "!endswith":
                     return FilterOperator.NotEndsWith;
                 case "contains":
                     return FilterOperator.Contains;
-                case "notcontains":
+                case "!contains":
                     return FilterOperator.NotContains;
                 default:
                     throw new InvalidCastException();
