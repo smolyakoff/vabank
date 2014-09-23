@@ -111,8 +111,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Client\app\areas\admin\admin.html" />
+    <Content Include="Client\app\areas\admin\config\routes.js" />
     <Content Include="Client\app\vabank.js" />
-    <Content Include="Client\app\main.html" />
     <Content Include="Client\bower_components\angular-bootstrap\ui-bootstrap-tpls.js" />
     <Content Include="Client\bower_components\angular-bootstrap\ui-bootstrap-tpls.min.js" />
     <Content Include="Client\bower_components\angular-bootstrap\ui-bootstrap.js" />
@@ -384,9 +385,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Api\" />
-    <Folder Include="Client\app\areas\admin\" />
     <Folder Include="Client\app\areas\customer\" />
-    <Folder Include="Client\app\config\" />
     <Folder Include="Client\bower_components\bootstrap-sass-official\assets\images\" />
   </ItemGroup>
   <ItemGroup>

@@ -24,7 +24,7 @@ namespace VaBank.UI.Web
             Bundle.RegisterStylePreprocessor(new SassPreprocessor());
 
             config.UseHangfire(ConfigureHangfire);
-            config.Use(Handler);
+            config.Map("", indexConfig => indexConfig.Use(Handler));
 
             _logger.Info("Application is started!");
             #if !DEBUG
@@ -34,6 +34,10 @@ namespace VaBank.UI.Web
 
         public Task Handler(IOwinContext context, Func<Task> next)
         {
+            if (context.Request.Path.Value != "/")
+            {
+                return next();
+            }
             var response = context.Response;
             var template = new Index();
             return response.WriteAsync(template.TransformText());

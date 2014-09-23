@@ -30,7 +30,8 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("angular-bootstrap/ui-bootstrap.js"))
                 .Add(BowerPath("angular-bootstrap/ui-bootstrap-tpls.js"));
 
-            bundle.Add(ApplicationPath("vabank.js"));
+            bundle.Add(ApplicationPath("vabank.js"))
+                .AddDirectory(ApplicationPath("areas/admin/config"));
             return bundle.Render("~/app_#.js");
         }
 

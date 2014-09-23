@@ -29,13 +29,13 @@
 </body>
 </html>*@
 <!DOCTYPE html>
-<html ng-app="vabank.webapp">
+<html data-ng-app="vabank.webapp">
     <head>
         <title>VaBank - Web</title>
         @Styles()
     </head>
     <body>
-        <section id="root" ng-include="'/Client/app/main.html'"></section>
+        <section id="root" data-ui-view=""></section>
         @Scripts()
     </body>
 </html>
