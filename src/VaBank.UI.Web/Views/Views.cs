@@ -15,7 +15,11 @@ namespace VaBank.UI.Web.Views
         {
             var bundle = Bundle.Css();
 
-            bundle.Add(ApplicationPath("vabank.scss"));
+            bundle
+                .Add(ApplicationPath("vabank.scss"))
+                .Add(BowerPath("angular-datepicker/dist/index.css"))
+                .AddDirectory(ApplicationPath("auth"))
+                .AddDirectory(ApplicationPath("areas/admin"));
 
             return bundle.Render("~/Client/styles_#.css");
         }
@@ -24,15 +28,21 @@ namespace VaBank.UI.Web.Views
         {
             var bundle = Bundle.JavaScript();
 
-            bundle.Add(BowerPath("angular/angular.js"))
+            bundle
+                .Add(BowerPath("angular/angular.js"))
                 .Add(BowerPath("angular-resource/angular-resource.js"))
                 .Add(BowerPath("angular-ui-router/release/angular-ui-router.js"))
                 .Add(BowerPath("angular-bootstrap/ui-bootstrap.js"))
-                .Add(BowerPath("angular-bootstrap/ui-bootstrap-tpls.js"));
+                .Add(BowerPath("angular-bootstrap/ui-bootstrap-tpls.js"))
+                .Add(BowerPath("angular-datepicker/dist/index.js"))
+                .Add(BowerPath("angular-smart-table/dist/smart-table.debug.js"));
 
-            bundle.Add(ApplicationPath("vabank.js"))
+            bundle
+                .Add(ApplicationPath("vabank.js"))
                 .AddDirectory(ApplicationPath("config"))
-                .AddDirectory(ApplicationPath("areas/admin/config"));
+                .AddDirectory(ApplicationPath("areas/admin/config"))
+                .AddDirectory(ApplicationPath("areas/admin/scheduler"))
+                .AddDirectory(ApplicationPath("areas/admin/system-log"));
 
             return bundle.Render("~/Client/app_#.js");
         }

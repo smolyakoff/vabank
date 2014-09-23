@@ -158,4 +158,5 @@ $RECYCLE.BIN/
 
 # Custom ignores
 /src/VaBank.UI.Web/Client/app/*.scss.squishit.debug.css
+/src/VaBank.UI.Web/Client/app/**/*.scss.squishit.debug.css
 /src/VaBank.UI.Web/Client/app_*.js

@@ -1,5 +1,6 @@
 ﻿<div class="container">
     <div class="row">
+
         <nav class="navbar navbar-default" role="navigation">
             <div class="navbar-header">
                 <!-- note the ng-init and ng-click here: -->
@@ -9,17 +10,30 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">VaBank Admin</a>
+                <a class="navbar-brand" href="#">VaDmin</a>
             </div>
             <!-- note the ng-class here -->
             <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a>Dashboard</a></li>
-                    <li><a href="#">System Logs</a></li>
-                    <li><a href="#">User Management</a></li>
+                    <li ui-sref-active="active"><a data-ui-sref="admin.scheduler">Планировщик</a></li>
+                    <li ui-sref-active="active" class="dropdown">
+                        <a href="#" class="dropdown-toggle">Логи <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a data-ui-sref="admin.systemLog" href="#">Системный лог</a></li>
+                            <li><a>Аудит-лог</a></li>
+                            <li><a>Лог транзакций</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Управление контентом <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a>Пользователи</a></li>
+                        </ul>
+                    </li>
                 </ul>
-                <p class="navbar-text navbar-right">Signed in as Admin</p>
+                <p class="navbar-text navbar-right">Зашел как Admin</p>
             </div>
         </nav>
     </div>
+    <div data-ui-view=""></div>
 </div>

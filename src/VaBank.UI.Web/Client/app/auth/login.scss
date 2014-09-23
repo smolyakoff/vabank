@@ -1,0 +1,7 @@
+﻿@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_mixins.scss";
+
+.login-wrapper {
+    @include center-block();
+    margin-top: 70px;
+    width: 360px;
+}

@@ -8,6 +8,18 @@
 
     function registerRoutes($locationProvider, $stateProvider, $urlRouterProvider) {
         $locationProvider.html5Mode(true);
+
+        $stateProvider.state('home', {            
+            url: '/',
+            controller: ['$state', function($state) {
+                $state.go('login');
+            }]
+        });
+
+        $stateProvider.state('login', {            
+            url: '/login',
+            templateUrl: '/Client/app/auth/login.html'
+        });
     }
 
 })();

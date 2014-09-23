@@ -3,7 +3,9 @@
     var webapp = angular.module('vabank.webapp', [
         'ngResource',
         'ui.router',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'datePicker',
+        'smart-table'
     ]);
 
     webapp.run(['$state', main]);
