@@ -17,7 +17,7 @@ namespace VaBank.UI.Web.Views
 
             bundle.Add(ApplicationPath("vabank.scss"));
 
-            return bundle.Render("~/styles_#.css");
+            return bundle.Render("~/Client/styles_#.css");
         }
 
         public virtual string Scripts()
@@ -31,8 +31,10 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("angular-bootstrap/ui-bootstrap-tpls.js"));
 
             bundle.Add(ApplicationPath("vabank.js"))
+                .AddDirectory(ApplicationPath("config"))
                 .AddDirectory(ApplicationPath("areas/admin/config"));
-            return bundle.Render("~/app_#.js");
+
+            return bundle.Render("~/Client/app_#.js");
         }
 
         private static string BowerPath(string relativePath)

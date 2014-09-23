@@ -2,6 +2,9 @@
 using System.Net;
 using Hangfire;
 using Hangfire.SqlServer;
+using Microsoft.Owin.FileSystems;
+using Microsoft.Owin.StaticFiles;
+using Microsoft.Owin.StaticFiles.Infrastructure;
 using NLog;
 using Owin;
 using System;
@@ -23,8 +26,9 @@ namespace VaBank.UI.Web
         {
             Bundle.RegisterStylePreprocessor(new SassPreprocessor());
 
+            config.UseStaticFiles("/Client");
             config.UseHangfire(ConfigureHangfire);
-            config.Map("", indexConfig => indexConfig.Use(Handler));
+            config.Use(Handler);
 
             _logger.Info("Application is started!");
             #if !DEBUG
@@ -34,10 +38,6 @@ namespace VaBank.UI.Web
 
         public Task Handler(IOwinContext context, Func<Task> next)
         {
-            if (context.Request.Path.Value != "/")
-            {
-                return next();
-            }
             var response = context.Response;
             var template = new Index();
             return response.WriteAsync(template.TransformText());
