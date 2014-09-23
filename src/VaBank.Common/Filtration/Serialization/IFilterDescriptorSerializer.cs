@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VaBank.Common.Filtration.Serialization
 {
-    public interface IFilterSerializer<T>
+    public interface IFilterDescriptorSerializer<T>
     {
         T Serialize(FilterDescriptor descriptor);
         FilterDescriptor Deserialize(T source);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VaBank.Common.Filtration.Serialization
 {
-    public class JsonFilterDescriptorSerializer : IFilterSerializer<string>
+    public class JsonFilterDescriptorSerializer : IFilterDescriptorSerializer<string>
     {
         public FilterDescriptor Deserialize(string json)
         {
