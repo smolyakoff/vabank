@@ -1,10 +1,13 @@
 ﻿using System.Configuration;
 using System.Net;
+using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
+using System.Web.Http;
+using Autofac;
 using Hangfire;
 using Hangfire.SqlServer;
-using Microsoft.Owin.FileSystems;
-using Microsoft.Owin.StaticFiles;
-using Microsoft.Owin.StaticFiles.Infrastructure;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using NLog;
 using Owin;
 using System;
@@ -12,6 +15,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin;
 using SquishIt.Framework;
 using SquishIt.Sass;
+using VaBank.UI.Web.Modules;
 using VaBank.UI.Web.Views;
 
 namespace VaBank.UI.Web
@@ -25,9 +29,15 @@ namespace VaBank.UI.Web
         public void Configuration(IAppBuilder config)
         {
             Bundle.RegisterStylePreprocessor(new SassPreprocessor());
+            config.UseAutofacMiddleware(ConfigureAutofac());
 
             config.UseStaticFiles("/Client");
             config.UseHangfire(ConfigureHangfire);
+
+            var httpConfig = ConfigureWebApi();
+            config.UseWebApi(httpConfig);
+            config.UseAutofacWebApi(httpConfig);
+            
             config.Use(Handler);
 
             _logger.Info("Application is started!");
@@ -52,6 +62,34 @@ namespace VaBank.UI.Web
             //TODO: do auth as it's generally dangerous to keep no auth with hangfire
             config.UseAuthorizationFilters();
             config.UseServer();
+        }
+
+        private static HttpConfiguration ConfigureWebApi()
+        {
+            var configuration = new HttpConfiguration();
+            configuration.MapHttpAttributeRoutes();
+            configuration.Formatters.Clear();
+            var jsonFormatter = new JsonMediaTypeFormatter();
+            jsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/octet-stream"));
+            var serializerSettings = new Newtonsoft.Json.JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            };
+            serializerSettings.Converters.Add(new StringEnumConverter());
+            jsonFormatter.SerializerSettings = serializerSettings;
+            configuration.Formatters.Add(jsonFormatter);
+            configuration.EnsureInitialized();
+            return configuration;
+        }
+
+        private static ILifetimeScope ConfigureAutofac()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<DataAccessModule>();
+            builder.RegisterModule<ServicesModule>();
+            builder.RegisterModule<WebApiModule>();
+            var container = builder.Build();
+            return container;
         }
 
         public static void KeepAlive()

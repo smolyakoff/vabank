@@ -22,6 +22,7 @@
     "angular-datepicker": "~1.0.3",
     "angular-smart-table": "~1.3.0",
     "moment": "~2.8.3",
-    "isteven-angular-multiselect": "~2.0.1"
+    "isteven-angular-multiselect": "~2.0.1",
+    "underscore": "~1.7.0"
   }
 }

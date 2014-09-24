@@ -3,7 +3,7 @@ using SquishIt.Framework;
 
 namespace VaBank.UI.Web.Views
 {
-    //Just dummy classes to make resharper and visual studio happy
+    //Just dummy class to make resharper and visual studio happy
     public partial class Index : IndexBase
     {
          
@@ -30,6 +30,7 @@ namespace VaBank.UI.Web.Views
 
             bundle
                 .Add(BowerPath("moment/moment.js"))
+                .Add(BowerPath("underscore/underscore.js"))
                 .Add(BowerPath("angular/angular.js"))
                 .Add(BowerPath("angular-resource/angular-resource.js"))
                 .Add(BowerPath("angular-ui-router/release/angular-ui-router.js"))
@@ -41,6 +42,8 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("angular-smart-table/dist/smart-table.debug.js"));
 
             bundle
+                .Add(ApplicationPath("modules/vabank-ui/vabank-ui.js"))
+                .AddDirectory(ApplicationPath("modules/vabank-ui"))
                 .Add(ApplicationPath("vabank.js"))
                 .AddDirectory(ApplicationPath("config"))
                 .AddDirectory(ApplicationPath("areas/global"))

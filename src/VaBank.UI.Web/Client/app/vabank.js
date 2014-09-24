@@ -7,7 +7,9 @@
         'cfp.loadingBar',
         'datePicker',
         'multi-select',
-        'smart-table'
+        'smart-table',
+        
+        'vabank.ui'
     ]);
 
     webapp.run(['routingInterceptor', main]);

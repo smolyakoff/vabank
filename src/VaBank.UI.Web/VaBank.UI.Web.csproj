@@ -44,6 +44,18 @@
     <Reference Include="AjaxMin">
       <HintPath>..\..\packages\AjaxMin.4.48.4489.28432\lib\net20\AjaxMin.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Owin">
+      <HintPath>..\..\packages\Autofac.Owin.3.1.0\lib\net45\Autofac.Integration.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi">
+      <HintPath>..\..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi.Owin">
+      <HintPath>..\..\packages\Autofac.WebApi2.Owin.3.2.0\lib\net45\Autofac.Integration.WebApi.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Common.Logging">
       <HintPath>..\..\packages\Common.Logging.2.2.0\lib\net40\Common.Logging.dll</HintPath>
     </Reference>
@@ -86,8 +98,9 @@
     <Reference Include="Microsoft.Owin.StaticFiles">
       <HintPath>..\..\packages\Microsoft.Owin.StaticFiles.3.0.0\lib\net45\Microsoft.Owin.StaticFiles.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.5.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
@@ -107,8 +120,20 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Owin.5.2.2\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="WebActivator">
       <HintPath>..\..\packages\WebActivator.1.4\lib\NETFramework40\WebActivator.dll</HintPath>
     </Reference>
@@ -117,15 +142,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Client\app\areas\admin\system-log\system-log-service.js" />
     <Content Include="Client\app\areas\admin\admin.html" />
     <Content Include="Client\app\areas\admin\config\routes.js" />
     <Content Include="Client\app\areas\admin\scheduler\scheduler.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log.html" />
-    <Content Include="Client\app\areas\admin\system-log\system-log.js" />
+    <Content Include="Client\app\areas\admin\system-log\system-log-ctrl.js" />
     <Content Include="Client\app\areas\global\auth\login.html" />
     <Content Include="Client\app\areas\global\routing-interceptor.js" />
     <Content Include="Client\app\config\routes.js" />
     <Content Include="Client\app\images\vabank-logo-big.png" />
+    <Content Include="Client\app\modules\vabank-ui\services\control-util.js" />
+    <Content Include="Client\app\modules\vabank-ui\vabank-ui.js" />
     <Content Include="Client\app\vabank.js" />
     <Content Include="Client\bower_components\angular-bootstrap\ui-bootstrap-tpls.js" />
     <Content Include="Client\bower_components\angular-bootstrap\ui-bootstrap-tpls.min.js" />
@@ -371,6 +399,9 @@
     <Content Include="Client\bower_components\moment\min\moment-with-locales.min.js" />
     <Content Include="Client\bower_components\moment\min\moment.min.js" />
     <Content Include="Client\bower_components\moment\moment.js" />
+    <Content Include="Client\bower_components\underscore\.gitignore" />
+    <Content Include="Client\bower_components\underscore\underscore-min.js" />
+    <Content Include="Client\bower_components\underscore\underscore.js" />
     <Content Include="packages.config" />
     <Content Include="Configs\NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -526,6 +557,14 @@
     <Content Include="Client\bower_components\angular-loading-bar\README.md" />
     <Content Include="Client\bower_components\isteven-angular-multiselect\.bower.json" />
     <Content Include="Client\bower_components\isteven-angular-multiselect\CHANGELOG.md" />
+    <Content Include="Client\bower_components\underscore\.bower.json" />
+    <Content Include="Client\bower_components\underscore\.eslintrc" />
+    <Content Include="Client\bower_components\underscore\bower.json" />
+    <Content Include="Client\bower_components\underscore\component.json" />
+    <Content Include="Client\bower_components\underscore\LICENSE" />
+    <Content Include="Client\bower_components\underscore\package.json" />
+    <Content Include="Client\bower_components\underscore\README.md" />
+    <Content Include="Client\bower_components\underscore\underscore-min.map" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -541,6 +580,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Admin\SystemLogsController.cs" />
+    <Compile Include="Api\Admin\MaintenanceController.cs" />
+    <Compile Include="Modules\DataAccessModule.cs" />
+    <Compile Include="Modules\ServicesModule.cs" />
+    <Compile Include="Modules\WebApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Views\Views.cs" />
@@ -550,11 +594,24 @@
       <Project>{e06fb03e-8249-4f94-9568-ec1247769273}</Project>
       <Name>VaBank.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VaBank.Core\VaBank.Core.csproj">
+      <Project>{87e0a3c9-5ccd-4154-9ee3-e65cb54efd0e}</Project>
+      <Name>VaBank.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VaBank.Services.Contracts\VaBank.Services.Contracts.csproj">
+      <Project>{c203f56a-2032-4ba5-a8aa-0cb7fd38b784}</Project>
+      <Name>VaBank.Services.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VaBank.Services\VaBank.Services.csproj">
+      <Project>{adfbf54d-6506-4af9-996b-59f55ffc2066}</Project>
+      <Name>VaBank.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Api\" />
+    <Folder Include="Api\Customer\" />
     <Folder Include="Client\app\areas\customer\" />
     <Folder Include="Client\bower_components\bootstrap-sass-official\assets\images\" />
+    <Folder Include="Middleware\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Client\bower_components\angular-ui-router\api\angular-ui-router.d.ts" />
