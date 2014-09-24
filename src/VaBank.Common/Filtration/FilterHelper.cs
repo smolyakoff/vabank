@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using VaBank.Common.Reflection;
 
 namespace VaBank.Common.Filtration
 {
@@ -36,16 +37,13 @@ namespace VaBank.Common.Filtration
             Expression body, left, right, param;
 
             var type = typeof(T);
-            string propName = null;
+            var propInfo = type.FindProperty(filter.Property, StringComparison.OrdinalIgnoreCase);
 
-            foreach (var property in type.GetProperties())
-            {
-                if (property.Name.Equals(filter.Property, StringComparison.OrdinalIgnoreCase))
-                    propName = property.Name;
-            }
+            if (propInfo == null)
+                throw new InvalidOperationException();
 
             param = Expression.Parameter(type, ParamName);
-            left = Expression.Property(param, propName);
+            left = Expression.Property(param, propInfo.Name);
             right = Expression.Constant(filter.Value);
 
             MethodInfo methodInfo = null;

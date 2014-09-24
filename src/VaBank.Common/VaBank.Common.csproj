@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Expressions\ExpressionHelper.cs" />
     <Compile Include="Filtration\CombinerFilter.cs" />
     <Compile Include="Filtration\ExpressionFilter.cs" />
     <Compile Include="Filtration\Filter.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Filtration\Serialization\FilterOperatorConverter.cs" />
     <Compile Include="Logging\FixedDatabaseTarget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\ReflectionHelper.cs" />
     <Compile Include="Sorting\Serialization\IJsonSortingDescriptorSerializer.cs" />
     <Compile Include="Sorting\Serialization\ISortingDescriptorSerializer.cs" />
     <Compile Include="Sorting\Serialization\SortingDescriptorSerializer.cs" />
