@@ -4,14 +4,17 @@
         'ngResource',
         'ui.router',
         'ui.bootstrap',
+        'cfp.loadingBar',
         'datePicker',
+        'multi-select',
         'smart-table'
     ]);
 
-    webapp.run(['$state', main]);
+    webapp.run(['routingInterceptor', main]);
     
-    function main($state) {
+    function main(routingInterceptor) {
         console.log('Application is running');
+        routingInterceptor.initialize();
     }
 
 })();

@@ -18,7 +18,7 @@
 
         $stateProvider.state('login', {            
             url: '/login',
-            templateUrl: '/Client/app/auth/login.html'
+            templateUrl: '/Client/app/areas/global/auth/login.html'
         });
     }
 

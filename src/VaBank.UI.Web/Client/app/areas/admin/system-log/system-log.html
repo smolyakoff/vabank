@@ -3,11 +3,11 @@
         <div class="form-inline">
             <div class="form-group">
                 <label for="from-date">From</label>
-                <input id="from-date" type="text" />
+                <input id="from-date" type="text" date-time="" format="yyyy-MM-dd" ng-model="from" min-view="date" />
             </div>
             <div class="form-group">
                 <label for="from-date">To</label>
-                <input id="from-date" type="text" />
+                <input id="from-date" type="text" date-time="" format="yyyy-MM-dd" ng-model="to" min-view="date" />
             </div>
         </div>
     </div>
@@ -26,19 +26,27 @@
                     <th>Event ID</th>
                     <th>Timestamp UTC</th>
                     <th>Type</th>
-                    <th>Level</th>
+                    <th style="width: 150px">Level</th>
                     <th>User</th>
                     <th>Message</th>
                 </tr>
                 <tr>
                     <th colspan="2"></th>
                     <th>Type Filter</th>
-                    <th>Level Filter</th>
+                    <th>
+                        <div data-multi-select
+                             input-model="lookups.logLevels"
+                             button-label="name"
+                             item-label="name"
+                             tick-property="ticked">
+                        </div>
+                    </th>
                     <th>User Filter</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+            </tbody>
         </table>
     </div>
 </section>
