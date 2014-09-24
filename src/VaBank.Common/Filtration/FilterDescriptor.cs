@@ -120,7 +120,7 @@ namespace VaBank.Common.Filtration
                     throw new InvalidOperationException();
             }
             
-            return Expression.Lambda<Func<T, bool>>(body, Expression.Parameter(typeof(T)));
+            return Expression.Lambda<Func<T, bool>>(body, param);
         }
 
         private Expression<Func<T, bool>> BuildCombinerFilter(CombinerFilter filter)
