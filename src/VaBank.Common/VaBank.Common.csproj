@@ -55,6 +55,7 @@
     <Compile Include="Filtration\FilterLogic.cs" />
     <Compile Include="Filtration\FilterOperator.cs" />
     <Compile Include="Filtration\FilterType.cs" />
+    <Compile Include="Filtration\Serialization\FilterConverter.cs" />
     <Compile Include="Filtration\Serialization\IFilterDescriptorSerializer.cs" />
     <Compile Include="Filtration\Serialization\IJsonFilterDescriptorSerializer.cs" />
     <Compile Include="Filtration\Serialization\JsonFilterDescriptorSerializer.cs" />
