@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VaBank.Common.Filtration.Serialization;
 
 namespace VaBank.Common.Filtration
 {

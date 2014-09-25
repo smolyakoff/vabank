@@ -124,13 +124,20 @@ namespace VaBank.Common.Filtration
         private static Expression BuildCombinerFilter<T>(CombinerFilter filter)
         {
             Expression body = null;
-            foreach (var item in filter.Filters)
+            var filters = filter.Filters.ToList();
+
+            if (filters[0] is ExpressionFilter)
+                body = BuildExpressionFilter<T>((ExpressionFilter)filters[0]);
+            if (filters[0] is CombinerFilter)
+                body = BuildCombinerFilter<T>((CombinerFilter)filters[0]);
+
+            for (int i = 1; i < filters.Count; i++)
             {
                 Expression expr = null;
-                if (item is ExpressionFilter)
-                    expr = BuildExpressionFilter<T>((ExpressionFilter)item);
-                if (item is CombinerFilter)
-                    expr = BuildCombinerFilter<T>((CombinerFilter)item);
+                if (filters[i] is ExpressionFilter)
+                    expr = BuildExpressionFilter<T>((ExpressionFilter)filters[i]);
+                if (filters[i] is CombinerFilter)
+                    expr = BuildCombinerFilter<T>((CombinerFilter)filters[i]);
                 switch (filter.Logic)
                 {
                     case FilterLogic.And:
