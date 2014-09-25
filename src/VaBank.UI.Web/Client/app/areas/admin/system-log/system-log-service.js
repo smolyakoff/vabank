@@ -11,7 +11,7 @@
 
         var logEntry = $resource('/api/logs/system', {}, {
             query: {
-              isArray: true  
+                isArray: true,
             },
             lookup: {
               url: '/api/logs/system/lookup',

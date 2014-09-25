@@ -41,6 +41,15 @@
                     });
                 }
                 return selectChoices;
+            },
+            getSelectedItems: function (choices, options) {
+                if (!_.isArray(choices)) {
+                    throw new TypeError("Should be an array!");
+                }
+                options = angular.extend({}, multiselectDefaults, options);
+                var search = {};
+                search[options.tickedPropertyName] = true;
+                return _.chain(choices).where(search).pluck(options.displayPropertyName).value();
             }
         };
 

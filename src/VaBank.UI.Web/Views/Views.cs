@@ -31,6 +31,7 @@ namespace VaBank.UI.Web.Views
             bundle
                 .Add(BowerPath("moment/moment.js"))
                 .Add(BowerPath("underscore/underscore.js"))
+                .Add(BowerPath("js-schema/js-schema.debug.js"))
                 .Add(BowerPath("angular/angular.js"))
                 .Add(BowerPath("angular-resource/angular-resource.js"))
                 .Add(BowerPath("angular-ui-router/release/angular-ui-router.js"))

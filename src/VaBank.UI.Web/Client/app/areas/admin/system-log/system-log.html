@@ -3,11 +3,11 @@
         <div class="form-inline log-filters">
             <div class="form-group">
                 <label for="from-date">From</label>
-                <input id="from-date" type="text" date-time="" format="yyyy-MM-dd" ng-model="from" min-view="date" />
+                <input id="from-date" type="text" date-time="" format="yyyy-MM-dd" ng-model="fromFilter.value" min-view="date" />
             </div>
             <div class="form-group">
                 <label for="from-date">To</label>
-                <input id="from-date" type="text" date-time="" format="yyyy-MM-dd" ng-model="to" min-view="date" />
+                <input id="from-date" type="text" date-time="" format="yyyy-MM-dd" ng-model="toFilter.value" min-view="date" />
             </div>
             <div class="form-group">
                 <label for="from-date">Type</label>
@@ -34,7 +34,7 @@
     <div class="col-xs-3">
         <div class="btn-toolbar pull-right" role="toolbar">
             <button class="btn btn-danger">Clear</button>
-            <button class="btn btn-primary">Show</button>
+            <button class="btn btn-primary" ng-click="show()">Show</button>
         </div>
     </div>
 </section>

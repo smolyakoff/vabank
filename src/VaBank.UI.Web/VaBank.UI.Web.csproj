@@ -153,6 +153,7 @@
     <Content Include="Client\app\config\routes.js" />
     <Content Include="Client\app\images\vabank-logo-big.png" />
     <Content Include="Client\app\modules\vabank-ui\services\control-util.js" />
+    <Content Include="Client\app\modules\vabank-ui\services\data-util.js" />
     <Content Include="Client\app\modules\vabank-ui\vabank-ui.js" />
     <Content Include="Client\app\vabank.js" />
     <Content Include="Client\bower_components\angular-bootstrap\ui-bootstrap-tpls.js" />
@@ -314,6 +315,33 @@
     <Content Include="Client\bower_components\jquery\src\var\support.js" />
     <Content Include="Client\bower_components\jquery\src\var\toString.js" />
     <Content Include="Client\bower_components\jquery\src\wrap.js" />
+    <Content Include="Client\bower_components\js-schema\index.js" />
+    <Content Include="Client\bower_components\js-schema\js-schema.debug.js" />
+    <Content Include="Client\bower_components\js-schema\js-schema.min.js" />
+    <Content Include="Client\bower_components\js-schema\lib\BaseSchema.js" />
+    <Content Include="Client\bower_components\js-schema\lib\extensions\Array.js" />
+    <Content Include="Client\bower_components\js-schema\lib\extensions\Boolean.js" />
+    <Content Include="Client\bower_components\js-schema\lib\extensions\Function.js" />
+    <Content Include="Client\bower_components\js-schema\lib\extensions\Number.js" />
+    <Content Include="Client\bower_components\js-schema\lib\extensions\Object.js" />
+    <Content Include="Client\bower_components\js-schema\lib\extensions\Schema.js" />
+    <Content Include="Client\bower_components\js-schema\lib\extensions\String.js" />
+    <Content Include="Client\bower_components\js-schema\lib\patterns\anything.js" />
+    <Content Include="Client\bower_components\js-schema\lib\patterns\class.js" />
+    <Content Include="Client\bower_components\js-schema\lib\patterns\equality.js" />
+    <Content Include="Client\bower_components\js-schema\lib\patterns\nothing.js" />
+    <Content Include="Client\bower_components\js-schema\lib\patterns\object.js" />
+    <Content Include="Client\bower_components\js-schema\lib\patterns\or.js" />
+    <Content Include="Client\bower_components\js-schema\lib\patterns\reference.js" />
+    <Content Include="Client\bower_components\js-schema\lib\patterns\regexp.js" />
+    <Content Include="Client\bower_components\js-schema\lib\patterns\schema.js" />
+    <Content Include="Client\bower_components\js-schema\lib\schema.js" />
+    <Content Include="Client\bower_components\js-schema\test\extensions\errors-array.js" />
+    <Content Include="Client\bower_components\js-schema\test\extensions\errors-boolean.js" />
+    <Content Include="Client\bower_components\js-schema\test\extensions\errors-number.js" />
+    <Content Include="Client\bower_components\js-schema\test\extensions\errors-object.js" />
+    <Content Include="Client\bower_components\js-schema\test\extensions\errors-reference.js" />
+    <Content Include="Client\bower_components\js-schema\test\printTestResult.js" />
     <Content Include="Client\bower_components\moment\benchmarks\clone.js" />
     <Content Include="Client\bower_components\moment\locale\af.js" />
     <Content Include="Client\bower_components\moment\locale\ar-ma.js" />
@@ -565,6 +593,14 @@
     <Content Include="Client\bower_components\underscore\package.json" />
     <Content Include="Client\bower_components\underscore\README.md" />
     <Content Include="Client\bower_components\underscore\underscore-min.map" />
+    <Content Include="Client\bower_components\js-schema\.bower.json" />
+    <Content Include="Client\bower_components\js-schema\.jshintrc" />
+    <Content Include="Client\bower_components\js-schema\bower.json" />
+    <Content Include="Client\bower_components\js-schema\build.sh" />
+    <Content Include="Client\bower_components\js-schema\HISTORY.md" />
+    <Content Include="Client\bower_components\js-schema\LICENSE" />
+    <Content Include="Client\bower_components\js-schema\package.json" />
+    <Content Include="Client\bower_components\js-schema\README.md" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -632,7 +668,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57378</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

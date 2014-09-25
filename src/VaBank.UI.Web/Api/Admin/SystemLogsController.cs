@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Web.Http;
 using VaBank.Services.Contracts.Admin.Maintenance;
 
@@ -16,8 +17,10 @@ namespace VaBank.UI.Web.Api.Admin
 
         [HttpGet]
         [Route]
-        public IHttpActionResult Query(SystemLogQuery query)
+        public IHttpActionResult Query()
         {
+            var filter = this.Request.GetQueryNameValuePairs();
+            var query = new SystemLogQuery();
             var logs = _logManagementService.GetSystemLogEntries(query);
             return Ok(logs);
         }
