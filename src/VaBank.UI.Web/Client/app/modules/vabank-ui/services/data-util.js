@@ -18,12 +18,10 @@
         var operators = _.values(FilterOperator);
 
         var dumpValue = function(value) {
-            if (_.isUndefined(value) || _.isNull(value)) {
-                return 'null';
+            if (_.isUndefined(value)) {
+                value = null;
             }
-            var json = JSON.stringify(value);
-            var replaced = json.replace(/"/g, "'");
-            return replaced;
+            return JSON.stringify(value);
         };
 
         function Filter(options) {
