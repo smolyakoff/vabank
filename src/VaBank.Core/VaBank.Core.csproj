@@ -39,6 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\IFilterableQuery.cs" />
+    <Compile Include="Data\IPageableQuery.cs" />
+    <Compile Include="Data\ISortableQuery.cs" />
+    <Compile Include="Data\IQuery%271.cs" />
+    <Compile Include="Data\IQueryProcessor.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Entity`1.cs" />
     <Compile Include="Entities\Log.cs" />
