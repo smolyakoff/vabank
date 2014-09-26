@@ -11,7 +11,7 @@ namespace VaBank.Common.Filtration
     {
         public string Property { get; set; }
         public FilterOperator Operator { get; set; }
-        public string Value { get; set; }
+        public object Value { get; set; }
 
         public ExpressionFilter()
         {

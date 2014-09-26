@@ -55,10 +55,11 @@
     <Compile Include="Filtration\FilterLogic.cs" />
     <Compile Include="Filtration\FilterOperator.cs" />
     <Compile Include="Filtration\FilterType.cs" />
+    <Compile Include="Filtration\Serialization\FilterTypeConverter.cs" />
     <Compile Include="Filtration\Serialization\IFilterDescriptorSerializer.cs" />
     <Compile Include="Filtration\Serialization\IJsonFilterDescriptorSerializer.cs" />
     <Compile Include="Filtration\Serialization\JsonFilterDescriptorSerializer.cs" />
-    <Compile Include="Filtration\Serialization\FilterOperatorConverter.cs" />    
+    <Compile Include="Filtration\Serialization\FilterOperatorConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\ReflectionHelper.cs" />
     <Compile Include="Sorting\Serialization\IJsonSortingDescriptorSerializer.cs" />

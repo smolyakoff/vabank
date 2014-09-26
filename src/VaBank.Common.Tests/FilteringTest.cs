@@ -10,6 +10,7 @@ namespace VaBank.Common.Tests
     [TestClass]
     public class FilteringTest
     {
+        //TODO: move to file and use DeploymentItemAttribute
         private const string Json = "{\"logic\": \"and\",\"type\": \"combiner\",\"filters\": [{\"type\": \"expression\",\"property\": \"name\",\"operator\": \"==\",\"value\": \"John\"},{\"type\": \"combiner\",\"logic\": \"and\",\"filters\": [{\"type\": \"expression\",\"property\": \"age\",\"operator\": \">\",\"value\": 5},{\"type\": \"expression\",\"property\": \"age\",\"operator\": \"<\",\"value\": 90}]}]}";
         private IJsonFilterDescriptorSerializer _jsonFilterDescriptorSerializer;
 
@@ -31,6 +32,16 @@ namespace VaBank.Common.Tests
         {
             var descriptor = _jsonFilterDescriptorSerializer.Deserialize(Json);
             var expression = descriptor.ToExpression<FakeUser>();
+        }
+
+        [TestMethod]
+        public void Can_Parse_Valid_Filter_Query()
+        {
+            //TODO: move to file and use DeploymentItemAttribute
+            const string query =
+                "((timestampUtc gt \"2014-08-31T21:00:00.000Z\") and (timestampUtc lt \"2014-09-25T21:00:00.000Z\") and ((type eq null) or (type eq \"Generic\")) and ((level in [\"Debug\",\"Error\",\"Fatal\"]) or (level eq null)))";
+            var converter = new FilterTypeConverter();
+            var filter = converter.ConvertFrom(query);
         }
 
         private FilterDescriptor BuildFilterDescriptor()
