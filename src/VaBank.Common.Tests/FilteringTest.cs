@@ -4,6 +4,7 @@ using VaBank.Common.Filtration.Serialization;
 using System.IO;
 using VaBank.Common.Filtration;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace VaBank.Common.Tests
 {
@@ -30,7 +31,9 @@ namespace VaBank.Common.Tests
         public void TestToFilterDescriptorExpression()
         {
             var descriptor = _jsonFilterDescriptorSerializer.Deserialize(Json);
-            var expression = descriptor.ToExpression<FakeUser>();
+            var real = descriptor.ToExpression<FakeUser>();
+            Expression<Func<FakeUser, bool>> expected = x => x.Name == "John" && (x.Age > 5 && x.Age < 90);
+            Assert.IsTrue(real.ToString().Equals(expected.ToString()));
         }
 
         private FilterDescriptor BuildFilterDescriptor()
