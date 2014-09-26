@@ -5,6 +5,7 @@ using System.IO;
 using VaBank.Common.Filtration;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using VaBank.Common.Tests.Fakes;
 
 namespace VaBank.Common.Tests
 {
@@ -54,11 +55,5 @@ namespace VaBank.Common.Tests
             filterDescriptor.Context = context;
             return filterDescriptor;
         }
-    }
-
-    public class FakeUser
-    {
-        public string Name { get; set; }
-        public int Age { get; set; }
     }
 }

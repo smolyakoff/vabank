@@ -19,18 +19,18 @@ namespace VaBank.Common.Expressions
             return Expression.Property(param, propertyName);
         }
 
-        public static Expression BuildLambdaSelector(Type paramType, string paramName, string propertyName)
+        public static LambdaExpression BuildLambdaSelector(Type paramType, string paramName, string propertyName)
         {
             var param = Expression.Parameter(paramType, paramName);
-            var body = BuildLambdaSelectorBody(param, paramName);
+            var body = BuildLambdaSelectorBody(param, propertyName);
             return Expression.Lambda(body, param);
         }
 
         public static Expression<Func<TParam, TProperty>> BuildLambdaSelector<TParam, TProperty>(string paramName, string propertyName)
         {
-            return (Expression<Func<TParam, TProperty>>)BuildLambdaSelector(typeof(TParam), paramName, propertyName);
-        }
-
-        
+            var param = Expression.Parameter(typeof(TParam), paramName);
+            var body = BuildLambdaSelectorBody(param, propertyName);
+            return Expression.Lambda<Func<TParam, TProperty>>(body, param);
+        }        
     }
 }

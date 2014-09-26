@@ -53,8 +53,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Fakes\FakeUser.cs" />
     <Compile Include="FilteringTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SortingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VaBank.Common\VaBank.Common.csproj">
