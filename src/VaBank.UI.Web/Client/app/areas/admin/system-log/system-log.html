@@ -1,0 +1,66 @@
+﻿<section class="row offset-bottom">
+    <div class="col-xs-9">
+        <div class="form-inline log-filters">
+            <div class="form-group">
+                <label for="from-date">From</label>
+                <input id="from-date" type="text" date-time="" format="yyyy-MM-dd" ng-model="fromFilter.value" min-view="date" />
+            </div>
+            <div class="form-group">
+                <label for="from-date">To</label>
+                <input id="from-date" type="text" date-time="" format="yyyy-MM-dd" ng-model="toFilter.value" min-view="date" />
+            </div>
+            <div class="form-group">
+                <label for="from-date">Type</label>
+                <div data-multi-select
+                     input-model="lookups.types"
+                     button-label="label"
+                     item-label="label"
+                     tick-property="ticked"
+                     selection-mode="single">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="from-date">Levels</label>
+                <div data-multi-select
+                     input-model="lookups.levels"
+                     button-label="label"
+                     item-label="label"
+                     tick-property="ticked"
+                     max-labels="2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-3">
+        <div class="btn-toolbar pull-right" role="toolbar">
+            <button class="btn btn-danger">Clear</button>
+            <button class="btn btn-primary" ng-click="show()">Show</button>
+        </div>
+    </div>
+</section>
+<section class="row">
+    <div class="col-xs-12">
+        <table class="table" st-table="logs">
+            <thead>
+                <tr>
+                    <th style="width: 120px">Event ID</th>
+                    <th>Timestamp UTC</th>
+                    <th>Type</th>
+                    <th style="width: 150px">Level</th>
+                    <th>User</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="log in logs">
+                    <td>{{log.eventId}}</td>
+                    <td>{{log.timestampUtc}}</td>
+                    <td>{{log.type}}</td>
+                    <td>{{log.level}}</td>
+                    <td>{{log.user}}</td>
+                    <td>{{log.message}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

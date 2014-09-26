@@ -1,6 +1,6 @@
 Param(
 	[Parameter(Position = 1)]
-	[String] $Targets = "BuildAll;Migrate",
+	[String] $Targets = "Clean;BuildAll;Migrate",
 	[Parameter(Position = 2)]
 	[String] $Environment = "Development",
 	[String] $Configuration = "Release",
@@ -21,12 +21,4 @@ if ($BuildSuccessful) {
 	Write-Host -ForegroundColor "Green" -Object "Build was successfull. Log file path: [$LogFilePath]"
 } else {
 	Write-Host -ForegroundColor "Red" -Object "Build was failed. Log file path: [$LogFilePath]"
-}
-Write-Host "`r`nPress any key to continue..." -BackgroundColor Blue
-try 
-{
-    $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | Out-Null
-}
-catch [Exception]
-{
 }

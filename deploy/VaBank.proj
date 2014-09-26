@@ -43,7 +43,7 @@
   <Target Name="RestorePackages">
     <Exec Command="&quot;$(NugetPath)&quot; restore &quot;$(SolutionPath)&quot;" ConsoleToMSBuild="true"/>
   </Target>
-  
+
   <Target Name="Clean">
     <MSBuild Projects="$(SolutionDir)\VaBank.sln" Targets="Clean"></MSBuild>
     <RemoveDir Directories="$(BuildDir)"></RemoveDir>
@@ -66,7 +66,7 @@
   <!-- End of build targets -->
   
   <!-- CI targets -->
-  <Target Name="PrepareForDeploy" DependsOnTargets="Clean;BuildAll;Migrate">
+  <Target Name="PrepareForDeploy" DependsOnTargets="BuildAll;Migrate">
   </Target>
   <!-- End of CI targets -->
   

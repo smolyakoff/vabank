@@ -1,0 +1,11 @@
+﻿@import "_variables.scss";
+@import '../../bower_components/bootswatch-sass-paper/variables';
+@import '../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/variables';
+@import '../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap';
+@import "../../bower_components/bootswatch-sass-paper/bootswatch";
+@import "common.scss";
+@import "controls.scss";
+
+@import "../areas/global/auth/login.scss";
+@import "../areas/admin/scheduler/scheduler.scss";
+
