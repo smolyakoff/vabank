@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -44,7 +45,14 @@ namespace VaBank.Common.Filtration
 
             param = Expression.Parameter(type, ParamName);
             left = Expression.Property(param, propInfo.Name);
-            right = Expression.Constant(filter.Value);
+
+            if (propInfo.PropertyType != filter.Value.GetType())
+            {
+                var converter = TypeDescriptor.GetConverter(propInfo.PropertyType);
+                right = Expression.Constant(converter.ConvertFrom(filter.Value));
+            }
+            else
+                right = Expression.Constant(filter.Value);
 
             MethodInfo methodInfo = null;
 
@@ -141,10 +149,10 @@ namespace VaBank.Common.Filtration
                 switch (filter.Logic)
                 {
                     case FilterLogic.And:
-                        body = Expression.And(body, expr);
+                        body = Expression.AndAlso(body, expr);
                         break;
                     case FilterLogic.Or:
-                        body = Expression.Or(body, expr);
+                        body = Expression.OrElse(body, expr);
                         break;
                     default:
                         throw new InvalidOperationException();

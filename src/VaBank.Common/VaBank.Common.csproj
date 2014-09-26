@@ -64,7 +64,7 @@
     <Compile Include="Reflection\ReflectionHelper.cs" />
     <Compile Include="Sorting\Serialization\IJsonSortingDescriptorSerializer.cs" />
     <Compile Include="Sorting\Serialization\ISortingDescriptorSerializer.cs" />
-    <Compile Include="Sorting\Serialization\SortingDescriptorSerializer.cs" />
+    <Compile Include="Sorting\Serialization\JsonSortingDescriptorSerializer.cs" />
     <Compile Include="Sorting\Sort.cs" />
     <Compile Include="Sorting\SortingDescriptor.cs" />
     <Compile Include="Sorting\SortingDirection.cs" />

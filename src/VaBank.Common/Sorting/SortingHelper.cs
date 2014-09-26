@@ -14,26 +14,32 @@ namespace VaBank.Common.Sorting
         {
             var type = typeof(T);
 
-            values = values.OrderBy<T, T>(x => x);
-            
+            var orderedValues = values.OrderBy<T, T>(x => default(T));
+
+            var methodAsc = typeof(Queryable).GetMethods().Where(x => x.Name == "ThenBy").First();
+            var methodDesc = typeof(Queryable).GetMethods().Where(x => x.Name == "ThenByDescending").First();
+                        
             foreach (var sorting in descriptor.Sortings)
             {
                 var propertyInfo = type.FindProperty(sorting.Property, StringComparison.OrdinalIgnoreCase);
-                var selector = Expressions.ExpressionHelper.BuildLambdaSelector<T, object>("x", propertyInfo.Name);
+                var selector = typeof(Expressions.ExpressionHelper).GetMethod("BuildLambdaSelector", new[] { typeof(string), typeof(string) })
+                    .MakeGenericMethod(type, propertyInfo.PropertyType).Invoke(null, new object[] { "x", propertyInfo.Name });
                 
                 switch (sorting.Direction)
                 {
                     case SortingDirection.Asc:
-                        ((IOrderedQueryable<T>)values).ThenBy(selector);
+                        orderedValues = (IOrderedQueryable<T>)methodAsc.MakeGenericMethod(type, propertyInfo.PropertyType)
+                            .Invoke(null, new object[] { orderedValues, selector });
                         break;
                     case SortingDirection.Desc:
-                        ((IOrderedQueryable<T>)values).ThenByDescending(selector);
+                        orderedValues = (IOrderedQueryable<T>)methodDesc.MakeGenericMethod(type, propertyInfo.PropertyType)
+                            .Invoke(null, new object[] { orderedValues, selector });
                         break;
                     default:
                         throw new InvalidOperationException();
                 }
             }
-            return values;
+            return orderedValues;
         }
     }
 }
