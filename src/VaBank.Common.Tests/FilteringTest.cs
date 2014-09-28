@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VaBank.Common.Filtration.Serialization;
-using System.IO;
 using VaBank.Common.Filtration;
 using System.Collections.Generic;
 using System.Linq.Expressions;
