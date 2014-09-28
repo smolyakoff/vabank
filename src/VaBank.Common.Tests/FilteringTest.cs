@@ -39,6 +39,14 @@ namespace VaBank.Common.Tests
         }
 
         [TestMethod]
+        public void Can_Convert_Expression_With_In_Operator()
+        {
+            var filterString = "{\"type\": \"expression\",\"property\": \"name\",\"operator\": \"in\",\"value\": [\"John\", \"Jack\"]}";
+            var filter = _jsonFilterDescriptorSerializer.Deserialize(filterString);
+            var expression = filter.ToExpression<FakeUser>();
+        }
+
+        [TestMethod]
         public void Can_Parse_Valid_Filter_Query()
         {
             //TODO: move to file and use DeploymentItemAttribute

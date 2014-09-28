@@ -135,16 +135,20 @@ namespace VaBank.Common.Filtration.Serialization
                 if (ch == LeftParenthesis && !inQuote)
                 {
                     afterRightParenthesis = false;
-                    builder = new StringBuilder();
-                    stack.Push(builder);
-                    if (builders.ContainsKey(stack.Count))
+                    if (stack.Count < 1)
                     {
-                        builders[stack.Count].Add(builder);
+                        builder = new StringBuilder();
+                        stack.Push(builder);
+                        if (builders.ContainsKey(stack.Count))
+                        {
+                            builders[stack.Count].Add(builder);
+                        }
+                        else
+                        {
+                            builders[stack.Count] = new List<StringBuilder> { builder };
+                        }
                     }
-                    else
-                    {
-                        builders[stack.Count] = new List<StringBuilder> {builder};
-                    }
+                    
                 }
                 else if (ch == RightParenthesis && !inQuote)
                 {
