@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace VaBank.Common.Sorting.Serialization
 {
-    public class SortingDescriptorSerializer : IJsonSortingDescriptorSerializer
+    public class JsonSortingDescriptorSerializer : IJsonSortingDescriptorSerializer
     {
         public string Serialize(SortingDescriptor descriptor)
         {
-            return JsonConvert.SerializeObject(descriptor);
+            return JsonConvert.SerializeObject(descriptor.Sortings);
         }
 
         public SortingDescriptor Deserialize(string json)
         {
-            return JsonConvert.DeserializeObject<SortingDescriptor>(json);
+            return new SortingDescriptor { Sortings = JsonConvert.DeserializeObject<ICollection<Sort>>(json) };
         }
     }
 }

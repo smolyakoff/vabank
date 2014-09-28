@@ -13,13 +13,13 @@ namespace VaBank.Common.Filtration.Serialization
         public FilterDescriptor Deserialize(string json)
         {
             var jObj = JObject.Parse(json);
-            var test = jObj.ToString();            
+            var test = jObj.ToString();
             switch (jObj.SelectToken("type").Value<string>().ToFilterType())
             {
                 case FilterType.Combiner:
                     return new FilterDescriptor { Context = DeserializeCombineFilter(jObj) };
                 case FilterType.Expression:
-                    return new FilterDescriptor { Context = DeserializeExpressionFilter(jObj)};                
+                    return new FilterDescriptor { Context = DeserializeExpressionFilter(jObj) };
             }
             return null;
         }
