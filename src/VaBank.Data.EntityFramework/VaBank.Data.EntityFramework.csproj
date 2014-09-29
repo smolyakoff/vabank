@@ -53,8 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="QueryProcessor.cs" />
+    <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\RepositoryFactory.cs" />
-    <Compile Include="Repositories\Repository`1.cs" />
     <Compile Include="Repositories\Repository`2.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="VaBankContext.cs" />
