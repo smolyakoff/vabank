@@ -1,0 +1,18 @@
+﻿{
+    "type": "combined",
+    "logic": "and",
+    "filters": [
+        {
+            "type": "simple",
+            "propertyName": "make",
+            "operator": "in",
+            "value": [ "Ford", "Dodge" ]
+        },
+        {
+            "type": "simple",
+            "propertyName": "year",
+            "operator": ">",
+            "value": 2002
+        }
+    ]
+}

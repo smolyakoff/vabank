@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidationNA">
+      <HintPath>..\..\packages\FluentValidationNA.1.2.16\lib\net40\FluentValidationNA.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -40,28 +43,54 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Filtering\CombinedFilter.cs" />
+    <Compile Include="Data\Filtering\Converters\JsonOperatorConverter.cs" />
+    <Compile Include="Data\Filtering\EmptyFilter.cs" />
+    <Compile Include="Data\Filtering\DynamicLinqFilter.cs" />
+    <Compile Include="Data\Filtering\IFilter.cs" />
+    <Compile Include="Data\Filtering\Converters\JsonFilterConverter.cs" />
+    <Compile Include="Data\Filtering\SimpleFilter.cs" />
+    <Compile Include="Data\Linq\BasicQueryable.cs" />
+    <Compile Include="Data\Linq\ClassFactory.cs" />
+    <Compile Include="Data\Linq\DynamicClass.cs" />
+    <Compile Include="Data\Linq\DynamicExpression.cs" />
+    <Compile Include="Data\Linq\DynamicLinqTypeProvider.cs" />
+    <Compile Include="Data\Linq\DynamicOrdering.cs" />
+    <Compile Include="Data\Linq\DynamicProperty.cs" />
+    <Compile Include="Data\Linq\DynamicQueryable.cs" />
+    <Compile Include="Data\Linq\ExpressionParser.cs" />
+    <Compile Include="Data\Linq\GlobalConfig.cs" />
+    <Compile Include="Data\Linq\GlobalSuppressions.cs" />
+    <Compile Include="Data\Linq\GroupResult.cs" />
+    <Compile Include="Data\Linq\IDynamicLinkTypeProvider.cs" />
+    <Compile Include="Data\Linq\ParseException.cs" />
+    <Compile Include="Data\Linq\Res.cs" />
     <Compile Include="Expressions\ExpressionHelper.cs" />
     <Compile Include="Filtration\CombinerFilter.cs" />
     <Compile Include="Filtration\ExpressionFilter.cs" />
     <Compile Include="Filtration\Filter.cs" />
     <Compile Include="Filtration\FilterDescriptor.cs" />
     <Compile Include="Filtration\FilterHelper.cs" />
-    <Compile Include="Filtration\FilterLogic.cs" />
-    <Compile Include="Filtration\FilterOperator.cs" />
+    <Compile Include="Data\Filtering\FilterLogic.cs" />
+    <Compile Include="Data\Filtering\FilterOperator.cs" />
     <Compile Include="Filtration\FilterType.cs" />
     <Compile Include="Filtration\Serialization\FilterTypeConverter.cs" />
     <Compile Include="Filtration\Serialization\IFilterDescriptorSerializer.cs" />
     <Compile Include="Filtration\Serialization\IJsonFilterDescriptorSerializer.cs" />
     <Compile Include="Filtration\Serialization\JsonFilterDescriptorSerializer.cs" />
     <Compile Include="Filtration\Serialization\FilterOperatorConverter.cs" />
+    <Compile Include="Data\Filtering\LinqSpec.cs" />
+    <Compile Include="Data\Linq\ExpressionCombiner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\ReflectionHelper.cs" />
+    <Compile Include="Serialization\JsonCreationConverter.cs" />
     <Compile Include="Sorting\Serialization\IJsonSortingDescriptorSerializer.cs" />
     <Compile Include="Sorting\Serialization\ISortingDescriptorSerializer.cs" />
     <Compile Include="Sorting\Serialization\JsonSortingDescriptorSerializer.cs" />

@@ -8,6 +8,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using VaBank.Common.Data.Filtering;
 
 namespace VaBank.Common.Filtration.Serialization
 {
@@ -17,8 +18,8 @@ namespace VaBank.Common.Filtration.Serialization
         private static readonly Dictionary<string, FilterOperator> OperatorMapping 
             = new Dictionary<string, FilterOperator>()
         {
-            { "eq", FilterOperator.Equality },
-            { "!eq", FilterOperator.Inequality },
+            { "eq", FilterOperator.Equal },
+            { "!eq", FilterOperator.NotEqual },
             { "gt", FilterOperator.GreaterThan },
             { "gte", FilterOperator.GreaterThanOrEqual },
             { "lt", FilterOperator.LessThan },

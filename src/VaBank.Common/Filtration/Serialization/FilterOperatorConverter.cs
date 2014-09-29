@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VaBank.Common.Data.Filtering;
 
 namespace VaBank.Common.Filtration.Serialization
 {
