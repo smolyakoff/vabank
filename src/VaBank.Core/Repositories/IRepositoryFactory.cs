@@ -9,6 +9,6 @@ namespace VaBank.Core.Repositories
 {
     public interface IRepositoryFactory
     {
-        IRepository<Log, Guid> LogRepository { get; }
+        IRepository<Log, long> LogRepository { get; }
     }
 }

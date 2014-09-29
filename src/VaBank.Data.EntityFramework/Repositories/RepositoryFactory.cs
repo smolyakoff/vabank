@@ -11,15 +11,15 @@ namespace VaBank.Data.EntityFramework.Repositories
     public class RepositoryFactory: IRepositoryFactory
     {
         private VaBankContext context;
-        private IRepository<Log, Guid> logRepository;
+        private IRepository<Log, long> logRepository;
 
         public RepositoryFactory(VaBankContext context)
         {
             this.context = context;
         }
-        public IRepository<Core.Entities.Log, Guid> LogRepository
+        public IRepository<Core.Entities.Log, long> LogRepository
         {
-            get { return logRepository ?? (logRepository = new Repository<Log, Guid>(context)); }
+            get { return logRepository ?? (logRepository = new Repository<Log, long>(context)); }
         }
     }
 }

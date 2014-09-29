@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using VaBank.Core.Entities;
+using VaBank.Data.EntityFramework.Mappings;
 
 namespace VaBank.Data.EntityFramework
 {
@@ -19,5 +20,10 @@ namespace VaBank.Data.EntityFramework
         }
 
         public IDbSet<Log> Logs { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new LogMap());
+        }
     }
 }
