@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
+using VaBank.Common.Data;
 using VaBank.Services.Contracts.Admin.Maintenance;
+using VaBank.UI.Web.Api.Infrastructure.ModelBinders;
 
 namespace VaBank.UI.Web.Api.Admin
 {
@@ -17,10 +20,8 @@ namespace VaBank.UI.Web.Api.Admin
 
         [HttpGet]
         [Route]
-        public IHttpActionResult Query()
+        public IHttpActionResult Query([ModelBinder(typeof(QueryModelBinder))]SystemLogQuery query)
         {
-            var filter = this.Request.GetQueryNameValuePairs();
-            var query = new SystemLogQuery();
             var logs = _logManagementService.GetSystemLogEntries(query);
             return Ok(logs);
         }

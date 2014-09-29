@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using AutoMapper.QueryableExtensions;
+using VaBank.Core.Entities;
+using VaBank.Data.EntityFramework;
 using VaBank.Services.Contracts.Admin.Maintenance;
 
 namespace VaBank.Services.Admin.Maintenance
@@ -16,24 +20,15 @@ namespace VaBank.Services.Admin.Maintenance
         public IEnumerable<SystemLogEntryModel> GetSystemLogEntries(SystemLogQuery query)
         {
             //TODO: do real logic here
-            return new[]
-            {
-                new SystemLogEntryModel
-                {
-                    EventId = 1,
-                    Message = "Test Log 1"
-                },
-                new SystemLogEntryModel
-                {
-                    EventId = 2,
-                    Message = "Test Log 2"
-                },
-                new SystemLogEntryModel
-                {
-                    EventId = 3,
-                    Message = "Test Log 3"
-                }
-            };
+            var context = new VaBankContext();
+            var levels = new string[] {"Info", "Debug"};
+            Expression<Func<Log, bool>> exp = x => levels.Contains(x.Level);
+
+            var results = context.Logs.AsQueryable()
+                .Where(query.Filter.ToExpression<Log>())
+                .Select(AutoMapper.Mapper.Map<Log,SystemLogEntryModel>)
+                .ToList();
+            return results;
         }
     }
 }

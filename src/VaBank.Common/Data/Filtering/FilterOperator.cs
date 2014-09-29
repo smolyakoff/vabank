@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using VaBank.Common.Filtration.Serialization;
+using VaBank.Common.Data.Filtering.Converters;
 
 namespace VaBank.Common.Data.Filtering
 {
-    [JsonConverter(typeof(FilterOperatorConverter))]
+    [JsonConverter(typeof(JsonFilterOperatorConverter))]
     public enum FilterOperator
     {
         Equal,

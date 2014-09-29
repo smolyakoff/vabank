@@ -5,13 +5,13 @@ using Newtonsoft.Json;
 
 namespace VaBank.Common.Data.Filtering.Converters
 {
-    internal class JsonOperatorConverter : JsonConverter
+    internal class JsonFilterOperatorConverter : JsonConverter
     {
         private static readonly Dictionary<string, FilterOperator> FilterMapping;
 
         private static readonly Dictionary<FilterOperator, string> FilterReverseMapping;
 
-        static JsonOperatorConverter()
+        static JsonFilterOperatorConverter()
         {
             FilterMapping = new Dictionary<string, FilterOperator>(StringComparer.OrdinalIgnoreCase)
             {
@@ -44,7 +44,7 @@ namespace VaBank.Common.Data.Filtering.Converters
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var value = reader.ReadAsString();
+            var value = reader.Value as string;
             if (string.IsNullOrEmpty(value) || !FilterMapping.ContainsKey(value))
             {
                 throw new NotSupportedException(string.Format("Operator [{0}] is not supported.", value));

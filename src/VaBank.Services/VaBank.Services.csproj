@@ -30,7 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,18 +53,35 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\Maintenance\LogManagementService.cs" />
+    <Compile Include="Admin\Maintenance\MaintenanceProfile.cs" />
     <Compile Include="Admin\Maintenance\SystemLogLookup.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VaBank.Common\VaBank.Common.csproj">
+      <Project>{e06fb03e-8249-4f94-9568-ec1247769273}</Project>
+      <Name>VaBank.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VaBank.Core\VaBank.Core.csproj">
+      <Project>{87e0a3c9-5ccd-4154-9ee3-e65cb54efd0e}</Project>
+      <Name>VaBank.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VaBank.Data.EntityFramework\VaBank.Data.EntityFramework.csproj">
+      <Project>{39A10C5C-1058-41D3-B40F-D0ECE134CD6F}</Project>
+      <Name>VaBank.Data.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VaBank.Services.Contracts\VaBank.Services.Contracts.csproj">
       <Project>{c203f56a-2032-4ba5-a8aa-0cb7fd38b784}</Project>
       <Name>VaBank.Services.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

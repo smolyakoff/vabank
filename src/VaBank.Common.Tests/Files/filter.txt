@@ -1,0 +1,1 @@
+﻿%7B%22p%22:%22%5B%5C%222014-09-01T21:00:00.000Z%5C%22,%5C%222014-09-30T21:00:00.000Z%5C%22,null,%5B%5C%22Warning%5C%22,%5C%22Error%5C%22%5D%5D%22,%22q%22:%22(timestampUtc+%3E+@0+and+timestampUtc+%3C+@1+and+type+%3D%3D+@2+and+@3.Contains(level))%22%7D

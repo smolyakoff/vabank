@@ -8,46 +8,160 @@
     function dataUtil() {
 
         var FilterOperator = {
-            Equal: 'eq',
-            NotEqual: 'neq',
-            GreaterThan: 'gt',
-            LessThan: 'lt',
-            In: 'in'
+            Equal: '==',
+            NotEqual: '!=',
+            GreaterThan: '>',
+            GreaterThanOrEqual: '>=',
+            LessThan: '<',
+            LessThanOrEqual: '<=',
+            In: 'in',
+            NotIn: '!in',
+            StartsWith: 'startswith',
+            NotStartsWith: '!startswith',
+            EndsWith: 'endswith',
+            NotEndsWith: '!endswith',
+            Contains: 'contains',
+            NotContains: '!contains'
         };
 
         var operators = _.values(FilterOperator);
 
-        var dumpValue = function(value) {
-            if (_.isUndefined(value)) {
-                value = null;
-            }
-            return JSON.stringify(value);
-        };
+        var Filter = (function () {
 
-        function Filter(options) {
-            if (!Filter.schema(options)) {
-                var errors = Filter.schema.errors(options);
-                throw new TypeError('Invalid options passed!\n' + JSON.stringify(errors));
+            var functions = {};
+            functions[FilterOperator.StartsWith] = "StartsWith";
+            functions[FilterOperator.EndsWith] = "EndsWith";
+            functions[FilterOperator.Contains] = "Contains";
+            functions[FilterOperator.In] = "Contains";
+
+            var addParameter = function(parameters, value) {
+                if (_.isUndefined(value)) {
+                    value = null;
+                }
+                parameters.push(value);
+                return '@' + (parameters.length - 1);
+            };
+
+            var operatorQuery = function(options, parameters) {
+                var parameterName = addParameter(parameters, options.value);
+                return options.propertyName + ' ' + options.operator + ' ' + parameterName;
+            };
+
+            var functionQuery = function(options, parameters) {
+                var parameterName = addParameter(parameters, options.value);
+                var prefix = options.isNegative ? '!' : '';
+                return prefix + options.propertyName + '.' + options.functionName + '(' + parameterName + ')';
+            };
+
+            var functionOverParameterQuery = function(options, parameters) {
+                var parameterName = addParameter(parameters, options.value);
+                var prefix = options.isNegative ? '!' : '';
+                return prefix + parameterName + '.' + options.functionName + '(' + options.propertyName + ')';
+            };
+
+            function FilterImpl(options) {
+                if (!FilterImpl.schema(options)) {
+                    var errors = FilterImpl.schema.errors(options);
+                    throw new TypeError('Invalid options passed!\n' + JSON.stringify(errors));
+                }
+                this.propertyName = options.propertyName;
+                this.operator = options.operator;
+                this.value = options.value;
             }
-            this.propertyName = options.propertyName;
-            this.operator = options.operator;
-            this.value = options.value;
-        }
-        Filter.schema = schema({
-            propertyName: String,
-            operator: operators,
-        });
-        Filter.prototype.toString = function () {
-            return '(' + this.propertyName + ' ' + this.operator + ' ' + dumpValue(this.value) + ')';
-        };
-        Filter.prototype.toJSON = function() {
-            return JSON.stringify({
-                propertyName: this.propertyName,
-                operator: this.operator,
-                value: this.value,
-                type: 'filter'
+            FilterImpl.schema = schema({
+                propertyName: String,
+                operator: operators,
             });
-        };
+            FilterImpl.prototype.toLINQ = function (parameters) {
+                if (_.isUndefined(parameters) || _.isNull(parameters)) {
+                    parameters = [];
+                }
+                var query;
+                switch (this.operator) {
+                    case FilterOperator.Equal:
+                    case FilterOperator.NotEqual:
+                    case FilterOperator.GreaterThan:
+                    case FilterOperator.GreaterThanOrEqual:
+                    case FilterOperator.LessThan:
+                    case FilterOperator.LessThanOrEqual:
+                    case FilterOperator.In:
+                    case FilterOperator.NotIn:
+                        query = operatorQuery({                            
+                            propertyName: this.propertyName,
+                            value: this.value,
+                            operator: this.operator
+                        }, parameters);
+                        break;
+                    case FilterOperator.StartsWith:
+                        query = functionQuery({                            
+                            propertyName: this.propertyName,
+                            value: this.value,
+                            functionName: functions[FilterOperator.StartsWith],
+                            isNegative: false
+                        }, parameters);
+                        break;
+                    case FilterOperator.NotStartsWith:
+                        query = functionQuery({                            
+                            propertyName: this.propertyName,
+                            value: this.value,
+                            functionName: functions[FilterOperator.StartsWith],
+                            isNegative: true
+                        }, parameters);
+                        break;
+                    case FilterOperator.EndsWith:
+                        query = functionQuery({                            
+                            propertyName: this.propertyName,
+                            value: this.value,
+                            functionName: functions[FilterOperator.EndsWith],
+                            isNegative: false
+                        }, parameters);
+                        break;
+                    case FilterOperator.NotEndsWith:
+                        query = functionQuery({                            
+                            propertyName: this.propertyName,
+                            value: this.value,
+                            functionName: functions[FilterOperator.EndsWith],
+                            isNegative: true
+                        }, parameters);
+                        break;
+                    case FilterOperator.Contains:
+                        query = functionQuery({                            
+                            propertyName: this.propertyName,
+                            value: this.value,
+                            functionName: functions[FilterOperator.Contains],
+                            isNegative: false
+                        }, parameters);
+                        break;
+                    case FilterOperator.NotContains:
+                        query = functionQuery({                            
+                            propertyName: this.propertyName,
+                            value: this.value,
+                            functionName: functions[FilterOperator.Contains],
+                            isNegative: true
+                        }, parameters);
+                        break;
+                    default:
+                        var message = 'Operator ' + this.operator + ' is not supported';
+                        throw new Error(message, "Invalid operator");
+                }
+                var linq = {                    
+                    p: JSON.stringify(parameters),
+                    q: query
+                };
+                return linq;
+            };
+            FilterImpl.prototype.toJSON = function () {
+                return JSON.stringify({
+                    propertyName: this.propertyName,
+                    operator: this.operator,
+                    value: this.value,
+                    type: 'simple'
+                });
+            };
+            return FilterImpl;
+        })();
+
+        
 
         var FilterLogic = {
             Or: 'or',
@@ -59,6 +173,7 @@
         var Combiner = (function () {
             var filters = [];
             function CombinerImpl(options) {
+                filters = [];
                 if (!CombinerImpl.schema(options)) {
                     var errors = CombinerImpl.schema.errors(options);
                     throw new TypeError('Invalid options passed!\n' + JSON.stringify(errors));
@@ -86,17 +201,24 @@
             CombinerImpl.prototype.getFilters = function () {
                 return _.clone(filters);
             };
-            CombinerImpl.prototype.toString = function () {
-                var filterStrings = _.map(filters, function(x) {
-                    return x.toString();
+            CombinerImpl.prototype.toLINQ = function () {
+                debugger;
+                var parameters = [];
+                var filterStrings = _.map(filters, function (x) {
+                    var linq = x.toLINQ(parameters);
+                    return linq.q;
                 });
-                return '(' + filterStrings.join(' ' + this.logic + ' ') + ')';
+                var linq = {                    
+                    q: '(' + filterStrings.join(' ' + this.logic + ' ') + ')',
+                    p: JSON.stringify(parameters)
+                };
+                return linq;
             };
             CombinerImpl.prototype.toJSON = function () {
                 JSON.stringify({
                     logic: this.logic,
                     filters: _.map(filters, function (x) { return x.toJSON(); }),
-                    type: 'combiner'
+                    type: 'combined'
                 });
             };
             return CombinerImpl;
@@ -104,6 +226,7 @@
         
 
         var combineFilters = function (filters, logic) {
+            debugger;
             var options = {
                 logic: logic
             };

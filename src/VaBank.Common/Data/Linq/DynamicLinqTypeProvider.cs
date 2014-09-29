@@ -24,9 +24,18 @@ namespace VaBank.Common.Data.Linq
         /// </summary>
         public HashSet<Type> GetCustomTypes()
         {
-            if (_customTypes == null) _customTypes = new HashSet<Type>(FindTypesMarkedWithAttribute());
+            try
+            {
+                if (_customTypes == null) _customTypes = new HashSet<Type>(FindTypesMarkedWithAttribute());
 
-            return _customTypes;
+                return _customTypes;
+            }
+            catch (Exception ex)
+            {
+                
+                return new HashSet<Type>();
+            }
+            
         }
 
         static IEnumerable<Type> FindTypesMarkedWithAttribute()

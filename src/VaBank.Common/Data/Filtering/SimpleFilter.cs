@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using VaBank.Common.Data.Linq;
 
 namespace VaBank.Common.Data.Filtering
 {
     public class SimpleFilter : IFilter
     {
-        private object _value;
-
         private SimpleFilter()
         {
         }

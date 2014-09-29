@@ -50,13 +50,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\BasicQuery.cs" />
     <Compile Include="Data\Filtering\CombinedFilter.cs" />
-    <Compile Include="Data\Filtering\Converters\JsonOperatorConverter.cs" />
+    <Compile Include="Data\Filtering\Converters\JsonFilterOperatorConverter.cs" />
+    <Compile Include="Data\Filtering\Converters\QueryStringFilterConverter.cs" />
     <Compile Include="Data\Filtering\EmptyFilter.cs" />
     <Compile Include="Data\Filtering\DynamicLinqFilter.cs" />
     <Compile Include="Data\Filtering\IFilter.cs" />
     <Compile Include="Data\Filtering\Converters\JsonFilterConverter.cs" />
     <Compile Include="Data\Filtering\SimpleFilter.cs" />
+    <Compile Include="Data\IFilterableQuery.cs" />
+    <Compile Include="Data\IQuery.cs" />
     <Compile Include="Data\Linq\BasicQueryable.cs" />
     <Compile Include="Data\Linq\ClassFactory.cs" />
     <Compile Include="Data\Linq\DynamicClass.cs" />
@@ -72,32 +76,12 @@
     <Compile Include="Data\Linq\IDynamicLinkTypeProvider.cs" />
     <Compile Include="Data\Linq\ParseException.cs" />
     <Compile Include="Data\Linq\Res.cs" />
-    <Compile Include="Expressions\ExpressionHelper.cs" />
-    <Compile Include="Filtration\CombinerFilter.cs" />
-    <Compile Include="Filtration\ExpressionFilter.cs" />
-    <Compile Include="Filtration\Filter.cs" />
-    <Compile Include="Filtration\FilterDescriptor.cs" />
-    <Compile Include="Filtration\FilterHelper.cs" />
     <Compile Include="Data\Filtering\FilterLogic.cs" />
     <Compile Include="Data\Filtering\FilterOperator.cs" />
-    <Compile Include="Filtration\FilterType.cs" />
-    <Compile Include="Filtration\Serialization\FilterTypeConverter.cs" />
-    <Compile Include="Filtration\Serialization\IFilterDescriptorSerializer.cs" />
-    <Compile Include="Filtration\Serialization\IJsonFilterDescriptorSerializer.cs" />
-    <Compile Include="Filtration\Serialization\JsonFilterDescriptorSerializer.cs" />
-    <Compile Include="Filtration\Serialization\FilterOperatorConverter.cs" />
     <Compile Include="Data\Filtering\LinqSpec.cs" />
     <Compile Include="Data\Linq\ExpressionCombiner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reflection\ReflectionHelper.cs" />
     <Compile Include="Serialization\JsonCreationConverter.cs" />
-    <Compile Include="Sorting\Serialization\IJsonSortingDescriptorSerializer.cs" />
-    <Compile Include="Sorting\Serialization\ISortingDescriptorSerializer.cs" />
-    <Compile Include="Sorting\Serialization\JsonSortingDescriptorSerializer.cs" />
-    <Compile Include="Sorting\Sort.cs" />
-    <Compile Include="Sorting\SortingDescriptor.cs" />
-    <Compile Include="Sorting\SortingDirection.cs" />
-    <Compile Include="Sorting\SortingHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

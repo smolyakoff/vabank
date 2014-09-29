@@ -11,7 +11,7 @@ namespace VaBank.Data.EntityFramework
 {
     public class VaBankContext: DbContext
     {
-        public VaBankContext(): base("Name=VaBank")
+        public VaBankContext(): base("Name=VaBank.Db")
         {
         }
 
