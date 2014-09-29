@@ -8,8 +8,8 @@ Param(
 )
 
 $SolutionDir = Resolve-Path "$PSScriptRoot\.."
-if (!$SolutionDir) {
-	$SolutionDir = (Get-Item $MyInvocation.MyCommand.Definition).Parent.Parent.FullName
+if (!($PSScriptRoot)) {
+	$SolutionDir = (Get-Item(Split-Path -Parent -Path $MyInvocation.MyCommand.Definition)).Parent.FullName
 }
 
 $ToolsDir = "$SolutionDir\tools"
