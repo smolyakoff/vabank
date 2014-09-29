@@ -38,7 +38,7 @@
   </Target>
 
   <Target Name="Recreate">
-    <Error Condition="$'(Environment)'=='Production'" Text="Recreate target can't be executed in production environment"/>
+    <Error Condition="'$(Environment)'=='Production'" Text="Recreate target can't be executed in production environment"/>
     
     <Message Text="Recreating database..." Importance="High"/>
     <MSBuild.ExtensionPack.Sql2012.Database
