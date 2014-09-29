@@ -26,8 +26,7 @@
   <Target Name="Migrate" DependsOnTargets="EnsureDatabaseExists">
     <Message Text="Running code based migrations..." Importance="High"/>
     <MSBuild Projects="$(DbMigrationsProjectPath)" 
-             Targets="Build" 
-             Condition="'$(BuildingInsideVisualStudio)'=='False'">
+             Targets="Build">
     </MSBuild>
     <Exec ConsoleToMSBuild="True"
       Command="&quot;$(MigrateToolPath)&quot; --target=&quot;$(DbMigrationsAssemblyPath)&quot; --connection=&quot;$(DatabaseConnectionString)&quot; --db=$(DatabaseType) --profile=$(Environment) --tag=$(Environment)"
