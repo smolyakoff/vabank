@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using VaBank.Common.Data.Filtering;
 using VaBank.Common.Reflection;
 
 namespace VaBank.Common.Filtration
@@ -58,11 +59,11 @@ namespace VaBank.Common.Filtration
 
             switch (filter.Operator)
             {
-                case FilterOperator.Equality:
+                case FilterOperator.Equal:
                     body = Expression.Equal(left, right);
                     break;
 
-                case FilterOperator.Inequality:
+                case FilterOperator.NotEqual:
                     body = Expression.NotEqual(left, right);
                     break;
 
@@ -203,9 +204,9 @@ namespace VaBank.Common.Filtration
             switch (str)
             {
                 case "==":
-                    return FilterOperator.Equality;
+                    return FilterOperator.Equal;
                 case "!=":
-                    return FilterOperator.Inequality;
+                    return FilterOperator.NotEqual;
                 case "<":
                     return FilterOperator.LessThan;
                 case "<=":

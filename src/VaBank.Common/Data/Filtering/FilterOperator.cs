@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Newtonsoft.Json;
+using VaBank.Common.Filtration.Serialization;
 
-namespace VaBank.Common.Filtration
+namespace VaBank.Common.Data.Filtering
 {
+    [JsonConverter(typeof(FilterOperatorConverter))]
     public enum FilterOperator
     {
-        Equality,
-        Inequality,
+        Equal,
+        NotEqual,
         GreaterThan,
         GreaterThanOrEqual,
         LessThan,
