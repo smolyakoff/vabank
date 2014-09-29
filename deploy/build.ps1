@@ -7,9 +7,11 @@ Param(
 	[String] $Verbosity = "normal"
 )
 
-$SolutionDir = Resolve-Path "$PSScriptRoot\.."
 if (!($PSScriptRoot)) {
 	$SolutionDir = (Get-Item(Split-Path -Parent -Path $MyInvocation.MyCommand.Definition)).Parent.FullName
+}
+else {
+	$SolutionDir = Resolve-Path "$PSScriptRoot\.."
 }
 
 $ToolsDir = "$SolutionDir\tools"
