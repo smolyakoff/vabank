@@ -6,7 +6,12 @@ Param(
 	[String] $Configuration = "Release",
 	[String] $Verbosity = "normal"
 )
+
 $SolutionDir = Resolve-Path "$PSScriptRoot\.."
+if (!$SolutionDir) {
+	$SolutionDir = (Get-Item $MyInvocation.MyCommand.Definition).Parent.Parent.FullName
+}
+
 $ToolsDir = "$SolutionDir\tools"
 $BuildDir = "$SolutionDir\build"
 Import-Module -Name "$SolutionDir/tools/Invoke-MsBuild.psm1"
