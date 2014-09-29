@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{CAF1F0
 		deploy\build.ps1 = deploy\build.ps1
 		deploy\dev-clean.bat = deploy\dev-clean.bat
 		deploy\dev-migrate.bat = deploy\dev-migrate.bat
+		deploy\dev-recreate.bat = deploy\dev-recreate.bat
 		deploy\VaBank.proj = deploy\VaBank.proj
 		deploy\VaBank.props = deploy\VaBank.props
 	EndProjectSection
