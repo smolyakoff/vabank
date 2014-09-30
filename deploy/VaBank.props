@@ -24,14 +24,14 @@
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Environment)'=='Development'">
-    <DatabaseServer>(LocalDb)\Projects</DatabaseServer>
+    <DatabaseServer>(LocalDb)\v11.0</DatabaseServer>
     <DatabaseName>VaBank.Database</DatabaseName>
     <DatabaseType>sqlserver2012</DatabaseType>
     <DatabaseConnectionString>Server=$(DatabaseServer);Integrated Security=True;Initial Catalog=$(DatabaseName)</DatabaseConnectionString>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Environment)'=='Test'">
-    <DatabaseServer>(LocalDb)\Projects</DatabaseServer>
+    <DatabaseServer>(LocalDb)\v11.0</DatabaseServer>
     <DatabaseName>VaBank.Database.Test</DatabaseName>
     <DatabaseType>sqlserver2012</DatabaseType>
     <DatabaseConnectionString>Server=$(DatabaseServer);Integrated Security=True;Initial Catalog=$(DatabaseName)</DatabaseConnectionString>

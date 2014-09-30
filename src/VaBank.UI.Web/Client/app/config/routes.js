@@ -20,6 +20,15 @@
             url: '/login',
             templateUrl: '/Client/app/areas/global/auth/login.html'
         });
+
+        $stateProvider.state('error', {
+            abstract: true,
+            template: '<div data-ui-view=\"\"></div>'
+        });
+        $stateProvider.state('error.500', {
+            url: '/error/500',
+            templateUrl: '/Client/app/areas/global/errors/500.html'
+        });
     }
 
 })();
