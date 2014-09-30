@@ -5,12 +5,14 @@
         {
             "type": "simple",
             "propertyName": "make",
+            "propertyType":  "string",
             "operator": "in",
             "value": [ "Ford", "Dodge" ]
         },
         {
             "type": "simple",
             "propertyName": "year",
+            "propertyType":  "int",
             "operator": ">",
             "value": 2002
         }

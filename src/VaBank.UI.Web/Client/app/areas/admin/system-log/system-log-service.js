@@ -13,6 +13,10 @@
             query: {
                 isArray: true,
             },
+            clear: {
+                url: '/api/logs/system/clear',
+                method: 'POST'
+            },
             lookup: {
               url: '/api/logs/system/lookup',
               isArray: false

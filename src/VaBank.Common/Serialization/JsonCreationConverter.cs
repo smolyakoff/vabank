@@ -7,7 +7,7 @@ namespace VaBank.Common.Serialization
 {
     public abstract class JsonCreationConverter<T> : JsonConverter
     {
-        protected abstract T Create(Type objectType, JObject jObject);
+        protected abstract T Create(Type objectType, JObject jObject, JsonSerializer serializer);
 
         public override bool CanConvert(Type objectType)
         {
@@ -28,7 +28,7 @@ namespace VaBank.Common.Serialization
             var jObject = JObject.Load(reader);
 
             // Create target object based on JObject
-            var target = Create(objectType, jObject);
+            var target = Create(objectType, jObject, serializer);
 
             //Create a new reader for this jObject, and set all properties to match the original reader.
             JsonReader jObjectReader = jObject.CreateReader();

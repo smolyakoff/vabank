@@ -46,34 +46,56 @@ namespace VaBank.Common.Data.Filtering.Converters
 
             private object[] GetParameters()
             {
+                var types = TypesCsv.Split(',')
+                    .Select(x => x.Trim())
+                    .Select(x => string.Format("\"{0}\"", x))
+                    .Select(JsonConvert.DeserializeObject<FilterPropertyType>)
+                    .Select(x => x.ToType())
+                    .ToList();
                 var parameters = JsonConvert.DeserializeObject<object[]>(ParametersJson);
-                return parameters.Select(x => Visit((dynamic) x)).Cast<object>().ToArray();
+                return parameters.Select((o, i) => Visit((dynamic) o, types[i])).Cast<object>().ToArray();
             }
 
-            private object Visit(JArray jArray)
+            private object Visit(JArray jArray, Type type)
             {
                 if (jArray == null)
                 {
                     return null;
                 }
-                var values = jArray.ToObject<List<object>>();
-                if (values.Count == 0 || values.All(x => x == null))
+                var listType = typeof (List<>).MakeGenericType(type);
+                if (jArray.Count == 0)
                 {
-                    return new List<string>();
+                    return Activator.CreateInstance(listType);
                 }
-                var firstTypedValue = values.First(x => x != null);
-                var listType = (typeof (List<>).MakeGenericType(firstTypedValue.GetType()));
+                if (type == typeof (object))
+                {
+                    return InferType(jArray);
+                }
                 return jArray.ToObject(listType);
             }
 
-
-            private object Visit(object obj)
+            private object InferType(JArray array)
             {
-                return obj;
+                var firstTypedValue = array.Cast<JValue>().FirstOrDefault(x => x.Value != null);
+                if (firstTypedValue == null)
+                {
+                    return new List<object>();
+                }
+                var type = firstTypedValue.Value.GetType();
+                var listType = typeof(List<>).MakeGenericType(type);
+                return array.ToObject(listType);
             }
 
-            [JsonProperty("p")]
+            private object Visit(object obj, Type type)
+            {
+                return Convert.ChangeType(obj, type);
+            }
+
+            [JsonProperty("p", Required = Required.Always)]
             private string ParametersJson { get; set; }
+
+            [JsonProperty("t", Required = Required.Always)]
+            private string TypesCsv { get; set; }
         }
     }
 }

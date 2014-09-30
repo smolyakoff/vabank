@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 using Autofac;
 using Hangfire;
 using Hangfire.SqlServer;
@@ -15,6 +16,8 @@ using System.Threading.Tasks;
 using Microsoft.Owin;
 using SquishIt.Framework;
 using SquishIt.Sass;
+using VaBank.Common.Data;
+using VaBank.UI.Web.Api.Infrastructure.ModelBinding;
 using VaBank.UI.Web.Modules;
 using VaBank.UI.Web.Views;
 
@@ -68,6 +71,8 @@ namespace VaBank.UI.Web
         {
             var configuration = new HttpConfiguration();
             configuration.MapHttpAttributeRoutes();
+
+            //Formatters
             configuration.Formatters.Clear();
             var jsonFormatter = new JsonMediaTypeFormatter();
             jsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/octet-stream"));
@@ -78,6 +83,11 @@ namespace VaBank.UI.Web
             serializerSettings.Converters.Add(new StringEnumConverter());
             jsonFormatter.SerializerSettings = serializerSettings;
             configuration.Formatters.Add(jsonFormatter);
+
+            //Model Binders
+            configuration.Services.Insert(
+                typeof(ModelBinderProvider), 0, new InheritanceAwareModelBinderProvider(typeof(IQuery), new QueryModelBinder()));
+
             configuration.EnsureInitialized();
             return configuration;
         }

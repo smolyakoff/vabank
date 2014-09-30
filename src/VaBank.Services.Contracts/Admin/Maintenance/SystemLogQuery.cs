@@ -3,14 +3,23 @@ using VaBank.Common.Data.Filtering;
 
 namespace VaBank.Services.Contracts.Admin.Maintenance
 {
-    public class SystemLogQuery : IFilterableQuery
+    public class SystemLogQuery : IClientFilterableQuery
     {
         public SystemLogQuery()
         {
             Filter = new EmptyFilter();
         }
 
-        public IFilter Filter { get; set; }
-        public bool InMemoryFiltering { get; set; }
+        public void ApplyFilter(IFilter filter)
+        {
+            Filter = filter;
+        }
+
+        public IFilter Filter { get; private set; }
+
+        public bool InMemoryFiltering
+        {
+            get { return false; }
+        }
     }
 }

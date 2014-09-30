@@ -173,10 +173,15 @@
     <Content Include="Client\app\modules\vabank-ui\services\data-util.js" />
     <Content Include="Client\app\modules\vabank-ui\vabank-ui.js" />
     <Content Include="Client\app\vabank.js" />
+    <Content Include="Client\bower_components\angular-bootstrap-datetimepicker\karma.conf.js" />
+    <Content Include="Client\bower_components\angular-bootstrap-datetimepicker\src\css\datetimepicker.css" />
+    <Content Include="Client\bower_components\angular-bootstrap-datetimepicker\src\js\datetimepicker.js" />
     <Content Include="Client\bower_components\angular-bootstrap\ui-bootstrap-tpls.js" />
     <Content Include="Client\bower_components\angular-bootstrap\ui-bootstrap-tpls.min.js" />
     <Content Include="Client\bower_components\angular-bootstrap\ui-bootstrap.js" />
     <Content Include="Client\bower_components\angular-bootstrap\ui-bootstrap.min.js" />
+    <Content Include="Client\bower_components\angular-date-time-input\karma.conf.js" />
+    <Content Include="Client\bower_components\angular-date-time-input\src\dateTimeInput.js" />
     <Content Include="Client\bower_components\angular-datepicker\.gitattributes" />
     <Content Include="Client\bower_components\angular-datepicker\app\index.html" />
     <Content Include="Client\bower_components\angular-datepicker\app\scripts\datePicker.js" />
@@ -618,6 +623,14 @@
     <Content Include="Client\bower_components\js-schema\LICENSE" />
     <Content Include="Client\bower_components\js-schema\package.json" />
     <Content Include="Client\bower_components\js-schema\README.md" />
+    <Content Include="Client\bower_components\angular-bootstrap-datetimepicker\.bower.json" />
+    <Content Include="Client\bower_components\angular-bootstrap-datetimepicker\bower.json" />
+    <Content Include="Client\bower_components\angular-bootstrap-datetimepicker\LICENSE" />
+    <Content Include="Client\bower_components\angular-bootstrap-datetimepicker\README.md" />
+    <Content Include="Client\bower_components\angular-date-time-input\.bower.json" />
+    <Content Include="Client\bower_components\angular-date-time-input\bower.json" />
+    <Content Include="Client\bower_components\angular-date-time-input\LICENSE" />
+    <Content Include="Client\bower_components\angular-date-time-input\README.md" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -635,7 +648,8 @@
   <ItemGroup>
     <Compile Include="Api\Admin\SystemLogsController.cs" />
     <Compile Include="Api\Admin\MaintenanceController.cs" />
-    <Compile Include="Api\Infrastructure\ModelBinders\QueryModelBinder.cs" />
+    <Compile Include="Api\Infrastructure\ModelBinding\InheritanceAwareModelBinderProvider.cs" />
+    <Compile Include="Api\Infrastructure\ModelBinding\QueryModelBinder.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
     <Compile Include="Modules\ServicesModule.cs" />
     <Compile Include="Modules\WebApiModule.cs" />

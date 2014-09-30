@@ -4,8 +4,8 @@ namespace VaBank.Common.Data
 {
     public interface IFilterableQuery : IQuery
     {
-        IFilter Filter { get; set;  }
+        IFilter Filter { get; }
 
-        bool InMemoryFiltering { get; set; }
+        bool InMemoryFiltering { get; }
     }
 }

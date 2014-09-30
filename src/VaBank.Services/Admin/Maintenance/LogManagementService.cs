@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper.QueryableExtensions;
+using VaBank.Common.Data.Filtering;
 using VaBank.Common.Data.Linq;
 using VaBank.Core.Entities;
 using VaBank.Data.EntityFramework;
@@ -24,8 +25,9 @@ namespace VaBank.Services.Admin.Maintenance
             var context = new VaBankContext();
             var queryable = context.Logs.AsQueryable();
             var results = queryable
-                .Where(query.Filter.ToExpression<Log>())
-                .Select(AutoMapper.Mapper.Map<Log,SystemLogEntryModel>)
+                .Where(query.Filter)
+                .AsEnumerable<Log>()
+                .Select(AutoMapper.Mapper.Map<Log, SystemLogEntryModel>)
                 .ToList();
             return results;
         }

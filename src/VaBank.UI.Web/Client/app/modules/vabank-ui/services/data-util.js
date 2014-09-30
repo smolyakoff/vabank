@@ -24,7 +24,24 @@
             NotContains: '!contains'
         };
 
+        var FilterPropertyType = {
+            Auto: 'auto',
+            Byte: 'byte',
+            Short: 'short',
+            Int: 'int',
+            Long: 'long',
+            Char: 'char',
+            String: 'string',
+            Float: 'float',
+            Double: 'double',
+            Decimal: 'decimal',
+            DateTime: 'datetime',
+            Guid: 'guid',
+            Boolean: 'boolean'
+        };
+
         var operators = _.values(FilterOperator);
+        var filterPropertyTypes = _.values(FilterPropertyType);
 
         var Filter = (function () {
 
@@ -64,12 +81,16 @@
                     var errors = FilterImpl.schema.errors(options);
                     throw new TypeError('Invalid options passed!\n' + JSON.stringify(errors));
                 }
+                this.propertyType = angular.isString(options.propertyType)
+                    ? options.propertyType
+                    : FilterPropertyType.Auto;
                 this.propertyName = options.propertyName;
                 this.operator = options.operator;
                 this.value = options.value;
             }
             FilterImpl.schema = schema({
                 propertyName: String,
+                propertyType: [null, filterPropertyTypes],
                 operator: operators,
             });
             FilterImpl.prototype.toLINQ = function (parameters) {
@@ -160,17 +181,19 @@
                 }
                 var linq = {                    
                     p: JSON.stringify(parameters),
-                    q: query
+                    q: query,
+                    t: this.propertyType
                 };
                 return linq;
             };
-            FilterImpl.prototype.toJSON = function () {
-                return JSON.stringify({
+            FilterImpl.prototype.toObject = function () {
+                return {
                     propertyName: this.propertyName,
+                    propertyType: this.propertyType,
                     operator: this.operator,
                     value: this.value,
                     type: 'simple'
-                });
+                };
             };
             return FilterImpl;
         })();
@@ -217,22 +240,25 @@
             };
             CombinerImpl.prototype.toLINQ = function () {
                 var parameters = [];
-                var filterStrings = _.map(filters, function (x) {
+                var filterLinqs = _.map(filters, function (x) {
                     var linq = x.toLINQ(parameters);
-                    return linq.q;
+                    return linq;
                 });
+                var filterStrings = _.pluck(filterLinqs, 'q');
+                var filterTypes = _.pluck(filterLinqs, 't');
                 var linq = {                    
                     q: '(' + filterStrings.join(' ' + this.logic + ' ') + ')',
-                    p: JSON.stringify(parameters)
+                    p: JSON.stringify(parameters),
+                    t: filterTypes.join(', ')
                 };
                 return linq;
             };
-            CombinerImpl.prototype.toJSON = function () {
-                JSON.stringify({
+            CombinerImpl.prototype.toObject = function () {
+                return {
                     logic: this.logic,
-                    filters: _.map(filters, function (x) { return x.toJSON(); }),
+                    filters: _.map(filters, function(x) { return x.toObject(); }),
                     type: 'combined'
-                });
+                };
             };
             return CombinerImpl;
         })();

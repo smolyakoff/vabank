@@ -50,15 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\BasicQuery.cs" />
     <Compile Include="Data\Filtering\CombinedFilter.cs" />
     <Compile Include="Data\Filtering\Converters\JsonFilterOperatorConverter.cs" />
+    <Compile Include="Data\Filtering\Converters\JsonFilterPropertyTypeConverter.cs" />
     <Compile Include="Data\Filtering\Converters\QueryStringFilterConverter.cs" />
     <Compile Include="Data\Filtering\EmptyFilter.cs" />
     <Compile Include="Data\Filtering\DynamicLinqFilter.cs" />
+    <Compile Include="Data\Filtering\FilteringExtensions.cs" />
+    <Compile Include="Data\Filtering\FilterPropertyType.cs" />
     <Compile Include="Data\Filtering\IFilter.cs" />
     <Compile Include="Data\Filtering\Converters\JsonFilterConverter.cs" />
     <Compile Include="Data\Filtering\SimpleFilter.cs" />
+    <Compile Include="Data\IClientFilterableQuery.cs" />
     <Compile Include="Data\IFilterableQuery.cs" />
     <Compile Include="Data\IQuery.cs" />
     <Compile Include="Data\Linq\BasicQueryable.cs" />

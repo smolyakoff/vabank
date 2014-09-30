@@ -17,6 +17,7 @@ namespace VaBank.UI.Web.Views
 
             bundle
                 .Add(BowerPath("angular-datepicker/dist/index.css"))
+                .Add(BowerPath("angular-bootstrap-datetimepicker/src/css/datetimepicker.css"))
                 .Add(BowerPath("isteven-angular-multiselect/angular-multi-select.css"))
                 .Add(BowerPath("angular-loading-bar/build/loading-bar.css"))
                 .Add(ApplicationPath("styles/vabank.scss"));
@@ -39,6 +40,8 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("angular-bootstrap/ui-bootstrap-tpls.js"))
                 .Add(BowerPath("angular-loading-bar/build/loading-bar.js"))
                 .Add(BowerPath("angular-datepicker/dist/index.js"))
+                .Add(BowerPath("angular-bootstrap-datetimepicker/src/js/datetimepicker.js"))
+                .Add(BowerPath("angular-date-time-input/src/dateTimeInput.js"))
                 .Add(BowerPath("isteven-angular-multiselect/angular-multi-select.js"))
                 .Add(BowerPath("angular-smart-table/dist/smart-table.debug.js"));
 

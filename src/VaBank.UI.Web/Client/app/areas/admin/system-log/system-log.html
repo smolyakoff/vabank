@@ -3,7 +3,17 @@
         <div class="form-inline log-filters">
             <div class="form-group">
                 <label for="from-date">From</label>
-                <input id="from-date" type="text" date-time="" format="yyyy-MM-dd" ng-model="fromFilter.value" min-view="date" />
+                <div class="dropdown" style="display: inline-block">
+                    <a class="dropdown-toggle" id="from-date-drop" role="button" data-toggle="dropdown">
+                        <div class="input-group">
+                            <input type="text" class="form-control" data-ng-model="fromFilter.value" data-date-time-input="YYYY-MM-DD">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="fromFilter.value" data-datetimepicker-config="{minView: 'day'}" />
+                    </ul>
+                </div>
             </div>
             <div class="form-group">
                 <label for="from-date">To</label>
@@ -33,7 +43,7 @@
     </div>
     <div class="col-xs-3">
         <div class="btn-toolbar pull-right" role="toolbar">
-            <button class="btn btn-danger">Clear</button>
+            <button class="btn btn-danger" ng-click="clear()">Clear</button>
             <button class="btn btn-primary" ng-click="show()">Show</button>
         </div>
     </div>

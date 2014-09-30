@@ -9,6 +9,18 @@
     function systemLog($scope, controlUtil, dataUtil, systemLogService, data) {
         var multiselect = controlUtil.multiselect;
 
+        var createFilter = function() {
+            var selectedTypes = multiselect.getSelectedItems($scope.lookups.types);
+            $scope.typeFilter.value = selectedTypes.length === 0 ? null : selectedTypes[0];
+            $scope.levelFilter.value = multiselect.getSelectedItems($scope.lookups.levels);
+            var filter = dataUtil.filters.combine([
+                $scope.fromFilter,
+                $scope.toFilter,
+                $scope.levelFilter
+            ], dataUtil.filters.logic.And);
+            return filter;
+        };
+
         $scope.lookups = {
             levels: multiselect.getSelectChoices(data.lookup.levels, {tickMode: 'all'}),
             types: multiselect.getSelectChoices(data.lookup.types, {tickMode: 'first'}),
@@ -41,16 +53,16 @@
         $scope.logs = data.logs;
 
         $scope.show = function () {
-            var selectedTypes = multiselect.getSelectedItems($scope.lookups.types);
-            $scope.typeFilter.value = selectedTypes.length === 0 ? null : selectedTypes[0];
-            $scope.levelFilter.value = multiselect.getSelectedItems($scope.lookups.levels);
-            var filter = dataUtil.filters.combine([
-                $scope.fromFilter,
-                $scope.toFilter,
-                $scope.levelFilter
-            ], dataUtil.filters.logic.And);
-            $scope.logs = systemLogService.LogEntry.query({ filter: filter.toLINQ() });
+            var filter = createFilter().toLINQ();
+            $scope.logs = systemLogService.LogEntry.query({ filter: filter});
         };
+
+        $scope.clear = function() {
+            var filter = createFilter().toObject();
+            $scope.logs = systemLogService.LogEntry.clear({filter: filter});
+        };
+
+
     }
 
 })();

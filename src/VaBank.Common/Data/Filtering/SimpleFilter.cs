@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
@@ -17,9 +18,12 @@ namespace VaBank.Common.Data.Filtering
         public string PropertyName { get; private set; }
 
         [JsonProperty(Required = Required.Always)]
+        public FilterPropertyType PropertyType { get; private set; }
+
+        [JsonProperty(Required = Required.Always)]
         public FilterOperator Operator { get; private set; }
 
-        [JsonProperty]
+        [JsonProperty(Required = Required.Always)]
         public object Value { get; private set; }
 
         public Expression<Func<T ,bool>> ToExpression<T>()
@@ -75,11 +79,10 @@ namespace VaBank.Common.Data.Filtering
         private DynamicLinqExpression In()
         {
             var value = Value;
-            var enumerable = value as IEnumerable;
-            if (enumerable != null)
+            var jArray = value as JArray;
+            if (jArray != null)
             {
-                var array = enumerable.Cast<JValue>().Select(x => x.Value).ToList();
-                value = array;
+                value = ToConcreteList(jArray);
             }
             return new DynamicLinqExpression(string.Format("@0.Contains({0})", PropertyName), value);
         }
@@ -87,13 +90,19 @@ namespace VaBank.Common.Data.Filtering
         private DynamicLinqExpression NotIn()
         {
             var value = Value;
-            var enumerable = value as IEnumerable;
-            if (enumerable != null)
+            var jArray = value as JArray;
+            if (jArray != null)
             {
-                var array = enumerable.Cast<JValue>().Select(x => x.Value).ToList();
-                value = array;
+                value = ToConcreteList(jArray);
             }
             return new DynamicLinqExpression(string.Format("!@0.Contains({0})", PropertyName), value);
+        }
+
+        private object ToConcreteList(JArray array)
+        {
+            var elementType = PropertyType.ToType();
+            var listType = typeof (List<>).MakeGenericType(elementType);
+            return array.ToObject(listType);
         }
 
         private class DynamicLinqExpression
