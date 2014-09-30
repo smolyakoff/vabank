@@ -46,9 +46,9 @@
             $scope.levelFilter.value = multiselect.getSelectedItems($scope.lookups.levels);
             var filter = dataUtil.filters.combine([
                 $scope.fromFilter,
-                $scope.toFilter
+                $scope.toFilter,
+                $scope.levelFilter
             ], dataUtil.filters.logic.And);
-            debugger;
             $scope.logs = systemLogService.LogEntry.query({ filter: filter.toLINQ() });
         };
     }

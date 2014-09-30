@@ -84,12 +84,26 @@
                     case FilterOperator.GreaterThanOrEqual:
                     case FilterOperator.LessThan:
                     case FilterOperator.LessThanOrEqual:
-                    case FilterOperator.In:
-                    case FilterOperator.NotIn:
-                        query = operatorQuery({                            
+                        query = operatorQuery({
                             propertyName: this.propertyName,
                             value: this.value,
                             operator: this.operator
+                        }, parameters);
+                        break;
+                    case FilterOperator.In:
+                        query = functionOverParameterQuery({
+                            propertyName: this.propertyName,
+                            value: this.value,
+                            functionName: functions[FilterOperator.In],
+                            isNegative: false
+                        }, parameters);
+                        break;
+                    case FilterOperator.NotIn:
+                        query = functionOverParameterQuery({
+                            propertyName: this.propertyName,
+                            value: this.value,
+                            functionName: functions[FilterOperator.In],
+                            isNegative: true
                         }, parameters);
                         break;
                     case FilterOperator.StartsWith:
@@ -202,7 +216,6 @@
                 return _.clone(filters);
             };
             CombinerImpl.prototype.toLINQ = function () {
-                debugger;
                 var parameters = [];
                 var filterStrings = _.map(filters, function (x) {
                     var linq = x.toLINQ(parameters);
@@ -226,7 +239,6 @@
         
 
         var combineFilters = function (filters, logic) {
-            debugger;
             var options = {
                 logic: logic
             };

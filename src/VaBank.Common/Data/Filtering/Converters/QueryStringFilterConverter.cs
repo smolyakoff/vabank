@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -55,9 +56,16 @@ namespace VaBank.Common.Data.Filtering.Converters
                 {
                     return null;
                 }
-                var array = jArray.Select(x => ((JValue) x).Value).ToList();
-                return array;
+                var values = jArray.ToObject<List<object>>();
+                if (values.Count == 0 || values.All(x => x == null))
+                {
+                    return new List<string>();
+                }
+                var firstTypedValue = values.First(x => x != null);
+                var listType = (typeof (List<>).MakeGenericType(firstTypedValue.GetType()));
+                return jArray.ToObject(listType);
             }
+
 
             private object Visit(object obj)
             {
