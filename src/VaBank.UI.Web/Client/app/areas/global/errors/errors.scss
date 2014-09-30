@@ -1,0 +1,84 @@
+﻿@mixin icon-animated-wrench($transforms, $percent) {
+    display: inline-block;
+    -moz-animation: $transforms;
+    -webkit-animation: $transforms;
+    -o-animation: $transforms;
+    -ms-animation: $transforms;
+    animation: $transforms;
+    -moz-transform-origin: $percent;
+    -webkit-transform-origin: $percent;
+    -o-transform-origin: $percent;
+    -ms-transform-origin: $percent;
+    transform-origin: $percent
+}
+
+.icon-animated-wrench{
+    @include icon-animated-wrench(wrenching 2.5s 4 ease, 90% 35%)
+}
+
+@mixin transform($transforms) {
+	   -moz-transform: $transforms;
+	     -o-transform: $transforms;
+	    -ms-transform: $transforms;
+	-webkit-transform: $transforms;
+          transform: $transforms;
+}
+
+@mixin keyframes($name) {
+  @-o-keyframes $name {@content };
+  @-ms-keyframes $name { @content };
+  @-webkit-keyframes $name { @content }; 
+  @-keyframes $name { @content };
+}
+
+@include keyframes(wrenching){
+    0% {
+        @include transform(rotate(-12deg));
+    }
+    8% {
+        @include transform(rotate(12deg));
+    }
+    10% {
+        @include transform(rotate(24deg));
+    }
+    18% {
+        @include transform(rotate(-24deg));
+    }
+    20% {
+        @include transform(rotate(-24deg));
+    }
+    28% {
+        @include transform(rotate(24deg));
+    }
+    30% {
+        @include transform(rotate(24deg));
+    }
+    38% {
+        @include transform(rotate(-24deg));
+    }
+    40% {
+        @include transform(rotate(-24deg));
+    }
+    48% {
+        @include transform(rotate(24deg));
+    }
+    50% {
+        @include transform(rotate(24deg));
+    }
+    58% {
+        @include transform(rotate(-24deg));
+    }
+    60% {
+        @include transform(rotate(-24deg));
+    }
+    68% {
+        @include transform(rotate(24deg));
+    }
+    75% {
+        @include transform(rotate(0deg));
+    }
+}
+
+.bigger-125 {
+    font-size: 125%
+}

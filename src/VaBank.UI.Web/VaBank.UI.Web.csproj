@@ -166,6 +166,10 @@
     <Content Include="Client\app\areas\admin\system-log\system-log.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log-ctrl.js" />
     <Content Include="Client\app\areas\global\auth\login.html" />
+    <Content Include="Client\app\areas\global\errors\500.html" />
+    <Content Include="Client\app\areas\global\errors\errors.css">
+      <DependentUpon>errors.scss</DependentUpon>
+    </Content>
     <Content Include="Client\app\areas\global\routing-interceptor.js" />
     <Content Include="Client\app\config\routes.js" />
     <Content Include="Client\app\images\vabank-logo-big.png" />
@@ -618,6 +622,10 @@
     <Content Include="Client\bower_components\js-schema\LICENSE" />
     <Content Include="Client\bower_components\js-schema\package.json" />
     <Content Include="Client\bower_components\js-schema\README.md" />
+    <Content Include="Client\app\areas\global\errors\errors.scss" />
+    <Content Include="Client\app\areas\global\errors\errors.css.map">
+      <DependentUpon>errors.css</DependentUpon>
+    </Content>
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -668,7 +676,7 @@
     <Folder Include="Middleware\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Client\bower_components\angular-ui-router\api\angular-ui-router.d.ts" />
+    <None Include="Client\bower_components\angular-ui-router\api\angular-ui-router.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
