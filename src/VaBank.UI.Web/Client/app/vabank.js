@@ -7,9 +7,10 @@
         'ui.bootstrap.datetimepicker',
         'ui.dateTimeInput',
         'cfp.loadingBar',
-        'datePicker',
         'multi-select',
         'smart-table',
+        'formFor', 
+        'formFor.bootstrapTemplates',
         
         'vabank.ui'
     ]);

@@ -1,0 +1,49 @@
+<div class="form-for-field with-icon-after" ng-class="{'invalid': model.error}">
+  <field-label  ng-if="label"
+                input-uid="{{model.uid}}"
+                iud="{{model.uid}}-label"
+                label="{{label}}"
+                help="{{help}}"
+                required="{{model.required}}">
+  </field-label>
+
+  <field-error uid="{{model.uid}}-error" error="model.error"></field-error>
+
+  <!-- Unfiltered dropdowns use a regular <select> -->
+  <select ng-if="!enableFiltering" aria-manager
+          id="{{model.uid}}"
+          class="select-field-select"
+          tabindex="{{tabIndex}}"
+          placeholder="{{placeholder}}"
+          ng-disabled="disable || model.disabled"
+          ng-model="model.bindable"
+          ng-options="option[valueAttribute] as option[labelAttribute] for option in filteredOptions">
+  </select>
+
+  <i ng-if="!enableFiltering" class="form-for-select-arrows"></i>
+
+  <!-- Filtered dropdowns use a type-ahead style component -->
+  <input  ng-show="enableFiltering"
+          aria-manager
+          id="{{model.uid}}"
+          type="search"
+          tabindex="{{tabIndex}}"
+          placeholder="{{placeholder}}"
+          ng-disabled="disable || model.disabled"
+          ng-model="filter"
+          ng-click="filterTextClick($event)"
+          ng-focus="open()"
+          ng-keydown="keyDown($event)">
+
+  <ul ng-if="enableFiltering">
+    <li ng-repeat="option in filteredOptions"
+        ng-class="{ 'form-for-typeahead-list-item-active': option === selectedOption,
+                    'form-for-typeahead-list-item-hover':  $index === mouseOverIndex}"
+        ng-bind="option[labelAttribute]"
+        ng-click="selectOption(option)"
+        ng-mouseenter="mouseOver($index)">
+    </li>
+  </ul>
+
+  <i ng-if="enableFiltering" class="form-for-input-icon-right fa fa-search"></i>
+</div>

@@ -1,0 +1,11 @@
+﻿<div class="dropdown vb-datepicker">
+    <a class="dropdown-toggle" role="button" data-toggle="dropdown">
+        <div class="input-group">
+            <input type="text" class="form-control" data-ng-model="ngModel" data-date-time-input="{{dateFormat}}">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        </div>
+    </a>
+    <ul class="dropdown-menu" role="menu">
+        <datetimepicker data-ng-model="ngModel" data-datetimepicker-config="{{config | json}}" />
+    </ul>
+</div>

@@ -1,0 +1,21 @@
+<div class="form-for-field" ng-class="{'invalid': model.error}">
+  <field-error  error="model.error"
+                left-aligned="true"
+                uid="{{model.uid}}-error">
+  </field-error>
+
+  <input  aria-manager
+          id="{{model.uid}}"
+          type="checkbox"
+          tabindex="{{tabIndex}}"
+          ng-model="model.bindable"
+          ng-checked="checked"
+          ng-disabled="disable || model.disabled">
+
+  <field-label  ng-if="label"
+                input-uid="{{model.uid}}"
+                uid="{{model.uid}}-label"
+                label="{{label}}"
+                help="{{help}}">
+  </field-label>
+</div>

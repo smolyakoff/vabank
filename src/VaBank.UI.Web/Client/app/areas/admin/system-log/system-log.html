@@ -1,23 +1,13 @@
 ﻿<section class="row offset-bottom">
-    <div class="col-xs-9">
+    <div class="col-xs-10">
         <div class="form-inline log-filters">
             <div class="form-group">
                 <label for="from-date">From</label>
-                <div class="dropdown" style="display: inline-block">
-                    <a class="dropdown-toggle" id="from-date-drop" role="button" data-toggle="dropdown">
-                        <div class="input-group">
-                            <input type="text" class="form-control" data-ng-model="fromFilter.value" data-date-time-input="YYYY-MM-DD">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="fromFilter.value" data-datetimepicker-config="{minView: 'day'}" />
-                    </ul>
-                </div>
+                <vb-datepicker data-ng-model="fromFilter.value" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
             </div>
             <div class="form-group">
                 <label for="from-date">To</label>
-                <input id="from-date" type="text" date-time="" format="yyyy-MM-dd" ng-model="toFilter.value" min-view="date" />
+                <vb-datepicker data-ng-model="toFilter.value" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
             </div>
             <div class="form-group">
                 <label for="from-date">Type</label>
@@ -33,15 +23,17 @@
                 <label for="from-date">Levels</label>
                 <div data-multi-select
                      input-model="lookups.levels"
+                     default-label="Any"
                      button-label="label"
                      item-label="label"
                      tick-property="ticked"
-                     max-labels="2">
+                     helper-elements="all reset"
+                     max-labels="1">
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-2">
         <div class="btn-toolbar pull-right" role="toolbar">
             <button class="btn btn-danger" ng-click="clear()">Clear</button>
             <button class="btn btn-primary" ng-click="show()">Show</button>
