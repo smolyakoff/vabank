@@ -26,6 +26,7 @@ namespace VaBank.Data.Migrations
             Create.Schema(SchemaName);
             Create.Table("User").InSchema(SchemaName).WithColumn("UserID").AsUserId().PrimaryKey("PK_User").WithDefault(SystemMethods.NewGuid)
                 .WithColumn("PasswordHash").AsSecurityString().NotNullable()
+                .WithColumn("PasswordSalt").AsSecurityString().NotNullable()
                 .WithColumn("SecurityStamp").AsSecurityString().NotNullable()
                 .WithColumn("LockoutEnabled").AsBoolean().NotNullable().WithDefaultValue(false)
                 .WithColumn("LockoutEndDateUtc").AsDateTime().Nullable()
