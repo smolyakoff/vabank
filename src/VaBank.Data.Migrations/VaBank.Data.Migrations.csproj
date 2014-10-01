@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="M0-Initial\Logging.cs" />
+    <Compile Include="M1-Authentication\Membership.cs" />
     <Compile Include="Metadata.cs" />
+    <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
