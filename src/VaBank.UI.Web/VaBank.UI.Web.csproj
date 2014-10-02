@@ -766,6 +766,7 @@
     <Compile Include="Api\Admin\MaintenanceController.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\InheritanceAwareModelBinderProvider.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\QueryModelBinder.cs" />
+    <Compile Include="Middleware\ExceptionHandling\ExceptionHandlingMiddleware.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
     <Compile Include="Modules\ServicesModule.cs" />
     <Compile Include="Modules\WebApiModule.cs" />
@@ -795,7 +796,6 @@
   <ItemGroup>
     <Folder Include="Api\Customer\" />
     <Folder Include="Client\bower_components\bootstrap-sass-official\assets\images\" />
-    <Folder Include="Middleware\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Client\bower_components\angular-ui-router\api\angular-ui-router.d.ts" />
