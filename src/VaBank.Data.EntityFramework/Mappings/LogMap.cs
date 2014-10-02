@@ -12,7 +12,7 @@ namespace VaBank.Data.EntityFramework.Mappings
     {
         public LogMap()
         {
-            ToTable("Logs", "Maintenance");
+            ToTable("SystemLog", "Maintenance");
             HasKey(t => t.Id);
             Property(t => t.Id).HasColumnName("EventId");
             Property(t => t.Application);

@@ -1,6 +1,4 @@
-﻿using VaBank.Common.Data.Filtering;
-
-namespace VaBank.Common.Data
+﻿namespace VaBank.Common.Data.Filtering
 {
     public interface IClientFilterableQuery : IFilterableQuery
     {

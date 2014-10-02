@@ -34,13 +34,14 @@ namespace VaBank.Data.Migrations
                 .WithColumn("AccessFailedCount").AsInt32().NotNullable().WithDefaultValue(0)
                 .WithColumn("Deleted").AsBoolean().NotNullable().Indexed("IX_User_Deleted").WithDefaultValue(false);
 
-            Create.Table("UserClaim").InSchema(SchemaName).WithColumn("UserID").AsGuid().PrimaryKey("PK_UserClaim")
-                .ForeignKey("FK_UserClaim_To_User", SchemaName, "User", "UserID")
-                .WithColumn("Type").AsName().PrimaryKey("PK_UserClaim")
+            Create.Table("UserClaim").InSchema(SchemaName)
+                .WithColumn("UserID").AsGuid().ForeignKey("FK_UserClaim_To_User", SchemaName, "User", "UserID")
+                .WithColumn("Type").AsName().NotNullable().Indexed("IX_UserClaim_Type")
                 .WithColumn("Value").AsBigString().NotNullable();
+            Create.PrimaryKey("PK_UserClaim").OnTable("UserClaim").WithSchema(SchemaName).Columns("UserID", "Type");
 
-            Create.Table("UserProfile").InSchema(SchemaName).WithColumn("UserID").AsGuid().PrimaryKey("PK_UserProfile")
-                .ForeignKey("FK_UserProfile_To_User", SchemaName, "User", "UserID")
+            Create.Table("UserProfile").InSchema(SchemaName)
+                .WithColumn("UserID").AsGuid().PrimaryKey("PK_UserProfile").ForeignKey("FK_UserProfile_To_User", SchemaName, "User", "UserID")
                 .WithColumn("FirstName").AsName().NotNullable()
                 .WithColumn("LastName").AsName().NotNullable()
                 .WithColumn("Email").AsEmail().NotNullable().Indexed("IX_UserProfile_Email")
@@ -50,7 +51,8 @@ namespace VaBank.Data.Migrations
                 .WithColumn("SmsNotificationEnabled").AsBoolean().NotNullable().WithDefaultValue(true)
                 .WithColumn("SecretPhrase").AsBigString().NotNullable();
 
-            Create.Table("ApplicationClient").InSchema(SchemaName).WithColumn("ID").AsClientId().PrimaryKey("PK_ApplicationClient").WithDefault(SystemMethods.NewGuid)
+            Create.Table("ApplicationClient").InSchema(SchemaName)
+                .WithColumn("ID").AsClientId().PrimaryKey("PK_ApplicationClient").WithDefault(SystemMethods.NewGuid)
                 .WithColumn("Name").AsName().NotNullable().Indexed("IX_ApplicationClient_Name")
                 .WithColumn("Active").AsBoolean().NotNullable().Indexed("IX_ApplicationClient_Active")
                 .WithColumn("RefreshTokenLifeTime").AsInt32().NotNullable()
