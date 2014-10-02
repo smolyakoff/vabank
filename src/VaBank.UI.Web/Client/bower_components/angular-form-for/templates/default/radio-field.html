@@ -1,0 +1,22 @@
+<div class="form-for-field" ng-class="{'invalid': model.error}">
+  <field-error  error="model.error"
+                left-aligned="true"
+                uid="{{uid}}-error">
+  </field-error>
+
+  <input  aria-manager
+          id="{{uid}}"
+          type="radio"
+          name="{{attribute}}"
+          tabindex="{{tabIndex}}"
+          ng-model="model.bindable"
+          ng-value="value"
+          ng-disabled="disable || model.disabled">
+
+  <field-label  ng-if="label"
+                input-uid="{{uid}}"
+                uid="{{uid}}-label"
+                label="{{label}}"
+                help="{{help}}">
+  </field-label>
+</div>

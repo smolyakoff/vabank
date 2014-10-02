@@ -1,11 +1,13 @@
-﻿[date-picker-wrapper] {
-    display: inline-block;
-}
+﻿.form-inline {
+    .vb-datepicker {
+        display: inline-block;
+    }
 
-.form-inline .form-group {
-    label { margin-right: 5px; }
-}
+    label {
+        margin-right: 5px;
+    }
 
-.form-inline .multiSelect .button {
-    display: inline-block;
+    .multiSelect .button {
+        display: inline-block;
+    }
 }
