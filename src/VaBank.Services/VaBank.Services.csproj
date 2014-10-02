@@ -60,7 +60,7 @@
     <Compile Include="Admin\Maintenance\SystemLogLookup.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validation\Validators\SystemLogQueryValidator.cs" />
+    <Compile Include="Admin\Maintenance\SystemLogQueryValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VaBank.Common\VaBank.Common.csproj">

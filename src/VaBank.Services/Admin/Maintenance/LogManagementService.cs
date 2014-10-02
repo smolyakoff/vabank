@@ -4,13 +4,13 @@ using VaBank.Common.Data.Filtering;
 using VaBank.Core.Entities;
 using VaBank.Data.EntityFramework;
 using VaBank.Services.Contracts.Admin.Maintenance;
-using VaBank.Services.Contracts.Validation;
+using VaBank.Services.Contracts.Common.Validation;
 
 namespace VaBank.Services.Admin.Maintenance
 {
     public class LogManagementService : BaseService, ILogManagementService
     {
-        public LogManagementService(IValidationFactory validationFactory) : base(validationFactory)
+        public LogManagementService(IValidatorFactory validatorFactory) : base(validatorFactory)
         {
         }
 

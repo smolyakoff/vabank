@@ -50,11 +50,12 @@
     <Compile Include="Admin\Maintenance\SystemLogLevelModel.cs" />
     <Compile Include="Admin\Maintenance\SystemLogLookupModel.cs" />
     <Compile Include="Admin\Maintenance\SystemLogQuery.cs" />
+    <Compile Include="Common\Validation\AlwaysTrueValidator.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validation\IValidationFactory.cs" />
-    <Compile Include="Validation\ValidationException.cs" />
-    <Compile Include="Validation\ValidationFault.cs" />
+    <Compile Include="Common\Validation\IValidatorFactory.cs" />
+    <Compile Include="Common\Validation\ValidationException.cs" />
+    <Compile Include="Common\Validation\ValidationFault.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -771,7 +771,7 @@
     <Compile Include="Modules\WebApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Validation\DefaultValidationFactory.cs" />
+    <Compile Include="Api\Infrastructure\Validation\AutofacValidatorFactory.cs" />
     <Compile Include="Views\Views.cs" />
   </ItemGroup>
   <ItemGroup>
