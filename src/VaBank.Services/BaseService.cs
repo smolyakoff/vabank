@@ -3,24 +3,24 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using VaBank.Services.Contracts;
-using VaBank.Services.Contracts.Validation;
+using VaBank.Services.Contracts.Common.Validation;
 
 namespace VaBank.Services
 {
     public abstract class BaseService : IService
     {
-        private readonly IValidationFactory _validationFactory;
+        private readonly IValidatorFactory _validatorFactory;
         
-        protected BaseService(IValidationFactory validationFactory)
+        protected BaseService(IValidatorFactory validatorFactory)
         {
-            if (validationFactory == null)
-                throw new ArgumentNullException("validationFactory", "Validation factory can't be null");
-            _validationFactory = validationFactory;
+            if (validatorFactory == null)
+                throw new ArgumentNullException("validatorFactory", "Validation factory can't be null");
+            _validatorFactory = validatorFactory;
         }
 
         public void EnsureIsValid<T>(T obj)
         {
-            var validator = _validationFactory.GetValidator<T>();
+            var validator = _validatorFactory.GetValidator<T>();
             var validationResult = validator.Validate(obj);
             if (!validationResult.IsValid)
             {
@@ -31,13 +31,13 @@ namespace VaBank.Services
 
         public ValidationResult Validate<T>(T obj)
         {
-            var validator = _validationFactory.GetValidator<T>();
+            var validator = _validatorFactory.GetValidator<T>();
             return validator.Validate(obj);
         }
 
         public Task<ValidationResult> ValidateAsync<T>(T obj)
         {
-            var validator = _validationFactory.GetValidator<T>();
+            var validator = _validatorFactory.GetValidator<T>();
             return validator.ValidateAsync(obj);
         } 
     }

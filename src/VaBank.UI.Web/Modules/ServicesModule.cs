@@ -5,8 +5,8 @@ using System;
 using System.Linq;
 using VaBank.Services;
 using VaBank.Services.Contracts;
-using VaBank.Services.Contracts.Validation;
-using VaBank.UI.Web.Validation;
+using VaBank.UI.Web.Api.Infrastructure.Validation;
+using IValidatorFactory = VaBank.Services.Contracts.Common.Validation.IValidatorFactory;
 
 namespace VaBank.UI.Web.Modules
 {
@@ -14,15 +14,20 @@ namespace VaBank.UI.Web.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            //Add auto mapper profiles
             var mappingProfiles =
                 typeof (BaseService).Assembly.GetTypes().Where(t => typeof (Profile).IsAssignableFrom(t)).ToList();
             mappingProfiles.ForEach(x => Mapper.AddProfile(Activator.CreateInstance(x) as Profile));
 
             //Register validation system
-            builder.RegisterType<DefaultValidationFactory>().As<IValidationFactory>().InstancePerRequest();
-            builder.RegisterAssemblyTypes(typeof (IValidationFactory).Assembly)
-                .AsClosedTypesOf(typeof(AbstractValidator<>)).InstancePerRequest();
+            builder.RegisterType<AutofacValidatorFactory>().As<IValidatorFactory>().InstancePerRequest();
+            var validatorTypes = typeof (BaseService).Assembly.GetTypes()
+                .Where(t => typeof (IValidator).IsAssignableFrom(t))
+                .Where(t => !t.IsGenericType)
+                .ToList();
+            validatorTypes.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().InstancePerRequest());
 
+            //Register services
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
                 .Where(t => typeof (IService).IsAssignableFrom(t))
                 .AsImplementedInterfaces()

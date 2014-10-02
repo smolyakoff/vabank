@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using VaBank.Services.Contracts.Admin.Maintenance;
 
-namespace VaBank.Services.Validation.Validators
+namespace VaBank.Services.Admin.Maintenance
 {
-    public class SystemLogQueryValidator : AbstractValidator<SystemLogQuery>
+    internal class SystemLogQueryValidator : AbstractValidator<SystemLogQuery>
     {
         public SystemLogQueryValidator()
         {
