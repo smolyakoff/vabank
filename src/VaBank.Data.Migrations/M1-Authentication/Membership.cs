@@ -38,7 +38,8 @@ namespace VaBank.Data.Migrations
                 .WithColumn("Type").AsName().NotNullable().Indexed("IX_UserClaim_Type")
                 .WithColumn("Value").AsBigString().NotNullable();
 
-            Create.Table("UserProfile").InSchema(SchemaName).WithColumn("UserID").AsGuid().ForeignKey("FK_UserProfile_To_User", SchemaName, "User", "UserID")
+            Create.Table("UserProfile").InSchema(SchemaName)
+                .WithColumn("UserID").AsGuid().PrimaryKey("PK_UserProfile").ForeignKey("FK_UserProfile_To_User", SchemaName, "User", "UserID")
                 .WithColumn("FirstName").AsName().NotNullable()
                 .WithColumn("LastName").AsName().NotNullable()
                 .WithColumn("Email").AsEmail().NotNullable().Indexed("IX_UserProfile_Email")
