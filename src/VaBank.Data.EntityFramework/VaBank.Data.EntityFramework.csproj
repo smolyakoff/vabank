@@ -52,7 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappings\ApplicationClientMap.cs" />
+    <Compile Include="Mappings\ApplicationTokenMap.cs" />
     <Compile Include="Mappings\LogMap.cs" />
+    <Compile Include="Mappings\UserClaimMap.cs" />
+    <Compile Include="Mappings\UserMap.cs" />
+    <Compile Include="Mappings\UserProfileMap.cs" />
     <Compile Include="QueryProcessor.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\RepositoryFactory.cs" />

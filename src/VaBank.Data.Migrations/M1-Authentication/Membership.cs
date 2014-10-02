@@ -34,11 +34,13 @@ namespace VaBank.Data.Migrations
                 .WithColumn("AccessFailedCount").AsInt32().NotNullable().WithDefaultValue(0)
                 .WithColumn("Deleted").AsBoolean().NotNullable().Indexed("IX_User_Deleted").WithDefaultValue(false);
 
-            Create.Table("UserClaim").InSchema(SchemaName).WithColumn("UserID").AsGuid().ForeignKey("FK_UserClaim_To_User", SchemaName, "User", "UserID")
-                .WithColumn("Type").AsName().NotNullable().Indexed("IX_UserClaim_Type")
+            Create.Table("UserClaim").InSchema(SchemaName).WithColumn("UserID").AsGuid().PrimaryKey("PK_UserClaim")
+                .ForeignKey("FK_UserClaim_To_User", SchemaName, "User", "UserID")
+                .WithColumn("Type").AsName().PrimaryKey("PK_UserClaim")
                 .WithColumn("Value").AsBigString().NotNullable();
 
-            Create.Table("UserProfile").InSchema(SchemaName).WithColumn("UserID").AsGuid().ForeignKey("FK_UserProfile_To_User", SchemaName, "User", "UserID")
+            Create.Table("UserProfile").InSchema(SchemaName).WithColumn("UserID").AsGuid().PrimaryKey("PK_UserProfile")
+                .ForeignKey("FK_UserProfile_To_User", SchemaName, "User", "UserID")
                 .WithColumn("FirstName").AsName().NotNullable()
                 .WithColumn("LastName").AsName().NotNullable()
                 .WithColumn("Email").AsEmail().NotNullable().Indexed("IX_UserProfile_Email")

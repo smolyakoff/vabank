@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Services", "src\VaBa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Services.Contracts", "src\VaBank.Services.Contracts\VaBank.Services.Contracts.csproj", "{C203F56A-2032-4BA5-A8AA-0CB7FD38B784}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Data.Tests", "VaBank.Data.Tests\VaBank.Data.Tests.csproj", "{86080FBC-BE65-4BA0-8805-7370652BC516}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,18 @@ Global
 		{C203F56A-2032-4BA5-A8AA-0CB7FD38B784}.Release|AnyCPU.Build.0 = Release|Any CPU
 		{C203F56A-2032-4BA5-A8AA-0CB7FD38B784}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C203F56A-2032-4BA5-A8AA-0CB7FD38B784}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{86080FBC-BE65-4BA0-8805-7370652BC516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86080FBC-BE65-4BA0-8805-7370652BC516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86080FBC-BE65-4BA0-8805-7370652BC516}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{86080FBC-BE65-4BA0-8805-7370652BC516}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{86080FBC-BE65-4BA0-8805-7370652BC516}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{86080FBC-BE65-4BA0-8805-7370652BC516}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{86080FBC-BE65-4BA0-8805-7370652BC516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86080FBC-BE65-4BA0-8805-7370652BC516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86080FBC-BE65-4BA0-8805-7370652BC516}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{86080FBC-BE65-4BA0-8805-7370652BC516}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{86080FBC-BE65-4BA0-8805-7370652BC516}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{86080FBC-BE65-4BA0-8805-7370652BC516}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,5 +174,6 @@ Global
 		{87E0A3C9-5CCD-4154-9EE3-E65CB54EFD0E} = {B2DC990F-6300-493F-B4AB-F5E7957FCE6B}
 		{ADFBF54D-6506-4AF9-996B-59F55FFC2066} = {B2DC990F-6300-493F-B4AB-F5E7957FCE6B}
 		{C203F56A-2032-4BA5-A8AA-0CB7FD38B784} = {B2DC990F-6300-493F-B4AB-F5E7957FCE6B}
+		{86080FBC-BE65-4BA0-8805-7370652BC516} = {3E87B4A8-FED6-4EE7-86FB-230AD85C2DE2}
 	EndGlobalSection
 EndGlobal
