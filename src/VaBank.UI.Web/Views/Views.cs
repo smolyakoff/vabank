@@ -49,7 +49,7 @@ namespace VaBank.UI.Web.Views
                 .Add(ApplicationPath("modules/vabank-ui/vabank-ui.js"))
                 .AddDirectory(ApplicationPath("modules/vabank-ui"))
                 .Add(ApplicationPath("vabank.js"))
-                .AddDirectory(ApplicationPath("config"))
+                .AddDirectory(ApplicationPath("areas/global/config"))
                 .AddDirectory(ApplicationPath("areas/global"))
                 .AddDirectory(ApplicationPath("areas/admin/config"))
                 .AddDirectory(ApplicationPath("areas/admin/scheduler"))

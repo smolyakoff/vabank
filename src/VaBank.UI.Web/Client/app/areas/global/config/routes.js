@@ -9,11 +9,12 @@
     function registerRoutes($locationProvider, $stateProvider, $urlRouterProvider) {
         $locationProvider.html5Mode(true);
 
-        $stateProvider.state('home', {            
+        $stateProvider.state('cabinet', {            
             url: '/',
-            controller: ['$state', function($state) {
-                $state.go('login');
-            }]
+            templateUrl: '/Client/app/areas/customer/cabinet.html'
+            //controller: ['$state', function($state) {
+            //    $state.go('login');
+            //}]
         });
 
         $stateProvider.state('login', {            

@@ -165,10 +165,12 @@
     <Content Include="Client\app\areas\admin\scheduler\scheduler.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log-ctrl.js" />
+    <Content Include="Client\app\areas\customer\cabinet.html" />
+    <Content Include="Client\app\areas\customer\dashboard\dashboard.html" />
     <Content Include="Client\app\areas\global\auth\login.html" />
     <Content Include="Client\app\areas\global\errors\500.html" />
     <Content Include="Client\app\areas\global\routing-interceptor.js" />
-    <Content Include="Client\app\config\routes.js" />
+    <Content Include="Client\app\areas\global\config\routes.js" />
     <Content Include="Client\app\images\vabank-logo-big.png" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-datepicker.js" />
     <Content Include="Client\app\modules\vabank-ui\services\control-util.js" />
@@ -741,6 +743,7 @@
     <Content Include="Client\bower_components\angular-form-for\styles\tooltip.styl" />
     <Content Include="Client\bower_components\angular-form-for\styles\_mixins.styl" />
     <Content Include="Client\bower_components\angular-form-for\styles\_variables.styl" />
+    <Content Include="Client\app\areas\customer\cabinet.scss" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -787,7 +790,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Api\Customer\" />
-    <Folder Include="Client\app\areas\customer\" />
     <Folder Include="Client\bower_components\bootstrap-sass-official\assets\images\" />
     <Folder Include="Middleware\" />
   </ItemGroup>
