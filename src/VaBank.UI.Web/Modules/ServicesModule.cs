@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using Autofac;
+﻿using Autofac;
 using AutoMapper;
 using FluentValidation;
+using System;
+using System.Linq;
 using VaBank.Services;
 using VaBank.Services.Contracts;
-using VaBank.Services.Validation;
+using VaBank.Services.Contracts.Validation;
 using VaBank.UI.Web.Validation;
 
 namespace VaBank.UI.Web.Modules

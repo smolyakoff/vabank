@@ -1,7 +1,7 @@
 ﻿using System;
 using Autofac;
 using FluentValidation;
-using VaBank.Services.Validation;
+using VaBank.Services.Contracts.Validation;
 
 namespace VaBank.UI.Web.Validation
 {

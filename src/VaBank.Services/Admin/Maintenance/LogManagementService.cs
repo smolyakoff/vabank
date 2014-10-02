@@ -4,7 +4,7 @@ using VaBank.Common.Data.Filtering;
 using VaBank.Core.Entities;
 using VaBank.Data.EntityFramework;
 using VaBank.Services.Contracts.Admin.Maintenance;
-using VaBank.Services.Validation;
+using VaBank.Services.Contracts.Validation;
 
 namespace VaBank.Services.Admin.Maintenance
 {
@@ -23,7 +23,7 @@ namespace VaBank.Services.Admin.Maintenance
         public IEnumerable<SystemLogEntryModel> GetSystemLogEntries(SystemLogQuery query)
         {
             //TODO: do real logic here
-            var validationResult = Validate(query);
+            EnsureIsValid(query);
 
             var context = new VaBankContext();
             var queryable = context.Logs.AsQueryable();

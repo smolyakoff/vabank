@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace VaBank.Services.Validation
+namespace VaBank.Services.Contracts.Validation
 {
     public interface IValidationFactory
     {
