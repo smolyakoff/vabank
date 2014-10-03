@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("VaBank.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("EPAM Systems")]
 [assembly: AssemblyProduct("VaBank.Core")]
-[assembly: AssemblyCopyright("Copyright © EPAM Systems 2014")]
+[assembly: AssemblyCompany("VA Solutions")]
+[assembly: AssemblyCopyright("Copyright © VA Solutions 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

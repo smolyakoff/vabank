@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{84FB0238-52D9-4728-9AF4-7FD2A78B8131}</ProjectGuid>
+    <ProjectGuid>{86080FBC-BE65-4BA0-8805-7370652BC516}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VaBank.Common.Tests</RootNamespace>
-    <AssemblyName>VaBank.Common.Tests</AssemblyName>
+    <RootNamespace>VaBank.Data.Tests</RootNamespace>
+    <AssemblyName>VaBank.Data.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,13 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Web" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -56,26 +57,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="DataTests.cs" />
-    <Compile Include="Fakes\Car.cs" />
-    <Compile Include="Fakes\LogEntry.cs" />
+    <Compile Include="VaBankContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VaBank.Common\VaBank.Common.csproj">
-      <Project>{e06fb03e-8249-4f94-9568-ec1247769273}</Project>
-      <Name>VaBank.Common</Name>
+    <ProjectReference Include="..\..\src\VaBank.Core\VaBank.Core.csproj">
+      <Project>{87e0a3c9-5ccd-4154-9ee3-e65cb54efd0e}</Project>
+      <Name>VaBank.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\VaBank.Data.EntityFramework\VaBank.Data.EntityFramework.csproj">
+      <Project>{39a10c5c-1058-41d3-b40f-d0ece134cd6f}</Project>
+      <Name>VaBank.Data.EntityFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Files\filter.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Files\filter.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

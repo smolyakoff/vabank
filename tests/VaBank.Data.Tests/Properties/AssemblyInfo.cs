@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("VaBank.Data.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("EPAM Systems")]
+[assembly: AssemblyCompany("VA Solutions")]
 [assembly: AssemblyProduct("VaBank.Data.Tests")]
-[assembly: AssemblyCopyright("Copyright © EPAM Systems 2014")]
+[assembly: AssemblyCopyright("Copyright © VA Solutions 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

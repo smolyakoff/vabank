@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("VaBank.Data.EntityFramework")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("EPAM Systems")]
+[assembly: AssemblyCompany("VA Solutions")]
+[assembly: AssemblyCopyright("Copyright © VA Solutions 2014")]
 [assembly: AssemblyProduct("VaBank.Data.EntityFramework")]
-[assembly: AssemblyCopyright("Copyright © EPAM Systems 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
