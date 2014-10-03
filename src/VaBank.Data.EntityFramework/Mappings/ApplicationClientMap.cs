@@ -8,6 +8,12 @@ namespace VaBank.Data.EntityFramework.Mappings
         public ApplicationClientMap()
         {
             ToTable("ApplicationClient", "Membership").HasKey(x => x.Id);
+            Property(x => x.Name).HasMaxLength(RestrictionConstants.NameLength).IsRequired();
+            Property(x => x.AllowedOrigin).HasMaxLength(RestrictionConstants.UrlLength)
+                .IsOptional();
+            Property(x => x.ApplicationType).IsRequired();
+            Property(x => x.RefreshTokenLifeTime).IsRequired();
+            Property(x => x.Active).IsRequired();
         }
     }
 }

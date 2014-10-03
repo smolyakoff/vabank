@@ -8,6 +8,8 @@ namespace VaBank.Data.EntityFramework.Mappings
         public UserClaimMap()
         {
             ToTable("UserClaim", "Membership").HasKey(x => new { x.UserId, x.Type });
+            Property(x => x.Value).HasMaxLength(RestrictionConstants.BigStringLength)
+                .IsRequired();
         }
     }
 }

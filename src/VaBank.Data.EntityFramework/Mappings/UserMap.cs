@@ -13,6 +13,17 @@ namespace VaBank.Data.EntityFramework.Mappings
             Property(x => x.Id).HasColumnName("UserID");
             HasRequired(x => x.Profile).WithRequiredPrincipal();
             Property(x => x.LockoutEndDateUtc).IsOptional();
+            Property(x => x.PasswordHash).HasMaxLength(RestrictionConstants.SecurityStringLength)
+                .IsRequired();
+            Property(x => x.PasswordSalt).HasMaxLength(RestrictionConstants.SecurityStringLength)
+                .IsRequired();
+            Property(x => x.SecurityStamp).HasMaxLength(RestrictionConstants.SecurityStringLength)
+                .IsRequired();
+            Property(x => x.LockoutEnabled).IsRequired();
+            Property(x => x.UserName).HasMaxLength(RestrictionConstants.ShortNameLength)
+                .IsRequired();
+            Property(x => x.AccessFailedCount).IsRequired();
+            Property(x => x.Deleted).IsRequired();
         }
     }
 }

@@ -47,7 +47,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Services", "src\VaBa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Services.Contracts", "src\VaBank.Services.Contracts\VaBank.Services.Contracts.csproj", "{C203F56A-2032-4BA5-A8AA-0CB7FD38B784}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Data.Tests", "VaBank.Data.Tests\VaBank.Data.Tests.csproj", "{86080FBC-BE65-4BA0-8805-7370652BC516}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Data.Tests", "src\VaBank.Data.Tests\VaBank.Data.Tests.csproj", "{86080FBC-BE65-4BA0-8805-7370652BC516}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
