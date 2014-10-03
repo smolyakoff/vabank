@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace VaBank.Services.Contracts.Common.Validation
 {
     [Serializable]
-    public class ValidationException : Exception
+    public class ValidationException : ServiceException
     {
         private const string DefaultMessage = "Some validation errors occured.";
 

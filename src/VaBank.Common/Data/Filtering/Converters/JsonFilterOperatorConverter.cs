@@ -15,34 +15,35 @@ namespace VaBank.Common.Data.Filtering.Converters
         {
             FilterMapping = new Dictionary<string, FilterOperator>(StringComparer.OrdinalIgnoreCase)
             {
-                { "==", FilterOperator.Equal },
-                { "!=", FilterOperator.NotEqual },
-                { ">", FilterOperator.GreaterThan },
-                { "<", FilterOperator.LessThan },
-                { ">=", FilterOperator.GreaterThanOrEqual },
-                { "<=", FilterOperator.LessThanOrEqual },
-                { "in", FilterOperator.In },
-                { "!in", FilterOperator.NotIn },
-                { "startswith", FilterOperator.StartsWith },
-                { "!startswith", FilterOperator.NotStartsWith },
-                { "endswith", FilterOperator.EndsWith },
-                { "!endswith", FilterOperator.NotEndsWith },
-                { "contains", FilterOperator.Contains },
-                { "!contains", FilterOperator.NotContains },
+                {"==", FilterOperator.Equal},
+                {"!=", FilterOperator.NotEqual},
+                {">", FilterOperator.GreaterThan},
+                {"<", FilterOperator.LessThan},
+                {">=", FilterOperator.GreaterThanOrEqual},
+                {"<=", FilterOperator.LessThanOrEqual},
+                {"in", FilterOperator.In},
+                {"!in", FilterOperator.NotIn},
+                {"startswith", FilterOperator.StartsWith},
+                {"!startswith", FilterOperator.NotStartsWith},
+                {"endswith", FilterOperator.EndsWith},
+                {"!endswith", FilterOperator.NotEndsWith},
+                {"contains", FilterOperator.Contains},
+                {"!contains", FilterOperator.NotContains},
             };
             FilterReverseMapping = FilterMapping.ToDictionary(x => x.Value, x => x.Key);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (!FilterReverseMapping.ContainsKey((FilterOperator)value))
+            if (!FilterReverseMapping.ContainsKey((FilterOperator) value))
             {
                 throw new NotSupportedException(string.Format("Operator [{0}] is not supported.", value));
             }
-            writer.WriteValue(FilterReverseMapping[(FilterOperator)value]);
+            writer.WriteValue(FilterReverseMapping[(FilterOperator) value]);
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+            JsonSerializer serializer)
         {
             var value = reader.Value as string;
             if (string.IsNullOrEmpty(value) || !FilterMapping.ContainsKey(value))

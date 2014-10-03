@@ -3,7 +3,7 @@ using Newtonsoft.Json.Converters;
 
 namespace VaBank.Common.Data.Filtering
 {
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof (StringEnumConverter))]
     public enum FilterLogic
     {
         And,

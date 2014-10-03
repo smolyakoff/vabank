@@ -1,13 +1,12 @@
-﻿using VaBank.Common.Data;
-using VaBank.Common.Data.Filtering;
+﻿using VaBank.Common.Data.Filtering;
 
 namespace VaBank.Services.Contracts.Admin.Maintenance
 {
-    public class SystemLogQuery : IClientFilterableQuery
+    public class SystemLogQuery : IFilterableQuery, IClientFilterable
     {
         public SystemLogQuery()
         {
-            Filter = new EmptyFilter();
+            Filter = new AlwaysTrueFilter();
         }
 
         public void ApplyFilter(IFilter filter)

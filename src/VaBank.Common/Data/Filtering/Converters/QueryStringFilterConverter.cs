@@ -22,7 +22,7 @@ namespace VaBank.Common.Data.Filtering.Converters
                 var stringValue = value as string;
                 if (string.IsNullOrEmpty(stringValue))
                 {
-                    return new EmptyFilter();
+                    return new AlwaysTrueFilter();
                 }
                 var filterQuery = JsonConvert.DeserializeObject<QueryStringFilter>(stringValue);
                 var filter = new DynamicLinqFilter(filterQuery.Query, filterQuery.Parameters);
@@ -30,7 +30,7 @@ namespace VaBank.Common.Data.Filtering.Converters
             }
             catch (Exception)
             {
-                return new EmptyFilter();
+                return new AlwaysTrueFilter();
             }
         }
 
@@ -44,9 +44,15 @@ namespace VaBank.Common.Data.Filtering.Converters
                 get { return GetParameters(); }
             }
 
+            [JsonProperty("p", Required = Required.Always)]
+            private string ParametersJson { get; set; }
+
+            [JsonProperty("t", Required = Required.Always)]
+            private string TypesCsv { get; set; }
+
             private object[] GetParameters()
             {
-                var types = TypesCsv.Split(',')
+                List<Type> types = TypesCsv.Split(',')
                     .Select(x => x.Trim())
                     .Select(x => string.Format("\"{0}\"", x))
                     .Select(JsonConvert.DeserializeObject<FilterPropertyType>)
@@ -62,7 +68,7 @@ namespace VaBank.Common.Data.Filtering.Converters
                 {
                     return null;
                 }
-                var listType = typeof (List<>).MakeGenericType(type);
+                Type listType = typeof (List<>).MakeGenericType(type);
                 if (jArray.Count == 0)
                 {
                     return Activator.CreateInstance(listType);
@@ -76,13 +82,13 @@ namespace VaBank.Common.Data.Filtering.Converters
 
             private object InferType(JArray array)
             {
-                var firstTypedValue = array.Cast<JValue>().FirstOrDefault(x => x.Value != null);
+                JValue firstTypedValue = array.Cast<JValue>().FirstOrDefault(x => x.Value != null);
                 if (firstTypedValue == null)
                 {
                     return new List<object>();
                 }
-                var type = firstTypedValue.Value.GetType();
-                var listType = typeof(List<>).MakeGenericType(type);
+                Type type = firstTypedValue.Value.GetType();
+                Type listType = typeof (List<>).MakeGenericType(type);
                 return array.ToObject(listType);
             }
 
@@ -90,12 +96,6 @@ namespace VaBank.Common.Data.Filtering.Converters
             {
                 return Convert.ChangeType(obj, type);
             }
-
-            [JsonProperty("p", Required = Required.Always)]
-            private string ParametersJson { get; set; }
-
-            [JsonProperty("t", Required = Required.Always)]
-            private string TypesCsv { get; set; }
         }
     }
 }

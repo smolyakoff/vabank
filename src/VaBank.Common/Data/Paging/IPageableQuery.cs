@@ -2,12 +2,8 @@
 
 namespace VaBank.Common.Data.Paging
 {
-    public interface IPageableQuery : ISortableQuery
+    public interface IPageableQuery : ISortableQuery, IPage
     {
-        int PageSize { get; }
-
-        int PageNumber { get; }
-
         bool InMemoryPaging { get; }
     }
 }

@@ -8,7 +8,7 @@ namespace VaBank.Common.Data.Filtering
 {
     public class SimpleFilter : IFilter
     {
-        private readonly Dictionary<Type, Expression> _parsedExpressions; 
+        private readonly Dictionary<Type, Expression> _parsedExpressions;
 
         private SimpleFilter()
         {
@@ -27,21 +27,21 @@ namespace VaBank.Common.Data.Filtering
         [JsonProperty(Required = Required.Always)]
         public object Value { get; private set; }
 
-        public Expression<Func<T ,bool>> ToExpression<T>()
-            where T : class 
+        public Expression<Func<T, bool>> ToExpression<T>()
+            where T : class
         {
             if (!_parsedExpressions.ContainsKey(typeof (T)))
             {
-                var dynamicLinqFilter = ToDynamicLinqFilter();
-                var expression = dynamicLinqFilter.ToExpression<T>();
+                DynamicLinqFilter dynamicLinqFilter = ToDynamicLinqFilter();
+                Expression<Func<T, bool>> expression = dynamicLinqFilter.ToExpression<T>();
                 _parsedExpressions[typeof (T)] = expression;
             }
-            return (Expression<Func<T, bool>>)_parsedExpressions[typeof(T)];
+            return (Expression<Func<T, bool>>) _parsedExpressions[typeof (T)];
         }
 
         public DynamicLinqFilter ToDynamicLinqFilter()
         {
-            var expression = ToDynamicLinqExpression();
+            DynamicLinqExpression expression = ToDynamicLinqExpression();
             return new DynamicLinqFilter(expression.Expression, expression.Parameters);
         }
 
@@ -84,7 +84,7 @@ namespace VaBank.Common.Data.Filtering
 
         private DynamicLinqExpression In()
         {
-            var value = Value;
+            object value = Value;
             var jArray = value as JArray;
             if (jArray != null)
             {
@@ -95,7 +95,7 @@ namespace VaBank.Common.Data.Filtering
 
         private DynamicLinqExpression NotIn()
         {
-            var value = Value;
+            object value = Value;
             var jArray = value as JArray;
             if (jArray != null)
             {
@@ -106,8 +106,8 @@ namespace VaBank.Common.Data.Filtering
 
         private object ToConcreteList(JArray array)
         {
-            var elementType = PropertyType.ToType();
-            var listType = typeof (List<>).MakeGenericType(elementType);
+            Type elementType = PropertyType.ToType();
+            Type listType = typeof (List<>).MakeGenericType(elementType);
             return array.ToObject(listType);
         }
 

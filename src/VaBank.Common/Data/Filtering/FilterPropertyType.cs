@@ -3,7 +3,7 @@ using VaBank.Common.Data.Filtering.Converters;
 
 namespace VaBank.Common.Data.Filtering
 {
-    [JsonConverter(typeof(JsonFilterPropertyTypeConverter))]
+    [JsonConverter(typeof (JsonFilterPropertyTypeConverter))]
     public enum FilterPropertyType
     {
         Auto,

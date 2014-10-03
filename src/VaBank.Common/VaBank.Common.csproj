@@ -40,6 +40,9 @@
     <Reference Include="NLog">
       <HintPath>..\..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="SimpleCrypto">
       <HintPath>..\..\packages\SimpleCrypto.0.3.30.26\lib\SimpleCrypto.dll</HintPath>
     </Reference>
@@ -57,14 +60,16 @@
     <Compile Include="Data\Filtering\Converters\JsonFilterOperatorConverter.cs" />
     <Compile Include="Data\Filtering\Converters\JsonFilterPropertyTypeConverter.cs" />
     <Compile Include="Data\Filtering\Converters\QueryStringFilterConverter.cs" />
-    <Compile Include="Data\Filtering\EmptyFilter.cs" />
+    <Compile Include="Data\Filtering\AlwaysTrueFilter.cs" />
     <Compile Include="Data\Filtering\DynamicLinqFilter.cs" />
+    <Compile Include="Data\Filtering\ExpressionFilter.cs" />
     <Compile Include="Data\Filtering\FilteringExtensions.cs" />
     <Compile Include="Data\Filtering\FilterPropertyType.cs" />
+    <Compile Include="Data\Filtering\IFilter%271.cs" />
     <Compile Include="Data\Filtering\IFilter.cs" />
     <Compile Include="Data\Filtering\Converters\JsonFilterConverter.cs" />
     <Compile Include="Data\Filtering\SimpleFilter.cs" />
-    <Compile Include="Data\Filtering\IClientFilterableQuery.cs" />
+    <Compile Include="Data\Filtering\IClientFilterable.cs" />
     <Compile Include="Data\Filtering\IFilterableQuery.cs" />
     <Compile Include="Data\IQuery.cs" />
     <Compile Include="Data\Linq\Dynamic\BasicQueryable.cs" />
@@ -88,17 +93,26 @@
     <Compile Include="Data\Linq\ExpressionCombiner.cs" />
     <Compile Include="Data\Linq\PropertiesVisitor.cs" />
     <Compile Include="Data\Linq\PropertyPathVisitor.cs" />
+    <Compile Include="Data\Paging\DummyPageableQuery.cs" />
+    <Compile Include="Data\Paging\IClientPageable.cs" />
+    <Compile Include="Data\Paging\IPage.cs" />
     <Compile Include="Data\Paging\IPageableQuery.cs" />
+    <Compile Include="Data\QueryExtensions.cs" />
+    <Compile Include="Data\Sorting\Converters\JsonSortConverter.cs" />
     <Compile Include="Data\Sorting\Converters\JsonSortDirectionConverter.cs" />
     <Compile Include="Data\Sorting\Converters\SortTypeConverter.cs" />
+    <Compile Include="Data\Sorting\DelegateSort.cs" />
     <Compile Include="Data\Sorting\DynamicLinqSort.cs" />
-    <Compile Include="Data\Sorting\EmptySort.cs" />
+    <Compile Include="Data\Sorting\RandomSort.cs" />
+    <Compile Include="Data\Sorting\IClientSortable.cs" />
+    <Compile Include="Data\Sorting\ISort%271.cs" />
     <Compile Include="Data\Sorting\ISort.cs" />
     <Compile Include="Data\Sorting\ISortableQuery.cs" />
     <Compile Include="Data\Sorting\MultiSort.cs" />
     <Compile Include="Data\Sorting\SimpleSort.cs" />
     <Compile Include="Data\Sorting\SortDirection.cs" />
     <Compile Include="Data\Sorting\SortingExtensions.cs" />
+    <Compile Include="Data\Filtering\SpecFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Password.cs" />
     <Compile Include="Serialization\JsonCreationConverter.cs" />

@@ -1,6 +1,6 @@
 ﻿namespace VaBank.Common.Data.Filtering
 {
-    public interface IClientFilterableQuery : IFilterableQuery
+    public interface IClientFilterable
     {
         void ApplyFilter(IFilter filter);
     }

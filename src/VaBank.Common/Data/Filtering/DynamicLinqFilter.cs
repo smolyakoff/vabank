@@ -9,9 +9,8 @@ namespace VaBank.Common.Data.Filtering
 {
     public class DynamicLinqFilter : IFilter
     {
-        private readonly Dictionary<Type, LambdaExpression> _parsedLambdas = new Dictionary<Type, LambdaExpression>();
-
         private readonly object[] _parameterValues;
+        private readonly Dictionary<Type, LambdaExpression> _parsedLambdas = new Dictionary<Type, LambdaExpression>();
 
         public DynamicLinqFilter(string linqExpression, params object[] parameterValues)
         {
@@ -31,16 +30,16 @@ namespace VaBank.Common.Data.Filtering
         public Expression<Func<T, bool>> ToExpression<T>()
             where T : class
         {
-            if (!_parsedLambdas.ContainsKey(typeof(T)))
+            if (!_parsedLambdas.ContainsKey(typeof (T)))
             {
-                var expression = DynamicExpression.ParseLambda(
-                    typeof (T), 
-                    typeof (bool), 
+                LambdaExpression expression = DynamicExpression.ParseLambda(
+                    typeof (T),
+                    typeof (bool),
                     LinqExpression,
                     _parameterValues);
-                _parsedLambdas.Add(typeof(T), expression);
+                _parsedLambdas.Add(typeof (T), expression);
             }
-            return (Expression<Func<T, bool>>)_parsedLambdas[typeof(T)];
+            return (Expression<Func<T, bool>>) _parsedLambdas[typeof (T)];
         }
     }
 }

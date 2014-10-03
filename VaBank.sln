@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Data.Tests", "tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Common.Tests", "tests\VaBank.Common.Tests\VaBank.Common.Tests.csproj", "{84FB0238-52D9-4728-9AF4-7FD2A78B8131}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Services.Tests", "tests\VaBank.Services.Tests\VaBank.Services.Tests.csproj", "{670C82DB-D149-44F5-AA33-A1C4BC028C76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +169,18 @@ Global
 		{84FB0238-52D9-4728-9AF4-7FD2A78B8131}.Release|AnyCPU.Build.0 = Release|Any CPU
 		{84FB0238-52D9-4728-9AF4-7FD2A78B8131}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{84FB0238-52D9-4728-9AF4-7FD2A78B8131}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -181,5 +195,6 @@ Global
 		{C203F56A-2032-4BA5-A8AA-0CB7FD38B784} = {B2DC990F-6300-493F-B4AB-F5E7957FCE6B}
 		{86080FBC-BE65-4BA0-8805-7370652BC516} = {3E87B4A8-FED6-4EE7-86FB-230AD85C2DE2}
 		{84FB0238-52D9-4728-9AF4-7FD2A78B8131} = {3E87B4A8-FED6-4EE7-86FB-230AD85C2DE2}
+		{670C82DB-D149-44F5-AA33-A1C4BC028C76} = {3E87B4A8-FED6-4EE7-86FB-230AD85C2DE2}
 	EndGlobalSection
 EndGlobal

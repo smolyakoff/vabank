@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
+using VaBank.Common.Data.Linq;
 
 namespace VaBank.Common.Data.Filtering
 {
@@ -36,13 +37,13 @@ namespace VaBank.Common.Data.Filtering
             {
                 return Filters.First().ToExpression<T>();
             }
-            var expression = Filters.First().ToExpression<T>();
+            Expression<Func<T, bool>> expression = Filters.First().ToExpression<T>();
             expression = Filters.ToList()
                 .Skip(1)
                 .Aggregate(expression, (current, filter) =>
                     Logic == FilterLogic.And
-                        ? VaBank.Common.Data.Linq.ExpressionCombiner.And(current, filter.ToExpression<T>())
-                        : VaBank.Common.Data.Linq.ExpressionCombiner.Or(current, filter.ToExpression<T>()));
+                        ? ExpressionCombiner.And(current, filter.ToExpression<T>())
+                        : ExpressionCombiner.Or(current, filter.ToExpression<T>()));
             return expression;
         }
     }

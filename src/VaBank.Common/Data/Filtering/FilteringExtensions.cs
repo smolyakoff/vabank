@@ -8,24 +8,34 @@ namespace VaBank.Common.Data.Filtering
     {
         private static readonly Dictionary<FilterPropertyType, Type> TypeMapping
             = new Dictionary<FilterPropertyType, Type>
+            {
+                {FilterPropertyType.Auto, typeof (object)},
+                {FilterPropertyType.Boolean, typeof (bool)},
+                {FilterPropertyType.Byte, typeof (byte)},
+                {FilterPropertyType.Short, typeof (short)},
+                {FilterPropertyType.Int, typeof (int)},
+                {FilterPropertyType.Long, typeof (long)},
+                {FilterPropertyType.Float, typeof (float)},
+                {FilterPropertyType.Double, typeof (double)},
+                {FilterPropertyType.Decimal, typeof (decimal)},
+                {FilterPropertyType.Char, typeof (char)},
+                {FilterPropertyType.String, typeof (string)},
+                {FilterPropertyType.DateTime, typeof (DateTime)},
+                {FilterPropertyType.Guid, typeof (Guid)},
+            };
+
+        public static ExpressionFilter<T> StronglyTyped<T>(IFilter filter)
+            where T : class
         {
-            { FilterPropertyType.Auto, typeof(object) },
-            { FilterPropertyType.Boolean, typeof(bool) },
-            { FilterPropertyType.Byte, typeof(byte) },
-            { FilterPropertyType.Short, typeof(short) },
-            { FilterPropertyType.Int, typeof(int) },
-            { FilterPropertyType.Long, typeof(long) },
-            { FilterPropertyType.Float, typeof(float) },
-            { FilterPropertyType.Double, typeof(double) },
-            { FilterPropertyType.Decimal, typeof(decimal) },
-            { FilterPropertyType.Char, typeof(char) },
-            { FilterPropertyType.String, typeof(string) },
-            { FilterPropertyType.DateTime, typeof(DateTime) },
-            { FilterPropertyType.Guid, typeof(Guid) },
-        };
+            if (filter == null)
+            {
+                throw new ArgumentNullException("filter");
+            }
+            return new ExpressionFilter<T>(filter.ToExpression<T>());
+        }
 
         public static IQueryable<T> Where<T>(this IQueryable<T> queryable, IFilter filter)
-            where T : class 
+            where T : class
         {
             if (queryable == null)
             {
@@ -33,6 +43,17 @@ namespace VaBank.Common.Data.Filtering
             }
             return queryable.Where(filter.ToExpression<T>());
         }
+
+        public static IFilter And(this IFilter thisFilter, IFilter filter)
+        {
+            return Combine(thisFilter, filter, FilterLogic.And);
+        }
+
+        public static IFilter Or(this IFilter thisFilter, IFilter filter)
+        {
+            return Combine(thisFilter, filter, FilterLogic.Or);
+        }
+
 
         public static IFilter Combine(this IFilter thisFilter, IFilter filter, FilterLogic logic)
         {
@@ -44,13 +65,16 @@ namespace VaBank.Common.Data.Filtering
             {
                 throw new ArgumentNullException("filter");
             }
-            return new CombinedFilter();
+            var combined = new CombinedFilter {Logic = logic};
+            combined.Filters.Add(thisFilter);
+            combined.Filters.Add(filter);
+            return combined;
         }
 
         internal static Type ToType(this FilterPropertyType propertyType)
         {
-            return !TypeMapping.ContainsKey(propertyType) 
-                ? typeof (object) 
+            return !TypeMapping.ContainsKey(propertyType)
+                ? typeof (object)
                 : TypeMapping[propertyType];
         }
     }

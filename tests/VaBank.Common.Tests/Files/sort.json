@@ -1,0 +1,6 @@
+﻿{
+    "sorts": [
+        { "propertyName": "make", "sortDirection": "ASC" },
+        { "propertyName": "model", "sortDirection": "DESC" }
+    ]
+}

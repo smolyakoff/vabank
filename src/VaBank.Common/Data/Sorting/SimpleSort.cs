@@ -16,15 +16,20 @@ namespace VaBank.Common.Data.Sorting
         [JsonProperty(Required = Required.Always)]
         public SortDirection SortDirection { get; private set; }
 
+        public Func<IQueryable<T>, IQueryable<T>> ToDelegate<T>()
+        {
+            var linqSort = new DynamicLinqSort(ToSqlExpression());
+            return linqSort.ToDelegate<T>();
+        }
+
         public string ToSqlExpression()
         {
             return string.Format("{0} {1}", PropertyName, SortDirection.ToSqlString());
         }
 
-        public Func<IQueryable<T>, IQueryable<T>> ToDelegate<T>()
+        public override string ToString()
         {
-            var linqSort = new DynamicLinqSort(ToSqlExpression());
-            return linqSort.ToDelegate<T>();
+            return ToSqlExpression();
         }
     }
 }

@@ -7,8 +7,7 @@ namespace VaBank.Common.Data.Sorting
 {
     public class MultiSort : ISort
     {
-        [JsonProperty("Sorts")]
-        private List<SimpleSort> _sorts; 
+        [JsonProperty("Sorts")] private readonly List<SimpleSort> _sorts;
 
         private MultiSort()
         {
@@ -23,7 +22,7 @@ namespace VaBank.Common.Data.Sorting
 
         public Func<IQueryable<T>, IQueryable<T>> ToDelegate<T>()
         {
-            var expression = string.Join(", ", _sorts);
+            string expression = string.Join(", ", _sorts.Select(x => x.ToSqlExpression()));
             var linqSort = new DynamicLinqSort(expression);
             return linqSort.ToDelegate<T>();
         }

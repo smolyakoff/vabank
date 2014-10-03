@@ -11,7 +11,8 @@ namespace VaBank.Common.Data.Sorting.Converters
             writer.WriteValue(sortDirection.ToSqlString());
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+            JsonSerializer serializer)
         {
             var stringSort = reader.Value as string;
             return SortingExtensions.ToSortDirection(stringSort);

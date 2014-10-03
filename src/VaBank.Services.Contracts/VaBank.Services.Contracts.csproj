@@ -50,6 +50,7 @@
     <Compile Include="Admin\Maintenance\SystemLogLevelModel.cs" />
     <Compile Include="Admin\Maintenance\SystemLogLookupModel.cs" />
     <Compile Include="Admin\Maintenance\SystemLogQuery.cs" />
+    <Compile Include="Common\ServiceException.cs" />
     <Compile Include="Common\Validation\AlwaysTrueValidator.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
