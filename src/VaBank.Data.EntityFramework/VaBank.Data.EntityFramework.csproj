@@ -55,6 +55,7 @@
     <Compile Include="Mappings\ApplicationClientMap.cs" />
     <Compile Include="Mappings\ApplicationTokenMap.cs" />
     <Compile Include="Mappings\LogMap.cs" />
+    <Compile Include="Mappings\RestrictionConstants.cs" />
     <Compile Include="Mappings\UserClaimMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Mappings\UserProfileMap.cs" />
