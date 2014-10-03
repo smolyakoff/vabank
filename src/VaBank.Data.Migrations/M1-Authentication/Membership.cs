@@ -30,7 +30,7 @@ namespace VaBank.Data.Migrations
                 .WithColumn("SecurityStamp").AsSecurityString().NotNullable()
                 .WithColumn("LockoutEnabled").AsBoolean().NotNullable().WithDefaultValue(false)
                 .WithColumn("LockoutEndDateUtc").AsDateTime().Nullable()
-                .WithColumn("UserName").AsShortName().Indexed("IX_User_UserName")
+                .WithColumn("UserName").AsShortName().NotNullable().Indexed("IX_User_UserName")
                 .WithColumn("AccessFailedCount").AsInt32().NotNullable().WithDefaultValue(0)
                 .WithColumn("Deleted").AsBoolean().NotNullable().Indexed("IX_User_Deleted").WithDefaultValue(false);
 
@@ -60,7 +60,7 @@ namespace VaBank.Data.Migrations
                 .WithColumn("AllowedOrigin").AsString(256).Nullable();
 
             Create.Table("ApplicationToken").InSchema(SchemaName).WithColumn("ID").AsGuid().PrimaryKey("PK_ApplicationToken").WithDefault(SystemMethods.NewGuid)
-                .WithColumn("ClientID").AsClientId().ForeignKey("FK_ApplicationToken_ClientID_ApplicationClient", SchemaName, "ApplicationClient", "ID")
+                .WithColumn("ClientID").AsClientId().ForeignKey("FK_ApplicationToken_To_ApplicationClient", SchemaName, "ApplicationClient", "ID")
                 .WithColumn("IssuedUtc").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
                 .WithColumn("ExpiresUtc").AsDateTime().NotNullable()
                 .WithColumn("ProtectedTicket").AsSecurityString().NotNullable();
