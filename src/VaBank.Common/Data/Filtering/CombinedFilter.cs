@@ -19,7 +19,12 @@ namespace VaBank.Common.Data.Filtering
         public FilterLogic Logic { get; set; }
 
         [JsonProperty(Required = Required.Always)]
-        public ICollection<IFilter> Filters { get; private set; } 
+        public ICollection<IFilter> Filters { get; private set; }
+
+        public bool HasChildren
+        {
+            get { return Filters.Count > 0; }
+        }
 
         public Expression<Func<T, bool>> ToExpression<T>() where T : class
         {

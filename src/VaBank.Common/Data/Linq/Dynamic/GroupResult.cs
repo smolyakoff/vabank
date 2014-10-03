@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace VaBank.Common.Data.Linq
+namespace VaBank.Common.Data.Linq.Dynamic
 {
 
     /// <summary>

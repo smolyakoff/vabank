@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="DataTests.cs" />
     <Compile Include="Fakes\Car.cs" />
+    <Compile Include="Fakes\Garage.cs" />
     <Compile Include="Fakes\LogEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

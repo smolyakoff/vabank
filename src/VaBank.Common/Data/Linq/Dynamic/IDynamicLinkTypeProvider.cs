@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VaBank.Common.Data.Linq
+namespace VaBank.Common.Data.Linq.Dynamic
 {
     /// <summary>
     /// Interface for providing custom types for Dynamic Linq.

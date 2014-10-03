@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Linq = System.Linq.Expressions;
 
-
-namespace VaBank.Common.Data.Filtering
+namespace VaBank.Common.Data.Linq
 {
     /// <summary>
     ///     Allows creating and combining query specifications using logical And and Or

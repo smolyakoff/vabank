@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-namespace VaBank.Common.Data.Linq
+namespace VaBank.Common.Data.Linq.Dynamic
 {
 
     /// <summary>

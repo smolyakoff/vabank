@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -10,8 +8,11 @@ namespace VaBank.Common.Data.Filtering
 {
     public class SimpleFilter : IFilter
     {
+        private readonly Dictionary<Type, Expression> _parsedExpressions; 
+
         private SimpleFilter()
         {
+            _parsedExpressions = new Dictionary<Type, Expression>();
         }
 
         [JsonProperty(Required = Required.Always)]
@@ -29,8 +30,13 @@ namespace VaBank.Common.Data.Filtering
         public Expression<Func<T ,bool>> ToExpression<T>()
             where T : class 
         {
-            var dynamicLinqFilter = ToDynamicLinqFilter();
-            return dynamicLinqFilter.ToExpression<T>();
+            if (!_parsedExpressions.ContainsKey(typeof (T)))
+            {
+                var dynamicLinqFilter = ToDynamicLinqFilter();
+                var expression = dynamicLinqFilter.ToExpression<T>();
+                _parsedExpressions[typeof (T)] = expression;
+            }
+            return (Expression<Func<T, bool>>)_parsedExpressions[typeof(T)];
         }
 
         public DynamicLinqFilter ToDynamicLinqFilter()

@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
 
-namespace VaBank.Common.Data.Linq
+namespace VaBank.Common.Data.Linq.Dynamic
 {
 
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification="There is only ever one instance of this class, and it should never be destroyed except on AppDomain termination.")]

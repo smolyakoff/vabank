@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using FluentValidationNA;
 
-namespace VaBank.Common.Data.Linq
+namespace VaBank.Common.Data.Linq.Dynamic
 {
     /// <summary>
     /// Provides a set of static (Shared in Visual Basic) methods for querying data 

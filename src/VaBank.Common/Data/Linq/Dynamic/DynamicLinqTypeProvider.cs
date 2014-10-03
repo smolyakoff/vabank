@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace VaBank.Common.Data.Linq
+namespace VaBank.Common.Data.Linq.Dynamic
 {
     /// <summary>
     /// Indicates to Dynamic Linq to consider the Type as a valid dynamic linq type. Use only when

@@ -5,6 +5,6 @@ namespace VaBank.Common.Data.Sorting
 {
     public interface ISort
     {
-        Func<IQueryable<T>, IOrderedQueryable<T>> ToDelegate<T>();
+        Func<IQueryable<T>, IQueryable<T>> ToDelegate<T>();
     }
 }

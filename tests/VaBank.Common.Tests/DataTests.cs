@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using VaBank.Common.Data.Filtering;
 using VaBank.Common.Data.Filtering.Converters;
+using VaBank.Common.Data.Linq;
 using VaBank.Common.Tests.Fakes;
 
 namespace VaBank.Common.Tests
@@ -45,10 +46,8 @@ namespace VaBank.Common.Tests
 
             Assert.IsNotNull(filter);
             Assert.IsInstanceOfType(filter, typeof(CombinedFilter));
-
             var expected = Cars.Where(x => new string[] { "Ford", "Dodge" }.Contains(x.Make) && x.Year > 2002).ToList();
             var actual = Cars.AsQueryable().Where(filter.ToExpression<Car>()).ToList();
-
             Assert.IsTrue(expected.SequenceEqual(actual));
         }
 
@@ -71,6 +70,16 @@ namespace VaBank.Common.Tests
                 ).ToList();
             var actual = Logs.AsQueryable().Where(filter.ToExpression<LogEntry>()).ToList();
             Assert.IsTrue(expected.SequenceEqual(actual));
+        }
+
+        [TestCategory("Production")]
+        [TestMethod]
+        public void Can_Get_Used_Properties_From_Expression_With_Nested_Property_Access()
+        {
+            Expression<Func<Garage, bool>> exp = x => x.Car.Make == "Ford" && x.Color == "Green";
+            var properties = PropertiesVisitor.GetUsedProperties<Garage>(exp).ToList();
+
+            Assert.IsTrue(properties.Contains("Car.Make") && properties.Contains("Color"));
         }
     }
 }

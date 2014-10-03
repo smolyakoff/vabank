@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VaBank.Common.Data.Linq
+namespace VaBank.Common.Data.Linq.Dynamic
 {
     internal class DynamicProperty
     {

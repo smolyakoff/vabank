@@ -51,7 +51,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.ModelBinding
             {
                 return query;
             }
-            if (apiQuery.Filter != null && !apiQuery.Filter.IsEmpty() && clientFilterable != null)
+            if (apiQuery.Filter != null && !(apiQuery.Filter is EmptyFilter) && clientFilterable != null)
             {
                 clientFilterable.ApplyFilter(apiQuery.Filter);
             }

@@ -1,4 +1,4 @@
-﻿namespace VaBank.Common.Data.Linq
+﻿namespace VaBank.Common.Data.Linq.Dynamic
 {
 
     static class Res
