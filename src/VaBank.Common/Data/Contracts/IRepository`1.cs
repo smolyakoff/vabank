@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using VaBank.Core.Data;
 
-namespace VaBank.Core.Repositories
+namespace VaBank.Common.Data.Contracts
 {
     public interface IRepository<TEntity>
         where TEntity : class 
@@ -11,6 +10,6 @@ namespace VaBank.Core.Repositories
         void Update(TEntity entity);
         void Delete(TEntity entity);
         IEnumerable<TEntity> ReadAll();
-        IEnumerable<TEntity> QueryAll(IQuery<TEntity> query);
+        IEnumerable<TEntity> Query(IQuery query);
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using VaBank.Common.Data.Contracts;
 using VaBank.Common.Data.Filtering;
 using VaBank.Core.Entities;
-using VaBank.Core.Repositories;
 using VaBank.Data.EntityFramework;
 using VaBank.Services.Contracts.Admin.Maintenance;
 using VaBank.Services.Contracts.Common.Models;

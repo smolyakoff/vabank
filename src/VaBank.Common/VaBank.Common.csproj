@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Contracts\IRepository`1.cs" />
     <Compile Include="Data\Filtering\CombinedFilter.cs" />
     <Compile Include="Data\Filtering\Converters\JsonFilterOperatorConverter.cs" />
     <Compile Include="Data\Filtering\Converters\JsonFilterPropertyTypeConverter.cs" />

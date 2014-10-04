@@ -1,30 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using VaBank.Core.Data;
-using VaBank.Core.Repositories;
+using System.Linq;
+using VaBank.Common.Data;
+using VaBank.Common.Data.Contracts;
 
 namespace VaBank.Data.EntityFramework.Repositories
 {
     public class Repository<TEntity>: BaseRepository, IRepository<TEntity>
         where TEntity : class
     {
-        private readonly IQueryProcessor _queryProcessor;
-
-        //public Repository() : base(new VaBankContext())
-        //{
-        //}
-
-        //public Repository(DbContext context): base(context)
-        //{
-        //    _queryProcessor = new QueryProcessor(context);
-        //}
-
-        public Repository(DbContext context, IQueryProcessor queryProcessor) : base(context)
+        public Repository(DbContext context) : base(context)
         {
-            if (queryProcessor == null)
-                throw new ArgumentNullException("queryProcessor", "Query processor can't be null");
-            _queryProcessor = queryProcessor;   
         }
 
         public TEntity Find(params object[] keys)
@@ -52,9 +38,9 @@ namespace VaBank.Data.EntityFramework.Repositories
             return Context.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> QueryAll(IQuery<TEntity> query)
+        public IEnumerable<TEntity> Query(IQuery query)
         {
-            return _queryProcessor.QueryAll(query);
+            return Context.Set<TEntity>().AsQueryable().Query(query);
         }
     }
 }
