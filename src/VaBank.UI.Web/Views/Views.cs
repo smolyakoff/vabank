@@ -1,4 +1,6 @@
-﻿using RazorGenerator.Templating;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using RazorGenerator.Templating;
 using SquishIt.Framework;
 
 namespace VaBank.UI.Web.Views
@@ -11,6 +13,16 @@ namespace VaBank.UI.Web.Views
 
     public class IndexBase : RazorTemplateBase
     {
+        public virtual string ServerInfo()
+        {
+            var info = new ServerInfo();
+            var infoJson = JsonConvert.SerializeObject(info, new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            });
+            return string.Format("<script id=\"server-info\" type=\"text/json\">{0}</script>", infoJson);
+        }
+
         public virtual string Styles()
         {
             var bundle = Bundle.Css();
@@ -19,6 +31,7 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("angular-bootstrap-datetimepicker/src/css/datetimepicker.css"))
                 .Add(BowerPath("isteven-angular-multiselect/angular-multi-select.css"))
                 .Add(BowerPath("angular-loading-bar/build/loading-bar.css"))
+                .Add(BowerPath("angular-toastr/dist/angular-toastr.css"))
                 .Add(ApplicationPath("styles/vabank.scss"));
 
             return bundle.Render("~/Client/styles_#.css");
@@ -32,12 +45,17 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("moment/moment.js"))
                 .Add(BowerPath("underscore/underscore.js"))
                 .Add(BowerPath("js-schema/js-schema.debug.js"))
+                .Add(BowerPath("spin.js/spin.js"))
                 .Add(BowerPath("angular/angular.js"))
                 .Add(BowerPath("angular-resource/angular-resource.js"))
+                .Add(BowerPath("angular-local-storage/dist/angular-local-storage.js"))
                 .Add(BowerPath("angular-ui-router/release/angular-ui-router.js"))
                 .Add(BowerPath("angular-bootstrap/ui-bootstrap.js"))
                 .Add(BowerPath("angular-bootstrap/ui-bootstrap-tpls.js"))
                 .Add(BowerPath("angular-loading-bar/build/loading-bar.js"))
+                .Add(BowerPath("angular-promise-tracker/promise-tracker.js"))
+                .Add(BowerPath("angular-spinner/angular-spinner.js"))
+                .Add(BowerPath("angular-toastr/dist/angular-toastr.js"))
                 .Add(BowerPath("angular-bootstrap-datetimepicker/src/js/datetimepicker.js"))
                 .Add(BowerPath("angular-date-time-input/src/dateTimeInput.js"))
                 .Add(BowerPath("isteven-angular-multiselect/angular-multi-select.js"))
@@ -47,6 +65,7 @@ namespace VaBank.UI.Web.Views
 
             bundle
                 .Add(ApplicationPath("modules/vabank-ui/vabank-ui.js"))
+                .AddDirectory(ApplicationPath("modules/vabank-ui/config"))
                 .AddDirectory(ApplicationPath("modules/vabank-ui"))
                 .Add(ApplicationPath("vabank.js"))
                 .AddDirectory(ApplicationPath("areas/global/config"))

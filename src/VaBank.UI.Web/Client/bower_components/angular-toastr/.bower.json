@@ -1,0 +1,35 @@
+{
+  "name": "angular-toastr",
+  "version": "0.4.0",
+  "main": [
+    "./dist/angular-toastr.js",
+    "./dist/angular-toastr.css"
+  ],
+  "ignore": [
+    "config",
+    "node_modules",
+    "playground",
+    "src",
+    "test",
+    ".travis.yml",
+    ".gitignore",
+    ".jshintrc",
+    "CHANGELOG.md",
+    "Gruntfile.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "angular": "latest"
+  },
+  "homepage": "https://github.com/Foxandxss/angular-toastr",
+  "_release": "0.4.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.4.0",
+    "commit": "afd37a068a6bdccddd19d7a87c279a06fb145061"
+  },
+  "_source": "git://github.com/Foxandxss/angular-toastr.git",
+  "_target": "~0.4.0",
+  "_originalSource": "angular-toastr",
+  "_direct": true
+}

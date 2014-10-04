@@ -26,6 +26,10 @@
     "isteven-angular-multiselect": "~2.0.1",
     "underscore": "~1.7.0",
     "js-schema": "~0.7.0",
-    "angular-form-for": "~1.5.1"
+    "angular-form-for": "~1.5.1",
+    "angular-spinner": "~0.5.1",
+    "angular-promise-tracker": "~2.0.1",
+    "angular-toastr": "~0.4.0",
+    "angular-local-storage": "~0.1.0"
   }
 }

@@ -18,15 +18,11 @@
             templateUrl: '/Client/app/areas/admin/system-log/system-log.html',
             controller: 'systemLogController',
             resolve: {
-                data: ['$q', 'systemLogService', function ($q, systemLogService) {
-                    //TODO: make this func as util
+                data: ['routingResolve', 'systemLogService', function (routingResolve, systemLogService) {
                     var LogEntry = systemLogService.LogEntry;
-                    return $q.all([LogEntry.query().$promise, LogEntry.lookup().$promise]).then(function (arr) {
-                        return {
-                            logs: arr[0],
-                            lookup: arr[1]
-                        };
-                    });
+                    return routingResolve.resolveAll(
+                        [LogEntry.query().$promise, LogEntry.lookup().$promise],
+                        ['logs', 'lookup']);
                 }]
             }
         });

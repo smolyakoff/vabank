@@ -1,16 +1,16 @@
 ﻿<section class="row offset-bottom">
-    <div class="col-xs-10">
+    <div class="col-xs-9">
         <div class="form-inline log-filters">
-            <div class="form-group">
-                <label for="from-date">From</label>
-                <vb-datepicker data-ng-model="fromFilter.value" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
+            <div class="form-group from-filter">
+                <label for="from-date">От</label>
+                <vb-datepicker data-ng-model="filter.from.value" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
+            </div>
+            <div class="form-group to-filter">
+                <label for="from-date">До</label>
+                <vb-datepicker data-ng-model="filter.to.value" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
             </div>
             <div class="form-group">
-                <label for="from-date">To</label>
-                <vb-datepicker data-ng-model="toFilter.value" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
-            </div>
-            <div class="form-group">
-                <label for="from-date">Type</label>
+                <label for="from-date">Тип</label>
                 <div data-multi-select
                      input-model="lookups.types"
                      button-label="label"
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="from-date">Levels</label>
+                <label for="from-date">Уровни</label>
                 <div data-multi-select
                      input-model="lookups.levels"
                      default-label="Any"
@@ -33,34 +33,55 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-2">
+    <div class="col-xs-3">
         <div class="btn-toolbar pull-right" role="toolbar">
-            <button class="btn btn-danger" ng-click="clear()">Clear</button>
-            <button class="btn btn-primary" ng-click="show()">Show</button>
+            <button class="btn btn-danger" 
+                    ng-click="clear()" 
+                    vb-confirm="Вы действительно хотите очистить выбранные логи?">
+                Очистить
+            </button>
+            <button class="btn btn-primary" ng-click="show()">Показать</button>
         </div>
     </div>
 </section>
 <section class="row">
     <div class="col-xs-12">
-        <table class="table" st-table="logs">
+        <table class="table table-responsive" st-table="displayedLogs" st-safe-src="logs">
             <thead>
                 <tr>
-                    <th style="width: 120px">Event ID</th>
-                    <th>Timestamp UTC</th>
-                    <th>Type</th>
-                    <th style="width: 150px">Level</th>
-                    <th>User</th>
-                    <th>Message</th>
+                    <th st-sort=" eventid" style="width: 70px">ID</th>
+                    <th st-sort="timestampUtc" st-sort-default="" style="width: 220px">Время UTC</th>
+                    <th st-sort="type">Тип</th>
+                    <th st-sort="level" style="width: 150px">Уровень</th>
+                    <th st-sort="user">Пользователь</th>
+                    <th st-sort="message">Сообщение</th>
+                    <th style="width: 50px">Подробно</th>
+                </tr>
+                <tr>
+                    <th colspan="7">
+                        <div class="input-group search-row">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </span>
+                            <input st-search="" placeholder="Поиск" class="form-control" type="search" />
+                        </div>
+                    </th>
                 </tr>
             </thead>
-            <tbody>
-                <tr ng-repeat="log in logs">
+            <tbody ng-show="loading.active()">
+                <tr><td colspan="7"><div class="table-content" data-us-spinner=""></div></td></tr>
+            </tbody>
+            <tbody ng-show="!loading.active()">
+                <tr ng-repeat="log in displayedLogs" data-ng-class="{warning: log.level === 'Warning', info: log.level === 'Info', danger: log.level === 'Fatal' || log.level === 'Error'}">
                     <td>{{log.eventId}}</td>
                     <td>{{log.timestampUtc}}</td>
                     <td>{{log.type}}</td>
                     <td>{{log.level}}</td>
                     <td>{{log.user}}</td>
-                    <td>{{log.message}}</td>
+                    <td>{{log.message | truncate:50 }}</td>
+                    <td class="text-center">
+                        <button class="btn btn-default btn-xs" ng-click="exception(log)"><i class="glyphicon glyphicon-info-sign"></i></button>
+                    </td>
                 </tr>
             </tbody>
         </table>

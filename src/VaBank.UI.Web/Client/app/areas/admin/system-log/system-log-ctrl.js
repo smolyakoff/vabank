@@ -4,65 +4,60 @@
     var app = angular.module('vabank.webapp');
     app.controller('systemLogController', systemLog);
     
-    systemLog.$inject = ['$scope', 'controlUtil', 'dataUtil', 'systemLogService', 'data'];
+    systemLog.$inject = ['$scope', '$modal', 'promiseTracker', 'controlUtil', 'dataUtil', 'systemLogService', 'data'];
     
-    function systemLog($scope, controlUtil, dataUtil, systemLogService, data) {
+    function systemLog($scope, $modal, promiseTracker, controlUtil, dataUtil, systemLogService, data) {
         var multiselect = controlUtil.multiselect;
+        var LogEntry = systemLogService.LogEntry;
 
         var createFilter = function() {
-            var selectedTypes = multiselect.getSelectedItems($scope.lookups.types);
-            $scope.typeFilter.value = selectedTypes.length === 0 ? null : selectedTypes[0];
-            $scope.levelFilter.value = multiselect.getSelectedItems($scope.lookups.levels);
-            var filter = dataUtil.filters.combine([
-                $scope.fromFilter,
-                $scope.toFilter,
-                $scope.levelFilter
-            ], dataUtil.filters.logic.And);
+            $scope.filter.type.value = multiselect.getSingleItem($scope.lookups.types);
+            $scope.filter.level.value = multiselect.getSelectedItems($scope.lookups.levels);
+            var filter = dataUtil.filters.combine($scope.filter, dataUtil.filters.logic.And);
             return filter;
         };
 
+        $scope.loading = promiseTracker();
+
+        $scope.filter = LogEntry.defaults.filter;
+
         $scope.lookups = {
             levels: multiselect.getSelectChoices(data.lookup.levels, {tickMode: 'all'}),
-            types: multiselect.getSelectChoices(data.lookup.types, {tickMode: 'first'}),
-        };
-
-        $scope.fromFilter = {
-            propertyName: 'timestampUtc',
-            operator: dataUtil.filters.operator.GreaterThan,
-            value: moment().date(1).startOf('day').utc().toDate(),
-        };
-
-        $scope.toFilter = {
-            propertyName: 'timestampUtc',
-            operator: dataUtil.filters.operator.LessThan,
-            value: moment().startOf('day').utc().toDate(),
-        };
-
-        $scope.typeFilter = {
-            propertyName: 'type',
-            operator: dataUtil.filters.operator.Equal,
-            value: null
-        };
-
-        $scope.levelFilter = {
-            propertyName: 'level',
-            operator: dataUtil.filters.operator.In,
-            value: data.lookup.levels
+            types: multiselect.getSelectChoices(data.lookup.types, {tickMode: 'first', preItems: [dataUtil.filters.markers.any('Любой')]}),
         };
 
         $scope.logs = data.logs;
 
+        $scope.displayedLogs = [].concat(data.logs);
+
         $scope.show = function () {
             var filter = createFilter().toLINQ();
-            $scope.logs = systemLogService.LogEntry.query({ filter: filter});
+            $scope.logs = LogEntry.query({ filter: filter });
+            $scope.loading.addPromise($scope.logs.$promise);
         };
 
         $scope.clear = function() {
             var filter = createFilter().toObject();
-            $scope.logs = systemLogService.LogEntry.clear({filter: filter});
+            var promise = LogEntry.clear({ filter: filter }).$promise;
+            $scope.loading.addPromise(promise);
+            promise.then(function() {
+                $scope.logs = [];
+            });
         };
 
-
+        $scope.exception = function (log) {
+            LogEntry.exception({ id: log.eventId }).$promise.then(function (details) {
+                var logDetails = angular.extend({}, log, details);
+                $modal.open({
+                    templateUrl: '/Client/app/areas/admin/system-log/exception-details.html',
+                    controller: 'exceptionDetailsController',
+                    resolve: {
+                        data: function () { return logDetails; }
+                    }
+                });
+            });
+            
+        };
     }
 
 })();

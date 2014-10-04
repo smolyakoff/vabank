@@ -39,6 +39,21 @@
             Guid: 'guid',
             Boolean: 'boolean'
         };
+        
+        var markers = {
+            any: function Any(label, labelPropertyName) {
+                if (!(this instanceof Any)) {
+                    return new Any(label, labelPropertyName);
+                }
+                label = label || 'Any';
+                labelPropertyName = labelPropertyName || 'label';
+                this._labelPropertyName = labelPropertyName;
+                this[labelPropertyName] = label;
+            }
+        };
+        markers.any.prototype.toString = function() {
+            return this[this._labelPropertyName];
+        };
 
         var operators = _.values(FilterOperator);
         var filterPropertyTypes = _.values(FilterPropertyType);
@@ -70,10 +85,33 @@
                 return prefix + options.propertyName + '.' + options.functionName + '(' + parameterName + ')';
             };
 
+            var emptyQuery = function() {
+                return '1 == 1';
+            };
+
             var functionOverParameterQuery = function(options, parameters) {
                 var parameterName = addParameter(parameters, options.value);
                 var prefix = options.isNegative ? '!' : '';
                 return prefix + parameterName + '.' + options.functionName + '(' + options.propertyName + ')';
+            };
+
+            var eqQuery = function (options, parameters) {
+                if (options.value instanceof markers.any) {
+                    return emptyQuery();
+                }
+                return operatorQuery(options, parameters);
+            };
+            
+            var inQuery = function (options, parameters) {
+                if (_.isArray(options.value) && options.value.length > 0) {
+                    if (_.all(options.value, function(x) {
+                        return x instanceof markers.any;
+                    })) {
+                        return emptyQuery();
+                    }
+                    return functionOverParameterQuery(options, parameters);
+                }
+                return emptyQuery();
             };
 
             function FilterImpl(options) {
@@ -101,6 +139,12 @@
                 switch (this.operator) {
                     case FilterOperator.Equal:
                     case FilterOperator.NotEqual:
+                        query = eqQuery({
+                            propertyName: this.propertyName,
+                            value: this.value,
+                            operator: this.operator
+                        }, parameters);
+                        break;
                     case FilterOperator.GreaterThan:
                     case FilterOperator.GreaterThanOrEqual:
                     case FilterOperator.LessThan:
@@ -112,7 +156,7 @@
                         }, parameters);
                         break;
                     case FilterOperator.In:
-                        query = functionOverParameterQuery({
+                        query = inQuery({
                             propertyName: this.propertyName,
                             value: this.value,
                             functionName: functions[FilterOperator.In],
@@ -120,7 +164,7 @@
                         }, parameters);
                         break;
                     case FilterOperator.NotIn:
-                        query = functionOverParameterQuery({
+                        query = inQuery({
                             propertyName: this.propertyName,
                             value: this.value,
                             functionName: functions[FilterOperator.In],
@@ -283,12 +327,13 @@
             });
             return combiner;
         };
-
+        
         return {
             filters: {
                 operator: FilterOperator,
                 logic: FilterLogic,
-                combine: combineFilters
+                combine: combineFilters,
+                markers: markers
             }
         };
     }

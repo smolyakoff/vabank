@@ -1,4 +1,12 @@
-﻿.offset-bottom {
+﻿.modal {
+ overflow-y: auto;
+}
+
+.modal-open {
+ overflow: auto;
+}
+
+.offset-bottom {
     margin-bottom: 10px;
 }
 
@@ -6,6 +14,12 @@ img.center {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.table-content {
+    text-align:middle;
+    min-height:200px;
+    position: relative;
 }
 
 

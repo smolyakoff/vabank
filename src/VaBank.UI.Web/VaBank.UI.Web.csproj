@@ -162,6 +162,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Client\app\areas\admin\system-log\exception-details-ctrl.js" />
+    <Content Include="Client\app\areas\admin\system-log\exception-details.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log-service.js" />
     <Content Include="Client\app\areas\admin\admin.html" />
     <Content Include="Client\app\areas\admin\config\routes.js" />
@@ -171,13 +173,25 @@
     <Content Include="Client\app\areas\customer\cabinet.html" />
     <Content Include="Client\app\areas\customer\dashboard\dashboard.html" />
     <Content Include="Client\app\areas\global\auth\login.html" />
+    <Content Include="Client\app\areas\global\config\http.js" />
     <Content Include="Client\app\areas\global\errors\500.html" />
+    <Content Include="Client\app\areas\global\errors\http-error-notifier-interceptor.js" />
+    <Content Include="Client\app\areas\global\errors\error-resources.js" />
     <Content Include="Client\app\areas\global\routing-interceptor.js" />
     <Content Include="Client\app\areas\global\config\routes.js" />
+    <Content Include="Client\app\areas\global\routing-resolve.js" />
+    <Content Include="Client\app\areas\global\config\server-info.js" />
     <Content Include="Client\app\images\vabank-logo-big.png" />
+    <Content Include="Client\app\modules\vabank-ui\config\local-storage-config.js" />
+    <Content Include="Client\app\modules\vabank-ui\config\toastr-config.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\vb-confirm.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-datepicker.js" />
+    <Content Include="Client\app\modules\vabank-ui\filters\truncate.js" />
     <Content Include="Client\app\modules\vabank-ui\services\control-util.js" />
     <Content Include="Client\app\modules\vabank-ui\services\data-util.js" />
+    <Content Include="Client\app\modules\vabank-ui\services\dialog-service.js" />
+    <Content Include="Client\app\modules\vabank-ui\services\notification-service.js" />
+    <Content Include="Client\app\modules\vabank-ui\templates\vb-confirmation-dialog.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-datepicker.html" />
     <Content Include="Client\app\modules\vabank-ui\vabank-ui.js" />
     <Content Include="Client\app\vabank.js" />
@@ -294,6 +308,16 @@
     <Content Include="Client\bower_components\angular-loading-bar\Gruntfile.js" />
     <Content Include="Client\bower_components\angular-loading-bar\src\loading-bar.css" />
     <Content Include="Client\bower_components\angular-loading-bar\src\loading-bar.js" />
+    <Content Include="Client\bower_components\angular-local-storage\.gitattributes" />
+    <Content Include="Client\bower_components\angular-local-storage\.gitignore" />
+    <Content Include="Client\bower_components\angular-local-storage\demo\demo-app.js" />
+    <Content Include="Client\bower_components\angular-local-storage\demo\demo-style.css" />
+    <Content Include="Client\bower_components\angular-local-storage\demo\demo.html" />
+    <Content Include="Client\bower_components\angular-local-storage\dist\angular-local-storage.js" />
+    <Content Include="Client\bower_components\angular-local-storage\dist\angular-local-storage.min.js" />
+    <Content Include="Client\bower_components\angular-promise-tracker\.gitignore" />
+    <Content Include="Client\bower_components\angular-promise-tracker\promise-tracker-http-interceptor.js" />
+    <Content Include="Client\bower_components\angular-promise-tracker\promise-tracker.js" />
     <Content Include="Client\bower_components\angular-resource\angular-resource.js" />
     <Content Include="Client\bower_components\angular-resource\angular-resource.min.js" />
     <Content Include="Client\bower_components\angular-smart-table\.gitignore" />
@@ -307,6 +331,16 @@
     <Content Include="Client\bower_components\angular-smart-table\src\stSelectRow.js" />
     <Content Include="Client\bower_components\angular-smart-table\src\stSort.js" />
     <Content Include="Client\bower_components\angular-smart-table\src\stTable.js" />
+    <Content Include="Client\bower_components\angular-spinner\.gitignore" />
+    <Content Include="Client\bower_components\angular-spinner\angular-spinner.js" />
+    <Content Include="Client\bower_components\angular-spinner\angular-spinner.min.js" />
+    <Content Include="Client\bower_components\angular-spinner\Gruntfile.js" />
+    <Content Include="Client\bower_components\angular-spinner\karma.conf.js" />
+    <Content Include="Client\bower_components\angular-spinner\tests.js" />
+    <Content Include="Client\bower_components\angular-toastr\dist\angular-toastr.css" />
+    <Content Include="Client\bower_components\angular-toastr\dist\angular-toastr.js" />
+    <Content Include="Client\bower_components\angular-toastr\dist\angular-toastr.min.css" />
+    <Content Include="Client\bower_components\angular-toastr\dist\angular-toastr.min.js" />
     <Content Include="Client\bower_components\angular-ui-router\release\angular-ui-router.js" />
     <Content Include="Client\bower_components\angular-ui-router\release\angular-ui-router.min.js" />
     <Content Include="Client\bower_components\angular-ui-router\src\common.js" />
@@ -538,6 +572,10 @@
     <Content Include="Client\bower_components\moment\min\moment-with-locales.min.js" />
     <Content Include="Client\bower_components\moment\min\moment.min.js" />
     <Content Include="Client\bower_components\moment\moment.js" />
+    <Content Include="Client\bower_components\spin.js\.gitignore" />
+    <Content Include="Client\bower_components\spin.js\jquery.spin.js" />
+    <Content Include="Client\bower_components\spin.js\LICENSE.txt" />
+    <Content Include="Client\bower_components\spin.js\spin.js" />
     <Content Include="Client\bower_components\underscore\.gitignore" />
     <Content Include="Client\bower_components\underscore\underscore-min.js" />
     <Content Include="Client\bower_components\underscore\underscore.js" />
@@ -747,6 +785,38 @@
     <Content Include="Client\bower_components\angular-form-for\styles\_mixins.styl" />
     <Content Include="Client\bower_components\angular-form-for\styles\_variables.styl" />
     <Content Include="Client\app\areas\customer\cabinet.scss" />
+    <Content Include="Client\app\areas\admin\system-log\system-log.scss" />
+    <Content Include="Client\app\modules\vabank-ui\vabank-ui.scss" />
+    <Content Include="Client\bower_components\angular-local-storage\.bower.json" />
+    <Content Include="Client\bower_components\angular-local-storage\.bowerrc" />
+    <Content Include="Client\bower_components\angular-local-storage\.travis.yml" />
+    <Content Include="Client\bower_components\angular-local-storage\bower.json" />
+    <Content Include="Client\bower_components\angular-local-storage\LICENSE" />
+    <Content Include="Client\bower_components\angular-local-storage\package.json" />
+    <Content Include="Client\bower_components\angular-local-storage\README.md" />
+    <Content Include="Client\bower_components\angular-promise-tracker\.bower.json" />
+    <Content Include="Client\bower_components\angular-promise-tracker\.editorconfig" />
+    <Content Include="Client\bower_components\angular-promise-tracker\.travis.yml" />
+    <Content Include="Client\bower_components\angular-promise-tracker\bower.json" />
+    <Content Include="Client\bower_components\angular-promise-tracker\README.md" />
+    <Content Include="Client\bower_components\angular-spinner\.bower.json" />
+    <Content Include="Client\bower_components\angular-spinner\.editorconfig" />
+    <Content Include="Client\bower_components\angular-spinner\.jshintrc" />
+    <Content Include="Client\bower_components\angular-spinner\.npmignore" />
+    <Content Include="Client\bower_components\angular-spinner\.travis.yml" />
+    <Content Include="Client\bower_components\angular-spinner\angular-spinner.min.js.map" />
+    <Content Include="Client\bower_components\angular-spinner\bower.json" />
+    <Content Include="Client\bower_components\angular-spinner\CHANGELOG.md" />
+    <Content Include="Client\bower_components\angular-spinner\package.json" />
+    <Content Include="Client\bower_components\angular-spinner\README.md" />
+    <Content Include="Client\bower_components\angular-toastr\.bower.json" />
+    <Content Include="Client\bower_components\angular-toastr\bower.json" />
+    <Content Include="Client\bower_components\angular-toastr\README.md" />
+    <Content Include="Client\bower_components\spin.js\.bower.json" />
+    <Content Include="Client\bower_components\spin.js\.jshintrc" />
+    <Content Include="Client\bower_components\spin.js\.npmignore" />
+    <Content Include="Client\bower_components\spin.js\bower.json" />
+    <Content Include="Client\bower_components\spin.js\README.md" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -771,6 +841,7 @@
     <Compile Include="Modules\ServicesModule.cs" />
     <Compile Include="Modules\WebApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Api\Infrastructure\Validation\AutofacValidatorFactory.cs" />
     <Compile Include="Views\Views.cs" />

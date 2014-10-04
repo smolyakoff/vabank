@@ -1,4 +1,5 @@
-﻿.form-inline {
+﻿//Forms
+.form-inline {
     .vb-datepicker {
         display: inline-block;
     }
@@ -10,4 +11,13 @@
     .multiSelect .button {
         display: inline-block;
     }
+}
+
+//Tables
+.st-sort-descent:before {
+    content: '\25BC';
+}
+
+.st-sort-ascent:before {
+    content: '\25B2';
 }
