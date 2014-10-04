@@ -10,7 +10,7 @@ namespace VaBank.Services.Contracts.Admin.Maintenance
 
         public DateTime TimestampUtc { get; set; }
 
-        public SystemLogLevelModel Level { get; set; }
+        public string Level { get; set; }
 
         public string Type { get; set; }
 

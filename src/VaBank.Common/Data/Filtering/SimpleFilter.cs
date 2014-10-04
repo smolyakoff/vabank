@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -107,7 +108,23 @@ namespace VaBank.Common.Data.Filtering
         private object ToConcreteList(JArray array)
         {
             Type elementType = PropertyType.ToType();
+            if (elementType == typeof (object))
+            {
+                return InferType(array);
+            }
             Type listType = typeof (List<>).MakeGenericType(elementType);
+            return array.ToObject(listType);
+        }
+
+        private object InferType(JArray array)
+        {
+            JValue firstTypedValue = array.Cast<JValue>().FirstOrDefault(x => x.Value != null);
+            if (firstTypedValue == null)
+            {
+                return new List<object>();
+            }
+            Type type = firstTypedValue.Value.GetType();
+            Type listType = typeof(List<>).MakeGenericType(type);
             return array.ToObject(listType);
         }
 

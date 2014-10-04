@@ -10,7 +10,7 @@ namespace VaBank.Services.Contracts.Admin.Maintenance
 
         IEnumerable<SystemLogEntryBriefModel> GetSystemLogEntries(SystemLogQuery query);
 
-        SystemLogExceptionModel GetSystemLogException(IdentityQuery<long> eventId);
+        SystemLogExceptionModel GetSystemLogException(IdentityQuery<long> query);
 
         UserMessage ClearSystemLog(SystemLogQuery query);
     }

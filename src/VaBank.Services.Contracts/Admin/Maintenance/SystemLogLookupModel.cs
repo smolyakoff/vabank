@@ -6,11 +6,11 @@ namespace VaBank.Services.Contracts.Admin.Maintenance
     {
         protected SystemLogLookupModel()
         {
-            Levels = new List<SystemLogLevelModel>();
             Types = new List<string>();
+            Levels = new List<string>();
         }
 
-        public List<SystemLogLevelModel> Levels { get; protected set; }
+        public List<string> Levels { get; set; }
 
         public List<string> Types { get; set; }
     }

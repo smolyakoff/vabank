@@ -21,7 +21,6 @@ namespace VaBank.UI.Web.Api.Admin
         [Route]
         public IHttpActionResult Query([ModelBinder] SystemLogQuery query)
         {
-            throw new NotImplementedException();
             var logs = _logManagementService.GetSystemLogEntries(query);
             return Ok(logs);
         }
@@ -38,7 +37,8 @@ namespace VaBank.UI.Web.Api.Admin
         [Route("clear")]
         public IHttpActionResult Clear([ModelBinder] SystemLogQuery query)
         {
-            return Ok(_logManagementService.ClearSystemLog(query));
+            var message = _logManagementService.ClearSystemLog(query);
+            return Ok(message);
         }
 
         [HttpGet]

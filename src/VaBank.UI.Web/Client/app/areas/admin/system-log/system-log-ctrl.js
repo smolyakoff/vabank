@@ -4,9 +4,9 @@
     var app = angular.module('vabank.webapp');
     app.controller('systemLogController', systemLog);
     
-    systemLog.$inject = ['$scope', '$modal', 'promiseTracker', 'controlUtil', 'dataUtil', 'systemLogService', 'data'];
+    systemLog.$inject = ['$scope', '$modal', 'promiseTracker', 'controlUtil', 'dataUtil', 'notificationService', 'systemLogService', 'data'];
     
-    function systemLog($scope, $modal, promiseTracker, controlUtil, dataUtil, systemLogService, data) {
+    function systemLog($scope, $modal, promiseTracker, controlUtil, dataUtil, notificationService, systemLogService, data) {
         var multiselect = controlUtil.multiselect;
         var LogEntry = systemLogService.LogEntry;
 
@@ -40,8 +40,13 @@
             var filter = createFilter().toObject();
             var promise = LogEntry.clear({ filter: filter }).$promise;
             $scope.loading.addPromise(promise);
-            promise.then(function() {
+            promise.then(function(response) {
                 $scope.logs = [];
+                notificationService.notify({                    
+                    type: 'success',
+                    message: response.message,
+                    title: 'Операция завершена успешно'
+                });
             });
         };
 

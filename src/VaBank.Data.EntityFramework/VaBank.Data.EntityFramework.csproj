@@ -42,6 +42,10 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -52,15 +56,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mappings\ApplicationClientMap.cs" />
-    <Compile Include="Mappings\ApplicationTokenMap.cs" />
-    <Compile Include="Mappings\LogMap.cs" />
-    <Compile Include="Mappings\RestrictionConstants.cs" />
-    <Compile Include="Mappings\UserClaimMap.cs" />
-    <Compile Include="Mappings\UserMap.cs" />
-    <Compile Include="Mappings\UserProfileMap.cs" />
-    <Compile Include="Repositories\BaseRepository.cs" />
-    <Compile Include="Repositories\Repository`1.cs" />
+    <Compile Include="Maintenance\Mappings\ApplicationClientMap.cs" />
+    <Compile Include="Maintenance\Mappings\ApplicationTokenMap.cs" />
+    <Compile Include="Membership\Mappings\SystemLogEntryMap.cs" />
+    <Compile Include="Maintenance\Mappings\RestrictionConstants.cs" />
+    <Compile Include="Maintenance\Mappings\UserClaimMap.cs" />
+    <Compile Include="Maintenance\Mappings\UserMap.cs" />
+    <Compile Include="Maintenance\Mappings\UserProfileMap.cs" />
+    <Compile Include="Common\Repository`1.cs" />
     <Compile Include="VaBankContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

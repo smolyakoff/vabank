@@ -48,7 +48,6 @@
     <Compile Include="Admin\Maintenance\ILogManagementService.cs" />
     <Compile Include="Admin\Maintenance\SystemLogEntryBriefModel.cs" />
     <Compile Include="Admin\Maintenance\SystemLogExceptionModel.cs" />
-    <Compile Include="Admin\Maintenance\SystemLogLevelModel.cs" />
     <Compile Include="Admin\Maintenance\SystemLogLookupModel.cs" />
     <Compile Include="Admin\Maintenance\SystemLogQuery.cs" />
     <Compile Include="Common\Models\UserMessage.cs" />

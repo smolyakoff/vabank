@@ -3,10 +3,11 @@ using AutoMapper;
 using FluentValidation;
 using System;
 using System.Linq;
-using VaBank.Services;
+using VaBank.Services.Common;
 using VaBank.Services.Contracts;
 using VaBank.UI.Web.Api.Infrastructure.Validation;
 using IValidatorFactory = VaBank.Services.Contracts.Common.Validation.IValidatorFactory;
+using Module = Autofac.Module;
 
 namespace VaBank.UI.Web.Modules
 {
@@ -26,6 +27,13 @@ namespace VaBank.UI.Web.Modules
                 .Where(t => !t.IsGenericType)
                 .ToList();
             validatorTypes.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().InstancePerRequest());
+
+            //Register repository collections
+            builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
+                .Where(t => typeof (IRepositoryCollection).IsAssignableFrom(t))
+                .PropertiesAutowired()
+                .AsSelf()
+                .InstancePerRequest();
 
             //Register services
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)

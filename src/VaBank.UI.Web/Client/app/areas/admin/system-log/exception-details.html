@@ -5,5 +5,5 @@
 <div class="modal-body">
     <div><b>{{log.source}}</b></div>
     <div>{{log.message}}</div>
-    <pre ng-if="log.message != null">{{log.exception}}</pre>
+    <pre ng-show="log.exception !== null">{{log.exception}}</pre>
 </div>

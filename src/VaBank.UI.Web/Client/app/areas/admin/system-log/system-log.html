@@ -72,7 +72,7 @@
                 <tr><td colspan="7"><div class="table-content" data-us-spinner=""></div></td></tr>
             </tbody>
             <tbody ng-show="!loading.active()">
-                <tr ng-repeat="log in displayedLogs" data-ng-class="{warning: log.level === 'Warning', info: log.level === 'Info', danger: log.level === 'Fatal' || log.level === 'Error'}">
+                <tr ng-repeat="log in displayedLogs" data-ng-class="{warning: log.level === 'WARN', info: log.level === 'INFO', danger: log.level === 'FATAL' || log.level === 'ERROR'}">
                     <td>{{log.eventId}}</td>
                     <td>{{log.timestampUtc}}</td>
                     <td>{{log.type}}</td>

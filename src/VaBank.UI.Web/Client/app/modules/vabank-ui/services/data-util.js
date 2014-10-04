@@ -74,6 +74,27 @@
                 return '@' + (parameters.length - 1);
             };
 
+            var isInFamilyOperator = function(operator) {
+                return operator === FilterOperator.In || operator === FilterOperator.NotIn;
+            };
+            
+            var isEqFamilyOperator = function (operator) {
+                return operator === FilterOperator.Equal || operator === FilterOperator.NotEqual;
+            };
+
+            var isEmptyOrAnyMarkerArray = function(value) {
+                if (!_.isArray(value)) {
+                    return true;
+                }
+                if (value.length === 0) {
+                    return true;
+                }
+                if (_.all(value, function(x) { return x instanceof markers.any; })) {
+                    return true;
+                }
+                return false;
+            };
+
             var operatorQuery = function(options, parameters) {
                 var parameterName = addParameter(parameters, options.value);
                 return options.propertyName + ' ' + options.operator + ' ' + parameterName;
@@ -87,6 +108,14 @@
 
             var emptyQuery = function() {
                 return '1 == 1';
+            };
+
+            var emptyFilter = {
+                propertyName: '1',
+                operator: FilterOperator.Equal,
+                propertyType: 'int',
+                value: '1',
+                type: 'simple'
             };
 
             var functionOverParameterQuery = function(options, parameters) {
@@ -103,15 +132,10 @@
             };
             
             var inQuery = function (options, parameters) {
-                if (_.isArray(options.value) && options.value.length > 0) {
-                    if (_.all(options.value, function(x) {
-                        return x instanceof markers.any;
-                    })) {
-                        return emptyQuery();
-                    }
-                    return functionOverParameterQuery(options, parameters);
+                if (isEmptyOrAnyMarkerArray(options.value)) {
+                    return emptyQuery();
                 }
-                return emptyQuery();
+                return functionOverParameterQuery(options, parameters);
             };
 
             function FilterImpl(options) {
@@ -231,6 +255,12 @@
                 return linq;
             };
             FilterImpl.prototype.toObject = function () {
+                if (isInFamilyOperator(this.operator) && isEmptyOrAnyMarkerArray(this.value)) {
+                    return angular.copy(emptyFilter);
+                }
+                if (isEqFamilyOperator(this.operator) && this.value instanceof markers.any) {
+                    return angular.copy(emptyFilter);
+                }
                 return {
                     propertyName: this.propertyName,
                     propertyType: this.propertyType,

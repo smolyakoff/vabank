@@ -4,8 +4,6 @@ namespace VaBank.Services.Contracts.Common.Models
 {
     public class UserMessage
     {
-        private readonly string _message;
-
         public static UserMessage Format(string format, params object[] parameters)
         {
             return new UserMessage(string.Format(format, parameters));
@@ -22,7 +20,7 @@ namespace VaBank.Services.Contracts.Common.Models
             {
                 throw new ArgumentNullException("message");
             }
-            _message = message;
+            Message = message;
             Code = code;
         }
 

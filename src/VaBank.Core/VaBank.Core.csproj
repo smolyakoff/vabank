@@ -39,21 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Entity`1.cs" />
-    <Compile Include="Entities\Log.cs" />
-    <Compile Include="Entities\Membership\ApplicationClient.cs" />
-    <Compile Include="Entities\Membership\ApplicationClientType.cs" />
-    <Compile Include="Entities\Membership\ApplicationToken.cs" />
-    <Compile Include="Entities\Membership\User.cs" />
-    <Compile Include="Entities\Membership\UserClaim.cs" />
-    <Compile Include="Entities\Membership\UserProfile.cs" />
-    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Common\Entity.cs" />
+    <Compile Include="Common\Entity`1.cs" />
+    <Compile Include="Maintenance\SystemLogEntry.cs" />
+    <Compile Include="Membership\ApplicationClient.cs" />
+    <Compile Include="Membership\ApplicationClientType.cs" />
+    <Compile Include="Membership\ApplicationToken.cs" />
+    <Compile Include="Membership\User.cs" />
+    <Compile Include="Membership\UserClaim.cs" />
+    <Compile Include="Membership\UserProfile.cs" />
+    <Compile Include="Common\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

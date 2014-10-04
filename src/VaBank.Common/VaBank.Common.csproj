@@ -56,7 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Contracts\IRepository`1.cs" />
+    <Compile Include="Data\Filtering\FilterQuery.cs" />
+    <Compile Include="Data\Repositories\ConcurrencyException.cs" />
+    <Compile Include="Data\Repositories\IQueryRepository%271.cs" />
+    <Compile Include="Data\Repositories\IRepository`1.cs" />
     <Compile Include="Data\Filtering\CombinedFilter.cs" />
     <Compile Include="Data\Filtering\Converters\JsonFilterOperatorConverter.cs" />
     <Compile Include="Data\Filtering\Converters\JsonFilterPropertyTypeConverter.cs" />
@@ -101,6 +104,9 @@
     <Compile Include="Data\Paging\IPage.cs" />
     <Compile Include="Data\Paging\IPageableQuery.cs" />
     <Compile Include="Data\QueryExtensions.cs" />
+    <Compile Include="Data\Repositories\IRepository.cs" />
+    <Compile Include="Data\Repositories\RepositoryExtensions.cs" />
+    <Compile Include="Data\Repositories\RepositoryException.cs" />
     <Compile Include="Data\Sorting\Converters\JsonSortConverter.cs" />
     <Compile Include="Data\Sorting\Converters\JsonSortDirectionConverter.cs" />
     <Compile Include="Data\Sorting\Converters\SortTypeConverter.cs" />
