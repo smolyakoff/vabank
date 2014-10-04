@@ -4,10 +4,12 @@
     angular.module('vabank.webapp')
            .config(registerRoutes);
 
-    registerRoutes.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
+    registerRoutes.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider', 'serverInfo'];
 
-    function registerRoutes($locationProvider, $stateProvider, $urlRouterProvider) {
+    function registerRoutes($locationProvider, $stateProvider, $urlRouterProvider, serverInfo) {
         $locationProvider.html5Mode(true);
+
+        $urlRouterProvider.otherwise('/');
 
         $stateProvider.state('cabinet', {            
             url: '/',
@@ -28,7 +30,8 @@
         });
         $stateProvider.state('error.500', {
             url: '/error/500',
-            templateUrl: '/Client/app/areas/global/errors/500.html'
+            templateUrl: '/Client/app/areas/global/errors/500.html',
+            data: serverInfo.isDebug ? {} : {disableNotifications: true}
         });
     }
 

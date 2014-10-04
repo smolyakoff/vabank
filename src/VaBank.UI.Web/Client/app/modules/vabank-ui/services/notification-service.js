@@ -5,9 +5,9 @@
 
     module.factory('notificationService', notificationService);
 
-    notificationService.$inject = ['$rootScope', 'toastr', 'localStorageService'];
+    notificationService.$inject = ['$rootScope', '$state', 'toastr', 'localStorageService'];
 
-    function notificationService($rootScope, toastr, localStorage) {
+    function notificationService($rootScope, $state, toastr, localStorage) {
 
         var notificationSchema = schema({
             type: ['success', 'error', 'info', 'warning'],
@@ -30,7 +30,7 @@
             }
             var toast = angular.extend({}, toastDefaults, notification);
             var method = toastr[notification.type];
-            if (_.isUndefined(notification.state) || _.isNull(notification.state)) {
+            if (_.isUndefined(notification.state) || _.isNull(notification.state) || $state.current.name === toast.state) {
                 method(toast.message, toast.title);
             } else {
                 if (!_.isArray(notifications[toast.state])) {

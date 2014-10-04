@@ -21,6 +21,7 @@ namespace VaBank.UI.Web.Api.Admin
         [Route]
         public IHttpActionResult Query([ModelBinder] SystemLogQuery query)
         {
+            throw new NotImplementedException();
             var logs = _logManagementService.GetSystemLogEntries(query);
             return Ok(logs);
         }

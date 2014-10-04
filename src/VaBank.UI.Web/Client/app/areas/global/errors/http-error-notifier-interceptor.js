@@ -27,7 +27,7 @@
         };
 
         var requestError = function (rejection) {
-            if (rejection.status.toString()[0] === '5') {
+            if (rejection.status.toString()[0] === '5' && !$rootScope.stateChanging) {
                 $rootScope.$broadcast('notificationPushed', getMessage(rejection));
             }
             return $q.reject(rejection);
