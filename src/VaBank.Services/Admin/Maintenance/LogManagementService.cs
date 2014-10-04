@@ -20,7 +20,7 @@ namespace VaBank.Services.Admin.Maintenance
             return new SystemLogLookup(Enumerable.Empty<string>());
         }
 
-        public IEnumerable<SystemLogEntryModel> GetSystemLogEntries(SystemLogQuery query)
+        public IEnumerable<SystemLogEntryBriefModel> GetSystemLogEntries(SystemLogQuery query)
         {
             //TODO: do real logic here
             EnsureIsValid(query);
@@ -30,7 +30,7 @@ namespace VaBank.Services.Admin.Maintenance
             var results = queryable
                 .Where(query.Filter)
                 .AsEnumerable<Log>()
-                .Select(AutoMapper.Mapper.Map<Log, SystemLogEntryModel>)
+                .Select(AutoMapper.Mapper.Map<Log, SystemLogEntryBriefModel>)
                 .ToList();
             return results;
         }

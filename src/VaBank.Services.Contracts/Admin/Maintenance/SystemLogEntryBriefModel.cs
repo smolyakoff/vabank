@@ -2,7 +2,7 @@
 
 namespace VaBank.Services.Contracts.Admin.Maintenance
 {
-    public class SystemLogEntryModel
+    public class SystemLogEntryBriefModel
     {
         public long EventId { get; set; }
 
@@ -17,9 +17,5 @@ namespace VaBank.Services.Contracts.Admin.Maintenance
         public string User { get; set; }
 
         public string Message { get; set; }
-
-        public string Exception { get; set; }
-
-        public string Source { get; set; }
     }
 }

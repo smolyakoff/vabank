@@ -47,7 +47,7 @@ namespace VaBank.Common.Data
         {
             var pageable = query as IPageableQuery;
             Func<IQueryable<T>, IPageableQuery, IPagedList<T>> pager;
-            if (pageable == null)
+            if (pageable == null || pageable is NoPagingQuery)
             {
                 pager = (x, f) => new StaticPagedList<T>(x, 1, int.MaxValue, int.MaxValue);
             }

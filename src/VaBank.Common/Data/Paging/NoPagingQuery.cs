@@ -2,7 +2,7 @@
 
 namespace VaBank.Common.Data.Paging
 {
-    internal class DummyPageableQuery : IPageableQuery
+    internal class NoPagingQuery : IPageableQuery
     {
         public ISort Sort
         {

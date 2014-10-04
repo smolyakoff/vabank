@@ -8,7 +8,7 @@ namespace VaBank.Services.Admin.Maintenance
     {
         protected override void Configure()
         {
-            CreateMap<Log, SystemLogEntryModel>();
+            CreateMap<Log, SystemLogEntryBriefModel>();
         }
     }
 }

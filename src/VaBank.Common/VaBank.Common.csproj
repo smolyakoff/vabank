@@ -71,6 +71,7 @@
     <Compile Include="Data\Filtering\SimpleFilter.cs" />
     <Compile Include="Data\Filtering\IClientFilterable.cs" />
     <Compile Include="Data\Filtering\IFilterableQuery.cs" />
+    <Compile Include="Data\IIdentityQuery%271.cs" />
     <Compile Include="Data\IQuery.cs" />
     <Compile Include="Data\Linq\Dynamic\BasicQueryable.cs" />
     <Compile Include="Data\Linq\Dynamic\ClassFactory.cs" />
@@ -93,8 +94,9 @@
     <Compile Include="Data\Linq\ExpressionCombiner.cs" />
     <Compile Include="Data\Linq\PropertiesVisitor.cs" />
     <Compile Include="Data\Linq\PropertyPathVisitor.cs" />
-    <Compile Include="Data\Paging\DummyPageableQuery.cs" />
+    <Compile Include="Data\Paging\NoPagingQuery.cs" />
     <Compile Include="Data\Paging\IClientPageable.cs" />
+    <Compile Include="Data\Paging\INotPageable.cs" />
     <Compile Include="Data\Paging\IPage.cs" />
     <Compile Include="Data\Paging\IPageableQuery.cs" />
     <Compile Include="Data\QueryExtensions.cs" />
