@@ -4,6 +4,8 @@ using VaBank.Common.Data.Filtering;
 using VaBank.Core.Entities;
 using VaBank.Data.EntityFramework;
 using VaBank.Services.Contracts.Admin.Maintenance;
+using VaBank.Services.Contracts.Common.Models;
+using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Common.Validation;
 
 namespace VaBank.Services.Admin.Maintenance
@@ -33,6 +35,16 @@ namespace VaBank.Services.Admin.Maintenance
                 .Select(AutoMapper.Mapper.Map<Log, SystemLogEntryBriefModel>)
                 .ToList();
             return results;
+        }
+
+        public SystemLogExceptionModel GetSystemLogException(IdentityQuery<long> eventId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UserMessage ClearSystemLog(SystemLogQuery query)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

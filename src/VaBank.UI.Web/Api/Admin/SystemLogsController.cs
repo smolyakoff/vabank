@@ -2,6 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using VaBank.Services.Contracts.Admin.Maintenance;
+using VaBank.Services.Contracts.Common.Queries;
 
 namespace VaBank.UI.Web.Api.Admin
 {
@@ -21,6 +22,12 @@ namespace VaBank.UI.Web.Api.Admin
         {
             var logs = _logManagementService.GetSystemLogEntries(query);
             return Ok(logs);
+        }
+
+        public IHttpActionResult Exception([ModelBinder] IdentityQuery<long> query)
+        {
+            var message = _logManagementService.GetSystemLogException(query);
+            return message == null ? (IHttpActionResult)NotFound() : Ok(message);
         }
 
         [HttpPost]
