@@ -1,4 +1,9 @@
-﻿using Autofac;
+﻿using System.Data.Entity;
+using Autofac;
+using VaBank.Core.Data;
+using VaBank.Core.Repositories;
+using VaBank.Data.EntityFramework;
+using VaBank.Data.EntityFramework.Repositories;
 
 namespace VaBank.UI.Web.Modules
 {
@@ -6,8 +11,10 @@ namespace VaBank.UI.Web.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            base.Load(builder);
-            //do nothing for now
+            //Entity framework data access module registration
+            builder.RegisterType<VaBankContext>().As<DbContext>().InstancePerRequest();
+            builder.RegisterType<QueryProcessor>().As<IQueryProcessor>().InstancePerRequest();
+            builder.RegisterGeneric(typeof (Repository<>)).As(typeof (IRepository<>)).InstancePerRequest();
         }
     }
 }

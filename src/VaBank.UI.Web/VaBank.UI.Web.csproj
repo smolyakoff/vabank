@@ -784,6 +784,10 @@
       <Project>{87e0a3c9-5ccd-4154-9ee3-e65cb54efd0e}</Project>
       <Name>VaBank.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VaBank.Data.EntityFramework\VaBank.Data.EntityFramework.csproj">
+      <Project>{39a10c5c-1058-41d3-b40f-d0ece134cd6f}</Project>
+      <Name>VaBank.Data.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VaBank.Services.Contracts\VaBank.Services.Contracts.csproj">
       <Project>{c203f56a-2032-4ba5-a8aa-0cb7fd38b784}</Project>
       <Name>VaBank.Services.Contracts</Name>
