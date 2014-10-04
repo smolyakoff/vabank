@@ -59,11 +59,8 @@
     <Compile Include="Mappings\UserClaimMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Mappings\UserProfileMap.cs" />
-    <Compile Include="QueryProcessor.cs" />
-    <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Repositories\RepositoryFactory.cs" />
-    <Compile Include="Repositories\Repository`2.cs" />
-    <Compile Include="UnitOfWork.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\Repository`1.cs" />
     <Compile Include="VaBankContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +69,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\VaBank.Common\VaBank.Common.csproj">
+      <Project>{E06FB03E-8249-4F94-9568-EC1247769273}</Project>
+      <Name>VaBank.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VaBank.Core\VaBank.Core.csproj">
       <Project>{87e0a3c9-5ccd-4154-9ee3-e65cb54efd0e}</Project>
       <Name>VaBank.Core</Name>

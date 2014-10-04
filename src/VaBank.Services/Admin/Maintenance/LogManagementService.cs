@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using VaBank.Common.Data.Contracts;
 using VaBank.Common.Data.Filtering;
 using VaBank.Core.Entities;
 using VaBank.Data.EntityFramework;
@@ -12,8 +14,14 @@ namespace VaBank.Services.Admin.Maintenance
 {
     public class LogManagementService : BaseService, ILogManagementService
     {
-        public LogManagementService(IValidatorFactory validatorFactory) : base(validatorFactory)
+        private readonly IRepository<Log> _logRepository; 
+
+        public LogManagementService(IRepository<Log> logRepository, IValidatorFactory validatorFactory) 
+            : base(validatorFactory)
         {
+            if (logRepository == null)
+                throw new ArgumentNullException("logRepository");
+            _logRepository = logRepository;
         }
 
         public SystemLogLookupModel GetSystemLogLookup()
@@ -44,7 +52,7 @@ namespace VaBank.Services.Admin.Maintenance
 
         public UserMessage ClearSystemLog(SystemLogQuery query)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

@@ -39,11 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\IFilterableQuery.cs" />
-    <Compile Include="Data\IPageableQuery.cs" />
-    <Compile Include="Data\ISortableQuery.cs" />
-    <Compile Include="Data\IQuery%271.cs" />
-    <Compile Include="Data\IQueryProcessor.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Entity`1.cs" />
     <Compile Include="Entities\Log.cs" />
@@ -55,9 +50,9 @@
     <Compile Include="Entities\Membership\UserProfile.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\IRepositoryFactory.cs" />
-    <Compile Include="Repositories\IRepository`2.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositories\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
