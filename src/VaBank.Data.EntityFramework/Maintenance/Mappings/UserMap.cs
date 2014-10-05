@@ -24,6 +24,7 @@ namespace VaBank.Data.EntityFramework.Maintenance.Mappings
                 .IsRequired();
             Property(x => x.AccessFailedCount).IsRequired();
             Property(x => x.Deleted).IsRequired();
+            Property(x => x.RowVersion).IsRowVersion();
         }
     }
 }
