@@ -8,6 +8,10 @@ namespace VaBank.Common.Data.Repositories
     {
         IList<TEntity> Query(IQuery query);
 
+        long Count(IQuery query);
+
+        long Count();
+
         IPagedList<TEntity> QueryPage(IQuery query);
 
         IList<TModel> Project<TModel>(IQuery query)

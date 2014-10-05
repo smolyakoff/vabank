@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Linq;using System.Threading.Tasks;
+using FluentValidation;
 using FluentValidation.Results;
 using VaBank.Core.Common;
 using VaBank.Services.Contracts;
 using VaBank.Services.Contracts.Common.Validation;
+using ValidationException = VaBank.Services.Contracts.Common.Validation.ValidationException;
 
 namespace VaBank.Services.Common
 {

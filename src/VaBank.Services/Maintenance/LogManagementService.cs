@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentValidation;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Common;
 using VaBank.Core.Maintenance;
@@ -8,8 +9,8 @@ using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Common.Queries;
-using VaBank.Services.Contracts.Common.Validation;
 using VaBank.Services.Contracts.Maintenance;
+
 
 namespace VaBank.Services.Maintenance
 {

@@ -851,9 +851,12 @@
   <ItemGroup>
     <Compile Include="Api\Admin\SystemLogsController.cs" />
     <Compile Include="Api\Admin\MaintenanceController.cs" />
+    <Compile Include="Api\Common\ValidationController.cs" />
     <Compile Include="Api\Infrastructure\Filters\TransactionAttribute.cs" />
+    <Compile Include="Api\Infrastructure\IoC\JsonNetConverter.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\InheritanceAwareModelBinderProvider.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\QueryModelBinder.cs" />
+    <Compile Include="Middleware\CultureMiddleware.cs" />
     <Compile Include="Middleware\ExceptionHandling\ExceptionHandlingMiddleware.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
     <Compile Include="Modules\ServicesModule.cs" />
@@ -861,7 +864,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Api\Infrastructure\Validation\AutofacValidatorFactory.cs" />
+    <Compile Include="Api\Infrastructure\IoC\AutofacFactory.cs" />
     <Compile Include="Views\Views.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -56,7 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Filtering\FilterQuery.cs" />
+    <Compile Include="Data\DbQuery%271.cs" />
+    <Compile Include="Data\DbQuery.cs" />
     <Compile Include="Data\Repositories\ConcurrencyException.cs" />
     <Compile Include="Data\Repositories\IQueryRepository%271.cs" />
     <Compile Include="Data\Repositories\IRepository`1.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Data\Sorting\SortDirection.cs" />
     <Compile Include="Data\Sorting\SortingExtensions.cs" />
     <Compile Include="Data\Filtering\SpecFilter.cs" />
+    <Compile Include="FilterQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Password.cs" />
     <Compile Include="Serialization\JsonCreationConverter.cs" />

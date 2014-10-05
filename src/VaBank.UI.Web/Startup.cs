@@ -1,7 +1,9 @@
 ﻿using System.Configuration;
+using System.Globalization;
 using System.Net;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using Autofac;
@@ -18,6 +20,7 @@ using SquishIt.Framework;
 using SquishIt.Sass;
 using VaBank.Common.Data;
 using VaBank.UI.Web.Api.Infrastructure.ModelBinding;
+using VaBank.UI.Web.Middleware;
 using VaBank.UI.Web.Modules;
 using VaBank.UI.Web.Views;
 
@@ -36,6 +39,7 @@ namespace VaBank.UI.Web
 
             config.UseStaticFiles("/Client");
             config.UseHangfire(ConfigureHangfire);
+            config.Use<CultureMiddleware>();
 
             var httpConfig = ConfigureWebApi();
             config.UseWebApi(httpConfig);

@@ -33,7 +33,7 @@ namespace VaBank.Data.EntityFramework.Common
             return EnsureRepositoryException(() => Context.Set<TEntity>().Find(keys));
         }
 
-        public TModel Project<TModel>(params object[] keys) where TModel : class
+        public TModel FindAndProject<TModel>(params object[] keys) where TModel : class
         {
             if (keys == null)
             {
@@ -95,6 +95,20 @@ namespace VaBank.Data.EntityFramework.Common
                 throw new ArgumentNullException("query");
             }
             return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).ToList());
+        }
+
+        public long Count(IQuery query)
+        {
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).Count());
+        }
+
+        public long Count()
+        {
+            return EnsureRepositoryException(() => Context.Set<TEntity>().Count());
         }
 
         public IPagedList<TEntity> QueryPage(IQuery query)

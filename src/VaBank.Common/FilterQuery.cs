@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VaBank.Common.Data.Filtering
+namespace VaBank.Common
 {
     class FilterQuery
     {

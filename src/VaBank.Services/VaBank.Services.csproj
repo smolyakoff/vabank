@@ -52,8 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\IObjectFactory.cs" />
     <Compile Include="Common\IRepositoryCollection.cs" />
     <Compile Include="Common\ServiceExtensions.cs" />
+    <Compile Include="Common\Validation\IObjectConverter.cs" />
+    <Compile Include="Common\Validation\IObjectValidator%271.cs" />
+    <Compile Include="Common\Validation\IObjectValidator.cs" />
+    <Compile Include="Common\Validation\ObjectValidator.cs" />
+    <Compile Include="Common\Validation\StaticValidatorAttribute.cs" />
+    <Compile Include="Common\Validation\ValidationExtensions.cs" />
+    <Compile Include="Common\Validation\ValidationService.cs" />
+    <Compile Include="Common\Validation\ValidatorNameAttribute.cs" />
     <Compile Include="Maintenance\LogManagementService.cs" />
     <Compile Include="Maintenance\MaintenanceProfile.cs" />
     <Compile Include="Maintenance\MaintenanceRepositories.cs" />
@@ -66,6 +75,7 @@
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Maintenance\SystemLogTypeModel.cs" />
     <Compile Include="Maintenance\Validators.cs" />
+    <Compile Include="Membership\LoginValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
