@@ -18,7 +18,6 @@ using SquishIt.Framework;
 using SquishIt.Sass;
 using VaBank.Common.Data;
 using VaBank.UI.Web.Api.Infrastructure.ModelBinding;
-using VaBank.UI.Web.Middleware;
 using VaBank.UI.Web.Modules;
 using VaBank.UI.Web.Views;
 

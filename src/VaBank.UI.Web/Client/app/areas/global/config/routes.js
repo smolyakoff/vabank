@@ -11,27 +11,26 @@
 
         $urlRouterProvider.otherwise('/');
 
-        $stateProvider.state('cabinet', {            
-            url: '/',
-            templateUrl: '/Client/app/areas/customer/cabinet.html'
-            //controller: ['$state', function($state) {
-            //    $state.go('login');
-            //}]
-        });
-
         $stateProvider.state('login', {            
             url: '/login',
-            templateUrl: '/Client/app/areas/global/auth/login.html'
+            templateUrl: '/Client/app/areas/global/auth/login.html',
+            data: {
+                title: 'VaBank - Вход в систему'
+            }
         });
 
         $stateProvider.state('error', {
-            abstract: true,
+            'abstract': true,
             template: '<div data-ui-view=\"\"></div>'
         });
+        
         $stateProvider.state('error.500', {
             url: '/error/500',
             templateUrl: '/Client/app/areas/global/errors/500.html',
-            data: serverInfo.isDebug ? {} : {disableNotifications: true}
+            data: {
+                title: 'VaBank - Ой-ой-ой',
+                disableNotifications: !serverInfo.isDebug
+            }
         });
     }
 

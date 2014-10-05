@@ -70,9 +70,15 @@ namespace VaBank.UI.Web.Views
                 .Add(ApplicationPath("vabank.js"))
                 .AddDirectory(ApplicationPath("areas/global/config"))
                 .AddDirectory(ApplicationPath("areas/global"))
+                .AddDirectory(ApplicationPath("areas/customer/config"))
+                .AddDirectory(ApplicationPath("areas/customer"))
+                .AddDirectory(ApplicationPath("areas/customer/dashboard"))
+                .AddDirectory(ApplicationPath("areas/customer/profile"))
                 .AddDirectory(ApplicationPath("areas/admin/config"))
                 .AddDirectory(ApplicationPath("areas/admin/scheduler"))
-                .AddDirectory(ApplicationPath("areas/admin/system-log"));
+                .AddDirectory(ApplicationPath("areas/admin/system-log"))
+                .AddDirectory(ApplicationPath("areas/admin/user-management"));
+
 
             return bundle.Render("~/Client/app_#.js");
         }

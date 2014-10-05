@@ -45,8 +45,9 @@
     <Reference Include="AjaxMin">
       <HintPath>..\..\packages\AjaxMin.4.48.4489.28432\lib\net20\AjaxMin.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac">
-      <HintPath>..\..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Integration.Owin">
       <HintPath>..\..\packages\Autofac.Owin.3.1.0\lib\net45\Autofac.Integration.Owin.dll</HintPath>
@@ -98,11 +99,11 @@
     </Reference>
     <Reference Include="LibSass.x86, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\libsassnet.1.5\lib\net40\LibSass.x86.dll</HintPath>
+      <HintPath>..\..\packages\libsassnet.1.7\lib\net40\LibSass.x86.dll</HintPath>
     </Reference>
     <Reference Include="libsassnet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\libsassnet.1.5\lib\net40\libsassnet.dll</HintPath>
+      <HintPath>..\..\packages\libsassnet.1.7\lib\net40\libsassnet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin">
@@ -130,11 +131,13 @@
     <Reference Include="RazorGenerator.Templating">
       <HintPath>..\..\packages\RazorGenerator.Templating.2.2.3\lib\net40\RazorGenerator.Templating.dll</HintPath>
     </Reference>
-    <Reference Include="SquishIt.Framework">
-      <HintPath>..\..\packages\SquishIt.0.9.6\lib\SquishIt.Framework.dll</HintPath>
+    <Reference Include="SquishIt.Framework, Version=0.9.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\SquishIt.0.9.6.1\lib\SquishIt.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="SquishIt.Sass">
-      <HintPath>..\..\packages\SquishIt.Sass.0.9.6\lib\SquishIt.Sass.dll</HintPath>
+    <Reference Include="SquishIt.Sass, Version=0.9.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\SquishIt.Sass.0.9.6.1\lib\SquishIt.Sass.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -176,8 +179,16 @@
     <Content Include="Client\app\areas\admin\scheduler\scheduler.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log-ctrl.js" />
+    <Content Include="Client\app\areas\admin\user-management\user-management-ctrl.js" />
+    <Content Include="Client\app\areas\admin\user-management\user-management-service.js" />
+    <Content Include="Client\app\areas\admin\user-management\user-management.html" />
+    <Content Include="Client\app\areas\customer\cabinet-ctrl.js" />
     <Content Include="Client\app\areas\customer\cabinet.html" />
+    <Content Include="Client\app\areas\customer\config\routes.js" />
     <Content Include="Client\app\areas\customer\dashboard\dashboard.html" />
+    <Content Include="Client\app\areas\customer\profile\profile-ctrl.js" />
+    <Content Include="Client\app\areas\customer\profile\profile-service.js" />
+    <Content Include="Client\app\areas\customer\profile\profile.html" />
     <Content Include="Client\app\areas\global\auth\login.html" />
     <Content Include="Client\app\areas\global\config\http.js" />
     <Content Include="Client\app\areas\global\errors\500.html" />

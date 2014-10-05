@@ -15,10 +15,12 @@
         };
 
         var onStateChangeSuccess = function (event, toState, toParams, fromState, fromParams) {
+            var data = _.isObject(toState.data) ? toState.data : {};
             $rootScope.stateChanging = false;
+            $rootScope.title = data.title || 'VaBank - Онлайн';
             cfpLoadingBar.complete();
             var notifications = notificationService.pop(toState.name);
-            var data = _.isObject(toState.data) ? toState.data : {};
+            
             if (!data.disableNotifications) {
                 _.forEach(notifications, function (x) {
                     notificationService.notify(x);
