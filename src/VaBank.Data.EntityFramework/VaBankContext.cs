@@ -1,6 +1,4 @@
-﻿using System.Data;
-using System.Data.Entity;
-using VaBank.Common.Data;
+﻿using System.Data.Entity;
 using VaBank.Core.Common;
 using VaBank.Core.Maintenance;
 using VaBank.Core.Membership;
@@ -11,11 +9,7 @@ namespace VaBank.Data.EntityFramework
 {
     public class VaBankContext : DbContext, IUnitOfWork
     {
-        public VaBankContext() : base("Name=VaBank.Db")
-        {
-        }
-
-        public VaBankContext(string connectionStringName) : base("Name=" + connectionStringName)
+        public VaBankContext() : base("Name=Vabank.Db")
         {
         }
 

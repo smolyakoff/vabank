@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using VaBank.Services.Contracts.Admin.Maintenance;
+using VaBank.Services.Contracts.Maintenance;
 
 namespace VaBank.Services.Maintenance
 {
@@ -8,6 +8,14 @@ namespace VaBank.Services.Maintenance
         public SystemLogQueryValidator()
         {
             RuleFor(x => x.Filter).NotNull();
+        }
+    }
+
+    internal class SystemLogClearCommandValidator : AbstractValidator<SystemLogClearCommand>
+    {
+        public SystemLogClearCommandValidator()
+        {
+            RuleFor(x => x.Ids).NotNull();
         }
     }
 }

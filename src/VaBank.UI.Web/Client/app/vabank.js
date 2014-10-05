@@ -23,6 +23,7 @@
     function main(routingInterceptor, notifier, serverInfo) {
         if (serverInfo.isDebug) {
             notifier.notify({
+                state: 'cabinet',
                 type: 'info',
                 message: 'Приложение загружено.'
             });

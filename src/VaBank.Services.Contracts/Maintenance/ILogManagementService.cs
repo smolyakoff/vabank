@@ -2,7 +2,7 @@
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Common.Queries;
 
-namespace VaBank.Services.Contracts.Admin.Maintenance
+namespace VaBank.Services.Contracts.Maintenance
 {
     public interface ILogManagementService : IService
     {
@@ -13,5 +13,7 @@ namespace VaBank.Services.Contracts.Admin.Maintenance
         SystemLogExceptionModel GetSystemLogException(IdentityQuery<long> query);
 
         UserMessage ClearSystemLog(SystemLogQuery query);
+
+        UserMessage ClearSystemLog(SystemLogClearCommand command);
     }
 }

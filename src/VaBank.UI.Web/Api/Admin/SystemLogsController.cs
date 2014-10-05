@@ -1,7 +1,9 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using System.Web.Http.ModelBinding;
-using VaBank.Services.Contracts.Admin.Maintenance;
 using VaBank.Services.Contracts.Common.Queries;
+using VaBank.Services.Contracts.Maintenance;
+using VaBank.UI.Web.Api.Infrastructure.Filters;
 
 namespace VaBank.UI.Web.Api.Admin
 {
@@ -33,9 +35,10 @@ namespace VaBank.UI.Web.Api.Admin
 
         [HttpPost]
         [Route("clear")]
-        public IHttpActionResult Clear([ModelBinder] SystemLogQuery query)
+        [Transaction]
+        public IHttpActionResult Clear(SystemLogClearCommand command)
         {
-            var message = _logManagementService.ClearSystemLog(query);
+            var message = _logManagementService.ClearSystemLog(command);
             return Ok(message);
         }
 

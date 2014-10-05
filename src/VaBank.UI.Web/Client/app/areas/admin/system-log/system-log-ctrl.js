@@ -36,9 +36,12 @@
             $scope.loading.addPromise($scope.logs.$promise);
         };
 
+        $scope.canClear = function() {
+            return $scope.displayedLogs.length > 0;
+        };
+
         $scope.clear = function() {
-            var filter = createFilter().toObject();
-            var promise = LogEntry.clear({ filter: filter }).$promise;
+            var promise = LogEntry.clear({ ids: _.pluck($scope.displayedLogs, 'eventId') }).$promise;
             $scope.loading.addPromise(promise);
             promise.then(function(response) {
                 $scope.logs = [];

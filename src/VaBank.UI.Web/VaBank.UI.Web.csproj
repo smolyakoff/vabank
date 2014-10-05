@@ -840,6 +840,7 @@
   <ItemGroup>
     <Compile Include="Api\Admin\SystemLogsController.cs" />
     <Compile Include="Api\Admin\MaintenanceController.cs" />
+    <Compile Include="Api\Infrastructure\Filters\TransactionAttribute.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\InheritanceAwareModelBinderProvider.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\QueryModelBinder.cs" />
     <Compile Include="Middleware\ExceptionHandling\ExceptionHandlingMiddleware.cs" />

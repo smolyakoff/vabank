@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using VaBank.Core.Maintenance;
-using VaBank.Services.Contracts.Admin.Maintenance;
+using VaBank.Services.Contracts.Maintenance;
 
 namespace VaBank.Services.Maintenance
 {

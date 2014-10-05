@@ -45,11 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\Maintenance\ILogManagementService.cs" />
-    <Compile Include="Admin\Maintenance\SystemLogEntryBriefModel.cs" />
-    <Compile Include="Admin\Maintenance\SystemLogExceptionModel.cs" />
-    <Compile Include="Admin\Maintenance\SystemLogLookupModel.cs" />
-    <Compile Include="Admin\Maintenance\SystemLogQuery.cs" />
+    <Compile Include="Maintenance\ILogManagementService.cs" />
+    <Compile Include="Maintenance\SystemLogClearCommand.cs" />
+    <Compile Include="Maintenance\SystemLogEntryBriefModel.cs" />
+    <Compile Include="Maintenance\SystemLogExceptionModel.cs" />
+    <Compile Include="Maintenance\SystemLogLookupModel.cs" />
+    <Compile Include="Maintenance\SystemLogQuery.cs" />
     <Compile Include="Common\Models\UserMessage.cs" />
     <Compile Include="Common\Queries\IdentityQuery.cs" />
     <Compile Include="Common\ServiceException.cs" />

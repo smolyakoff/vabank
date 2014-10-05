@@ -1,6 +1,6 @@
 ﻿using VaBank.Common.Data.Filtering;
 
-namespace VaBank.Services.Contracts.Admin.Maintenance
+namespace VaBank.Services.Contracts.Maintenance
 {
     public class SystemLogQuery : IFilterableQuery, IClientFilterable
     {
