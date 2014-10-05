@@ -14,5 +14,6 @@ namespace VaBank.Core.Membership
         public bool SmsConfirmationEnabled { get; set; }
         public bool SmsNotificationEnabled { get; set; }
         public string SecretPhrase { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace VaBank.Data.EntityFramework.Maintenance.Mappings
             Property(x => x.SmsConfirmationEnabled).IsRequired();
             Property(x => x.SmsNotificationEnabled).IsRequired();
             Property(x => x.SecretPhrase).HasMaxLength(RestrictionConstants.BigStringLength).IsRequired();
+            Property(x => x.RowVersion).IsRowVersion();
         }
     }
 }

@@ -16,5 +16,6 @@ namespace VaBank.Core.Membership
         public bool Deleted { get; set; }
         public virtual ICollection<UserClaim> Claims { get; set; }
         public virtual UserProfile Profile { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }
