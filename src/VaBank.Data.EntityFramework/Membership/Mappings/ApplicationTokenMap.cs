@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 using VaBank.Core.Membership;
 
-namespace VaBank.Data.EntityFramework.Maintenance.Mappings
+namespace VaBank.Data.EntityFramework.Membership.Mappings
 {
     internal class ApplicationTokenMap : EntityTypeConfiguration<ApplicationToken>
     {

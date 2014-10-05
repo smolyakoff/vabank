@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 using VaBank.Core.Maintenance;
-using VaBank.Data.EntityFramework.Maintenance.Mappings;
+using VaBank.Data.EntityFramework.Membership.Mappings;
 
-namespace VaBank.Data.EntityFramework.Membership.Mappings
+namespace VaBank.Data.EntityFramework.Maintenance.Mappings
 {
     public class SystemLogEntryMap : EntityTypeConfiguration<SystemLogEntry>
     {
