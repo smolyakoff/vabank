@@ -56,8 +56,7 @@ namespace VaBank.Services.Maintenance
             EnsureIsValid(query);
             try
             {
-                var exception = _db.LogEntries.ProjectOne<SystemLogEntry, SystemLogExceptionModel>(
-                    query.SetConcreteFilter<SystemLogEntry, long>(x => x.Id));
+                var exception = _db.LogEntries.ProjectIdentity<long, SystemLogEntry, SystemLogExceptionModel>(query);
                 return exception;
             }
             catch (Exception ex)

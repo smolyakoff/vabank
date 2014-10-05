@@ -33,6 +33,15 @@ namespace VaBank.Data.EntityFramework.Common
             return EnsureRepositoryException(() => Context.Set<TEntity>().Find(keys));
         }
 
+        public TModel Project<TModel>(params object[] keys) where TModel : class
+        {
+            if (keys == null)
+            {
+                throw new ArgumentNullException("keys");
+            }
+            return EnsureRepositoryException(() => Mapper.Map<TEntity, TModel>(Context.Set<TEntity>().Find(keys)));
+        }
+
         public void Create(TEntity entity)
         {
             if (entity == null)

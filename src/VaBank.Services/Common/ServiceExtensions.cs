@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Linq.Expressions;
 using AutoMapper;
-using VaBank.Common.Data;
-using VaBank.Common.Data.Filtering;
 using VaBank.Core.Common;
-using VaBank.Services.Contracts.Common.Queries;
 
 namespace VaBank.Services.Common
 {
@@ -25,27 +21,10 @@ namespace VaBank.Services.Common
             }
         }
 
-        public static TModel Map<TModel>(this Entity entity)
+        public static TModel Map<TEntity, TModel>(this TEntity entity)
+            where TEntity : Entity
         {
             return Mapper.Map<Entity, TModel>(entity);
-        }
-
-        public static IdentityQuery<TKey> SetConcreteFilter<TEntity, TKey>(this IdentityQuery<TKey> query, Expression<Func<TEntity, TKey>> keySelector)
-            where TEntity : Entity
-
-        {
-            if (query == null)
-            {
-                throw new ArgumentNullException("query");
-            }
-            if (keySelector == null)
-            {
-                throw new ArgumentNullException("query");
-            }
-            var memberAccess = (MemberExpression)keySelector.Body;
-            var filter = string.Format("{0} == @0", memberAccess.Member.Name);
-            query.Filter = new DynamicLinqFilter(filter, query.Id);
-            return query;
         }
     }
 }

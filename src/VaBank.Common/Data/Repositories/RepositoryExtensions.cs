@@ -33,5 +33,36 @@ namespace VaBank.Common.Data.Repositories
             }
             return repository.Project<TModel>(query).FirstOrDefault();
         }
+
+        public static TEntity QueryIdentity<TKey, TEntity>(this IRepository<TEntity> repository,
+            IIdentityQuery<TKey> identityQuery)
+            where TEntity : class
+        {
+            if (repository == null)
+            {
+                throw new ArgumentNullException("repository");
+            }
+            if (identityQuery == null)
+            {
+                throw new ArgumentNullException("identityQuery");
+            }
+            return repository.Find(identityQuery.Id);
+        }
+
+        public static TModel ProjectIdentity<TKey, TEntity, TModel>(this IRepository<TEntity> repository,
+            IIdentityQuery<TKey> identityQuery)
+            where TEntity : class
+            where TModel : class
+        {
+            if (repository == null)
+            {
+                throw new ArgumentNullException("repository");
+            }
+            if (identityQuery == null)
+            {
+                throw new ArgumentNullException("identityQuery");
+            }
+            return repository.Project<TModel>(identityQuery.Id);
+        }
     }
 }

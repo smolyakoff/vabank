@@ -6,6 +6,7 @@ namespace VaBank.Common.Data.Repositories
         where TEntity : class 
     {
         TEntity Find(params object[] keys);
+        TModel Project<TModel>(params object[] keys) where TModel : class;
         void Create(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
