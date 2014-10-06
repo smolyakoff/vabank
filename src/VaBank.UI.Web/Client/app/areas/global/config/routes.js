@@ -14,6 +14,7 @@
         $stateProvider.state('login', {            
             url: '/login',
             templateUrl: '/Client/app/areas/global/auth/login.html',
+            controller: 'loginController',
             data: {
                 title: 'VaBank - Вход в систему'
             }

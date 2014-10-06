@@ -13,6 +13,13 @@
     }
 }
 
+.form-group.has-error {
+    .input-group-addon {
+        border: 0;
+        background-color: transparent;
+    }
+}
+
 //Tables
 .st-sort-descent:before {
     content: '\25BC';

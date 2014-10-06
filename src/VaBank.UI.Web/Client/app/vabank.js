@@ -18,17 +18,11 @@
         'vabank.ui'
     ]);
 
-    webapp.run(['routingInterceptor', 'notificationService', 'serverInfo', main]);
+    webapp.run(['routingInterceptor', 'formForConfig', main]);
     
-    function main(routingInterceptor, notifier, serverInfo) {
-        if (serverInfo.isDebug) {
-            notifier.notify({
-                state: 'cabinet',
-                type: 'info',
-                message: 'Приложение загружено.'
-            });
-        }
+    function main(routingInterceptor, formConfig) {
         routingInterceptor.initialize();
+        formConfig.init();
     }
 
 })();
