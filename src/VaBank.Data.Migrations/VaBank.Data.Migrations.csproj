@@ -50,6 +50,8 @@
     <Compile Include="M1-Authentication\AddRowVersionColumns.cs" />
     <Compile Include="M1-Authentication\Membership.cs" />
     <Compile Include="M1-Authentication\RenameLogsTable.cs" />
+    <Compile Include="M1-Authentication\SeedClientDev.cs" />
+    <Compile Include="M1-Authentication\SeedClientProduction.cs" />
     <Compile Include="M1-Authentication\SeedUsers.cs" />
     <Compile Include="M1-Authentication\M1User.cs" />
     <Compile Include="Metadata.cs" />
