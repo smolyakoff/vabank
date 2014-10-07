@@ -59,6 +59,15 @@
     <Compile Include="Common\ServiceException.cs" />
     <Compile Include="Common\Validation\AlwaysTrueValidator.cs" />
     <Compile Include="IService.cs" />
+    <Compile Include="Membership\ApplicationClientModel.cs" />
+    <Compile Include="Membership\CreateTokenCommand.cs" />
+    <Compile Include="Membership\IMembershipService.cs" />
+    <Compile Include="Membership\LoginCommand.cs" />
+    <Compile Include="Membership\LoginFailureModel.cs" />
+    <Compile Include="Membership\LoginFailureReason.cs" />
+    <Compile Include="Membership\LoginResultModel.cs" />
+    <Compile Include="Membership\LoginSuccessModel.cs" />
+    <Compile Include="Membership\TokenModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Validation\ValidationException.cs" />
     <Compile Include="Common\Validation\ValidationFault.cs" />

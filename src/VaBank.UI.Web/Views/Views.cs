@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.IO;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RazorGenerator.Templating;
 using SquishIt.Framework;
@@ -13,6 +15,15 @@ namespace VaBank.UI.Web.Views
 
     public class IndexBase : RazorTemplateBase
     {
+        public virtual string RenderTemplateAsScript(string id, string filePath)
+        {
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var relativePath = filePath.Replace('/', Path.DirectorySeparatorChar).Trim(Path.DirectorySeparatorChar);
+            var fullPath = Path.Combine(appDirectory, relativePath);
+            var template = File.ReadAllText(fullPath);
+            return string.Format("<script id=\"{0}\" type=\"text/template\">{1}</script>", id, template);
+        }
+
         public virtual string ServerInfo()
         {
             var info = new ServerInfo();
