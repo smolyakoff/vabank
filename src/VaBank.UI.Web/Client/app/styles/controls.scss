@@ -18,6 +18,19 @@
         border: 0;
         background-color: transparent;
     }
+
+    .form-control-feedback {
+        top: 0;
+    }
+
+    .tooltip-inner {
+        min-width: 200px;
+        background-color: $state-danger-text;
+    }
+
+    .tooltip.right .tooltip-arrow {
+        border-right-color: $state-danger-text
+    }
 }
 
 //Tables

@@ -207,6 +207,7 @@
     <Content Include="Client\app\modules\vabank-auth\services\auth-http-interceptor.js" />
     <Content Include="Client\app\modules\vabank-auth\services\auth-service.js" />
     <Content Include="Client\app\modules\vabank-auth\vabank-auth.js" />
+    <Content Include="Client\app\modules\vabank-ui\config\form-for.js" />
     <Content Include="Client\app\modules\vabank-ui\config\toastr-config.js" />
     <Content Include="Client\app\modules\vabank-ui\config\local-storage-config.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-confirm.js" />
@@ -216,6 +217,7 @@
     <Content Include="Client\app\modules\vabank-ui\services\data-util.js" />
     <Content Include="Client\app\modules\vabank-ui\services\dialog-service.js" />
     <Content Include="Client\app\modules\vabank-ui\services\notification-service.js" />
+    <Content Include="Client\app\modules\vabank-ui\templates\forms\text-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-confirmation-dialog.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-datepicker.html" />
     <Content Include="Client\app\modules\vabank-ui\vabank-ui.js" />

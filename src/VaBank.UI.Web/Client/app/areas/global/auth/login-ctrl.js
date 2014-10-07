@@ -16,12 +16,11 @@
 
         $scope.validationRules = {
             login: {
-                required: true,
                 custom: uiTools.validate.getValidator('login')
             },
             password: {
                 required: true,
-                custom: uiTools.validate.getValidator('password')
+                //custom: uiTools.validate.getValidator('password')
             }
         };
 
