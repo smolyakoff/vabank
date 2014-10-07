@@ -5,9 +5,9 @@
         .module('vabank.webapp')
         .controller('loginController', loginController);
 
-    loginController.$inject = ['$scope', 'uiTools']; 
+    loginController.$inject = ['$scope', '$q', 'uiTools']; 
 
-    function loginController($scope, uiTools) {
+    function loginController($scope, $q, uiTools) {
 
         $scope.loginForm = {
             login: null,
@@ -25,7 +25,11 @@
             }
         };
 
-        $scope.login = function() {
+        $scope.validationFailed = function() {
+
+        };
+
+        $scope.login = function () {
             uiTools.notify({
                 type: 'error',
                 message: 'Not implemented'

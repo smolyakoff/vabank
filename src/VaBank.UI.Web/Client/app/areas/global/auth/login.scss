@@ -2,11 +2,24 @@
 
 .login-wrapper {
     @include center-block();
-    margin-top: 70px;
-    width: 360px;
+    margin-top: 100px;
+    padding: 70px;
+    max-width: 500px;
+    background-color: #f7f7f7;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+
+    .input-group {
+        margin-bottom: 20px;
+    }
 }
 
 .login-logo {
     max-width: 300px;
     margin-bottom: 20px;
+}
+
+.login-button {
+    margin-top: 50px;
 }
