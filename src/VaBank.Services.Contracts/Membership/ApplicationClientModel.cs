@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VaBank.Services.Contracts.Membership
+﻿namespace VaBank.Services.Contracts.Membership
 {
-    class ApplicationClientModel
+    public class ApplicationClientModel
     {
     }
 }
