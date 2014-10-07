@@ -867,7 +867,7 @@
     <Compile Include="Api\Infrastructure\ModelBinding\InheritanceAwareModelBinderProvider.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\QueryModelBinder.cs" />
     <Compile Include="Middleware\CultureMiddleware.cs" />
-    <Compile Include="Middleware\ExceptionHandling\ExceptionHandlingMiddleware.cs" />
+    <Compile Include="Middleware\ExceptionMiddleware.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
     <Compile Include="Modules\ServicesModule.cs" />
     <Compile Include="Modules\WebApiModule.cs" />

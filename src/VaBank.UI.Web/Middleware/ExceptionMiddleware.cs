@@ -6,13 +6,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace VaBank.UI.Web.Middleware.ExceptionHandling
+namespace VaBank.UI.Web.Middleware
 {
-    public class ExceptionHandlingMiddleware: OwinMiddleware
+    public class ExceptionMiddleware: OwinMiddleware
     {
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public ExceptionHandlingMiddleware(OwinMiddleware next)
+        public ExceptionMiddleware(OwinMiddleware next)
             : base(next)
         {
 
@@ -32,7 +32,7 @@ namespace VaBank.UI.Web.Middleware.ExceptionHandling
 
         private void ProcessException(Exception ex)
         {
-            _logger.Error(ex);
+            _logger.Error(ex.Message, ex);
         }
     }
 }
