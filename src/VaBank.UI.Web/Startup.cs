@@ -41,6 +41,7 @@ namespace VaBank.UI.Web
         public void Configuration(IAppBuilder config)
         {
             Bundle.RegisterStylePreprocessor(new SassPreprocessor());
+            config.Use<ExceptionMiddleware>();
             config.UseAutofacMiddleware(ConfigureAutofac());
 
             config.UseStaticFiles("/Client");
