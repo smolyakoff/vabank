@@ -75,9 +75,7 @@ namespace VaBank.UI.Web.Views
                 .AddDirectory(ApplicationPath("areas/customer/dashboard"))
                 .AddDirectory(ApplicationPath("areas/customer/profile"))
                 .AddDirectory(ApplicationPath("areas/admin/config"))
-                .AddDirectory(ApplicationPath("areas/admin/scheduler"))
-                .AddDirectory(ApplicationPath("areas/admin/system-log"))
-                .AddDirectory(ApplicationPath("areas/admin/user-management"));
+                .AddDirectory(ApplicationPath("areas/admin"));
 
 
             return bundle.Render("~/Client/app_#.js");

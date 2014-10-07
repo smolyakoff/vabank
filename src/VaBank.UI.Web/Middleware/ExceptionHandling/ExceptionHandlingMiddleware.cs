@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace VaBank.UI.Web.Middleware.ExceptionHandling
 {
     public class ExceptionHandlingMiddleware: OwinMiddleware
     {
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
         public ExceptionHandlingMiddleware(OwinMiddleware next)
             : base(next)
         {
@@ -17,7 +20,19 @@ namespace VaBank.UI.Web.Middleware.ExceptionHandling
 
         public async override Task Invoke(IOwinContext context)
         {
-            await Next.Invoke(context);
+            try
+            {
+                await Next.Invoke(context);
+            }
+            catch(Exception ex)
+            {
+                ProcessException(ex);
+            }
+        }
+
+        private void ProcessException(Exception ex)
+        {
+            _logger.Error(ex);
         }
     }
 }

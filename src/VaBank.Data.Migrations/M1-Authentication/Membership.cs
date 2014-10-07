@@ -4,7 +4,7 @@
 namespace VaBank.Data.Migrations
 {
     [Migration(2, "Tables for membership system")]
-    [Tags("Membership", "Development", "Production")]
+    [Tags("Membership", "Development", "Production", "Test")]
     public class Membership : Migration
     {
         private const string SchemaName = "Membership";

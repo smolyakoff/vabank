@@ -3,7 +3,7 @@
 namespace VaBank.Data.Migrations
 {
     [Migration(4, "Add rowversion columns to User and UserProfile tables")]
-    [Tags("Membership", "Development", "Production")]
+    [Tags("Membership", "Development", "Production", "Test")]
     public class AddRowVersionColumns : Migration
     {
         public override void Up()
