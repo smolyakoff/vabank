@@ -5,9 +5,9 @@
         .module('vabank.auth')
         .factory('authHttpInterceptor', authHttpInterceptor);
 
-    authHttpInterceptor.$inject = ['$injector', '$location', 'authConfig', 'localStorageService'];
+    authHttpInterceptor.$inject = ['$injector', '$q', '$location', 'authConfig', 'localStorageService'];
 
-    function authHttpInterceptor($injector, $location, authConfig, localStorageService) {
+    function authHttpInterceptor($injector, $q, $location, authConfig, localStorageService) {
 
         var retryHttpRequest = function (config, deferred) {
             var $http = $injector.get('$http');

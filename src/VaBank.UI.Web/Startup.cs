@@ -9,6 +9,11 @@ using System.Web.Http.ModelBinding;
 using Autofac;
 using Hangfire;
 using Hangfire.SqlServer;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataHandler;
+using Microsoft.Owin.Security.DataHandler.Serializer;
+using Microsoft.Owin.Security.Infrastructure;
+using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using NLog;
@@ -19,6 +24,7 @@ using Microsoft.Owin;
 using SquishIt.Framework;
 using SquishIt.Sass;
 using VaBank.Common.Data;
+using VaBank.UI.Web.Api.Infrastructure.Auth;
 using VaBank.UI.Web.Api.Infrastructure.ModelBinding;
 using VaBank.UI.Web.Middleware;
 using VaBank.UI.Web.Modules;
@@ -38,6 +44,11 @@ namespace VaBank.UI.Web
             config.UseAutofacMiddleware(ConfigureAutofac());
 
             config.UseStaticFiles("/Client");
+
+            var oauthConfig = ConfigureOAuthServer();
+            config.UseOAuthAuthorizationServer(ConfigureOAuthServer());
+            config.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+
             config.UseHangfire(ConfigureHangfire);
             config.Use<CultureMiddleware>();
 
@@ -58,6 +69,18 @@ namespace VaBank.UI.Web
             var response = context.Response;
             var template = new Index();
             return response.WriteAsync(template.TransformText());
+        }
+
+        private OAuthAuthorizationServerOptions ConfigureOAuthServer()
+        {
+            return new OAuthAuthorizationServerOptions
+            {
+                AllowInsecureHttp = true,
+                AccessTokenProvider = new VabankTokenProvider(),
+                Provider = new VabankAuthorizationServerProvider(),
+                TokenEndpointPath = new PathString("/api/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+            };
         }
 
         private static void ConfigureHangfire(IBootstrapperConfiguration config)

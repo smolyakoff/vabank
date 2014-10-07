@@ -5,9 +5,9 @@
         .module('vabank.webapp')
         .controller('loginController', loginController);
 
-    loginController.$inject = ['$scope', '$q', 'uiTools']; 
+    loginController.$inject = ['$scope', '$q', 'uiTools', 'authService']; 
 
-    function loginController($scope, $q, uiTools) {
+    function loginController($scope, $q, uiTools, authService) {
 
         $scope.loginForm = {
             login: null,
@@ -29,10 +29,17 @@
         };
 
         $scope.login = function () {
-            uiTools.notify({
-                type: 'error',
-                message: 'Not implemented'
-            });
+            function onSuccess() {
+                debugger;
+            }
+            
+            function onError() {
+                debugger;
+            }
+
+            authService.login($scope.loginForm)
+                .then(onSuccess, onError);
+
         };
 
     }
