@@ -10,7 +10,7 @@ namespace VaBank.UI.Web.Middleware.ExceptionHandling
 {
     public class ExceptionHandlingMiddleware: OwinMiddleware
     {
-        private readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public ExceptionHandlingMiddleware(OwinMiddleware next)
             : base(next)
@@ -32,7 +32,7 @@ namespace VaBank.UI.Web.Middleware.ExceptionHandling
 
         private void ProcessException(Exception ex)
         {
-            logger.Error(ex);
+            _logger.Error(ex);
         }
     }
 }
