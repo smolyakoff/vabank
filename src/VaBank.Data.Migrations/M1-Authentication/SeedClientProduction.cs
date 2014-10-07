@@ -3,7 +3,7 @@ using FluentMigrator;
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(6, "Seed application client for production.")]
+    [Migration(7, "Seed application client for production.")]
     [Tags("Production")]
     public class SeedClientProduction : Migration
     {
@@ -17,7 +17,8 @@ namespace VaBank.Data.Migrations
                     Active = 1,
                     RefreshTokenLifeTime = 600,
                     ApplicationType = 0,
-                    AllowedOrigin = "https://vabank.azurewebsites.net"
+                    AllowedOrigin = "https://vabank.azurewebsites.net",
+                    Secrete = Guid.NewGuid().GetHashCode().ToString()
                 });
         }
 

@@ -2,7 +2,7 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(5, "Change ApplicationClientId type to string. ")]
+    [Migration(6, "Change ApplicationClientId type to string. ")]
     [Tags("Maintenance", "Development", "Production")]
     public class ChangeApplicationClientId : Migration
     {
