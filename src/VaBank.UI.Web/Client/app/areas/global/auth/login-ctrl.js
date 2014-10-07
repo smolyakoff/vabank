@@ -5,9 +5,9 @@
         .module('vabank.webapp')
         .controller('loginController', loginController);
 
-    loginController.$inject = ['$scope', 'uiTools']; 
+    loginController.$inject = ['$scope', '$q', 'uiTools']; 
 
-    function loginController($scope, uiTools) {
+    function loginController($scope, $q, uiTools) {
 
         $scope.loginForm = {
             login: null,
@@ -16,16 +16,19 @@
 
         $scope.validationRules = {
             login: {
-                required: true,
                 custom: uiTools.validate.getValidator('login')
             },
             password: {
                 required: true,
-                custom: uiTools.validate.getValidator('password')
+                //custom: uiTools.validate.getValidator('password')
             }
         };
 
-        $scope.login = function() {
+        $scope.validationFailed = function() {
+
+        };
+
+        $scope.login = function () {
             uiTools.notify({
                 type: 'error',
                 message: 'Not implemented'
