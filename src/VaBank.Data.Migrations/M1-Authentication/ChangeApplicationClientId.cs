@@ -2,8 +2,8 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(6, "Change ApplicationClientId type to string. ")]
-    [Tags("Maintenance", "Development", "Production")]
+    [Migration(5, "Change ApplicationClientId type to string. ")]
+    [Tags("Maintenance", "Development", "Production", "Test")]
     public class ChangeApplicationClientId : Migration
     {
         private const string SchemaName = "Membership";
