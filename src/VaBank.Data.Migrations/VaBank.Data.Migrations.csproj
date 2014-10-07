@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="M0-Initial\Logging.cs" />
     <Compile Include="M1-Authentication\AddRowVersionColumns.cs" />
+    <Compile Include="M1-Authentication\ChangeApplicationClientId.cs" />
     <Compile Include="M1-Authentication\Membership.cs" />
     <Compile Include="M1-Authentication\RenameLogsTable.cs" />
     <Compile Include="Metadata.cs" />
