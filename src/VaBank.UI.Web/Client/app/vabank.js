@@ -15,7 +15,8 @@
         'formFor', 
         'formFor.bootstrapTemplates',
         
-        'vabank.ui'
+        'vabank.ui',
+        'vabank.auth'
     ]);
 
     webapp.run(['routingInterceptor', 'formForConfig', main]);

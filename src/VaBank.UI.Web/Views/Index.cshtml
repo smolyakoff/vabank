@@ -4,8 +4,8 @@
 @inherits VaBank.UI.Web.Views.IndexBase
 <!DOCTYPE html>
 <html data-ng-app="vabank.webapp" lang="ru">
-    <head>
-        <title>{{title || 'VaBank - Онлайн'}}</title>
+    <head data-ng-init="title = 'VaBank - Онлайн'">
+        <title>{{title}}</title>
         <meta charset="utf-8">
         @Styles()
     </head>

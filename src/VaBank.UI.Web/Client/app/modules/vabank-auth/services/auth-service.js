@@ -2,18 +2,22 @@
     'use strict';
 
     angular
-        .module('app')
+        .module('vabank.auth')
         .factory('authService', authService);
 
     authService.$inject = ['$http', '$q', 'localStorageService', 'authConfig'];
 
-    function authService($http, localStorage, authConfig) {
+    function authService($http, $q, localStorage, authConfig) {
 
         var User = (function () {
             
             function UserImpl(token) {
-                
+                this.token = token;
             }
+
+            UserImpl.isAuthenticated = function() {
+                return true;
+            };
 
             return UserImpl;
         })();
@@ -53,13 +57,10 @@
             }
         };
 
-        var refreshToken = function() {
 
-        };
 
         return {            
             login: login,
-            refreshToken: refreshToken,
             logout: logout,
             getUser: getUser
         };
