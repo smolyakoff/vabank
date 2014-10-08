@@ -116,7 +116,7 @@ namespace VaBank.UI.Web
 
             //Model Binders
             configuration.Services.Insert(
-                typeof(ModelBinderProvider), 0, new InheritanceAwareModelBinderProvider(typeof(IQuery), new QueryModelBinder()));
+                typeof(ModelBinderProvider), 0, new InheritanceAwareModelBinderProvider(typeof(IClientQuery), new QueryModelBinder()));
 
             configuration.Services.Add(typeof(IExceptionLogger), new GlobalExceptionLogger());
             //configuration.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());

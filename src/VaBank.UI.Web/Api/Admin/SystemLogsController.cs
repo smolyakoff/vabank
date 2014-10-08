@@ -19,9 +19,9 @@ namespace VaBank.UI.Web.Api.Admin
 
         [HttpGet]
         [Route]
-        public IHttpActionResult Query([ModelBinder] SystemLogQuery query)
+        public IHttpActionResult Query([ModelBinder] SystemLogClientQuery clientQuery)
         {
-            var logs = _logManagementService.GetSystemLogEntries(query);
+            var logs = _logManagementService.GetSystemLogEntries(clientQuery);
             return Ok(logs);
         }
 
