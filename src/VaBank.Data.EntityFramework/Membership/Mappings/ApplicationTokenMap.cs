@@ -14,6 +14,7 @@ namespace VaBank.Data.EntityFramework.Membership.Mappings
             Property(x => x.ExpiresUtc).IsRequired();
             Property(x => x.ProtectedTicket).HasMaxLength(RestrictionConstants.SecurityStringLength)
                 .IsRequired();
+            Property(x => x.Subject).IsRequired().HasMaxLength(50);
         }
     }
 }

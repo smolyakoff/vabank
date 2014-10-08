@@ -26,5 +26,11 @@ namespace VaBank.Services.Common
         {
             return Mapper.Map<Entity, TModel>(entity);
         }
+
+        public static TEntity MapBack<TModel, TEntity>(this TModel model)
+            where TEntity : Entity
+        {
+            return Mapper.Map<TModel, TEntity>(model);
+        }
     }
 }

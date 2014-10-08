@@ -60,6 +60,7 @@
     <Compile Include="Common\Validation\AlwaysTrueValidator.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Membership\ApplicationClientModel.cs" />
+    <Compile Include="Membership\ApplicationClientTypeModel.cs" />
     <Compile Include="Membership\CreateTokenCommand.cs" />
     <Compile Include="Membership\IMembershipService.cs" />
     <Compile Include="Membership\LoginCommand.cs" />

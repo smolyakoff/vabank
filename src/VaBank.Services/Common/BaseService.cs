@@ -25,7 +25,7 @@ namespace VaBank.Services.Common
             UnitOfWork = unitOfWork;
         }
 
-        public void EnsureIsValid<T>(T obj)
+        protected virtual void EnsureIsValid<T>(T obj)
         {
             var validator = _validatorFactory.GetValidator<T>();
             var validationResult = validator.Validate(obj);

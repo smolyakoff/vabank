@@ -8,10 +8,10 @@ namespace VaBank.Services.Contracts.Membership
 
         TokenModel CreateToken(CreateTokenCommand command);
 
-        TokenModel GetToken(IdentityQuery<string> id);
+        TokenModel GetToken(IdentityQuery<string> query);
 
-        bool RemoveToken(IdentityQuery<string> id);
+        bool RemoveToken(IdentityQuery<string> query);
 
-        ApplicationClientModel GetClient(IdentityQuery<string> id);
+        ApplicationClientModel GetClient(IdentityQuery<string> query);
     }
 }
