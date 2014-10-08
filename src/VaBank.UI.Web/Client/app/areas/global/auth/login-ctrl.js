@@ -5,9 +5,9 @@
         .module('vabank.webapp')
         .controller('loginController', loginController);
 
-    loginController.$inject = ['$scope', '$q', 'uiTools', 'authService']; 
+    loginController.$inject = ['$scope', '$q', '$state', '$stateParams', 'uiTools', 'authService']; 
 
-    function loginController($scope, $q, uiTools, authService) {
+    function loginController($scope, $q, $state, $stateParams, uiTools, authService) {
 
         $scope.loginForm = {
             login: null,

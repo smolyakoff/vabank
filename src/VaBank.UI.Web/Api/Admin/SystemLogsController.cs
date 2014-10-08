@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Maintenance;
@@ -8,6 +7,7 @@ using VaBank.UI.Web.Api.Infrastructure.Filters;
 namespace VaBank.UI.Web.Api.Admin
 {
     [RoutePrefix("api/logs/system")]
+    [Authorize(Roles = "Admin")]
     public class SystemLogsController : ApiController
     {
         private readonly ILogManagementService _logManagementService;

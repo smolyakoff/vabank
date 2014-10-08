@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Autofac.Integration.Owin;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 using VaBank.Services.Contracts.Membership;
@@ -15,6 +16,12 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
         public override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
         {
             //TODO: what am i doing here?
+            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            identity.AddClaim(new Claim(ClaimTypes.Sid, Guid.NewGuid().ToString()));
+            identity.AddClaim(new Claim(ClaimTypes.Name, "johndoe"));
+            identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+            context.Validated(new AuthenticationTicket(identity, new AuthenticationProperties(){ExpiresUtc = DateTime.UtcNow.AddSeconds(90)}));
+
             return base.GrantRefreshToken(context);
             
         }
@@ -37,7 +44,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             //var membershipService = container.Resolve<IMembershipService>();
             //membershipService.GetClient(new IdentityQuery<string> {Id = context.ClientId});
             var client = new ApplicationClientModel();
-            context.Response.Headers.Set("Access-Control-Allow-Origin", "https://google.com");
+            
             context.Validated();
 
             return base.ValidateClientAuthentication(context);
@@ -50,8 +57,8 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             identity.AddClaim(new Claim(ClaimTypes.Sid, Guid.NewGuid().ToString()));
             identity.AddClaim(new Claim(ClaimTypes.Name, "johndoe"));
             identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
-            identity.AddClaim(new Claim(ClaimTypes.Role, "Customer"));
-
+            //identity.AddClaim(new Claim(ClaimTypes.Role, "Customer"));
+            context.OwinContext.Response.Headers.Set("Access-Control-Allow-Origin", "http://tut.by");
             context.Validated(identity);
             return base.GrantResourceOwnerCredentials(context);
         }

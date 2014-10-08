@@ -15,7 +15,11 @@
                 controller: 'cabinetController',
                 data: {
                     title: 'VaBank - Мой кабинет',
-                    subtitle: 'Мой кабинет'
+                    subtitle: 'Мой кабинет',
+                    access: {
+                        allowAnonymous: false,
+                        roles: ['Customer']
+                    }
                 },
             })
             .state('cabinet.dashboard', {

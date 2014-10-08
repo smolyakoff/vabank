@@ -5,13 +5,30 @@
         .module('vabank.webapp')
         .factory('routingInterceptor', routingInterceptor);
 
-    routingInterceptor.$inject = ['$rootScope','$filter', '$state', 'cfpLoadingBar', 'notificationService'];
+    routingInterceptor.$inject = ['$rootScope','$filter', '$state', 'cfpLoadingBar', 'notificationService', 'authService'];
 
-    function routingInterceptor($rootScope, $filter, $state, cfpLoadingBar, notificationService) {
+    function routingInterceptor($rootScope, $filter, $state, cfpLoadingBar, notificationService, authService) {
 
-        var onStateChangeStart = function () {
+        var onStateChangeStart = function (event, toState, toParams, fromState, fromParams) {
+            debugger;
             $rootScope.stateChanging = true;
-            cfpLoadingBar.start();
+            var data = toState.data;
+            var user = authService.getUser();
+            if (data.access.allowAnonymous) {
+                cfpLoadingBar.start();
+            } else {
+                var roles = data.access.roles;
+                var hasAccess = _.all(roles, function(x) {
+                    return user.isInRole(x);
+                });
+                if (hasAccess) {
+                    cfpLoadingBar.start();
+                } else {
+                    event.preventDefault();
+                    $state.go('login', {redirect: toState.name});
+                }
+            }
+            
         };
 
         var onStateChangeSuccess = function (event, toState, toParams, fromState, fromParams) {

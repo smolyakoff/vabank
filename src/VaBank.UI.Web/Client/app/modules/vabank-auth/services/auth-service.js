@@ -10,15 +10,25 @@
     function authService($http, $q, localStorage, authConfig) {
 
         var User = (function () {
+
+            var roles = [];
+            var isAuthenticated = false;
             
             function UserImpl(token) {
-                this.token = token;
+                isAuthenticated = _.isObject(token);
+                if (isAuthenticated) {
+                    this.id = token.userId;
+                    this.name = token.userName;
+                    this.token = token.access_token;
+                    roles = JSON.parse(token.roles);
+                }
             }
-
-            UserImpl.isAuthenticated = function() {
-                return true;
+            UserImpl.prototype.isAuthenticated = function() {
+                return isAuthenticated;
             };
-
+            UserImpl.prototype.isInRole = function (role) {
+                return _.contains(roles, role);
+            };
             return UserImpl;
         })();
         

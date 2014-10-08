@@ -7,7 +7,7 @@
 
     authHttpInterceptor.$inject = ['$injector', '$q', '$location', 'authConfig', 'localStorageService'];
 
-    function authHttpInterceptor($injector, $q, $location, authConfig, localStorageService) {
+    function authHttpInterceptor($injector, $q, $location, authConfig, localStorage) {
 
         var retryHttpRequest = function (config, deferred) {
             var $http = $injector.get('$http');
@@ -25,17 +25,19 @@
             }
 
             function onError(response) {
-                logout();
+                localStorage.remove(authConfig.storageKey);
                 deferred.reject(response);
             }
             var deferred = $q.defer();
+            var $http = $injector.get('$http');
 
             var token = localStorage.get(authConfig.storageKey);
             if (!_.isObject(token)) {
                 deferred.reject();
             } else {
-                var data = 'grant_type=refresh_token=' + token.refresh
-                    + '&client_id=' + authConfig.clientId;
+                var data = 'grant_type=refresh_token'
+                    + '&client_id=' + authConfig.clientId
+                    + '&refresh_token=' + token.refresh_token;
                 $http({
                     url: authConfig.apiUrl,
                     method: 'POST',
@@ -50,7 +52,7 @@
 
 
         var onRequest = function (config) {
-            var token = localStorageService.get(authConfig.storageKey);
+            var token = localStorage.get(authConfig.storageKey);
             var headers = config.headers || {};
             if (_.isObject(token)) {
                 headers['Authorization'] = 'Bearer ' + token.access_token;
@@ -64,7 +66,7 @@
             }
 
             function onRefreshFailure() {
-                localStorageService.remove(authConfig.storageKey);
+                localStorage.remove(authConfig.storageKey);
                 $location.path(authConfig.loginUrl);
                 deferred.reject(rejection);
             }

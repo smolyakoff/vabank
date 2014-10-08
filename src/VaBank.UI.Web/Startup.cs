@@ -46,9 +46,9 @@ namespace VaBank.UI.Web
             config.UseStaticFiles("/Client");
 
             config.UseCors(CorsOptions.AllowAll);
-            var oauthConfig = ConfigureOAuthServer();
             config.UseOAuthAuthorizationServer(ConfigureOAuthServer());
             config.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            
 
             config.UseHangfire(ConfigureHangfire);
             config.Use<CultureMiddleware>();
@@ -83,7 +83,7 @@ namespace VaBank.UI.Web
                 RefreshTokenProvider = new VabankRefreshTokenProvider(),
                 Provider = new VabankAuthorizationServerProvider(),
                 TokenEndpointPath = new PathString("/api/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(10),
             };
         }
 

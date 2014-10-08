@@ -12,17 +12,25 @@
         $urlRouterProvider.otherwise('/');
 
         $stateProvider.state('login', {            
-            url: '/login',
+            url: '/login?redirect',
             templateUrl: '/Client/app/areas/global/auth/login.html',
             controller: 'loginController',
             data: {
-                title: 'VaBank - Вход в систему'
+                title: 'VaBank - Вход в систему',
+                access: {
+                    allowAnonymous: true
+                }
             }
         });
 
         $stateProvider.state('error', {
             'abstract': true,
-            template: '<div data-ui-view=\"\"></div>'
+            template: '<div data-ui-view=\"\"></div>',
+            data: {
+                access: {
+                   allowAnonymous: true
+                }
+            }
         });
         
         $stateProvider.state('error.500', {
