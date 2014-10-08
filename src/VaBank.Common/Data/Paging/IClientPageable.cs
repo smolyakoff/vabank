@@ -1,7 +1,7 @@
 ﻿namespace VaBank.Common.Data.Paging
 {
-    public interface IClientPageable
+    public interface IClientPageable : IClientQuery
     {
-        void ApplyPaging(int? pageNumber, int? pageSize);
+        ClientPage ClientPage { get; set; }
     }
 }

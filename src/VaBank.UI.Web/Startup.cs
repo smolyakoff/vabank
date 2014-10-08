@@ -29,6 +29,8 @@ using VaBank.UI.Web.Api.Infrastructure.ModelBinding;
 using VaBank.UI.Web.Middleware;
 using VaBank.UI.Web.Modules;
 using VaBank.UI.Web.Views;
+using VaBank.UI.Web.Api.Infrastructure.MessageHandlers;
+using System.Web.Http.ExceptionHandling;
 
 namespace VaBank.UI.Web
 {    
@@ -114,7 +116,10 @@ namespace VaBank.UI.Web
 
             //Model Binders
             configuration.Services.Insert(
-                typeof(ModelBinderProvider), 0, new InheritanceAwareModelBinderProvider(typeof(IQuery), new QueryModelBinder()));
+                typeof(ModelBinderProvider), 0, new InheritanceAwareModelBinderProvider(typeof(IClientQuery), new QueryModelBinder()));
+
+            configuration.Services.Add(typeof(IExceptionLogger), new GlobalExceptionLogger());
+            //configuration.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());
 
             configuration.EnsureInitialized();
             return configuration;

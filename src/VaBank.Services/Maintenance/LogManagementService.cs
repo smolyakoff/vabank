@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentValidation;
+using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Common;
 using VaBank.Core.Maintenance;
@@ -38,12 +39,13 @@ namespace VaBank.Services.Maintenance
             }
         }
 
-        public IEnumerable<SystemLogEntryBriefModel> GetSystemLogEntries(SystemLogQuery query)
+        public IEnumerable<SystemLogEntryBriefModel> GetSystemLogEntries(SystemLogClientQuery clientQuery)
         {
-            EnsureIsValid(query);
+            EnsureIsValid(clientQuery);
             try
             {
-                var entries = _db.LogEntries.Project<SystemLogEntryBriefModel>(query);
+                var entries = _db.LogEntries.ProjectThenQuery<SystemLogEntryBriefModel>(
+                    clientQuery.ToDbQuery<SystemLogEntryBriefModel>());
                 return entries;
             }
             catch (Exception ex)
@@ -68,12 +70,12 @@ namespace VaBank.Services.Maintenance
 
 
 
-        public UserMessage ClearSystemLog(SystemLogQuery query)
+        public UserMessage ClearSystemLog(SystemLogClientQuery clientQuery)
         {
-            EnsureIsValid(query);
+            EnsureIsValid(clientQuery);
             try
             {
-                var entries = _db.LogEntries.Query(query);
+                var entries = _db.LogEntries.Query(clientQuery.ToDbQuery<SystemLogEntry>());
                 foreach (var systemLogEntry in entries)
                 {
                     _db.LogEntries.Delete(systemLogEntry);

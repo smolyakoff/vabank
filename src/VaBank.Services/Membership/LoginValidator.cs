@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using FluentValidation;
+﻿using FluentValidation;
 using VaBank.Services.Common.Validation;
-using VaBank.Services.Contracts.Common.Validation;
 
 namespace VaBank.Services.Membership
 {
@@ -9,15 +7,9 @@ namespace VaBank.Services.Membership
     [StaticValidator]
     public class LoginValidator : ObjectValidator<string>
     {
-        public override IList<ValidationFault> Validate(string obj)
+        public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
         {
-            var value = new Container(obj);
-            var inline = new InlineValidator<Container>();
-            inline.RuleFor(x => x.Value)
-                .NotEmpty()
-                .Length(6, 20)
-                .WithName("Login");
-            return inline.Validate(value).Errors.ToValidationFaults("login");
+            return builder.NotEmpty().Length(4, 50);
         }
     }
 }
