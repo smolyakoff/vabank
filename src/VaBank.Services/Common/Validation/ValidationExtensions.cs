@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentValidation;
 using FluentValidation.Results;
 using VaBank.Services.Contracts.Common.Validation;
 
@@ -24,6 +25,18 @@ namespace VaBank.Services.Common.Validation
                 throw new ArgumentNullException("failures");
             }
             return failures.Select(x => ToValidationFault(x, propertyNameOverride)).ToList();
+        }
+
+        public static IRuleBuilderOptions<TContainer, TProperty> UseValidator<TContainer, TProperty>(
+            this IRuleBuilderOptions<TContainer, TProperty> options, ObjectValidator<TProperty> validator)
+        {
+            return validator.Validate(options);
+        }
+
+        public static IRuleBuilderOptions<TContainer, TProperty> UseValidator<TContainer, TProperty>(
+            this IRuleBuilderInitial<TContainer, TProperty> options, ObjectValidator<TProperty> validator)
+        {
+            return validator.Validate(options.Must(x => true));
         }
     }
 }

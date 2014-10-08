@@ -1,12 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using FluentValidation;
 using VaBank.Services.Contracts.Common.Validation;
 
 namespace VaBank.Services.Common.Validation
 {
     public abstract class ObjectValidator<T> : IObjectValidator<T>
     {
-        public abstract IList<ValidationFault> Validate(T obj);
+        public virtual IList<ValidationFault> Validate(T obj)
+        {
+            var container = new Container(obj);
+            var validator = new InlineValidator<Container>();
+            var builder = Validate(validator.RuleFor(x => x.Value).Must(x => true));
+            var name = OverrideName();
+            if (!string.IsNullOrEmpty(name))
+            {
+                builder.WithName(name);
+            }
+            return validator.Validate(container).Errors.ToValidationFaults();
+        }
+
+        protected virtual string OverrideName()
+        {
+            return string.Empty;
+        }
 
         public bool CanValidate(Type type)
         {
@@ -17,6 +34,8 @@ namespace VaBank.Services.Common.Validation
         {
             get { return typeof (T); }
         }
+
+        public abstract IRuleBuilderOptions<TContainer, T> Validate<TContainer>(IRuleBuilderOptions<TContainer, T> builder);
 
         protected ValidationFault Fault(string message)
         {
@@ -41,7 +60,7 @@ namespace VaBank.Services.Common.Validation
             return Validate((T) obj);
         }
 
-        protected class Container
+        private class Container
         {
             public Container(T obj)
             {
