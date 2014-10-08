@@ -52,7 +52,6 @@ namespace VaBank.Services.Membership
             try
             {
                 var token = command.MapBack<CreateTokenCommand, ApplicationToken>();
-                //Mabe should calculate id hash and write it to id field
                 _db.ApplicationTokens.Create(token);
                 UnitOfWork.Commit();
                 return command;

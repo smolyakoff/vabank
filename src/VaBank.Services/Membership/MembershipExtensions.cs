@@ -8,7 +8,7 @@ namespace VaBank.Services.Membership
     {
         public static IQuery QueryUser(this LoginCommand command)
         {
-            return DbQuery.For<User>().WithFilter(x => x.UserName == command.Login);
+            return DbQuery.For<User>().FilterBy(x => x.UserName == command.Login);
         }
     }
 }

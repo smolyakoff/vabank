@@ -10,7 +10,7 @@ namespace VaBank.Services.Membership
     {        
         public LoginCommandValidator()
         {
-            //TODO: Login validator attachment
+            RuleFor(x => x.Login).UseValidator(new LoginValidator());
             RuleFor(x => x.Password).NotEmpty().Length(6, 256);
         }
     }

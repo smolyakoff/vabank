@@ -31,7 +31,7 @@ namespace VaBank.Data.Migrations
             
             Create.Column("ID").OnTable("ApplicationClient").InSchema(SchemaName).AsString(256).NotNullable();
             Create.PrimaryKey("PK_ApplicationClient").OnTable("ApplicationClient").WithSchema(SchemaName).Column("ID");
-            Alter.Column("ClientID").OnTable("ApplicationToken").InSchema(SchemaName).AsString(1024);
+            Alter.Column("ClientID").OnTable("ApplicationToken").InSchema(SchemaName).AsString(256);
             Create.ForeignKey("FK_ApplicationToken_To_ApplicationClient").FromTable("ApplicationToken").InSchema(SchemaName)
                 .ForeignColumn("ClientID").ToTable("ApplicationClient").InSchema(SchemaName).PrimaryColumn("ID");
             
