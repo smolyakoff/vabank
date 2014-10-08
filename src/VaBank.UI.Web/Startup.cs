@@ -9,10 +9,7 @@ using System.Web.Http.ModelBinding;
 using Autofac;
 using Hangfire;
 using Hangfire.SqlServer;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.DataHandler;
-using Microsoft.Owin.Security.DataHandler.Serializer;
-using Microsoft.Owin.Security.Infrastructure;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -48,6 +45,7 @@ namespace VaBank.UI.Web
 
             config.UseStaticFiles("/Client");
 
+            config.UseCors(CorsOptions.AllowAll);
             var oauthConfig = ConfigureOAuthServer();
             config.UseOAuthAuthorizationServer(ConfigureOAuthServer());
             config.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
@@ -78,8 +76,11 @@ namespace VaBank.UI.Web
         {
             return new OAuthAuthorizationServerOptions
             {
+#if DEBUG
                 AllowInsecureHttp = true,
+#endif
                 AccessTokenProvider = new VabankTokenProvider(),
+                RefreshTokenProvider = new VabankRefreshTokenProvider(),
                 Provider = new VabankAuthorizationServerProvider(),
                 TokenEndpointPath = new PathString("/api/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
