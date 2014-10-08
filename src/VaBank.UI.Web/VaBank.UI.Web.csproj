@@ -875,6 +875,7 @@
     <Compile Include="Api\Admin\MaintenanceController.cs" />
     <Compile Include="Api\Common\ValidationController.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankAuthorizationServerProvider.cs" />
+    <Compile Include="Api\Infrastructure\Auth\VabankRefreshTokenProvider.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankTokenProvider.cs" />
     <Compile Include="Api\Infrastructure\Filters\TransactionAttribute.cs" />
     <Compile Include="Api\Infrastructure\IoC\JsonNetConverter.cs" />
