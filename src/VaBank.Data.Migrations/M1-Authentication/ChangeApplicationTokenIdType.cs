@@ -11,7 +11,7 @@ namespace VaBank.Data.Migrations
             Delete.PrimaryKey("PK_ApplicationToken").FromTable("ApplicationToken").InSchema("Membership");
             Delete.Column("ID").FromTable("ApplicationToken").InSchema("Membership");
 
-            Create.Column("ID").OnTable("ApplicationToken").InSchema("Membership").AsString(256);
+            Create.Column("ID").OnTable("ApplicationToken").InSchema("Membership").AsString(256).NotNullable();
             Create.PrimaryKey("PK_ApplicationToken").OnTable("ApplicationToken").WithSchema("Membership").Column("ID");
         }
 
