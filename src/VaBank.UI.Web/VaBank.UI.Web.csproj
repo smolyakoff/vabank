@@ -878,6 +878,8 @@
     <Compile Include="Api\Infrastructure\Auth\VabankTokenProvider.cs" />
     <Compile Include="Api\Infrastructure\Filters\TransactionAttribute.cs" />
     <Compile Include="Api\Infrastructure\IoC\JsonNetConverter.cs" />
+    <Compile Include="Api\Infrastructure\MessageHandlers\GlobalExceptionHandler.cs" />
+    <Compile Include="Api\Infrastructure\MessageHandlers\GlobalExceptionLogger.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\InheritanceAwareModelBinderProvider.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\QueryModelBinder.cs" />
     <Compile Include="Middleware\CultureMiddleware.cs" />
