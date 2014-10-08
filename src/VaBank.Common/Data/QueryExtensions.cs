@@ -10,6 +10,20 @@ namespace VaBank.Common.Data
 {
     public static class QueryExtensions
     {
+        public static DbQuery<T> ToDbQuery<T>(this IClientQuery clientQuery)
+            where T : class
+        {
+            if (clientQuery == null)
+            {
+                throw new ArgumentNullException("clientQuery");
+            }
+            var pageable = clientQuery as IClientPageable;
+            return pageable != null 
+                ? DbQuery.PagedFor<T>().FromClientQuery(clientQuery) 
+                : DbQuery.For<T>().FromClientQuery(clientQuery);
+        } 
+
+
         public static IPagedList<T> QueryPage<T>(this IQueryable<T> queryable, IQuery query)
             where T : class
         {

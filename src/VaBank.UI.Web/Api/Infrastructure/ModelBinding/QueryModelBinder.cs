@@ -32,7 +32,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.ModelBinding
 
         public bool BindModel(HttpActionContext actionContext, ModelBindingContext bindingContext)
         {
-            if (!typeof (IQuery).IsAssignableFrom(bindingContext.ModelType))
+            if (!typeof (IClientQuery).IsAssignableFrom(bindingContext.ModelType))
             {
                 return false;
             }
@@ -42,14 +42,14 @@ namespace VaBank.UI.Web.Api.Infrastructure.ModelBinding
             return true;
         }
 
-        private IQuery BindFromBody(HttpActionContext actionContext, ModelBindingContext bindingContext)
+        private IClientQuery BindFromBody(HttpActionContext actionContext, ModelBindingContext bindingContext)
         {
             var memoryStream = new MemoryStream();
             actionContext.Request.Content.ReadAsStreamAsync().Result.CopyTo(memoryStream);
             memoryStream.Position = 0;
             var content = new StreamContent(memoryStream);
             actionContext.Request.Content.Headers.AsEnumerable().ToList().ForEach(x => content.Headers.TryAddWithoutValidation(x.Key, x.Value));
-            var query = content.ReadAsAsync(bindingContext.ModelType, actionContext.ControllerContext.Configuration.Formatters).Result as IQuery;
+            var query = content.ReadAsAsync(bindingContext.ModelType, actionContext.ControllerContext.Configuration.Formatters).Result as IClientQuery;
             if (query == null)
             {
                 return null;
@@ -65,22 +65,26 @@ namespace VaBank.UI.Web.Api.Infrastructure.ModelBinding
             }
             if (clientFilterable != null && apiQuery.Filter != null && !(apiQuery.Filter is AlwaysTrueFilter))
             {
-                clientFilterable.ApplyFilter(apiQuery.Filter);
+                clientFilterable.ClientFilter = apiQuery.Filter;
             }
             if (clientSortable != null && apiQuery.Sort != null && !(apiQuery.Sort is RandomSort))
             {
-                clientSortable.ApplySort(apiQuery.Sort);
+                clientSortable.ClientSort = apiQuery.Sort;
             }
             if (clientPageable != null && (apiQuery.PageSize != null && apiQuery.PageNumber != null))
             {
-                clientPageable.ApplyPaging(apiQuery.PageNumber, apiQuery.PageSize);
+                clientPageable.ClientPage = new ClientPage
+                {
+                    PageNumber = apiQuery.PageNumber,
+                    PageSize = apiQuery.PageSize
+                };
             }
             return query;
         }
 
-        private IQuery BindFromQueryStringAndRouteData(HttpActionContext actionContext, ModelBindingContext bindingContext)
+        private IClientQuery BindFromQueryStringAndRouteData(HttpActionContext actionContext, ModelBindingContext bindingContext)
         {
-            var query = Activator.CreateInstance(bindingContext.ModelType) as IQuery;
+            var query = Activator.CreateInstance(bindingContext.ModelType) as IClientQuery;
             var clientFilterable = query as IClientFilterable;
             var clientSortable = query as IClientSortable;
             var clientPageable = query as IClientPageable;
@@ -91,20 +95,25 @@ namespace VaBank.UI.Web.Api.Infrastructure.ModelBinding
             {
                 var converter = new QueryStringFilterConverter();
                 var filter = (IFilter) converter.ConvertFrom(queryString[Keys.Filter]);
-                clientFilterable.ApplyFilter(filter);
+                clientFilterable.ClientFilter = filter ?? new AlwaysTrueFilter();
             }
             if (queryString.ContainsKey(Keys.Sort) && clientSortable != null)
             {
                 var converter = new SortTypeConverter();
                 var sort = (ISort)converter.ConvertFrom(queryString[Keys.Sort]);
-                clientSortable.ApplySort(sort);
+                clientSortable.ClientSort = sort ?? new RandomSort();
             }
             if ((queryString.ContainsKey(Keys.PageNumber) || queryString.ContainsKey(Keys.PageSize)) && clientPageable != null)
             {
                 int pageNumber, pageSize;
                 var hasNumber = int.TryParse(requestValues[Keys.PageNumber].ToString(), out pageNumber);
                 var hasSize = int.TryParse(requestValues[Keys.PageSize].ToString(), out pageSize);
-                clientPageable.ApplyPaging(hasNumber ? (int?)pageNumber : null, hasSize ? (int?)pageSize : null);
+                var page = new ClientPage
+                {
+                    PageNumber = hasNumber ? (int?) pageNumber : null,
+                    PageSize = hasSize ? (int?) pageSize : null
+                };
+                clientPageable.ClientPage = page;
             }
             //Populate other properties here
             var knownKeys = new List<string> {Keys.Filter, Keys.Sort, Keys.PageNumber, Keys.PageSize};

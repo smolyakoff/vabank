@@ -1,7 +1,7 @@
 ﻿namespace VaBank.Common.Data.Sorting
 {
-    public interface IClientSortable
+    public interface IClientSortable : IClientQuery
     {
-        void ApplySort(ISort sort);
+        ISort ClientSort { get; set; }
     }
 }
