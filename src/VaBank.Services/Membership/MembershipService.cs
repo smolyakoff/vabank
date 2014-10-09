@@ -36,7 +36,9 @@ namespace VaBank.Services.Membership
                     if (user.LockoutEnabled)
                         return new LoginFailureModel(new UserMessage(Messages.UserBlocked), LoginFailureReason.UserBlocked);
                     if (Password.Validate(user.PasswordHash, user.PasswordSalt, command.Password))
-                        return new LoginSuccessModel(new UserMessage(Messages.SuccessLogin));                    
+                        return new LoginSuccessModel(new UserMessage(Messages.SuccessLogin));
+                    ++user.AccessFailedCount;
+                    UnitOfWork.Commit();
                 }
                 return new LoginFailureModel(new UserMessage(Messages.InvalidCredentials), LoginFailureReason.BadCredentials);
             }
