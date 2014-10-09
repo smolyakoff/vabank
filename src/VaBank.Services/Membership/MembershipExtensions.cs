@@ -1,6 +1,7 @@
 ﻿using VaBank.Common.Data;
 using VaBank.Core.Membership;
 using VaBank.Services.Contracts.Membership;
+using VaBank.Services.Contracts.Membership.Commands;
 
 namespace VaBank.Services.Membership
 {

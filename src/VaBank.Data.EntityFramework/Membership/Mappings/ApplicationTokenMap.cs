@@ -10,9 +10,9 @@ namespace VaBank.Data.EntityFramework.Membership.Mappings
             ToTable("ApplicationToken", "Membership").HasKey(x => x.Id);
             Property(x => x.IssuedUtc).IsRequired();
             Property(x => x.ExpiresUtc).IsRequired();
-            Property(x => x.ProtectedTicket).HasMaxLength(RestrictionConstants.SecurityStringLength).IsRequired();
+            Property(x => x.ProtectedTicket).HasMaxLength(512).IsRequired();
             HasRequired(x => x.Client).WithMany().Map(k => k.MapKey("ClientId"));
-            HasRequired(x => x.User).WithOptional().Map(k => k.MapKey("UserId"));
+            HasRequired(x => x.User).WithMany().Map(k => k.MapKey("UserId"));
         }
     }
 }

@@ -75,13 +75,9 @@ namespace VaBank.Services.Maintenance
             EnsureIsValid(clientQuery);
             try
             {
-                var entries = _db.LogEntries.Query(clientQuery.ToDbQuery<SystemLogEntry>());
-                foreach (var systemLogEntry in entries)
-                {
-                    _db.LogEntries.Delete(systemLogEntry);
-                }
+                var deleted = _db.LogEntries.Delete(clientQuery.ToDbQuery<SystemLogEntry>());
                 UnitOfWork.Commit();
-                return UserMessage.Format(Messages.SystemLogClearSuccess, new object[] {entries.Count()});
+                return UserMessage.Format(Messages.SystemLogClearSuccess, new object[] {deleted});
             }
             catch (Exception ex)
             {
@@ -94,12 +90,9 @@ namespace VaBank.Services.Maintenance
             EnsureIsValid(command);
             try
             {
-                foreach (var id in command.Ids)
-                {
-                    _db.LogEntries.Delete(new object[]{id});
-                }
+                var deleted = _db.LogEntries.Delete(command.ToDbQuery());
                 UnitOfWork.Commit();
-                return UserMessage.Format(Messages.SystemLogClearSuccess, new object[] { command.Ids.Count() });
+                return UserMessage.Format(Messages.SystemLogClearSuccess, new object[] { deleted });
             }
             catch (Exception ex)
             {

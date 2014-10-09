@@ -5,13 +5,29 @@
         .module('vabank.webapp')
         .factory('routingInterceptor', routingInterceptor);
 
-    routingInterceptor.$inject = ['$rootScope','$filter', '$state', 'cfpLoadingBar', 'notificationService'];
+    routingInterceptor.$inject = ['$rootScope','$filter', '$state', '$timeout', 'cfpLoadingBar', 'notificationService', 'authService'];
 
-    function routingInterceptor($rootScope, $filter, $state, cfpLoadingBar, notificationService) {
+    function routingInterceptor($rootScope, $filter, $state, $timeout ,cfpLoadingBar, notificationService, authService) {
 
-        var onStateChangeStart = function () {
+        var onStateChangeStart = function (event, toState, toParams, fromState, fromParams) {
             $rootScope.stateChanging = true;
-            cfpLoadingBar.start();
+            var data = toState.data;
+            var user = authService.getUser();
+            if (data.access.allowAnonymous) {
+                cfpLoadingBar.start();
+            } else {
+                var roles = data.access.roles;
+                var hasAccess = _.all(roles, function(x) {
+                    return user.isInRole(x);
+                });
+                if (hasAccess) {
+                    cfpLoadingBar.start();
+                } else {
+                    event.preventDefault();
+                    $state.go('login', {redirect: toState.name});
+                }
+            }
+            
         };
 
         var onStateChangeSuccess = function (event, toState, toParams, fromState, fromParams) {
@@ -31,14 +47,30 @@
         var onStateChangeError = function (event, toState, toParams, fromState, fromParams, error) {
             $rootScope.stateChanging = false;
             cfpLoadingBar.complete();
-            var notification =  {
-                state: 'error.500',
-                type: 'error',
-                title: 'DEBUG',
-                message: '<pre>' + $filter('json')(error) + '</pre>'
-            };
-            notificationService.notify(notification);
-            $state.go('error.500');
+            if (error.status === 401) {
+                $timeout(angular.noop, 1000).then(function() {
+                    authService.refreshToken().then(function () {
+                        $state.go(toState, toParams);
+                    }, function () {
+                        notificationService.notify({                            
+                            state: 'login',
+                            type: 'info',
+                            title: 'Сессия истекла',
+                            message: 'Ваша сессия истекла. Пожалуйста введите логин и пароль'
+                        });
+                        $state.go('login', { redirect: toState.name });
+                    });
+                });
+            } else {
+                var notification = {
+                    state: 'error.500',
+                    type: 'error',
+                    title: 'DEBUG',
+                    message: '<pre>' + $filter('json')(error) + '</pre>'
+                };
+                notificationService.notify(notification);
+                $state.go('error.500');
+            }
         };
 
         var onStateNotFound = function (event, unfoundState, fromState, fromParams) {

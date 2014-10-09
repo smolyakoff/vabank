@@ -1,4 +1,7 @@
-﻿using VaBank.Services.Contracts.Common.Queries;
+﻿using System;
+using VaBank.Services.Contracts.Common.Queries;
+using VaBank.Services.Contracts.Membership.Commands;
+using VaBank.Services.Contracts.Membership.Models;
 
 namespace VaBank.Services.Contracts.Membership
 {
@@ -8,10 +11,10 @@ namespace VaBank.Services.Contracts.Membership
 
         TokenModel CreateToken(CreateTokenCommand command);
 
-        TokenModel GetToken(IdentityQuery<string> query);
-
-        bool RemoveToken(IdentityQuery<string> query);
+        ProtectedTicketModel RevokeToken(IdentityQuery<string> query);
 
         ApplicationClientModel GetClient(IdentityQuery<string> query);
+
+        UserIdentityModel GetUser(IdentityQuery<Guid> query);
     }
 }

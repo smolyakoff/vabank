@@ -10,15 +10,24 @@
     function authService($http, $q, localStorage, authConfig) {
 
         var User = (function () {
+
+            var roles = [];
+            var isAuthenticated = false;
             
             function UserImpl(token) {
-                this.token = token;
+                isAuthenticated = _.isObject(token);
+                if (isAuthenticated) {
+                    this.id = token.userId;
+                    this.name = token.userName;
+                    roles = JSON.parse(token.roles);
+                }
             }
-
-            UserImpl.isAuthenticated = function() {
-                return true;
+            UserImpl.prototype.isAuthenticated = function() {
+                return isAuthenticated;
             };
-
+            UserImpl.prototype.isInRole = function (role) {
+                return _.contains(roles, role);
+            };
             return UserImpl;
         })();
         
@@ -59,12 +68,44 @@
             return deferred.promise;
         };
 
+        var refreshToken = function() {
+            function onSuccess(response) {
+                localStorage.set(authConfig.storageKey, response);
+                deferred.resolve(response);
+            }
+
+            function onError(response) {
+                localStorage.remove(authConfig.storageKey);
+                deferred.reject(response);
+            }
+
+            var deferred = $q.defer();
+            var token = localStorage.get(authConfig.storageKey);
+
+            if (!_.isObject(token)) {
+                deferred.reject('Not Authenticated');
+            } else {
+                var data = 'grant_type=refresh_token'
+                    + '&client_id=' + authConfig.clientId
+                    + '&refresh_token=' + token.refresh_token;
+                $http({
+                    url: authConfig.apiUrl,
+                    method: 'POST',
+                    data: data,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                }).success(onSuccess).error(onError);
+            }
+            return deferred.promise;
+        };
 
 
         return {            
             login: login,
             logout: logout,
-            getUser: getUser
+            getUser: getUser,
+            refreshToken: refreshToken
         };
 
     }

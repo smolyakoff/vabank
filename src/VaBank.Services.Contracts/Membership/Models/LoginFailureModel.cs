@@ -1,6 +1,6 @@
 ﻿using VaBank.Services.Contracts.Common.Models;
 
-namespace VaBank.Services.Contracts.Membership
+namespace VaBank.Services.Contracts.Membership.Models
 {
     public class LoginFailureModel : LoginResultModel
     {

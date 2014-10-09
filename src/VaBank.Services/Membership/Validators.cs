@@ -2,6 +2,7 @@
 using FluentValidation;
 using VaBank.Services.Common.Validation;
 using VaBank.Services.Contracts.Membership;
+using VaBank.Services.Contracts.Membership.Commands;
 
 namespace VaBank.Services.Membership
 {
@@ -21,9 +22,9 @@ namespace VaBank.Services.Membership
         {
             RuleFor(x => x.ClientId).NotEmpty().Length(1, 256);
             RuleFor(x => x.Id).NotEmpty().Length(1, 256);
-            RuleFor(x => x.ExpireUtc).Must((command, expireUtc) => expireUtc >= command.IssuedUtc)
+            RuleFor(x => x.ExpiresUtc).Must((command, expireUtc) => expireUtc >= command.IssuedUtc)
                 .WithLocalizedMessage(() => "ExpreUtc value can't be less than IssuedUtc value.");
-            RuleFor(x => x.ProtectedTicket).NotEmpty().Length(1, 256);
+            RuleFor(x => x.ProtectedTicket).NotEmpty().Length(1, 512);
             RuleFor(x => x.UserId).Must(x => x != Guid.Empty);
         }
     }

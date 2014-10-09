@@ -64,6 +64,7 @@
     <Compile Include="Common\Validation\ValidationService.cs" />
     <Compile Include="Common\Validation\ValidatorNameAttribute.cs" />
     <Compile Include="Maintenance\LogManagementService.cs" />
+    <Compile Include="Maintenance\MaintenanceExtensions.cs" />
     <Compile Include="Maintenance\MaintenanceProfile.cs" />
     <Compile Include="Maintenance\MaintenanceRepositories.cs" />
     <Compile Include="Maintenance\Messages.Designer.cs">

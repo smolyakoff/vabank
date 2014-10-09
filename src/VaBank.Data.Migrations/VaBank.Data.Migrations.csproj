@@ -51,6 +51,7 @@
     <Compile Include="M1-Authentication\ChangeApplicationClientId.cs" />
     <Compile Include="M1-Authentication\ChangeApplicationTokenIdType.cs" />
     <Compile Include="M1-Authentication\ChangeLogStringsLength.cs" />
+    <Compile Include="M1-Authentication\ChangeProtectedTicketLength.cs" />
     <Compile Include="M1-Authentication\CreateApplicationTokenUserIdColumn.cs" />
     <Compile Include="M1-Authentication\Membership.cs" />
     <Compile Include="M1-Authentication\RenameLogsTable.cs" />

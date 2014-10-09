@@ -5,9 +5,9 @@
         .module('vabank.webapp')
         .controller('loginController', loginController);
 
-    loginController.$inject = ['$scope', '$q', 'uiTools', 'authService']; 
+    loginController.$inject = ['$scope', '$q', '$state', '$stateParams', 'uiTools', 'authService']; 
 
-    function loginController($scope, $q, uiTools, authService) {
+    function loginController($scope, $q, $state, $stateParams, uiTools, authService) {
 
         $scope.loginForm = {
             login: null,
@@ -30,17 +30,17 @@
 
         $scope.login = function () {
             function onSuccess() {
-                debugger;
+                var user = authService.getUser();
+                if (user.isInRole('Admin')) {
+                    $state.go('admin');
+                } else {
+                    $state.go('customer.cabinet');
+                }
             }
             
-            function onError() {
-                debugger;
-            }
-
             authService.login($scope.loginForm)
-                .then(onSuccess, onError);
+                .then(onSuccess);
 
         };
-
     }
 })();
