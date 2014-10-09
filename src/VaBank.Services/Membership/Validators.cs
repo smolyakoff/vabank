@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
+﻿using System;
+using FluentValidation;
 using VaBank.Services.Common.Validation;
 using VaBank.Services.Contracts.Membership;
 
@@ -21,13 +21,10 @@ namespace VaBank.Services.Membership
         {
             RuleFor(x => x.ClientId).NotEmpty().Length(1, 256);
             RuleFor(x => x.Id).NotEmpty().Length(1, 256);
-            Custom(x =>
-                {
-                    return x.ExpireUtc >= x.IssuedUtc ? null :
-                        new ValidationFailure("ExpireUtc", "ExpreUtc value can't be less than IssuedUtc value.");
-                });
+            RuleFor(x => x.ExpireUtc).Must((command, expireUtc) => expireUtc >= command.IssuedUtc)
+                .WithLocalizedMessage(() => "ExpreUtc value can't be less than IssuedUtc value.");
             RuleFor(x => x.ProtectedTicket).NotEmpty().Length(1, 256);
-            RuleFor(x => x.Subject).NotEmpty().Length(1, 50);
+            RuleFor(x => x.UserId).Must(x => x != Guid.Empty);
         }
     }
 }

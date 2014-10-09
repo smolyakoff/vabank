@@ -28,7 +28,7 @@ namespace VaBank.Services.Membership
             EnsureIsValid(command);
             try
             {
-                var user = _db.Users.QueryOne(command.QueryUser());
+                var user = _db.Users.QueryOne(command.ToDbQuery());
                 if (user != null)
                 {
                     if (user.Deleted)
@@ -53,7 +53,7 @@ namespace VaBank.Services.Membership
             EnsureIsValid(command);
             try
             {
-                var token = command.MapBack<CreateTokenCommand, ApplicationToken>();
+                var token = command.ToEntity<CreateTokenCommand, ApplicationToken>();
                 _db.ApplicationTokens.Create(token);
                 UnitOfWork.Commit();
                 return command;
