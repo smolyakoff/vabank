@@ -15,6 +15,7 @@ namespace VaBank.Services.Membership
         }
     }
 
+    [StaticValidator]
     internal class CreateTokenCommandValidator : AbstractValidator<CreateTokenCommand>
     {
         public CreateTokenCommandValidator()
