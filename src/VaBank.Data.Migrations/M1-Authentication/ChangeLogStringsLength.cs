@@ -8,8 +8,8 @@ namespace VaBank.Data.Migrations
     {
         public override void Up()
         {
-            Alter.Column("Message").OnTable("SystemLog").InSchema("Maintenance").AsString(512).NotNullable();
-            Alter.Column("Exception").OnTable("SystemLog").InSchema("Maintenance").AsString(2048).Nullable();
+            Alter.Column("Message").OnTable("SystemLog").InSchema("Maintenance").AsBigString().NotNullable();
+            Alter.Column("Exception").OnTable("SystemLog").InSchema("Maintenance").AsText().Nullable();
         }
 
         public override void Down()

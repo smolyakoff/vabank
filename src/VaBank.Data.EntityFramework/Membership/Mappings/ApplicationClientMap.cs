@@ -14,7 +14,7 @@ namespace VaBank.Data.EntityFramework.Membership.Mappings
             Property(x => x.ApplicationType).IsRequired();
             Property(x => x.RefreshTokenLifeTime).IsRequired();
             Property(x => x.Active).IsRequired();
-            Property(x => x.Secrete).IsRequired();
+            Property(x => x.Secret).IsRequired();
         }
     }
 }
