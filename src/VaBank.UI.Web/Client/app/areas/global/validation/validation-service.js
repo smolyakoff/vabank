@@ -59,8 +59,21 @@
             return validators[name];
         };
 
+        var toValidationMap = function (faults) {
+            if (!_.isArray(faults)) {
+                return {};
+            }
+            var map = {};
+            _.forEach(faults, function (fault) {
+                var exisingMessage = map[fault.propertyName] || '';
+                map[fault.propertyName] = exisingMessage + fault.message;
+            });
+            return map;
+        };
+
         return {
-            getValidator: getValidator
+            getValidator: getValidator,
+            toValidationMap: toValidationMap
         };
     }
 })();

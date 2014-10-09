@@ -41,6 +41,7 @@ namespace VaBank.UI.Web
         {
             Bundle.RegisterStylePreprocessor(new SassPreprocessor());
             config.Use<ExceptionMiddleware>();
+            config.Use<CultureMiddleware>();
             config.UseAutofacMiddleware(ConfigureAutofac());
 
             config.UseStaticFiles("/Client");
@@ -50,8 +51,7 @@ namespace VaBank.UI.Web
             config.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
             
 
-            config.UseHangfire(ConfigureHangfire);
-            config.Use<CultureMiddleware>();
+            config.UseHangfire(ConfigureHangfire);          
 
             var httpConfig = ConfigureWebApi();
             config.UseWebApi(httpConfig);
@@ -82,7 +82,7 @@ namespace VaBank.UI.Web
                 RefreshTokenProvider = new VabankRefreshTokenProvider(),
                 Provider = new VabankAuthorizationServerProvider(),
                 TokenEndpointPath = new PathString("/api/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(10),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(10)
             };
         }
 

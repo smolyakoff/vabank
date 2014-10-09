@@ -7,11 +7,13 @@ using Autofac.Integration.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Common.Validation;
 using VaBank.Services.Contracts.Membership;
 using VaBank.Services.Contracts.Membership.Commands;
 using VaBank.Services.Contracts.Membership.Models;
+using VaBank.UI.Web.Api.Infrastructure.Converters;
 
 namespace VaBank.UI.Web.Api.Infrastructure.Auth
 {
@@ -106,6 +108,11 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             //Validate user name and password here
             var container = context.OwinContext.GetAutofacLifetimeScope();
             var membershipService = container.Resolve<IMembershipService>();
+            var options = new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+            options.Converters.Add(new ValidationExceptionSerializer());
             var loginCommand = new LoginCommand {Login = context.UserName, Password = context.Password};
             LoginResultModel loginResult = null;
             try
@@ -114,8 +121,8 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             }
             catch (ValidationException ex)
             {
-                var message = string.Join(" ", ex.Faults.Select(x => x.Message));
-                context.SetError("InvalidLoginParams", message);
+                var errorJson = JsonConvert.SerializeObject(ex, options);
+                context.SetError("LoginValidationError", errorJson);
                 return Task.FromResult<object>(null);
             }
             if (loginResult == null)
@@ -125,7 +132,8 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             var loginFailure = loginResult as LoginFailureModel;
             if (loginFailure != null)
             {
-                context.SetError(loginFailure.Message.Message);
+                var errorJson = JsonConvert.SerializeObject(loginFailure, options);
+                context.SetError("LoginFailure", errorJson);
                 return Task.FromResult<object>(null);
             }
             var success = (LoginSuccessModel) loginResult;

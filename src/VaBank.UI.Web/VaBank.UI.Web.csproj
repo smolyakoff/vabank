@@ -883,6 +883,7 @@
     <Compile Include="Api\Infrastructure\MessageHandlers\GlobalExceptionLogger.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\InheritanceAwareModelBinderProvider.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\QueryModelBinder.cs" />
+    <Compile Include="Api\Infrastructure\Converters\ValidationExceptionSerializer.cs" />
     <Compile Include="Middleware\CultureMiddleware.cs" />
     <Compile Include="Middleware\ExceptionMiddleware.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
@@ -918,6 +919,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Api\Customer\" />
+    <Folder Include="Api\Infrastructure\Models\" />
     <Folder Include="Client\bower_components\bootstrap-sass-official\assets\images\" />
   </ItemGroup>
   <ItemGroup>
