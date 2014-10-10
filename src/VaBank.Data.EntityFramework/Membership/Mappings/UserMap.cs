@@ -11,7 +11,6 @@ namespace VaBank.Data.EntityFramework.Membership.Mappings
                 .HasMany(x => x.Claims).WithRequired()
                 .HasForeignKey(x => x.UserId);
             Property(x => x.Id).HasColumnName("UserID");
-            HasRequired(x => x.Profile).WithRequiredPrincipal();
             Property(x => x.LockoutEndDateUtc).IsOptional();
             Property(x => x.PasswordHash).HasMaxLength(RestrictionConstants.SecurityStringLength)
                 .IsRequired();
@@ -25,6 +24,7 @@ namespace VaBank.Data.EntityFramework.Membership.Mappings
             Property(x => x.AccessFailedCount).IsRequired();
             Property(x => x.Deleted).IsRequired();
             Property(x => x.RowVersion).IsRowVersion();
+            HasRequired(x => x.Profile).WithRequiredPrincipal();
         }
     }
 }

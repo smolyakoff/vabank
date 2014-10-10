@@ -12,13 +12,11 @@ namespace VaBank.Data.Migrations
             Insert.IntoTable("ApplicationClient").InSchema("Membership")
                 .Row(new
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "VaBank Website",
+                    Id = "vabank.website",
                     Active = 1,
                     RefreshTokenLifeTime = 600,
                     ApplicationType = 0,
                     AllowedOrigin = "https://vabank.azurewebsites.net",
-                    Secrete = Guid.NewGuid().GetHashCode().ToString()
                 });
         }
 

@@ -8,21 +8,25 @@
 
     function registerRoutes($stateProvider) {
         $stateProvider
-            .state('cabinet', {
+            .state('customer', {
                 url: '/',
                 'abstract': true,
                 templateUrl: '/Client/app/areas/customer/cabinet.html',
                 controller: 'cabinetController',
                 data: {
                     title: 'VaBank - Мой кабинет',
-                    subtitle: 'Мой кабинет'
+                    subtitle: 'Мой кабинет',
+                    access: {
+                        allowAnonymous: false,
+                        roles: ['Customer']
+                    }
                 },
             })
-            .state('cabinet.dashboard', {
+            .state('customer.cabinet', {
                 url: '',
                 templateUrl: '/Client/app/areas/customer/dashboard/dashboard.html',
             })
-            .state('cabinet.profile', {
+            .state('customer.profile', {
                 url: 'profile',
                 templateUrl: '/Client/app/areas/customer/profile/profile.html',
                 data: {

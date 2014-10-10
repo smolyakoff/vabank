@@ -16,7 +16,7 @@
         };
 
         $scope.$on('$stateChangeSuccess', function(event, toState) {
-            if ($state.includes('cabinet')) {
+            if ($state.includes('customer')) {
                 $scope.header = toState.data.subtitle;
             }
         });

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 
 namespace VaBank.Common.Data.Repositories
@@ -11,7 +13,6 @@ namespace VaBank.Common.Data.Repositories
         void Create(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
-        void Delete(params object[] keys);
         IList<TEntity> FindAll();
         IList<TModel> ProjectAll<TModel>() where TModel : class;
     }

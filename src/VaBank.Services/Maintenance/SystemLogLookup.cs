@@ -16,7 +16,7 @@ namespace VaBank.Services.Maintenance
                 LogLevel.Trace,
                 LogLevel.Info,
                 LogLevel.Warn,
-                LogLevel.Debug,
+                LogLevel.Error,
                 LogLevel.Fatal
             }.Select(x => x.ToString()).ToList();
             Types = types.ToList();

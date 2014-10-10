@@ -17,16 +17,12 @@ namespace VaBank.Data.Migrations
                 Password = Password.Create(password),
                 Claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.NameIdentifier, login),
+                    new Claim(ClaimTypes.Name, login),
                     new Claim(ClaimTypes.Role, role)
                 }
             };
-            var credentials = new List<string>
-            {
-                login,
-                user.Password.PasswordHash,
-            };
-            credentials.AddRange(user.Claims.OrderBy(x => x.Type).Select(x => x.ToString()));
+            user.Claims.Add(new Claim(ClaimTypes.Sid, user.UserId.ToString()));
+            var credentials = user.Claims.OrderBy(x => x.Type).Select(x => x.ToString());
             user.SecurityStamp = Hash.Compute(credentials);
             return user;
         }

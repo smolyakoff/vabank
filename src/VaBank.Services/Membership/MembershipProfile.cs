@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using VaBank.Core.Membership;
-using VaBank.Services.Contracts.Membership;
+using VaBank.Services.Contracts.Membership.Commands;
+using VaBank.Services.Contracts.Membership.Models;
 
 namespace VaBank.Services.Membership
 {
@@ -9,7 +10,10 @@ namespace VaBank.Services.Membership
         protected override void Configure()
         {
             CreateMap<ApplicationToken, TokenModel>();
+            CreateMap<CreateTokenCommand, ApplicationToken>();
             CreateMap<ApplicationClient, ApplicationClientModel>();
+            CreateMap<UserClaim, ClaimModel>();
+            CreateMap<User, UserIdentityModel>();
         }
     }
 }

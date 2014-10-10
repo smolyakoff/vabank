@@ -1,4 +1,4 @@
-﻿namespace VaBank.Services.Contracts.Membership
+﻿namespace VaBank.Services.Contracts.Membership.Commands
 {
     public class LoginCommand
     {

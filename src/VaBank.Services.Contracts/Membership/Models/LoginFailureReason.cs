@@ -1,4 +1,4 @@
-﻿namespace VaBank.Services.Contracts.Membership
+﻿namespace VaBank.Services.Contracts.Membership.Models
 {
     public enum LoginFailureReason
     {

@@ -174,6 +174,7 @@
     <Reference Include="System.Web.Http.Owin">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Owin.5.2.2\lib\net45\System.Web.Http.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WebActivator">
       <HintPath>..\..\packages\WebActivator.1.4\lib\NETFramework40\WebActivator.dll</HintPath>
@@ -875,13 +876,14 @@
     <Compile Include="Api\Admin\MaintenanceController.cs" />
     <Compile Include="Api\Common\ValidationController.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankAuthorizationServerProvider.cs" />
-    <Compile Include="Api\Infrastructure\Auth\VabankTokenProvider.cs" />
+    <Compile Include="Api\Infrastructure\Auth\VabankRefreshTokenProvider.cs" />
     <Compile Include="Api\Infrastructure\Filters\TransactionAttribute.cs" />
     <Compile Include="Api\Infrastructure\IoC\JsonNetConverter.cs" />
     <Compile Include="Api\Infrastructure\MessageHandlers\GlobalExceptionHandler.cs" />
     <Compile Include="Api\Infrastructure\MessageHandlers\GlobalExceptionLogger.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\InheritanceAwareModelBinderProvider.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\QueryModelBinder.cs" />
+    <Compile Include="Api\Infrastructure\Converters\ValidationExceptionSerializer.cs" />
     <Compile Include="Middleware\CultureMiddleware.cs" />
     <Compile Include="Middleware\ExceptionMiddleware.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
@@ -917,6 +919,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Api\Customer\" />
+    <Folder Include="Api\Infrastructure\Models\" />
     <Folder Include="Client\bower_components\bootstrap-sass-official\assets\images\" />
   </ItemGroup>
   <ItemGroup>
@@ -938,7 +941,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57378</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

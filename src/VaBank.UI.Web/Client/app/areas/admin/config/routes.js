@@ -12,13 +12,17 @@
                 url: '/admin',
                 templateUrl: '/Client/app/areas/admin/admin.html',
                 data: {
-                    title: 'VaDmin - Панель управления'
+                    title: 'VaDmin - Панель управления',
+                    access: {
+                        allowAnonymous: false,
+                        roles: ['Admin']
+                    }
                 }
             }).state('admin.scheduler', {
                 url: '/scheduler',
                 templateUrl: '/Client/app/areas/admin/scheduler/scheduler.html',
                 data: {
-                    title: 'VaDmin - Планировщик'
+                    title: 'VaDmin - Планировщик',
                 }
                 
             }).state('admin.systemLog', {

@@ -5,9 +5,9 @@
         .module('vabank.webapp')
         .controller('loginController', loginController);
 
-    loginController.$inject = ['$scope', '$q', 'uiTools', 'authService']; 
+    loginController.$inject = ['$scope', '$q', '$state', '$stateParams', 'uiTools', 'authService']; 
 
-    function loginController($scope, $q, uiTools, authService) {
+    function loginController($scope, $q, $state, $stateParams, uiTools, authService) {
 
         $scope.loginForm = {
             login: null,
@@ -15,32 +15,45 @@
         };
 
         $scope.validationRules = {
-            login: {
-                custom: uiTools.validate.getValidator('login')
-            },
-            password: {
-                required: true,
-                //custom: uiTools.validate.getValidator('password')
-            }
+            login: { required: true },
+            password: { required: true }
         };
 
-        $scope.validationFailed = function() {
-
-        };
 
         $scope.login = function () {
+           
             function onSuccess() {
-                debugger;
+                var user = authService.getUser();
+                if ($stateParams.redirect) {
+                    $state.go($stateParams.redirect);
+                } else if (user.isInRole('Admin')) {
+                    $state.go('admin');
+                } else {
+                    $state.go('customer.cabinet');
+                }
             }
             
-            function onError() {
+            function onError(response) {
                 debugger;
+                var message = '';
+                var error = JSON.parse(response.error_description);
+                if (response.error === 'LoginValidationError') {
+                    message = _.pluck(error.faults, 'message').join('\r\n');
+                } else {
+                    message = error.message.message;
+                }
+                uiTools.notify({
+                    type: 'error',
+                    title: 'Не удалось войти',
+                    message: message
+                });
+                $scope.loginForm.password = null;
             }
-
-            authService.login($scope.loginForm)
+            
+            return authService
+                .login($scope.loginForm)
                 .then(onSuccess, onError);
 
         };
-
     }
 })();

@@ -7,6 +7,15 @@ namespace VaBank.Services.Contracts.Common.Queries
     {
         private IFilter _filter;
 
+        public IdentityQuery()
+        {
+        } 
+
+        public IdentityQuery(T id)
+        {
+            Id = id;
+        }
+
         public T Id { get; set; }
 
         public IFilter Filter
