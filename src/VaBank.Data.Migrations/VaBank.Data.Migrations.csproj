@@ -53,6 +53,7 @@
     <Compile Include="M1-Authentication\ChangeLogStringsLength.cs" />
     <Compile Include="M1-Authentication\ChangeProtectedTicketLength.cs" />
     <Compile Include="M1-Authentication\CreateApplicationTokenUserIdColumn.cs" />
+    <Compile Include="M1-Authentication\DeleteSecurityStampFromUser.cs" />
     <Compile Include="M1-Authentication\Membership.cs" />
     <Compile Include="M1-Authentication\RenameLogsTable.cs" />
     <Compile Include="M1-Authentication\SeedClientDev.cs" />
