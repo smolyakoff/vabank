@@ -11,6 +11,7 @@
             .state('admin', {
                 url: '/admin',
                 templateUrl: '/Client/app/areas/admin/admin.html',
+                controller: 'adminController',
                 data: {
                     title: 'VaDmin - Панель управления',
                     access: {

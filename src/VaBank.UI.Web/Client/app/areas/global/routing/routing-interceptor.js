@@ -24,7 +24,11 @@
                     cfpLoadingBar.start();
                 } else {
                     event.preventDefault();
-                    $state.go('login', {redirect: toState.name});
+                    if (toState.name === 'customer.cabinet') {
+                        $state.go('login');
+                    } else {
+                        $state.go('login', { redirect: toState.name });
+                    }
                 }
             }
             
@@ -58,7 +62,12 @@
                             title: 'Сессия истекла',
                             message: 'Ваша сессия истекла. Пожалуйста введите логин и пароль'
                         });
-                        $state.go('login', { redirect: toState.name });
+                        if (toState.name === 'customer.cabinet') {
+                            $state.go('login');
+                        } else {
+                            $state.go('login', { redirect: toState.name });
+                        }
+                        
                     });
                 });
             } else {

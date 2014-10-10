@@ -1,11 +1,11 @@
 ﻿(function() {
     'use strict';
 
-    angular.module('vabank.webapp').controller('cabinetController', cabinetController);
+    angular.module('vabank.webapp').controller('customerController', customerController);
 
-    cabinetController.$inject = ['$window', '$rootScope', '$state', '$scope'];
+    customerController.$inject = ['$window', '$rootScope', '$state', '$scope'];
 
-    function cabinetController($window, $rootScope, $state, $scope) {
+    function customerController($window, $rootScope, $state, $scope) {
 
         $scope.back = function() {
             $window.history.back();

@@ -9,6 +9,7 @@
 
     function loginController($scope, $q, $state, $stateParams, uiTools, authService) {
 
+
         $scope.loginForm = {
             login: null,
             password: null
@@ -34,7 +35,6 @@
             }
             
             function onError(response) {
-                debugger;
                 var message = '';
                 var error = JSON.parse(response.error_description);
                 if (response.error === 'LoginValidationError') {

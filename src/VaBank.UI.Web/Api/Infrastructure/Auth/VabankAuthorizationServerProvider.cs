@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Integration.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -43,7 +44,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             var container = context.OwinContext.GetAutofacLifetimeScope();
             var membershipService = container.Resolve<IAuthorizationService>();
             var userId = Guid.Parse(userIdClaim.Value);
-            var result = membershipService.LoginById(new IdentityQuery<Guid>(userId));
+            var result = membershipService.RefreshLogin(new IdentityQuery<Guid>(userId));
             if (result == null)
             {
                 throw new InvalidOperationException("Grant refresh token: login result is null.");
@@ -75,6 +76,8 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
 
             // Set state as validated
             context.Validated(newIdentity);
+            var cookieIdentity = new ClaimsIdentity(identity.Claims, CookieAuthenticationDefaults.AuthenticationType);
+            context.Request.Context.Authentication.SignIn(cookieIdentity);
 
             return base.GrantRefreshToken(context);
             
@@ -167,8 +170,11 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             // Set CORS header
             context.Response.Headers.Set("Access-Control-Allow-Origin", client.AllowedOrigin);
 
-            // Set state as validated
+            // Set state as validated and set cookie
             context.Validated(identity);
+
+            var cookieIdentity = new ClaimsIdentity(identity.Claims, CookieAuthenticationDefaults.AuthenticationType);
+            context.Request.Context.Authentication.SignIn(cookieIdentity);
             return base.GrantResourceOwnerCredentials(context);
         }
 
