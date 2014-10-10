@@ -11,8 +11,8 @@
             .state('customer', {
                 url: '/',
                 'abstract': true,
-                templateUrl: '/Client/app/areas/customer/cabinet.html',
-                controller: 'cabinetController',
+                templateUrl: '/Client/app/areas/customer/customer.html',
+                controller: 'customerController',
                 data: {
                     title: 'VaBank - Мой кабинет',
                     subtitle: 'Мой кабинет',
@@ -24,7 +24,7 @@
             })
             .state('customer.cabinet', {
                 url: '',
-                templateUrl: '/Client/app/areas/customer/dashboard/dashboard.html',
+                templateUrl: '/Client/app/areas/customer/cabinet/cabinet.html',
             })
             .state('customer.profile', {
                 url: 'profile',

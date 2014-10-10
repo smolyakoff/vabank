@@ -28,6 +28,9 @@
             UserImpl.prototype.isInRole = function (role) {
                 return _.contains(roles, role);
             };
+            UserImpl.prototype.getRoles = function() {
+                return angular.copy(roles);
+            };
             return UserImpl;
         })();
         

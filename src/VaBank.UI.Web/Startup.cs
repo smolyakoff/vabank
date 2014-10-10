@@ -8,8 +8,10 @@ using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using Autofac;
 using Hangfire;
+using Hangfire.Dashboard;
 using Hangfire.SqlServer;
 using Microsoft.Owin.Cors;
+using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -47,10 +49,14 @@ namespace VaBank.UI.Web
             config.UseStaticFiles("/Client");
 
             config.UseCors(CorsOptions.AllowAll);
+            config.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                CookiePath = "/admin/hangfire",
+                ExpireTimeSpan = TimeSpan.FromMinutes(15)
+            });
             config.UseOAuthAuthorizationServer(ConfigureOAuthServer());
             config.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
             
-
             config.UseHangfire(ConfigureHangfire);          
 
             var httpConfig = ConfigureWebApi();
@@ -92,8 +98,7 @@ namespace VaBank.UI.Web
             config.UseDashboardPath("/admin/hangfire");
             var storageOptions = new SqlServerStorageOptions {QueuePollInterval = TimeSpan.FromMinutes(1)};
             config.UseStorage(new SqlServerStorage(connectionString, storageOptions));
-            //TODO: do auth as it's generally dangerous to keep no auth with hangfire
-            config.UseAuthorizationFilters();
+            config.UseAuthorizationFilters(new AuthorizationFilter {Roles = "Admin"});
             config.UseServer();
         }
 
@@ -101,6 +106,10 @@ namespace VaBank.UI.Web
         {
             var configuration = new HttpConfiguration();
             configuration.MapHttpAttributeRoutes();
+
+            //Authentication
+            configuration.SuppressDefaultHostAuthentication();
+            configuration.Filters.Add(new HostAuthenticationFilter("Bearer"));
 
             //Formatters
             configuration.Formatters.Clear();
