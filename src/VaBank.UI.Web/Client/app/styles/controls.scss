@@ -4,6 +4,10 @@
         display: inline-block;
     }
 
+    .form-group {
+        margin-left: 5px;
+    }
+
     label {
         margin-right: 5px;
     }
@@ -20,7 +24,12 @@
     }
 
     .form-control-feedback {
+        margin-right: 10px;
+    }
+
+    .input-group .form-control-feedback {
         top: 0;
+        margin-right: 0;
     }
 
     .tooltip-inner {
@@ -41,3 +50,19 @@
 .st-sort-ascent:before {
     content: '\25B2';
 }
+.table {
+    > tbody tr.st-selected {
+        background-color: $state-success-bg
+    }
+}
+.table-striped {
+    > tbody > tr.st-selected:nth-child(odd)> td {
+        background-color: $state-success-bg
+    }
+}
+.table div.pagination {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+     
+

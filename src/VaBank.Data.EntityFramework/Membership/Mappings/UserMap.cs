@@ -16,8 +16,6 @@ namespace VaBank.Data.EntityFramework.Membership.Mappings
                 .IsRequired();
             Property(x => x.PasswordSalt).HasMaxLength(RestrictionConstants.SecurityStringLength)
                 .IsRequired();
-            Property(x => x.SecurityStamp).HasMaxLength(RestrictionConstants.SecurityStringLength)
-                .IsRequired();
             Property(x => x.LockoutEnabled).IsRequired();
             Property(x => x.UserName).HasMaxLength(RestrictionConstants.ShortNameLength)
                 .IsRequired();

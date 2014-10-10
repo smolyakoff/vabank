@@ -8,7 +8,6 @@ namespace VaBank.Core.Membership
     {
         public string PasswordHash { get; set; }
         public string PasswordSalt { get; set; }
-        public string SecurityStamp { get; set; }
         public bool LockoutEnabled { get; set; }
         public DateTime? LockoutEndDateUtc { get; set; }
         public string UserName { get; set; }

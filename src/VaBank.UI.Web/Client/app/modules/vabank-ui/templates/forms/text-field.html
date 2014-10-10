@@ -23,15 +23,21 @@
 
         <span ng-if="multiline" ng-include src="'form-for/templates/text-field/_textarea.html'"></span>
 
-        <span ng-if="model.error"
+        <span ng-if="model.error && !multiline"
               class="glyphicon glyphicon-remove form-control-feedback"
               tooltip="{{model.error}}"
               tooltip-placement="right">
         </span>
 
-    <span ng-if="iconAfter" class="input-group-addon"
-          ng-click="onIconAfterClick()">
-        <i class="text-field-icon" ng-class="iconAfter"></i>
+        <span ng-if="iconAfter" class="input-group-addon"
+              ng-click="onIconAfterClick()">
+            <i class="text-field-icon" ng-class="iconAfter"></i>
+        </span>
+    </div>
+    <span class="help-block" ng-if="help">{{help}}</span>
+    <span class="help-block has-error" ng-if="multiline && model.error">
+        <field-error error="model.error"
+                     uid="{{model.uid}}-error">
+        </field-error>
     </span>
-</div>
 </div>

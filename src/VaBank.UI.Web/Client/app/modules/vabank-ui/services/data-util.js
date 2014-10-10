@@ -358,12 +358,135 @@
             return combiner;
         };
         
+        var SortDirection = {
+            Asc: 'asc',
+            Desc: 'desc'
+        };
+        var sortDirections = _.values(SortDirection);
+
+
+        var Sort = (function () {
+            function SortImpl(options) {
+                if (!SortImpl.schema(options)) {
+                    var errors = SortImpl.schema.errors(options);
+                    throw new TypeError('Invalid options passed!\n' + JSON.stringify(errors));
+                }
+                this.propertyName = options.propertyName;
+                this.direction = options.direction;
+            };
+            SortImpl.schema = schema({                
+                propertyName: String,
+                direction: sortDirections 
+            });
+            SortImpl.prototype.toLINQ = function() {
+                return this.propertyName + ' ' + this.direction;
+            };
+            SortImpl.prototype.toObject = function() {
+                return {                    
+                    propertyName: this.propertyName,
+                    direction: this.direction
+                };
+            };
+            return SortImpl;
+        })();
+
+        var MultiSort = (function () {
+            var sorts = [];
+            function MultiSortImpl() {
+                sorts = [];
+            }
+            MultiSortImpl.prototype.add = function (sort) {
+                if (!Sort.schema(sort)) {
+                    throw new TypeError("Invalid sort passed!");
+                }
+                if (sort instanceof Sort && sort.isEmpty()) {
+                    return;
+                }
+                if (!(sort instanceof Filter)) {
+                    sort = new Sort(sort);
+                }
+                sorts.push(sort);
+            };
+            MultiSortImpl.prototype.isEmpty = function () {
+                return sorts.length == 0;
+            };
+            MultiSortImpl.prototype.toLINQ = function() {
+                var linqs = _.map(sorts, function (x) {
+                    return x.toLINQ();
+                });
+                return linqs.join(', ') || null;
+            };
+            MultiSortImpl.prototype.toObject = function () {
+                if (this.isEmpty()) {
+                    return null;
+                }
+                if (sorts.length === 1) {
+                    return sorts[0].toObject();
+                }
+                return {                    
+                  sorts: _.map(sorts, function(x) {
+                      return x.toObject();
+                  })  
+                };
+            };
+            return MultiSortImpl;
+        })();
+
+        var combineSorts = function(sorts) {
+            var schemaCheck = function (x) {
+                return Sort.schema(x);
+            };
+            if (!_.all(sorts, schemaCheck)) {
+                throw new TypeError('Invalid sorts passed.');
+            }
+            var multiSort = new MultiSort();
+            _.forEach(sorts, function (x) {
+                multiSort.add(x);
+            });
+            return multiSort;
+        };
+
+        var toPageNumberAndSize = function (paging) {
+            var pageNumber = (paging.start / paging.number) + 1;
+            var pageSize = paging.number;
+            return {
+                pageNumber: pageNumber,
+                pageSize: pageSize
+            };
+        };
+
+        var queryFromStTable = function(tableState) {
+            var params = {};
+            if (tableState.sort.predicate) {
+                params.sort = combineSorts([
+                    {
+                        propertyName: tableState.sort.predicate,
+                        direction: tableState.sort.reverse ? 'desc' : 'asc'
+                    }
+                ]).toLINQ();
+            }
+            if (!_.isUndefined(tableState.pagination.number)) {
+                angular.extend(params, toPageNumberAndSize(tableState.pagination));
+            }
+            return params;
+        };
+
         return {
+            query: {
+              fromStTable: queryFromStTable  
+            },
             filters: {
                 operator: FilterOperator,
                 logic: FilterLogic,
                 combine: combineFilters,
                 markers: markers
+            },
+            sort: {
+                direction: SortDirection,
+                combine: combineSorts
+            },
+            paging: {
+                toPageNumberAndSize: toPageNumberAndSize
             }
         };
     }

@@ -44,12 +44,30 @@
                 
             }).state('admin.userManagement', {
                 url: '/users',
-                templateUrl: '/Client/app/areas/admin/user-management/user-management.html',
+                'abstract': true,
+                template: '<div data-ui-view=""></div>',
                 data: {
                     title: 'VaDmin - Управление пользователями',
                 },                
-                controller: 'userManagementController'
-            });
+            }).state('admin.userManagement.list', {
+                url: '',
+                templateUrl: '/Client/app/areas/admin/user-management/user-list.html',
+                controller: 'userListController'
+            }).state('admin.userManagement.editUser', {
+                url: '/:id',
+                templateUrl: '/Client/app/areas/admin/user-management/edit-user.html',
+                controller: 'editUserController',
+                resolve: {
+                    data: ['$stateParams', 'userManagementService', function ($stateParams, userManager) {
+                        var User = userManager.User;
+                        if ($stateParams.id === 'add') {
+                            return User.defaults.new;
+                        } else {
+                            return {};
+                        }
+                    }]
+                }
+            });;
     }
 
 })();
