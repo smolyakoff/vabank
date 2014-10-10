@@ -33,7 +33,6 @@ namespace VaBank.Services.Membership
                 var user = _db.Users.QueryOne(command.ToDbQuery());
                 if (user != null)
                 {
-                    //TODO: check access failed count (business rule AM001.3)
                     var failure = VerifyAccess(user);
                     if (failure != null)
                     {
@@ -41,10 +40,10 @@ namespace VaBank.Services.Membership
                     }
                     if (Password.Validate(user.PasswordHash, user.PasswordSalt, command.Password))
                         return new LoginSuccessModel(new UserMessage(Messages.SuccessLogin), user.ToModel<User, UserIdentityModel>());
-                    ++user.AccessFailedCount;
+                    ProcessFailedLogin(user);
                     UnitOfWork.Commit();
                 }
-                return new LoginFailureModel(new UserMessage(Messages.InvalidCredentials), LoginFailureReason.BadCredentials);
+                return new LoginFailureModel(LoginFailureReason.BadCredentials.UserMessage(), LoginFailureReason.BadCredentials);
             }
             catch (Exception ex)
             {
@@ -134,13 +133,23 @@ namespace VaBank.Services.Membership
 
         private static LoginFailureModel VerifyAccess(User user)
         {
-            //TODO: refactor messages based on failure reason (might be extension method)
-            //TODO: check access failed count (business rule AM001.3)
             if (user.Deleted)
-                return new LoginFailureModel(new UserMessage(Messages.UserDeleted), LoginFailureReason.UserDeleted);
+                return new LoginFailureModel(LoginFailureReason.UserDeleted.UserMessage(), LoginFailureReason.UserDeleted);
+                
             if (user.LockoutEnabled)
-                return new LoginFailureModel(new UserMessage(Messages.UserBlocked), LoginFailureReason.UserBlocked);
+                return new LoginFailureModel(LoginFailureReason.UserBlocked.UserMessage(), LoginFailureReason.UserBlocked);
+                
             return null;
+        }
+
+        private static void ProcessFailedLogin(User user)
+        {
+            ++user.AccessFailedCount;
+            if (user.AccessFailedCount % 3 == 0)
+            {
+                user.LockoutEnabled = true;
+                user.LockoutEndDateUtc = DateTime.MaxValue;
+            }
         }
     }
 }
