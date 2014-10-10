@@ -208,7 +208,10 @@
     <Content Include="Client\app\areas\customer\customer.html" />
     <Content Include="Client\app\areas\customer\config\routes.js" />
     <Content Include="Client\app\areas\customer\cabinet\cabinet.html" />
-    <Content Include="Client\app\areas\customer\profile\profile-ctrl.js" />
+    <Content Include="Client\app\areas\customer\profile\profile-change-pwd.html" />
+    <Content Include="Client\app\areas\customer\profile\profile-change-pwd-ctrl.js" />
+    <Content Include="Client\app\areas\customer\profile\profile-edit-ctrl.js" />
+    <Content Include="Client\app\areas\customer\profile\profile-edit.html" />
     <Content Include="Client\app\areas\customer\profile\profile-service.js" />
     <Content Include="Client\app\areas\customer\profile\profile.html" />
     <Content Include="Client\app\areas\global\auth\login-ctrl.js" />
@@ -239,6 +242,7 @@
     <Content Include="Client\app\modules\vabank-ui\services\data-util.js" />
     <Content Include="Client\app\modules\vabank-ui\services\dialog-service.js" />
     <Content Include="Client\app\modules\vabank-ui\services\notification-service.js" />
+    <Content Include="Client\app\modules\vabank-ui\templates\forms\checkbox-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\text-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-confirmation-dialog.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-datepicker.html" />
@@ -867,6 +871,7 @@
     <Content Include="Client\bower_components\spin.js\bower.json" />
     <Content Include="Client\bower_components\spin.js\README.md" />
     <Content Include="Client\app\areas\admin\user-management\user-management.scss" />
+    <Content Include="Client\app\areas\customer\profile\profile.scss" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -28,12 +28,22 @@
             })
             .state('customer.profile', {
                 url: 'profile',
+                'abstract': true,
                 templateUrl: '/Client/app/areas/customer/profile/profile.html',
                 data: {
                     title: 'VaBank - Профиль',
                     subtitle: 'Мой профиль'
                 },
-                controller: 'profileController'
+            })
+            .state('customer.profile.edit', {
+                url: '',
+                templateUrl: '/Client/app/areas/customer/profile/profile-edit.html',
+                controller: 'profileEditController'
+            })
+            .state('customer.profile.changePassword', {
+                url: '/change-password',
+                templateUrl: '/Client/app/areas/customer/profile/profile-change-pwd.html',
+                controller: 'changePasswordController'
             });
     }
 

@@ -1,0 +1,21 @@
+<div  class="field checkbox-field paper-checkbox"
+      ng-class="{disabled: disable || model.disabled, 'has-error': model.error}">
+
+    <!--<field-error  error="model.error"
+                      left-aligned="true"
+                      uid="{{model.uid}}-error">
+        </field-error>-->
+    
+    <input type="checkbox" 
+           tabindex="{{tabIndex}}"
+           ng-model="model.bindable"
+           ng-disabled="disable || model.disabled" 
+           id="{{model.uid}}">
+
+    <label for="{{model.uid}}"> 
+        <span></span>
+        <span class="check"></span>
+        <span class="box"></span>
+        {{label}}
+    </label>   
+</div>

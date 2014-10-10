@@ -76,7 +76,6 @@
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Maintenance\SystemLogTypeModel.cs" />
     <Compile Include="Maintenance\Validators.cs" />
-    <Compile Include="Membership\ApplicationClientCache.cs" />
     <Compile Include="Membership\LoginValidator.cs" />
     <Compile Include="Membership\MembershipExtensions.cs" />
     <Compile Include="Membership\MembershipProfile.cs" />
