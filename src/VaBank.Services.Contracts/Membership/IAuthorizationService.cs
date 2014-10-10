@@ -5,7 +5,7 @@ using VaBank.Services.Contracts.Membership.Models;
 
 namespace VaBank.Services.Contracts.Membership
 {
-    public interface IMembershipService
+    public interface IAuthorizationService
     {
         LoginResultModel Login(LoginCommand command);
 
@@ -15,6 +15,6 @@ namespace VaBank.Services.Contracts.Membership
 
         ApplicationClientModel GetClient(IdentityQuery<string> query);
 
-        UserIdentityModel GetUser(IdentityQuery<Guid> query);
+        LoginResultModel LoginById(IdentityQuery<Guid> query);
     }
 }

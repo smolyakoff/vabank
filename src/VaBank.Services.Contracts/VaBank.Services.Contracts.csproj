@@ -63,7 +63,7 @@
     <Compile Include="Membership\Models\ApplicationClientTypeModel.cs" />
     <Compile Include="Membership\Models\ClaimModel.cs" />
     <Compile Include="Membership\Commands\CreateTokenCommand.cs" />
-    <Compile Include="Membership\IMembershipService.cs" />
+    <Compile Include="Membership\IAuthorizationService.cs" />
     <Compile Include="Membership\Commands\LoginCommand.cs" />
     <Compile Include="Membership\Models\LoginFailureModel.cs" />
     <Compile Include="Membership\Models\LoginFailureReason.cs" />

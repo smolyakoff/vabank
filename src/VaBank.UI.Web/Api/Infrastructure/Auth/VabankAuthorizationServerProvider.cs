@@ -19,9 +19,15 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
 {
     public class VabankAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        //TODO: common parts of grant refresh token and grant resource owner credentials to separate method
 
         public override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
         {
+            var options = new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+            options.Converters.Add(new ValidationExceptionSerializer());
             var identity = context.Ticket.Identity;
             if (identity == null)
             {
@@ -35,9 +41,22 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
                 return Task.FromResult<object>(null);
             }
             var container = context.OwinContext.GetAutofacLifetimeScope();
-            var membershipService = container.Resolve<IMembershipService>();
+            var membershipService = container.Resolve<IAuthorizationService>();
             var userId = Guid.Parse(userIdClaim.Value);
-            var user = membershipService.GetUser(new IdentityQuery<Guid>(userId));
+            var result = membershipService.LoginById(new IdentityQuery<Guid>(userId));
+            if (result == null)
+            {
+                throw new InvalidOperationException("Grant refresh token: login result is null.");
+            }
+            var failure = result as LoginFailureModel;
+            if (failure != null)
+            {
+                var errorJson = JsonConvert.SerializeObject(failure, options);
+                context.SetError("LoginFailure", errorJson);
+                return Task.FromResult<object>(null);
+            }
+            var success = (LoginSuccessModel) result;
+            var user = success.User;
             if (user == null)
             {
                 context.SetError("User with the spcified id was not found.");
@@ -76,7 +95,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
                 return Task.FromResult<object>(null);
             }
 
-            var membershipService = container.Resolve<IMembershipService>();
+            var membershipService = container.Resolve<IAuthorizationService>();
             var client = membershipService.GetClient(new IdentityQuery<string>(context.ClientId));
 
             if (!client.Active)
@@ -107,7 +126,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
         {
             //Validate user name and password here
             var container = context.OwinContext.GetAutofacLifetimeScope();
-            var membershipService = container.Resolve<IMembershipService>();
+            var membershipService = container.Resolve<IAuthorizationService>();
             var options = new JsonSerializerSettings()
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()

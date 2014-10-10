@@ -14,11 +14,11 @@ using VaBank.Services.Contracts.Membership.Models;
 
 namespace VaBank.Services.Membership
 {
-    public class MembershipService : BaseService, IMembershipService
+    public class AuthorizationService : BaseService, IAuthorizationService
     {
         private readonly MembershipRepositories _db;
 
-        public MembershipService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, MembershipRepositories repositories) 
+        public AuthorizationService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, MembershipRepositories repositories) 
             : base(unitOfWork, validatorFactory)
         {
             repositories.EnsureIsResolved();
@@ -33,12 +33,12 @@ namespace VaBank.Services.Membership
                 var user = _db.Users.QueryOne(command.ToDbQuery());
                 if (user != null)
                 {
-                    //TODO: refactor messages based on failure reason (might be extension method)
                     //TODO: check access failed count (business rule AM001.3)
-                    if (user.Deleted)
-                        return new LoginFailureModel(new UserMessage(Messages.UserDeleted), LoginFailureReason.UserDeleted);
-                    if (user.LockoutEnabled)
-                        return new LoginFailureModel(new UserMessage(Messages.UserBlocked), LoginFailureReason.UserBlocked);
+                    var failure = VerifyAccess(user);
+                    if (failure != null)
+                    {
+                        return failure;
+                    }
                     if (Password.Validate(user.PasswordHash, user.PasswordSalt, command.Password))
                         return new LoginSuccessModel(new UserMessage(Messages.SuccessLogin), user.ToModel<User, UserIdentityModel>());
                     ++user.AccessFailedCount;
@@ -109,18 +109,38 @@ namespace VaBank.Services.Membership
             }
         }
 
-        public UserIdentityModel GetUser(IdentityQuery<Guid> query)
+        public LoginResultModel LoginById(IdentityQuery<Guid> query)
         {
             EnsureIsValid(query);
             try
             {
-                var user = _db.Users.ProjectIdentity<Guid, User, UserIdentityModel>(query);
-                return user;
+                var user = _db.Users.QueryIdentity(query);
+                if (user == null)
+                {
+                    return new LoginFailureModel(new UserMessage(Messages.InvalidCredentials), LoginFailureReason.BadCredentials);
+                }
+                var failure = VerifyAccess(user);
+                if (failure != null)
+                {
+                    return failure;
+                }
+                return new LoginSuccessModel(new UserMessage(Messages.SuccessLogin), user.ToModel<User, UserIdentityModel>());
             }
             catch (Exception ex)
             {
                 throw new ServiceException("Can't get user.", ex);
             }
+        }
+
+        private static LoginFailureModel VerifyAccess(User user)
+        {
+            //TODO: refactor messages based on failure reason (might be extension method)
+            //TODO: check access failed count (business rule AM001.3)
+            if (user.Deleted)
+                return new LoginFailureModel(new UserMessage(Messages.UserDeleted), LoginFailureReason.UserDeleted);
+            if (user.LockoutEnabled)
+                return new LoginFailureModel(new UserMessage(Messages.UserBlocked), LoginFailureReason.UserBlocked);
+            return null;
         }
     }
 }

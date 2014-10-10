@@ -80,7 +80,7 @@
     <Compile Include="Membership\MembershipExtensions.cs" />
     <Compile Include="Membership\MembershipProfile.cs" />
     <Compile Include="Membership\MembershipRepositories.cs" />
-    <Compile Include="Membership\MembershipService.cs" />
+    <Compile Include="Membership\AuthorizationService.cs" />
     <Compile Include="Membership\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -28,7 +28,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             }
 
             var container = context.OwinContext.GetAutofacLifetimeScope();
-            var membershipService = container.Resolve<IMembershipService>();
+            var membershipService = container.Resolve<IAuthorizationService>();
 
             var tokenId = Guid.NewGuid().ToString("N");
             var token = new CreateTokenCommand
@@ -51,7 +51,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
         public override void Receive(AuthenticationTokenReceiveContext context)
         {
             var container = context.OwinContext.GetAutofacLifetimeScope();
-            var membershipService = container.Resolve<IMembershipService>();
+            var membershipService = container.Resolve<IAuthorizationService>();
             var hashedTokenId = VaBank.Common.Security.Hash.Compute(context.Token);
             var token = membershipService.RevokeToken(new IdentityQuery<string>(hashedTokenId));
             if (token != null)
