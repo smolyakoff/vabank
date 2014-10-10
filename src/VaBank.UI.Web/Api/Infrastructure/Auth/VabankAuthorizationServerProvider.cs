@@ -44,7 +44,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             var container = context.OwinContext.GetAutofacLifetimeScope();
             var membershipService = container.Resolve<IAuthorizationService>();
             var userId = Guid.Parse(userIdClaim.Value);
-            var result = membershipService.LoginById(new IdentityQuery<Guid>(userId));
+            var result = membershipService.RefreshLogin(new IdentityQuery<Guid>(userId));
             if (result == null)
             {
                 throw new InvalidOperationException("Grant refresh token: login result is null.");

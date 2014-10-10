@@ -109,7 +109,7 @@ namespace VaBank.Services.Membership
             }
         }
 
-        public LoginResultModel LoginById(IdentityQuery<Guid> query)
+        public LoginResultModel RefreshLogin(IdentityQuery<Guid> query)
         {
             EnsureIsValid(query);
             try

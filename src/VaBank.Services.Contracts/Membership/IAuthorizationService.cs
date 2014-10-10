@@ -15,6 +15,7 @@ namespace VaBank.Services.Contracts.Membership
 
         ApplicationClientModel GetClient(IdentityQuery<string> query);
 
-        LoginResultModel LoginById(IdentityQuery<Guid> query);
+        //Security note: should be only allowed for authenticated users
+        LoginResultModel RefreshLogin(IdentityQuery<Guid> query);
     }
 }
