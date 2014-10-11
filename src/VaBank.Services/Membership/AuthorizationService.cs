@@ -16,9 +16,9 @@ namespace VaBank.Services.Membership
 {
     public class AuthorizationService : BaseService, IAuthorizationService
     {
-        private readonly MembershipRepositories _db;
+        private readonly AuthorizationRepositories _db;
 
-        public AuthorizationService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, MembershipRepositories repositories) 
+        public AuthorizationService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, AuthorizationRepositories repositories) 
             : base(unitOfWork, validatorFactory)
         {
             repositories.EnsureIsResolved();
@@ -71,7 +71,7 @@ namespace VaBank.Services.Membership
                 token.User = user;
                 _db.ApplicationTokens.Create(token);
                 UnitOfWork.Commit();
-                return command;
+                return command.ToClass<CreateTokenCommand, TokenModel>();
             }
             catch (Exception ex)
             {

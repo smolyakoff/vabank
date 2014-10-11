@@ -1,4 +1,4 @@
-﻿namespace VaBank.Services.Contracts.Maintenance
+﻿namespace VaBank.Services.Contracts.Maintenance.Models
 {
     public class SystemLogExceptionModel
     {

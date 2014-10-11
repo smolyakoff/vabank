@@ -2,6 +2,8 @@
 using System.Web.Http.ModelBinding;
 using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Maintenance;
+using VaBank.Services.Contracts.Maintenance.Commands;
+using VaBank.Services.Contracts.Maintenance.Queries;
 using VaBank.UI.Web.Api.Infrastructure.Filters;
 
 namespace VaBank.UI.Web.Api.Admin

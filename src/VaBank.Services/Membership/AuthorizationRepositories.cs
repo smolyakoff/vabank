@@ -4,7 +4,7 @@ using VaBank.Services.Common;
 
 namespace VaBank.Services.Membership
 {
-    public class MembershipRepositories : IRepositoryCollection
+    public class AuthorizationRepositories : IRepositoryCollection
     {
         public IApplicationTokenRepository ApplicationTokens { get; set; }
         public IQueryRepository<ApplicationClient> ApplicationClients { get; set; }

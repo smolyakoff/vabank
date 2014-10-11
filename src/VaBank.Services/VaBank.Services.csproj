@@ -76,10 +76,9 @@
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Maintenance\SystemLogTypeModel.cs" />
     <Compile Include="Maintenance\Validators.cs" />
-    <Compile Include="Membership\LoginValidator.cs" />
     <Compile Include="Membership\MembershipExtensions.cs" />
     <Compile Include="Membership\MembershipProfile.cs" />
-    <Compile Include="Membership\MembershipRepositories.cs" />
+    <Compile Include="Membership\AuthorizationRepositories.cs" />
     <Compile Include="Membership\AuthorizationService.cs" />
     <Compile Include="Membership\Messages.Designer.cs">
       <AutoGen>True</AutoGen>

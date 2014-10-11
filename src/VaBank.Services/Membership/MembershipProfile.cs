@@ -11,9 +11,11 @@ namespace VaBank.Services.Membership
         {
             CreateMap<ApplicationToken, TokenModel>();
             CreateMap<CreateTokenCommand, ApplicationToken>();
+            CreateMap<CreateTokenCommand, TokenModel>();
             CreateMap<ApplicationClient, ApplicationClientModel>();
             CreateMap<UserClaim, ClaimModel>();
-            CreateMap<User, UserIdentityModel>();
+            CreateMap<User, UserIdentityModel>()
+                .ForMember(x => x.UserId, cfg => cfg.MapFrom(y => y.Id));
         }
     }
 }

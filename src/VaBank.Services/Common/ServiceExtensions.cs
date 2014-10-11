@@ -21,6 +21,11 @@ namespace VaBank.Services.Common
             }
         }
 
+        public static TModel ToClass<T, TModel>(this T obj)
+        {
+            return Mapper.Map<T, TModel>(obj);
+        }
+
         public static TModel ToModel<TEntity, TModel>(this TEntity entity)
             where TEntity : Entity
         {

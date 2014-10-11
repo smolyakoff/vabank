@@ -1,11 +1,20 @@
 ﻿using System;
 using FluentValidation;
 using VaBank.Services.Common.Validation;
-using VaBank.Services.Contracts.Membership;
 using VaBank.Services.Contracts.Membership.Commands;
 
 namespace VaBank.Services.Membership
 {
+    [ValidatorName("login")]
+    [StaticValidator]
+    internal class LoginValidator : ObjectValidator<string>
+    {
+        public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
+        {
+            return builder.NotEmpty().Length(4, 50);
+        }
+    }
+
     [StaticValidator]
     internal class LoginCommandValidator : AbstractValidator<LoginCommand>
     {        

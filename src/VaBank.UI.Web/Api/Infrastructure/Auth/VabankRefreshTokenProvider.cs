@@ -37,7 +37,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
                 ClientId = client.Id,
                 IssuedUtc = DateTime.UtcNow,
                 ExpiresUtc = DateTime.UtcNow.AddSeconds(client.RefreshTokenLifetime),
-                UserId = user.Id
+                UserId = user.UserId
             };
 
             context.Ticket.Properties.IssuedUtc = token.IssuedUtc;

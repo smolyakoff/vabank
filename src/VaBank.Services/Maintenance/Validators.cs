@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using VaBank.Services.Common.Validation;
 using VaBank.Services.Contracts.Maintenance;
+using VaBank.Services.Contracts.Maintenance.Commands;
+using VaBank.Services.Contracts.Maintenance.Queries;
 
 namespace VaBank.Services.Maintenance
 {

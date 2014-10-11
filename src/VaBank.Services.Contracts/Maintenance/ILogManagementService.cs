@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Common.Queries;
+using VaBank.Services.Contracts.Maintenance.Commands;
+using VaBank.Services.Contracts.Maintenance.Models;
+using VaBank.Services.Contracts.Maintenance.Queries;
 
 namespace VaBank.Services.Contracts.Maintenance
 {
