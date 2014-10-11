@@ -5,6 +5,11 @@
 /* Hide for mobile, show later */
 .sidebar {
     display: none;
+    font:small-caption;
+}
+
+.sidebar-logo{
+    margin-bottom: 20px;
 }
 
 @media (min-width: 768px) {
