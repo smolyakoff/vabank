@@ -455,7 +455,12 @@
             };
         };
 
-        var queryFromStTable = function(tableState) {
+        var queryFromStTable = function (tableState) {
+            var defaultState = {
+                sort: {},
+                pagination: {}
+            };
+            tableState = angular.extend({}, defaultState, tableState);
             var params = {};
             if (tableState.sort.predicate) {
                 params.sort = combineSorts([

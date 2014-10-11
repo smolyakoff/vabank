@@ -98,6 +98,34 @@ namespace VaBank.Common.Data
             }
             _filter = new ExpressionFilter<T>(expression);
             return this;
-        } 
+        }
+
+        public DbQuery<T> AndFilterBy(Expression<Func<T, bool>> expression)
+        {
+            if (expression == null)
+            {
+                throw new ArgumentNullException("expression");
+            }
+            if (_filter == null)
+            {
+                _filter = new ExpressionFilter<T>(expression);
+            }
+            _filter = _filter.And(new ExpressionFilter<T>(expression));
+            return this;
+        }
+
+        public DbQuery<T> OrFilterBy(Expression<Func<T, bool>> expression)
+        {
+            if (expression == null)
+            {
+                throw new ArgumentNullException("expression");
+            }
+            if (_filter == null)
+            {
+                _filter = new ExpressionFilter<T>(expression);
+            }
+            _filter = _filter.Or(new ExpressionFilter<T>(expression));
+            return this;
+        }
     }
 }

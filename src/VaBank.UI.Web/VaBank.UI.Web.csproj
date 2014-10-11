@@ -143,6 +143,10 @@
     <Reference Include="Owin">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="RazorGenerator.Templating">
       <HintPath>..\..\packages\RazorGenerator.Templating.2.2.3\lib\net40\RazorGenerator.Templating.dll</HintPath>
     </Reference>
@@ -235,6 +239,7 @@
     <Content Include="Client\app\modules\vabank-ui\config\form-for.js" />
     <Content Include="Client\app\modules\vabank-ui\config\toastr-config.js" />
     <Content Include="Client\app\modules\vabank-ui\config\local-storage-config.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\st-table-force-pipe.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-confirm.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-datepicker.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\truncate.js" />
@@ -757,7 +762,6 @@
     <Content Include="Client\app\areas\admin\scheduler\scheduler.scss" />
     <Content Include="Client\app\styles\common.scss" />
     <Content Include="Client\bower_components\angular-smart-table\.bower.json" />
-    <Content Include="Client\bower_components\angular-smart-table\.travis.yml" />
     <Content Include="Client\bower_components\angular-smart-table\bower.json" />
     <Content Include="Client\bower_components\angular-smart-table\changeLog.md" />
     <Content Include="Client\bower_components\angular-smart-table\package.json" />
@@ -872,6 +876,7 @@
     <Content Include="Client\bower_components\spin.js\README.md" />
     <Content Include="Client\app\areas\admin\user-management\user-management.scss" />
     <Content Include="Client\app\areas\customer\profile\profile.scss" />
+    <Content Include="Client\bower_components\angular-smart-table\.travis.yml" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -894,13 +899,14 @@
     <Compile Include="Api\Infrastructure\Auth\VabankAuthorizationServerProvider.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankRefreshTokenProvider.cs" />
     <Compile Include="Api\Infrastructure\Converters\HttpServiceErrorConverter.cs" />
+    <Compile Include="Api\Infrastructure\Converters\PagedListConverter.cs" />
     <Compile Include="Api\Infrastructure\Filters\ServiceExceptionFilterAttribute.cs" />
     <Compile Include="Api\Infrastructure\Filters\TransactionAttribute.cs" />
     <Compile Include="Api\Infrastructure\IoC\JsonNetConverter.cs" />
     <Compile Include="Api\Infrastructure\MessageHandlers\GlobalExceptionHandler.cs" />
     <Compile Include="Api\Infrastructure\MessageHandlers\GlobalExceptionLogger.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\InheritanceAwareModelBinderProvider.cs" />
-    <Compile Include="Api\Infrastructure\ModelBinding\QueryModelBinder.cs" />
+    <Compile Include="Api\Infrastructure\ModelBinding\QueryHttpParameterBinding.cs" />
     <Compile Include="Api\Infrastructure\Models\HttpServiceError.cs" />
     <Compile Include="Middleware\CultureMiddleware.cs" />
     <Compile Include="Middleware\ExceptionMiddleware.cs" />

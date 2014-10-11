@@ -2,8 +2,9 @@
     'use strict';
     var module = angular.module('vabank.ui', [
         'ui.router',
-        'toastr', '' +
-        'LocalStorageModule'
+        'toastr', 
+        'LocalStorageModule',
+        'smart-table'
     ]);
 
     module.run(['formForTemplateConfig', main]);

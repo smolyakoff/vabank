@@ -38,6 +38,8 @@ angular.module('formFor').directive('ariaManager', function() {
  * @param {String} label Optional field label displayed after the checkbox input.
  * (Although not required, it is strongly suggested that you specify a value for this attribute.) HTML is allowed for this attribute.
  * @param {int} tabIndex Optional custom tab index for input; by default this is 0 (tab order chosen by the browser)
+ * @param {String} uid Optional ID to assign to the inner <input type="checkbox"> element;
+ * A unique ID will be auto-generated if no value is provided.
  *
  * @example
  * // To display a simple TOS checkbox you might use the following markup:
@@ -74,7 +76,7 @@ angular.module('formFor').directive('checkboxField',
         };
 
         FieldHelper.manageLabel($scope, $attributes);
-        FieldHelper.manageFieldRegistration($scope, formForController);
+        FieldHelper.manageFieldRegistration($scope, $attributes, formForController);
       }
     };
   }]);
@@ -837,7 +839,9 @@ angular.module('formFor').directive('formFor',
  * (Although not required, it is strongly suggested that you specify a value for this attribute.)
  * HTML is allowed for this attribute
  * @param {int} tabIndex Optional custom tab index for input; by default this is 0 (tab order chosen by the browser)
- * @param {Object} Value to be assigned to model if this radio component is selected.
+ * @param {String} uid Optional ID to assign to the inner <input type="checkbox"> element;
+ * A unique ID will be auto-generated if no value is provided.
+ * @param {Object} value Value to be assigned to model if this radio component is selected.
  *
  * @example
  * // To render a radio group for gender selection you might use the following markup:
@@ -871,7 +875,7 @@ angular.module('formFor').directive('radioField',
             scopes: []
           };
 
-          FieldHelper.manageFieldRegistration($scope, formForController);
+          FieldHelper.manageFieldRegistration($scope, $attributes, formForController);
 
           nameToActiveRadioMap[$scope.attribute] = mainRadioDatum;
         } else {
@@ -881,7 +885,7 @@ angular.module('formFor').directive('radioField',
 
         // Everything inside of  $scope.model pertains to the first <input type="radio"> for this attribute/name.
         // In order for our view's aria-* and label-for tags to function properly, we need a unique uid for this instance.
-        $scope.uid = $FormForGUID.create();
+        $scope.uid = $attributes.uid || $FormForGUID.create();
 
         var activeRadio = nameToActiveRadioMap[$scope.attribute];
         activeRadio.scopes.push($scope);
@@ -962,6 +966,8 @@ angular.module('formFor').directive('radioField',
  * @param {attribute} prevent-default-option Optional attribute to override default selection of the first list option.
  * Without this attribute, lists with `allow-blank` will default select the first option in the options array.
  * @param {int} tabIndex Optional custom tab index for input; by default this is 0 (tab order chosen by the browser)
+ * @param {String} uid Optional ID to assign to the inner <input type="checkbox"> element;
+ * A unique ID will be auto-generated if no value is provided.
  * @param {String} valueAttribute Optional override for value key in options array.
  * Defaults to "value".
  *
@@ -1020,7 +1026,7 @@ angular.module('formFor').directive('selectField',
         $scope.tabIndex = $attributes.tabIndex || 0;
 
         FieldHelper.manageLabel($scope, $attributes);
-        FieldHelper.manageFieldRegistration($scope, formForController);
+        FieldHelper.manageFieldRegistration($scope, $attributes, formForController);
 
         // Helper method for setting focus on an item after a delay
         var setDelayedFocus = function($target) {
@@ -1319,6 +1325,7 @@ angular.module('formFor').directive('submitButton',
  * @param {String} help Optional help tooltip to display on hover.
  * By default this makes use of the Angular Bootstrap tooltip directive and the Font Awesome icon set.
  * @param {Function} focused Optional function to be invoked on text input focus.
+ * @param {Function} blurred Optional function to be invoked on text input blur.
  * @param {String} iconAfter Optional CSS class to display as an icon after the input field.
  * An object with the following keys may also be provided: pristine, valid, invalid
  * In this case the icon specified by a particular state will be shown based on the field's validation status.
@@ -1335,6 +1342,8 @@ angular.module('formFor').directive('submitButton',
  * @param {String} type Optional HTML input-type (ex.
  * text, password, etc.).
  * Defaults to "text".
+ * @param {String} uid Optional ID to assign to the inner <input type="checkbox"> element;
+ * A unique ID will be auto-generated if no value is provided.
  *
  * @example
  * // To create a password input you might use the following markup:
@@ -1364,6 +1373,7 @@ angular.module('formFor').directive('textField',
         debounce: '@?',
         disable: '=',
         focused: '&?',
+        blurred: '&?',
         help: '@?',
         iconAfterClicked: '&?',
         iconBeforeClicked: '&?',
@@ -1387,7 +1397,7 @@ angular.module('formFor').directive('textField',
         }
 
         FieldHelper.manageLabel($scope, $attributes);
-        FieldHelper.manageFieldRegistration($scope, formForController);
+        FieldHelper.manageFieldRegistration($scope, $attributes, formForController);
 
         // Update $scope.iconAfter based on the field state (see class-level documentation for more)
         if ($attributes.iconAfter) {
@@ -1464,6 +1474,11 @@ angular.module('formFor').directive('textField',
             $scope.focused();
           }
         };
+        $scope.onBlur = function() {
+          if ($attributes.hasOwnProperty('blurred')) {
+            $scope.blurred();
+          }
+        };
       }
     };
   }]);
@@ -1501,15 +1516,20 @@ angular.module('formFor').service('FieldHelper',
      * This method also unregisters the field on $scope $destroy.
      * @memberof FieldHelper
      * @param {$scope} $scope Input field $scope
+     * @param {$attributes} $attributes Input field $attributes element
      * @param {Object} formForController Controller object for parent formFor
      */
-    this.manageFieldRegistration = function($scope, formForController) {
+    this.manageFieldRegistration = function($scope, $attributes, formForController) {
       $scope.$watch('attribute', function(newValue, oldValue) {
         if ($scope.model) {
           formForController.unregisterFormField(oldValue);
         }
 
         $scope.model = formForController.registerFormField($scope.attribute);
+
+        if ($attributes.uid) { // Optional override ~ issue #57
+          $scope.model.uid = $attributes.uid;
+        }
       });
 
       $scope.$on('$destroy', function() {

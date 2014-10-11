@@ -9,8 +9,15 @@
 
     function userManagementService($resource, dataUtil) {
 
-        var User = $resource('/api/users',{            
-            
+        var User = $resource('/api/users', {}, {            
+            query: {
+                isArray: false,
+                params: {
+                    pageNumber: 1,
+                    pageSize: 15,
+                    sort: 'userName asc'
+                }
+            }
         });
         User.defaults = {};
         User.defaults.filter = {            

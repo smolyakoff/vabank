@@ -124,12 +124,17 @@ namespace VaBank.UI.Web
             };
             serializerSettings.Converters.Insert(0, new StringEnumConverter());
             serializerSettings.Converters.Insert(1, new HttpServiceErrorConverter());
+            serializerSettings.Converters.Insert(2, new PagedListConverter());
             jsonFormatter.SerializerSettings = serializerSettings;
             configuration.Formatters.Add(jsonFormatter);
+            configuration.ParameterBindingRules.Insert(0, x => 
+                typeof(IClientQuery).IsAssignableFrom(x.ParameterType) 
+                ? new QueryHttpParameterBinding(x) 
+                : null);
 
             //Model Binders
-            configuration.Services.Insert(
-                typeof(ModelBinderProvider), 0, new InheritanceAwareModelBinderProvider(typeof(IClientQuery), new QueryModelBinder()));
+            //configuration.Services.Insert(
+                //typeof(ModelBinderProvider), 0, new InheritanceAwareModelBinderProvider(typeof(IClientQuery), new QueryModelBinder()));
 
             configuration.Services.Add(typeof(IExceptionLogger), new GlobalExceptionLogger());
             //configuration.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());

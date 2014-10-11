@@ -14,7 +14,7 @@
         var multiselectService = uiTools.control.multiselect;
 
         var getSelectedUser = function() {
-            var user = _.findWhere($scope.displayedUsers, { isSelected: true });
+            var user = _.findWhere($scope.users, { isSelected: true });
             return user;
         };
 
@@ -30,16 +30,15 @@
 
         $scope.search = '';
 
-        $scope.users = [
-            { id: '1', userName: 'smolyakoff1', firstName: 'Константин', lastName: 'Смоляков', roles: ['Admin'], email: 'smolyakoff@tut.by' },
-            { id: '1', userName: 'smolyakoff2', firstName: 'Константин', lastName: 'Смоляков', roles: ['Admin'], email: 'smolyakoff@tut.by' },
-            { id: '1', userName: 'smolyakoff3', firstName: 'Константин', lastName: 'Смоляков', roles: ['Admin'], email: 'smolyakoff@tut.by' },
-            { id: '1', userName: 'smolyakoff4', firstName: 'Константин', lastName: 'Смоляков', roles: ['Admin'], email: 'smolyakoff@tut.by' },
-            { id: '1', userName: 'smolyakoff5', firstName: 'Константин', lastName: 'Смоляков', roles: ['Admin'], email: 'smolyakoff@tut.by' },
-            { id: '1', userName: 'smolyakoff6', firstName: 'Константин', lastName: 'Смоляков', roles: ['Admin'], email: 'smolyakoff@tut.by' }
-        ];
+        $scope.users = [];
 
-        $scope.displayedUsers = angular.copy($scope.users);
+        $scope.pageSize = 15;
+
+        $scope.getRole = function(user) {
+            return _.find(user.claims, function(x) {
+                return x.type.indexOf('role') > 0;
+            }).value;
+        };
 
         $scope.isUserSelected = function() {
             return !_.isUndefined(getSelectedUser());
@@ -48,15 +47,21 @@
         $scope.query = function (tableState) {
             var params = angular.extend(
                 {},
-                lastParams,
-                queryService.fromStTable(tableState));
-            debugger;
-            tableState.pagination.numberOfPages = 3;
+                queryService.fromStTable(tableState),
+                lastParams);
+            var promise =  userManager.User.query(params).$promise;
+            $scope.loading.addPromise(promise);
+            promise.then(function (page) {
+                tableState.pagination.start = page.skip;
+                tableState.pagination.numberOfPages = page.totalPages;
+                $scope.users = page.items;
+            });
         };
 
         $scope.show = function() {
             var params = {
-                roles: multiselectService.getSelectedItems($scope.lookup.roles)
+                roles: multiselectService.getSelectedItems($scope.lookup.roles),
+                pageNumber: 1,
             };
             if ($scope.search) {
                 _.forEach(filters, function(x) {
@@ -65,7 +70,6 @@
                 params.filter = filterService.combine(filters, filterService.logic.Or).toLINQ();
             }
             lastParams = params;
-            debugger;
         };
 
         $scope.add = function () {

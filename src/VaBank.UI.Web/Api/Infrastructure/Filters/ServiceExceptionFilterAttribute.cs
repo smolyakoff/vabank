@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Web.Http;
 using System.Web.Http.Filters;
 using VaBank.Services.Contracts.Common;
 using VaBank.UI.Web.Api.Infrastructure.Models;
@@ -16,7 +17,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Filters
 
         private void Handle(ServiceException exception, HttpActionExecutedContext context)
         {
-            var error = new HttpServiceError(exception);
+            var error = new HttpServiceError(exception, context.Request.IsLocal());
             context.Response = context.Request.CreateErrorResponse(error.StatusCode, error.HttpError);
         }
 

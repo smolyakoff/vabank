@@ -52,7 +52,7 @@
             }).state('admin.userManagement.list', {
                 url: '',
                 templateUrl: '/Client/app/areas/admin/user-management/user-list.html',
-                controller: 'userListController'
+                controller: 'userListController',
             }).state('admin.userManagement.editUser', {
                 url: '/:id',
                 templateUrl: '/Client/app/areas/admin/user-management/edit-user.html',
