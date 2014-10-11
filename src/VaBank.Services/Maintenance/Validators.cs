@@ -5,7 +5,7 @@ using VaBank.Services.Contracts.Maintenance;
 namespace VaBank.Services.Maintenance
 {
     [StaticValidator]
-    internal class SystemLogQueryValidator : AbstractValidator<SystemLogClientQuery>
+    internal class SystemLogQueryValidator : AbstractValidator<SystemLogQuery>
     {
         public SystemLogQueryValidator()
         {

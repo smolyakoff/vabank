@@ -2,9 +2,9 @@
 
 namespace VaBank.Services.Contracts.Maintenance
 {
-    public class SystemLogClientQuery : IClientFilterable
+    public class SystemLogQuery : IClientFilterable
     {
-        public SystemLogClientQuery()
+        public SystemLogQuery()
         {
             ClientFilter = new AlwaysTrueFilter();
         }

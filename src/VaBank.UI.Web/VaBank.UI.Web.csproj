@@ -887,18 +887,21 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\Admin\SystemLogsController.cs" />
+    <Compile Include="Api\Admin\SystemLogController.cs" />
     <Compile Include="Api\Admin\MaintenanceController.cs" />
+    <Compile Include="Api\Common\UserController.cs" />
     <Compile Include="Api\Common\ValidationController.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankAuthorizationServerProvider.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankRefreshTokenProvider.cs" />
+    <Compile Include="Api\Infrastructure\Converters\HttpServiceErrorConverter.cs" />
+    <Compile Include="Api\Infrastructure\Filters\ServiceExceptionFilterAttribute.cs" />
     <Compile Include="Api\Infrastructure\Filters\TransactionAttribute.cs" />
     <Compile Include="Api\Infrastructure\IoC\JsonNetConverter.cs" />
     <Compile Include="Api\Infrastructure\MessageHandlers\GlobalExceptionHandler.cs" />
     <Compile Include="Api\Infrastructure\MessageHandlers\GlobalExceptionLogger.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\InheritanceAwareModelBinderProvider.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\QueryModelBinder.cs" />
-    <Compile Include="Api\Infrastructure\Converters\ValidationExceptionSerializer.cs" />
+    <Compile Include="Api\Infrastructure\Models\HttpServiceError.cs" />
     <Compile Include="Middleware\CultureMiddleware.cs" />
     <Compile Include="Middleware\ExceptionMiddleware.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
@@ -934,7 +937,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Api\Customer\" />
-    <Folder Include="Api\Infrastructure\Models\" />
     <Folder Include="Client\bower_components\bootstrap-sass-official\assets\images\" />
   </ItemGroup>
   <ItemGroup>

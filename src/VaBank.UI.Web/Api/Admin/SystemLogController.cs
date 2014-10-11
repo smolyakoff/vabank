@@ -8,20 +8,20 @@ namespace VaBank.UI.Web.Api.Admin
 {
     [RoutePrefix("api/logs/system")]
     [Authorize(Roles = "Admin")]
-    public class SystemLogsController : ApiController
+    public class SystemLogController : ApiController
     {
         private readonly ILogManagementService _logManagementService;
 
-        public SystemLogsController(ILogManagementService logManagementService)
+        public SystemLogController(ILogManagementService logManagementService)
         {
             _logManagementService = logManagementService;
         }
 
         [HttpGet]
         [Route]
-        public IHttpActionResult Query([ModelBinder] SystemLogClientQuery clientQuery)
+        public IHttpActionResult Query([ModelBinder] SystemLogQuery query)
         {
-            var logs = _logManagementService.GetSystemLogEntries(clientQuery);
+            var logs = _logManagementService.GetSystemLogEntries(query);
             return Ok(logs);
         }
 

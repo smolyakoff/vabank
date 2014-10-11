@@ -15,6 +15,7 @@ using VaBank.Services.Contracts.Membership;
 using VaBank.Services.Contracts.Membership.Commands;
 using VaBank.Services.Contracts.Membership.Models;
 using VaBank.UI.Web.Api.Infrastructure.Converters;
+using VaBank.UI.Web.Api.Infrastructure.Models;
 
 namespace VaBank.UI.Web.Api.Infrastructure.Auth
 {
@@ -28,7 +29,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
-            options.Converters.Add(new ValidationExceptionSerializer());
+            options.Converters.Insert(0, new HttpServiceErrorConverter());
             var identity = context.Ticket.Identity;
             if (identity == null)
             {
@@ -80,7 +81,6 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             context.Request.Context.Authentication.SignIn(cookieIdentity);
 
             return base.GrantRefreshToken(context);
-            
         }
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
@@ -134,7 +134,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
-            options.Converters.Add(new ValidationExceptionSerializer());
+            options.Converters.Insert(0, new HttpServiceErrorConverter());
             var loginCommand = new LoginCommand {Login = context.UserName, Password = context.Password};
             LoginResultModel loginResult = null;
             try
@@ -143,8 +143,8 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             }
             catch (ValidationException ex)
             {
-                var errorJson = JsonConvert.SerializeObject(ex, options);
-                context.SetError("LoginValidationError", errorJson);
+                var error = new HttpServiceError(ex);
+                context.SetError("LoginValidationError", JsonConvert.SerializeObject(error, options));
                 return Task.FromResult<object>(null);
             }
             if (loginResult == null)

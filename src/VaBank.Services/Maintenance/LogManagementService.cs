@@ -39,13 +39,13 @@ namespace VaBank.Services.Maintenance
             }
         }
 
-        public IEnumerable<SystemLogEntryBriefModel> GetSystemLogEntries(SystemLogClientQuery clientQuery)
+        public IEnumerable<SystemLogEntryBriefModel> GetSystemLogEntries(SystemLogQuery query)
         {
-            EnsureIsValid(clientQuery);
+            EnsureIsValid(query);
             try
             {
                 var entries = _db.LogEntries.ProjectThenQuery<SystemLogEntryBriefModel>(
-                    clientQuery.ToDbQuery<SystemLogEntryBriefModel>());
+                    query.ToDbQuery<SystemLogEntryBriefModel>());
                 return entries;
             }
             catch (Exception ex)
@@ -68,16 +68,14 @@ namespace VaBank.Services.Maintenance
             }
         }
 
-
-
-        public UserMessage ClearSystemLog(SystemLogClientQuery clientQuery)
+        public UserMessage ClearSystemLog(SystemLogQuery query)
         {
-            EnsureIsValid(clientQuery);
+            EnsureIsValid(query);
             try
             {
-                var deleted = _db.LogEntries.Delete(clientQuery.ToDbQuery<SystemLogEntry>());
+                var deleted = _db.LogEntries.Delete(query.ToDbQuery<SystemLogEntry>());
                 UnitOfWork.Commit();
-                return UserMessage.Format(Messages.SystemLogClearSuccess, new object[] {deleted});
+                return UserMessage.ResourceFormat(() => Messages.SystemLogClearSuccess, deleted);
             }
             catch (Exception ex)
             {
@@ -92,7 +90,7 @@ namespace VaBank.Services.Maintenance
             {
                 var deleted = _db.LogEntries.Delete(command.ToDbQuery());
                 UnitOfWork.Commit();
-                return UserMessage.Format(Messages.SystemLogClearSuccess, new object[] { deleted });
+                return UserMessage.ResourceFormat(() => Messages.SystemLogClearSuccess, deleted);
             }
             catch (Exception ex)
             {

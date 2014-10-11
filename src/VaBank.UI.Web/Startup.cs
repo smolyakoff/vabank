@@ -1,9 +1,7 @@
 ﻿using System.Configuration;
-using System.Globalization;
 using System.Net;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
-using System.Threading;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using Autofac;
@@ -24,6 +22,8 @@ using SquishIt.Framework;
 using SquishIt.Sass;
 using VaBank.Common.Data;
 using VaBank.UI.Web.Api.Infrastructure.Auth;
+using VaBank.UI.Web.Api.Infrastructure.Converters;
+using VaBank.UI.Web.Api.Infrastructure.Filters;
 using VaBank.UI.Web.Api.Infrastructure.ModelBinding;
 using VaBank.UI.Web.Middleware;
 using VaBank.UI.Web.Modules;
@@ -111,7 +111,10 @@ namespace VaBank.UI.Web
             configuration.SuppressDefaultHostAuthentication();
             configuration.Filters.Add(new HostAuthenticationFilter("Bearer"));
 
-            //Formatters
+            //Filters
+            configuration.Filters.Add(new ServiceExceptionFilterAttribute());
+
+            //Formatters and converters
             configuration.Formatters.Clear();
             var jsonFormatter = new JsonMediaTypeFormatter();
             jsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/octet-stream"));
@@ -119,7 +122,8 @@ namespace VaBank.UI.Web
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
             };
-            serializerSettings.Converters.Add(new StringEnumConverter());
+            serializerSettings.Converters.Insert(0, new StringEnumConverter());
+            serializerSettings.Converters.Insert(1, new HttpServiceErrorConverter());
             jsonFormatter.SerializerSettings = serializerSettings;
             configuration.Formatters.Add(jsonFormatter);
 

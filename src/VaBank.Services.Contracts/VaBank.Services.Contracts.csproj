@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\UserMessageException.cs" />
     <Compile Include="Common\Validation\IValidationService.cs" />
     <Compile Include="Common\Validation\ValidationRequest.cs" />
     <Compile Include="Common\Validation\ValidationResponse.cs" />
@@ -53,7 +54,7 @@
     <Compile Include="Maintenance\SystemLogEntryBriefModel.cs" />
     <Compile Include="Maintenance\SystemLogExceptionModel.cs" />
     <Compile Include="Maintenance\SystemLogLookupModel.cs" />
-    <Compile Include="Maintenance\SystemLogClientQuery.cs" />
+    <Compile Include="Maintenance\SystemLogQuery.cs" />
     <Compile Include="Common\Models\UserMessage.cs" />
     <Compile Include="Common\Queries\IdentityQuery.cs" />
     <Compile Include="Common\ServiceException.cs" />

@@ -8,11 +8,11 @@ namespace VaBank.Services.Contracts.Maintenance
     {
         SystemLogLookupModel GetSystemLogLookup();
 
-        IEnumerable<SystemLogEntryBriefModel> GetSystemLogEntries(SystemLogClientQuery clientQuery);
+        IEnumerable<SystemLogEntryBriefModel> GetSystemLogEntries(SystemLogQuery query);
 
         SystemLogExceptionModel GetSystemLogException(IdentityQuery<long> query);
 
-        UserMessage ClearSystemLog(SystemLogClientQuery clientQuery);
+        UserMessage ClearSystemLog(SystemLogQuery query);
 
         UserMessage ClearSystemLog(SystemLogClearCommand command);
     }
