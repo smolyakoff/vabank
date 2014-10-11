@@ -231,7 +231,11 @@
     <Content Include="Client\app\areas\global\config\server-info.js" />
     <Content Include="Client\app\areas\global\ui-tools-service.js" />
     <Content Include="Client\app\areas\global\validation\validation-service.js" />
+    <Content Include="Client\app\images\favicon.ico" />
     <Content Include="Client\app\images\vabank-logo-big.png" />
+    <Content Include="Client\app\images\vabank-logo-middle.png" />
+    <Content Include="Client\app\images\vabank-logo-small.png" />
+    <Content Include="Client\app\images\vabank-small.png" />
     <Content Include="Client\app\modules\vabank-auth\config\auth-config.js" />
     <Content Include="Client\app\modules\vabank-auth\services\auth-http-interceptor.js" />
     <Content Include="Client\app\modules\vabank-auth\services\auth-service.js" />

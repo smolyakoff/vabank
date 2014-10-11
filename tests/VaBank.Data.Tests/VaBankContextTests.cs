@@ -30,7 +30,6 @@ namespace VaBank.Data.Tests
                 Id = profile.UserId,
                 PasswordHash = "1234567890",
                 PasswordSalt = "1234567890",
-                SecurityStamp = "321",
                 UserName = "Test"
             };
             context.Set<User>().Add(user);
