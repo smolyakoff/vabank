@@ -1,6 +1,6 @@
 ﻿namespace VaBank.Services.Contracts.Membership.Models
 {
-    public enum LoginFailureReason
+    public enum LoginFailure
     {
         UserBlocked,
         UserDeleted,

@@ -24,20 +24,21 @@ namespace VaBank.Services.Membership
             return DbQuery.PagedFor<UserBriefModel>().FromClientQuery(query).AndFilterBy(spec);
         }
 
-        public static UserMessage UserMessage(this LoginFailureReason reason)
+        public static UserMessage ToUserMessage(this AccessFailureReason failure)
         {
-            switch (reason)
+            switch (failure)
             {
-                case LoginFailureReason.UserBlocked:
-                    return new UserMessage(Messages.UserBlocked);
-                case LoginFailureReason.UserDeleted:
-                    return new UserMessage(Messages.UserDeleted);
-                case LoginFailureReason.BadCredentials:
-                    return new UserMessage(Messages.InvalidCredentials);
+                case AccessFailureReason.UserBlocked:
+                    return UserMessage.Resource(() => Messages.UserBlocked);
+                case AccessFailureReason.UserDeleted:
+                    return UserMessage.Resource(() => Messages.UserDeleted);
+                case AccessFailureReason.BadCredentials:
+                    return UserMessage.Resource(() => Messages.InvalidCredentials);
                 default:
                     throw new InvalidOperationException("Can't get user message for unknown LoginFailureReason type.");
             }
         }
+
 
         private static class Specs
         {

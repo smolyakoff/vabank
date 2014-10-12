@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Web.Http;
 using System.Web.Http.Filters;
 using VaBank.Services.Contracts.Common;
 using VaBank.UI.Web.Api.Infrastructure.Models;

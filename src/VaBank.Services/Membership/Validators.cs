@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
 using FluentValidation;
 using FluentValidation.Validators;
 using VaBank.Common.Data;
@@ -11,9 +10,9 @@ using VaBank.Services.Contracts.Membership.Queries;
 
 namespace VaBank.Services.Membership
 {
-    [ValidatorName("login")]
+    [ValidatorName("userName")]
     [StaticValidator]
-    internal class LoginValidator : ObjectValidator<string>
+    internal class UserNameValidator : ObjectValidator<string>
     {
         public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
         {
@@ -49,8 +48,8 @@ namespace VaBank.Services.Membership
     {        
         public LoginCommandValidator()
         {
-            RuleFor(x => x.Login).UseValidator(new LoginValidator());
-            RuleFor(x => x.Password).NotEmpty().Length(6, 256);
+            RuleFor(x => x.Login).NotEmpty();
+            RuleFor(x => x.Password).NotEmpty();
         }
     }
 
@@ -81,7 +80,7 @@ namespace VaBank.Services.Membership
             RuleFor(x => x.Email).EmailAddress();
             RuleFor(x => x.FirstName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
             RuleFor(x => x.LastName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
-            RuleFor(x => x.UserName).UseValidator(new LoginValidator()).Must(IsUserNameUnique)
+            RuleFor(x => x.UserName).UseValidator(new UserNameValidator()).Must(IsUserNameUnique)
                 .WithLocalizedMessage(() => Messages.UserNameUnique);
             RuleFor(x => x.Password).UseValidator(new PasswordValidator());
             RuleFor(x => x.PasswordConfirmation).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty)
@@ -121,7 +120,7 @@ namespace VaBank.Services.Membership
             RuleFor(x => x.Email).EmailAddress();
             RuleFor(x => x.FirstName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
             RuleFor(x => x.LastName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
-            RuleFor(x => x.UserName).UseValidator(new LoginValidator()).Must(IsUserNameUnique)
+            RuleFor(x => x.UserName).UseValidator(new UserNameValidator()).Must(IsUserNameUnique)
                 .WithLocalizedMessage(() => Messages.UserNameUnique);
             RuleFor(x => x.Password).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty)
                 .UseValidator(new PasswordValidator()).When(x => x.ChangePassword);

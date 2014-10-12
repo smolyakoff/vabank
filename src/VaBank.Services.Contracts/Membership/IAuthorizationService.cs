@@ -7,7 +7,7 @@ namespace VaBank.Services.Contracts.Membership
 {
     public interface IAuthorizationService
     {
-        LoginResultModel Login(LoginCommand command);
+        UserIdentityModel Login(LoginCommand command);
 
         TokenModel CreateToken(CreateTokenCommand command);
 
@@ -16,6 +16,6 @@ namespace VaBank.Services.Contracts.Membership
         ApplicationClientModel GetClient(IdentityQuery<string> query);
 
         //Security note: should be only allowed for authenticated users
-        LoginResultModel RefreshLogin(IdentityQuery<Guid> query);
+        UserIdentityModel RefreshLogin(IdentityQuery<Guid> query);
     }
 }

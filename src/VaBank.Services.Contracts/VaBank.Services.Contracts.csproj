@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Security\AccessDeniedException.cs" />
+    <Compile Include="Common\Security\AccessDenied.cs" />
+    <Compile Include="Common\Security\SecurityException.cs" />
     <Compile Include="Common\UserMessageException.cs" />
     <Compile Include="Common\Validation\IValidationService.cs" />
     <Compile Include="Common\Validation\ValidationRequest.cs" />
@@ -75,7 +78,7 @@
     <Compile Include="Membership\Commands\LoginCommand.cs" />
     <Compile Include="Membership\Models\IUserModel.cs" />
     <Compile Include="Membership\Models\LoginFailureModel.cs" />
-    <Compile Include="Membership\Models\LoginFailureReason.cs" />
+    <Compile Include="Membership\Models\LoginFailure.cs" />
     <Compile Include="Membership\Models\LoginResultModel.cs" />
     <Compile Include="Membership\Models\LoginSuccessModel.cs" />
     <Compile Include="Membership\Models\UserProfileModel.cs" />

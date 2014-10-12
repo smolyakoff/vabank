@@ -2,6 +2,7 @@
 using System.Net;
 using System.Web.Http;
 using VaBank.Services.Contracts.Common;
+using VaBank.Services.Contracts.Common.Security;
 using VaBank.Services.Contracts.Common.Validation;
 
 namespace VaBank.UI.Web.Api.Infrastructure.Models
@@ -38,9 +39,19 @@ namespace VaBank.UI.Web.Api.Infrastructure.Models
         {
             var httpError = new HttpError(exception, _includeErrorDetail)
             {
-                {"errorType", "service"}
+                {"ErrorType", "service"}
             };
+            httpError.Message = exception.Message;
             statusCode = HttpStatusCode.InternalServerError;
+            return httpError;
+        }
+
+        private HttpError Populate(SecurityException exception, out HttpStatusCode statusCode)
+        {
+            var httpError = this.Populate(exception as UserMessageException, out statusCode);
+            httpError["ErrorType"] = "security";
+            httpError.Message = exception.Message;
+            statusCode = HttpStatusCode.Forbidden;
             return httpError;
         }
 
@@ -48,9 +59,10 @@ namespace VaBank.UI.Web.Api.Infrastructure.Models
         {
             var httpError = new HttpError(exception, _includeErrorDetail)
             {
-                { "errorType", "validation" },
-                { "faults", exception.Faults }
+                { "ErrorType", "validation" },
+                { "Faults", exception.Faults }
             };
+            httpError.Message = exception.Message;
             statusCode = HttpStatusCode.BadRequest;
             return httpError;
         }
@@ -59,9 +71,10 @@ namespace VaBank.UI.Web.Api.Infrastructure.Models
         {
             var httpError = new HttpError(exception, _includeErrorDetail)
             {
-                { "errorType", "message" },
-                { "code", exception.UserMessage.Code }
+                { "ErrorType", "message" },
+                { "Code", exception.UserMessage.Code }
             };
+            httpError.Message = exception.UserMessage.Message;
             statusCode = HttpStatusCode.InternalServerError;
             return httpError;
         }

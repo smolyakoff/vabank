@@ -80,6 +80,8 @@
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Maintenance\SystemLogTypeModel.cs" />
     <Compile Include="Maintenance\Validators.cs" />
+    <Compile Include="Membership\AccessFailureReason.cs" />
+    <Compile Include="Membership\AccessFailure.cs" />
     <Compile Include="Membership\MembershipExtensions.cs" />
     <Compile Include="Membership\MembershipProfile.cs" />
     <Compile Include="Membership\AuthorizationRepositories.cs" />

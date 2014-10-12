@@ -4,12 +4,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Integration.Owin;
-using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using VaBank.Services.Contracts.Common.Queries;
+using VaBank.Services.Contracts.Common.Security;
 using VaBank.Services.Contracts.Common.Validation;
 using VaBank.Services.Contracts.Membership;
 using VaBank.Services.Contracts.Membership.Commands;
@@ -45,24 +45,20 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             var container = context.OwinContext.GetAutofacLifetimeScope();
             var membershipService = container.Resolve<IAuthorizationService>();
             var userId = Guid.Parse(userIdClaim.Value);
-            var result = membershipService.RefreshLogin(new IdentityQuery<Guid>(userId));
-            if (result == null)
+            UserIdentityModel user = null;
+            try
             {
-                throw new InvalidOperationException("Grant refresh token: login result is null.");
+                user = membershipService.RefreshLogin(new IdentityQuery<Guid>(userId));
             }
-            var failure = result as LoginFailureModel;
-            if (failure != null)
+            catch (SecurityException ex)
             {
-                var errorJson = JsonConvert.SerializeObject(failure, options);
+                var errorJson = JsonConvert.SerializeObject(ex.UserMessage, options);
                 context.SetError("LoginFailure", errorJson);
                 return Task.FromResult<object>(null);
             }
-            var success = (LoginSuccessModel) result;
-            var user = success.User;
             if (user == null)
             {
-                context.SetError("User with the spcified id was not found.");
-                return Task.FromResult<object>(null);
+                throw new InvalidOperationException("Refresh login returned null");
             }
             var newIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
             foreach (var claimModel in user.Claims)
@@ -136,10 +132,10 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             };
             options.Converters.Insert(0, new HttpServiceErrorConverter());
             var loginCommand = new LoginCommand {Login = context.UserName, Password = context.Password};
-            LoginResultModel loginResult = null;
+            UserIdentityModel user = null;
             try
             {
-                loginResult = membershipService.Login(loginCommand);
+                user = membershipService.Login(loginCommand);
             }
             catch (ValidationException ex)
             {
@@ -147,24 +143,22 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
                 context.SetError("LoginValidationError", JsonConvert.SerializeObject(error, options));
                 return Task.FromResult<object>(null);
             }
-            if (loginResult == null)
+            catch (SecurityException ex)
             {
-                throw new InvalidOperationException("Login result was null");
-            }
-            var loginFailure = loginResult as LoginFailureModel;
-            if (loginFailure != null)
-            {
-                var errorJson = JsonConvert.SerializeObject(loginFailure, options);
+                var errorJson = JsonConvert.SerializeObject(new HttpServiceError(ex), options);
                 context.SetError("LoginFailure", errorJson);
                 return Task.FromResult<object>(null);
             }
-            var success = (LoginSuccessModel) loginResult;
+            if (user == null)
+            {
+                throw new InvalidOperationException("Service returned null for login command");
+            }
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            foreach (var claimModel in success.User.Claims)
+            foreach (var claimModel in user.Claims)
             {
                 identity.AddClaim(new Claim(claimModel.Type, claimModel.Value));
             }
-            context.OwinContext.Set("vabank:user", success.User);
+            context.OwinContext.Set("vabank:user", user);
             var client = context.OwinContext.Get<ApplicationClientModel>("vabank:client");
 
             // Set CORS header

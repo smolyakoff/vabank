@@ -40,7 +40,7 @@
                 if (response.error === 'LoginValidationError') {
                     message = _.pluck(error.faults, 'message').join('\r\n');
                 } else {
-                    message = error.message.message;
+                    message = error.message;
                 }
                 uiTools.notify({
                     type: 'error',

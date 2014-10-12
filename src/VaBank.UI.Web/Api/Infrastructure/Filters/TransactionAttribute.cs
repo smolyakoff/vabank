@@ -1,12 +1,12 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Entity;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using Autofac;
 using Autofac.Integration.Owin;
+using VaBank.Services.Contracts.Common;
 
 namespace VaBank.UI.Web.Api.Infrastructure.Filters
 {
@@ -32,21 +32,37 @@ namespace VaBank.UI.Web.Api.Infrastructure.Filters
         {
             try
             {
-                if (actionExecutedContext.Exception != null)
-                {
-                    _transaction.Rollback();
-                }
-                else
+                if (actionExecutedContext.Exception == null)
                 {
                     _transaction.Commit();
                 }
-                
+                else
+                {
+                    OnException((dynamic)actionExecutedContext.Exception);
+                }
             }
             finally
             {
                 _transaction.Dispose();
                 _transaction = null;
             }
+        }
+
+        private void OnException(ServiceException exception)
+        {
+            if (exception.TransactionRollback)
+            {
+                _transaction.Rollback();
+            }
+            else
+            {
+                _transaction.Commit();
+            }
+        }
+
+        private void OnException(Exception exception)
+        {
+            _transaction.Rollback();
         }
     }
 }
