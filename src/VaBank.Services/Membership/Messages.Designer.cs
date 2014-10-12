@@ -106,6 +106,15 @@ namespace VaBank.Services.Membership {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Поле должно содержать только буквы.
+        /// </summary>
+        public static string OnlyLetters {
+            get {
+                return ResourceManager.GetString("OnlyLetters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ваш пароль изменен. Рекомендуем выйти и заново зайти в систему..
         /// </summary>
         public static string PasswordChanged {

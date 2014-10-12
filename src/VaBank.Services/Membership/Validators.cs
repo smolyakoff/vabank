@@ -47,8 +47,12 @@ namespace VaBank.Services.Membership
             }
             _userRepository = userRepository;
             RuleFor(x => x.Email).EmailAddress();
-            RuleFor(x => x.FirstName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
-            RuleFor(x => x.LastName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
+            RuleFor(x => x.FirstName)
+                .NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty)
+                .Matches(@"^\p{L}+$").WithLocalizedMessage(() => Messages.OnlyLetters); ;
+            RuleFor(x => x.LastName)
+                .NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty)
+                .Matches(@"^\p{L}+$").WithLocalizedMessage(() => Messages.OnlyLetters); ;
             RuleFor(x => x.UserName).UseValidator(new UserNameValidator()).Must(IsUserNameUnique)
                 .WithLocalizedMessage(() => Messages.UserNameUnique);
             RuleFor(x => x.Password).UseValidator(new PasswordValidator());
@@ -89,8 +93,12 @@ namespace VaBank.Services.Membership
             }
             _userRepository = userRepository;
             RuleFor(x => x.Email).EmailAddress();
-            RuleFor(x => x.FirstName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
-            RuleFor(x => x.LastName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
+            RuleFor(x => x.FirstName)
+                .NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty)
+                .Matches(@"^\p{L}+$").WithLocalizedMessage(() => Messages.OnlyLetters);
+            RuleFor(x => x.LastName)
+                .NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty)
+                .Matches(@"^\p{L}+$").WithLocalizedMessage(() => Messages.OnlyLetters); ;
             RuleFor(x => x.UserName).UseValidator(new UserNameValidator()).Must(IsUserNameUnique)
                 .WithLocalizedMessage(() => Messages.UserNameUnique);
             RuleFor(x => x.Password).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty)
@@ -115,8 +123,12 @@ namespace VaBank.Services.Membership
         public UpdateProfileCommandValidator()
         {
             RuleFor(x => x.Email).EmailAddress();
-            RuleFor(x => x.FirstName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
-            RuleFor(x => x.LastName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
+            RuleFor(x => x.FirstName)
+                .NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty)
+                .Matches(@"^\p{L}+$").WithLocalizedMessage(() => Messages.OnlyLetters); ;
+            RuleFor(x => x.LastName)
+                .NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty)
+                .Matches(@"^\p{L}+$").WithLocalizedMessage(() => Messages.OnlyLetters); ;
             RuleFor(x => x.PhoneNumber).UseValidator(new PhoneNumberValidator());
             RuleFor(x => x.UserId).Must(x => x != Guid.Empty);
         }

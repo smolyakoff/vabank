@@ -51,7 +51,7 @@
                     <tr><td colspan="7"><div class="table-content" data-us-spinner=""></div></td></tr>
                 </tbody>
                 <tbody ng-show="!loading.active()">
-                    <tr st-select-row="user" ng-repeat="user in users">
+                    <tr st-select-row="user" ng-repeat="user in users" ng-dblclick="edit(user)">
                         <td>{{user.userName}}</td>
                         <td>{{getRole(user)}}</td>
                         <td>{{user.email}}</td>
