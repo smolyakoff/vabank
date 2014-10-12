@@ -5,7 +5,20 @@ namespace VaBank.Core.Membership
 {
     public class UserProfile : Entity
     {
-        public Guid UserId { get; set; }
+        public UserProfile(Guid userId)
+        {
+            if (userId == Guid.Empty)
+            {
+                throw new ArgumentException("Invalid user id");
+            }
+            UserId = userId;
+        }
+
+        protected UserProfile()
+        {
+        }
+
+        public Guid UserId { get; private set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -14,5 +27,6 @@ namespace VaBank.Core.Membership
         public bool SmsConfirmationEnabled { get; set; }
         public bool SmsNotificationEnabled { get; set; }
         public string SecretPhrase { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }

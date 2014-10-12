@@ -1,0 +1,15 @@
+﻿<section class="row">
+    <div class="col-xs-12 col-md-10 col-lg-8 col-lg-offset-2">
+        <form form-for="changePwdForm" 
+              validation-rules="validationRules" 
+              submit-with="change()" 
+              submit-complete="onChanged(data)" 
+              submit-error="onError(error)"
+              controller="formController">
+            <text-field label="Пароль" attribute="currentPassword" placeholder="Введите Ваш пароль" type="password"></text-field>
+            <text-field label="Новый пароль" attribute="newPassword" placeholder="Введите Ваш новый пароль" type="password"></text-field>
+            <text-field label="Подтверждение нового пароля" attribute="newPasswordConfirmation" placeholder="Повторно введите ваш новый пароль" type="password"></text-field>
+            <submit-button button-class="btn btn-primary pull-right" label="Сохранить"></submit-button>
+        </form>
+    </div>
+</section>

@@ -10,6 +10,20 @@ namespace VaBank.Common.Data
 {
     public static class QueryExtensions
     {
+        public static DbQuery<T> ToDbQuery<T>(this IClientQuery clientQuery)
+            where T : class
+        {
+            if (clientQuery == null)
+            {
+                throw new ArgumentNullException("clientQuery");
+            }
+            var pageable = clientQuery as IClientPageable;
+            return pageable != null 
+                ? DbQuery.PagedFor<T>().FromClientQuery(clientQuery) 
+                : DbQuery.For<T>().FromClientQuery(clientQuery);
+        } 
+
+
         public static IPagedList<T> QueryPage<T>(this IQueryable<T> queryable, IQuery query)
             where T : class
         {
@@ -22,7 +36,7 @@ namespace VaBank.Common.Data
                 throw new ArgumentNullException("query");
             }
             IQueryable<T> filteredSorted = FilterAndSort(queryable, query);
-            IPagedList<T> paged = Paging(filteredSorted, query);
+            IPagedList<T> paged = PagingToList(filteredSorted, query);
             return paged;
         }
 
@@ -38,11 +52,33 @@ namespace VaBank.Common.Data
                 throw new ArgumentNullException("query");
             }
             IQueryable<T> filteredSorted = FilterAndSort(queryable, query);
-            IPagedList<T> paged = Paging(filteredSorted, query);
-            return paged.AsQueryable();
+            var paged = Paging(filteredSorted, query);
+            return paged;
         }
 
-        private static IPagedList<T> Paging<T>(this IQueryable<T> sortedQueryable, IQuery query)
+        private static IQueryable<T> Paging<T>(this IQueryable<T> sortedQueryable, IQuery query)
+            where T : class
+        {
+            var pageable = query as IPageableQuery;
+            Func<IQueryable<T>, IPageableQuery, IQueryable<T>> pager;
+            if (pageable == null || pageable is NoPagingQuery)
+            {
+                pager = (x, f) => x;
+            }
+            else if (pageable.InMemoryPaging)
+            {
+                pager = (x, p) => x.AsEnumerable().Skip(p.PageSize * (p.PageNumber - 1)).Take(p.PageSize).AsQueryable();
+            }
+            else
+            {
+                pager = (x, p) => x.Skip(p.PageSize * (p.PageNumber - 1)).Take(p.PageSize);
+            }
+            var paged = pager(sortedQueryable, pageable);
+            return paged;
+        }
+
+
+        private static IPagedList<T> PagingToList<T>(this IQueryable<T> sortedQueryable, IQuery query)
             where T : class
         {
             var pageable = query as IPageableQuery;
@@ -53,11 +89,11 @@ namespace VaBank.Common.Data
             }
             else if (pageable.InMemoryPaging)
             {
-                pager = PageEnumerable;
+                pager = PageToListEnumerable;
             }
             else
             {
-                pager = PageQueryable;
+                pager = PageToListQueryable;
             }
             IPagedList<T> paged = pager(sortedQueryable, pageable);
             return paged;
@@ -131,7 +167,7 @@ namespace VaBank.Common.Data
             return enumerable.AsQueryable().OrderBy(sort);
         }
 
-        private static IPagedList<T> PageQueryable<T>(IQueryable<T> queryable, IPageableQuery pageable)
+        private static IPagedList<T> PageToListQueryable<T>(IQueryable<T> queryable, IPageableQuery pageable)
             where T : class
         {
             if (pageable.PageSize <= 0)
@@ -147,7 +183,7 @@ namespace VaBank.Common.Data
             return queryable.ToPagedList(pageable.PageNumber, pageable.PageSize);
         }
 
-        private static IPagedList<T> PageEnumerable<T>(IEnumerable<T> enumerable, IPageableQuery pageable)
+        private static IPagedList<T> PageToListEnumerable<T>(IEnumerable<T> enumerable, IPageableQuery pageable)
             where T : class
         {
             if (pageable.PageSize <= 0)

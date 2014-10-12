@@ -1,7 +1,9 @@
-﻿namespace VaBank.Common.Data.Paging
+﻿using VaBank.Common.Data.Sorting;
+
+namespace VaBank.Common.Data.Paging
 {
-    public interface IClientPageable
+    public interface IClientPageable : IClientSortable
     {
-        void ApplyPaging(int? pageNumber, int? pageSize);
+        ClientPage ClientPage { get; set; }
     }
 }

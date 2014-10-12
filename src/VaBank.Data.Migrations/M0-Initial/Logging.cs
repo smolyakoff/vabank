@@ -3,7 +3,7 @@
 namespace VaBank.Data.Migrations
 {
     [Migration(1, "Table for logging purposes")]
-    [Tags("Maintenance", "Development", "Production")]
+    [Tags("Maintenance", "Development", "Production","Test")]
     public class Logging : Migration
     {
         public override void Up()

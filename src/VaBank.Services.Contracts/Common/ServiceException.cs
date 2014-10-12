@@ -20,6 +20,11 @@ namespace VaBank.Services.Contracts.Common
         {
         }
 
+        public virtual bool TransactionRollback
+        {
+            get { return true; }
+        }
+
         protected ServiceException(
             SerializationInfo info,
             StreamingContext context) : base(info, context)

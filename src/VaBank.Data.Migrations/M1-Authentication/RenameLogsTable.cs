@@ -3,7 +3,7 @@
 namespace VaBank.Data.Migrations
 {
     [Migration(3, "Renamed Logs table to SystemLog")]
-    [Tags("Maintenance", "Development", "Production")]
+    [Tags("Maintenance", "Development", "Production", "Test")]
     public class RenameLogsTable : Migration
     {
         public override void Up()

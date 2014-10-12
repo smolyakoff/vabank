@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NLog;
 using VaBank.Services.Contracts.Maintenance;
+using VaBank.Services.Contracts.Maintenance.Queries;
 
 namespace VaBank.Services.Maintenance
 {
@@ -16,7 +17,7 @@ namespace VaBank.Services.Maintenance
                 LogLevel.Trace,
                 LogLevel.Info,
                 LogLevel.Warn,
-                LogLevel.Debug,
+                LogLevel.Error,
                 LogLevel.Fatal
             }.Select(x => x.ToString()).ToList();
             Types = types.ToList();

@@ -6,7 +6,11 @@ using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using Autofac;
 using Hangfire;
+using Hangfire.Dashboard;
 using Hangfire.SqlServer;
+using Microsoft.Owin.Cors;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using NLog;
@@ -17,10 +21,15 @@ using Microsoft.Owin;
 using SquishIt.Framework;
 using SquishIt.Sass;
 using VaBank.Common.Data;
+using VaBank.UI.Web.Api.Infrastructure.Auth;
+using VaBank.UI.Web.Api.Infrastructure.Converters;
+using VaBank.UI.Web.Api.Infrastructure.Filters;
 using VaBank.UI.Web.Api.Infrastructure.ModelBinding;
 using VaBank.UI.Web.Middleware;
 using VaBank.UI.Web.Modules;
 using VaBank.UI.Web.Views;
+using VaBank.UI.Web.Api.Infrastructure.MessageHandlers;
+using System.Web.Http.ExceptionHandling;
 
 namespace VaBank.UI.Web
 {    
@@ -33,10 +42,22 @@ namespace VaBank.UI.Web
         public void Configuration(IAppBuilder config)
         {
             Bundle.RegisterStylePreprocessor(new SassPreprocessor());
+            config.Use<ExceptionMiddleware>();
+            config.Use<CultureMiddleware>();
             config.UseAutofacMiddleware(ConfigureAutofac());
 
             config.UseStaticFiles("/Client");
-            config.UseHangfire(ConfigureHangfire);
+
+            config.UseCors(CorsOptions.AllowAll);
+            config.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                CookiePath = "/admin/hangfire",
+                ExpireTimeSpan = TimeSpan.FromMinutes(15)
+            });
+            config.UseOAuthAuthorizationServer(ConfigureOAuthServer());
+            config.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            
+            config.UseHangfire(ConfigureHangfire);          
 
             var httpConfig = ConfigureWebApi();
             config.UseWebApi(httpConfig);
@@ -57,14 +78,27 @@ namespace VaBank.UI.Web
             return response.WriteAsync(template.TransformText());
         }
 
+        private OAuthAuthorizationServerOptions ConfigureOAuthServer()
+        {
+            return new OAuthAuthorizationServerOptions
+            {
+#if DEBUG
+                AllowInsecureHttp = true,
+#endif
+                RefreshTokenProvider = new VabankRefreshTokenProvider(),
+                Provider = new VabankAuthorizationServerProvider(),
+                TokenEndpointPath = new PathString("/api/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(10)
+            };
+        }
+
         private static void ConfigureHangfire(IBootstrapperConfiguration config)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["Vabank.Db"].ConnectionString;
             config.UseDashboardPath("/admin/hangfire");
             var storageOptions = new SqlServerStorageOptions {QueuePollInterval = TimeSpan.FromMinutes(1)};
             config.UseStorage(new SqlServerStorage(connectionString, storageOptions));
-            //TODO: do auth as it's generally dangerous to keep no auth with hangfire
-            config.UseAuthorizationFilters();
+            config.UseAuthorizationFilters(new AuthorizationFilter {Roles = "Admin"});
             config.UseServer();
         }
 
@@ -73,7 +107,14 @@ namespace VaBank.UI.Web
             var configuration = new HttpConfiguration();
             configuration.MapHttpAttributeRoutes();
 
-            //Formatters
+            //Authentication
+            configuration.SuppressDefaultHostAuthentication();
+            configuration.Filters.Add(new HostAuthenticationFilter("Bearer"));
+
+            //Filters
+            configuration.Filters.Add(new ServiceExceptionFilterAttribute());
+
+            //Formatters and converters
             configuration.Formatters.Clear();
             var jsonFormatter = new JsonMediaTypeFormatter();
             jsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/octet-stream"));
@@ -81,13 +122,22 @@ namespace VaBank.UI.Web
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
             };
-            serializerSettings.Converters.Add(new StringEnumConverter());
+            serializerSettings.Converters.Insert(0, new StringEnumConverter());
+            serializerSettings.Converters.Insert(1, new HttpServiceErrorConverter());
+            serializerSettings.Converters.Insert(2, new PagedListConverter());
             jsonFormatter.SerializerSettings = serializerSettings;
             configuration.Formatters.Add(jsonFormatter);
+            configuration.ParameterBindingRules.Insert(0, x => 
+                typeof(IClientQuery).IsAssignableFrom(x.ParameterType) 
+                ? new QueryHttpParameterBinding(x) 
+                : null);
 
             //Model Binders
-            configuration.Services.Insert(
-                typeof(ModelBinderProvider), 0, new InheritanceAwareModelBinderProvider(typeof(IQuery), new QueryModelBinder()));
+            //configuration.Services.Insert(
+                //typeof(ModelBinderProvider), 0, new InheritanceAwareModelBinderProvider(typeof(IClientQuery), new QueryModelBinder()));
+
+            configuration.Services.Add(typeof(IExceptionLogger), new GlobalExceptionLogger());
+            //configuration.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());
 
             configuration.EnsureInitialized();
             return configuration;

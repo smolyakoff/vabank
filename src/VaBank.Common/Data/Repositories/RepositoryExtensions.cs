@@ -62,7 +62,7 @@ namespace VaBank.Common.Data.Repositories
             {
                 throw new ArgumentNullException("identityQuery");
             }
-            return repository.Project<TModel>(identityQuery.Id);
+            return repository.FindAndProject<TModel>(identityQuery.Id);
         }
     }
 }

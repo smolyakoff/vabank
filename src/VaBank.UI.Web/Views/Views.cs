@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.IO;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RazorGenerator.Templating;
 using SquishIt.Framework;
@@ -13,6 +15,15 @@ namespace VaBank.UI.Web.Views
 
     public class IndexBase : RazorTemplateBase
     {
+        public virtual string RenderTemplateAsScript(string id, string filePath)
+        {
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var relativePath = filePath.Replace('/', Path.DirectorySeparatorChar).Trim(Path.DirectorySeparatorChar);
+            var fullPath = Path.Combine(appDirectory, relativePath);
+            var template = File.ReadAllText(fullPath);
+            return string.Format("<script id=\"{0}\" type=\"text/template\">{1}</script>", id, template);
+        }
+
         public virtual string ServerInfo()
         {
             var info = new ServerInfo();
@@ -67,12 +78,19 @@ namespace VaBank.UI.Web.Views
                 .Add(ApplicationPath("modules/vabank-ui/vabank-ui.js"))
                 .AddDirectory(ApplicationPath("modules/vabank-ui/config"))
                 .AddDirectory(ApplicationPath("modules/vabank-ui"))
+                .Add(ApplicationPath("modules/vabank-auth/vabank-auth.js"))
+                .AddDirectory(ApplicationPath("modules/vabank-auth/config"))
+                .AddDirectory(ApplicationPath("modules/vabank-auth"))
                 .Add(ApplicationPath("vabank.js"))
                 .AddDirectory(ApplicationPath("areas/global/config"))
                 .AddDirectory(ApplicationPath("areas/global"))
+                .AddDirectory(ApplicationPath("areas/customer/config"))
+                .AddDirectory(ApplicationPath("areas/customer"))
+                .AddDirectory(ApplicationPath("areas/customer/cabinet"))
+                .AddDirectory(ApplicationPath("areas/customer/profile"))
                 .AddDirectory(ApplicationPath("areas/admin/config"))
-                .AddDirectory(ApplicationPath("areas/admin/scheduler"))
-                .AddDirectory(ApplicationPath("areas/admin/system-log"));
+                .AddDirectory(ApplicationPath("areas/admin"));
+
 
             return bundle.Render("~/Client/app_#.js");
         }

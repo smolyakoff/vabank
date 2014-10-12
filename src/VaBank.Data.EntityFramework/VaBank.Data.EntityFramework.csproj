@@ -39,6 +39,9 @@
     <Reference Include="EntityFramework">
       <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework.Extended">
+      <HintPath>..\..\packages\EntityFramework.Extended.6.1.0.121\lib\net45\EntityFramework.Extended.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
@@ -56,13 +59,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Maintenance\Mappings\ApplicationClientMap.cs" />
-    <Compile Include="Maintenance\Mappings\ApplicationTokenMap.cs" />
-    <Compile Include="Membership\Mappings\SystemLogEntryMap.cs" />
-    <Compile Include="Maintenance\Mappings\RestrictionConstants.cs" />
-    <Compile Include="Maintenance\Mappings\UserClaimMap.cs" />
-    <Compile Include="Maintenance\Mappings\UserMap.cs" />
-    <Compile Include="Maintenance\Mappings\UserProfileMap.cs" />
+    <Compile Include="Membership\ApplicationTokenRepository.cs" />
+    <Compile Include="Membership\Mappings\ApplicationClientMap.cs" />
+    <Compile Include="Membership\Mappings\ApplicationTokenMap.cs" />
+    <Compile Include="Maintenance\Mappings\SystemLogEntryMap.cs" />
+    <Compile Include="Membership\Mappings\RestrictionConstants.cs" />
+    <Compile Include="Membership\Mappings\UserClaimMap.cs" />
+    <Compile Include="Membership\Mappings\UserMap.cs" />
+    <Compile Include="Membership\Mappings\UserProfileMap.cs" />
     <Compile Include="Common\Repository`1.cs" />
     <Compile Include="VaBankContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

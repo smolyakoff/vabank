@@ -1,0 +1,32 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <img class="sidebar-logo" src="/Client/app/images/vabank-small.png" />
+            <ul class="nav nav-sidebar">
+                <li data-ui-sref="customer.cabinet"><a href="#"><i class="glyphicon glyphicon-home"></i> Домой</a></li>
+                <li><a href="#"> Мои карточки</a></li>
+                <li><a href="#"> Платежи</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li data-ui-sref="customer.profile.edit"><a href="#"><i class="glyphicon glyphicon-user"></i> Профиль</a></li>
+                <li data-ng-click="logout()"><a> Выход</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <section class="row">
+                <div class="col-xs-8 col-sm-8 col-lg-10">
+                    <h3 class="page-title">{{header}}</h3>
+                </div>
+                <nav class="col-xs-4 col-sm-4 col-lg-2">
+                    <div class="btn-group pull-right">
+                        <button data-ui-sref="cabinet.dashboard" type="button" class="btn btn-default"><i class="glyphicon glyphicon-home"></i></button>
+                        <button data-ng-click="back()" type="button" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i></button>
+                        <button data-ng-click="forward()" type="button" class="btn btn-default"><i class="glyphicon glyphicon-arrow-right"></i></button>
+                    </div>
+                </nav>
+            </section>
+            <section data-ui-view="">
+            </section>
+        </div>
+    </div>
+</div>

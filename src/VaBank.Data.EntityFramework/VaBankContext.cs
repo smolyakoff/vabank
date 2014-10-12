@@ -11,6 +11,7 @@ namespace VaBank.Data.EntityFramework
     {
         public VaBankContext() : base("Name=Vabank.Db")
         {
+            Database.SetInitializer(new NullDatabaseInitializer<VaBankContext>());
         }
 
         public DbSet<SystemLogEntry> Logs { get; set; }

@@ -4,12 +4,37 @@
         display: inline-block;
     }
 
+    .form-group {
+        margin-left: 5px;
+    }
+
     label {
         margin-right: 5px;
     }
 
     .multiSelect .button {
         display: inline-block;
+    }
+}
+
+.form-group.has-error {
+    .input-group-addon {
+        border: 0;
+        background-color: transparent;
+    }
+
+    .input-group .form-control-feedback {
+        top: 0;
+        margin-right: 0;
+    }
+
+    .tooltip-inner {
+        min-width: 200px;
+        background-color: $state-danger-text;
+    }
+
+    .tooltip.right .tooltip-arrow {
+        border-right-color: $state-danger-text
     }
 }
 
@@ -21,3 +46,19 @@
 .st-sort-ascent:before {
     content: '\25B2';
 }
+.table {
+    > tbody tr.st-selected {
+        background-color: $state-success-bg
+    }
+}
+.table-striped {
+    > tbody > tr.st-selected:nth-child(odd)> td {
+        background-color: $state-success-bg
+    }
+}
+.table div.pagination {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+     
+

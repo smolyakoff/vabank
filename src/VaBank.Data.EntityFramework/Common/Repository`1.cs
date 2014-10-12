@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using EntityFramework.Extensions;
 using PagedList;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
@@ -24,7 +25,7 @@ namespace VaBank.Data.EntityFramework.Common
             Context = context;
         }
 
-        public TEntity Find(params object[] keys)
+        public virtual TEntity Find(params object[] keys)
         {
             if (keys == null)
             {
@@ -33,7 +34,7 @@ namespace VaBank.Data.EntityFramework.Common
             return EnsureRepositoryException(() => Context.Set<TEntity>().Find(keys));
         }
 
-        public TModel Project<TModel>(params object[] keys) where TModel : class
+        public virtual TModel FindAndProject<TModel>(params object[] keys) where TModel : class
         {
             if (keys == null)
             {
@@ -42,7 +43,7 @@ namespace VaBank.Data.EntityFramework.Common
             return EnsureRepositoryException(() => Mapper.Map<TEntity, TModel>(Context.Set<TEntity>().Find(keys)));
         }
 
-        public void Create(TEntity entity)
+        public virtual void Create(TEntity entity)
         {
             if (entity == null)
             {
@@ -51,7 +52,7 @@ namespace VaBank.Data.EntityFramework.Common
             EnsureRepositoryException(() => Context.Set<TEntity>().Add(entity));
         }
 
-        public void Update(TEntity entity)
+        public virtual void Update(TEntity entity)
         {
             if (entity == null)
             {
@@ -60,7 +61,7 @@ namespace VaBank.Data.EntityFramework.Common
             EnsureRepositoryException(() => Context.Entry(entity).State = EntityState.Modified);
         }
 
-        public void Delete(TEntity entity)
+        public virtual void Delete(TEntity entity)
         {
             if (entity == null)
             {
@@ -69,26 +70,18 @@ namespace VaBank.Data.EntityFramework.Common
             EnsureRepositoryException(() => Context.Set<TEntity>().Remove(entity));
         }
 
-        public void Delete(params object[] keys)
-        {
-            var entity = Find(keys);
-            if (entity != null)
-            {
-                Delete(entity);
-            }
-        }
 
-        public IList<TEntity> FindAll()
+        public virtual IList<TEntity> FindAll()
         {
             return EnsureRepositoryException(() => Context.Set<TEntity>().ToList());
         }
 
-        public IList<TModel> ProjectAll<TModel>() where TModel : class
+        public virtual IList<TModel> ProjectAll<TModel>() where TModel : class
         {
             return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Project().To<TModel>().ToList());
         }
 
-        public IList<TEntity> Query(IQuery query)
+        public virtual IList<TEntity> Query(IQuery query)
         {
             if (query == null)
             {
@@ -97,7 +90,30 @@ namespace VaBank.Data.EntityFramework.Common
             return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).ToList());
         }
 
-        public IPagedList<TEntity> QueryPage(IQuery query)
+        public virtual long Delete(IQuery query)
+        {
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).Delete());
+        }
+
+        public virtual long Count(IQuery query)
+        {
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).Count());
+        }
+
+        public virtual long Count()
+        {
+            return EnsureRepositoryException(() => Context.Set<TEntity>().Count());
+        }
+
+        public virtual IPagedList<TEntity> QueryPage(IQuery query)
         {
             if (query == null)
             {
@@ -106,7 +122,7 @@ namespace VaBank.Data.EntityFramework.Common
             return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().QueryPage(query));
         }
 
-        public IList<TModel> Project<TModel>(IQuery query) where TModel : class
+        public virtual IList<TModel> Project<TModel>(IQuery query) where TModel : class
         {
             if (query == null)
             {
@@ -115,7 +131,7 @@ namespace VaBank.Data.EntityFramework.Common
             return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).Project().To<TModel>().ToList());
         }
 
-        public IPagedList<TModel> ProjectPage<TModel>(IQuery query) where TModel : class
+        public virtual IPagedList<TModel> ProjectPage<TModel>(IQuery query) where TModel : class
         {
             if (query == null)
             {
@@ -124,7 +140,7 @@ namespace VaBank.Data.EntityFramework.Common
             return EnsureRepositoryException(() => MapPage<TModel>(Context.Set<TEntity>().AsQueryable().QueryPage(query)));
         }
 
-        public IList<TModel> ProjectThenQuery<TModel>(IQuery query) where TModel : class
+        public virtual IList<TModel> ProjectThenQuery<TModel>(IQuery query) where TModel : class
         {
             if (query == null)
             {
@@ -133,7 +149,7 @@ namespace VaBank.Data.EntityFramework.Common
             return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Project().To<TModel>().Query(query).ToList());
         }
 
-        public IPagedList<TModel> ProjectThenQueryPage<TModel>(IQuery query) where TModel : class
+        public virtual IPagedList<TModel> ProjectThenQueryPage<TModel>(IQuery query) where TModel : class
         {
             if (query == null)
             {
@@ -153,6 +169,10 @@ namespace VaBank.Data.EntityFramework.Common
             try
             {
                 return call();
+            }
+            catch (RepositoryException)
+            {
+                throw;
             }
             catch (Exception ex)
             {

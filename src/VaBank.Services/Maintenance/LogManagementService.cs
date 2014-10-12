@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentValidation;
+using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Common;
 using VaBank.Core.Maintenance;
@@ -8,8 +10,11 @@ using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Common.Queries;
-using VaBank.Services.Contracts.Common.Validation;
 using VaBank.Services.Contracts.Maintenance;
+using VaBank.Services.Contracts.Maintenance.Commands;
+using VaBank.Services.Contracts.Maintenance.Models;
+using VaBank.Services.Contracts.Maintenance.Queries;
+
 
 namespace VaBank.Services.Maintenance
 {
@@ -42,7 +47,8 @@ namespace VaBank.Services.Maintenance
             EnsureIsValid(query);
             try
             {
-                var entries = _db.LogEntries.Project<SystemLogEntryBriefModel>(query);
+                var entries = _db.LogEntries.ProjectThenQuery<SystemLogEntryBriefModel>(
+                    query.ToDbQuery<SystemLogEntryBriefModel>());
                 return entries;
             }
             catch (Exception ex)
@@ -65,20 +71,14 @@ namespace VaBank.Services.Maintenance
             }
         }
 
-
-
         public UserMessage ClearSystemLog(SystemLogQuery query)
         {
             EnsureIsValid(query);
             try
             {
-                var entries = _db.LogEntries.Query(query);
-                foreach (var systemLogEntry in entries)
-                {
-                    _db.LogEntries.Delete(systemLogEntry);
-                }
+                var deleted = _db.LogEntries.Delete(query.ToDbQuery<SystemLogEntry>());
                 UnitOfWork.Commit();
-                return UserMessage.Format(Messages.SystemLogClearSuccess, new object[] {entries.Count()});
+                return UserMessage.ResourceFormat(() => Messages.SystemLogClearSuccess, deleted);
             }
             catch (Exception ex)
             {
@@ -91,12 +91,9 @@ namespace VaBank.Services.Maintenance
             EnsureIsValid(command);
             try
             {
-                foreach (var id in command.Ids)
-                {
-                    _db.LogEntries.Delete(new object[]{id});
-                }
+                var deleted = _db.LogEntries.Delete(command.ToDbQuery());
                 UnitOfWork.Commit();
-                return UserMessage.Format(Messages.SystemLogClearSuccess, new object[] { command.Ids.Count() });
+                return UserMessage.ResourceFormat(() => Messages.SystemLogClearSuccess, deleted);
             }
             catch (Exception ex)
             {

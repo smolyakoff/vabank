@@ -1,25 +1,27 @@
 {
   "name": "isteven-angular-multiselect",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "main": [
-    "angular-multi-select.js"
+    "angular-multi-select.js",
+    "angular-multi-select.css"
   ],
   "ignore": [
     ".git",
     ".gitignore",
     "bower.json",
+    "CHANGELOG.md",
+    "package.json",
     "README.md",
     "screenshot.png"
   ],
   "homepage": "https://github.com/isteven/angular-multi-select",
-  "_release": "2.0.1",
+  "_release": "2.0.2",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.1",
-    "commit": "c6b6d50f88c66cfe00941dc821b96002c998b074"
+    "tag": "v2.0.2",
+    "commit": "c414ef60abea16df002d8b8951b986f60ed133e3"
   },
   "_source": "git://github.com/isteven/angular-multi-select.git",
   "_target": "~2.0.1",
-  "_originalSource": "isteven-angular-multiselect",
-  "_direct": true
+  "_originalSource": "isteven-angular-multiselect"
 }

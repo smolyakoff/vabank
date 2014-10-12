@@ -4,14 +4,17 @@
 @inherits VaBank.UI.Web.Views.IndexBase
 <!DOCTYPE html>
 <html data-ng-app="vabank.webapp" lang="ru">
-    <head>
-        <title>VaBank - Web</title>
+    <head data-ng-init="title = 'VaBank - Онлайн'">
+        <title>{{title}}</title>
         <meta charset="utf-8">
+        <link rel="shortcut icon" type="image/x-icon" href="/Client/app/images/favicon.ico" /> 
         @Styles()
     </head>
     <body>
         <section id="root" data-ui-view=""></section>
         @ServerInfo()
+        @RenderTemplateAsScript("text-field-template", "/Client/app/modules/vabank-ui/templates/forms/text-field.html")
+        @RenderTemplateAsScript("checkbox-field-template", "/Client/app/modules/vabank-ui/templates/forms/checkbox-field.html")
         @Scripts()
     </body>
 </html>
