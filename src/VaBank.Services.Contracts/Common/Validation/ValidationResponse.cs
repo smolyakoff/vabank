@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using VaBank.Common.Validation;
 
 namespace VaBank.Services.Contracts.Common.Validation
 {

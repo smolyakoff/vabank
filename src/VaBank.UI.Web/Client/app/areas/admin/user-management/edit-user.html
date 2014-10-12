@@ -5,8 +5,8 @@
                 <h3 class="panel-title">{{isEdit ? 'Редактировать пользователя' : 'Добавить пользователя'}}</h3>
             </div>
             <div class="panel-body">
-                <form data-form-for="userForm" data-validation-rules="validationRules">
-                    <h5 class="text-primary">Аккаунт{{isEdit ? ' #' + userForm.id : ''}}</h5>
+                <form data-form-for="userForm" data-validation-rules="validationRules" data-submit-with="save()" data-submit-complete="onSaved(data)">
+                    <h5 class="text-primary">Аккаунт{{isEdit ? ' #' + userForm.userId : ''}}</h5>
                     <text-field attribute="userName" label="Логин" icon-before="glyphicon glyphicon-user"></text-field>
                     <select-field attribute="role" label="Роль" options="lookup.roles"></select-field>
                     <checkbox-field data-ng-show="isEdit" attribute="changePassword" label="Сменить пароль?"></checkbox-field>
@@ -19,27 +19,27 @@
                         </div>
                     </div>
                     <h5 class="text-primary">Профиль</h5>
-                    <text-field attribute="profile.email" label="Email" icon-before="glyphicon glyphicon-globe"></text-field>
+                    <text-field attribute="email" label="Email" icon-before="glyphicon glyphicon-globe"></text-field>
                     <div class="row">
                         <div class="col-xs-6">
-                            <text-field attribute="profile.firstName" label="Имя"></text-field>
+                            <text-field attribute="firstName" label="Имя"></text-field>
                         </div>
                         <div class="col-xs-6">
-                            <text-field attribute="profile.lastName" label="Фамилия"></text-field>
+                            <text-field attribute="lastName" label="Фамилия"></text-field>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                            <text-field attribute="profile.phoneNumber" label="Мобильный телефон" icon-before="glyphicon glyphicon-phone"></text-field>
-                            <checkbox-field attribute="profile.phoneNumberConfirmed" label="Подтвержден"></checkbox-field>
+                            <text-field attribute="phoneNumber" label="Мобильный телефон" icon-before="glyphicon glyphicon-phone"></text-field>
+                            <checkbox-field attribute="phoneNumberConfirmed" label="Подтвержден" disable="!userForm.phoneNumber"></checkbox-field>
                         </div>
                         <div class="col-xs-6">
                             <p><b>Настройки СМС</b></p>
-                            <checkbox-field attribute="profile.smsNotificationEnabled" label="Смс-уведомления"></checkbox-field>
-                            <checkbox-field attribute="profile.smsConfirmationEnabled" label="Смс-подтверждение"></checkbox-field>
+                            <checkbox-field attribute="smsNotificationEnabled" label="Смс-уведомления"></checkbox-field>
+                            <checkbox-field attribute="smsConfirmationEnabled" label="Смс-подтверждение"></checkbox-field>
                         </div>
                     </div>
-                    <text-field attribute="profile.secretPhrase" label="Секретная фраза" multiline="" placeholder="Напишите секретную фразу..."></text-field>
+                    <text-field attribute="secretPhrase" label="Секретная фраза" multiline="" placeholder="Напишите секретную фразу..."></text-field>
                     <submit-button button-class="btn btn-primary" label="{{!isEdit ? 'Добавить' : 'Сохранить'}}"></submit-button>
                 </form>
             </div>

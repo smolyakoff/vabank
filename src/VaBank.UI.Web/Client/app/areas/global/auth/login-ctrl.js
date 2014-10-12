@@ -26,7 +26,7 @@
             function onSuccess() {
                 var user = authService.getUser();
                 if ($stateParams.redirect) {
-                    $state.go($stateParams.redirect);
+                    $state.go($stateParams.redirect, $stateParams.redirectParams);
                 } else if (user.isInRole('Admin')) {
                     $state.go('admin');
                 } else {

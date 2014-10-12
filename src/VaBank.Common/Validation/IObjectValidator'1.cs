@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using VaBank.Services.Contracts.Common.Validation;
 
-namespace VaBank.Services.Common.Validation
+namespace VaBank.Common.Validation
 {
     public interface IObjectValidator<in T> : IObjectValidator
     {

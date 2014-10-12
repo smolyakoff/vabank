@@ -117,31 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmptyPhoneNumberConfirmed" xml:space="preserve">
-    <value>Нельзя подтвердить неверный мобильный телефон</value>
+  <data name="CheckNumberPhone" xml:space="preserve">
+    <value>Вы ввели некорректный номер телефона.</value>
   </data>
   <data name="FieldLength" xml:space="preserve">
     <value>Значение поля должно содержать как минимум {0} символов.</value>
   </data>
-  <data name="InvalidCredentials" xml:space="preserve">
-    <value>Неверное имя пользователя или пароль.</value>
+  <data name="InvalidRole" xml:space="preserve">
+    <value>Данная пользовательская роль не поддерживается</value>
   </data>
   <data name="NotEmpty" xml:space="preserve">
     <value>Это поле не должно быть пустым.</value>
-  </data>
-  <data name="PasswordConfirmation" xml:space="preserve">
-    <value>Пароль не был корректно подтвержден. Пароль и подтверждение должны совпадать.</value>
-  </data>
-  <data name="SuccessLogin" xml:space="preserve">
-    <value>Вы успешно вошел в систему.</value>
-  </data>
-  <data name="UserBlocked" xml:space="preserve">
-    <value>Ваша учетная запись заблокирована.</value>
-  </data>
-  <data name="UserDeleted" xml:space="preserve">
-    <value>Ваша учетная запись удалена.</value>
-  </data>
-  <data name="UserNameUnique" xml:space="preserve">
-    <value>Пользователь с таким именем уже зарегистрирован в системе.</value>
   </data>
 </root>

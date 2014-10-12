@@ -78,7 +78,7 @@
 
         $scope.edit = function() {
             var selectedUser = getSelectedUser();
-            $state.go('admin.userManagement.editUser', { id: selectedUser.id });
+            $state.go('admin.userManagement.editUser', { id: selectedUser.userId });
         };
     }
 })();

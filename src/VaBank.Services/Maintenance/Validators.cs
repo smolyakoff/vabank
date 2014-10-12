@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
-using VaBank.Services.Common.Validation;
-using VaBank.Services.Contracts.Maintenance;
+using VaBank.Common.Validation;
 using VaBank.Services.Contracts.Maintenance.Commands;
 using VaBank.Services.Contracts.Maintenance.Queries;
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using FluentValidation;
 using PagedList;
+using VaBank.Common.Data.Repositories;
 using VaBank.Core.Common;
+using VaBank.Core.Membership;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Queries;
@@ -39,17 +41,46 @@ namespace VaBank.Services.Membership
 
         public UserBriefModel GetUser(IdentityQuery<Guid> id)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(id);
+            try
+            {
+                var user = _db.Users.ProjectIdentity<Guid, User, UserBriefModel>(id);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get user.", ex);
+            }
         }
 
         public UserProfileModel GetProfile(IdentityQuery<Guid> id)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(id);
+            try
+            {
+                var profile = _db.UserProfiles.ProjectIdentity<Guid, UserProfile, UserProfileModel>(id);
+                return profile;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get profile.", ex);
+            }
         }
 
         public UserBriefModel CreateUser(CreateUserCommand command)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(command);
+            try
+            {
+                var user = command.ToEntity<CreateUserCommand, User>();
+                _db.Users.Create(user);
+                UnitOfWork.Commit();
+                return user.ToModel<User, UserBriefModel>();
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't create user.", ex);
+            }
         }
 
         public void UpdateUser(UpdateUserCommand command)

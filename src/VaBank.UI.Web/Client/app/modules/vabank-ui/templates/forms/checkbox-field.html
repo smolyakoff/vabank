@@ -17,5 +17,12 @@
         <span class="check"></span>
         <span class="box"></span>
         {{label}}
-    </label>   
+    </label>
+
+    <div class="help-block has-error" ng-if="model.error">
+        <field-error error="model.error"
+                     left-aligned="true"
+                     uid="{{model.uid}}-error">
+        </field-error>
+    </div>
 </div>

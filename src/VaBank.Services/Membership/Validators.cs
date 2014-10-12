@@ -3,45 +3,14 @@ using FluentValidation;
 using FluentValidation.Validators;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
+using VaBank.Common.Validation;
 using VaBank.Core.Membership;
-using VaBank.Services.Common.Validation;
 using VaBank.Services.Contracts.Membership.Commands;
 using VaBank.Services.Contracts.Membership.Queries;
 
 namespace VaBank.Services.Membership
 {
-    [ValidatorName("userName")]
-    [StaticValidator]
-    internal class UserNameValidator : ObjectValidator<string>
-    {
-        public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
-        {
-            return builder.NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty).Length(4, 50)
-                .WithLocalizedMessage(() => Messages.FieldLength, 4);
-        }
-    }
 
-    [ValidatorName("password")]
-    [StaticValidator]
-    internal class PasswordValidator : ObjectValidator<string>
-    {
-        public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
-        {
-            return builder.NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty).Length(6, 256)
-                .WithLocalizedMessage(() => Messages.FieldLength, 6);
-        }
-    }
-
-    [ValidatorName("phone")]
-    [StaticValidator]
-    internal class PhoneNumberValidator : ObjectValidator<string>
-    {
-        public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
-        {
-            return builder.NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty).Matches(@"\+375 *\(?(29|33|44|25)\)? *\d{7}")
-                .WithLocalizedMessage(() => Messages.CheckNumberPhone);
-        }
-    }
 
     [StaticValidator]
     internal class LoginCommandValidator : AbstractValidator<LoginCommand>
@@ -85,7 +54,9 @@ namespace VaBank.Services.Membership
             RuleFor(x => x.Password).UseValidator(new PasswordValidator());
             RuleFor(x => x.PasswordConfirmation).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty)
                 .Equal(x => x.Password).WithLocalizedMessage(() => Messages.PasswordConfirmation);
-            RuleFor(x => x.PhoneNumber).UseValidator(new PhoneNumberValidator());
+            RuleFor(x => x.PhoneNumber).UseValidator(new PhoneNumberValidator()).When(x => !string.IsNullOrWhiteSpace(x.PhoneNumber));
+            RuleFor(x => x.PhoneNumberConfirmed).Equal(false).When(x => string.IsNullOrWhiteSpace(x.PhoneNumber)).WithLocalizedMessage(() => Messages.EmptyPhoneNumberConfirmed);
+            RuleFor(x => x.SecretPhrase).NotEmpty().Length(5, 1024);
         }
         private bool IsUserNameUnique(CreateUserCommand command, string userName, PropertyValidatorContext context)
         {

@@ -3,6 +3,8 @@ using AutoMapper;
 using FluentValidation;
 using System;
 using System.Linq;
+using VaBank.Common.Validation;
+using VaBank.Core.Common;
 using VaBank.Services.Common;
 using VaBank.Services.Common.Validation;
 using VaBank.Services.Contracts;
@@ -24,6 +26,7 @@ namespace VaBank.UI.Web.Modules
             builder.RegisterType<AutofacFactory>().AsImplementedInterfaces().InstancePerRequest();
             builder.RegisterType<JsonNetConverter>().AsImplementedInterfaces().InstancePerRequest();
             var validatorTypes = typeof (BaseService).Assembly.GetTypes()
+                .Union(typeof(Entity).Assembly.GetTypes())
                 .Where(t => typeof (IValidator).IsAssignableFrom(t) || typeof(IObjectValidator).IsAssignableFrom(t))
                 .Where(t => !t.IsGenericType)
                 .ToList();

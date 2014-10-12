@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentValidation;
 using FluentValidation.Results;
-using VaBank.Services.Contracts.Common.Validation;
 
-namespace VaBank.Services.Common.Validation
+namespace VaBank.Common.Validation
 {
-    internal static class ValidationExtensions
+    public static class ValidationExtensions
     {
         public static ValidationFault ToValidationFault(this ValidationFailure failure, string propertyNameOverride = null)
         {

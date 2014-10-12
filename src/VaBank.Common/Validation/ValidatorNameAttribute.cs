@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VaBank.Services.Common.Validation
+namespace VaBank.Common.Validation
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class ValidatorNameAttribute : Attribute

@@ -36,6 +36,22 @@
   z-index:888;
   -webkit-transition-delay:0.2s; -moz-transition-delay:0.2s; transition-delay:0.2s;
 }
+
+.paper-checkbox.disabled label .box {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    background-color: #9b9b9b;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.paper-checkbox.has-error label .box {
+    border-color: #e51c23
+}
+
+
 .paper-checkbox label .check         {
   top: -7px;
   left: 6px;

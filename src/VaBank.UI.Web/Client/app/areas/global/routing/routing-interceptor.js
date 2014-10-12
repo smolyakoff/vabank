@@ -27,7 +27,7 @@
                     if (toState.name === 'customer.cabinet') {
                         $state.go('login');
                     } else {
-                        $state.go('login', { redirect: toState.name });
+                        $state.go('login', { redirect: toState.name, redirectParams: toParams });
                     }
                 }
             }
@@ -65,7 +65,7 @@
                         if (toState.name === 'customer.cabinet') {
                             $state.go('login');
                         } else {
-                            $state.go('login', { redirect: toState.name });
+                            $state.go('login', { redirect: toState.name, redirectParams: toParams });
                         }
                         
                     });

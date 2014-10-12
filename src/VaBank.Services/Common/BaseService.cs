@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using FluentValidation;
+using VaBank.Common.Validation;
 using VaBank.Core.Common;
 using VaBank.Services.Contracts;
 using VaBank.Services.Contracts.Common.Validation;

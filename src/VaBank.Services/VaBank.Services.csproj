@@ -60,13 +60,7 @@
     <Compile Include="Common\IRepositoryCollection.cs" />
     <Compile Include="Common\ServiceExtensions.cs" />
     <Compile Include="Common\Validation\IObjectConverter.cs" />
-    <Compile Include="Common\Validation\IObjectValidator%271.cs" />
-    <Compile Include="Common\Validation\IObjectValidator.cs" />
-    <Compile Include="Common\Validation\ObjectValidator.cs" />
-    <Compile Include="Common\Validation\StaticValidatorAttribute.cs" />
-    <Compile Include="Common\Validation\ValidationExtensions.cs" />
     <Compile Include="Common\Validation\ValidationService.cs" />
-    <Compile Include="Common\Validation\ValidatorNameAttribute.cs" />
     <Compile Include="Maintenance\LogManagementService.cs" />
     <Compile Include="Maintenance\MaintenanceExtensions.cs" />
     <Compile Include="Maintenance\MaintenanceProfile.cs" />

@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation">
+      <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="FluentValidationNA">
       <HintPath>..\..\packages\FluentValidationNA.1.2.16\lib\net40\FluentValidationNA.dll</HintPath>
     </Reference>
@@ -130,6 +133,13 @@
     <Compile Include="Security\Hash.cs" />
     <Compile Include="Security\Password.cs" />
     <Compile Include="Serialization\JsonCreationConverter.cs" />
+    <Compile Include="Validation\ValidationFault.cs" />
+    <Compile Include="Validation\IObjectValidator%271.cs" />
+    <Compile Include="Validation\IObjectValidator.cs" />
+    <Compile Include="Validation\ObjectValidator.cs" />
+    <Compile Include="Validation\StaticValidatorAttribute.cs" />
+    <Compile Include="Validation\ValidationExtensions.cs" />
+    <Compile Include="Validation\ValidatorNameAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

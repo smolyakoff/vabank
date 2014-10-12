@@ -58,12 +58,16 @@
                 templateUrl: '/Client/app/areas/admin/user-management/edit-user.html',
                 controller: 'editUserController',
                 resolve: {
-                    data: ['$stateParams', 'userManagementService', function ($stateParams, userManager) {
+                    data: ['$stateParams', 'routingResolve', 'userManagementService', function ($stateParams, routingResolve, userManager) {
                         var User = userManager.User;
                         if ($stateParams.id === 'add') {
-                            return User.defaults.new;
+                            return {user: User.defaults.new, profile: User.defaults.newProfile};
                         } else {
-                            return {};
+                            var params = { userId: $stateParams.id };
+                            return routingResolve.resolveAll(
+                                [User.get(params).$promise, User.getProfile(params).$promise],
+                                ['user', 'profile']
+                            );
                         }
                     }]
                 }

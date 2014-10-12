@@ -9,7 +9,7 @@
 
     function userManagementService($resource, dataUtil) {
 
-        var User = $resource('/api/users', {}, {            
+        var User = $resource('/api/users/:userId', {userId: '@userId'}, {            
             query: {
                 isArray: false,
                 params: {
@@ -17,6 +17,13 @@
                     pageSize: 15,
                     sort: 'userName asc'
                 }
+            },
+            create: {
+                url: '/api/users',
+                method: 'POST',
+            },
+            getProfile: {
+                url: '/api/users/:userId/profile'
             }
         });
         User.defaults = {};
@@ -46,7 +53,8 @@
               value: ''
           }
         };
-        User.defaults.new = { profile: {} };
+        User.defaults.new = { role: 'Customer' };
+        User.defaults.newProfile = {};
         User.defaults.roles = ['Admin', 'Customer'];
 
         return {            

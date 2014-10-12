@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VaBank.Services.Membership {
+namespace VaBank.Core.Membership {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace VaBank.Services.Membership {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VaBank.Services.Membership.Messages", typeof(Messages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VaBank.Core.Membership.Messages", typeof(Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,11 @@ namespace VaBank.Services.Membership {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Нельзя подтвердить неверный мобильный телефон.
+        ///   Looks up a localized string similar to Вы ввели некорректный номер телефона..
         /// </summary>
-        public static string EmptyPhoneNumberConfirmed {
+        public static string CheckNumberPhone {
             get {
-                return ResourceManager.GetString("EmptyPhoneNumberConfirmed", resourceCulture);
+                return ResourceManager.GetString("CheckNumberPhone", resourceCulture);
             }
         }
         
@@ -79,11 +79,11 @@ namespace VaBank.Services.Membership {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неверное имя пользователя или пароль..
+        ///   Looks up a localized string similar to Данная пользовательская роль не поддерживается.
         /// </summary>
-        public static string InvalidCredentials {
+        public static string InvalidRole {
             get {
-                return ResourceManager.GetString("InvalidCredentials", resourceCulture);
+                return ResourceManager.GetString("InvalidRole", resourceCulture);
             }
         }
         
@@ -93,51 +93,6 @@ namespace VaBank.Services.Membership {
         public static string NotEmpty {
             get {
                 return ResourceManager.GetString("NotEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Пароль не был корректно подтвержден. Пароль и подтверждение должны совпадать..
-        /// </summary>
-        public static string PasswordConfirmation {
-            get {
-                return ResourceManager.GetString("PasswordConfirmation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Вы успешно вошел в систему..
-        /// </summary>
-        public static string SuccessLogin {
-            get {
-                return ResourceManager.GetString("SuccessLogin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ваша учетная запись заблокирована..
-        /// </summary>
-        public static string UserBlocked {
-            get {
-                return ResourceManager.GetString("UserBlocked", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ваша учетная запись удалена..
-        /// </summary>
-        public static string UserDeleted {
-            get {
-                return ResourceManager.GetString("UserDeleted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Пользователь с таким именем уже зарегистрирован в системе..
-        /// </summary>
-        public static string UserNameUnique {
-            get {
-                return ResourceManager.GetString("UserNameUnique", resourceCulture);
             }
         }
     }

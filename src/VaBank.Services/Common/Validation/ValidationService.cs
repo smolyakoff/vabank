@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using VaBank.Common.Validation;
+using VaBank.Core.Common;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Validation;
 
@@ -14,6 +16,7 @@ namespace VaBank.Services.Common.Validation
         static ValidationService()
         {
             var validators = Assembly.GetExecutingAssembly().GetTypes()
+                .Union(typeof(Entity).Assembly.GetTypes())
                 .Where(t => t.IsDefined(typeof (ValidatorNameAttribute), false))
                 .Where(t => IsSubclassOfRawGeneric(typeof(ObjectValidator<>), t))
                 .Select(t => new {type = t, name = t.GetCustomAttribute<ValidatorNameAttribute>().Name})

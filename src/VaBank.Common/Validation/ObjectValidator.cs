@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentValidation;
-using VaBank.Services.Contracts.Common.Validation;
 
-namespace VaBank.Services.Common.Validation
+namespace VaBank.Common.Validation
 {
     public abstract class ObjectValidator<T> : IObjectValidator<T>
     {
@@ -67,7 +66,7 @@ namespace VaBank.Services.Common.Validation
                 Value = obj;
             }
 
-            public T Value { get; set; }
+            public T Value { get; private set; }
         }
     }
 }
