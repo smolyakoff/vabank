@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VaBank.Core.Membership;
 
 namespace VaBank.Data.Tests
@@ -12,11 +11,11 @@ namespace VaBank.Data.Tests
         public void Can_VaBank_Context_Save_User()
         {
             var context = new VaBank.Data.EntityFramework.VaBankContext();
-            var profile = new UserProfile
+            var user = User.Create("Test", "Admin", "123456!m");
+            var profile = new UserProfile(user.Id)
             {
                 Email = "john@gmail.com",
                 FirstName = "John",
-                UserId = Guid.NewGuid(),
                 LastName = "Doe",
                 PhoneNumber = "123-456-789",
                 PhoneNumberConfirmed = true,
@@ -24,16 +23,8 @@ namespace VaBank.Data.Tests
                 SmsConfirmationEnabled = false,
                 SmsNotificationEnabled = false
             };
-            var user = new User 
-            { 
-                Profile = profile,
-                Id = profile.UserId,
-                PasswordHash = "1234567890",
-                PasswordSalt = "1234567890",
-                UserName = "Test"
-            };
-            context.Set<User>().Add(user);
-            context.Set<UserProfile>().Add(profile);                        
+            user.Profile = profile;
+            context.Set<User>().Add(user);                    
             context.SaveChanges();
         }
     }
