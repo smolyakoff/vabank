@@ -164,7 +164,7 @@ namespace VaBank.Services.Membership
                 UnitOfWork.Commit();
                 return UserMessage.Resource(() => Messages.PasswordChanged);
             }
-            catch (ServiceException ex)
+            catch (ServiceException)
             {
                 throw;
             }
