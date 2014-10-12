@@ -126,8 +126,14 @@
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Неверное имя пользователя или пароль.</value>
   </data>
+  <data name="NewPasswordNotChanged" xml:space="preserve">
+    <value>Новый пароль должен отличаться от старого</value>
+  </data>
   <data name="NotEmpty" xml:space="preserve">
     <value>Это поле не должно быть пустым.</value>
+  </data>
+  <data name="PasswordChanged" xml:space="preserve">
+    <value>Ваш пароль изменен. Рекомендуем выйти и заново зайти в систему.</value>
   </data>
   <data name="PasswordConfirmation" xml:space="preserve">
     <value>Пароль не был корректно подтвержден. Пароль и подтверждение должны совпадать.</value>

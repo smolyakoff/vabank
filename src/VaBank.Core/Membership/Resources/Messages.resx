@@ -124,9 +124,18 @@
     <value>Значение поля должно содержать как минимум {0} символов.</value>
   </data>
   <data name="InvalidRole" xml:space="preserve">
-    <value>Данная пользовательская роль не поддерживается</value>
+    <value>Данная пользовательская роль не поддерживается.</value>
   </data>
   <data name="NotEmpty" xml:space="preserve">
     <value>Это поле не должно быть пустым.</value>
+  </data>
+  <data name="PasswordFormatNumber" xml:space="preserve">
+    <value>Пароль должен содержать хотя бы одну цифру.</value>
+  </data>
+  <data name="PasswordFormatSpecChar" xml:space="preserve">
+    <value>Пароль должен содержать хотя бы один спец-символ из набора: !@#$%^&amp;'.</value>
+  </data>
+  <data name="WeakPassword" xml:space="preserve">
+    <value>Данный пароль является слабым. Используйте другой пароль</value>
   </data>
 </root>

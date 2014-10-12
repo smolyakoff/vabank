@@ -33,6 +33,11 @@ namespace VaBank.Services.Membership
                     return user;
                 })
                 .ForMember(x => x.Profile, cfg => cfg.MapFrom(x => x));
+            CreateMap<UpdateUserCommand, UserProfile>()
+                .ConstructUsing(c => new UserProfile(c.UserId));
+            CreateMap<UpdateUserCommand, User>()
+                .ForMember(x => x.Profile, cfg => cfg.MapFrom(x => x));
+            CreateMap<UpdateProfileCommand, UserProfile>();
         }
     }
 }

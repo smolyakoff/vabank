@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VaBank.Core.Membership {
+namespace VaBank.Core.Membership.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace VaBank.Core.Membership {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VaBank.Core.Membership.Messages", typeof(Messages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VaBank.Core.Membership.Resources.Messages", typeof(Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -79,7 +79,7 @@ namespace VaBank.Core.Membership {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Данная пользовательская роль не поддерживается.
+        ///   Looks up a localized string similar to Данная пользовательская роль не поддерживается..
         /// </summary>
         public static string InvalidRole {
             get {
@@ -93,6 +93,33 @@ namespace VaBank.Core.Membership {
         public static string NotEmpty {
             get {
                 return ResourceManager.GetString("NotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароль должен содержать хотя бы одну цифру..
+        /// </summary>
+        public static string PasswordFormatNumber {
+            get {
+                return ResourceManager.GetString("PasswordFormatNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароль должен содержать хотя бы один спец-символ из набора: !@#$%^&amp;&apos;..
+        /// </summary>
+        public static string PasswordFormatSpecChar {
+            get {
+                return ResourceManager.GetString("PasswordFormatSpecChar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Данный пароль является слабым. Используйте другой пароль.
+        /// </summary>
+        public static string WeakPassword {
+            get {
+                return ResourceManager.GetString("WeakPassword", resourceCulture);
             }
         }
     }

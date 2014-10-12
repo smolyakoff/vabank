@@ -9,7 +9,10 @@
 
     function userManagementService($resource, dataUtil) {
 
-        var User = $resource('/api/users/:userId', {userId: '@userId'}, {            
+        var User = $resource('/api/users/:userId', { userId: '@userId' }, {
+            save: {
+              method: 'PUT'  
+            },
             query: {
                 isArray: false,
                 params: {

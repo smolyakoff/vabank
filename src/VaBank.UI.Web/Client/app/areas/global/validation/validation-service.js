@@ -131,6 +131,8 @@
                     var map = toValidationMap(response.data.faults);
                     deferred.reject(map);
                     return map;
+                } else {
+                    deferred.reject(response);
                 }
                 return response;
             }
@@ -139,10 +141,42 @@
             return deferred.promise;
         };
 
+        var createValidator = function (checker) {
+            return function(value, model) {
+                var deferred = $q.defer();
+                var message = checker(value, model);
+                if (_.isString(message)) {
+                    deferred.reject(message);
+                }
+                deferred.resolve();
+                return deferred.promise;
+            };
+        };
+
+        var combineValidators = function (validatorArray) {
+            if (!_.isArray(validatorArray)) {
+                throw new TypeError("Array expected!");
+            }
+            return function(value, model) {
+                var deferred = $q.defer();
+                var promises = _.map(validatorArray, function(x) {
+                    return x(value, model);
+                });
+                $q.all(promises).then(function() {
+                    deferred.resolve();
+                }, function(m) {
+                    deferred.reject(m);
+                });
+                return deferred.promise;
+            };
+        };
+
         return {
             getValidator: getValidator,
             getOptionalValidator: getOptionalValidator,
             getConditionalValidator: getConditionalValidator,
+            createValidator: createValidator,
+            combineValidators: combineValidators,
             toValidationMap: toValidationMap,
             handleServerResponse: handleServerResponse
         };

@@ -88,11 +88,29 @@ namespace VaBank.Services.Membership {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Новый пароль должен отличаться от старого.
+        /// </summary>
+        public static string NewPasswordNotChanged {
+            get {
+                return ResourceManager.GetString("NewPasswordNotChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Это поле не должно быть пустым..
         /// </summary>
         public static string NotEmpty {
             get {
                 return ResourceManager.GetString("NotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ваш пароль изменен. Рекомендуем выйти и заново зайти в систему..
+        /// </summary>
+        public static string PasswordChanged {
+            get {
+                return ResourceManager.GetString("PasswordChanged", resourceCulture);
             }
         }
         

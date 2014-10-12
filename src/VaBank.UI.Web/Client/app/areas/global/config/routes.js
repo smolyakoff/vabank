@@ -12,7 +12,7 @@
         $urlRouterProvider.otherwise('/');
 
         $stateProvider.state('login', {            
-            url: '/login?redirect&redirectParams',
+            url: '/login?redirect',
             templateUrl: '/Client/app/areas/global/auth/login.html',
             controller: 'loginController',
             data: {

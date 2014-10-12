@@ -58,7 +58,7 @@ namespace VaBank.Services.Membership
             RuleFor(x => x.PhoneNumberConfirmed).Equal(false).When(x => string.IsNullOrWhiteSpace(x.PhoneNumber)).WithLocalizedMessage(() => Messages.EmptyPhoneNumberConfirmed);
             RuleFor(x => x.SecretPhrase).NotEmpty().Length(5, 1024);
         }
-        private bool IsUserNameUnique(CreateUserCommand command, string userName, PropertyValidatorContext context)
+        private bool IsUserNameUnique(CreateUserCommand command, string userName)
         {
             var query = DbQuery.For<User>().FilterBy(x => x.Deleted == false && x.UserName == userName);
             var existingUser = _userRepository.QueryOne(query);
@@ -70,8 +70,9 @@ namespace VaBank.Services.Membership
     {
         public ChangePasswordCommandValidator()
         {
-            RuleFor(x => x.CurrentPassword).UseValidator(new PasswordValidator());
-            RuleFor(x => x.NewPassword).UseValidator(new PasswordValidator());
+            RuleFor(x => x.UserId).Must(x => x != Guid.Empty);
+            RuleFor(x => x.CurrentPassword).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
+            RuleFor(x => x.NewPassword).Must((c, x) => x != c.CurrentPassword).WithLocalizedMessage(() => Messages.NewPasswordNotChanged).UseValidator(new PasswordValidator());
             RuleFor(x => x.NewPasswordConfirmation).UseValidator(new PasswordValidator()).Equal(x => x.NewPassword)
                 .WithLocalizedMessage(() => Messages.PasswordConfirmation);
         }
@@ -87,7 +88,6 @@ namespace VaBank.Services.Membership
                 throw new ArgumentNullException("userRepository");
             }
             _userRepository = userRepository;
-            RuleFor(x => x.UserId).Must(x => x != Guid.Empty);
             RuleFor(x => x.Email).EmailAddress();
             RuleFor(x => x.FirstName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
             RuleFor(x => x.LastName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty);
@@ -98,13 +98,15 @@ namespace VaBank.Services.Membership
             RuleFor(x => x.PasswordConfirmation).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty)
                 .Equal(x => x.Password).WithLocalizedMessage(() => Messages.PasswordConfirmation)
                 .When(x => x.ChangePassword);
-            RuleFor(x => x.PhoneNumber).UseValidator(new PhoneNumberValidator());
+            RuleFor(x => x.PhoneNumber).UseValidator(new PhoneNumberValidator()).When(x => !string.IsNullOrWhiteSpace(x.PhoneNumber));
+            RuleFor(x => x.PhoneNumberConfirmed).Equal(false).When(x => string.IsNullOrWhiteSpace(x.PhoneNumber)).WithLocalizedMessage(() => Messages.EmptyPhoneNumberConfirmed);
+            RuleFor(x => x.SecretPhrase).NotEmpty().Length(5, 1024);
         }
-        private bool IsUserNameUnique(CreateUserCommand command, string userName, PropertyValidatorContext context)
+        private bool IsUserNameUnique(UpdateUserCommand command, string userName)
         {
             var query = DbQuery.For<User>().FilterBy(x => x.Deleted == false && x.UserName == userName);
             var existingUser = _userRepository.QueryOne(query);
-            return existingUser == null;
+            return existingUser == null || existingUser.Id == command.UserId;
         }
     }
 

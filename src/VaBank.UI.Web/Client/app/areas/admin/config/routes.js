@@ -65,7 +65,7 @@
                         } else {
                             var params = { userId: $stateParams.id };
                             return routingResolve.resolveAll(
-                                [User.get(params).$promise, User.getProfile(params).$promise],
+                                [User.get(params).$promise, routingResolve.resolveOrDefault(User.getProfile(params).$promise, {})],
                                 ['user', 'profile']
                             );
                         }

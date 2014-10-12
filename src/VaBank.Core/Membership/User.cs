@@ -38,12 +38,14 @@ namespace VaBank.Core.Membership
         public virtual UserProfile Profile { get; set; }
         public byte[] RowVersion { get; set; }
 
+        public bool ValidatePassword(string passwordText)
+        {
+            return !string.IsNullOrEmpty(passwordText) && Password.Validate(PasswordHash, PasswordSalt, passwordText);
+        }
+
         public void UpdatePassword(string passwordText)
         {
-            if (string.IsNullOrEmpty(passwordText))
-            {
-                throw new ArgumentNullException("passwordText");
-            }
+            EnsureArgumentValid<PasswordValidator, string>(passwordText, "passwordText");
             var password = Password.Create(passwordText);
             PasswordHash = password.PasswordHash;
             PasswordSalt = password.PasswordSalt;

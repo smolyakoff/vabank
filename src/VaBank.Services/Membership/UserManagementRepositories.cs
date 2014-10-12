@@ -11,5 +11,7 @@ namespace VaBank.Services.Membership
         public IQueryRepository<UserProfile> UserProfiles { get; set; }
 
         public IQueryRepository<UserClaim> UserClaims { get; set; } 
+
+        public IQueryRepository<ApplicationToken> Tokens { get; set; } 
     }
 }

@@ -49,7 +49,7 @@
     <Compile Include="Membership\ApplicationClientType.cs" />
     <Compile Include="Membership\ApplicationToken.cs" />
     <Compile Include="Membership\IApplicationTokenRepository.cs" />
-    <Compile Include="Membership\Messages.Designer.cs">
+    <Compile Include="Membership\Resources\Messages.Designer.cs">
       <DependentUpon>Messages.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -71,10 +71,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Membership\Messages.resx">
+    <EmbeddedResource Include="Membership\Resources\Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Membership\Resources\Top_500_Worst_Passwords.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -27,7 +27,7 @@
                     if (toState.name === 'customer.cabinet') {
                         $state.go('login');
                     } else {
-                        $state.go('login', { redirect: toState.name, redirectParams: toParams });
+                        $state.go('login', { redirect: $state.href(toState, toParams) });
                     }
                 }
             }
@@ -65,17 +65,23 @@
                         if (toState.name === 'customer.cabinet') {
                             $state.go('login');
                         } else {
-                            $state.go('login', { redirect: toState.name, redirectParams: toParams });
+                            $state.go('login', { redirect: $state.href(toState, toParams) });
                         }
                         
                     });
                 });
-            } else {
+            } else if (error.status === 500 || error instanceof Error) {
+                var message;
+                if (error instanceof Error) {
+                    message = error.message;
+                } else {
+                    message = $filter('json')(error);
+                }
                 var notification = {
                     state: 'error.500',
                     type: 'error',
                     title: 'DEBUG',
-                    message: '<pre>' + $filter('json')(error) + '</pre>'
+                    message: '<pre>' + message + '</pre>'
                 };
                 notificationService.notify(notification);
                 $state.go('error.500');

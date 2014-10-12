@@ -38,7 +38,13 @@
             .state('customer.profile.edit', {
                 url: '',
                 templateUrl: '/Client/app/areas/customer/profile/profile-edit.html',
-                controller: 'profileEditController'
+                controller: 'profileEditController',
+                resolve: {
+                    data: ['authService', 'profileService', function (authService, profileService) {
+                        var user = authService.getUser();
+                        return profileService.Profile.get({ userId: user.id }).$promise;
+                    }]
+                }
             })
             .state('customer.profile.changePassword', {
                 url: '/change-password',

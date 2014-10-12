@@ -61,7 +61,14 @@
 
         var onResponseError = function (rejection) {
             function onRefreshSuceces() {
-                retryHttpRequest(rejection.config, deferred);
+                if (rejection.config.isRetry) {
+                    localStorage.remove(authConfig.storageKey);
+                    $location.path(authConfig.loginUrl);
+                    deferred.reject(rejection);
+                } else {
+                    rejection.config.isRetry = true;
+                    retryHttpRequest(rejection.config, deferred);
+                }
             }
 
             function onRefreshFailure() {

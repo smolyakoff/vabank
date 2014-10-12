@@ -1,5 +1,12 @@
-﻿using FluentValidation;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using FluentValidation;
+using VaBank.Common.Resources;
 using VaBank.Common.Validation;
+using VaBank.Core.Common;
+using VaBank.Core.Membership.Resources;
 
 namespace VaBank.Core.Membership
 {
@@ -18,10 +25,24 @@ namespace VaBank.Core.Membership
     [StaticValidator]
     public class PasswordValidator : ObjectValidator<string>
     {
+        private static readonly HashSet<string> WorstPasswords;
+
+        static PasswordValidator()
+        {
+            WorstPasswords = new HashSet<string>(
+                Resource.ReadAsString(typeof(Entity).Assembly, "Membership/Resources/Top_500_Worst_Passwords.txt")
+                .Split(new [] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+                .Distinct());
+        }
+
         public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
         {
-            return builder.NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty).Length(6, 256)
-                .WithLocalizedMessage(() => Messages.FieldLength, 6);
+            return builder
+                .NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty)
+                .Length(6, 256).WithLocalizedMessage(() => Messages.FieldLength, 6)
+                .Matches(@"\d").WithLocalizedMessage(() => Messages.PasswordFormatNumber)
+                .Matches(@"\!|@|#|\$|%|\^|\&|'").WithLocalizedMessage(() => Messages.PasswordFormatSpecChar)
+                .Must(x => !WorstPasswords.Contains(x)).WithLocalizedMessage(() => Messages.WeakPassword);
         }
     }
 

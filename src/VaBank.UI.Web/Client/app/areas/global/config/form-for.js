@@ -8,7 +8,8 @@
     function formForConfig(config) {
         var init = function() {
             config.setValidationFailedForRequiredMessage('Обязательное поле');
-            //config.setDefaultDebounceDuration(false);
+            config.setValidationFailedForEmailTypeMessage('Некорректный email-адрес');
+            config.setDefaultDebounceDuration(false);
         };
 
         return {
