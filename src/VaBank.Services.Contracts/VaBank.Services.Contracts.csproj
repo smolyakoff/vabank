@@ -47,6 +47,22 @@
   <ItemGroup>
     <Compile Include="Common\Security\AccessDeniedException.cs" />
     <Compile Include="Common\Security\AccessDenied.cs" />
+    <Compile Include="Common\Security\Rules\ConstraintPropertySecurityRule.cs" />
+    <Compile Include="Common\Security\Rules\EqualPropertySecurityRule.cs" />
+    <Compile Include="Common\Security\Rules\IPropertySecurityRule.cs" />
+    <Compile Include="Common\Security\Rules\ISecurityRule.cs" />
+    <Compile Include="Common\Security\Rules\ISecurityRuleBuilder.cs" />
+    <Compile Include="Common\Security\Rules\IPropertySecurityRuleBuilder.cs" />
+    <Compile Include="Common\Security\Rules\ISecurityRuleFactory.cs" />
+    <Compile Include="Common\Security\Rules\ISecurityRule`1.cs" />
+    <Compile Include="Common\Security\Rules\NotEqualPropertySecurityRule.cs" />
+    <Compile Include="Common\Security\Rules\PropertyConstraint.cs" />
+    <Compile Include="Common\Security\Rules\PropertySecurityRule.cs" />
+    <Compile Include="Common\Security\Rules\SecurityRuleAttribute.cs" />
+    <Compile Include="Common\Security\Rules\PropertySecurityRuleBuilder.cs" />
+    <Compile Include="Common\Security\Rules\SecurityRuleException.cs" />
+    <Compile Include="Common\Security\Rules\SecurityRuleFault.cs" />
+    <Compile Include="Common\Security\Rules\SecurityRuleMatchResult.cs" />
     <Compile Include="Common\Security\SecurityException.cs" />
     <Compile Include="Common\UserMessageException.cs" />
     <Compile Include="Common\Validation\IValidationService.cs" />
@@ -99,7 +115,9 @@
       <Name>VaBank.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Common\Security\Rules\Building\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
