@@ -12,26 +12,20 @@ namespace VaBank.Data.Tests
         public void Can_VaBank_Context_Save_User()
         {
             var context = new VaBank.Data.EntityFramework.VaBankContext();
-            var profile = new UserProfile
+
+            var user = User.Create(string.Format("Test_{0}", Guid.NewGuid().ToString()), "Admin", "1234567890!");
+            var profile = new UserProfile(user.Id)
             {
-                Email = "john@gmail.com",
-                FirstName = "John",
-                UserId = Guid.NewGuid(),
-                LastName = "Doe",
-                PhoneNumber = "123-456-789",
+                Email = "test@test.com",
+                FirstName = "Test",
+                LastName = "Test",
+                PhoneNumber = "+375 29 3981330",
                 PhoneNumberConfirmed = true,
-                SecretPhrase = "Testing",
+                SecretPhrase = "Test",
                 SmsConfirmationEnabled = false,
-                SmsNotificationEnabled = false
+                SmsNotificationEnabled = false                
             };
-            var user = new User 
-            { 
-                Profile = profile,
-                Id = profile.UserId,
-                PasswordHash = "1234567890",
-                PasswordSalt = "1234567890",
-                UserName = "Test"
-            };
+
             context.Set<User>().Add(user);
             context.Set<UserProfile>().Add(profile);                        
             context.SaveChanges();
