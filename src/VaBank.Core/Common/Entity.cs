@@ -18,7 +18,7 @@ namespace VaBank.Core.Common
             if (faults.Count > 0)
             {
                 var message = string.Join(" ", faults.Select(x => x.Message));
-                throw new ArgumentException(argumentName, argumentName);
+                throw new ArgumentException(message, argumentName);
             }
         } 
     }

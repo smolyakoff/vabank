@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\IOperationMarkerProvider.cs" />
+    <Compile Include="App\IOperationMarkerRepository.cs" />
+    <Compile Include="App\OperationMarker.cs" />
     <Compile Include="Common\Entity.cs" />
     <Compile Include="Common\Entity`1.cs" />
     <Compile Include="Maintenance\SystemLogEntry.cs" />

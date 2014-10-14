@@ -2,6 +2,7 @@
 using VaBank.Core.Common;
 using VaBank.Core.Maintenance;
 using VaBank.Core.Membership;
+using VaBank.Data.EntityFramework.App.Mappings;
 using VaBank.Data.EntityFramework.Maintenance.Mappings;
 using VaBank.Data.EntityFramework.Membership.Mappings;
 
@@ -23,6 +24,9 @@ namespace VaBank.Data.EntityFramework
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //App mappings registration
+            modelBuilder.Configurations.Add(new OperationMarkerMap());
+
             //Maintenance mappings registration
             modelBuilder.Configurations.Add(new SystemLogEntryMap());
 
