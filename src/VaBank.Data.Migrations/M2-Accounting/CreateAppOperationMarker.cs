@@ -3,6 +3,7 @@
 namespace VaBank.Data.Migrations
 {
     [Migration(14, "Created app schema and OperationMarker")]
+    [Tags("App", "Development", "Production", "Test")]
     public class CreateAppOperationMarker : Migration
     {
         private const string SchemaName = "App";
@@ -13,7 +14,7 @@ namespace VaBank.Data.Migrations
             Execute.EmbeddedScript("M2_Accounting.TABLE_OperationMarker.sql");
             Execute.EmbeddedScript("M2_Accounting.TRG_OperationMarker_Insert.sql");
             Execute.EmbeddedScript("M2_Accounting.PROC_StartOperationMarker.sql");
-            Execute.EmbeddedScript("M2_Accounting.PROC_GetOperationMarker.sql");
+            Execute.EmbeddedScript("M2_Accounting.FUNC_GetOperationMarker.sql");
             Execute.EmbeddedScript("M2_Accounting.PROC_FinishOperationMarker.sql");
 
             Create.ForeignKey("FK_OperationMarker_To_User")
@@ -36,9 +37,12 @@ namespace VaBank.Data.Migrations
 
         public override void Down()
         {
+            Execute.Sql("DROP PROCEDURE [App].[StartOperationMarker], [App].[FinishOperationMarker]");
+            Execute.Sql("DROP FUNCTION [App].[GetOperationMarker]");
             Delete.ForeignKey("FK_OperationMarker_To_User");
             Delete.ForeignKey("FK_OperationMarker_To_ApplicationClient");
             Delete.Table("OperationMarker").InSchema("App");
+            
             Delete.Schema(SchemaName);
         }
     }
