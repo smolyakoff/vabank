@@ -12,6 +12,8 @@ CREATE TABLE [App].[OperationMarker](
 	[Id] [uniqueidentifier] NOT NULL,
 	[TransactionId] [bigint] NOT NULL,
 	[TimestampUtc] [datetime] NOT NULL,
+	[Name] [nvarchar] (100) NOT NULL,
+	[Finished] [bit] NOT NULL,
 	[DbUser] [nvarchar](256) NOT NULL,
 	[DbApplication] [varchar](256) NOT NULL,
 	[AppUserId] [uniqueidentifier] NULL,
@@ -27,10 +29,16 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-ALTER TABLE [App].[OperationMarker] ADD  CONSTRAINT [DF_OperationMarker_Id]  DEFAULT (newid()) FOR [Id]
+ALTER TABLE [App].[OperationMarker] ADD  CONSTRAINT [DF_OperationMarker_Id]  DEFAULT (newsequentialid()) FOR [Id]
 GO
 
 ALTER TABLE [App].[OperationMarker] ADD  CONSTRAINT [DF_OperationMarker_TimestampUtc]  DEFAULT (getutcdate()) FOR [TimestampUtc]
+GO
+
+ALTER TABLE [App].[OperationMarker] ADD  CONSTRAINT [DF_OperationMarker_Name]  DEFAULT (N'DB-CHANGE') FOR [Name]
+GO
+
+ALTER TABLE [App].[OperationMarker] ADD  CONSTRAINT [DF_OperationMarker_Finished]  DEFAULT (0) FOR [Finished]
 GO
 
 ALTER TABLE [App].[OperationMarker] ADD  CONSTRAINT [DF_OperationMarker_SqlUser]  DEFAULT (suser_sname()) FOR [DbUser]

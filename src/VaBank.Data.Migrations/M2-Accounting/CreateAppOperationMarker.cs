@@ -12,18 +12,25 @@ namespace VaBank.Data.Migrations
             Create.Schema(SchemaName);
             Execute.EmbeddedScript("M2_Accounting.TABLE_OperationMarker.sql");
             Execute.EmbeddedScript("M2_Accounting.TRG_OperationMarker_Insert.sql");
+            Execute.EmbeddedScript("M2_Accounting.PROC_StartOperationMarker.sql");
+            Execute.EmbeddedScript("M2_Accounting.PROC_GetOperationMarker.sql");
+            Execute.EmbeddedScript("M2_Accounting.PROC_FinishOperationMarker.sql");
+
             Create.ForeignKey("FK_OperationMarker_To_User")
                 .FromTable("OperationMarker").InSchema(SchemaName).ForeignColumn("AppUserId")
                 .ToTable("User").InSchema("Membership").PrimaryColumn("UserId");
             Create.ForeignKey("FK_OperationMarker_To_ApplicationClient")
                 .FromTable("OperationMarker").InSchema(SchemaName).ForeignColumn("AppClientId")
                 .ToTable("ApplicationClient").InSchema("Membership").PrimaryColumn("ID");
+
             Create.Index("IX_OperationMarker_TimestampUtc")
                 .OnTable("OperationMarker").InSchema("App")
                 .OnColumn("TimestampUtc").Descending();
+
             Create.Index("IX_OperationMarker_AK")
                 .OnTable("OperationMarker").InSchema("App")
-                .OnColumn("TransactionId").Ascending()
+                .OnColumn("TransactionId").Descending()
+                .OnColumn("Finished").Ascending()
                 .OnColumn("TimestampUtc").Descending();
         }
 

@@ -80,6 +80,15 @@
     <EmbeddedResource Include="M2-Accounting\TABLE_OperationMarker.sql" />
     <EmbeddedResource Include="M2-Accounting\TRG_OperationMarker_Insert.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="M2-Accounting\PROC_GetOperationMarker.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="M2-Accounting\PROC_FinishOperationMarker.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="M2-Accounting\PROC_StartOperationMarker.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
