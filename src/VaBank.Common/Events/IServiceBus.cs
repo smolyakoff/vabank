@@ -2,6 +2,8 @@
 {
     public interface IServiceBus : ISendOnlyServiceBus
     {
-        void Subscribe<TEvent>(IHandler handler);
+        void Subscribe<THandler, TEvent>() 
+            where THandler : IHandler<TEvent>
+            where TEvent : IEvent;
     }
 }

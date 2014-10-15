@@ -2,10 +2,8 @@
 
 namespace VaBank.Common.Events
 {
-    public interface IHandler
+    public interface IHandler<in TEvent> where TEvent : IEvent
     {
-        void Handle();
-        bool CanHandle<TEvent>(TEvent appEvent) where TEvent : IEvent;
-        bool CanHandle(Type type);
+        void Handle(TEvent appEvent);
     }
 }

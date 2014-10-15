@@ -905,6 +905,7 @@
     <Compile Include="Api\Infrastructure\Auth\VabankRefreshTokenProvider.cs" />
     <Compile Include="Api\Infrastructure\Converters\HttpServiceErrorConverter.cs" />
     <Compile Include="Api\Infrastructure\Converters\PagedListConverter.cs" />
+    <Compile Include="Api\Infrastructure\Events\EventExtensions.cs" />
     <Compile Include="Api\Infrastructure\Events\HangfireServiceBus.cs" />
     <Compile Include="Api\Infrastructure\Filters\ServiceExceptionFilterAttribute.cs" />
     <Compile Include="Api\Infrastructure\Filters\TransactionAttribute.cs" />
