@@ -62,6 +62,7 @@
     <Compile Include="M1-Authentication\SeedClientProduction.cs" />
     <Compile Include="M1-Authentication\SeedUsers.cs" />
     <Compile Include="M1-Authentication\M1User.cs" />
+    <Compile Include="M2-Accounting\CreateAppAction.cs" />
     <Compile Include="M2-Accounting\CreateAppOperationMarker.cs" />
     <Compile Include="M2-Accounting\CreateHistoryProcedures.cs" />
     <Compile Include="M2-Accounting\CreateHistoryTableForUser.cs" />
