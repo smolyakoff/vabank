@@ -905,8 +905,8 @@
     <Compile Include="Api\Infrastructure\Auth\VabankRefreshTokenProvider.cs" />
     <Compile Include="Api\Infrastructure\Converters\HttpServiceErrorConverter.cs" />
     <Compile Include="Api\Infrastructure\Converters\PagedListConverter.cs" />
-    <Compile Include="Api\Infrastructure\Events\EventExtensions.cs" />
-    <Compile Include="Api\Infrastructure\Events\HangfireServiceBus.cs" />
+    <Compile Include="Events\EventExtensions.cs" />
+    <Compile Include="Events\HangfireServiceBus.cs" />
     <Compile Include="Api\Infrastructure\Filters\ServiceExceptionFilterAttribute.cs" />
     <Compile Include="Api\Infrastructure\Filters\TransactionAttribute.cs" />
     <Compile Include="Api\Infrastructure\IoC\JsonNetConverter.cs" />
@@ -919,6 +919,7 @@
     <Compile Include="Middleware\ExceptionMiddleware.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
     <Compile Include="Modules\ServicesModule.cs" />
+    <Compile Include="Modules\HangfireBusModule.cs" />
     <Compile Include="Modules\WebApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerInfo.cs" />

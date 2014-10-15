@@ -149,6 +149,7 @@ namespace VaBank.UI.Web
             builder.RegisterModule<DataAccessModule>();
             builder.RegisterModule<ServicesModule>();
             builder.RegisterModule<WebApiModule>();
+            builder.RegisterModule<HangfireBusModule>();
             var container = builder.Build();
             return container;
         }
