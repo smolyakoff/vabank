@@ -7,22 +7,37 @@ namespace VaBank.Core.Membership
 {
     public class UserClaim : Entity
     {
-        public static class Role
+        private static readonly List<string> SupportedRoles = 
+            new List<string> { "Admin", "Customer" };
+
+        public static class Types
         {
-            private const string AdminRole = "Admin";
+            public const string Role = ClaimTypes.Role;
 
-            private const string CustomerRole = "Customer";
+            public const string UserId = ClaimTypes.Sid;
 
-            public static readonly List<string> RoleNames = new List<string> {AdminRole, CustomerRole};
+            public const string UserName = ClaimTypes.Name;
 
-            public static UserClaim Create(Guid userId, string roleName)
+            public const string ClientId = "https://vabank.azurewebsites.net/api/claimTypes/clientId";
+        }
+
+        public static bool IsSupportedRole(string roleName)
+        {
+            if (string.IsNullOrEmpty(roleName))
             {
-                if (!RoleNames.Contains(roleName))
-                {
-                    throw new ArgumentException("Role name is invalid");
-                }
-                return new UserClaim {UserId = userId, Type = ClaimTypes.Role, Value = roleName};
+                throw new ArgumentNullException("roleName");
             }
+            return SupportedRoles.Contains(roleName);
+        }
+
+        public static UserClaim CreateRole(Guid userId, string roleName)
+        {
+            if (!SupportedRoles.Contains(roleName))
+            {
+                var message = string.Format("Role {0} is not supported.", roleName);
+                throw new NotSupportedException(message);
+            }
+            return new UserClaim {UserId = userId, Type = ClaimTypes.Role, Value = roleName};
         }
 
         public Guid UserId { get; set; }

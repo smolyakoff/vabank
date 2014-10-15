@@ -1,4 +1,4 @@
-﻿/****** Object:  Trigger [App].[TRG_Insert_OperationMarker]    Script Date: 13.10.2014 23:40:37 ******/
+﻿/****** Object:  Trigger [App].[TRG_Insert_Operation]    Script Date: 13.10.2014 23:40:37 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -6,11 +6,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 --Create an INSTEAD OF INSERT trigger on the view.
-CREATE TRIGGER [App].[TRG_Insert_OperationMarker] on [App].[OperationMarker]
+CREATE TRIGGER [App].[TRG_Insert_Operation] on [App].[Operation]
 INSTEAD OF INSERT
 AS
 BEGIN
-  INSERT INTO [App].[OperationMarker] 
+  INSERT INTO [App].[Operation] 
          ([TimestampUtc], [Name], [TransactionId], [AppUserId], [AppClientId])
   SELECT ISNULL([inserted].[TimestampUtc], GETUTCDATE()),
 		 ISNULL([inserted].[Name], N'DB-CHANGE'),

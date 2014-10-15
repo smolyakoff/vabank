@@ -4,7 +4,7 @@ using VaBank.Services.Common;
 
 namespace VaBank.Services.Maintenance
 {
-    public class MaintenanceRepositories : IRepositoryCollection
+    public class MaintenanceRepositories : IDependencyCollection
     {
         public IQueryRepository<SystemLogEntry> LogEntries { get; set; } 
     }

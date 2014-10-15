@@ -23,8 +23,8 @@ namespace VaBank.Services.Membership
     {
         private readonly UserManagementRepositories _db;
 
-        public UserManagementService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, UserManagementRepositories repositories) 
-            : base(unitOfWork, validatorFactory)
+        public UserManagementService(BaseServiceDependencies dependencies, UserManagementRepositories repositories) 
+            : base(dependencies)
         {
             repositories.EnsureIsResolved();
             _db = repositories;
@@ -104,7 +104,7 @@ namespace VaBank.Services.Membership
                     return false;
                 }
                 Mapper.Map(command, user);
-                var role = UserClaim.Role.Create(command.UserId, command.Role);
+                var role = UserClaim.CreateRole(command.UserId, command.Role);
                 var existingRoles = user.Claims.Where(x => x.Type == ClaimTypes.Role).ToList();
                 foreach (var existingRole in existingRoles)
                 {

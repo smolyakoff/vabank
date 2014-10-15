@@ -1,14 +1,10 @@
-﻿using FluentValidation;
-using System;
-using VaBank.Core.Common;
+﻿using System;
 using VaBank.Core.Membership;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Queries;
-using VaBank.Services.Contracts.Common.Security;
 using VaBank.Services.Contracts.Membership;
 using VaBank.Common.Data.Repositories;
-using VaBank.Services.Contracts.Common.Models;
 using VaBank.Common.Security;
 using VaBank.Services.Contracts.Membership.Commands;
 using VaBank.Services.Contracts.Membership.Models;
@@ -19,8 +15,8 @@ namespace VaBank.Services.Membership
     {
         private readonly AuthorizationRepositories _db;
 
-        public AuthorizationService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, AuthorizationRepositories repositories) 
-            : base(unitOfWork, validatorFactory)
+        public AuthorizationService(BaseServiceDependencies dependencies, AuthorizationRepositories repositories) 
+            : base(dependencies)
         {
             repositories.EnsureIsResolved();
             _db = repositories;
@@ -44,6 +40,7 @@ namespace VaBank.Services.Membership
                 ++user.AccessFailedCount;
                 if (reason == AccessFailureReason.BadCredentials)
                 {
+                    //TODO: this is domain logic
                     if (user.AccessFailedCount > 3)
                     {
                         user.LockoutEnabled = true;
@@ -159,6 +156,7 @@ namespace VaBank.Services.Membership
             return null;
         }
 
+        //TODO: this is domain logic, move to core
         private AccessFailureReason? VerifyAccess(User user)
         {
             if (user.Deleted)

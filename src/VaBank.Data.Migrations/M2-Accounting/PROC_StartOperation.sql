@@ -3,7 +3,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [App].[StartOperationMarker]
+CREATE PROCEDURE [App].[StartOperation]
 	@Id UNIQUEIDENTIFIER = NULL OUTPUT,
 	@TimestampUtc DATETIME = NULL,
 	@Name NVARCHAR(50) = NULL,
@@ -12,9 +12,9 @@ CREATE PROCEDURE [App].[StartOperationMarker]
 AS
 BEGIN
 	SET NOCOUNT ON;
-	INSERT INTO [App].[OperationMarker] 
+	INSERT INTO [App].[Operation] 
 		   ([TimestampUtc], [Name], [AppUserId], [AppClientId])
 	VALUES (ISNULL(@TimestampUtc, GETUTCDATE()), ISNULL(@Name, N'DB-CHANGE'), @AppUserId, @AppClientId)
-	SET @Id = (SELECT [Id] FROM [App].[GetOperationMarker]())
+	SET @Id = (SELECT [Id] FROM [App].[CurrentOperation])
 END
 GO

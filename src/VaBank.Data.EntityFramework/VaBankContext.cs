@@ -25,7 +25,7 @@ namespace VaBank.Data.EntityFramework
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //App mappings registration
-            modelBuilder.Configurations.Add(new OperationMarkerMap());
+            modelBuilder.Configurations.Add(new OperationMap());
 
             //Maintenance mappings registration
             modelBuilder.Configurations.Add(new SystemLogEntryMap());

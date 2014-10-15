@@ -5,16 +5,16 @@ using VaBank.Data.EntityFramework.Membership.Mappings;
 
 namespace VaBank.Data.EntityFramework.App.Mappings
 {
-    public class OperationMarkerMap : EntityTypeConfiguration<OperationMarker>
+    public class OperationMap : EntityTypeConfiguration<Operation>
     {
-        public OperationMarkerMap()
+        public OperationMap()
         {
-            ToTable("OperationMarker", "App");
+            ToTable("Operation", "App");
             HasKey(x => x.Id);
             Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(x => x.Name).HasMaxLength(RestrictionConstants.NameLength);
             Property(x => x.UserId).HasColumnName("AppUserId").IsOptional();
-            Property(x => x.ClientName).HasColumnName("AppClientId").HasMaxLength(RestrictionConstants.NameLength).IsOptional();
+            Property(x => x.ClientApplicationId).HasColumnName("AppClientId").HasMaxLength(RestrictionConstants.NameLength).IsOptional();
         }
     }
 }

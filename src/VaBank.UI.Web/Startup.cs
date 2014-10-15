@@ -113,6 +113,7 @@ namespace VaBank.UI.Web
 
             //Filters
             configuration.Filters.Add(new ServiceExceptionFilterAttribute());
+            configuration.Filters.Add(new ServiceOperationAttribute());
 
             //Formatters and converters
             configuration.Formatters.Clear();
@@ -127,17 +128,15 @@ namespace VaBank.UI.Web
             serializerSettings.Converters.Insert(2, new PagedListConverter());
             jsonFormatter.SerializerSettings = serializerSettings;
             configuration.Formatters.Add(jsonFormatter);
+
+            //Binding rules
             configuration.ParameterBindingRules.Insert(0, x => 
                 typeof(IClientQuery).IsAssignableFrom(x.ParameterType) 
                 ? new QueryHttpParameterBinding(x) 
                 : null);
 
-            //Model Binders
-            //configuration.Services.Insert(
-                //typeof(ModelBinderProvider), 0, new InheritanceAwareModelBinderProvider(typeof(IClientQuery), new QueryModelBinder()));
 
             configuration.Services.Add(typeof(IExceptionLogger), new GlobalExceptionLogger());
-            //configuration.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());
 
             configuration.EnsureInitialized();
             return configuration;

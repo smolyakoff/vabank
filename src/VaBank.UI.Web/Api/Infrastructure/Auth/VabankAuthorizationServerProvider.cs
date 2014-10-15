@@ -65,8 +65,10 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             {
                 newIdentity.AddClaim(new Claim(claimModel.Type, claimModel.Value));
             }
-            context.OwinContext.Set("vabank:user", user);
             var client = context.OwinContext.Get<ApplicationClientModel>("vabank:client");
+            newIdentity.AddClaim(new Claim(ClaimModel.Types.ClientId, client.Id));
+            context.OwinContext.Set("vabank:user", user);
+            
 
             // Set CORS header
             context.Response.Headers.Set("Access-Control-Allow-Origin", client.AllowedOrigin);
@@ -158,8 +160,9 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             {
                 identity.AddClaim(new Claim(claimModel.Type, claimModel.Value));
             }
-            context.OwinContext.Set("vabank:user", user);
             var client = context.OwinContext.Get<ApplicationClientModel>("vabank:client");
+            identity.AddClaim(new Claim(ClaimModel.Types.ClientId, client.Id));
+            context.OwinContext.Set("vabank:user", user);
 
             // Set CORS header
             context.Response.Headers.Set("Access-Control-Allow-Origin", client.AllowedOrigin);

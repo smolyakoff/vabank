@@ -79,17 +79,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="M2-Accounting\TABLE_OperationMarker.sql" />
-    <EmbeddedResource Include="M2-Accounting\TRG_OperationMarker_Insert.sql" />
+    <EmbeddedResource Include="M2-Accounting\TABLE_Operation.sql" />
+    <EmbeddedResource Include="M2-Accounting\TRG_Operation_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="M2-Accounting\FUNC_GetOperationMarker.sql" />
+    <EmbeddedResource Include="M2-Accounting\VIEW_CurrentOperation.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="M2-Accounting\PROC_FinishOperationMarker.sql" />
+    <EmbeddedResource Include="M2-Accounting\PROC_FinishOperation.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="M2-Accounting\PROC_StartOperationMarker.sql" />
+    <EmbeddedResource Include="M2-Accounting\PROC_StartOperation.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="M2-Accounting\PROC_DropHistoryTable.sql" />

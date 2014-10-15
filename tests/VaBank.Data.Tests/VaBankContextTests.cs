@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VaBank.Core.App;
 using VaBank.Core.Membership;
+using VaBank.Data.EntityFramework;
 using VaBank.Data.EntityFramework.App;
 
 namespace VaBank.Data.Tests
@@ -37,30 +38,30 @@ namespace VaBank.Data.Tests
 
         [TestCategory("Development")]
         [TestMethod]
-        public void Can_Use_OperationMarkers()
+        public void Can_Start_And_Finish_Operations()
         {
-            var context = new VaBank.Data.EntityFramework.VaBankContext();
-            var repo = new OperationMarkerRepository(context);
+            var context = new VaBankContext();
+            var repo = new OperationRepository(context);
             using (var transaction = context.Database.BeginTransaction())
             {
-                
-                var marker1 = repo.Take("TEST-CHANGE", null, null);
 
-                var marker2 = repo.Get();
-                var marker3 = repo.Get();
+                var op1 = repo.Start("TEST", null);
 
-                var markers = new List<OperationMarker>() {marker1, marker2, marker3};
-                Assert.AreEqual(1, markers.Select(x => x.Id).Distinct().Count());
+                var op2 = repo.GetCurrent();
+                var op3 = repo.GetCurrent();
 
-                repo.Release(marker1);
+                var ops = new List<Operation>() { op1, op2, op3 };
+                Assert.AreEqual(1, ops.Select(x => x.Id).Distinct().Count());
 
-                var marker4 = repo.Get();
-                Assert.IsNull(marker4);
+                repo.Stop(op1);
+
+                var op4 = repo.GetCurrent();
+                Assert.IsNull(op4);
                 transaction.Commit();
             }
 
-            var marker5 = repo.Get();
-            Assert.IsNull(marker5);
+            var op5 = repo.GetCurrent();
+            Assert.IsNull(op5);
         }
     }
 }

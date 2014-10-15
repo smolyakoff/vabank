@@ -7,14 +7,14 @@ namespace VaBank.Services.Common
 {
     internal static class ServiceExtensions
     {
-        public static void EnsureIsResolved(this IRepositoryCollection collection)
+        public static void EnsureIsResolved(this IDependencyCollection dependencyCollection)
         {
-            if (collection == null)
+            if (dependencyCollection == null)
             {
                 throw new ArgumentException("Repository collection is not resolved");
             }
-            var properties = collection.GetType().GetProperties();
-            var values = properties.Select(x => x.GetValue(collection));
+            var properties = dependencyCollection.GetType().GetProperties();
+            var values = properties.Select(x => x.GetValue(dependencyCollection));
             if (values.Any(x => x == null))
             {
                 throw new ArgumentException("Not all repositories are resolved");

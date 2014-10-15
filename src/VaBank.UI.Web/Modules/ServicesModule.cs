@@ -4,9 +4,9 @@ using FluentValidation;
 using System;
 using System.Linq;
 using VaBank.Common.Validation;
+using VaBank.Core.App;
 using VaBank.Core.Common;
 using VaBank.Services.Common;
-using VaBank.Services.Common.Validation;
 using VaBank.Services.Contracts;
 using VaBank.UI.Web.Api.Infrastructure.IoC;
 using Module = Autofac.Module;
@@ -37,9 +37,14 @@ namespace VaBank.UI.Web.Modules
             staticValidators.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().AsSelf().SingleInstance());
             otherValidators.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().AsSelf().InstancePerRequest());
 
-            //Register repository collections
+            //Register operation provider
+            builder.RegisterType<ServiceOperationProvider>().AsSelf()
+                .Named<IOperationProvider>("Service")
+                .InstancePerRequest();
+
+            //Register dependency collections
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
-                .Where(t => typeof (IRepositoryCollection).IsAssignableFrom(t))
+                .Where(t => typeof (IDependencyCollection).IsAssignableFrom(t))
                 .PropertiesAutowired()
                 .AsSelf()
                 .InstancePerRequest();

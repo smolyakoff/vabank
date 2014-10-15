@@ -141,7 +141,7 @@ BEGIN
 
 		-- Create foreign key to operation marker
 		SET @CreateStatement = 'ALTER TABLE [' + @Owner + '].[' + @TableName + @HistoryNameExtension + '] ADD '
-		SET @CreateStatement = @CreateStatement + 'CONSTRAINT [FK_' + @TableName + @HistoryNameExtension + '_To_OperationMarker] FOREIGN KEY ([HistoryOperationId]) REFERENCES [App].[OperationMarker]([Id])' 
+		SET @CreateStatement = @CreateStatement + 'CONSTRAINT [FK_' + @TableName + @HistoryNameExtension + '_To_Operation] FOREIGN KEY ([HistoryOperationId]) REFERENCES [App].[Operation]([Id])' 
 		EXEC (@CreateStatement)
 
 		-- Create indexes
@@ -169,12 +169,12 @@ BEGIN
 	PRINT 'Creating triggers' 
 	DECLARE @PreHistoryStatement VARCHAR(500) = 
 		'BEGIN TRANSACTION HistoryTransaction ' + 
-	    'DECLARE @operationId uniqueidentifier = (SELECT Id FROM [App].[GetOperationMarker]()) ' +
+	    'DECLARE @operationId uniqueidentifier = (SELECT Id FROM [App].[CurrentOperation]) ' +
 		'DECLARE @isNewOperation bit = 0 ' +
 		'IF @operationId IS NULL SET @isNewOperation = 1 ' +
-		'IF @isNewOperation = 1 EXEC [App].[StartOperationMarker] @Id = @operationId OUTPUT '
+		'IF @isNewOperation = 1 EXEC [App].[StartOperation] @Id = @operationId OUTPUT '
 	DECLARE @PostHistoryStatement VARCHAR(500) =
-		'IF @isNewOperation = 1 UPDATE [App].[OperationMarker] SET [Finished] = 1 WHERE [Id] = @operationId ' + 
+		'IF @isNewOperation = 1 UPDATE [App].[Operation] SET [Finished] = 1 WHERE [Id] = @operationId ' + 
 		'COMMIT TRANSACTION HistoryTransaction'
 
 	SET @CreateStatement = 

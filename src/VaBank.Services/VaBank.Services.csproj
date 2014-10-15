@@ -56,8 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\BaseServiceDependencies.cs" />
+    <Compile Include="Common\ServiceOperationProvider.cs" />
     <Compile Include="Common\IObjectFactory.cs" />
-    <Compile Include="Common\IRepositoryCollection.cs" />
+    <Compile Include="Common\IDependencyCollection.cs" />
     <Compile Include="Common\ServiceExtensions.cs" />
     <Compile Include="Common\Validation\IObjectConverter.cs" />
     <Compile Include="Common\Validation\ValidationService.cs" />

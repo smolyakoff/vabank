@@ -4,7 +4,7 @@ using VaBank.Services.Common;
 
 namespace VaBank.Services.Membership
 {
-    public class UserManagementRepositories : IRepositoryCollection
+    public class UserManagementRepositories : IDependencyCollection
     {
         public IQueryRepository<User> Users { get; set; } 
 

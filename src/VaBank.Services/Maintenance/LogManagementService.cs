@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentValidation;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
-using VaBank.Core.Common;
 using VaBank.Core.Maintenance;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
@@ -22,8 +20,8 @@ namespace VaBank.Services.Maintenance
     {
         private readonly MaintenanceRepositories _db;
 
-        public LogManagementService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, MaintenanceRepositories repositories) 
-            : base(unitOfWork, validatorFactory)
+        public LogManagementService(BaseServiceDependencies dependencies, MaintenanceRepositories repositories) 
+            : base(dependencies)
         {
             repositories.EnsureIsResolved();
             _db = repositories;

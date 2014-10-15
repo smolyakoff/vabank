@@ -62,7 +62,7 @@ namespace VaBank.Core.Membership
     {
         public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
         {
-            return builder.Must(UserClaim.Role.RoleNames.Contains).WithLocalizedMessage(() => Messages.InvalidRole);
+            return builder.Must(UserClaim.IsSupportedRole).WithLocalizedMessage(() => Messages.InvalidRole);
         }
     }
 }
