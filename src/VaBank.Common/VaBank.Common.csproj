@@ -129,6 +129,10 @@
     <Compile Include="Data\Sorting\SortDirection.cs" />
     <Compile Include="Data\Sorting\SortingExtensions.cs" />
     <Compile Include="Data\Filtering\SpecFilter.cs" />
+    <Compile Include="Events\IHandler.cs" />
+    <Compile Include="Events\IServiceBus.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\ISendOnlyServiceBus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.cs" />
     <Compile Include="Security\Hash.cs" />

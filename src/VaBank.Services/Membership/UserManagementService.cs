@@ -6,6 +6,7 @@ using FluentValidation;
 using PagedList;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
+using VaBank.Common.Events;
 using VaBank.Core.Common;
 using VaBank.Core.Membership;
 using VaBank.Services.Common;
@@ -23,8 +24,9 @@ namespace VaBank.Services.Membership
     {
         private readonly UserManagementRepositories _db;
 
-        public UserManagementService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, UserManagementRepositories repositories) 
-            : base(unitOfWork, validatorFactory)
+        public UserManagementService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, 
+            UserManagementRepositories repositories, ISendOnlyServiceBus bus) 
+            : base(unitOfWork, validatorFactory, bus)
         {
             repositories.EnsureIsResolved();
             _db = repositories;

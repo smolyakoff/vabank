@@ -4,6 +4,7 @@ using System.Linq;
 using FluentValidation;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
+using VaBank.Common.Events;
 using VaBank.Core.Common;
 using VaBank.Core.Maintenance;
 using VaBank.Services.Common;
@@ -22,8 +23,9 @@ namespace VaBank.Services.Maintenance
     {
         private readonly MaintenanceRepositories _db;
 
-        public LogManagementService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, MaintenanceRepositories repositories) 
-            : base(unitOfWork, validatorFactory)
+        public LogManagementService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, 
+            MaintenanceRepositories repositories, ISendOnlyServiceBus bus) 
+            : base(unitOfWork, validatorFactory, bus)
         {
             repositories.EnsureIsResolved();
             _db = repositories;

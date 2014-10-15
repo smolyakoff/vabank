@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using System;
+using VaBank.Common.Events;
 using VaBank.Core.Common;
 using VaBank.Core.Membership;
 using VaBank.Services.Common;
@@ -19,8 +20,9 @@ namespace VaBank.Services.Membership
     {
         private readonly AuthorizationRepositories _db;
 
-        public AuthorizationService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, AuthorizationRepositories repositories) 
-            : base(unitOfWork, validatorFactory)
+        public AuthorizationService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, 
+            AuthorizationRepositories repositories, ISendOnlyServiceBus bus) 
+            : base(unitOfWork, validatorFactory, bus)
         {
             repositories.EnsureIsResolved();
             _db = repositories;
