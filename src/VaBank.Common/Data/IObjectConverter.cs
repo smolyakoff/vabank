@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VaBank.Services.Common.Validation
+namespace VaBank.Common.Data
 {
     public interface IObjectConverter
     {

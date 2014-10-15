@@ -1,8 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
-using VaBank.Services.Common.Validation;
 
-namespace VaBank.UI.Web.Api.Infrastructure.IoC
+namespace VaBank.Common.Data
 {
     public class JsonNetConverter : IObjectConverter
     {

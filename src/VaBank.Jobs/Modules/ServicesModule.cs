@@ -1,8 +1,6 @@
-﻿using Autofac;
-using AutoMapper;
+﻿using System.Linq;
+using Autofac;
 using FluentValidation;
-using System;
-using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
@@ -10,18 +8,17 @@ using VaBank.Core.App;
 using VaBank.Core.Common;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts;
-using Module = Autofac.Module;
 
-namespace VaBank.UI.Web.Modules
+namespace VaBank.Jobs.Modules
 {
-    public class ServicesModule : Module
+    internal class ServicesModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //Add auto mapper profiles
-            var mappingProfiles =
-                typeof (BaseService).Assembly.GetTypes().Where(t => typeof (Profile).IsAssignableFrom(t)).ToList();
-            mappingProfiles.ForEach(x => Mapper.AddProfile(Activator.CreateInstance(x) as Profile));
+            //No need for automapper as it is the same app domain
+            //var mappingProfiles =
+            //    typeof (BaseService).Assembly.GetTypes().Where(t => typeof (Profile).IsAssignableFrom(t)).ToList();
+            //mappingProfiles.ForEach(x => Mapper.AddProfile(Activator.CreateInstance(x) as Profile));
 
             //Register validation system
             builder.RegisterType<AutofacFactory>().AsImplementedInterfaces().InstancePerRequest();
@@ -36,25 +33,25 @@ namespace VaBank.UI.Web.Modules
             var otherValidators = validatorTypes.Except(staticValidators).ToList();
 
             staticValidators.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().AsSelf().SingleInstance());
-            otherValidators.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().AsSelf().InstancePerRequest());
+            otherValidators.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().AsSelf().InstancePerLifetimeScope());
 
             //Register operation provider
             builder.RegisterType<ServiceOperationProvider>().AsSelf()
                 .Named<IOperationProvider>("Service")
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
 
             //Register dependency collections
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
                 .Where(t => typeof (IDependencyCollection).IsAssignableFrom(t))
                 .PropertiesAutowired()
                 .AsSelf()
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
 
             //Register services
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
                 .Where(t => typeof (IService).IsAssignableFrom(t))
                 .AsImplementedInterfaces()
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
         }
     }
 }

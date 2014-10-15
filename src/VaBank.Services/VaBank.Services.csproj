@@ -58,11 +58,9 @@
   <ItemGroup>
     <Compile Include="Common\BaseServiceDependencies.cs" />
     <Compile Include="Common\ServiceOperationProvider.cs" />
-    <Compile Include="Common\IObjectFactory.cs" />
     <Compile Include="Common\IDependencyCollection.cs" />
     <Compile Include="Common\ServiceExtensions.cs" />
-    <Compile Include="Common\Validation\IObjectConverter.cs" />
-    <Compile Include="Common\Validation\ValidationService.cs" />
+    <Compile Include="Common\ValidationService.cs" />
     <Compile Include="Maintenance\LogManagementService.cs" />
     <Compile Include="Maintenance\MaintenanceExtensions.cs" />
     <Compile Include="Maintenance\MaintenanceProfile.cs" />

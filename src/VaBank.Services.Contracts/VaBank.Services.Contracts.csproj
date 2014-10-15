@@ -61,7 +61,6 @@
     <Compile Include="Common\Models\UserMessage.cs" />
     <Compile Include="Common\Queries\IdentityQuery.cs" />
     <Compile Include="Common\ServiceException.cs" />
-    <Compile Include="Common\Validation\AlwaysTrueValidator.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Membership\Commands\ChangePasswordCommand.cs" />
     <Compile Include="Membership\Commands\CreateUserCommand.cs" />

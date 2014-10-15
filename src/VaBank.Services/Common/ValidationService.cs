@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using VaBank.Common.Data;
+using VaBank.Common.IoC;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Validation;
 
-namespace VaBank.Services.Common.Validation
+namespace VaBank.Services.Common
 {
     public class ValidationService : IValidationService
     {

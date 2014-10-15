@@ -21,6 +21,8 @@ using Microsoft.Owin;
 using SquishIt.Framework;
 using SquishIt.Sass;
 using VaBank.Common.Data;
+using VaBank.Jobs;
+using VaBank.Jobs.Modules;
 using VaBank.UI.Web.Api.Infrastructure.Auth;
 using VaBank.UI.Web.Api.Infrastructure.Converters;
 using VaBank.UI.Web.Api.Infrastructure.Filters;
@@ -66,9 +68,8 @@ namespace VaBank.UI.Web
             config.Use(Handler);
 
             _logger.Info("Application is started!");
-            #if !DEBUG
-                RecurringJob.AddOrUpdate("KeepAlive", () => KeepAlive(), EveryTenMinutes);
-            #endif
+            //var jobRunner = new JobRunner();
+            //jobRunner.Start();
         }
 
         public Task Handler(IOwinContext context, Func<Task> next)
@@ -99,6 +100,9 @@ namespace VaBank.UI.Web
             var storageOptions = new SqlServerStorageOptions {QueuePollInterval = TimeSpan.FromMinutes(1)};
             config.UseStorage(new SqlServerStorage(connectionString, storageOptions));
             config.UseAuthorizationFilters(new AuthorizationFilter {Roles = "Admin"});
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<BackgroundServicesModule>();
+            config.UseAutofacActivator(builder.Build());
             config.UseServer();
         }
 

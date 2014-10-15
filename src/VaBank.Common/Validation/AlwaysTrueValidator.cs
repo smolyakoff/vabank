@@ -2,7 +2,7 @@
 using FluentValidation;
 using FluentValidation.Results;
 
-namespace VaBank.Services.Contracts.Common.Validation
+namespace VaBank.Common.Validation
 {
     public class AlwaysTrueValidator<T> : AbstractValidator<T>
     {

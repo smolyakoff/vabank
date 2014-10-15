@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="FluentValidation">
       <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
@@ -62,6 +65,8 @@
     <Compile Include="Data\DbQuery%271.cs" />
     <Compile Include="Data\DbQuery.cs" />
     <Compile Include="Data\IClientQuery.cs" />
+    <Compile Include="Data\IObjectConverter.cs" />
+    <Compile Include="Data\JsonNetConverter.cs" />
     <Compile Include="Data\PagedDbQuery.cs" />
     <Compile Include="Data\Paging\ClientPage.cs" />
     <Compile Include="Data\Repositories\ConcurrencyException.cs" />
@@ -129,11 +134,14 @@
     <Compile Include="Data\Sorting\SortDirection.cs" />
     <Compile Include="Data\Sorting\SortingExtensions.cs" />
     <Compile Include="Data\Filtering\SpecFilter.cs" />
+    <Compile Include="IoC\AutofacFactory.cs" />
+    <Compile Include="IoC\IObjectFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.cs" />
     <Compile Include="Security\Hash.cs" />
     <Compile Include="Security\Password.cs" />
     <Compile Include="Serialization\JsonCreationConverter.cs" />
+    <Compile Include="Validation\AlwaysTrueValidator.cs" />
     <Compile Include="Validation\ValidationFault.cs" />
     <Compile Include="Validation\IObjectValidator%271.cs" />
     <Compile Include="Validation\IObjectValidator.cs" />

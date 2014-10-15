@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VaBank.Services.Common
+namespace VaBank.Common.IoC
 {
     public interface IObjectFactory
     {

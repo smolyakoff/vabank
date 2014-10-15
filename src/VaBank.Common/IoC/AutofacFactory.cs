@@ -1,10 +1,9 @@
 ﻿using System;
 using Autofac;
 using FluentValidation;
-using VaBank.Services.Common;
-using VaBank.Services.Contracts.Common.Validation;
+using VaBank.Common.Validation;
 
-namespace VaBank.UI.Web.Api.Infrastructure.IoC
+namespace VaBank.Common.IoC
 {
     public class AutofacFactory : IObjectFactory, IValidatorFactory
     {
