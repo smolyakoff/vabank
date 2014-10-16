@@ -61,6 +61,35 @@ namespace VaBank.Data.Migrations
             return syntax.AsString(length);
         }
 
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsAccountNumber(this ICreateTableColumnAsTypeSyntax syntax)
+        {
+            const int length = 13;
+            return syntax.AsString(length);
+        }
+
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsCurrencyISOName(this ICreateTableColumnAsTypeSyntax syntax)
+        {
+            const int length = 3;
+            return syntax.AsString(length);
+        }
+
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsCardId(this ICreateTableColumnAsTypeSyntax syntax)
+        {
+            return syntax.AsGuid();
+        }
+
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsCardNumber(this ICreateTableColumnAsTypeSyntax syntax)
+        {
+            const int length = 16;
+            return syntax.AsString(length);
+        }
+
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsCardVendorId(this ICreateTableColumnAsTypeSyntax syntax)
+        {
+            const int length = 16;
+            return syntax.AsString(length);
+        }
+
         #endregion
 
         #region CreateColumnSyntax
@@ -117,6 +146,35 @@ namespace VaBank.Data.Migrations
             return syntax.AsString(length);
         }
 
+        public static ICreateColumnOptionSyntax AsAccountNumber(this ICreateColumnAsTypeSyntax syntax)
+        {
+            const int length = 13;
+            return syntax.AsString(length);
+        }
+
+        public static ICreateColumnOptionSyntax AsCurrencyISOName(this ICreateColumnAsTypeSyntax syntax)
+        {
+            const int length = 3;
+            return syntax.AsString(length);
+        }
+
+        public static ICreateColumnOptionSyntax AsCardId(this ICreateColumnAsTypeSyntax syntax)
+        {
+            return syntax.AsGuid();
+        }
+
+        public static ICreateColumnOptionSyntax AsCardNumber(this ICreateColumnAsTypeSyntax syntax)
+        {
+            const int length = 16;
+            return syntax.AsString(length);
+        }
+
+        public static ICreateColumnOptionSyntax AsCardVendorId(this ICreateColumnAsTypeSyntax syntax)
+        {
+            const int length = 16;
+            return syntax.AsString(length);
+        }
+
         #endregion
 
         #region AlterColumnSyntax
@@ -170,6 +228,35 @@ namespace VaBank.Data.Migrations
         public static IAlterColumnOptionSyntax AsSecurityString(this IAlterColumnAsTypeSyntax syntax)
         {
             const int length = 256;
+            return syntax.AsString(length);
+        }
+
+        public static IAlterColumnOptionSyntax AsAccountNumber(this IAlterColumnAsTypeSyntax syntax)
+        {
+            const int length = 13;
+            return syntax.AsString(length);
+        }
+
+        public static IAlterColumnOptionSyntax AsCurrencyISOName(this IAlterColumnAsTypeSyntax syntax)
+        {
+            const int length = 3;
+            return syntax.AsString(length);
+        }
+
+        public static IAlterColumnOptionSyntax AsCardId(this IAlterColumnAsTypeSyntax syntax)
+        {
+            return syntax.AsGuid();
+        }
+
+        public static IAlterColumnOptionSyntax AsCardNumber(this IAlterColumnAsTypeSyntax syntax)
+        {
+            const int length = 16;
+            return syntax.AsString(length);
+        }
+
+        public static IAlterColumnOptionSyntax AsCardVendorId(this IAlterColumnAsTypeSyntax syntax)
+        {
+            const int length = 16;
             return syntax.AsString(length);
         }
 
