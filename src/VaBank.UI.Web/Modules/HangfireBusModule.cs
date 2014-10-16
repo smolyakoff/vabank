@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Autofac;
 using VaBank.Common.Events;
+using VaBank.Jobs.Common;
 
 namespace VaBank.UI.Web.Modules
 {
@@ -14,12 +15,17 @@ namespace VaBank.UI.Web.Modules
                     .Where(
                         x =>
                             x.GetInterfaces()
-                                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof (IHandler<>)))
+                                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof (IEventListener<>)))
                     .ToArray();
             builder.RegisterTypes(handlers)
                 .AsSelf()
                 .AsImplementedInterfaces()
                 .InstancePerDependency();
+
+            builder.RegisterType<HangfireServiceBus>()
+                .AsSelf()
+                .AsImplementedInterfaces()
+                .InstancePerRequest();
         }
     }
 }
