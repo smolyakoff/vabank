@@ -1,15 +1,18 @@
 ﻿using System.Net;
-using Hangfire;
+using Autofac;
 using VaBank.Jobs.Common;
 
 namespace VaBank.Jobs.Maintenance
 {
     [JobName("KeepAlive")]
-    public class KeepAliveJob : ISimpleJob
+    public class KeepAliveJob : BaseJob<DefaultJobContext>
     {
-        public void Execute(IJobCancellationToken cancellationToken)
+        public KeepAliveJob(ILifetimeScope scope) : base(scope)
         {
-            cancellationToken.ThrowIfCancellationRequested();
+        }
+
+        protected override void Execute(DefaultJobContext context)
+        {
             var client = new WebClient();
             client.DownloadData("https://vabank.azurewebsites.net/api/maintenance/keep-alive");
         }

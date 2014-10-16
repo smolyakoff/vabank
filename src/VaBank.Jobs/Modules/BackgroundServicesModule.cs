@@ -10,10 +10,13 @@ namespace VaBank.Jobs.Modules
             builder.RegisterModule<DataAccessModule>();
             builder.RegisterModule<ServicesModule>();
             builder.RegisterAssemblyTypes(ThisAssembly)
+                .Where(typeof (IJobContext).IsAssignableFrom)
+                .AsSelf()
+                .InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(ThisAssembly)
                 .Where(typeof (IJob).IsAssignableFrom)
                 .AsSelf()
                 .InstancePerDependency();
-            builder.RegisterType<JobExecutor>().AsSelf().SingleInstance();
         }
     }
 }

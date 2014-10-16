@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using Autofac;
 using Hangfire;
+using Hangfire.Common;
 using Hangfire.Dashboard;
 using Hangfire.SqlServer;
 using Microsoft.Owin.Cors;
@@ -68,8 +69,8 @@ namespace VaBank.UI.Web
             config.Use(Handler);
 
             _logger.Info("Application is started!");
-            //var jobRunner = new JobRunner();
-            //jobRunner.Start();
+            var jobStartup = new JobStartup();
+            jobStartup.Start();
         }
 
         public Task Handler(IOwinContext context, Func<Task> next)
@@ -154,14 +155,6 @@ namespace VaBank.UI.Web
             builder.RegisterModule<WebApiModule>();
             var container = builder.Build();
             return container;
-        }
-
-        public static void KeepAlive()
-        {
-            var client = new WebClient();
-            client.DownloadData("https://vabank.azurewebsites.net");
-            var logger = LogManager.GetCurrentClassLogger();
-            logger.Info("Keep alive was triggered.");
         }
     }
 }

@@ -1,16 +1,12 @@
-﻿using System;
-using Autofac;
-using Common.Logging;
+﻿using Common.Logging;
 using Common.Logging.Configuration;
-using Hangfire;
 using JVW.Logging.CommonLoggingNLogAdapter;
-using Newtonsoft.Json;
 using VaBank.Jobs.Common;
 using VaBank.Jobs.Maintenance;
 
 namespace VaBank.Jobs
 {
-    public class JobRunner
+    public class JobStartup
     {
         public void Start()
         {
@@ -27,7 +23,9 @@ namespace VaBank.Jobs
 
         private static void RegisterRecurring()
         {
-            RecurringJob.AddOrUpdate<KeepAliveJob>("KeepAlive", x => x.Execute(JobCancellationToken.Null), "*/10 * * * *");
+            #if !DEBUG
+                VabankJob.AddOrUpdateRecurring<KeepAliveJob>("KeepAlive", "*/10 * * * *");
+            #endif
         }
     }
 }
