@@ -1,4 +1,5 @@
 ﻿using System;
+using VaBank.Core.Common;
 using VaBank.Core.Membership;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;

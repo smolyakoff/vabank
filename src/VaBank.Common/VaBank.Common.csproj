@@ -134,6 +134,10 @@
     <Compile Include="Data\Sorting\SortDirection.cs" />
     <Compile Include="Data\Sorting\SortingExtensions.cs" />
     <Compile Include="Data\Filtering\SpecFilter.cs" />
+    <Compile Include="Events\IEventListener.cs" />
+    <Compile Include="Events\IServiceBus.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\ISendOnlyServiceBus.cs" />
     <Compile Include="IoC\AutofacFactory.cs" />
     <Compile Include="IoC\IObjectFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -10,7 +10,7 @@ namespace VaBank.Jobs.Common
         where TContext : class, IJobContext
 
     {
-        protected readonly ILifetimeScope LifetimeScope;
+        protected readonly ILifetimeScope RootScope;
 
         protected readonly ILog Logger;
 
@@ -20,13 +20,13 @@ namespace VaBank.Jobs.Common
             {
                 throw new ArgumentNullException("scope");
             }
-            LifetimeScope = scope;
+            RootScope = scope;
             Logger = LogManager.GetLogger(GetType().FullName);
         }
 
         public virtual void Execute(object data, IJobCancellationToken cancellationToken)
         {
-            using (var scope = LifetimeScope.BeginLifetimeScope())
+            using (var scope = RootScope.BeginLifetimeScope())
             {
                 var context = scope.Resolve<TContext>();
                 context.CancellationToken = cancellationToken;

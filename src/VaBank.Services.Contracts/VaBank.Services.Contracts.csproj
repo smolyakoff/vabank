@@ -52,6 +52,7 @@
     <Compile Include="Common\Validation\IValidationService.cs" />
     <Compile Include="Common\Validation\ValidationRequest.cs" />
     <Compile Include="Common\Validation\ValidationResponse.cs" />
+    <Compile Include="Events\ApplicationEvent.cs" />
     <Compile Include="Maintenance\ILogManagementService.cs" />
     <Compile Include="Maintenance\Commands\SystemLogClearCommand.cs" />
     <Compile Include="Maintenance\Queries\SystemLogEntryBriefModel.cs" />

@@ -6,6 +6,7 @@ using FluentValidation;
 using PagedList;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
+using VaBank.Common.Events;
 using VaBank.Core.Common;
 using VaBank.Core.Membership;
 using VaBank.Services.Common;

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
 using FluentValidation;
+using VaBank.Common.Events;
 using VaBank.Common.Validation;
 using VaBank.Core.App;
 using VaBank.Core.Common;
 using VaBank.Services.Contracts;
+using VaBank.Services.Contracts.Events;
 using ValidationException = VaBank.Services.Contracts.Common.Validation.ValidationException;
 
 namespace VaBank.Services.Common
@@ -12,11 +14,11 @@ namespace VaBank.Services.Common
     public abstract class BaseService : IService
     {
         private readonly IValidatorFactory _validatorFactory;
-
+        private readonly ISendOnlyServiceBus _bus;
         private readonly ServiceOperationProvider _operationProvider;
 
         protected readonly IUnitOfWork UnitOfWork;
-
+        
         //TODO: refactor this to use object factory instead of validator factory
         protected BaseService(BaseServiceDependencies dependencies)
         {
@@ -27,6 +29,7 @@ namespace VaBank.Services.Common
             dependencies.EnsureIsResolved();
             _validatorFactory = dependencies.ValidatorFactory;
             _operationProvider = dependencies.OperationProvider;
+            _bus = dependencies.ServiceBus;
             UnitOfWork = dependencies.UnitOfWork;
         }
 
@@ -54,6 +57,11 @@ namespace VaBank.Services.Common
                 }
                 return operation;
             }
+        }
+
+        protected virtual void Publish(ApplicationEvent appEvent)
+        {
+            _bus.Publish(appEvent);
         }
     }
 }
