@@ -24,6 +24,7 @@ using SquishIt.Sass;
 using VaBank.Common.Data;
 using VaBank.Jobs;
 using VaBank.Jobs.Modules;
+using VaBank.Services.Contracts.Events;
 using VaBank.UI.Web.Api.Infrastructure.Auth;
 using VaBank.UI.Web.Api.Infrastructure.Converters;
 using VaBank.UI.Web.Api.Infrastructure.Filters;
@@ -71,6 +72,7 @@ namespace VaBank.UI.Web
             _logger.Info("Application is started!");
             var jobStartup = new JobStartup();
             jobStartup.Start();
+            //VaBankServiceBus.Instance.Publish(new ApplicationStartedEvent());
         }
 
         public Task Handler(IOwinContext context, Func<Task> next)
@@ -102,7 +104,7 @@ namespace VaBank.UI.Web
             config.UseStorage(new SqlServerStorage(connectionString, storageOptions));
             config.UseAuthorizationFilters(new AuthorizationFilter {Roles = "Admin"});
             var builder = new ContainerBuilder();
-            builder.RegisterModule<BackgroundServicesModule>();
+            builder.RegisterModule(new BackgroundServicesModule(VaBankServiceBus.Instance));
             config.UseAutofacActivator(builder.Build());
             config.UseServer();
         }
@@ -153,7 +155,6 @@ namespace VaBank.UI.Web
             builder.RegisterModule<DataAccessModule>();
             builder.RegisterModule<ServicesModule>();
             builder.RegisterModule<WebApiModule>();
-            builder.RegisterModule<HangfireBusModule>();
             var container = builder.Build();
             return container;
         }

@@ -1,8 +1,7 @@
 ﻿using Common.Logging;
 using Common.Logging.Configuration;
 using JVW.Logging.CommonLoggingNLogAdapter;
-using VaBank.Jobs.Common;
-using VaBank.Jobs.Maintenance;
+using Newtonsoft.Json;
 
 namespace VaBank.Jobs
 {

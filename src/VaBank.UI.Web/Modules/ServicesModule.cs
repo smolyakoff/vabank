@@ -50,6 +50,11 @@ namespace VaBank.UI.Web.Modules
                 .AsSelf()
                 .InstancePerRequest();
 
+            //Register service bus
+            builder.RegisterInstance(VaBankServiceBus.Instance)
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
             //Register services
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
                 .Where(t => typeof (IService).IsAssignableFrom(t))

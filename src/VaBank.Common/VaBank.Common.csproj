@@ -56,6 +56,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
@@ -134,9 +135,11 @@
     <Compile Include="Data\Sorting\SortDirection.cs" />
     <Compile Include="Data\Sorting\SortingExtensions.cs" />
     <Compile Include="Data\Filtering\SpecFilter.cs" />
-    <Compile Include="Events\IEventListener.cs" />
+    <Compile Include="Events\IEventListener%271.cs" />
+    <Compile Include="Events\EventJsonConverter.cs" />
+    <Compile Include="Events\InMemoryServiceBus.cs" />
     <Compile Include="Events\IServiceBus.cs" />
-    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\Event.cs" />
     <Compile Include="Events\ISendOnlyServiceBus.cs" />
     <Compile Include="IoC\AutofacFactory.cs" />
     <Compile Include="IoC\IObjectFactory.cs" />

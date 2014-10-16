@@ -83,20 +83,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationStartedEvent.cs" />
+    <Compile Include="ApplicationStartedJob.cs" />
     <Compile Include="Common\BaseJob.cs" />
     <Compile Include="Common\DefaultJobContext%271.cs" />
     <Compile Include="Common\DefaultJobContext.cs" />
     <Compile Include="Common\EventDispatcherJob.cs" />
+    <Compile Include="Common\EventListenerJob.cs" />
+    <Compile Include="Common\HangfireEventListener.cs" />
+    <Compile Include="Common\IEventListenerJob.cs" />
     <Compile Include="Common\IJob.cs" />
     <Compile Include="Common\IJobContext%271.cs" />
     <Compile Include="Common\IJobContext.cs" />
     <Compile Include="Common\JobNameAttribute.cs" />
     <Compile Include="Common\ParameterJob.cs" />
     <Compile Include="Common\VabankJob.cs" />
-    <Compile Include="Common\EventExtensions.cs" />
-    <Compile Include="Common\HangfireServiceBus.cs" />
     <Compile Include="JobStartup.cs" />
     <Compile Include="Maintenance\KeepAliveJob.cs" />
+    <Compile Include="Modules\AfterLoad.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
     <Compile Include="Modules\ServicesModule.cs" />
     <Compile Include="Modules\BackgroundServicesModule.cs" />

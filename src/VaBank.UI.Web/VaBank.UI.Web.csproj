@@ -921,11 +921,11 @@
     <Compile Include="Middleware\ExceptionMiddleware.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
     <Compile Include="Modules\ServicesModule.cs" />
-    <Compile Include="Modules\HangfireBusModule.cs" />
     <Compile Include="Modules\WebApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="VaBankServiceBus.cs" />
     <Compile Include="Views\Views.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,7 @@ using VaBank.Common.Events;
 
 namespace VaBank.Services.Contracts.Events
 {
-    public  abstract class ApplicationEvent : IEvent
+    public  abstract class ApplicationEvent : Event
     {
         protected ApplicationEvent()
         {
