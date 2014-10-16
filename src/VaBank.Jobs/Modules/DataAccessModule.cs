@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using Autofac;
+using VaBank.Common.Data.Database;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Common;
 using VaBank.Data.EntityFramework;
@@ -12,7 +13,16 @@ namespace VaBank.Jobs.Modules
         protected override void Load(ContainerBuilder builder)
         {
             //Entity framework data access module registration
-            builder.RegisterType<VaBankContext>().As<DbContext>().As<IUnitOfWork>().InstancePerLifetimeScope();
+
+            builder.RegisterType<ConfigurationFileDatabaseProvider>()
+                .WithParameter("connectionStringName", "Vabank.Db")
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<VaBankContext>()
+                .As<DbContext>()
+                .As<IUnitOfWork>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterAssemblyTypes(typeof (Repository<>).Assembly)
                 .Where(t => typeof (IRepository).IsAssignableFrom(t) && !t.IsGenericType)

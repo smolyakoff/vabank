@@ -6,4 +6,4 @@ namespace VaBank.Core.App
     {
         public abstract IEnumerable<KeyValuePair<string, object>> Values { get; }
     }
-}s
+}

@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Maintenance;
 using VaBank.Services.Contracts.Maintenance.Commands;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Autofac;
 using Autofac.Core;
 using VaBank.Common.Events;
@@ -8,6 +9,8 @@ namespace VaBank.Jobs.Common
 {
     public class EventDispatcherJob : ParameterJob<DefaultJobContext<IEvent>, IEvent>
     {
+        private static readonly Dictionary<Type, List<Type>> HandlersCache = new Dictionary<Type, List<Type>>(); 
+
         public EventDispatcherJob(ILifetimeScope scope) : base(scope)
         {
         }
@@ -16,13 +19,21 @@ namespace VaBank.Jobs.Common
         {
             var @event = context.Data;
             var eventType = @event.GetType();
-            var types = RootScope.ComponentRegistry.Registrations
+            IEnumerable<Type> handlerTypes;
+            if (HandlersCache.ContainsKey(eventType))
+            {
+                handlerTypes = HandlersCache[eventType];
+            }
+            else
+            {
+                handlerTypes = RootScope.ComponentRegistry.Registrations
                 .SelectMany(r => r.Services.OfType<IServiceWithType>(), (r, s) => new { r, s })
                 .Where(rs => IsEventListenerOf(rs.s.ServiceType, eventType))
                 .Select(rs => rs.r.Activator.LimitType)
                 .Distinct()
                 .ToList();
-            foreach (var type in types)
+            }
+            foreach (var type in handlerTypes)
             {
                 VabankJob.Enqueue(type, @event);
             }

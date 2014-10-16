@@ -37,7 +37,7 @@ namespace VaBank.Jobs.Modules
                 .Where(x => !x.IsAbstract)
                 .AsSelf()
                 .AsImplementedInterfaces()
-                .InstancePerDependency();
+                .SingleInstance();
             builder.RegisterType<AfterLoad>().AutoActivate();
         }
     }

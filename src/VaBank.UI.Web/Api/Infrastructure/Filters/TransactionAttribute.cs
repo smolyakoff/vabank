@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Data;
-using System.Data.Entity;
+using System.Data.Common;
 using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using Autofac;
 using Autofac.Integration.Owin;
+using VaBank.Common.Data.Database;
 using VaBank.Services.Contracts.Common;
 
 namespace VaBank.UI.Web.Api.Infrastructure.Filters
 {
     public class TransactionAttribute : ActionFilterAttribute
     {
-        private DbContextTransaction _transaction;
+        private DbTransaction _transaction;
 
         public TransactionAttribute()
         {
@@ -24,8 +25,8 @@ namespace VaBank.UI.Web.Api.Infrastructure.Filters
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
             var lifetimeScope = actionContext.Request.GetOwinContext().GetAutofacLifetimeScope();
-            var dbContext = lifetimeScope.Resolve<DbContext>();
-            _transaction = dbContext.Database.BeginTransaction(IsolationLevel);
+            var transactionFactory = lifetimeScope.Resolve<ITransactionFactory>();
+            _transaction = transactionFactory.BeginTransaction(IsolationLevel);
         }
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
@@ -60,7 +61,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Filters
             }
         }
 
-        private void OnException(Exception exception)
+        private void OnException(Exception ex)
         {
             _transaction.Rollback();
         }

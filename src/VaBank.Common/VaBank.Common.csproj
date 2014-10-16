@@ -63,6 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Database\IConnectionProvider.cs" />
+    <Compile Include="Data\Database\IDatabaseProvider.cs" />
+    <Compile Include="Data\Database\ConfigurationFileDatabaseProvider.cs" />
     <Compile Include="Data\DbQuery%271.cs" />
     <Compile Include="Data\DbQuery.cs" />
     <Compile Include="Data\IClientQuery.cs" />
@@ -135,6 +138,8 @@
     <Compile Include="Data\Sorting\SortDirection.cs" />
     <Compile Include="Data\Sorting\SortingExtensions.cs" />
     <Compile Include="Data\Filtering\SpecFilter.cs" />
+    <Compile Include="Data\Database\ITransactionFactory.cs" />
+    <Compile Include="Data\Database\ITransactionProvider.cs" />
     <Compile Include="Events\IEventListener%271.cs" />
     <Compile Include="Events\InMemoryServiceBus.cs" />
     <Compile Include="Events\IServiceBus.cs" />
