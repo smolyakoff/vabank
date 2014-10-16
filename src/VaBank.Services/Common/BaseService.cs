@@ -6,7 +6,7 @@ using VaBank.Common.Validation;
 using VaBank.Core.App;
 using VaBank.Core.Common;
 using VaBank.Services.Contracts;
-using VaBank.Services.Contracts.Events;
+using VaBank.Services.Contracts.Common;
 using ValidationException = VaBank.Services.Contracts.Common.Validation.ValidationException;
 
 namespace VaBank.Services.Common

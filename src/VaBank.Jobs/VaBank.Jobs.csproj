@@ -83,8 +83,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationStartedEvent.cs" />
-    <Compile Include="ApplicationStartedJob.cs" />
     <Compile Include="Common\BaseJob.cs" />
     <Compile Include="Common\DefaultJobContext%271.cs" />
     <Compile Include="Common\DefaultJobContext.cs" />
@@ -97,8 +95,10 @@
     <Compile Include="Common\IJobContext.cs" />
     <Compile Include="Common\JobNameAttribute.cs" />
     <Compile Include="Common\ParameterJob.cs" />
+    <Compile Include="Common\Serialization.cs" />
     <Compile Include="Common\VabankJob.cs" />
     <Compile Include="JobStartup.cs" />
+    <Compile Include="Maintenance\AuditJob.cs" />
     <Compile Include="Maintenance\KeepAliveJob.cs" />
     <Compile Include="Modules\AfterLoad.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />

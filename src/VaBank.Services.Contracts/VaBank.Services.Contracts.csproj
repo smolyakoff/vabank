@@ -33,6 +33,10 @@
     <Reference Include="FluentValidation">
       <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList">
       <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -45,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\IAuditedEvent.cs" />
     <Compile Include="Common\Security\AccessDeniedException.cs" />
     <Compile Include="Common\Security\AccessDenied.cs" />
     <Compile Include="Common\Security\SecurityException.cs" />
@@ -52,7 +57,7 @@
     <Compile Include="Common\Validation\IValidationService.cs" />
     <Compile Include="Common\Validation\ValidationRequest.cs" />
     <Compile Include="Common\Validation\ValidationResponse.cs" />
-    <Compile Include="Events\ApplicationEvent.cs" />
+    <Compile Include="Common\ApplicationEvent.cs" />
     <Compile Include="Maintenance\ILogManagementService.cs" />
     <Compile Include="Maintenance\Commands\SystemLogClearCommand.cs" />
     <Compile Include="Maintenance\Queries\SystemLogEntryBriefModel.cs" />
@@ -69,6 +74,7 @@
     <Compile Include="Membership\Commands\RoleModel.cs" />
     <Compile Include="Membership\Commands\UpdateProfileCommand.cs" />
     <Compile Include="Membership\Commands\UpdateUserCommand.cs" />
+    <Compile Include="Membership\Events\UserLoggedIn.cs" />
     <Compile Include="Membership\IUserManagementService.cs" />
     <Compile Include="Membership\Models\ApplicationClientModel.cs" />
     <Compile Include="Membership\Models\ApplicationClientTypeModel.cs" />

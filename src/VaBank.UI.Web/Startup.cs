@@ -1,12 +1,9 @@
 ﻿using System.Configuration;
-using System.Net;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using Autofac;
 using Hangfire;
-using Hangfire.Common;
 using Hangfire.Dashboard;
 using Hangfire.SqlServer;
 using Microsoft.Owin.Cors;
@@ -24,7 +21,6 @@ using SquishIt.Sass;
 using VaBank.Common.Data;
 using VaBank.Jobs;
 using VaBank.Jobs.Modules;
-using VaBank.Services.Contracts.Events;
 using VaBank.UI.Web.Api.Infrastructure.Auth;
 using VaBank.UI.Web.Api.Infrastructure.Converters;
 using VaBank.UI.Web.Api.Infrastructure.Filters;
@@ -72,7 +68,6 @@ namespace VaBank.UI.Web
             _logger.Info("Application is started!");
             var jobStartup = new JobStartup();
             jobStartup.Start();
-            //VaBankServiceBus.Instance.Publish(new ApplicationStartedEvent());
         }
 
         public Task Handler(IOwinContext context, Func<Task> next)
@@ -100,7 +95,7 @@ namespace VaBank.UI.Web
         {
             var connectionString = ConfigurationManager.ConnectionStrings["Vabank.Db"].ConnectionString;
             config.UseDashboardPath("/admin/hangfire");
-            var storageOptions = new SqlServerStorageOptions {QueuePollInterval = TimeSpan.FromMinutes(1)};
+            var storageOptions = new SqlServerStorageOptions {QueuePollInterval = TimeSpan.FromSeconds(15)};
             config.UseStorage(new SqlServerStorage(connectionString, storageOptions));
             config.UseAuthorizationFilters(new AuthorizationFilter {Roles = "Admin"});
             var builder = new ContainerBuilder();

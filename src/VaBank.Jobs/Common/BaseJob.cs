@@ -25,14 +25,25 @@ namespace VaBank.Jobs.Common
             Logger = LogManager.GetLogger(GetType().FullName);
         }
 
-        public virtual void Execute(string json, IJobCancellationToken cancellationToken)
+        /// <summary>
+        /// This method is called by hangfire
+        /// </summary>
+        public virtual void Execute(string argumentJson, IJobCancellationToken cancellationToken)
         {
             using (var scope = RootScope.BeginLifetimeScope())
             {
-                var data = JsonConvert.DeserializeObject(json, new JsonSerializerSettings
+                object data;
+                try
                 {
-                    TypeNameHandling = TypeNameHandling.All
-                });
+                    data = string.IsNullOrEmpty(argumentJson)
+                        ? null
+                        : JsonConvert.DeserializeObject(argumentJson, Serialization.Settings);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("Can't deserialize argument.", ex);
+                    return;
+                }
                 var context = CreateContext(scope, data);
                 context.CancellationToken = cancellationToken;
                 try

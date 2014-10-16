@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Hangfire;
@@ -30,29 +31,10 @@ namespace VaBank.Jobs.Common
             return BackgroundJob.Enqueue<TJob>(x => x.Execute(null, JobCancellationToken.Null));
         }
 
-        internal static string Enqueue<T>(Type jobType, T argument)
-        {
-            var baseType = jobType.BaseType;
-            while (baseType != null && !baseType.IsGenericType && baseType.GetGenericTypeDefinition() != typeof(BaseJob<>))
-            {
-                baseType = baseType.BaseType;
-            }
-            if (baseType == null)
-            {
-                throw new InvalidOperationException("No valid base type for a job found.");
-            }
-            var contextType = baseType.GetGenericArguments()[0];
-            var concreteMethod = EnqueueWithParameterMethod.MakeGenericMethod(jobType, contextType, argument.GetType());
-            return (string) concreteMethod.Invoke(null, new object[]{argument});
-        }
-
         public static string Enqueue<TJob, T>(T argument)
             where TJob : ParameterJob<DefaultJobContext<T>, T>
         {
-            var json = JsonConvert.SerializeObject(argument, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            });
+            var json = JsonConvert.SerializeObject(argument, Serialization.Settings);
             return BackgroundJob.Enqueue<TJob>(x => x.Execute(json, JobCancellationToken.Null));
         }
 
@@ -72,6 +54,35 @@ namespace VaBank.Jobs.Common
         {
             jobId = string.IsNullOrEmpty(jobId) ? typeof (TJob).Name : jobId;
             RecurringJob.AddOrUpdate<TJob>(jobId, x => x.Execute(null, JobCancellationToken.Null), cronExpression);
-        } 
+        }
+
+        internal static string Enqueue<T>(Type jobType, T argument)
+        {
+            var baseType = GetGenericBaseType(jobType, typeof (BaseJob<>));
+            if (baseType == null)
+            {
+                throw new InvalidOperationException("No valid base type for a job found.");
+            }
+            var contextType = baseType.GetGenericArguments()[0];
+            var contextBaseInterface =
+                contextType.GetInterfaces().FirstOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof (IJobContext<>));
+            if (contextBaseInterface == null)
+            {
+                throw new InvalidOperationException("No valid base type for a job context.");
+            }
+            var argumentType = contextBaseInterface.GetGenericArguments()[0];
+            var concreteMethod = EnqueueWithParameterMethod.MakeGenericMethod(jobType, contextType, argumentType);
+            return (string)concreteMethod.Invoke(null, new object[] { argument });
+        }
+
+        private static Type GetGenericBaseType(Type type, Type genericType)
+        {
+            var baseType = type.BaseType;
+            while (baseType != null && baseType.GetGenericTypeDefinition() != genericType)
+            {
+                baseType = baseType.BaseType;
+            }
+            return baseType;
+        }
     }
 }

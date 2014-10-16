@@ -2,11 +2,11 @@
 
 namespace VaBank.Jobs.Common
 {
-    public class HangfireEventListener : IEventListener<Event>
+    public class HangfireEventListener : IEventListener<IEvent>
     {
-        public void Handle(Event appEvent)
+        public void Handle(IEvent appEvent)
         {
-            VabankJob.Enqueue<EventDispatcherJob, Event>(appEvent);
+            VabankJob.Enqueue<EventDispatcherJob, IEvent>(appEvent);
         }
     }
 }

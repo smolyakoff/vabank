@@ -1,6 +1,6 @@
 ﻿namespace VaBank.Common.Events
 {
-    public abstract class Event
+    public interface IEvent
     {
     }
 }

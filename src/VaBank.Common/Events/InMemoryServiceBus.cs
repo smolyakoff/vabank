@@ -8,7 +8,7 @@ namespace VaBank.Common.Events
     {
         private readonly SynchronizedCollection<object> _listeners = new SynchronizedCollection<object>();
 
-        public void Publish<TEvent>(TEvent @event) where TEvent : Event
+        public void Publish<TEvent>(TEvent @event) where TEvent : class, IEvent
         {
             if (@event == null)
             {
@@ -23,7 +23,7 @@ namespace VaBank.Common.Events
         }
 
         public void Subscribe<TEvent>(IEventListener<TEvent> eventListener) 
-            where TEvent : Event
+            where TEvent : class, IEvent
         {
             if (eventListener == null)
             {
@@ -33,7 +33,7 @@ namespace VaBank.Common.Events
         }
 
         private static bool CanHandle<TEvent>(dynamic listener)
-            where TEvent : Event
+            where TEvent : IEvent
         {
             return listener is IEventListener<TEvent>;
         }

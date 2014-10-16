@@ -3,7 +3,7 @@
 namespace VaBank.Jobs.Common
 {
     internal interface IEventListenerJob<TEvent> : IJob
-        where TEvent : Event
+        where TEvent : IEvent
     {
     }
 }
