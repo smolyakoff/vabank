@@ -8,12 +8,13 @@ using VaBank.Core.Common;
 using VaBank.Services.Contracts;
 using VaBank.Services.Contracts.Common;
 using ValidationException = VaBank.Services.Contracts.Common.Validation.ValidationException;
+using VaBank.Common.IoC;
 
 namespace VaBank.Services.Common
 {
     public abstract class BaseService : IService
     {
-        private readonly IValidatorFactory _validatorFactory;
+        private readonly IObjectFactory _objectFactory;
         private readonly ISendOnlyServiceBus _bus;
         private readonly ServiceOperationProvider _operationProvider;
 
@@ -27,7 +28,7 @@ namespace VaBank.Services.Common
                 throw new ArgumentNullException("dependencies", "Dependencies should be resolved");
             }
             dependencies.EnsureIsResolved();
-            _validatorFactory = dependencies.ValidatorFactory;
+            _objectFactory = dependencies.ObjectFactory;
             _operationProvider = dependencies.OperationProvider;
             _bus = dependencies.ServiceBus;
             UnitOfWork = dependencies.UnitOfWork;
@@ -35,7 +36,8 @@ namespace VaBank.Services.Common
 
         protected virtual void EnsureIsValid<T>(T obj)
         {
-            var validator = _validatorFactory.GetValidator<T>();
+            var validator = _objectFactory.Create<IValidator<T>>();
+            if (validator == null) return;
             var validationResult = validator.Validate(obj);
             if (!validationResult.IsValid)
             {
