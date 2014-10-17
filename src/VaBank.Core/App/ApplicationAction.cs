@@ -6,6 +6,8 @@ namespace VaBank.Core.App
     {
         public Guid EventId { get; set; }
 
+        public DateTime TimestampUtc { get; set; }
+
         public string Code { get; set; }
 
         public string Description { get; set; }

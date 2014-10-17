@@ -40,7 +40,7 @@ namespace VaBank.Services.Maintenance
             }
         }
 
-        public IEnumerable<SystemLogEntryBriefModel> GetSystemLogEntries(SystemLogQuery query)
+        public IList<SystemLogEntryBriefModel> GetSystemLogEntries(SystemLogQuery query)
         {
             EnsureIsValid(query);
             try
@@ -97,6 +97,21 @@ namespace VaBank.Services.Maintenance
             {
                 throw new ServiceException("Cannot clear system log entries.", ex);
             }
+        }
+
+        public AuditLogLookupModel GetAuditLogLookup()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<AuditLogEntryBriefModel> GetAuditLogEntries(AuditLogQuery query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AuditLogEntryModel GetAuditLogEntry(IdentityQuery<Guid> operationId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

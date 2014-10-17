@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace VaBank.Services.Contracts.Maintenance.Queries
+namespace VaBank.Services.Contracts.Maintenance.Models
 {
     public abstract class SystemLogLookupModel
     {
