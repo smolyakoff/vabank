@@ -63,6 +63,7 @@
     <Compile Include="M1-Authentication\SeedUsers.cs" />
     <Compile Include="M1-Authentication\M1User.cs" />
     <Compile Include="M2-Accounting\Accounting.cs" />
+    <Compile Include="M2-Accounting\AddRowVersionColumnsToAccountingTables.cs" />
     <Compile Include="M2-Accounting\CreateAppAction.cs" />
     <Compile Include="M2-Accounting\CreateAppOperationMarker.cs" />
     <Compile Include="M2-Accounting\CreateHistoryProcedures.cs" />
