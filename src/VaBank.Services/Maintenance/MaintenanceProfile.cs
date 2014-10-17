@@ -1,9 +1,9 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using VaBank.Core.Maintenance;
-using VaBank.Services.Contracts.Maintenance;
 using VaBank.Services.Contracts.Maintenance.Models;
-using VaBank.Services.Contracts.Maintenance.Queries;
+using VaBank.Core.App;
+using VaBank.Services.Contracts.Common;
+using VaBank.Services.Contracts.Maintenance.Commands;
 
 namespace VaBank.Services.Maintenance
 {
@@ -16,6 +16,30 @@ namespace VaBank.Services.Maintenance
             CreateMap<SystemLogEntry, SystemLogExceptionModel>()
                 .ForMember(dest => dest.EventId, src => src.MapFrom(x => x.Id));
             CreateMap<SystemLogEntry, SystemLogTypeModel>();
+
+            CreateMap<ApplicationAction, AppActionModel>()
+                .ForMember(dest => dest.ActionId, src => src.MapFrom(x => x.EventId))
+                .ForMember(dest => dest.JsonData, src => src.MapFrom(x => x.Data));
+            CreateMap<AuditLogBriefEntry, AuditLogEntryBriefModel>()
+                .ForMember(des => des.OperationId, src => src.MapFrom(x => x.Operation.Id))
+                .ForMember(des => des.UserId, src => src.MapFrom(x => x.Operation.UserId))
+                .ForMember(des => des.AppActions, src => src.MapFrom(x => x.ApplicationActions));
+
+            CreateMap<DatabaseOperation, DatabaseOperationModel>();
+            CreateMap<VersionedDatabaseRow, DbChangeModel>()
+                .ForMember(des => des.Action, src => src.MapFrom(x => x.Action))
+                .ForMember(des => des.Values, src => src.MapFrom(x => x.Values));
+            CreateMap<DatabaseAction, DbActionModel>();
+            CreateMap<AuditLogEntry, AuditLogEntryModel>()
+                .ForMember(des => des.DbActions, src => src.MapFrom(x => x.DatabaseActions));
+
+            CreateMap<IAuditedEvent, CreateAppActionCommand>();
+            CreateMap<CreateAppActionCommand, ApplicationAction>()
+                .ConstructUsing(x => 
+                {
+                    var source = (CreateAppActionCommand)x.SourceValue;
+                    return ApplicationAction.CreateAction(source.Code, source.OperationId, source.DateUtc, source.Description, source.Data);
+                });
         }
     }
 }

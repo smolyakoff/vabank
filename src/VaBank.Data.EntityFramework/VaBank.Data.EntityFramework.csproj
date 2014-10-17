@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\AuditLogRepository.cs" />
     <Compile Include="App\Mappings\OperationMap.cs" />
     <Compile Include="App\OperationRepository.cs" />
     <Compile Include="Membership\ApplicationTokenRepository.cs" />

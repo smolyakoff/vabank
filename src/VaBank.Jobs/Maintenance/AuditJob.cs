@@ -1,6 +1,8 @@
 ﻿using Autofac;
+using AutoMapper;
 using VaBank.Jobs.Common;
 using VaBank.Services.Contracts.Common;
+using VaBank.Services.Contracts.Maintenance.Commands;
 
 namespace VaBank.Jobs.Maintenance
 {
@@ -12,7 +14,7 @@ namespace VaBank.Jobs.Maintenance
 
         protected override void Execute(DefaultJobContext<IAuditedEvent> context)
         {
-            Logger.Info(context.Data.Description);
+            context.LogManagementService.CreateApplicationAction(Mapper.Map<CreateAppActionCommand>(context.Data));
         }
     }
 }

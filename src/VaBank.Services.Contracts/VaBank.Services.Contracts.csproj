@@ -58,6 +58,7 @@
     <Compile Include="Common\Validation\ValidationRequest.cs" />
     <Compile Include="Common\Validation\ValidationResponse.cs" />
     <Compile Include="Common\ApplicationEvent.cs" />
+    <Compile Include="Maintenance\Commands\CreateAppActionCommand.cs" />
     <Compile Include="Maintenance\ILogManagementService.cs" />
     <Compile Include="Maintenance\Commands\SystemLogClearCommand.cs" />
     <Compile Include="Maintenance\Models\AppActionModel.cs" />

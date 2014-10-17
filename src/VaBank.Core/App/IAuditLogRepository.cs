@@ -13,5 +13,7 @@ namespace VaBank.Core.App
         AuditLogEntry GetAuditEntryDetails(Guid operationId);
 
         IList<string> GetUniqueCodes();
+
+        void CreateAction(ApplicationAction action);
     }
 }
