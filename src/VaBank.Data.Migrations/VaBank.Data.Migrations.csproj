@@ -66,6 +66,7 @@
     <Compile Include="M2-Accounting\CreateAppOperationMarker.cs" />
     <Compile Include="M2-Accounting\CreateHistoryProcedures.cs" />
     <Compile Include="M2-Accounting\CreateHistoryTableForUser.cs" />
+    <Compile Include="M2-Accounting\CreateResource.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
