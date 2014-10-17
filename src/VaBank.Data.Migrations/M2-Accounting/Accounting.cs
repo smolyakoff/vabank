@@ -34,7 +34,6 @@ namespace VaBank.Data.Migrations
 
             Create.Table("Account").InSchema(SchemaName)
                 .WithColumn("AccountNo").AsAccountNumber().PrimaryKey("PK_Account")
-                .WithColumn("UserID").AsGuid().NotNullable().ForeignKey("FK_Account_To_User", MembershipSchemaName, "User", "UserID")
                 .WithColumn("CurrencyISOName").AsCurrencyISOName().ForeignKey("FK_Account_To_Currency", SchemaName, "Currency", "CurrencyISOName")
                 .WithColumn("Balance").AsDecimal().NotNullable().WithDefaultValue(0)
                 .WithColumn("OpenDateUtc").AsDateTime().NotNullable()
@@ -51,14 +50,13 @@ namespace VaBank.Data.Migrations
 
             Create.Table("CardSettings").InSchema(SchemaName)
                 .WithColumn("CardID").AsGuid().PrimaryKey("PK_CardSettings").ForeignKey("FK_CardSettings_To_Card", SchemaName, "Card", "CardID")
-                .WithColumn("UserID").AsGuid().ForeignKey("FK_CardSettings_To_Card", MembershipSchemaName, "User", "UserID")
                 .WithColumn("Blocked").AsBoolean().NotNullable()
                 .WithColumn("BlockedDateUtc").AsDateTime()
                 .WithColumn("FriendlyName").AsShortName()
                 .WithColumn("LimitAmountPerDayLocal").AsDecimal().NotNullable()
                 .WithColumn("LimitAmountPerDayAbroad").AsDecimal().NotNullable()
-                .WithColumn("LimitOperationsPerDayLocal").AsDecimal().NotNullable()
-                .WithColumn("LimitOperationsPerDayAbroad").AsDecimal().NotNullable();
+                .WithColumn("LimitOperationsPerDayLocal").AsInt32().NotNullable()
+                .WithColumn("LimitOperationsPerDayAbroad").AsInt32().NotNullable();
 
             Create.Table("Account_Card").InSchema(SchemaName)
                 .WithColumn("CardID").AsGuid().PrimaryKey("PK_Account_Card").ForeignKey("FK_Account_Card_To_Card", SchemaName, "Card", "CardID")
