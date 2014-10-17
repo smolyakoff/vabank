@@ -55,6 +55,15 @@ namespace VaBank.UI.Web.Api.Infrastructure.Models
             return httpError;
         }
 
+        private HttpError Populate(DataNotFoundException exception, out HttpStatusCode statusCode)
+        {
+            var httpError = this.Populate(exception as UserMessageException, out statusCode);
+            httpError["ErrorType"] = "notfound";
+            httpError.Message = exception.Message;
+            statusCode = HttpStatusCode.NotFound;
+            return httpError;
+        }
+
         private HttpError Populate(ValidationException exception, out HttpStatusCode statusCode)
         {
             var httpError = new HttpError(exception, _includeErrorDetail)
