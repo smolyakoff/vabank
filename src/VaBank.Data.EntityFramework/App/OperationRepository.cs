@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Data;
-using System.Data.Common;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Claims;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.App;
-using VaBank.Data.EntityFramework.Membership.Mappings;
+using VaBank.Data.EntityFramework.Common;
 
 namespace VaBank.Data.EntityFramework.App
 {

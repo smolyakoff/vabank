@@ -43,6 +43,7 @@ namespace VaBank.Data.EntityFramework
         {
             //App mappings registration
             modelBuilder.Configurations.Add(new OperationMap());
+            modelBuilder.Configurations.Add(new ApplicationActionMap());
 
             //Maintenance mappings registration
             modelBuilder.Configurations.Add(new SystemLogEntryMap());

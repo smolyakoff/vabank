@@ -1,4 +1,4 @@
-﻿namespace VaBank.Data.EntityFramework.Membership.Mappings
+﻿namespace VaBank.Data.EntityFramework.Common
 {
     internal static class RestrictionConstants
     {

@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using VaBank.Core.App;
-using VaBank.Data.EntityFramework.Membership.Mappings;
+using VaBank.Data.EntityFramework.Common;
 
 namespace VaBank.Data.EntityFramework.App.Mappings
 {
-    public class OperationMap : EntityTypeConfiguration<Operation>
+    internal class OperationMap : EntityTypeConfiguration<Operation>
     {
         public OperationMap()
         {

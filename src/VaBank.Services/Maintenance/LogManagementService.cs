@@ -166,6 +166,7 @@ namespace VaBank.Services.Maintenance
             {
                 var appAction = command.ToEntity<CreateAppActionCommand, ApplicationAction>();
                 _db.AuditLogs.CreateAction(appAction);
+                UnitOfWork.Commit();
             }
             catch (Exception ex) 
             {
