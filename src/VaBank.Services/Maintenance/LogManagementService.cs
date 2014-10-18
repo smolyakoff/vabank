@@ -5,6 +5,7 @@ using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.App;
 using VaBank.Core.Maintenance;
+using VaBank.Core.Membership;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
@@ -119,18 +120,22 @@ namespace VaBank.Services.Maintenance
             EnsureIsValid(query);
             try
             {
-                var audit = _db.AuditLogs.GetAuditEntries(DbQuery.For<ApplicationAction>().FilterBy(query.ClientFilter));
-                var models = new List<AuditLogEntryBriefModel>();
-                foreach (var item in audit)
+                var audit = _db.AuditLogs.GetAuditEntries(DbQuery.For<ApplicationAction>()
+                    .FilterBy(query.ClientFilter));
+
+                var userIds =
+                    audit.Where(x => x.Operation.UserId.HasValue).Select(s => s.Operation.UserId.Value).ToList();
+                var usersNameKeyPairs =
+                    _db.Users.Query(DbQuery.For<User>().FilterBy(x => userIds.Contains(x.Id)))
+                        .ToDictionary(k => k.Id, e => e.UserName);
+                var models = audit.Select(x => x.ToClass<AuditLogBriefEntry, AuditLogEntryBriefModel>()).ToList();
+
+                foreach (var model in models)
                 {
-                    var model = item.ToClass<AuditLogBriefEntry, AuditLogEntryBriefModel>();
                     if (model.UserId.HasValue)
                     {
-                        var user = _db.Users.Find(model.UserId.Value);
-                        if (user != null)
-                            model.UserName = user.UserName;
+                        model.UserName = usersNameKeyPairs[model.UserId.Value];
                     }
-                    models.Add(model);
                 }
                 return models;
             }
