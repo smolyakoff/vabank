@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\AppHelper.cs" />
     <Compile Include="App\AuditLogRepository.cs" />
     <Compile Include="App\Mappings\ApplicationActionMap.cs" />
     <Compile Include="App\Mappings\OperationMap.cs" />
