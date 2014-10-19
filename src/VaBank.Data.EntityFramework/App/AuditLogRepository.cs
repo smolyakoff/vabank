@@ -5,7 +5,6 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using VaBank.Common.Data;
-using VaBank.Common.Data.Database;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.App;
 
@@ -18,16 +17,12 @@ namespace VaBank.Data.EntityFramework.App
         private const string ActionColumnName = "HistoryAction";
 
         private readonly DbContext _dbContext;
-        private readonly ITransactionProvider _transactionProvider;
 
-        public AuditLogRepository(DbContext dbContext, ITransactionProvider transactionProvider)
+        public AuditLogRepository(DbContext dbContext)
         {
-            if (transactionProvider == null)
-                throw new ArgumentNullException("transactionProvider");
            if (dbContext == null)
                 throw new ArgumentNullException("dbContext");
             _dbContext = dbContext;
-            _transactionProvider = transactionProvider;
         }
 
         public IList<AuditLogBriefEntry> GetAuditEntries(DbQuery<ApplicationAction> query)
@@ -51,8 +46,7 @@ namespace VaBank.Data.EntityFramework.App
         {
             var operation = _dbContext.Set<Operation>().Find(operationId);
             if (operation == null)
-                throw new InvalidOperationException(string.Format("Operation with {0} id not found",
-                    operationId.ToString()));
+                return null;
 
             return EnsureRepositoryException(() =>
             {
@@ -67,62 +61,48 @@ namespace VaBank.Data.EntityFramework.App
                 command.Parameters.Add(sqlParameter);
 
                 var dbActions = new List<DatabaseAction>();
-                try
+
+                foreach (var tableName in auditTableNames)
                 {
-                    if (connection.State == ConnectionState.Broken)
+                    command.CommandText = string.Format(
+                        "SELECT * {0} WHERE HistoryOperationId = @OperationId",
+                        tableName.GetFullTableName());
+                    var reader = command.ExecuteReader();
+                    var dbAction = new DatabaseAction
                     {
-                        connection.Close();
-                        connection.Open();
-                    }
-                    if (connection.State == ConnectionState.Closed)
-                        connection.Open();
-                    
-                    foreach (var tableName in auditTableNames)
+                        TableName = tableName.GetFullTableName(),
+                        ChangedRows = new List<VersionedDatabaseRow>()
+                    };
+                    dbActions.Add(dbAction);
+
+                    while (reader.Read())
                     {
-                        command.CommandText = string.Format(
-                            "SELECT * {0} WHERE HistoryOperationId = @OperationId",
-                            tableName.GetFullTableName());
-                        var reader = command.ExecuteReader();
-                        var dbAction = new DatabaseAction
+                        var values = new Dictionary<string, object>();
+                        var dbRow = new VersionedDatabaseRow(values);
+                        dbAction.ChangedRows.Add(dbRow);
+
+                        dbRow.Version = (long)reader[VersionColumnName];
+                        dbRow.TimestampUtc = (DateTime)reader[TimestampUtcColumnName];
+                        dbRow.Action = ToOperation(((char)reader[ActionColumnName]));
+
+                        for (int i = 0; i < reader.FieldCount; i++)
                         {
-                            TableName = tableName.GetFullTableName(),
-                            ChangedRows = new List<VersionedDatabaseRow>()
-                        };
-                        dbActions.Add(dbAction);
-
-                        while (reader.Read())
-                        {
-                            var values = new Dictionary<string, object>();
-                            var dbRow = new VersionedDatabaseRow(values);
-                            dbAction.ChangedRows.Add(dbRow);
-
-                            dbRow.Version = (long) reader[VersionColumnName];
-                            dbRow.TimestampUtc = (DateTime) reader[TimestampUtcColumnName];
-                            dbRow.Action = ((char) reader[ActionColumnName]).ToOperation();
-
-                            for (int i = 0; i < reader.FieldCount; i++)
+                            var columnName = reader.GetName(i);
+                            if (columnName == VersionColumnName || columnName == TimestampUtcColumnName ||
+                                columnName == ActionColumnName)
                             {
-                                var columnName = reader.GetName(i);
-                                if (columnName == VersionColumnName || columnName == TimestampUtcColumnName ||
-                                    columnName == ActionColumnName)
-                                {
-                                    continue;
-                                }
-                                values.Add(columnName, reader.GetValue(i));
+                                continue;
                             }
+                            values.Add(columnName, reader.GetValue(i));
                         }
                     }
+                }
 
-                    return new AuditLogEntry(operation)
-                    {
-                        ApplicationActions = actions,
-                        DatabaseActions = dbActions
-                    };
-                }
-                finally
+                return new AuditLogEntry(operation)
                 {
-                    connection.Close();
-                }
+                    ApplicationActions = actions,
+                    DatabaseActions = dbActions
+                };
             });
         }
 
@@ -144,18 +124,7 @@ namespace VaBank.Data.EntityFramework.App
 
         public void CreateAction(ApplicationAction action)
         {
-            EnsureRepositoryException(() =>
-            {
-                var entity = _dbContext.Set<ApplicationAction>().Add(action);
-                CommitTransactionChanges();
-                return entity;
-            });
-        }
-
-        protected void CommitTransactionChanges()
-        {
-            if (_transactionProvider.HasCurrentTransaction)
-                _transactionProvider.CurrentTransaction.Commit();
+            EnsureRepositoryException(() => _dbContext.Set<ApplicationAction>().Add(action));
         }
 
         protected T EnsureRepositoryException<T>(Func<T> call)
@@ -171,6 +140,21 @@ namespace VaBank.Data.EntityFramework.App
             catch (Exception ex)
             {
                 throw new RepositoryException(ex.Message, ex);
+            }
+        }
+
+        public static DatabaseOperation ToOperation(char value)
+        {
+            switch (value)
+            {
+                case 'U':
+                    return DatabaseOperation.Update;
+                case 'D':
+                    return DatabaseOperation.Delete;
+                case 'I':
+                    return DatabaseOperation.Insert;
+                default:
+                    throw new InvalidOperationException("Can't convert char value to DatabaseOperation");
             }
         }
     }
