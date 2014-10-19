@@ -12,6 +12,10 @@ namespace VaBank.Data.EntityFramework.App
 {
     public class AuditLogRepository : IRepository, IAuditLogRepository
     {
+        private const string VersionColumnName = "HistoryId";
+        private const string TimestampUtcColumnName = "HistoryTimestampUtc";
+        private const string ActionColumnName = "HistoryAction";
+
         private readonly DbContext _dbContext;
 
         public AuditLogRepository(DbContext dbContext)
@@ -87,22 +91,16 @@ namespace VaBank.Data.EntityFramework.App
                             var dbRow = new VersionedDatabaseRow(values);
                             dbAction.ChangedRows.Add(dbRow);
 
+                            dbRow.Version = (long) reader[VersionColumnName];
+                            dbRow.TimestampUtc = (DateTime) reader[TimestampUtcColumnName];
+                            dbRow.Action = ((char) reader[ActionColumnName]).ToOperation();
+
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
                                 var columnName = reader.GetName(i);
-                                if (columnName == "HistoryId")
+                                if (columnName == VersionColumnName || columnName == TimestampUtcColumnName ||
+                                    columnName == ActionColumnName)
                                 {
-                                    dbRow.Version = reader.GetInt64(i);
-                                    continue;
-                                }
-                                if (columnName == "HistoryTimestampUtc")
-                                {
-                                    dbRow.TimestampUtc = reader.GetDateTime(i);
-                                    continue;
-                                }
-                                if (columnName == "HistoryAction")
-                                {
-                                    dbRow.Action = reader.GetChar(i).ToOperation();
                                     continue;
                                 }
                                 values.Add(columnName, reader.GetValue(i));
