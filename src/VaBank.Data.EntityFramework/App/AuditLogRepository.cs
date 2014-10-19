@@ -48,7 +48,7 @@ namespace VaBank.Data.EntityFramework.App
             return EnsureRepositoryException(() =>
             {
                 var actions = _dbContext.Set<ApplicationAction>().Where(x => x.OperationId == operation.Id).ToList();
-                var auditTableNames = GetTableNames();
+                var auditTableNames = GetHistoryTableNames();
                 var connection = _dbContext.Database.Connection;
                 var command = connection.CreateCommand();
                 var sqlParameter = new SqlParameter("@OperationId", SqlDbType.UniqueIdentifier)
@@ -123,7 +123,7 @@ namespace VaBank.Data.EntityFramework.App
             });
         }
 
-        private IEnumerable<TableNamePair> GetTableNames()
+        private IEnumerable<TableNamePair> GetHistoryTableNames()
         {
             const string sql =
                 @"SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME LIKE '%[_]History'";
