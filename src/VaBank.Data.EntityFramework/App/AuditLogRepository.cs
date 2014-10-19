@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using VaBank.Common.Data;
+using VaBank.Common.Data.Database;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.App;
 
@@ -17,12 +18,16 @@ namespace VaBank.Data.EntityFramework.App
         private const string ActionColumnName = "HistoryAction";
 
         private readonly DbContext _dbContext;
+        private readonly ITransactionProvider _transactionProvider;
 
-        public AuditLogRepository(DbContext dbContext)
+        public AuditLogRepository(DbContext dbContext, ITransactionProvider transactionProvider)
         {
+            if (transactionProvider == null)
+                throw new ArgumentNullException("transactionProvider");
            if (dbContext == null)
                 throw new ArgumentNullException("dbContext");
             _dbContext = dbContext;
+            _transactionProvider = transactionProvider;
         }
 
         public IList<AuditLogBriefEntry> GetAuditEntries(DbQuery<ApplicationAction> query)
@@ -139,7 +144,18 @@ namespace VaBank.Data.EntityFramework.App
 
         public void CreateAction(ApplicationAction action)
         {
-            EnsureRepositoryException(() => _dbContext.Set<ApplicationAction>().Add(action));
+            EnsureRepositoryException(() =>
+            {
+                var entity = _dbContext.Set<ApplicationAction>().Add(action);
+                CommitTransactionChanges();
+                return entity;
+            });
+        }
+
+        protected void CommitTransactionChanges()
+        {
+            if (_transactionProvider.HasCurrentTransaction)
+                _transactionProvider.CurrentTransaction.Commit();
         }
 
         protected T EnsureRepositoryException<T>(Func<T> call)
