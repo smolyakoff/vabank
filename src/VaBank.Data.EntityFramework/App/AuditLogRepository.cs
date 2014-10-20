@@ -12,6 +12,7 @@ namespace VaBank.Data.EntityFramework.App
 {
     public class AuditLogRepository : IRepository, IAuditLogRepository
     {
+        //TODO: можно объеденить в private static class 
         private const string VersionColumnName = "HistoryId";
         private const string TimestampUtcColumnName = "HistoryTimestampUtc";
         private const string ActionColumnName = "HistoryAction";
@@ -57,6 +58,7 @@ namespace VaBank.Data.EntityFramework.App
 
                 var dbActions = new List<DatabaseAction>();
 
+                
                 foreach (var tableName in auditTableNames)
                 {
                     command.CommandText = string.Format(
@@ -70,10 +72,12 @@ namespace VaBank.Data.EntityFramework.App
                     };
                     dbActions.Add(dbAction);
 
+                    //TODO: хз, я бы использовал DataTable.Fill()
                     while (reader.Read())
                     {
                         var values = new Dictionary<string, object>();
                         var dbRow = new VersionedDatabaseRow(values);
+
                         dbAction.ChangedRows.Add(dbRow);
 
                         dbRow.Version = (long)reader[VersionColumnName];
@@ -83,6 +87,7 @@ namespace VaBank.Data.EntityFramework.App
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
                             var columnName = reader.GetName(i);
+                            //TODO: а если десять колонок будет - десять условий будешь писать?
                             if (columnName == VersionColumnName || columnName == TimestampUtcColumnName ||
                                 columnName == ActionColumnName)
                             {
@@ -92,7 +97,7 @@ namespace VaBank.Data.EntityFramework.App
                         }
                     }
                 }
-
+                //TODO: DatabaseActions сеттер должен быть протектек или прайвит
                 return new AuditLogEntry(operation, actions)
                 {
                     DatabaseActions = dbActions
@@ -153,6 +158,7 @@ namespace VaBank.Data.EntityFramework.App
         }
     }
 
+    //TODO: этот класс может быть private внутри репозитория
     internal class TableNamePair
     {
         public string TableSchema { get; set; }

@@ -120,9 +120,10 @@ namespace VaBank.Services.Maintenance
             EnsureIsValid(query);
             try
             {
+                
                 var audit = _db.AuditLogs.GetAuditEntries(DbQuery.For<ApplicationAction>()
                     .FilterBy(query.ClientFilter));
-
+                //TODO: убрать этот изврат, ссылка на юзера есть в operation
                 var userIds =
                     audit.Where(x => x.Operation.UserId.HasValue).Select(s => s.Operation.UserId.Value).ToList();
                 var usersNameKeyPairs =
