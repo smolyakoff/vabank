@@ -1,9 +1,6 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using VaBank.Core.Maintenance;
-using VaBank.Services.Contracts.Maintenance;
 using VaBank.Services.Contracts.Maintenance.Models;
-using VaBank.Services.Contracts.Maintenance.Queries;
 
 namespace VaBank.Services.Maintenance
 {

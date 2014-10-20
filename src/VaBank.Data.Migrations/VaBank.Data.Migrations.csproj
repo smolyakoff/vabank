@@ -52,14 +52,23 @@
     <Compile Include="M1-Authentication\ChangeApplicationTokenIdType.cs" />
     <Compile Include="M1-Authentication\ChangeLogStringsLength.cs" />
     <Compile Include="M1-Authentication\ChangeProtectedTicketLength.cs" />
+    <Compile Include="M1-Authentication\ChangeUserClaimPK.cs" />
     <Compile Include="M1-Authentication\CreateApplicationTokenUserIdColumn.cs" />
     <Compile Include="M1-Authentication\DeleteSecurityStampFromUser.cs" />
+    <Compile Include="M1-Authentication\M1Profile.cs" />
     <Compile Include="M1-Authentication\Membership.cs" />
     <Compile Include="M1-Authentication\RenameLogsTable.cs" />
     <Compile Include="M1-Authentication\SeedClientDev.cs" />
     <Compile Include="M1-Authentication\SeedClientProduction.cs" />
     <Compile Include="M1-Authentication\SeedUsers.cs" />
     <Compile Include="M1-Authentication\M1User.cs" />
+    <Compile Include="M2-Accounting\Accounting.cs" />
+    <Compile Include="M2-Accounting\AddRowVersionColumnsToAccountingTables.cs" />
+    <Compile Include="M2-Accounting\CreateAppAction.cs" />
+    <Compile Include="M2-Accounting\CreateAppOperationMarker.cs" />
+    <Compile Include="M2-Accounting\CreateHistoryProcedures.cs" />
+    <Compile Include="M2-Accounting\CreateHistoryTableForUser.cs" />
+    <Compile Include="M2-Accounting\CreateResource.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +81,23 @@
       <Project>{e06fb03e-8249-4f94-9568-ec1247769273}</Project>
       <Name>VaBank.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="M2-Accounting\TABLE_Operation.sql" />
+    <EmbeddedResource Include="M2-Accounting\TRG_Operation_Insert.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="M2-Accounting\VIEW_CurrentOperation.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="M2-Accounting\PROC_FinishOperation.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="M2-Accounting\PROC_StartOperation.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="M2-Accounting\PROC_DropHistoryTable.sql" />
+    <EmbeddedResource Include="M2-Accounting\PROC_GenerateHistoryTable.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

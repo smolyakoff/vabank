@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A89707E0-AEB9-4A25-949E-A069C6D81E25}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VaBank.Jobs</RootNamespace>
+    <AssemblyName>VaBank.Jobs</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=2.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Common.Logging.2.2.0\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\packages\Common.Logging.Core.2.2.0\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.Core, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Hangfire.Core.1.1.1\lib\net45\Hangfire.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="JVW.Logging.CommonLoggingNLogAdapter">
+      <HintPath>..\..\packages\JVW.Logging.CommonLoggingNLogAdapter.1.0.0\lib\JVW.Logging.CommonLoggingNLogAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=3.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\BaseJob.cs" />
+    <Compile Include="Common\DefaultJobContext%271.cs" />
+    <Compile Include="Common\DefaultJobContext.cs" />
+    <Compile Include="Common\EventDispatcherJob.cs" />
+    <Compile Include="Common\EventListenerJob.cs" />
+    <Compile Include="Common\HangfireEventListener.cs" />
+    <Compile Include="Common\IEventListenerJob.cs" />
+    <Compile Include="Common\IJob.cs" />
+    <Compile Include="Common\IJobContext%271.cs" />
+    <Compile Include="Common\IJobContext.cs" />
+    <Compile Include="Common\JobNameAttribute.cs" />
+    <Compile Include="Common\ParameterJob.cs" />
+    <Compile Include="Common\Serialization.cs" />
+    <Compile Include="Common\VabankJob.cs" />
+    <Compile Include="JobStartup.cs" />
+    <Compile Include="Maintenance\AuditJob.cs" />
+    <Compile Include="Maintenance\KeepAliveJob.cs" />
+    <Compile Include="Modules\AfterLoad.cs" />
+    <Compile Include="Modules\DataAccessModule.cs" />
+    <Compile Include="Modules\ServicesModule.cs" />
+    <Compile Include="Modules\BackgroundServicesModule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\VaBank.Common\VaBank.Common.csproj">
+      <Project>{e06fb03e-8249-4f94-9568-ec1247769273}</Project>
+      <Name>VaBank.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VaBank.Core\VaBank.Core.csproj">
+      <Project>{87e0a3c9-5ccd-4154-9ee3-e65cb54efd0e}</Project>
+      <Name>VaBank.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VaBank.Data.EntityFramework\VaBank.Data.EntityFramework.csproj">
+      <Project>{39a10c5c-1058-41d3-b40f-d0ece134cd6f}</Project>
+      <Name>VaBank.Data.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VaBank.Services.Contracts\VaBank.Services.Contracts.csproj">
+      <Project>{c203f56a-2032-4ba5-a8aa-0cb7fd38b784}</Project>
+      <Name>VaBank.Services.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VaBank.Services\VaBank.Services.csproj">
+      <Project>{adfbf54d-6506-4af9-996b-59f55ffc2066}</Project>
+      <Name>VaBank.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

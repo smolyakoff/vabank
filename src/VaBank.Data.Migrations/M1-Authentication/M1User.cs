@@ -8,7 +8,7 @@ namespace VaBank.Data.Migrations
 {
     internal class M1User
     {
-        public static M1User Create(string login, string password, string role)
+        public static M1User Create(string login, string password, string role, M1Profile profile = null)
         {
             var user = new M1User
             {
@@ -19,7 +19,8 @@ namespace VaBank.Data.Migrations
                 {
                     new Claim(ClaimTypes.Name, login),
                     new Claim(ClaimTypes.Role, role)
-                }
+                },
+                Profile = profile
             };
             user.Claims.Add(new Claim(ClaimTypes.Sid, user.UserId.ToString()));
             var credentials = user.Claims.OrderBy(x => x.Type).Select(x => x.ToString());
@@ -36,6 +37,8 @@ namespace VaBank.Data.Migrations
         public string SecurityStamp { get; set; }
 
         public IList<Claim> Claims { get; set; }
+
+        public M1Profile Profile { get; set; }
 
         public object ToTableRow()
         {

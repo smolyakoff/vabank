@@ -1,6 +1,6 @@
 {
   "name": "angular-form-for",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "main": [
     "./dist/form-for.css",
     "./dist/form-for.js"
@@ -37,14 +37,13 @@
   "resolutions": {
     "angular": "1.2.22"
   },
-  "_release": "1.5.1",
+  "_release": "1.5.2",
   "_resolution": {
     "type": "version",
-    "tag": "1.5.1",
-    "commit": "337a1506c78e6b95ebb38aa6048f3931cc61a861"
+    "tag": "1.5.2",
+    "commit": "88cc58ecf7b4972b54a8acc3dec1a66144939f72"
   },
   "_source": "git://github.com/bvaughn/angular-form-for.git",
   "_target": "~1.5.1",
-  "_originalSource": "angular-form-for",
-  "_direct": true
+  "_originalSource": "angular-form-for"
 }

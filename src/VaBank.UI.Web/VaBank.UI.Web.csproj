@@ -88,6 +88,9 @@
     <Reference Include="FluentValidation">
       <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="Hangfire.Autofac">
+      <HintPath>..\..\packages\Hangfire.Autofac.1.0.0\lib\net45\Hangfire.Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Hangfire.Core">
       <HintPath>..\..\packages\Hangfire.Core.1.1.1\lib\net45\Hangfire.Core.dll</HintPath>
     </Reference>
@@ -102,11 +105,11 @@
     </Reference>
     <Reference Include="LibSass.x86, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\libsassnet.1.7\lib\net40\LibSass.x86.dll</HintPath>
+      <HintPath>..\..\packages\libsassnet.1.9\lib\net40\LibSass.x86.dll</HintPath>
     </Reference>
     <Reference Include="libsassnet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\libsassnet.1.7\lib\net40\libsassnet.dll</HintPath>
+      <HintPath>..\..\packages\libsassnet.1.9\lib\net40\libsassnet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin">
@@ -143,6 +146,10 @@
     <Reference Include="Owin">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="RazorGenerator.Templating">
       <HintPath>..\..\packages\RazorGenerator.Templating.2.2.3\lib\net40\RazorGenerator.Templating.dll</HintPath>
     </Reference>
@@ -167,8 +174,9 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.Cors">
-      <HintPath>..\..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
+    <Reference Include="System.Web.Cors, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Cors.5.2.2\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -271,8 +279,10 @@
     <Content Include="Client\app\modules\vabank-ui\config\form-for.js" />
     <Content Include="Client\app\modules\vabank-ui\config\toastr-config.js" />
     <Content Include="Client\app\modules\vabank-ui\config\local-storage-config.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\st-table-force-pipe.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-confirm.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-datepicker.js" />
+    <Content Include="Client\app\modules\vabank-ui\filters\string-format.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\truncate.js" />
     <Content Include="Client\app\modules\vabank-ui\services\control-util.js" />
     <Content Include="Client\app\modules\vabank-ui\services\data-util.js" />
@@ -793,7 +803,6 @@
     <Content Include="Client\app\areas\admin\scheduler\scheduler.scss" />
     <Content Include="Client\app\styles\common.scss" />
     <Content Include="Client\bower_components\angular-smart-table\.bower.json" />
-    <Content Include="Client\bower_components\angular-smart-table\.travis.yml" />
     <Content Include="Client\bower_components\angular-smart-table\bower.json" />
     <Content Include="Client\bower_components\angular-smart-table\changeLog.md" />
     <Content Include="Client\bower_components\angular-smart-table\package.json" />
@@ -908,7 +917,8 @@
     <Content Include="Client\bower_components\spin.js\README.md" />
     <Content Include="Client\app\areas\admin\user-management\user-management.scss" />
     <Content Include="Client\app\areas\customer\profile\profile.scss" />
-    <Content Include="Client\app\areas\customer\cards\cards.scss" />
+    <Content Include="Client\bower_components\angular-smart-table\.travis.yml" />
+	<Content Include="Client\app\areas\customer\cards\cards.scss" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -931,13 +941,14 @@
     <Compile Include="Api\Infrastructure\Auth\VabankAuthorizationServerProvider.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankRefreshTokenProvider.cs" />
     <Compile Include="Api\Infrastructure\Converters\HttpServiceErrorConverter.cs" />
+    <Compile Include="Api\Infrastructure\Converters\PagedListConverter.cs" />
     <Compile Include="Api\Infrastructure\Filters\ServiceExceptionFilterAttribute.cs" />
+    <Compile Include="Api\Infrastructure\Filters\ServiceOperationAttribute.cs" />
     <Compile Include="Api\Infrastructure\Filters\TransactionAttribute.cs" />
-    <Compile Include="Api\Infrastructure\IoC\JsonNetConverter.cs" />
     <Compile Include="Api\Infrastructure\MessageHandlers\GlobalExceptionHandler.cs" />
     <Compile Include="Api\Infrastructure\MessageHandlers\GlobalExceptionLogger.cs" />
     <Compile Include="Api\Infrastructure\ModelBinding\InheritanceAwareModelBinderProvider.cs" />
-    <Compile Include="Api\Infrastructure\ModelBinding\QueryModelBinder.cs" />
+    <Compile Include="Api\Infrastructure\ModelBinding\QueryHttpParameterBinding.cs" />
     <Compile Include="Api\Infrastructure\Models\HttpServiceError.cs" />
     <Compile Include="Middleware\CultureMiddleware.cs" />
     <Compile Include="Middleware\ExceptionMiddleware.cs" />
@@ -947,7 +958,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Api\Infrastructure\IoC\AutofacFactory.cs" />
+    <Compile Include="VaBankServiceBus.cs" />
     <Compile Include="Views\Views.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -962,6 +973,10 @@
     <ProjectReference Include="..\VaBank.Data.EntityFramework\VaBank.Data.EntityFramework.csproj">
       <Project>{39a10c5c-1058-41d3-b40f-d0ece134cd6f}</Project>
       <Name>VaBank.Data.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VaBank.Jobs\VaBank.Jobs.csproj">
+      <Project>{a89707e0-aeb9-4a25-949e-a069c6d81e25}</Project>
+      <Name>VaBank.Jobs</Name>
     </ProjectReference>
     <ProjectReference Include="..\VaBank.Services.Contracts\VaBank.Services.Contracts.csproj">
       <Project>{c203f56a-2032-4ba5-a8aa-0cb7fd38b784}</Project>

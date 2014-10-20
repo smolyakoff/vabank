@@ -1,13 +1,13 @@
 ﻿<section class="row">
-    <form form-for="profileForm">
+    <form form-for="profileForm" submit-with="save()" submit-complete="onSaved(data)" validation-rules="validationRules">
         <div class="col-xs-10 col-sm-8 col-md-8 col-md-6 col-lg-offset-1 col-lg-6">
-            <text-field label="Имя" attribute="username" placeholder="Введите имя"></text-field>
-            <text-field label="Фамилия" attribute="surname" placeholder="Введите фамилию"></text-field>
-            <text-field label="Контактный номер" attribute="phone" icon-before="glyphicon glyphicon-phone"
+            <text-field label="Имя" attribute="firstName" placeholder="Введите имя"></text-field>
+            <text-field label="Фамилия" attribute="lastName" placeholder="Введите фамилию"></text-field>
+            <text-field label="Контактный номер" attribute="phoneNumber" icon-before="glyphicon glyphicon-phone"
                         help="пр. +375 (29) 746-16-61" placeholder="Введите номер мобильного телефона">
             </text-field>
             <text-field label="E-mail" attribute="email" icon-before="glyphicon glyphicon-envelope" placeholder="Введите свой электронный адрес"></text-field>
-            <text-field label="Секретная фраза" attribute="passphrase" class="form-control-static" disable="true" multiline placeholder="VELCOM"></text-field>
+            <text-field label="Секретная фраза" attribute="secretPhrase" disable="true" multiline></text-field>
             <submit-button button-class="btn btn-primary pull-right" label="Сохранить"></submit-button>
 
         </div>

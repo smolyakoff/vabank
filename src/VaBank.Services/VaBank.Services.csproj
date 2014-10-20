@@ -42,6 +42,10 @@
     <Reference Include="NLog">
       <HintPath>..\..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -52,17 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\IObjectFactory.cs" />
-    <Compile Include="Common\IRepositoryCollection.cs" />
+    <Compile Include="Common\BaseServiceDependencies.cs" />
+    <Compile Include="Common\NotFound.cs" />
+    <Compile Include="Common\ServiceOperationProvider.cs" />
+    <Compile Include="Common\IDependencyCollection.cs" />
     <Compile Include="Common\ServiceExtensions.cs" />
-    <Compile Include="Common\Validation\IObjectConverter.cs" />
-    <Compile Include="Common\Validation\IObjectValidator%271.cs" />
-    <Compile Include="Common\Validation\IObjectValidator.cs" />
-    <Compile Include="Common\Validation\ObjectValidator.cs" />
-    <Compile Include="Common\Validation\StaticValidatorAttribute.cs" />
-    <Compile Include="Common\Validation\ValidationExtensions.cs" />
-    <Compile Include="Common\Validation\ValidationService.cs" />
-    <Compile Include="Common\Validation\ValidatorNameAttribute.cs" />
+    <Compile Include="Common\ValidationService.cs" />
     <Compile Include="Maintenance\LogManagementService.cs" />
     <Compile Include="Maintenance\MaintenanceExtensions.cs" />
     <Compile Include="Maintenance\MaintenanceProfile.cs" />
@@ -76,6 +75,8 @@
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Maintenance\SystemLogTypeModel.cs" />
     <Compile Include="Maintenance\Validators.cs" />
+    <Compile Include="Membership\AccessFailureReason.cs" />
+    <Compile Include="Membership\AccessFailure.cs" />
     <Compile Include="Membership\MembershipExtensions.cs" />
     <Compile Include="Membership\MembershipProfile.cs" />
     <Compile Include="Membership\AuthorizationRepositories.cs" />
@@ -85,6 +86,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Membership\UserManagementRepositories.cs" />
+    <Compile Include="Membership\UserManagementService.cs" />
     <Compile Include="Membership\Validators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

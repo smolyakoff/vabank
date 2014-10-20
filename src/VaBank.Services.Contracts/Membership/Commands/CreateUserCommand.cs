@@ -4,6 +4,8 @@
     {
         public string UserName { get; set; }
 
+        public string Role { get; set; }
+
         public string Password { get; set; }
 
         public string PasswordConfirmation { get; set; }
@@ -21,6 +23,8 @@
         public bool SmsNotificationEnabled { get; set; }
 
         public bool SmsConfirmationEnabled { get; set; }
+
+        public string SecretPhrase { get; set; }
 
     }
 }

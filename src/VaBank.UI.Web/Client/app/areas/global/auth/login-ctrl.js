@@ -5,9 +5,9 @@
         .module('vabank.webapp')
         .controller('loginController', loginController);
 
-    loginController.$inject = ['$scope', '$q', '$state', '$stateParams', 'uiTools', 'authService']; 
+    loginController.$inject = ['$scope', '$q', '$state', '$stateParams', '$location', 'uiTools', 'authService']; 
 
-    function loginController($scope, $q, $state, $stateParams, uiTools, authService) {
+    function loginController($scope, $q, $state, $stateParams, $location, uiTools, authService) {
 
 
         $scope.loginForm = {
@@ -26,7 +26,7 @@
             function onSuccess() {
                 var user = authService.getUser();
                 if ($stateParams.redirect) {
-                    $state.go($stateParams.redirect);
+                    $location.path($stateParams.redirect);
                 } else if (user.isInRole('Admin')) {
                     $state.go('admin');
                 } else {
@@ -40,7 +40,7 @@
                 if (response.error === 'LoginValidationError') {
                     message = _.pluck(error.faults, 'message').join('\r\n');
                 } else {
-                    message = error.message.message;
+                    message = error.message;
                 }
                 uiTools.notify({
                     type: 'error',

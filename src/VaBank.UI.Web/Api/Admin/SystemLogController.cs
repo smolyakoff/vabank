@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Maintenance;
 using VaBank.Services.Contracts.Maintenance.Commands;
@@ -21,7 +20,7 @@ namespace VaBank.UI.Web.Api.Admin
 
         [HttpGet]
         [Route]
-        public IHttpActionResult Query([ModelBinder] SystemLogQuery query)
+        public IHttpActionResult Query(SystemLogQuery query)
         {
             var logs = _logManagementService.GetSystemLogEntries(query);
             return Ok(logs);
@@ -29,7 +28,7 @@ namespace VaBank.UI.Web.Api.Admin
 
         [HttpGet]
         [Route("{id}/exception")]
-        public IHttpActionResult Exception([ModelBinder] IdentityQuery<long> query)
+        public IHttpActionResult Exception([FromUri]IdentityQuery<long> query)
         {
             var message = _logManagementService.GetSystemLogException(query);
             return message == null ? (IHttpActionResult)NotFound() : Ok(message);

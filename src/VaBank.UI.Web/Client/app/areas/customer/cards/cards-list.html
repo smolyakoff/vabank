@@ -2,29 +2,27 @@
     <div class="col-xs-12">
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <th style="width: 300px">карта</th>  <!--responsive-->
-                    <th style="width: 300px">БАЛАНС</th>
-                    <th style="width: 300px">СРОК ДЕЙСТВИЯ КАРТЫ</th>
-                    <th style="width: 300px">СТАТУС БЛОКИРОВКИ</th>
-                    <th style="width: 300px">СМС ОПОВЕЩЕНИЯ</th>
+                <tr class="initialism">
+                    <th>Карта</th>  <!--responsive-->
+                    <th>Баланс</th>
+                    <th>Срок действия карты</th>
+                    <th>Статус блокировки</th>
+                    <th>Смс оповещения</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="card in cards">
                     <td class="row">
-                            <div class="col-xs-3">
-                                <a><img src="/Client/app/images/icons/maestro-curved-32px.png"></a>
-
-                            </div>
-                            <div class="col-xs-9">
-                                <a>{{card.name}} <i class="glyphicon glyphicon-edit" ng-click=""></i></a>
-                                <span>*Номер карты</span>
-                                <span>Обладатель: {{}}</span>
-                                ЛИМИТЫ
-                            </div>
+                        <div class="col-xs-3">
+                            <a><img src="/Client/app/images/icons/maestro-curved-32px.png"></a>
+                        </div>
+                        <div class="col-xs-8">
+                            <p class="text-left">{{card.name}} <i class="glyphicon glyphicon-edit" ng-click=""></i></p>
+                            <p class="text-left">*Номер карты</p>
+                            <p class="text-left">Обладатель: {{}}</p>
+                        </div>
                     </td>
-                    <td>{{ card.balance }}</td>
+                    <td>{{ card.balance }} BYR</td>
                     <td>{{  }}</td>
                     <td>{{ card.block }}</td>
                     <td>{{  }}</td>

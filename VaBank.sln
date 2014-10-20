@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30324.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.UI.Web", "src\VaBank.UI.Web\VaBank.UI.Web.csproj", "{BD4A180E-5912-4DED-87E8-2618544A6AA8}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.UI.Web", "src\VaBank
 		{39A10C5C-1058-41D3-B40F-D0ECE134CD6F} = {39A10C5C-1058-41D3-B40F-D0ECE134CD6F}
 		{C203F56A-2032-4BA5-A8AA-0CB7FD38B784} = {C203F56A-2032-4BA5-A8AA-0CB7FD38B784}
 		{87E0A3C9-5CCD-4154-9EE3-E65CB54EFD0E} = {87E0A3C9-5CCD-4154-9EE3-E65CB54EFD0E}
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25} = {A89707E0-AEB9-4A25-949E-A069C6D81E25}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Data.Migrations", "src\VaBank.Data.Migrations\VaBank.Data.Migrations.csproj", "{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}"
@@ -24,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{CAF1F0
 		deploy\dev-clean.bat = deploy\dev-clean.bat
 		deploy\dev-migrate.bat = deploy\dev-migrate.bat
 		deploy\dev-recreate.bat = deploy\dev-recreate.bat
+		deploy\test-recreate.bat = deploy\test-recreate.bat
 		deploy\VaBank.proj = deploy\VaBank.proj
 		deploy\VaBank.props = deploy\VaBank.props
 	EndProjectSection
@@ -50,6 +52,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Common.Tests", "tests\VaBank.Common.Tests\VaBank.Common.Tests.csproj", "{84FB0238-52D9-4728-9AF4-7FD2A78B8131}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Services.Tests", "tests\VaBank.Services.Tests\VaBank.Services.Tests.csproj", "{670C82DB-D149-44F5-AA33-A1C4BC028C76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Jobs", "src\VaBank.Jobs\VaBank.Jobs.csproj", "{A89707E0-AEB9-4A25-949E-A069C6D81E25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -181,6 +185,18 @@ Global
 		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Release|AnyCPU.Build.0 = Release|Any CPU
 		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{670C82DB-D149-44F5-AA33-A1C4BC028C76}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,5 +212,6 @@ Global
 		{86080FBC-BE65-4BA0-8805-7370652BC516} = {3E87B4A8-FED6-4EE7-86FB-230AD85C2DE2}
 		{84FB0238-52D9-4728-9AF4-7FD2A78B8131} = {3E87B4A8-FED6-4EE7-86FB-230AD85C2DE2}
 		{670C82DB-D149-44F5-AA33-A1C4BC028C76} = {3E87B4A8-FED6-4EE7-86FB-230AD85C2DE2}
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25} = {B2DC990F-6300-493F-B4AB-F5E7957FCE6B}
 	EndGlobalSection
 EndGlobal

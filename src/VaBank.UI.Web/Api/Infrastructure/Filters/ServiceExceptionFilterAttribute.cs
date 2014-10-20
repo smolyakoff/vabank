@@ -16,7 +16,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Filters
 
         private void Handle(ServiceException exception, HttpActionExecutedContext context)
         {
-            var error = new HttpServiceError(exception);
+            var error = new HttpServiceError(exception, context.Request.IsLocal());
             context.Response = context.Request.CreateErrorResponse(error.StatusCode, error.HttpError);
         }
 

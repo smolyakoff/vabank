@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using System;
+﻿using System;
 using VaBank.Core.Common;
 using VaBank.Core.Membership;
 using VaBank.Services.Common;
@@ -7,9 +6,9 @@ using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Membership;
 using VaBank.Common.Data.Repositories;
-using VaBank.Services.Contracts.Common.Models;
 using VaBank.Common.Security;
 using VaBank.Services.Contracts.Membership.Commands;
+using VaBank.Services.Contracts.Membership.Events;
 using VaBank.Services.Contracts.Membership.Models;
 
 namespace VaBank.Services.Membership
@@ -18,32 +17,46 @@ namespace VaBank.Services.Membership
     {
         private readonly AuthorizationRepositories _db;
 
-        public AuthorizationService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, AuthorizationRepositories repositories) 
-            : base(unitOfWork, validatorFactory)
+        public AuthorizationService(BaseServiceDependencies dependencies, AuthorizationRepositories repositories) 
+            : base(dependencies)
         {
             repositories.EnsureIsResolved();
             _db = repositories;
         }
 
-        public LoginResultModel Login(LoginCommand command)
+        public UserIdentityModel Login(LoginCommand command)
         {
             EnsureIsValid(command);
             try
             {
                 var user = _db.Users.QueryOne(command.ToDbQuery());
-                if (user != null)
+                if (user == null)
                 {
-                    var failure = VerifyAccess(user);
-                    if (failure != null)
-                    {
-                        return failure;
-                    }
-                    if (Password.Validate(user.PasswordHash, user.PasswordSalt, command.Password))
-                        return new LoginSuccessModel(new UserMessage(Messages.SuccessLogin), user.ToModel<User, UserIdentityModel>());
-                    ProcessFailedLogin(user);
-                    UnitOfWork.Commit();
+                    throw AccessFailure.ExceptionBecause(AccessFailureReason.BadCredentials);
                 }
-                return new LoginFailureModel(LoginFailureReason.BadCredentials.UserMessage(), LoginFailureReason.BadCredentials);
+                var reason = VerifyAccess(user, command.Password);
+                if (reason == null)
+                {
+                    var model = user.ToModel<User, UserIdentityModel>();
+                    Publish(new UserLoggedIn(Operation.Id, model));
+                    return model;
+                }
+                ++user.AccessFailedCount;
+                if (reason == AccessFailureReason.BadCredentials)
+                {
+                    //TODO: this is domain logic
+                    if (user.AccessFailedCount > 3)
+                    {
+                        user.LockoutEnabled = true;
+                        user.LockoutEndDateUtc = DateTime.MaxValue;
+                    }
+                }
+                UnitOfWork.Commit();
+                throw AccessFailure.ExceptionBecause(reason.Value);
+            }
+            catch (ServiceException)
+            {
+                throw;
             }
             catch (Exception ex)
             {
@@ -108,7 +121,7 @@ namespace VaBank.Services.Membership
             }
         }
 
-        public LoginResultModel RefreshLogin(IdentityQuery<Guid> query)
+        public UserIdentityModel RefreshLogin(IdentityQuery<Guid> query)
         {
             EnsureIsValid(query);
             try
@@ -116,14 +129,16 @@ namespace VaBank.Services.Membership
                 var user = _db.Users.QueryIdentity(query);
                 if (user == null)
                 {
-                    return new LoginFailureModel(new UserMessage(Messages.InvalidCredentials), LoginFailureReason.BadCredentials);
+                    throw AccessFailure.ExceptionBecause(AccessFailureReason.BadCredentials);
                 }
-                var failure = VerifyAccess(user);
-                if (failure != null)
+                var reason = VerifyAccess(user);
+                if (reason == null)
                 {
-                    return failure;
+                    return user.ToModel<User, UserIdentityModel>();
                 }
-                return new LoginSuccessModel(new UserMessage(Messages.SuccessLogin), user.ToModel<User, UserIdentityModel>());
+                user.AccessFailedCount++;
+                UnitOfWork.Commit();
+                throw AccessFailure.ExceptionBecause(reason.Value);
             }
             catch (Exception ex)
             {
@@ -131,25 +146,37 @@ namespace VaBank.Services.Membership
             }
         }
 
-        private static LoginFailureModel VerifyAccess(User user)
+        private AccessFailureReason? VerifyAccess(User user, string password)
         {
-            if (user.Deleted)
-                return new LoginFailureModel(LoginFailureReason.UserDeleted.UserMessage(), LoginFailureReason.UserDeleted);
-                
-            if (user.LockoutEnabled)
-                return new LoginFailureModel(LoginFailureReason.UserBlocked.UserMessage(), LoginFailureReason.UserBlocked);
-                
+            var reason = VerifyAccess(user);
+            if (reason != null)
+            {
+                return reason;
+            }
+            if (!Password.Validate(user.PasswordHash, user.PasswordSalt, password))
+            {
+                return AccessFailureReason.BadCredentials;
+            }
             return null;
         }
 
-        private static void ProcessFailedLogin(User user)
+        //TODO: this is domain logic, move to core
+        private AccessFailureReason? VerifyAccess(User user)
         {
-            ++user.AccessFailedCount;
-            if (user.AccessFailedCount % 3 == 0)
+            if (user.Deleted)
             {
-                user.LockoutEnabled = true;
-                user.LockoutEndDateUtc = DateTime.MaxValue;
+                return AccessFailureReason.UserDeleted;
             }
+            if (user.LockoutEnabled && user.LockoutEndDateUtc > DateTime.UtcNow)
+            {
+                return AccessFailureReason.UserBlocked;
+            }
+            if (user.LockoutEnabled && user.LockoutEndDateUtc < DateTime.UtcNow)
+            {
+                user.LockoutEnabled = false;
+                user.LockoutEndDateUtc = null;
+            }
+            return null;
         }
     }
 }

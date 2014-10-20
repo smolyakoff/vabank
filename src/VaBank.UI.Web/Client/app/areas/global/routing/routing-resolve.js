@@ -9,6 +9,16 @@
 
     function routingInterceptor($q) {
 
+        var resolveOrDefault = function(promise, defaultValue) {
+            var deferred = $q.defer();
+            promise.then(function (response) {
+                deferred.resolve(response);
+            }, function (response) {
+                deferred.resolve(defaultValue);
+            });
+            return deferred.promise;
+        };
+
         var resolveAll = function (promises, names) {
             return $q.all(promises).then(function (arr) {
                 var data = {};
@@ -20,7 +30,8 @@
         };
 
         return {            
-            resolveAll: resolveAll
+            resolveAll: resolveAll,
+            resolveOrDefault: resolveOrDefault
         };
     }
 })();

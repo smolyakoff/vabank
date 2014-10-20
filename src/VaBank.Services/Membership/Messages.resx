@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CheckNumberPhone" xml:space="preserve">
-    <value>Вы ввели некорректный номер телефона.</value>
+  <data name="EmptyPhoneNumberConfirmed" xml:space="preserve">
+    <value>Нельзя подтвердить неверный мобильный телефон</value>
   </data>
   <data name="FieldLength" xml:space="preserve">
     <value>Значение поля должно содержать как минимум {0} символов.</value>
@@ -126,8 +126,17 @@
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Неверное имя пользователя или пароль.</value>
   </data>
+  <data name="NewPasswordNotChanged" xml:space="preserve">
+    <value>Новый пароль должен отличаться от старого</value>
+  </data>
   <data name="NotEmpty" xml:space="preserve">
     <value>Это поле не должно быть пустым.</value>
+  </data>
+  <data name="OnlyLetters" xml:space="preserve">
+    <value>Поле должно содержать только буквы</value>
+  </data>
+  <data name="PasswordChanged" xml:space="preserve">
+    <value>Ваш пароль изменен. Рекомендуем выйти и заново зайти в систему.</value>
   </data>
   <data name="PasswordConfirmation" xml:space="preserve">
     <value>Пароль не был корректно подтвержден. Пароль и подтверждение должны совпадать.</value>

@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation">
+      <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,6 +42,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\ApplicationAction.cs" />
+    <Compile Include="App\AuditLogEntry.cs" />
+    <Compile Include="App\AuditLogBriefEntry.cs" />
+    <Compile Include="App\CompositeUriProvider.cs" />
+    <Compile Include="App\DatabaseOperation.cs" />
+    <Compile Include="App\DatabaseAction.cs" />
+    <Compile Include="App\DatabaseRow.cs" />
+    <Compile Include="App\DefaultUriProvider.cs" />
+    <Compile Include="App\FileLinkLocation.cs" />
+    <Compile Include="App\IAuditLogRepository.cs" />
+    <Compile Include="App\IOperationProvider.cs" />
+    <Compile Include="App\IOperationRepository.cs" />
+    <Compile Include="App\IUriProvider.cs" />
+    <Compile Include="App\FileLink.cs" />
+    <Compile Include="App\Operation.cs" />
+    <Compile Include="App\Resource.cs" />
+    <Compile Include="App\VersionedDatabaseRow.cs" />
+    <Compile Include="Common\DateRange.cs" />
     <Compile Include="Common\Entity.cs" />
     <Compile Include="Common\Entity`1.cs" />
     <Compile Include="Maintenance\SystemLogEntry.cs" />
@@ -46,10 +67,16 @@
     <Compile Include="Membership\ApplicationClientType.cs" />
     <Compile Include="Membership\ApplicationToken.cs" />
     <Compile Include="Membership\IApplicationTokenRepository.cs" />
+    <Compile Include="Membership\Resources\Messages.Designer.cs">
+      <DependentUpon>Messages.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Membership\User.cs" />
     <Compile Include="Membership\UserClaim.cs" />
     <Compile Include="Membership\UserProfile.cs" />
     <Compile Include="Common\IUnitOfWork.cs" />
+    <Compile Include="Membership\Validators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +85,19 @@
       <Name>VaBank.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Membership\Resources\Messages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Membership\Resources\Top_500_Worst_Passwords.txt" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -57,10 +57,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AppContextTest.cs" />
+    <Compile Include="EntityFrameworkTest.cs" />
     <Compile Include="VaBankContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\VaBank.Common\VaBank.Common.csproj">
+      <Project>{E06FB03E-8249-4F94-9568-EC1247769273}</Project>
+      <Name>VaBank.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\VaBank.Core\VaBank.Core.csproj">
       <Project>{87e0a3c9-5ccd-4154-9ee3-e65cb54efd0e}</Project>
       <Name>VaBank.Core</Name>

@@ -14,23 +14,33 @@
             message: String,
         });
 
+        var getDefaultTitle = function(type) {
+            var titles = {
+                info: 'Новое уведомление',
+                warning: 'Предупреждение',
+                error: 'Произошла ошибка',
+                success: 'Успешная операция'
+            };
+            return titles[type];
+        };
+
         var toastDefaults = {            
-          title: 'New notification'
+            type: 'info'
         };
 
         var scope = $rootScope.$new(true);
         scope.notifications = {};
         var notifications = scope.notifications;
         localStorage.bind(scope, 'notifications', 'notifications');
-
-        var notify = function(notification) {
-            if (!notificationSchema(notification) && !notification.isExceptionHandler) {
-                var errors = notificationSchema.errors(notification);
+        var notify = function (notification) {
+            var toast = angular.extend({}, toastDefaults, notification);
+            toast.title = toast.title || getDefaultTitle(toast.type);
+            if (!notificationSchema(toast) && !notification.isExceptionHandler) {
+                var errors = notificationSchema.errors(toast);
                 throw new TypeError('Invalid options passed!\n' + JSON.stringify(errors));
             }
-            var toast = angular.extend({}, toastDefaults, notification);
-            var method = toastr[notification.type];
-            if (_.isUndefined(notification.state) || _.isNull(notification.state) || $state.current.name === toast.state) {
+            var method = toastr[toast.type];
+            if (_.isUndefined(toast.state) || _.isNull(toast.state) || $state.current.name === toast.state) {
                 method(toast.message, toast.title);
             } else {
                 if (!_.isArray(notifications[toast.state])) {

@@ -8,8 +8,6 @@ namespace VaBank.Common.Data
     {
         private bool _inMemoryPaging = false;
 
-        private int _pageSize;
-
         public PagedDbQuery(int pageNumber = 1, int pageSize = 10)
         {
             if (pageNumber < 1)
