@@ -199,6 +199,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client\app\areas\admin\admin-ctrl.js" />
+    <Content Include="Client\app\areas\admin\audit-log\audit-log-item-ctrl.js" />
+    <Content Include="Client\app\areas\admin\audit-log\audit-log.html" />
+    <Content Include="Client\app\areas\admin\audit-log\audit-log-ctrl.js" />
+    <Content Include="Client\app\areas\admin\audit-log\audit-log-service.js" />
     <Content Include="Client\app\areas\admin\system-log\exception-details-ctrl.js" />
     <Content Include="Client\app\areas\admin\system-log\exception-details.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log-service.js" />
@@ -886,6 +890,7 @@
     <Content Include="Client\app\areas\admin\user-management\user-management.scss" />
     <Content Include="Client\app\areas\customer\profile\profile.scss" />
     <Content Include="Client\bower_components\angular-smart-table\.travis.yml" />
+    <Content Include="Client\app\areas\admin\audit-log\audit-log.scss" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
