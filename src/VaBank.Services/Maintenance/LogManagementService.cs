@@ -159,12 +159,12 @@ namespace VaBank.Services.Maintenance
             }
         }
         
-        public void CreateApplicationAction(CreateAppActionCommand command)
+        public void LogApplicationAction(LogAppActionCommand command)
         {
             EnsureIsValid(command);
             try
             {
-                var appAction = command.ToEntity<CreateAppActionCommand, ApplicationAction>();
+                var appAction = command.ToEntity<LogAppActionCommand, ApplicationAction>();
                 _db.AuditLogs.CreateAction(appAction);
                 UnitOfWork.Commit();
             }

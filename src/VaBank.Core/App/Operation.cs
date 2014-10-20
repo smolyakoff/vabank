@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Claims;
 using VaBank.Core.Common;
 using VaBank.Core.Membership;
 
@@ -13,31 +12,15 @@ namespace VaBank.Core.App
 
         private Guid? _userId;
 
+        private User _user;
+
         private string _name;
 
         private DateTime _timestampUtc;
 
+        private ApplicationClient _client;
+
         private string _clientId;
-
-
-        public Operation(Guid id, DateTime timestampUtc, string name = null, ClaimsIdentity identity = null)
-        {
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentException("Operation id cannot be emtpy.");
-            }
-            Id = id;
-            Name = string.IsNullOrEmpty("name") ? "APP-CHANGE" : name;
-            TimestampUtc = timestampUtc;
-            if (identity == null)
-            {
-                return;
-            }
-            var sid = identity.FindFirst(UserClaim.Types.UserId);
-            UserId = sid == null ? null : (Guid?) Guid.Parse(sid.Value);
-            var clientId = identity.FindFirst(UserClaim.Types.ClientId);
-            ClientApplicationId = clientId == null ? null : clientId.Value;
-        }
 
         protected Operation()
         {
@@ -47,6 +30,16 @@ namespace VaBank.Core.App
         {
             get { return GetIfNotDisposed(x => x._id); }
             set { _id = value; }
+        }
+
+        public virtual User User
+        {
+            get { return GetIfNotDisposed(x => x._user); }
+            private set
+            {
+                _user = value;
+                _userId = value == null ? (Guid?)null : value.Id;
+            }
         }
 
         public Guid? UserId
@@ -59,6 +52,16 @@ namespace VaBank.Core.App
         {
             get { return GetIfNotDisposed(x => x._timestampUtc); }
             private set { _timestampUtc = value; }
+        }
+
+        public virtual ApplicationClient ApplicationClient
+        {
+            get { return GetIfNotDisposed(x => x._client); }
+            private set
+            {
+                _client = value;
+                _clientId = value == null ? null : value.Id;
+            }
         }
 
         public string ClientApplicationId
