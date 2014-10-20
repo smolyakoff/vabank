@@ -10,7 +10,7 @@ namespace VaBank.Data.Migrations
         {
             Create.Table("Action").InSchema("App")
                 .WithColumn("EventId").AsGuid().PrimaryKey("PK_Action")
-                .WithColumn("MarkerId").AsGuid().NotNullable()
+                .WithColumn("OperationId").AsGuid().NotNullable().ForeignKey("FK_Action_To_Operation", "App", "Operation", "Id")
                 .WithColumn("Code").AsShortName().NotNullable().Indexed("IX_Action_Code").WithDefaultValue("OPERATION")
                 .WithColumn("Description").AsBigString().Nullable()
                 .WithColumn("Data").AsText().Nullable();

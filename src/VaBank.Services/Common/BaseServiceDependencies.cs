@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using VaBank.Common.Events;
+﻿using VaBank.Common.Events;
+using VaBank.Common.IoC;
 using VaBank.Core.Common;
 
 namespace VaBank.Services.Common
@@ -8,7 +8,7 @@ namespace VaBank.Services.Common
     {
         public IUnitOfWork UnitOfWork { get; set; }
 
-        public IValidatorFactory ValidatorFactory { get; set; }
+        public IObjectFactory ObjectFactory { get; set; }
 
         public ServiceOperationProvider OperationProvider { get; set; }
 

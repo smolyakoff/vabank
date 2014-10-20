@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using VaBank.Common.Data.Database;
 using VaBank.Core.Common;
 using VaBank.Core.Maintenance;
 using VaBank.Core.Membership;
@@ -10,11 +12,26 @@ namespace VaBank.Data.EntityFramework
 {
     public class VaBankContext : DbContext, IUnitOfWork
     {
-        public VaBankContext() : base("Name=Vabank.Db")
+        private readonly ITransactionProvider _transactionProvider;
+
+        public VaBankContext(IConnectionProvider connectionProvider, ITransactionProvider transactionProvider)
+            :base(connectionProvider.Connection, true)
         {
+            if (transactionProvider == null)
+            {
+                throw new ArgumentNullException("transactionProvider", "Transaction provider is null");
+            }
+            if (transactionProvider.HasCurrentTransaction)
+            {
+                Database.UseTransaction(transactionProvider.CurrentTransaction);
+            }
+            _transactionProvider = transactionProvider;
+            transactionProvider.TransactionStarted += OnTransactionStarted;
             Database.SetInitializer(new NullDatabaseInitializer<VaBankContext>());
         }
 
+
+        //Question: do we really need this properties?
         public DbSet<SystemLogEntry> Logs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
@@ -41,6 +58,11 @@ namespace VaBank.Data.EntityFramework
         public void Commit()
         {
             SaveChanges();
+        }
+
+        private void OnTransactionStarted(object sender, EventArgs eventArgs)
+        {
+            Database.UseTransaction(_transactionProvider.CurrentTransaction);
         }
     }
 }

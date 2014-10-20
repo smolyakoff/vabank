@@ -1,4 +1,5 @@
 ﻿using System;
+using VaBank.Services.Contracts.Common.Commands;
 
 namespace VaBank.Services.Contracts.Membership.Commands
 {

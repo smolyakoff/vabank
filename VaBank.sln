@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.UI.Web", "src\VaBank
 		{39A10C5C-1058-41D3-B40F-D0ECE134CD6F} = {39A10C5C-1058-41D3-B40F-D0ECE134CD6F}
 		{C203F56A-2032-4BA5-A8AA-0CB7FD38B784} = {C203F56A-2032-4BA5-A8AA-0CB7FD38B784}
 		{87E0A3C9-5CCD-4154-9EE3-E65CB54EFD0E} = {87E0A3C9-5CCD-4154-9EE3-E65CB54EFD0E}
+		{A89707E0-AEB9-4A25-949E-A069C6D81E25} = {A89707E0-AEB9-4A25-949E-A069C6D81E25}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaBank.Data.Migrations", "src\VaBank.Data.Migrations\VaBank.Data.Migrations.csproj", "{4D842337-3816-4752-AAE1-ECE3EC9EDD5B}"
@@ -24,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{CAF1F0
 		deploy\dev-clean.bat = deploy\dev-clean.bat
 		deploy\dev-migrate.bat = deploy\dev-migrate.bat
 		deploy\dev-recreate.bat = deploy\dev-recreate.bat
+		deploy\test-recreate.bat = deploy\test-recreate.bat
 		deploy\VaBank.proj = deploy\VaBank.proj
 		deploy\VaBank.props = deploy\VaBank.props
 	EndProjectSection

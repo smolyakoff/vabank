@@ -42,9 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\ApplicationAction.cs" />
+    <Compile Include="App\AuditLogEntry.cs" />
+    <Compile Include="App\AuditLogBriefEntry.cs" />
+    <Compile Include="App\DatabaseOperation.cs" />
+    <Compile Include="App\DatabaseAction.cs" />
+    <Compile Include="App\DatabaseRow.cs" />
+    <Compile Include="App\IAuditLogRepository.cs" />
     <Compile Include="App\IOperationProvider.cs" />
     <Compile Include="App\IOperationRepository.cs" />
     <Compile Include="App\Operation.cs" />
+    <Compile Include="App\VersionedDatabaseRow.cs" />
+    <Compile Include="Common\DateRange.cs" />
     <Compile Include="Common\Entity.cs" />
     <Compile Include="Common\Entity`1.cs" />
     <Compile Include="Maintenance\SystemLogEntry.cs" />
@@ -82,6 +91,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Membership\Resources\Top_500_Worst_Passwords.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

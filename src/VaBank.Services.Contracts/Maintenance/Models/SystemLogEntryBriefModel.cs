@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VaBank.Services.Contracts.Maintenance.Queries
+namespace VaBank.Services.Contracts.Maintenance.Models
 {
     public class SystemLogEntryBriefModel
     {

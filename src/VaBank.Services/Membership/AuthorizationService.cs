@@ -8,6 +8,7 @@ using VaBank.Services.Contracts.Membership;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.Security;
 using VaBank.Services.Contracts.Membership.Commands;
+using VaBank.Services.Contracts.Membership.Events;
 using VaBank.Services.Contracts.Membership.Models;
 
 namespace VaBank.Services.Membership
@@ -36,7 +37,9 @@ namespace VaBank.Services.Membership
                 var reason = VerifyAccess(user, command.Password);
                 if (reason == null)
                 {
-                    return user.ToModel<User, UserIdentityModel>();
+                    var model = user.ToModel<User, UserIdentityModel>();
+                    Publish(new UserLoggedIn(Operation.Id, model));
+                    return model;
                 }
                 ++user.AccessFailedCount;
                 if (reason == AccessFailureReason.BadCredentials)

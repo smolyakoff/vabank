@@ -1,10 +1,7 @@
-﻿using Hangfire;
-
-namespace VaBank.Jobs.Common
+﻿namespace VaBank.Jobs.Common
 {
-    public class DefaultJobContext<T> : IJobContext<T>
+    public class DefaultJobContext<T> : DefaultJobContext, IJobContext<T>
     {
-        public IJobCancellationToken CancellationToken { get; set; }
         public T Data { get; set; }
     }
 }

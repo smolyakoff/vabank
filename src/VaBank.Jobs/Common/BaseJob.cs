@@ -3,6 +3,7 @@ using System.Linq;
 using Autofac;
 using Common.Logging;
 using Hangfire;
+using Newtonsoft.Json;
 
 namespace VaBank.Jobs.Common
 {
@@ -24,11 +25,26 @@ namespace VaBank.Jobs.Common
             Logger = LogManager.GetLogger(GetType().FullName);
         }
 
-        public virtual void Execute(object data, IJobCancellationToken cancellationToken)
+        /// <summary>
+        /// This method is called by hangfire
+        /// </summary>
+        public virtual void Execute(string argumentJson, IJobCancellationToken cancellationToken)
         {
             using (var scope = RootScope.BeginLifetimeScope())
             {
-                var context = scope.Resolve<TContext>();
+                object data;
+                try
+                {
+                    data = string.IsNullOrEmpty(argumentJson)
+                        ? null
+                        : JsonConvert.DeserializeObject(argumentJson, Serialization.Settings);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("Can't deserialize argument.", ex);
+                    return;
+                }
+                var context = CreateContext(scope, data);
                 context.CancellationToken = cancellationToken;
                 try
                 {
@@ -70,11 +86,12 @@ namespace VaBank.Jobs.Common
         private string GetJobName()
         {
             var jobType = GetType();
-            if (!jobType.IsDefined(typeof(JobNameAttribute), false))
+            if (!jobType.IsDefined(typeof (JobNameAttribute), false))
             {
                 return jobType.Name;
             }
-            var nameAttribute = jobType.GetCustomAttributes(typeof(JobNameAttribute), false).FirstOrDefault() as JobNameAttribute;
+            var nameAttribute =
+                jobType.GetCustomAttributes(typeof (JobNameAttribute), false).FirstOrDefault() as JobNameAttribute;
             if (nameAttribute == null)
             {
                 throw new InvalidOperationException("Job name attribute is null");

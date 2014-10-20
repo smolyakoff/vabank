@@ -33,6 +33,10 @@
     <Reference Include="FluentValidation">
       <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList">
       <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -45,6 +49,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting\Commands\SetCardAssignmentCommand.cs" />
+    <Compile Include="Accounting\Commands\CreateCardAccountCommand.cs" />
+    <Compile Include="Accounting\Commands\SetCardBlockCommand.cs" />
+    <Compile Include="Accounting\Commands\SetCardLimitsCommand.cs" />
+    <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
+    <Compile Include="Accounting\Models\AccountingLookup.cs" />
+    <Compile Include="Accounting\Models\RequestedCardAccountModel.cs" />
+    <Compile Include="Accounting\Models\CardAccountModel.cs" />
+    <Compile Include="Accounting\Models\CardLimitsModel.cs" />
+    <Compile Include="Accounting\Models\CardVendorModel.cs" />
+    <Compile Include="Accounting\Models\CurrencyModel.cs" />
+    <Compile Include="Accounting\Models\UserCardModel.cs" />
+    <Compile Include="Accounting\Queries\CardAccountsQuery.cs" />
+    <Compile Include="Common\DataNotFoundException.cs" />
+    <Compile Include="Accounting\IAccountManagementService.cs" />
+    <Compile Include="Common\IAuditedEvent.cs" />
+    <Compile Include="Common\Resources\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Common\Security\AccessDeniedException.cs" />
     <Compile Include="Common\Security\AccessDenied.cs" />
     <Compile Include="Common\Security\SecurityException.cs" />
@@ -52,12 +77,20 @@
     <Compile Include="Common\Validation\IValidationService.cs" />
     <Compile Include="Common\Validation\ValidationRequest.cs" />
     <Compile Include="Common\Validation\ValidationResponse.cs" />
-    <Compile Include="Events\ApplicationEvent.cs" />
+    <Compile Include="Common\ApplicationEvent.cs" />
     <Compile Include="Maintenance\ILogManagementService.cs" />
     <Compile Include="Maintenance\Commands\SystemLogClearCommand.cs" />
-    <Compile Include="Maintenance\Queries\SystemLogEntryBriefModel.cs" />
+    <Compile Include="Maintenance\Models\AppActionModel.cs" />
+    <Compile Include="Maintenance\Models\AuditLogEntryBriefModel.cs" />
+    <Compile Include="Maintenance\Models\AuditLogEntryModel.cs" />
+    <Compile Include="Maintenance\Models\AuditLogLookupModel.cs" />
+    <Compile Include="Maintenance\Models\DatabaseOperationModel.cs" />
+    <Compile Include="Maintenance\Models\DbActionModel.cs" />
+    <Compile Include="Maintenance\Models\DbChangeModel.cs" />
+    <Compile Include="Maintenance\Models\SystemLogEntryBriefModel.cs" />
     <Compile Include="Maintenance\Models\SystemLogExceptionModel.cs" />
-    <Compile Include="Maintenance\Queries\SystemLogLookupModel.cs" />
+    <Compile Include="Maintenance\Models\SystemLogLookupModel.cs" />
+    <Compile Include="Maintenance\Queries\AuditLogQuery.cs" />
     <Compile Include="Maintenance\Queries\SystemLogQuery.cs" />
     <Compile Include="Common\Models\UserMessage.cs" />
     <Compile Include="Common\Queries\IdentityQuery.cs" />
@@ -65,10 +98,11 @@
     <Compile Include="IService.cs" />
     <Compile Include="Membership\Commands\ChangePasswordCommand.cs" />
     <Compile Include="Membership\Commands\CreateUserCommand.cs" />
-    <Compile Include="Membership\Commands\IUserCommand.cs" />
+    <Compile Include="Common\Commands\IUserCommand.cs" />
     <Compile Include="Membership\Commands\RoleModel.cs" />
     <Compile Include="Membership\Commands\UpdateProfileCommand.cs" />
     <Compile Include="Membership\Commands\UpdateUserCommand.cs" />
+    <Compile Include="Membership\Events\UserLoggedIn.cs" />
     <Compile Include="Membership\IUserManagementService.cs" />
     <Compile Include="Membership\Models\ApplicationClientModel.cs" />
     <Compile Include="Membership\Models\ApplicationClientTypeModel.cs" />
@@ -99,7 +133,15 @@
       <Name>VaBank.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Accounting\Events\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Common\Resources\Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

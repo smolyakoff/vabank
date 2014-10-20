@@ -33,7 +33,16 @@ namespace VaBank.Common.IoC
 
         public object Create(Type objectType)
         {
-            return _lifetimeScope.Resolve(objectType);
+            return _lifetimeScope.IsRegistered(objectType)
+                ? _lifetimeScope.Resolve(objectType)
+                : null;
+        }
+
+        public T Create<T>()
+        {
+            return _lifetimeScope.IsRegistered<T>()
+                ? _lifetimeScope.Resolve<T>()
+                : default(T);
         }
     }
 }

@@ -21,8 +21,8 @@ namespace VaBank.Jobs.Modules
             //mappingProfiles.ForEach(x => Mapper.AddProfile(Activator.CreateInstance(x) as Profile));
 
             //Register validation system
-            builder.RegisterType<AutofacFactory>().AsImplementedInterfaces().InstancePerRequest();
-            builder.RegisterType<JsonNetConverter>().AsImplementedInterfaces().InstancePerRequest();
+            builder.RegisterType<AutofacFactory>().AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterType<JsonNetConverter>().AsImplementedInterfaces().SingleInstance();
             var validatorTypes = typeof (BaseService).Assembly.GetTypes()
                 .Union(typeof(Entity).Assembly.GetTypes())
                 .Where(t => typeof (IValidator).IsAssignableFrom(t) || typeof(IObjectValidator).IsAssignableFrom(t))

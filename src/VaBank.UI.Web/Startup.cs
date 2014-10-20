@@ -1,12 +1,9 @@
 ﻿using System.Configuration;
-using System.Net;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using Autofac;
 using Hangfire;
-using Hangfire.Common;
 using Hangfire.Dashboard;
 using Hangfire.SqlServer;
 using Microsoft.Owin.Cors;
@@ -98,11 +95,11 @@ namespace VaBank.UI.Web
         {
             var connectionString = ConfigurationManager.ConnectionStrings["Vabank.Db"].ConnectionString;
             config.UseDashboardPath("/admin/hangfire");
-            var storageOptions = new SqlServerStorageOptions {QueuePollInterval = TimeSpan.FromMinutes(1)};
+            var storageOptions = new SqlServerStorageOptions {QueuePollInterval = TimeSpan.FromSeconds(15)};
             config.UseStorage(new SqlServerStorage(connectionString, storageOptions));
             config.UseAuthorizationFilters(new AuthorizationFilter {Roles = "Admin"});
             var builder = new ContainerBuilder();
-            builder.RegisterModule<BackgroundServicesModule>();
+            builder.RegisterModule(new BackgroundServicesModule(VaBankServiceBus.Instance));
             config.UseAutofacActivator(builder.Build());
             config.UseServer();
         }
@@ -153,7 +150,6 @@ namespace VaBank.UI.Web
             builder.RegisterModule<DataAccessModule>();
             builder.RegisterModule<ServicesModule>();
             builder.RegisterModule<WebApiModule>();
-            builder.RegisterModule<HangfireBusModule>();
             var container = builder.Build();
             return container;
         }
