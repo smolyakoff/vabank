@@ -37,11 +37,11 @@ namespace VaBank.Data.EntityFramework.App
                 var operationId = new SqlParameter("@Id", SqlDbType.UniqueIdentifier) {Direction = ParameterDirection.Output};
                 var userIdSql = new SqlParameter("@AppUserId", (object)userId ?? DBNull.Value) {DbType = DbType.Guid};
                 var appClientIdSql = new SqlParameter("@AppClientId", (object)clientId ?? DBNull.Value);
-                var timestampUtc = new SqlParameter("@TimestampUtc", timestamp);
+                var startedUtc = new SqlParameter("@StartedUtc", timestamp);
                 var nameSql = new SqlParameter("@Name", SqlDbType.NVarChar, RestrictionConstants.NameLength) {Value = (object)name ?? DBNull.Value};
                 const string sql =
-                    @"EXEC [App].[StartOperation] @Id = @Id OUTPUT, @TimestampUtc = @TimestampUtc, @Name = @Name, @AppUserId = @AppUserId, @AppClientId = @AppClientId";
-                Context.Database.ExecuteSqlCommand(sql, operationId, userIdSql, appClientIdSql, timestampUtc, nameSql);
+                    @"EXEC [App].[StartOperation] @Id = @Id OUTPUT, @StartedUtc = @StartedUtc, @Name = @Name, @AppUserId = @AppUserId, @AppClientId = @AppClientId";
+                Context.Database.ExecuteSqlCommand(sql, operationId, userIdSql, appClientIdSql, startedUtc, nameSql);
                 var operation = Context.Set<Operation>().Find(operationId.Value);
                 return operation;
             }

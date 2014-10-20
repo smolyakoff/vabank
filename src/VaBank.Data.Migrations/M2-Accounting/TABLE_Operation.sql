@@ -11,9 +11,10 @@ GO
 CREATE TABLE [App].[Operation](
 	[Id] [uniqueidentifier] NOT NULL,
 	[TransactionId] [bigint] NOT NULL,
-	[TimestampUtc] [datetime] NOT NULL,
+	[StartedUtc] [datetime] NOT NULL,
 	[Name] [nvarchar] (100) NOT NULL,
 	[Finished] [bit] NOT NULL,
+	[FinishedUtc] [datetime] NULL,
 	[DbUser] [nvarchar](256) NOT NULL,
 	[DbApplication] [varchar](256) NOT NULL,
 	[AppUserId] [uniqueidentifier] NULL,
@@ -32,7 +33,7 @@ GO
 ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_Id]  DEFAULT (newsequentialid()) FOR [Id]
 GO
 
-ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_TimestampUtc]  DEFAULT (getutcdate()) FOR [TimestampUtc]
+ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_StartedUtc]  DEFAULT (getutcdate()) FOR [StartedUtc]
 GO
 
 ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_Name]  DEFAULT (N'DB-CHANGE') FOR [Name]

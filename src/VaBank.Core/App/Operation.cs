@@ -16,7 +16,9 @@ namespace VaBank.Core.App
 
         private string _name;
 
-        private DateTime _timestampUtc;
+        private DateTime _startedUtc;
+
+        private DateTime? _finishedUtc;
 
         private ApplicationClient _client;
 
@@ -48,10 +50,16 @@ namespace VaBank.Core.App
             private set { _userId = value; }
         }
 
-        public DateTime TimestampUtc
+        public DateTime StartedUtc
         {
-            get { return GetIfNotDisposed(x => x._timestampUtc); }
-            private set { _timestampUtc = value; }
+            get { return GetIfNotDisposed(x => x._startedUtc); }
+            private set { _startedUtc = value; }
+        }
+
+        public DateTime? FinishedUtc
+        {
+            get { return GetIfNotDisposed(x => x._finishedUtc); }
+            private set { _finishedUtc = value; }
         }
 
         public virtual ApplicationClient ApplicationClient

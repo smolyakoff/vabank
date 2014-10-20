@@ -61,6 +61,7 @@
     <Compile Include="Maintenance\Commands\LogAppActionCommand.cs" />
     <Compile Include="Maintenance\ILogManagementService.cs" />
     <Compile Include="Maintenance\Commands\SystemLogClearCommand.cs" />
+    <Compile Include="Maintenance\IOperationService.cs" />
     <Compile Include="Maintenance\Models\AppActionModel.cs" />
     <Compile Include="Maintenance\Models\AuditLogEntryBriefModel.cs" />
     <Compile Include="Maintenance\Models\AuditLogEntryModel.cs" />

@@ -12,6 +12,8 @@ namespace VaBank.Data.EntityFramework.App.Mappings
             ToTable("Operation", "App");
             HasKey(x => x.Id);
             Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(x => x.StartedUtc);
+            Property(x => x.FinishedUtc).IsOptional();
             Property(x => x.Name).HasMaxLength(RestrictionConstants.NameLength);
             Property(x => x.UserId).HasColumnName("AppUserId").IsOptional();
             Property(x => x.ClientApplicationId).HasColumnName("AppClientId").HasMaxLength(RestrictionConstants.NameLength).IsOptional();
