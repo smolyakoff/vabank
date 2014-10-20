@@ -44,6 +44,30 @@
                 url: '/change-password',
                 templateUrl: '/Client/app/areas/customer/profile/profile-change-pwd.html',
                 controller: 'changePasswordController'
+            })
+            .state('customer.cards', {
+                url: 'cards',
+                'abstract': true,
+                templateUrl: '/Client/app/areas/customer/cards/cards.html',
+                data: {
+                    title: 'VaBank - Платежные карты',
+                    subtitle: 'Мои платежные карты'
+                },
+            })
+            .state('customer.cards.list', {
+                url: '',
+                templateUrl: '/Client/app/areas/customer/cards/cards-list.html',
+                controller: 'cardsListController'
+            })
+            .state('customer.cards.statement', {
+                url: '/statement',
+                templateUrl: '/Client/app/areas/customer/cards/cards-statement.html',
+                controller: 'cardsStatementController'
+            })
+            .state('customer.cards.transfer', {
+                url: '/transfer',
+                templateUrl: '/Client/app/areas/customer/cards/cards-transfer.html',
+                controller: 'cardsTransferController'
             });
     }
 

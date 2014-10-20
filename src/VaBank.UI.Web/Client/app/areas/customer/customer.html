@@ -3,12 +3,12 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <img class="sidebar-logo" src="/Client/app/images/vabank-small.png" />
             <ul class="nav nav-sidebar">
-                <li data-ui-sref="customer.cabinet"><a href="#"><i class="glyphicon glyphicon-home"></i> Домой</a></li>
-                <li><a href="#"> Мои карточки</a></li>
+                <li data-ui-sref-active="active" data-ui-sref="customer.cabinet"><a href="#"><i class="glyphicon glyphicon-home"></i> Домой</a></li>
+                <li ng-class="{active: $state.includes('customer.cards')}" data-ui-sref="customer.cards.list"><a href="#"><i class="glyphicon glyphicon-credit-card"></i> Мои карточки</a></li>
                 <li><a href="#"> Платежи</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-                <li data-ui-sref="customer.profile.edit"><a href="#"><i class="glyphicon glyphicon-user"></i> Профиль</a></li>
+                <li data-ui-sref-active="active" data-ui-sref="customer.profile.edit"><a href="#"><i class="glyphicon glyphicon-user"></i> Профиль</a></li>
                 <li data-ng-click="logout()"><a> Выход</a></li>
             </ul>
         </div>
@@ -19,7 +19,7 @@
                 </div>
                 <nav class="col-xs-4 col-sm-4 col-lg-2">
                     <div class="btn-group pull-right">
-                        <button data-ui-sref="cabinet.dashboard" type="button" class="btn btn-default"><i class="glyphicon glyphicon-home"></i></button>
+                        <button data-ui-sref="customer.cabinet" type="button" class="btn btn-default"><i class="glyphicon glyphicon-home"></i></button>
                         <button data-ng-click="back()" type="button" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i></button>
                         <button data-ng-click="forward()" type="button" class="btn btn-default"><i class="glyphicon glyphicon-arrow-right"></i></button>
                     </div>

@@ -7,6 +7,8 @@
 
     function customerController($window, $rootScope, $state, $scope, authService) {
 
+        $scope.$state = $state;
+
         $scope.back = function() {
             $window.history.back();
         };
