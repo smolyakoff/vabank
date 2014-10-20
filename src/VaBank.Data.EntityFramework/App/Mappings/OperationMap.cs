@@ -15,6 +15,9 @@ namespace VaBank.Data.EntityFramework.App.Mappings
             Property(x => x.Name).HasMaxLength(RestrictionConstants.NameLength);
             Property(x => x.UserId).HasColumnName("AppUserId").IsOptional();
             Property(x => x.ClientApplicationId).HasColumnName("AppClientId").HasMaxLength(RestrictionConstants.NameLength).IsOptional();
+
+            HasOptional(x => x.User).WithMany().HasForeignKey(x => x.UserId);
+            HasOptional(x => x.ApplicationClient).WithMany().HasForeignKey(x => x.ClientApplicationId);
         }
     }
 }

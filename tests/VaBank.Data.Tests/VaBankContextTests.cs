@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VaBank.Common.Data.Database;
 using VaBank.Core.App;
 using VaBank.Core.Membership;
 using VaBank.Data.EntityFramework;
@@ -40,7 +41,8 @@ namespace VaBank.Data.Tests
         [TestMethod]
         public void Can_Start_And_Finish_Operations()
         {
-            /*var context = new VaBankContext();
+            var provider = new ConfigurationFileDatabaseProvider("Vabank.Db");
+            var context = new VaBankContext(provider, provider);
             var repo = new OperationRepository(context);
             using (var transaction = context.Database.BeginTransaction())
             {
@@ -61,7 +63,7 @@ namespace VaBank.Data.Tests
             }
 
             var op5 = repo.GetCurrent();
-            Assert.IsNull(op5);*/
+            Assert.IsNull(op5);
         }
     }
 }

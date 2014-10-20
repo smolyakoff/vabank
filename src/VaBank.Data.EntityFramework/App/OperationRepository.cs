@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.App;
+using VaBank.Core.Membership;
 using VaBank.Data.EntityFramework.Common;
 
 namespace VaBank.Data.EntityFramework.App
@@ -27,19 +28,21 @@ namespace VaBank.Data.EntityFramework.App
         {
             try
             {
-                var tempId = Guid.NewGuid();
                 var timestamp = DateTime.UtcNow;
-                var operation = new Operation(tempId, timestamp, name, identity);
+                identity = identity ?? new ClaimsIdentity();
+                var sid = identity.FindFirst(UserClaim.Types.UserId);
+                var userId = sid == null ? null : (Guid?)Guid.Parse(sid.Value);
+                var clientIdClaim = identity.FindFirst(UserClaim.Types.ClientId);
+                var clientId = clientIdClaim == null ? null : clientIdClaim.Value;
                 var operationId = new SqlParameter("@Id", SqlDbType.UniqueIdentifier) {Direction = ParameterDirection.Output};
-                var userId = new SqlParameter("@AppUserId", (object)operation.UserId ?? DBNull.Value) {DbType = DbType.Guid};
-                var clientId = new SqlParameter("@AppClientId", (object)operation.ClientApplicationId ?? DBNull.Value);
+                var userIdSql = new SqlParameter("@AppUserId", (object)userId ?? DBNull.Value) {DbType = DbType.Guid};
+                var appClientIdSql = new SqlParameter("@AppClientId", (object)clientId ?? DBNull.Value);
                 var timestampUtc = new SqlParameter("@TimestampUtc", timestamp);
                 var nameSql = new SqlParameter("@Name", SqlDbType.NVarChar, RestrictionConstants.NameLength) {Value = (object)name ?? DBNull.Value};
                 const string sql =
                     @"EXEC [App].[StartOperation] @Id = @Id OUTPUT, @TimestampUtc = @TimestampUtc, @Name = @Name, @AppUserId = @AppUserId, @AppClientId = @AppClientId";
-                Context.Database.ExecuteSqlCommand(sql, operationId, userId, clientId, timestampUtc, nameSql);
-                var idProperty = typeof (Operation).GetProperty("Id");
-                idProperty.SetValue(operation, (Guid)operationId.Value);
+                Context.Database.ExecuteSqlCommand(sql, operationId, userIdSql, appClientIdSql, timestampUtc, nameSql);
+                var operation = Context.Set<Operation>().Find(operationId.Value);
                 return operation;
             }
             catch (Exception ex)
@@ -75,9 +78,9 @@ namespace VaBank.Data.EntityFramework.App
         {
             try
             {
-                const string sql = 
-                    "SELECT [Id], [Name], [TimestampUtc], [AppUserId] as [UserId], [AppClientId] as [ClientApplicationId] FROM [App].[CurrentOperation]";
-                return Context.Database.SqlQuery<Operation>(sql).FirstOrDefault();
+                const string sql = "SELECT [Id] FROM [App].[CurrentOperation]";
+                var id = Context.Database.SqlQuery<Guid>(sql).FirstOrDefault();
+                return id == Guid.Empty ? null : Context.Set<Operation>().Find(id);
             }
             catch (Exception ex)
             {
