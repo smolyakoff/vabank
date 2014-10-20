@@ -34,12 +34,7 @@ namespace VaBank.Services.Maintenance
                 .ForMember(des => des.DbActions, src => src.MapFrom(x => x.DatabaseActions));
 
             CreateMap<IAuditedEvent, LogAppActionCommand>();
-            CreateMap<LogAppActionCommand, ApplicationAction>()
-                .ConstructUsing(x => 
-                {
-                    var source = (LogAppActionCommand)x.SourceValue;
-                    return ApplicationAction.CreateAction(source.Code, source.OperationId, source.DateUtc, source.Description, source.Data);
-                });
+            CreateMap<LogAppActionCommand, ApplicationAction>();
         }
     }
 }

@@ -69,6 +69,18 @@ namespace VaBank.Data.EntityFramework.App
             }
         }
 
+        public Operation Find(Guid operationId)
+        {
+            try
+            {
+                return Context.Set<Operation>().Find(operationId);
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException("Can't find operation in the db.", ex);
+            }
+        }
+
         public bool HasCurrent
         {
             get { return GetCurrent() != null; }

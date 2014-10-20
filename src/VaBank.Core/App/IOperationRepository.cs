@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 
 namespace VaBank.Core.App
 {
@@ -7,5 +8,7 @@ namespace VaBank.Core.App
         Operation Start(string name = null, ClaimsIdentity identity = null);
 
         void Stop(Operation operation);
+
+        Operation Find(Guid operationId);
     }
 }

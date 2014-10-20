@@ -10,14 +10,16 @@ namespace VaBank.Core.App
 
         }
         
-        public static ApplicationAction CreateAction(string code, Guid operationId, DateTime timestampUtc,
+        public static ApplicationAction Create(Operation operation, string code, DateTime timestampUtc,
             string description = null, string data = null)
         {
-            if (operationId == Guid.Empty)
-                throw new ArgumentException("Operation id can't has empty value.");
+            if (operation == null)
+            {
+                throw new ArgumentException("Operation id can't has empty value."); 
+            }
             return new ApplicationAction
             {
-                OperationId = operationId,
+                Operation = operation,
                 EventId = Guid.NewGuid(),
                 TimestampUtc = timestampUtc,
                 Code = code,
@@ -28,7 +30,7 @@ namespace VaBank.Core.App
 
         public Guid EventId { get; protected set; }
 
-        public Guid OperationId { get; protected set; }
+        public virtual Operation Operation { get; protected set; }
 
         public DateTime TimestampUtc { get; protected set; }
 

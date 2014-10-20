@@ -31,14 +31,9 @@ namespace VaBank.Data.EntityFramework.App
                 throw new ArgumentNullException("query");
             return EnsureRepositoryException(() =>
             {
-                var actions = _dbContext.Set<ApplicationAction>().Query(query).ToList();
-                var operationIds = actions.Select(x => x.OperationId).ToList();
-                var operations = _dbContext.Set<Operation>().Where(x => operationIds.Contains(x.Id)).ToList();
-                var entries = operations.Select(operation => new AuditLogBriefEntry(operation)
-                {
-                    ApplicationActions = actions.Where(x => x.OperationId == operation.Id).ToList()
-                }).ToList();
-                return entries;
+                var actions = _dbContext.Set<ApplicationAction>().Query(query).ToLookup(x => x.Operation).ToList();
+                var entries = actions.Select(x => new AuditLogBriefEntry(x.Key, x));
+                return entries.ToList();
             });
         }
 
@@ -50,7 +45,7 @@ namespace VaBank.Data.EntityFramework.App
 
             return EnsureRepositoryException(() =>
             {
-                var actions = _dbContext.Set<ApplicationAction>().Where(x => x.OperationId == operation.Id).ToList();
+                var actions = _dbContext.Set<ApplicationAction>().Where(x => x.Operation.Id == operation.Id).ToList();
                 var auditTableNames = GetHistoryTableNames();
                 var connection = _dbContext.Database.Connection;
                 var command = connection.CreateCommand();
@@ -98,9 +93,8 @@ namespace VaBank.Data.EntityFramework.App
                     }
                 }
 
-                return new AuditLogEntry(operation)
+                return new AuditLogEntry(operation, actions)
                 {
-                    ApplicationActions = actions,
                     DatabaseActions = dbActions
                 };
             });

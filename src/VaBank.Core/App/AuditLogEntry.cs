@@ -4,7 +4,7 @@ namespace VaBank.Core.App
 {
     public class AuditLogEntry : AuditLogBriefEntry
     {
-        public AuditLogEntry(Operation operation) : base(operation)
+        public AuditLogEntry(Operation operation, IEnumerable<ApplicationAction> appActions) : base(operation, appActions)
         {
         }
 

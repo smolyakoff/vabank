@@ -13,5 +13,7 @@ namespace VaBank.Services.Maintenance
         public IAuditLogRepository AuditLogs { get; set; }
 
         public IQueryRepository<User> Users { get; set; }
+
+        public IOperationRepository Operations { get; set; }
     }
 }

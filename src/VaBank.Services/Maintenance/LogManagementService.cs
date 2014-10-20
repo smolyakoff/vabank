@@ -164,7 +164,18 @@ namespace VaBank.Services.Maintenance
             EnsureIsValid(command);
             try
             {
-                var appAction = command.ToEntity<LogAppActionCommand, ApplicationAction>();
+                var operation = _db.Operations.Find(command.OperationId);
+                if (operation == null)
+                {
+                    //TODO change to not found helper when merged
+                    throw new InvalidOperationException("Operation not found");
+                }
+                var appAction = ApplicationAction.Create(
+                    operation, 
+                    command.Code, 
+                    command.TimestampUtc,
+                    command.Description, 
+                    command.Data);
                 _db.AuditLogs.CreateAction(appAction);
                 UnitOfWork.Commit();
             }

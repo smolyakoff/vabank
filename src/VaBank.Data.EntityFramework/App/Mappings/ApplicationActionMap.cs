@@ -13,8 +13,9 @@ namespace VaBank.Data.EntityFramework.App.Mappings
             Property(x => x.Code).HasMaxLength(RestrictionConstants.ShortNameLength).IsRequired();
             Property(x => x.Data).IsMaxLength().IsOptional();
             Property(x => x.Description).HasMaxLength(RestrictionConstants.BigStringLength).IsOptional();
-            Property(x => x.OperationId).IsRequired();
             Property(x => x.TimestampUtc).IsRequired();
+
+            HasRequired(x => x.Operation).WithMany().Map(x => x.MapKey("OperationId"));
         }
     }
 }

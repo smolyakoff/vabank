@@ -4,9 +4,9 @@ namespace VaBank.Services.Contracts.Maintenance.Commands
 {
     public class LogAppActionCommand
     {
-        public DateTime DateUtc { get; set; }
-
         public Guid OperationId { get; set; }
+
+        public DateTime TimestampUtc { get; set; }
 
         public string Code { get; set; }
 
