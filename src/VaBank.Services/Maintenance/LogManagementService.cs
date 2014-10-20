@@ -126,7 +126,7 @@ namespace VaBank.Services.Maintenance
                 var userIds =
                     audit.Where(x => x.Operation.UserId.HasValue).Select(s => s.Operation.UserId.Value).ToList();
                 var usersNameKeyPairs =
-                    _db.Users.Query(DbQuery.For<User>().FilterBy(x => userIds.Contains(x.Id)))
+                    _db.Users.Query(DbQuery.For<User>().FilterBy(x => userIds.Distinct().Contains(x.Id)))
                         .ToDictionary(k => k.Id, e => e.UserName);
                 var models = audit.Select(x => x.ToClass<AuditLogBriefEntry, AuditLogEntryBriefModel>()).ToList();
 
