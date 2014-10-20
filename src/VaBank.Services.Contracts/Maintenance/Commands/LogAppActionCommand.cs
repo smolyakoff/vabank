@@ -2,7 +2,7 @@
 
 namespace VaBank.Services.Contracts.Maintenance.Commands
 {
-    public class CreateAppActionCommand
+    public class LogAppActionCommand
     {
         public DateTime DateUtc { get; set; }
 

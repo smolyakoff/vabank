@@ -33,11 +33,11 @@ namespace VaBank.Services.Maintenance
             CreateMap<AuditLogEntry, AuditLogEntryModel>()
                 .ForMember(des => des.DbActions, src => src.MapFrom(x => x.DatabaseActions));
 
-            CreateMap<IAuditedEvent, CreateAppActionCommand>();
-            CreateMap<CreateAppActionCommand, ApplicationAction>()
+            CreateMap<IAuditedEvent, LogAppActionCommand>();
+            CreateMap<LogAppActionCommand, ApplicationAction>()
                 .ConstructUsing(x => 
                 {
-                    var source = (CreateAppActionCommand)x.SourceValue;
+                    var source = (LogAppActionCommand)x.SourceValue;
                     return ApplicationAction.CreateAction(source.Code, source.OperationId, source.DateUtc, source.Description, source.Data);
                 });
         }

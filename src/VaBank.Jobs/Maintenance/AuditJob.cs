@@ -14,7 +14,7 @@ namespace VaBank.Jobs.Maintenance
 
         protected override void Execute(DefaultJobContext<IAuditedEvent> context)
         {
-            context.LogManagementService.CreateApplicationAction(Mapper.Map<CreateAppActionCommand>(context.Data));
+            context.LogManagementService.LogApplicationAction(Mapper.Map<LogAppActionCommand>(context.Data));
         }
     }
 }
