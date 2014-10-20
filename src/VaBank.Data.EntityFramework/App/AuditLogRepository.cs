@@ -4,7 +4,9 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using VaBank.Common.Data;
+using VaBank.Common.Data.Database;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.App;
 
@@ -12,18 +14,17 @@ namespace VaBank.Data.EntityFramework.App
 {
     public class AuditLogRepository : IRepository, IAuditLogRepository
     {
-        //TODO: можно объеденить в private static class 
-        private const string VersionColumnName = "HistoryId";
-        private const string TimestampUtcColumnName = "HistoryTimestampUtc";
-        private const string ActionColumnName = "HistoryAction";
-
-        private readonly DbContext _dbContext;
-
-        public AuditLogRepository(DbContext dbContext)
+        protected readonly DbContext Context;
+        protected readonly IDatabaseProvider DatabaseProvider;
+       
+        public AuditLogRepository(DbContext context, IDatabaseProvider databaseProvider)
         {
-           if (dbContext == null)
-                throw new ArgumentNullException("dbContext");
-            _dbContext = dbContext;
+            if (context == null)
+                throw new ArgumentNullException("context");
+            if (databaseProvider == null)
+                throw new ArgumentNullException("databaseProvider");
+            DatabaseProvider = databaseProvider;
+            Context = context;
         }
 
         public IList<AuditLogBriefEntry> GetAuditEntries(DbQuery<ApplicationAction> query)
@@ -32,7 +33,7 @@ namespace VaBank.Data.EntityFramework.App
                 throw new ArgumentNullException("query");
             return EnsureRepositoryException(() =>
             {
-                var actions = _dbContext.Set<ApplicationAction>().Query(query).ToLookup(x => x.Operation).ToList();
+                var actions = Context.Set<ApplicationAction>().Query(query).ToLookup(x => x.Operation).ToList();
                 var entries = actions.Select(x => new AuditLogBriefEntry(x.Key, x));
                 return entries.ToList();
             });
@@ -40,16 +41,16 @@ namespace VaBank.Data.EntityFramework.App
 
         public AuditLogEntry GetAuditEntryDetails(Guid operationId)
         {
-            var operation = _dbContext.Set<Operation>().Find(operationId);
+            var operation = Context.Set<Operation>().Find(operationId);
             if (operation == null)
                 return null;
 
             return EnsureRepositoryException(() =>
             {
-                var actions = _dbContext.Set<ApplicationAction>().Where(x => x.Operation.Id == operation.Id).ToList();
+                var actions = Context.Set<ApplicationAction>().Where(x => x.Operation.Id == operation.Id).ToList();
                 var auditTableNames = GetHistoryTableNames();
-                var connection = _dbContext.Database.Connection;
-                var command = connection.CreateCommand();
+                var command = DatabaseProvider.CreateCommand();
+                
                 var sqlParameter = new SqlParameter("@OperationId", SqlDbType.UniqueIdentifier)
                 {
                     Value = operation.Id
@@ -57,51 +58,47 @@ namespace VaBank.Data.EntityFramework.App
                 command.Parameters.Add(sqlParameter);
 
                 var dbActions = new List<DatabaseAction>();
+                var adapter = DatabaseProvider.CreateAdapter();
+                adapter.SelectCommand = command;
 
-                
+                var constantNames = Names.GetColumnNames();
+
                 foreach (var tableName in auditTableNames)
                 {
                     command.CommandText = string.Format(
                         "SELECT * {0} WHERE HistoryOperationId = @OperationId",
                         tableName.GetFullTableName());
-                    var reader = command.ExecuteReader();
+                    var dataTable = new DataTable();
+                    adapter.Fill(dataTable);
                     var dbAction = new DatabaseAction
                     {
                         TableName = tableName.GetFullTableName(),
                         ChangedRows = new List<VersionedDatabaseRow>()
                     };
                     dbActions.Add(dbAction);
-
-                    //TODO: хз, я бы использовал DataTable.Fill()
-                    while (reader.Read())
+                    
+                    foreach (DataRow row in dataTable.Rows)
                     {
                         var values = new Dictionary<string, object>();
                         var dbRow = new VersionedDatabaseRow(values);
 
                         dbAction.ChangedRows.Add(dbRow);
 
-                        dbRow.Version = (long)reader[VersionColumnName];
-                        dbRow.TimestampUtc = (DateTime)reader[TimestampUtcColumnName];
-                        dbRow.Action = ToOperation(((char)reader[ActionColumnName]));
+                        dbRow.Version = (long) row[Names.VersionColumnName];
+                        dbRow.TimestampUtc = (DateTime) row[Names.TimestampUtcColumnName];
+                        dbRow.Action = ToOperation(((char) row[Names.ActionColumnName]));
 
-                        for (int i = 0; i < reader.FieldCount; i++)
+                        foreach (
+                            var column in
+                                dataTable.Columns.Cast<DataColumn>()
+                                    .Where(column => !constantNames.Contains(column.ColumnName)))
                         {
-                            var columnName = reader.GetName(i);
-                            //TODO: а если десять колонок будет - десять условий будешь писать?
-                            if (columnName == VersionColumnName || columnName == TimestampUtcColumnName ||
-                                columnName == ActionColumnName)
-                            {
-                                continue;
-                            }
-                            values.Add(columnName, reader.GetValue(i));
+                            values.Add(column.ColumnName, row[column.ColumnName]);
                         }
                     }
                 }
-                //TODO: DatabaseActions сеттер должен быть протектек или прайвит
-                return new AuditLogEntry(operation, actions)
-                {
-                    DatabaseActions = dbActions
-                };
+
+                return new AuditLogEntry(operation, actions, dbActions);
             });
         }
 
@@ -110,7 +107,7 @@ namespace VaBank.Data.EntityFramework.App
             const string sql =
                 @"SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME LIKE '%[_]History'";
 
-            var auditTableNames = _dbContext.Database.SqlQuery<TableNamePair>(sql).ToList();
+            var auditTableNames = Context.Database.SqlQuery<TableNamePair>(sql).ToList();
             return auditTableNames;
         }
 
@@ -118,12 +115,12 @@ namespace VaBank.Data.EntityFramework.App
         {
             return
                 EnsureRepositoryException(
-                    () => _dbContext.Set<ApplicationAction>().Select(x => x.Code).Distinct().ToList());
+                    () => Context.Set<ApplicationAction>().Select(x => x.Code).Distinct().ToList());
         }
 
         public void CreateAction(ApplicationAction action)
         {
-            EnsureRepositoryException(() => _dbContext.Set<ApplicationAction>().Add(action));
+            EnsureRepositoryException(() => Context.Set<ApplicationAction>().Add(action));
         }
 
         protected T EnsureRepositoryException<T>(Func<T> call)
@@ -141,7 +138,7 @@ namespace VaBank.Data.EntityFramework.App
                 throw new RepositoryException(ex.Message, ex);
             }
         }
-
+        
         public static DatabaseOperation ToOperation(char value)
         {
             switch (value)
@@ -156,18 +153,35 @@ namespace VaBank.Data.EntityFramework.App
                     throw new InvalidOperationException("Can't convert char value to DatabaseOperation");
             }
         }
-    }
 
-    //TODO: этот класс может быть private внутри репозитория
-    internal class TableNamePair
-    {
-        public string TableSchema { get; set; }
-
-        public string TableName { get; set; }
-
-        public string GetFullTableName()
+        private class TableNamePair
         {
-            return string.Format("[{0}].[{1}]", TableSchema, TableName);
+            public string TableSchema { get; set; }
+
+            public string TableName { get; set; }
+
+            public string GetFullTableName()
+            {
+                return string.Format("[{0}].[{1}]", TableSchema, TableName);
+            }
+        }
+
+        private static class Names
+        {
+            public const string VersionColumnName = "HistoryId";
+            public const string TimestampUtcColumnName = "HistoryTimestampUtc";
+            public const string ActionColumnName = "HistoryAction";
+            
+            public static IList<string> GetColumnNames()
+            {
+                var type = typeof (Names);
+                return type.GetFields(BindingFlags.Public | BindingFlags.Static |
+                                      BindingFlags.FlattenHierarchy)
+                    .Where(fi => fi.IsLiteral && !fi.IsInitOnly)
+                    .Select(x => x.GetRawConstantValue())
+                    .OfType<string>()
+                    .ToList();
+            }
         }
     }
 }

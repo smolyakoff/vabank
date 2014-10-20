@@ -23,7 +23,8 @@ namespace VaBank.Services.Maintenance
             CreateMap<AuditLogBriefEntry, AuditLogEntryBriefModel>()
                 .ForMember(des => des.OperationId, src => src.MapFrom(x => x.Operation.Id))
                 .ForMember(des => des.UserId, src => src.MapFrom(x => x.Operation.UserId))
-                .ForMember(des => des.AppActions, src => src.MapFrom(x => x.ApplicationActions));
+                .ForMember(des => des.AppActions, src => src.MapFrom(x => x.ApplicationActions))
+                .ForMember(des => des.UserName, src => src.MapFrom(x => x.Operation.User.UserName));
 
             CreateMap<DatabaseOperation, DatabaseOperationModel>();
             CreateMap<VersionedDatabaseRow, DbChangeModel>()
