@@ -2,7 +2,7 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(19, "Create resource table to store application resources")]
+    [Migration(20, "Create resource table to store application resources")]
     [Tags("Resource", "Development", "Production", "Test")]
     public class CreateResource : Migration
     {
