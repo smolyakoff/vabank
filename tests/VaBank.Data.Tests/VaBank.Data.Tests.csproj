@@ -61,6 +61,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AppContextTest.cs" />
+    <Compile Include="EntityFrameworkTest.cs" />
     <Compile Include="BaseTest.cs" />
     <Compile Include="SettingRepositoryTests.cs" />
     <Compile Include="VaBankContextTests.cs" />

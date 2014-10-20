@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
+using System.Linq;
+using System.Reflection;
 using VaBank.Common.Data.Database;
 using VaBank.Core.Common;
 using VaBank.Core.Maintenance;
@@ -43,6 +46,8 @@ namespace VaBank.Data.EntityFramework
         {
             //App mappings registration
             modelBuilder.Configurations.Add(new OperationMap());
+            modelBuilder.Configurations.Add(new ResourceMap());
+            modelBuilder.Configurations.Add(new FileLinkMap());
 
             //Maintenance mappings registration
             modelBuilder.Configurations.Add(new SystemLogEntryMap());
