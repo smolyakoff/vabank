@@ -216,6 +216,14 @@
     <Content Include="Client\app\areas\admin\user-management\user-list-ctrl.js" />
     <Content Include="Client\app\areas\admin\user-management\user-management-service.js" />
     <Content Include="Client\app\areas\admin\user-management\user-list.html" />
+    <Content Include="Client\app\areas\customer\cards\cards-list-ctrl.js" />
+    <Content Include="Client\app\areas\customer\cards\cards-list.html" />
+    <Content Include="Client\app\areas\customer\cards\cards-statement-ctrl.js" />
+    <Content Include="Client\app\areas\customer\cards\cards-statement.html" />
+    <Content Include="Client\app\areas\customer\cards\cards-transfer-ctrl.js" />
+    <Content Include="Client\app\areas\customer\cards\cards-transfer.html" />
+    <Content Include="Client\app\areas\customer\cards\cards-service.js" />
+    <Content Include="Client\app\areas\customer\cards\cards.html" />
     <Content Include="Client\app\areas\customer\customer-ctrl.js" />
     <Content Include="Client\app\areas\customer\customer.html" />
     <Content Include="Client\app\areas\customer\config\routes.js" />
@@ -240,6 +248,30 @@
     <Content Include="Client\app\areas\global\ui-tools-service.js" />
     <Content Include="Client\app\areas\global\validation\validation-service.js" />
     <Content Include="Client\app\images\favicon.ico" />
+    <Content Include="Client\app\images\icons\maestro-curved-128px.png" />
+    <Content Include="Client\app\images\icons\maestro-curved-32px.png" />
+    <Content Include="Client\app\images\icons\maestro-curved-64px.png" />
+    <Content Include="Client\app\images\icons\maestro-straight-128px.png" />
+    <Content Include="Client\app\images\icons\maestro-straight-32px.png" />
+    <Content Include="Client\app\images\icons\maestro-straight-64px.png" />
+    <Content Include="Client\app\images\icons\mastercard-curved-128px.png" />
+    <Content Include="Client\app\images\icons\mastercard-curved-32px.png" />
+    <Content Include="Client\app\images\icons\mastercard-curved-64px.png" />
+    <Content Include="Client\app\images\icons\mastercard-straight-128px.png" />
+    <Content Include="Client\app\images\icons\mastercard-straight-32px.png" />
+    <Content Include="Client\app\images\icons\mastercard-straight-64px.png" />
+    <Content Include="Client\app\images\icons\visa-curved-128px.png" />
+    <Content Include="Client\app\images\icons\visa-curved-32px.png" />
+    <Content Include="Client\app\images\icons\visa-curved-64px.png" />
+    <Content Include="Client\app\images\icons\visa-electron-curved-128px.png" />
+    <Content Include="Client\app\images\icons\visa-electron-curved-32px.png" />
+    <Content Include="Client\app\images\icons\visa-electron-curved-64px.png" />
+    <Content Include="Client\app\images\icons\visa-electron-straight-128px.png" />
+    <Content Include="Client\app\images\icons\visa-electron-straight-32px.png" />
+    <Content Include="Client\app\images\icons\visa-electron-straight-64px.png" />
+    <Content Include="Client\app\images\icons\visa-straight-128px.png" />
+    <Content Include="Client\app\images\icons\visa-straight-32px.png" />
+    <Content Include="Client\app\images\icons\visa-straight-64px.png" />
     <Content Include="Client\app\images\vabank-logo-big.png" />
     <Content Include="Client\app\images\vabank-logo-middle.png" />
     <Content Include="Client\app\images\vabank-logo-small.png" />
@@ -890,7 +922,8 @@
     <Content Include="Client\app\areas\admin\user-management\user-management.scss" />
     <Content Include="Client\app\areas\customer\profile\profile.scss" />
     <Content Include="Client\bower_components\angular-smart-table\.travis.yml" />
-    <Content Include="Client\app\areas\admin\audit-log\audit-log.scss" />
+	<Content Include="Client\app\areas\customer\cards\cards.scss" />
+	<Content Include="Client\app\areas\admin\audit-log\audit-log.scss" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>

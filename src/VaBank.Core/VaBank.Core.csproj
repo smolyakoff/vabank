@@ -62,6 +62,7 @@
     <Compile Include="Common\DateRange.cs" />
     <Compile Include="Common\Entity.cs" />
     <Compile Include="Common\Entity`1.cs" />
+    <Compile Include="Maintenance\ISettingRepository.cs" />
     <Compile Include="Maintenance\SystemLogEntry.cs" />
     <Compile Include="Membership\ApplicationClient.cs" />
     <Compile Include="Membership\ApplicationClientType.cs" />

@@ -1,0 +1,33 @@
+﻿<section class="row">
+    <div class="col-xs-12">
+        <table class="table table-striped">
+            <thead>
+                <tr class="initialism">
+                    <th>Карта</th>  <!--responsive-->
+                    <th>Баланс</th>
+                    <th>Срок действия карты</th>
+                    <th>Статус блокировки</th>
+                    <th>Смс оповещения</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="card in cards">
+                    <td class="row">
+                        <div class="col-xs-3">
+                            <a><img src="/Client/app/images/icons/maestro-curved-32px.png"></a>
+                        </div>
+                        <div class="col-xs-8">
+                            <p class="text-left">{{card.name}} <i class="glyphicon glyphicon-edit" ng-click=""></i></p>
+                            <p class="text-left">*Номер карты</p>
+                            <p class="text-left">Обладатель: {{}}</p>
+                        </div>
+                    </td>
+                    <td>{{ card.balance }} BYR</td>
+                    <td>{{  }}</td>
+                    <td>{{ card.block }}</td>
+                    <td>{{  }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
