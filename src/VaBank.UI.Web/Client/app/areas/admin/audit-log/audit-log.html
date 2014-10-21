@@ -17,12 +17,22 @@
                      button-label="label"
                      item-label="label"
                      tick-property="ticked"
-                     helper-elements="all reset"
+                     helper-elements="all filter none reset"
                      max-labels="1">
                 </div>
             </div>
             <div class="form-group">
                 <label>Пользователь</label>
+                <ui-select class="audit-user-search" ng-model="filter.userId.value">
+                    <ui-select-match placeholder="Найти...">{{$select.selected.userName || $select.selected.label}}</ui-select-match>
+                    <ui-select-choices repeat="user.userId as user in users track by $index"
+                                       refresh="searchUser($select.search)">
+                        <div class="text-info" ng-bind-html="user.userName | highlight: $select.search">
+                        </div>
+                        <div data-ng-if="user.email" ng-bind-html="formatUser(user) | highlight: $select.search">
+                        </div>
+                    </ui-select-choices>
+                </ui-select>
             </div>
         </div>
     </div>
