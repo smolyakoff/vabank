@@ -2,7 +2,7 @@
 using System.Web.Http.Filters;
 using Autofac;
 using Autofac.Integration.Owin;
-using VaBank.Core.App;
+using VaBank.Services.Contracts.Maintenance;
 
 namespace VaBank.UI.Web.Api.Infrastructure.Filters
 {
@@ -11,12 +11,11 @@ namespace VaBank.UI.Web.Api.Infrastructure.Filters
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
             var lifetimeScope = actionExecutedContext.Request.GetOwinContext().GetAutofacLifetimeScope();
-            var operationProvider = lifetimeScope.ResolveNamed<IOperationProvider>("Service");
-            var operationRepository = lifetimeScope.Resolve<IOperationRepository>();
-            if (operationProvider.HasCurrent)
+            var operationService = lifetimeScope.Resolve<IOperationService>();
+            if (operationService.HasCurrent)
             {
-                var current = operationProvider.GetCurrent();
-                operationRepository.Stop(current);
+                var current = operationService.Current;
+                operationService.Stop(current);
             }
             base.OnActionExecuted(actionExecutedContext);
         }

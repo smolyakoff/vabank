@@ -11,8 +11,8 @@ INSTEAD OF INSERT
 AS
 BEGIN
   INSERT INTO [App].[Operation] 
-         ([TimestampUtc], [Name], [TransactionId], [AppUserId], [AppClientId])
-  SELECT ISNULL([inserted].[TimestampUtc], GETUTCDATE()),
+         ([StartedUtc], [Name], [TransactionId], [AppUserId], [AppClientId])
+  SELECT ISNULL([inserted].[StartedUtc], GETUTCDATE()),
 		 ISNULL([inserted].[Name], N'DB-CHANGE'),
 		 (SELECT [transaction_id] FROM [sys].[dm_tran_current_transaction]),
 		 [inserted].[AppUserId],

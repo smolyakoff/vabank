@@ -65,7 +65,7 @@
     <Compile Include="M2-Accounting\Accounting.cs" />
     <Compile Include="M2-Accounting\AddRowVersionColumnsToAccountingTables.cs" />
     <Compile Include="M2-Accounting\CreateAppAction.cs" />
-    <Compile Include="M2-Accounting\CreateAppOperationMarker.cs" />
+    <Compile Include="M2-Accounting\CreateAppOperation.cs" />
     <Compile Include="M2-Accounting\CreateHistoryProcedures.cs" />
     <Compile Include="M2-Accounting\CreateHistoryTableForUser.cs" />
     <Compile Include="M2-Accounting\CreateMaintenanceSetting.cs" />

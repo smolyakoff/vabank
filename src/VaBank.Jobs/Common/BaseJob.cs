@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Autofac;
-using Common.Logging;
 using Hangfire;
 using Newtonsoft.Json;
+using NLog;
 
 namespace VaBank.Jobs.Common
 {
@@ -13,7 +13,7 @@ namespace VaBank.Jobs.Common
     {
         protected readonly ILifetimeScope RootScope;
 
-        protected readonly ILog Logger;
+        protected readonly Logger Logger;
 
         protected BaseJob(ILifetimeScope scope)
         {

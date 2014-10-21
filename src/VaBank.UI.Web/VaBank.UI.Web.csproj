@@ -103,6 +103,10 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="JVW.Logging.CommonLoggingNLogAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\JVW.Logging.CommonLoggingNLogAdapter.1.0.0\lib\JVW.Logging.CommonLoggingNLogAdapter.dll</HintPath>
+    </Reference>
     <Reference Include="LibSass.x86, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\libsassnet.1.9\lib\net40\LibSass.x86.dll</HintPath>
@@ -1072,6 +1076,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Admin\AuditLogController.cs" />
     <Compile Include="Api\Admin\SystemLogController.cs" />
     <Compile Include="Api\Admin\MaintenanceController.cs" />
     <Compile Include="Api\Common\UserController.cs" />

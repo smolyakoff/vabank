@@ -71,6 +71,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Maintenance\OperationService.cs" />
+    <Compile Include="Maintenance\OperationServiceDependencies.cs" />
     <Compile Include="Maintenance\SystemLogLookup.cs" />
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Maintenance\SystemLogTypeModel.cs" />

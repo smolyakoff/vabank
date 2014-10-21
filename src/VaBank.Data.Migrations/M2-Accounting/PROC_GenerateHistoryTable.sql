@@ -174,7 +174,7 @@ BEGIN
 		'IF @operationId IS NULL SET @isNewOperation = 1 ' +
 		'IF @isNewOperation = 1 EXEC [App].[StartOperation] @Id = @operationId OUTPUT '
 	DECLARE @PostHistoryStatement VARCHAR(500) =
-		'IF @isNewOperation = 1 UPDATE [App].[Operation] SET [Finished] = 1 WHERE [Id] = @operationId ' + 
+		'IF @isNewOperation = 1 EXEC [App].[FinishOperation] @operationId ' + 
 		'COMMIT TRANSACTION HistoryTransaction'
 
 	SET @CreateStatement = 

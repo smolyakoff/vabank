@@ -25,5 +25,7 @@ namespace VaBank.Services.Contracts.Maintenance
         IList<AuditLogEntryBriefModel> GetAuditLogEntries(AuditLogQuery query);
 
         AuditLogEntryModel GetAuditLogEntry(IdentityQuery<Guid> operationId);
+
+        void LogApplicationAction(LogAppActionCommand command);
     }
 }

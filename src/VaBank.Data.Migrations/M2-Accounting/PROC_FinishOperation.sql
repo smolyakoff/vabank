@@ -16,10 +16,10 @@ BEGIN
 			SELECT TOP 1 [Id]
 			FROM [App].[Operation]
 			WHERE [TransactionId] = @currentTransactionId AND [Finished] = 0
-			ORDER BY [TimestampUtc] DESC)
+			ORDER BY [StartedUtc] DESC)
 	END;
 	UPDATE [App].[Operation] 
-	SET [Finished] = 1
+	SET [Finished] = 1, [FinishedUtc] = GETUTCDATE()
 	WHERE [Id] = @Id
 END
 GO

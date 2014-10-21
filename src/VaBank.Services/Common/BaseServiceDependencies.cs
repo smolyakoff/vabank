@@ -1,5 +1,6 @@
 ﻿using VaBank.Common.Events;
 using VaBank.Common.IoC;
+using VaBank.Core.App;
 using VaBank.Core.Common;
 
 namespace VaBank.Services.Common
