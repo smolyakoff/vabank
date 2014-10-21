@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VaBank.Services.Contracts.Membership.Commands
+namespace VaBank.Services.Contracts.Common.Commands
 {
     public interface IUserCommand
     {

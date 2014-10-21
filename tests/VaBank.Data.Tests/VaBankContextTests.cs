@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Autofac;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,13 +13,13 @@ using VaBank.Data.EntityFramework.App;
 namespace VaBank.Data.Tests
 {    
     [TestClass]
-    public class VaBankContextTests
+    public class VaBankContextTests : BaseTest
     {
         [TestCategory("Development")]
         [TestMethod]
         public void Can_VaBank_Context_Save_User()
         {
-            /*var context = new VaBank.Data.EntityFramework.VaBankContext();
+            var context = Container.Resolve<VaBankContext>();
 
             var user = User.Create(string.Format("Test_{0}", Guid.NewGuid().ToString()), "Admin", "1234567890!");
             var profile = new UserProfile(user.Id)
@@ -27,22 +29,21 @@ namespace VaBank.Data.Tests
                 LastName = "Test",
                 PhoneNumber = "+375 29 3981330",
                 PhoneNumberConfirmed = true,
-                SecretPhrase = "Test",
+                SecretPhrase = "What is the color of night?",
                 SmsConfirmationEnabled = false,
                 SmsNotificationEnabled = false                
             };
 
             context.Set<User>().Add(user);
             context.Set<UserProfile>().Add(profile);                        
-            context.SaveChanges();*/
+            context.SaveChanges();
         }
 
         [TestCategory("Development")]
         [TestMethod]
         public void Can_Start_And_Finish_Operations()
         {
-            var provider = new ConfigurationFileDatabaseProvider("Vabank.Db");
-            var context = new VaBankContext(provider, provider);
+            var context = Container.Resolve<VaBankContext>();
             var repo = new OperationRepository(context);
             using (var transaction = context.Database.BeginTransaction())
             {

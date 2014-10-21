@@ -18,10 +18,10 @@ namespace VaBank.Services.Contracts.Membership
 
         UserBriefModel CreateUser(CreateUserCommand command);
 
-        bool UpdateUser(UpdateUserCommand command);
+        void UpdateUser(UpdateUserCommand command);
 
         UserMessage ChangePassword(ChangePasswordCommand command);
 
-        bool UpdateProfile(UpdateProfileCommand command);
+        void UpdateProfile(UpdateProfileCommand command);
     }
 }

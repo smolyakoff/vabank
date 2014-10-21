@@ -62,10 +62,15 @@
     <Compile Include="M1-Authentication\SeedClientProduction.cs" />
     <Compile Include="M1-Authentication\SeedUsers.cs" />
     <Compile Include="M1-Authentication\M1User.cs" />
+    <Compile Include="M2-Accounting\Accounting.cs" />
+    <Compile Include="M2-Accounting\AddRowVersionColumnsToAccountingTables.cs" />
     <Compile Include="M2-Accounting\CreateAppAction.cs" />
     <Compile Include="M2-Accounting\CreateAppOperation.cs" />
     <Compile Include="M2-Accounting\CreateHistoryProcedures.cs" />
     <Compile Include="M2-Accounting\CreateHistoryTableForUser.cs" />
+    <Compile Include="M2-Accounting\CreateMaintenanceSetting.cs" />
+    <Compile Include="M2-Accounting\CreateResource.cs" />
+    <Compile Include="M2-Accounting\SeedTestSettings.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

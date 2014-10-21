@@ -47,12 +47,12 @@
     content: '\25B2';
 }
 .table {
-    > tbody tr.st-selected {
+    > tbody tr.st-selected > td {
         background-color: $state-success-bg
     }
 }
 .table-striped {
-    > tbody > tr.st-selected:nth-child(odd)> td {
+    > tbody > tr.st-selected:nth-child(odd) > td {
         background-color: $state-success-bg
     }
 }
