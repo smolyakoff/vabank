@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Xml;
-using System.Xml.Linq;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Maintenance;
 
@@ -54,7 +53,14 @@ namespace VaBank.Data.EntityFramework.Maintenance
                 var xml = JsonConvert.DeserializeXNode(json, "Setting").ToString();
                 var keyParam = new SqlParameter("@Key", key);
                 var valueParam = new SqlParameter("@Value", System.Data.SqlDbType.Xml) { Value = xml };
-                const string sql = "UPDATE [Maintenance].[Setting] SET [Value] = @Value WHERE [Key] = @Key";
+                const string sql = @"MERGE [Maintenance].[Setting] AS target
+                                    USING (SELECT @Key, @Value) AS source ([Key], [Value])
+                                    ON (target.[Key] = source.[Key])
+                                    WHEN MATCHED THEN 
+                                        UPDATE SET [Value] = source.[Value]
+                                    WHEN NOT MATCHED THEN
+                                        INSERT ([Key], [Value])
+                                        VALUES (source.[Key], source.[Value]);";
                 Context.Database.ExecuteSqlCommand(sql, valueParam, keyParam);
             }
             catch (Exception ex)
