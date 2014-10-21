@@ -6,7 +6,7 @@ namespace VaBank.Core.App
 {
     public interface IAuditLogRepository
     {
-        IList<AuditLogBriefEntry> GetAuditEntries(DbQuery<ApplicationAction> query);
+        IList<AuditLogBriefEntry> Query(DbQuery<ApplicationAction> query);
 
         AuditLogEntry GetAuditEntryDetails(Guid operationId);
 

@@ -119,9 +119,7 @@ namespace VaBank.Services.Maintenance
             EnsureIsValid(query);
             try
             {
-                
-                var audit = _db.AuditLogs.GetAuditEntries(DbQuery.For<ApplicationAction>()
-                    .FilterBy(query.ClientFilter));
+                var audit = _db.AuditLogs.Query(DbQuery.For<ApplicationAction>().FromClientQuery(query));
                 var models = audit.Select(x => x.ToClass<AuditLogBriefEntry, AuditLogEntryBriefModel>()).ToList();
                 return models;
             }
@@ -153,7 +151,7 @@ namespace VaBank.Services.Maintenance
                 var operation = _db.Operations.Find(command.OperationId);
                 if (operation == null)
                 {
-                    NotFound.ExceptionFor<Operation>(operation);
+                    throw NotFound.ExceptionFor<Operation>(command.OperationId);
                 }
                 var appAction = ApplicationAction.Create(
                     operation, 

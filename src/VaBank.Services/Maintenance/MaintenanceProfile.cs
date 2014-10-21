@@ -4,7 +4,6 @@ using VaBank.Services.Contracts.Maintenance.Models;
 using VaBank.Core.App;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Maintenance.Commands;
-using VaBank.Services.Contracts.Maintenance.Queries;
 
 namespace VaBank.Services.Maintenance
 {
@@ -12,20 +11,22 @@ namespace VaBank.Services.Maintenance
     {
         protected override void Configure()
         {
+            //System Log
             CreateMap<SystemLogEntry, SystemLogEntryBriefModel>()
                 .ForMember(dest => dest.EventId, src => src.MapFrom(x => x.Id));
             CreateMap<SystemLogEntry, SystemLogExceptionModel>()
                 .ForMember(dest => dest.EventId, src => src.MapFrom(x => x.Id));
             CreateMap<SystemLogEntry, SystemLogTypeModel>();
 
+            //Audit Log
             CreateMap<ApplicationAction, AppActionModel>()
-                .ForMember(dest => dest.ActionId, src => src.MapFrom(x => x.EventId))
                 .ForMember(dest => dest.JsonData, src => src.MapFrom(x => x.Data));
             CreateMap<AuditLogBriefEntry, AuditLogEntryBriefModel>()
-                .ForMember(des => des.OperationId, src => src.MapFrom(x => x.Operation.Id))
-                .ForMember(des => des.UserId, src => src.MapFrom(x => x.Operation.UserId))
-                .ForMember(des => des.AppActions, src => src.MapFrom(x => x.ApplicationActions))
-                .ForMember(des => des.UserName, src => src.MapFrom(x => x.Operation.User.UserName));
+                .ForMember(dest => dest.OperationId, src => src.MapFrom(x => x.Operation.Id))
+                .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.Operation.UserId))
+                .ForMember(dest => dest.AppActions, src => src.MapFrom(x => x.ApplicationActions))
+                .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Operation.User.UserName))
+                .ForMember(dest => dest.ApplicationName, src => src.MapFrom(x => x.Operation.ClientApplicationId));
 
             CreateMap<DatabaseOperation, DatabaseOperationModel>();
             CreateMap<VersionedDatabaseRow, DbChangeModel>()

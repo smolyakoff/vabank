@@ -4,7 +4,7 @@ namespace VaBank.Services.Contracts.Maintenance.Models
 {
     public class AppActionModel
     {
-        public Guid ActionId { get; set; }
+        public Guid EventId { get; set; }
 
         public string Code { get; set; }
 

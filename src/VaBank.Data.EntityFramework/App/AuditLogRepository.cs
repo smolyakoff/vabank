@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
+using AutoMapper.QueryableExtensions;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Database;
 using VaBank.Common.Data.Repositories;
@@ -27,13 +28,15 @@ namespace VaBank.Data.EntityFramework.App
             Context = context;
         }
 
-        public IList<AuditLogBriefEntry> GetAuditEntries(DbQuery<ApplicationAction> query)
+        public IList<AuditLogBriefEntry> Query(DbQuery<ApplicationAction> query)
         {
             if (query == null)
+            {
                 throw new ArgumentNullException("query");
+            }
             return EnsureRepositoryException(() =>
             {
-                var actions = Context.Set<ApplicationAction>().Query(query).ToLookup(x => x.Operation).ToList();
+                var actions = Context.Set<ApplicationAction>().Include(x => x.Operation).Query(query).ToLookup(x => x.Operation).ToList();
                 var entries = actions.Select(x => new AuditLogBriefEntry(x.Key, x));
                 return entries.ToList();
             });
