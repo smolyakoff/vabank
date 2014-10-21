@@ -153,8 +153,7 @@ namespace VaBank.Services.Maintenance
                 var operation = _db.Operations.Find(command.OperationId);
                 if (operation == null)
                 {
-                    //TODO change to not found helper when merged
-                    throw new InvalidOperationException("Operation not found");
+                    NotFound.ExceptionFor<Operation>(operation);
                 }
                 var appAction = ApplicationAction.Create(
                     operation, 
