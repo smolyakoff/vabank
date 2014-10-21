@@ -203,6 +203,9 @@
     <Content Include="Client\app\areas\admin\audit-log\audit-log.html" />
     <Content Include="Client\app\areas\admin\audit-log\audit-log-ctrl.js" />
     <Content Include="Client\app\areas\admin\audit-log\audit-log-service.js" />
+    <Content Include="Client\app\areas\admin\card-management\card-account-list.html" />
+    <Content Include="Client\app\areas\admin\card-management\card-account-list-ctrl.js" />
+    <Content Include="Client\app\areas\admin\card-management\card-management-service.js" />
     <Content Include="Client\app\areas\admin\system-log\exception-details-ctrl.js" />
     <Content Include="Client\app\areas\admin\system-log\exception-details.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log-service.js" />
@@ -1053,6 +1056,7 @@
     <Content Include="Client\bower_components\angular-sanitize\bower.json" />
     <Content Include="Client\bower_components\angular-sanitize\package.json" />
     <Content Include="Client\bower_components\angular-sanitize\README.md" />
+    <Content Include="Client\app\areas\admin\card-management\card-management.scss" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>

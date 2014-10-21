@@ -57,7 +57,6 @@
                 data: {
                     title: 'VaDmin - Управление пользователями',
                 },
-                
             }).state('admin.userManagement.list', {
                 url: '',
                 templateUrl: '/Client/app/areas/admin/user-management/user-list.html',
@@ -80,7 +79,18 @@
                         }
                     }]
                 }
-            });;
+            }).state('admin.cardManagement', {
+                url: '/cards',
+                'abstract': true,
+                template: '<div data-ui-view=""></div>',
+                data: {
+                    title: 'VaDmin - Карт-счета',
+                },
+            }).state('admin.cardManagement.list', {
+                url: '',
+                templateUrl: '/Client/app/areas/admin/card-management/card-account-list.html',
+                controller: 'cardAccountListController',
+            });
     }
 
 })();
