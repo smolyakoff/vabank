@@ -53,6 +53,7 @@
     <Compile Include="Accounting\Commands\CreateCardAccountCommand.cs" />
     <Compile Include="Accounting\Commands\SetCardBlockCommand.cs" />
     <Compile Include="Accounting\Commands\SetCardLimitsCommand.cs" />
+    <Compile Include="Accounting\Events\UserCardLimitChanged.cs" />
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\AccountingLookup.cs" />
     <Compile Include="Accounting\Models\RequestedCardAccountModel.cs" />
@@ -102,7 +103,10 @@
     <Compile Include="Membership\Commands\RoleModel.cs" />
     <Compile Include="Membership\Commands\UpdateProfileCommand.cs" />
     <Compile Include="Membership\Commands\UpdateUserCommand.cs" />
+    <Compile Include="Accounting\Events\UserCardBlocked.cs" />
     <Compile Include="Membership\Events\UserLoggedIn.cs" />
+    <Compile Include="Membership\Events\UserLoginFailed.cs" />
+    <Compile Include="Membership\Events\UserProfileUpdated.cs" />
     <Compile Include="Membership\IUserManagementService.cs" />
     <Compile Include="Membership\Models\ApplicationClientModel.cs" />
     <Compile Include="Membership\Models\ApplicationClientTypeModel.cs" />
@@ -133,9 +137,7 @@
       <Name>VaBank.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Accounting\Events\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Common\Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
