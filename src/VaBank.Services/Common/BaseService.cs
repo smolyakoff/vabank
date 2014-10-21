@@ -20,7 +20,6 @@ namespace VaBank.Services.Common
 
         protected readonly IUnitOfWork UnitOfWork;
         
-        //TODO: refactor this to use object factory instead of validator factory
         protected BaseService(BaseServiceDependencies dependencies)
         {
             if (dependencies == null)

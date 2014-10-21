@@ -4,10 +4,19 @@
             <li class="sidebar-brand">
                 <a data-ui-sref="customer.cabinet"><img class="img-responsive sidebar-logo" src="/Client/app/images/vabank-small.png" /></a>
             </li>
-            <li class="active" data-ui-sref="customer.cabinet"><a href="#"><i class="glyphicon glyphicon-home"></i> Домой</a></li>
-            <li><a href="#"> Мои карточки</a></li>
+            <li data-ui-sref="customer.cabinet"
+                ng-class="{active: $state.includes('customer.cabinet')}">
+                <a><i class="glyphicon glyphicon-home"></i> Домой</a>
+            </li>
+            <li data-ui-sref="customer.cards.list"
+                ng-class="{active: $state.includes('customer.cards')}">
+                <a><i class="glyphicon glyphicon-credit-card"></i> Мои карточки</a>
+            </li>
             <li><a href="#"> Платежи</a></li>
-            <li data-ui-sref="customer.profile.edit"><a href="#"><i class="glyphicon glyphicon-user"></i> Профиль</a></li>
+            <li data-ui-sref="customer.profile.edit"
+                ng-class="{active: $state.includes('customer.profile')}">
+                <a><i class="glyphicon glyphicon-user"></i> Профиль</a>
+            </li>
             <li data-ng-click="logout()"><a> Выход</a></li>
         </ul>
     </div>
@@ -19,9 +28,15 @@
                 </div>
                 <nav class="col-xs-4 col-sm-5 col-lg-3">
                     <div class="btn-group pull-right">
-                        <button data-ui-sref="cabinet.dashboard" type="button" class="btn btn-default"><i class="glyphicon glyphicon-home"></i></button>
-                        <button data-ng-click="back()" type="button" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i></button>
-                        <button data-ng-click="forward()" type="button" class="btn btn-default"><i class="glyphicon glyphicon-arrow-right"></i></button>
+                        <button data-ui-sref="customer.cabinet" type="button" class="btn btn-default">
+                            <i class="glyphicon glyphicon-home"></i>
+                        </button>
+                        <button data-ng-click="back()" type="button" class="btn btn-default">
+                            <i class="glyphicon glyphicon-arrow-left"></i>
+                        </button>
+                        <button data-ng-click="forward()" type="button" class="btn btn-default">
+                            <i class="glyphicon glyphicon-arrow-right"></i>
+                        </button>
                     </div>
                 </nav>
             </section>
