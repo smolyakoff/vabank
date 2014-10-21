@@ -17,8 +17,20 @@
 }
 
 .audit-user-search {
-    min-width: 250px;
+    min-width: 200px;
     input {
-        min-width: 250px;
+        min-width: 200px;
+    }
+}
+
+.db-change-table {
+    margin-bottom: 0;
+    tbody > tr > td {
+        border: 0;
+        padding: 0;
+
+        &:first-child {
+            font-weight: bold;
+        }
     }
 }

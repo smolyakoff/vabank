@@ -51,7 +51,7 @@
                 <tr>
                     <th></th>
                     <th style="width: 150px">Время</th>
-                    <th style="width: 200px">Действие</th>
+                    <th style="width: 300px">Действие</th>
                     <th>Описание</th>
                 </tr>
             </thead>
@@ -83,7 +83,7 @@
                     <td class="switch-audit-view text-center" ng-if="$index === 0" rowspan="{{log.appActions.length}}">
                         <a ng-click="switchView()"><i class="glyphicon glyphicon-retweet"></i></a>
                     </td>
-                    <td>{{appAction.timestampUtc | date}}</td>
+                    <td>{{appAction.timestampUtc | date: 'mediumTime'}}</td>
                     <td>{{appAction.code | uppercase}}</td>
                     <td>{{appAction.description}}</td>
                 </tr>
@@ -96,12 +96,12 @@
                     </td>
                 </tr>
                 <tr ng-if="view === 'db'" data-ng-repeat="dbChange in dbAction.changes" data-ng-repeat-end="">
-                    <td>{{dbChange.timestampUtc | date}}</td>
+                    <td>{{dbChange.timestampUtc | date: 'mediumTime'}}</td>
                     <td>DB-{{dbChange.action | uppercase }}</td>
                     <td>
-                        <table class="table">
+                        <table class="table table-responsive db-change-table">
                             <tr data-ng-repeat="(key, value) in dbChange.values">
-                                <td>{{key}}</td>
+                                <td style="width: 20%">{{key}}</td>
                                 <td>{{value}}</td>
                             </tr>
                         </table>
