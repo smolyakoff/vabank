@@ -2,15 +2,15 @@
     <div class="col-xs-9">
         <div class="form-inline log-filters">
             <div class="form-group from-filter">
-                <label for="from-date">От</label>
+                <label>От</label>
                 <vb-datepicker data-ng-model="filter.from.value" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
             </div>
             <div class="form-group to-filter">
-                <label for="from-date">До</label>
+                <label>До</label>
                 <vb-datepicker data-ng-model="filter.to.value" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
             </div>
             <div class="form-group">
-                <label for="from-date">Тип</label>
+                <label>Тип</label>
                 <div data-multi-select
                      input-model="lookups.types"
                      button-label="label"
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="from-date">Уровни</label>
+                <label>Уровни</label>
                 <div data-multi-select
                      input-model="lookups.levels"
                      default-label="Any"
@@ -50,7 +50,7 @@
         <table class="table table-responsive" st-table="displayedLogs" st-safe-src="logs">
             <thead>
                 <tr>
-                    <th st-sort=" eventid" style="width: 70px">ID</th>
+                    <th st-sort="eventId" style="width: 70px">ID</th>
                     <th st-sort="timestampUtc" st-sort-default="" style="width: 220px">Время UTC</th>
                     <th st-sort="type">Тип</th>
                     <th st-sort="level" style="width: 150px">Уровень</th>

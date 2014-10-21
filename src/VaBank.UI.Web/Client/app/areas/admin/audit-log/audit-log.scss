@@ -1,0 +1,24 @@
+﻿.search-row {
+    width: 100%;
+}
+
+.from-filter, .to-filter {
+    .input-group {
+        width: 150px;
+    }
+}
+
+.switch-audit-view {
+    width: 30px;
+    vertical-align: middle !important;
+    a {
+        height: 100%;
+    }
+}
+
+.audit-user-search {
+    min-width: 250px;
+    input {
+        min-width: 250px;
+    }
+}

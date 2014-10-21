@@ -42,13 +42,22 @@
                     }]
                 }
                 
+            }).state('admin.auditLog', {
+                url: '/logs/audit',
+                templateUrl: '/Client/app/areas/admin/audit-log/audit-log.html',
+                data: {
+                    title: 'VaDmin - Аудит лог',
+                },
+                controller: 'auditLogController'
+              
             }).state('admin.userManagement', {
                 url: '/users',
                 'abstract': true,
                 template: '<div data-ui-view=""></div>',
                 data: {
                     title: 'VaDmin - Управление пользователями',
-                },                
+                },
+                
             }).state('admin.userManagement.list', {
                 url: '',
                 templateUrl: '/Client/app/areas/admin/user-management/user-list.html',
