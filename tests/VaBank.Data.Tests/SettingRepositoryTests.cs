@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using VaBank.Core.App;
 using VaBank.Core.Maintenance;
 
 namespace VaBank.Data.Tests

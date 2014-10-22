@@ -15,7 +15,7 @@
         $scope.block = '';
         $scope.balance = '';
         $scope.name = '';
-        $scope.cards = [
+        $scope.accounts = [
         { id: 1, block: 'Active', balance: "1260000", name: "Для любимой" },
         { id: 2, block: 'Active', balance: "432000", name: "Для себя" }
         ];

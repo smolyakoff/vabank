@@ -1,0 +1,18 @@
+﻿<form data-form-for="cardForm">
+    <dropdown-field attribute="cardVendorId" label="Вид карты">
+        <ui-select-match placeholder="Выберите">{{$select.selected.name}}</ui-select-match>
+        <ui-select-choices repeat="cardVendor.id in cardVendors">{{cardVendor.name}}</ui-select-choices>
+    </dropdown-field>
+    <text-field attribute="cardholderFirstName" 
+                label="Имя на карте">
+    </text-field>
+    <text-field attribute="cardholderLastName" 
+                label="Фамилия на карте">
+    </text-field>
+    <date-field attribute="expirationDate" 
+                label="Срок действия" 
+                date-config="{minView: 'day'}" 
+                date-format="LL">
+    </date-field>
+    <submit-button button-class="btn btn-warning" label="Создать"></submit-button>
+</form>

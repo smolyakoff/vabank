@@ -49,15 +49,15 @@
     <Compile Include="Accounting\Currency.cs" />
     <Compile Include="Accounting\Card.cs" />
     <Compile Include="App\ApplicationAction.cs" />
-    <Compile Include="App\AuditLogEntry.cs" />
-    <Compile Include="App\AuditLogBriefEntry.cs" />
+    <Compile Include="Maintenance\AuditLogEntry.cs" />
+    <Compile Include="Maintenance\AuditLogBriefEntry.cs" />
     <Compile Include="App\CompositeUriProvider.cs" />
     <Compile Include="App\DatabaseOperation.cs" />
     <Compile Include="App\DatabaseAction.cs" />
     <Compile Include="App\DatabaseRow.cs" />
     <Compile Include="App\DefaultUriProvider.cs" />
     <Compile Include="App\FileLinkLocation.cs" />
-    <Compile Include="App\IAuditLogRepository.cs" />
+    <Compile Include="Maintenance\IAuditLogRepository.cs" />
     <Compile Include="App\IOperationProvider.cs" />
     <Compile Include="App\IOperationRepository.cs" />
     <Compile Include="App\IUriProvider.cs" />
@@ -68,7 +68,7 @@
     <Compile Include="Common\DateRange.cs" />
     <Compile Include="Common\Entity.cs" />
     <Compile Include="Common\Entity`1.cs" />
-    <Compile Include="Maintenance\ISettingRepository.cs" />
+    <Compile Include="App\ISettingRepository.cs" />
     <Compile Include="Maintenance\SystemLogEntry.cs" />
     <Compile Include="Membership\ApplicationClient.cs" />
     <Compile Include="Membership\ApplicationClientType.cs" />

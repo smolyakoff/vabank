@@ -1,1 +1,10 @@
-﻿
+﻿.account-search {
+    min-width: 300px;
+}
+
+.account-details {
+    padding: 5px;
+    .table {
+        background-color: transparent;
+    }
+}
