@@ -1,0 +1,24 @@
+﻿<table class="table table-responsive" st-table="cards" st-safe-src="displayedCards">
+    <thead>
+        <tr class="warning">
+            <th style="width: 30px"></th>
+            <th>ID</th>
+            <th>Номер карты</th>
+            <th>Вид карты</th>
+            <th>Владелец</th>
+            <th>Срок карты</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="card in cards">
+            <td>
+                <button class="btn btn-xs"><i class="glyphicon glyphicon-remove"></i></button>
+            </td>
+            <td>{{card.id}}</td>
+            <td>{{card.cardNo}}</td>
+            <td>{{card.cardVendor.name}}</td>
+            <td>{{card.cardholderFirstName}} {{card.cardholderLastName}}</td>
+            <td>{{card.expirationDate | date }}</td>
+        </tr>
+    </tbody>
+</table>

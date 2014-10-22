@@ -80,7 +80,7 @@
                     }]
                 }
             }).state('admin.cardManagement', {
-                url: '/cards',
+                url: '/accounts',
                 'abstract': true,
                 template: '<div data-ui-view=""></div>',
                 data: {

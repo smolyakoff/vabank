@@ -207,9 +207,15 @@
     <Content Include="Client\app\areas\admin\audit-log\audit-log.html" />
     <Content Include="Client\app\areas\admin\audit-log\audit-log-ctrl.js" />
     <Content Include="Client\app\areas\admin\audit-log\audit-log-service.js" />
+    <Content Include="Client\app\areas\admin\card-management\account-list-item-ctrl.js" />
     <Content Include="Client\app\areas\admin\card-management\card-account-list.html" />
     <Content Include="Client\app\areas\admin\card-management\card-account-list-ctrl.js" />
+    <Content Include="Client\app\areas\admin\card-management\card-list-ctrl.js" />
+    <Content Include="Client\app\areas\admin\card-management\card-list.html" />
     <Content Include="Client\app\areas\admin\card-management\card-management-service.js" />
+    <Content Include="Client\app\areas\admin\card-management\assign-card.html" />
+    <Content Include="Client\app\areas\admin\card-management\assign-card-ctrl.js" />
+    <Content Include="Client\app\areas\admin\card-management\new-card.html" />
     <Content Include="Client\app\areas\admin\system-log\exception-details-ctrl.js" />
     <Content Include="Client\app\areas\admin\system-log\exception-details.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log-service.js" />
@@ -290,6 +296,8 @@
     <Content Include="Client\app\modules\vabank-ui\config\form-for.js" />
     <Content Include="Client\app\modules\vabank-ui\config\toastr-config.js" />
     <Content Include="Client\app\modules\vabank-ui\config\local-storage-config.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\dropdown-field.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\date-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\st-table-force-pipe.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-confirm.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-datepicker.js" />
@@ -300,6 +308,8 @@
     <Content Include="Client\app\modules\vabank-ui\services\dialog-service.js" />
     <Content Include="Client\app\modules\vabank-ui\services\notification-service.js" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\checkbox-field.html" />
+    <Content Include="Client\app\modules\vabank-ui\templates\forms\date-field.html" />
+    <Content Include="Client\app\modules\vabank-ui\templates\forms\dropdown-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\text-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-confirmation-dialog.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-datepicker.html" />
@@ -1061,6 +1071,7 @@
     <Content Include="Client\bower_components\angular-sanitize\package.json" />
     <Content Include="Client\bower_components\angular-sanitize\README.md" />
     <Content Include="Client\app\areas\admin\card-management\card-management.scss" />
+    <Content Include="Client\app\areas\admin\card-management\new-card-ctrl.js" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
