@@ -1,22 +1,21 @@
 ﻿(function() {
     'use strict';
 
-    angular.module('vabank.ui').directive('dropdownField', dropdownFilterDirective);
+    angular.module('vabank.ui').directive('dropdownField', dropdownFieldDirective);
 
-    dropdownFilterDirective.$inject = ['FieldHelper'];
+    dropdownFieldDirective.$inject = ['FieldHelper'];
+    function dropdownFieldDirective(FieldHelper) {
 
-    function dropdownFilterDirective(FieldHelper) {
-
-        link.$inject = ['$scope', '$element', '$attributes', 'formForController'];
         function link($scope, $element, $attributes, formForController, transcludeFn) {
+            if (!$scope.repeat) {
+                throw new Error('Repeat expression for dropdown field should be specified');
+            }
             FieldHelper.manageLabel($scope, $attributes);
             FieldHelper.manageFieldRegistration($scope, $attributes, formForController);
-
-            transcludeFn(function (clone) {
-                clone.wrap('<ui-select ng-model="model.bindable"></ui-select>');
-                $element.after(clone);
-            });
-            debugger;
+        }
+        
+        function controller($scope) {
+            $scope.refresh = $scope.refresh || angular.noop;
         }
 
         return {
@@ -25,12 +24,21 @@
             transclude: true,
             templateUrl: '/Client/app/modules/vabank-ui/templates/forms/dropdown-field.html',
             scope: {
+                items: '=',
+                refresh: '=?',
+                repeat: '@',
+                placeholder: '@',
                 attribute: '@',
+                displayAttribute: '@?',
                 disable: '=',
                 help: '@?',
             },
-            link: link
+            link: link,
+            controller: controller
         };
     }
 
-})()
+    
+
+
+})();

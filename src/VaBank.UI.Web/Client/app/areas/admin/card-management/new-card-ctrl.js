@@ -27,6 +27,10 @@
 			{ id: 'mastercard', name: 'MasterCard' }
 		];
 
+	    $scope.search = function(searchString) {
+	        debugger;
+	    };
+
 	    $scope.cardForm = {
 	    	accountNo: account.accountNo,
 			expirationDate: account.expirationDate

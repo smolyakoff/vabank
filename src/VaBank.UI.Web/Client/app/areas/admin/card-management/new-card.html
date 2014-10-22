@@ -1,7 +1,19 @@
 ﻿<form data-form-for="cardForm">
-    <dropdown-field attribute="cardVendorId" label="Вид карты">
-        <ui-select-match placeholder="Выберите">{{$select.selected.name}}</ui-select-match>
-        <ui-select-choices repeat="cardVendor.id in cardVendors">{{cardVendor.name}}</ui-select-choices>
+    <dropdown-field attribute="userId"
+                    label="Пользователь"
+                    items="users"
+                    refresh="search"
+                    placeholder="Найдите пользователя"
+                    repeat="item.id as item in items track by $index"
+                    display-attribute="name">
+        {{item.name}}
+    </dropdown-field>
+    <dropdown-field attribute="cardVendorId"
+                    label="Вид карты"
+                    items="cardVendors"
+                    repeat="item.id as item in items track by $index"
+                    display-attribute="name">
+        {{item.name}}
     </dropdown-field>
     <text-field attribute="cardholderFirstName" 
                 label="Имя на карте">
