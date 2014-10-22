@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace VaBank.Data.Migrations.M2_Accounting
+namespace VaBank.Data.Migrations
 {
     [Migration(22, "Filling empty settings.")]
     [Tags("Maintenance", "Development", "Test")]

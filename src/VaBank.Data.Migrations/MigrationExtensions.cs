@@ -1,5 +1,4 @@
-﻿using FluentMigrator.Builders;
-using FluentMigrator.Builders.Alter.Column;
+﻿using FluentMigrator.Builders.Alter.Column;
 using FluentMigrator.Builders.Create.Column;
 using FluentMigrator.Builders.Create.Table;
 
@@ -260,8 +259,6 @@ namespace VaBank.Data.Migrations
             return syntax.AsString(length);
         }
 
-        #endregion
-
-
+        #endregion        
     }
 }

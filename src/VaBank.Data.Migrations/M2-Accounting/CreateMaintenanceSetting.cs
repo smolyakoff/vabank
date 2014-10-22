@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace VaBank.Data.Migrations.M2_Accounting
+namespace VaBank.Data.Migrations
 {
     [Migration(21, "Create [Maintenance].[Setting] table.")]
     [Tags("Maintenance", "Development", "Production", "Test")]
