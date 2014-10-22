@@ -18,25 +18,9 @@ namespace VaBank.Data.Migrations
         {
             Execute.WithConnection((connection, transaction) =>
             {
-                List<UserIdPair> userIdPairs = new List<UserIdPair>();
-
-                using (var command = connection.CreateCommand())
-                {
-                    command.Transaction = transaction;
-                    command.CommandText = "SELECT [UserID], [UserName] FROM [Membership].[User] WHERE [UserName] IN ('bradpitt', 'meganfox', 'terminator')";
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var pair = new UserIdPair((string)reader["UserName"], (Guid)reader["UserID"]);
-                            userIdPairs.Add(pair);
-                        }
-                    }
-                }                
-
                 var nowUtc = DateTime.UtcNow;
                 var expireUtc = nowUtc.AddYears(1);
-                foreach (var idPair in userIdPairs)
+                foreach (var idPair in GetUserIdPairs(connection, transaction))
                 {
                     var accountNo = SeedHelper.GenerateRandomStringOfNumbers(13);
                     var account = M2Account.Create(accountNo, "USD", 10000, nowUtc, expireUtc, "Рассчётный счёт");
@@ -75,25 +59,22 @@ namespace VaBank.Data.Migrations
             }
         }
 
-        private List<UserIdPair> GetUserIdPairs()
+        private List<UserIdPair> GetUserIdPairs(IDbConnection connection, IDbTransaction transaction)
         {
-            List<UserIdPair> userIdPairs = new List<UserIdPair>();
-            Execute.WithConnection((connection, transaction) =>
+            var userIdPairs = new List<UserIdPair>();
+            using (var command = connection.CreateCommand())
+            {
+                command.Transaction = transaction;
+                command.CommandText = "SELECT [UserID], [UserName] FROM [Membership].[User] WHERE [UserName] IN ('bradpitt', 'meganfox', 'terminator')";
+                using (var reader = command.ExecuteReader())
                 {
-                    using (var command = connection.CreateCommand())
+                    while (reader.Read())
                     {
-                        command.Transaction = transaction;
-                        command.CommandText = "SELECT [UserID], [UserName] FROM [Membership].[User] WHERE [UserName] IN ('bradpitt', 'meganfox', 'terminator')";
-                        using (var reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var pair = new UserIdPair((string)reader["UserName"], (Guid)reader["UserID"]);
-                                userIdPairs.Add(pair);
-                            }
-                        }                        
+                        var pair = new UserIdPair((string)reader["UserName"], (Guid)reader["UserID"]);
+                        userIdPairs.Add(pair);
                     }
-                });
+                }
+            }
             return userIdPairs;
         }
 
