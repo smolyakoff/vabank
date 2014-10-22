@@ -42,6 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting\Account.cs" />
+    <Compile Include="Accounting\CardLimits.cs" />
+    <Compile Include="Accounting\CardSettings.cs" />
+    <Compile Include="Accounting\CardVendor.cs" />
+    <Compile Include="Accounting\Currency.cs" />
+    <Compile Include="Accounting\Card.cs" />
     <Compile Include="App\ApplicationAction.cs" />
     <Compile Include="App\AuditLogEntry.cs" />
     <Compile Include="App\AuditLogBriefEntry.cs" />
