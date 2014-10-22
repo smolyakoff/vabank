@@ -68,7 +68,7 @@
     <Compile Include="M2-Accounting\CreateAppOperation.cs" />
     <Compile Include="M2-Accounting\CreateHistoryProcedures.cs" />
     <Compile Include="M2-Accounting\CreateHistoryTableForUser.cs" />
-    <Compile Include="M2-Accounting\CreateMaintenanceSetting.cs" />
+    <Compile Include="M2-Accounting\CreateAppSetting.cs" />
     <Compile Include="M2-Accounting\CreateResource.cs" />
     <Compile Include="M2-Accounting\SeedTestSettings.cs" />
     <Compile Include="Metadata.cs" />

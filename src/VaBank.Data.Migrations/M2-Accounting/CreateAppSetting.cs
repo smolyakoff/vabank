@@ -2,18 +2,18 @@
 
 namespace VaBank.Data.Migrations.M2_Accounting
 {
-    [Migration(21, "Create [Maintenance].[Setting] table.")]
+    [Migration(21, "Create [App].[Setting] table.")]
     [Tags("Maintenance", "Development", "Production", "Test")]
-    public class CreateMaintenanceSetting : Migration
+    public class CreateAppSetting : Migration
     {
         public override void Down()
         {
-            Delete.Table("Setting").InSchema("Maintenance");
+            Delete.Table("Setting").InSchema("App");
         }
 
         public override void Up()
         {
-            Create.Table("Setting").InSchema("Maintenance")
+            Create.Table("Setting").InSchema("App")
                 .WithColumn("Key").AsName().PrimaryKey("PK_Setting")
                 .WithColumn("Value").AsXml().Nullable();
         }
