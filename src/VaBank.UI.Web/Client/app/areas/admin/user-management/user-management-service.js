@@ -5,9 +5,9 @@
         .module('vabank.webapp')
         .service('userManagementService', userManagementService);
 
-    userManagementService.$inject = ['$resource', 'dataUtil'];
+    userManagementService.$inject = ['$resource', 'dataUtil', 'uiTools'];
 
-    function userManagementService($resource, dataUtil) {
+    function userManagementService($resource, dataUtil, uiTools) {
 
         var User = $resource('/api/users/:userId', { userId: '@userId' }, {
             save: {

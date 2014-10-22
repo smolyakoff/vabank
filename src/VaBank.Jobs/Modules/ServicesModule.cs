@@ -37,7 +37,6 @@ namespace VaBank.Jobs.Modules
 
             //Register operation provider
             builder.RegisterType<ServiceOperationProvider>().AsSelf()
-                .Named<IOperationProvider>("Service")
                 .InstancePerLifetimeScope();
 
             //Register dependency collections

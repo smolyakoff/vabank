@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
+using VaBank.Core.App;
 using VaBank.Core.Maintenance;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
@@ -12,7 +13,6 @@ using VaBank.Services.Contracts.Maintenance;
 using VaBank.Services.Contracts.Maintenance.Commands;
 using VaBank.Services.Contracts.Maintenance.Models;
 using VaBank.Services.Contracts.Maintenance.Queries;
-
 
 namespace VaBank.Services.Maintenance
 {
@@ -101,17 +101,71 @@ namespace VaBank.Services.Maintenance
 
         public AuditLogLookupModel GetAuditLogLookup()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var codes = _db.AuditLogs.GetUniqueCodes();
+                var model = new AuditLogLookupModel();
+                model.Codes.AddRange(codes);
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Cannot get audit log lookup model.", ex);
+            }
         }
 
         public IList<AuditLogEntryBriefModel> GetAuditLogEntries(AuditLogQuery query)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(query);
+            try
+            {
+                var audit = _db.AuditLogs.Query(DbQuery.For<ApplicationAction>().FromClientQuery(query));
+                var models = audit.Select(x => x.ToClass<AuditLogBriefEntry, AuditLogEntryBriefModel>()).ToList();
+                return models;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get audit log entries.", ex);
+            }
         }
 
         public AuditLogEntryModel GetAuditLogEntry(IdentityQuery<Guid> operationId)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(operationId);
+            try
+            {
+                var entry = _db.AuditLogs.GetAuditEntryDetails(operationId.Id);
+                return entry.ToClass<AuditLogEntry, AuditLogEntryModel>();
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get audit log entry.", ex);
+            }
+        }
+        
+        public void LogApplicationAction(LogAppActionCommand command)
+        {
+            EnsureIsValid(command);
+            try
+            {
+                var operation = _db.Operations.Find(command.OperationId);
+                if (operation == null)
+                {
+                    throw NotFound.ExceptionFor<Operation>(command.OperationId);
+                }
+                var appAction = ApplicationAction.Create(
+                    operation, 
+                    command.Code, 
+                    command.TimestampUtc,
+                    command.Description, 
+                    command.Data);
+                _db.AuditLogs.CreateAction(appAction);
+                UnitOfWork.Commit();
+            }
+            catch (Exception ex) 
+            {
+                throw new ServiceException("Can't create application action.", ex);
+            }
         }
     }
 }

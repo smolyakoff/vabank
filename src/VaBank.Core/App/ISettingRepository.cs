@@ -1,4 +1,4 @@
-﻿namespace VaBank.Core.Maintenance
+﻿namespace VaBank.Core.App
 {
     public interface ISettingRepository
     {

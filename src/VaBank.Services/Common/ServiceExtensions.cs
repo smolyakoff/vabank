@@ -11,13 +11,13 @@ namespace VaBank.Services.Common
         {
             if (dependencyCollection == null)
             {
-                throw new ArgumentException("Repository collection is not resolved");
+                throw new ArgumentException("Dependency collection is not resolved");
             }
             var properties = dependencyCollection.GetType().GetProperties();
             var values = properties.Select(x => x.GetValue(dependencyCollection));
             if (values.Any(x => x == null))
             {
-                throw new ArgumentException("Not all repositories are resolved");
+                throw new ArgumentException("Not all dependencies are resolved");
             }
         }
 

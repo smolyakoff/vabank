@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Claims;
 using VaBank.Core.Common;
 using VaBank.Core.Membership;
 
@@ -13,31 +12,17 @@ namespace VaBank.Core.App
 
         private Guid? _userId;
 
+        private User _user;
+
         private string _name;
 
-        private DateTime _timestampUtc;
+        private DateTime _startedUtc;
+
+        private DateTime? _finishedUtc;
+
+        private ApplicationClient _client;
 
         private string _clientId;
-
-
-        public Operation(Guid id, DateTime timestampUtc, string name = null, ClaimsIdentity identity = null)
-        {
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentException("Operation id cannot be emtpy.");
-            }
-            Id = id;
-            Name = string.IsNullOrEmpty("name") ? "APP-CHANGE" : name;
-            TimestampUtc = timestampUtc;
-            if (identity == null)
-            {
-                return;
-            }
-            var sid = identity.FindFirst(UserClaim.Types.UserId);
-            UserId = sid == null ? null : (Guid?) Guid.Parse(sid.Value);
-            var clientId = identity.FindFirst(UserClaim.Types.ClientId);
-            ClientApplicationId = clientId == null ? null : clientId.Value;
-        }
 
         protected Operation()
         {
@@ -49,16 +34,42 @@ namespace VaBank.Core.App
             set { _id = value; }
         }
 
+        public virtual User User
+        {
+            get { return GetIfNotDisposed(x => x._user); }
+            private set
+            {
+                _user = value;
+                _userId = value == null ? (Guid?)null : value.Id;
+            }
+        }
+
         public Guid? UserId
         {
             get { return GetIfNotDisposed(x => x._userId); }
             private set { _userId = value; }
         }
 
-        public DateTime TimestampUtc
+        public DateTime StartedUtc
         {
-            get { return GetIfNotDisposed(x => x._timestampUtc); }
-            private set { _timestampUtc = value; }
+            get { return GetIfNotDisposed(x => x._startedUtc); }
+            private set { _startedUtc = value; }
+        }
+
+        public DateTime? FinishedUtc
+        {
+            get { return GetIfNotDisposed(x => x._finishedUtc); }
+            private set { _finishedUtc = value; }
+        }
+
+        public virtual ApplicationClient ApplicationClient
+        {
+            get { return GetIfNotDisposed(x => x._client); }
+            private set
+            {
+                _client = value;
+                _clientId = value == null ? null : value.Id;
+            }
         }
 
         public string ClientApplicationId

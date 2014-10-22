@@ -15,3 +15,22 @@
         height: 100%;
     }
 }
+
+.audit-user-search {
+    min-width: 200px;
+    input {
+        min-width: 200px;
+    }
+}
+
+.db-change-table {
+    margin-bottom: 0;
+    tbody > tr > td {
+        border: 0;
+        padding: 0;
+
+        &:first-child {
+            font-weight: bold;
+        }
+    }
+}

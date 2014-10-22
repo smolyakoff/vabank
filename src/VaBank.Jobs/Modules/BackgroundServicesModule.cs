@@ -31,6 +31,7 @@ namespace VaBank.Jobs.Modules
             builder.RegisterGeneric(typeof(DefaultJobContext<>))
                 .As(typeof(IJobContext<>))
                 .AsSelf()
+                .PropertiesAutowired()
                 .InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(ThisAssembly)
                 .Where(typeof (IJob).IsAssignableFrom)

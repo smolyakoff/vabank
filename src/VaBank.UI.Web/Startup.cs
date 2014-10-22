@@ -42,9 +42,11 @@ namespace VaBank.UI.Web
         public void Configuration(IAppBuilder config)
         {
             Bundle.RegisterStylePreprocessor(new SassPreprocessor());
+            var httpConfig = ConfigureWebApi();
+
             config.Use<ExceptionMiddleware>();
             config.Use<CultureMiddleware>();
-            config.UseAutofacMiddleware(ConfigureAutofac());
+            config.UseAutofacMiddleware(ConfigureAutofac(httpConfig));
 
             config.UseStaticFiles("/Client");
 
@@ -58,8 +60,6 @@ namespace VaBank.UI.Web
             config.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
             
             config.UseHangfire(ConfigureHangfire);          
-
-            var httpConfig = ConfigureWebApi();
             config.UseWebApi(httpConfig);
             config.UseAutofacWebApi(httpConfig);
             
@@ -144,12 +144,10 @@ namespace VaBank.UI.Web
             return configuration;
         }
 
-        private static ILifetimeScope ConfigureAutofac()
+        private static ILifetimeScope ConfigureAutofac(HttpConfiguration httpConfig)
         {
             var builder = new ContainerBuilder();
-            builder.RegisterModule<DataAccessModule>();
-            builder.RegisterModule<ServicesModule>();
-            builder.RegisterModule<WebApiModule>();
+            builder.RegisterModule(new WebApiModule(httpConfig));
             var container = builder.Build();
             return container;
         }

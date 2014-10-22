@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Xml;
-using System.Xml.Linq;
+using Newtonsoft.Json;
 using VaBank.Common.Data.Repositories;
+using VaBank.Core.App;
 using VaBank.Core.Maintenance;
 
-namespace VaBank.Data.EntityFramework.Maintenance
+namespace VaBank.Data.EntityFramework.App
 {
     public class SettingRepository : IRepository, ISettingRepository
     {
@@ -29,7 +29,7 @@ namespace VaBank.Data.EntityFramework.Maintenance
             try
             {
                 var keyParam = new SqlParameter("@Key", key);
-                const string sql = "SELECT [Value] FROM [Maintenance].[Setting] WHERE [Key] = @Key";
+                const string sql = "SELECT [Value] FROM [App].[Setting] WHERE [Key] = @Key";
                 var xml = Context.Database.SqlQuery<string>(sql, keyParam).ToList().SingleOrDefault();
                 if (xml == null)
                     return null;
@@ -54,7 +54,14 @@ namespace VaBank.Data.EntityFramework.Maintenance
                 var xml = JsonConvert.DeserializeXNode(json, "Setting").ToString();
                 var keyParam = new SqlParameter("@Key", key);
                 var valueParam = new SqlParameter("@Value", System.Data.SqlDbType.Xml) { Value = xml };
-                const string sql = "UPDATE [Maintenance].[Setting] SET [Value] = @Value WHERE [Key] = @Key";
+                const string sql = @"MERGE [App].[Setting] AS target
+                                    USING (SELECT @Key, @Value) AS source ([Key], [Value])
+                                    ON (target.[Key] = source.[Key])
+                                    WHEN MATCHED THEN 
+                                        UPDATE SET [Value] = source.[Value]
+                                    WHEN NOT MATCHED THEN
+                                        INSERT ([Key], [Value])
+                                        VALUES (source.[Key], source.[Value]);";
                 Context.Database.ExecuteSqlCommand(sql, valueParam, keyParam);
             }
             catch (Exception ex)

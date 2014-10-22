@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VaBank.Common.Data.Database;
 using VaBank.Core.App;
 using VaBank.Core.Membership;
 using VaBank.Data.EntityFramework;
@@ -29,11 +31,11 @@ namespace VaBank.Data.Tests
                 PhoneNumberConfirmed = true,
                 SecretPhrase = "What is the color of night?",
                 SmsConfirmationEnabled = false,
-                SmsNotificationEnabled = false
+                SmsNotificationEnabled = false                
             };
 
             context.Set<User>().Add(user);
-            context.Set<UserProfile>().Add(profile);
+            context.Set<UserProfile>().Add(profile);                        
             context.SaveChanges();
         }
 

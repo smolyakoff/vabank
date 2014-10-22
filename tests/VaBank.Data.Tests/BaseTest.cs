@@ -28,6 +28,7 @@ namespace VaBank.Data.Tests
 
             builder.RegisterType<VaBankContext>()
                 .As<DbContext>()
+                .AsSelf()
                 .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
 

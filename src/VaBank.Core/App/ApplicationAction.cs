@@ -1,14 +1,40 @@
 ﻿using System;
+using VaBank.Core.Common;
 
 namespace VaBank.Core.App
 {
-    public class ApplicationAction
+    public class ApplicationAction : Entity
     {
-        public Guid EventId { get; set; }
+        protected ApplicationAction()
+        {
 
-        public DateTime TimestampUtc { get; set; }
+        }
+        
+        public static ApplicationAction Create(Operation operation, string code, DateTime timestampUtc,
+            string description = null, string data = null)
+        {
+            if (operation == null)
+            {
+                throw new ArgumentException("Operation id can't has empty value."); 
+            }
+            return new ApplicationAction
+            {
+                Operation = operation,
+                EventId = Guid.NewGuid(),
+                TimestampUtc = timestampUtc,
+                Code = code,
+                Description = description,
+                Data = data
+            };
+        }        
 
-        public string Code { get; set; }
+        public Guid EventId { get; protected set; }
+
+        public virtual Operation Operation { get; protected set; }
+
+        public DateTime TimestampUtc { get; protected set; }
+
+        public string Code { get; protected set; }
 
         public string Description { get; set; }
 

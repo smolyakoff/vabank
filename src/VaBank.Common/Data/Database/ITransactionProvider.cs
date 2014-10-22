@@ -9,6 +9,7 @@ namespace VaBank.Common.Data.Database
 
         bool HasCurrentTransaction { get; }
 
+        //TODO: remove this hack. Now i know how to create transaction before db context is instantiated
         event EventHandler TransactionStarted;
     }
 }

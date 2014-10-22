@@ -10,11 +10,11 @@ namespace VaBank.Services.Contracts.Common
     {
         protected ApplicationEvent()
         {
-            DateUtc = DateTime.UtcNow;
+            TimestampUtc = DateTime.UtcNow;
             UserId = GetUserId();
         }
 
-        public DateTime DateUtc { get; protected set; }
+        public DateTime TimestampUtc { get; protected set; }
 
         public Guid? UserId { get; protected set; }
 

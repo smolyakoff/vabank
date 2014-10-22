@@ -6,7 +6,6 @@ using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
-using VaBank.Core.App;
 using VaBank.Core.Common;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts;
@@ -40,7 +39,6 @@ namespace VaBank.UI.Web.Modules
 
             //Register operation provider
             builder.RegisterType<ServiceOperationProvider>().AsSelf()
-                .Named<IOperationProvider>("Service")
                 .InstancePerRequest();
 
             //Register dependency collections

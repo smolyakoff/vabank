@@ -24,15 +24,15 @@ namespace VaBank.Data.Migrations
                 .FromTable("Operation").InSchema(SchemaName).ForeignColumn("AppClientId")
                 .ToTable("ApplicationClient").InSchema("Membership").PrimaryColumn("ID");
 
-            Create.Index("IX_Operation_TimestampUtc")
+            Create.Index("IX_Operation_StartedUtc")
                 .OnTable("Operation").InSchema("App")
-                .OnColumn("TimestampUtc").Descending();
+                .OnColumn("StartedUtc").Descending();
 
             Create.Index("IX_Operation_AK")
                 .OnTable("Operation").InSchema("App")
                 .OnColumn("TransactionId").Descending()
                 .OnColumn("Finished").Ascending()
-                .OnColumn("TimestampUtc").Descending();
+                .OnColumn("StartedUtc").Descending();
         }
 
         public override void Down()

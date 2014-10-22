@@ -67,10 +67,10 @@
     <Compile Include="M2-Accounting\AddRowVersionColumnsToAccountingTables.cs" />
     <Compile Include="M2-Accounting\24_CreateAccountsForTestUsers.cs" />
     <Compile Include="M2-Accounting\CreateAppAction.cs" />
-    <Compile Include="M2-Accounting\CreateAppOperationMarker.cs" />
+    <Compile Include="M2-Accounting\CreateAppOperation.cs" />
     <Compile Include="M2-Accounting\CreateHistoryProcedures.cs" />
     <Compile Include="M2-Accounting\CreateHistoryTableForUser.cs" />
-    <Compile Include="M2-Accounting\CreateMaintenanceSetting.cs" />
+    <Compile Include="M2-Accounting\CreateAppSetting.cs" />
     <Compile Include="M2-Accounting\CreateResource.cs" />
     <Compile Include="M2-Accounting\M2Account.cs" />
     <Compile Include="M2-Accounting\M2Currency.cs" />
