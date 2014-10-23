@@ -61,6 +61,7 @@
     <Compile Include="Accounting\AccountManagementService.cs" />
     <Compile Include="Accounting\Validators.cs" />
     <Compile Include="Common\BaseServiceDependencies.cs" />
+    <Compile Include="Common\CommonProfile.cs" />
     <Compile Include="Common\NotFound.cs" />
     <Compile Include="Common\ServiceOperationProvider.cs" />
     <Compile Include="Common\IDependencyCollection.cs" />

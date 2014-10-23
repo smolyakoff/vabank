@@ -11,13 +11,17 @@ namespace VaBank.Services.Contracts.Accounting
 {
     public interface IAccountManagementService
     {
-        AccountingLookupModel GetLookup();
+        AccountingLookupModel GetAccountingLookup();
 
         IList<UserCardModel> GetUserCards(IdentityQuery<Guid> userId);
 
-        IPagedList<CardAccountBriefModel> GetCardAccounts(CardAccountsQuery query);
+        IPagedList<AccountBriefModel> GetCardAccounts(AccountQuery query);
 
-        RequestedCardAccountModel RequestCardAccount(IdentityQuery<Guid> userId);
+        IList<CardModel> GetCards(IdentityQuery<string> accountNo);
+            
+        //RequestedCardAccountModel RequestCardAccount(IdentityQuery<Guid> userId);
+
+        UserMessage CreateCard(CreateCardCommand command);
 
         UserMessage CreateCardAccount(CreateCardAccountCommand command);
 

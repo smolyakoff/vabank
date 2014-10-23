@@ -2,7 +2,8 @@
 
 namespace VaBank.Services.Contracts.Accounting.Models
 {
-    public class CardAccountModel : CardAccountBriefModel
+    //TODO: what is it for?
+    public class CardAccountModel : AccountBriefModel
     {
         public CardVendorModel CardVendor { get; set; }
 

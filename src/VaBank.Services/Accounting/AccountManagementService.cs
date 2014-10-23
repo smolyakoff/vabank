@@ -26,7 +26,7 @@ namespace VaBank.Services.Accounting
             _db = repositories;
         }
 
-        public AccountingLookupModel GetLookup()
+        public AccountingLookupModel GetAccountingLookup()
         {
             try
             {
@@ -43,7 +43,7 @@ namespace VaBank.Services.Accounting
             throw new NotImplementedException();
         }
 
-        public IPagedList<CardAccountBriefModel> GetCardAccounts(CardAccountsQuery query)
+        public IPagedList<AccountBriefModel> GetCardAccounts(AccountQuery query)
         {
             throw new NotImplementedException();
         }

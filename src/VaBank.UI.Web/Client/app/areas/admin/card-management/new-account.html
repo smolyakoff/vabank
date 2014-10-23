@@ -28,8 +28,7 @@
                             </text-field>
                         </div>
                         <div class="col-xs-4">
-                            <dropdown-field type="number"
-                                            attribute="currencyId"
+                            <dropdown-field attribute="currencyId"
                                             label="Валюта"
                                             items="lookup.currencies"
                                             repeat="item.isoName as item in items"
@@ -44,10 +43,31 @@
                         placeholder="Задайте срок действия счета"
                         date-format="LL"
                         date-config="{minView: 'day'}">
-                        
                     </date-field>
 
                     <h5 class="text-primary">Карта</h5>
+                    <dropdown-field 
+                                    attribute="cardVendorId"
+                                    label="Вид карты"
+                                    items="lookup.cardVendors"
+                                    repeat="item.id as item in items"
+                                    display-attribute="isoName">
+                        {{item.name}}
+                    </dropdown-field>
+                    <date-field attribute="cardExpirationDate"
+                                label="Срок действия"
+                                placeholder="Задайте срок действия карты"
+                                date-format="LL"
+                                date-config="{minView: 'day'}">
+                    </date-field>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <text-field attribute="cardholderFirstName" label="Имя на карте"></text-field>
+                        </div>
+                        <div class="col-xs-6">
+                            <text-field attribute="cardholderLastName" label="Фамилия на карте"></text-field>
+                        </div>
+                    </div>
                     <submit-button button-class="btn btn-primary" label="Создать"></submit-button>
                 </form>
             </div>

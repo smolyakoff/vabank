@@ -11,7 +11,9 @@
 
         var User = cardManagementService.User;
 
-        $scope.cardAccountForm = {};
+        $scope.cardAccountForm = {
+            initialBalance: 0
+        };
 
         $scope.validationRules = {
             userId: { required: true }

@@ -8,14 +8,14 @@ namespace VaBank.Services.Contracts.Accounting.Commands
     {
         public Guid UserId { get; set; }
 
-        public string AccountNo { get; set; }
+        //public string AccountNo { get; set; }
 
         public DateTime AccountExpirationDateUtc
         {
             get { return CardExpirationDateUtc; }
         }
 
-        public string CardNo { get; set; }
+        //public string CardNo { get; set; }
 
         public string CardVendorId { get; set; }
 

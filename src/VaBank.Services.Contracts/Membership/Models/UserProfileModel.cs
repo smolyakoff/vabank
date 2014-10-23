@@ -1,4 +1,5 @@
 ﻿using System;
+using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Contracts.Membership.Models
 {

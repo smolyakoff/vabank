@@ -1,5 +1,6 @@
 ﻿namespace VaBank.Services.Contracts.Accounting.Models
 {
+    //Question: is it needed?
     public class RequestedCardAccountModel
     {
         /// <summary>
