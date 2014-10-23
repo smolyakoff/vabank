@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VaBank.Services.Contracts.Membership.Models
+namespace VaBank.Services.Contracts.Common.Models
 {
     public interface IUserModel
     {

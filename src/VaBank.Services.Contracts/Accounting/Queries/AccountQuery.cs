@@ -4,9 +4,9 @@ using VaBank.Common.Data.Sorting;
 
 namespace VaBank.Services.Contracts.Accounting.Queries
 {
-    public class CardAccountsQuery : IClientFilterable, IClientPageable
+    public class AccountQuery : IClientFilterable, IClientPageable
     {
-        public CardAccountsQuery()
+        public AccountQuery()
         {
             ClientFilter = new AlwaysTrueFilter();
             ClientSort = new RandomSort();

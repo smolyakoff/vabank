@@ -49,23 +49,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting\Commands\CreateCardCommand.cs" />
     <Compile Include="Accounting\Commands\SetCardAssignmentCommand.cs" />
     <Compile Include="Accounting\Commands\CreateCardAccountCommand.cs" />
     <Compile Include="Accounting\Commands\SetCardBlockCommand.cs" />
     <Compile Include="Accounting\Commands\SetCardLimitsCommand.cs" />
     <Compile Include="Accounting\Events\UserCardLimitChanged.cs" />
-    <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
+    <Compile Include="Accounting\Models\AccountBriefModel.cs" />
     <Compile Include="Accounting\Models\AccountingLookupModel.cs" />
+    <Compile Include="Accounting\Models\CardModel.cs" />
     <Compile Include="Accounting\Models\RequestedCardAccountModel.cs" />
     <Compile Include="Accounting\Models\CardAccountModel.cs" />
     <Compile Include="Accounting\Models\CardLimitsModel.cs" />
     <Compile Include="Accounting\Models\CardVendorModel.cs" />
     <Compile Include="Accounting\Models\CurrencyModel.cs" />
     <Compile Include="Accounting\Models\UserCardModel.cs" />
-    <Compile Include="Accounting\Queries\CardAccountsQuery.cs" />
+    <Compile Include="Accounting\Queries\AccountQuery.cs" />
     <Compile Include="Common\DataNotFoundException.cs" />
     <Compile Include="Accounting\IAccountManagementService.cs" />
     <Compile Include="Common\IAuditedEvent.cs" />
+    <Compile Include="Common\Models\UserNameModel.cs" />
     <Compile Include="Common\Resources\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -116,7 +119,7 @@
     <Compile Include="Membership\Commands\CreateTokenCommand.cs" />
     <Compile Include="Membership\IAuthorizationService.cs" />
     <Compile Include="Membership\Commands\LoginCommand.cs" />
-    <Compile Include="Membership\Models\IUserModel.cs" />
+    <Compile Include="Common\Models\IUserModel.cs" />
     <Compile Include="Membership\Models\LoginFailureModel.cs" />
     <Compile Include="Membership\Models\LoginFailure.cs" />
     <Compile Include="Membership\Models\LoginResultModel.cs" />
