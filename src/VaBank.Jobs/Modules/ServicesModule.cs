@@ -1,24 +1,25 @@
-﻿using System.Linq;
-using Autofac;
+﻿using Autofac;
+using AutoMapper;
 using FluentValidation;
+using System;
+using System.Linq;
+using System.Reflection;
 using VaBank.Common.Data;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
-using VaBank.Core.App;
 using VaBank.Core.Common;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts;
 
 namespace VaBank.Jobs.Modules
 {
-    internal class ServicesModule : Module
+    internal class ServicesModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
-        {
-            //No need for automapper as it is the same app domain
-            //var mappingProfiles =
-            //    typeof (BaseService).Assembly.GetTypes().Where(t => typeof (Profile).IsAssignableFrom(t)).ToList();
-            //mappingProfiles.ForEach(x => Mapper.AddProfile(Activator.CreateInstance(x) as Profile));
+        {            
+            var mappingProfiles =
+                Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof (Profile).IsAssignableFrom(t)).ToList();
+            mappingProfiles.ForEach(x => Mapper.AddProfile(Activator.CreateInstance(x) as Profile));
 
             //Register validation system
             builder.RegisterType<AutofacFactory>().AsImplementedInterfaces().InstancePerLifetimeScope();

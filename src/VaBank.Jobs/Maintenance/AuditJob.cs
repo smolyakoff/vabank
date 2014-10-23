@@ -14,7 +14,6 @@ namespace VaBank.Jobs.Maintenance
 
         protected override void Execute(DefaultJobContext<IAuditedEvent> context)
         {
-            //TODO: where is mapping stored? should be in jobs assembly
             context.LogManagementService.LogApplicationAction(Mapper.Map<LogAppActionCommand>(context.Data));
         }
     }
