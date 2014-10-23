@@ -27,11 +27,11 @@ namespace VaBank.Jobs.Modules
             builder.RegisterAssemblyTypes(ThisAssembly)
                 .Where(typeof (IJobContext).IsAssignableFrom)
                 .AsSelf()
+                .PropertiesAutowired()
                 .InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(DefaultJobContext<>))
                 .As(typeof(IJobContext<>))
                 .AsSelf()
-                .PropertiesAutowired()
                 .InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(ThisAssembly)
                 .Where(typeof (IJob).IsAssignableFrom)
@@ -39,7 +39,7 @@ namespace VaBank.Jobs.Modules
                 .AsSelf()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-            builder.RegisterType<AfterLoad>().AutoActivate();
+            builder.RegisterType<RegisterHangfireListener>().As<IStartable>();
         }
     }
 }
