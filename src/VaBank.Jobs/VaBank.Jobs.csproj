@@ -91,7 +91,6 @@
     <Compile Include="Common\BaseJob.cs" />
     <Compile Include="Common\DefaultJobContext%271.cs" />
     <Compile Include="Common\DefaultJobContext.cs" />
-    <Compile Include="Common\EventDispatcherJob.cs" />
     <Compile Include="Common\EventListenerJob.cs" />
     <Compile Include="Common\HangfireEventListener.cs" />
     <Compile Include="Common\IEventListenerJob.cs" />
@@ -102,6 +101,7 @@
     <Compile Include="Common\ParameterJob.cs" />
     <Compile Include="Common\Serialization.cs" />
     <Compile Include="Common\VabankJob.cs" />
+    <Compile Include="JobsProfile.cs" />
     <Compile Include="JobStartup.cs" />
     <Compile Include="Maintenance\AuditJob.cs" />
     <Compile Include="Maintenance\KeepAliveJob.cs" />
