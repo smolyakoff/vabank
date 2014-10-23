@@ -103,9 +103,10 @@
     <Compile Include="Common\VabankJob.cs" />
     <Compile Include="JobsProfile.cs" />
     <Compile Include="JobStartup.cs" />
-    <Compile Include="Maintenance\AuditJob.cs" />
+    <Compile Include="Maintenance\Audit\AuditJob.cs" />
+    <Compile Include="Maintenance\Audit\AuditJobContext.cs" />
     <Compile Include="Maintenance\KeepAliveJob.cs" />
-    <Compile Include="Modules\AfterLoad.cs" />
+    <Compile Include="Modules\RegisterHangfireListener.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
     <Compile Include="Modules\ServicesModule.cs" />
     <Compile Include="Modules\BackgroundServicesModule.cs" />

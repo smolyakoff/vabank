@@ -14,8 +14,6 @@
 
         var anyUser = { userName: 'Любой', userId: filters.markers.any() };
 
-        $scope.filter = angular.copy(LogEntry.defaults.filter);
-
         $scope.loading = uiTools.promiseTracker();
 
         $scope.lookup = {            
@@ -49,31 +47,20 @@
 
         $scope.displayedLogs = [].concat($scope.logs);
 
-        $scope.formatUser = function (user) {
-            var userString = uiTools.format("{0} {1} ({2})", user.firstName, user.lastName, user.email);
-            return userString;
-        };
+        $scope.formatUser = User.format;
 
         $scope.searchUser = function (searchString) {
             if (!searchString || searchString.length < 2) {
                 return;
             }
-            var filter = angular.copy(User.defaults.filter);
-            _.forEach(filter, function(x) {
-                x.value = searchString;
-            });
-            User.query({
-                filter: filters.combine(filter, filters.logic.Or).toLINQ(),
-                pageSize: 10000000,
-            }).$promise.then(function(page) {
-                $scope.users = [anyUser].concat(page.items);
+            User.search({searchString: searchString}).then(function(users) {
+                $scope.users = [anyUser].concat(users);
             });
         };
 
         $scope.show = function() {
             debugger;
         };
-
     }
 
 

@@ -68,12 +68,13 @@
                 resolve: {
                     data: ['$stateParams', 'routingResolve', 'userManagementService', function ($stateParams, routingResolve, userManager) {
                         var User = userManager.User;
+                        var Profile = userManager.Profile;
                         if ($stateParams.id === 'add') {
-                            return {user: User.defaults.new, profile: User.defaults.newProfile};
+                            return {user: User.defaults.new, profile: Profile.defaults.new};
                         } else {
                             var params = { userId: $stateParams.id };
                             return routingResolve.resolveAll(
-                                [User.get(params).$promise, routingResolve.resolveOrDefault(User.getProfile(params).$promise, {})],
+                                [User.get(params).$promise, routingResolve.resolveOrDefault(Profile.get(params).$promise, {})],
                                 ['user', 'profile']
                             );
                         }

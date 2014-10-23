@@ -874,7 +874,7 @@
 
         return function link(scope, element, attrs, $select, transcludeFn) {
           
-          // var repeat = RepeatParser.parse(attrs.repeat);
+            // var repeat = RepeatParser.parse(attrs.repeat);
           var groupByExp = attrs.groupBy;
 
           $select.parseRepeatAttr(attrs.repeat, groupByExp); //Result ready at $select.parserResult

@@ -2,11 +2,14 @@
     <dropdown-field attribute="userId"
                     label="Пользователь"
                     items="users"
-                    refresh="search"
+                    refresh="searchUser"
                     placeholder="Найдите пользователя"
-                    repeat="item.id as item in items track by $index"
-                    display-attribute="name">
-        {{item.name}}
+                    repeat="item.userId as item in items track by $index"
+                    display-attribute="userName"
+                    export-scope="formatUser">
+        <div class="text-info" ng-bind-html="item.userName | highlight: $select.search"></div>
+        <div ng-bind-html="formatUser(item) | highlight: $select.search">
+        </div>
     </dropdown-field>
     <dropdown-field attribute="cardVendorId"
                     label="Вид карты"

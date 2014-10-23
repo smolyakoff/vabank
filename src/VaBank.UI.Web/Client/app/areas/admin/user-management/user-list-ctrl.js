@@ -9,7 +9,7 @@
 
     function userListController($scope, $state, uiTools, userManager) {
 
-        var filterService = uiTools.manipulate.filters;
+        var User = userManager.User;
         var queryService = uiTools.manipulate.query;
         var multiselectService = uiTools.control.multiselect;
 
@@ -18,12 +18,10 @@
             return user;
         };
 
-        var filters = angular.copy(userManager.User.defaults.filter);
-
-        var lastParams = [];
+        var lastParams = {};
         
         $scope.lookup = {
-            roles: uiTools.control.multiselect.getSelectChoices(['Admin', 'Customer'])
+            roles: uiTools.control.multiselect.getSelectChoices(User.defaults.roles)
         };
 
         $scope.loading = uiTools.promiseTracker();
@@ -49,7 +47,7 @@
                 {},
                 queryService.fromStTable(tableState),
                 lastParams);
-            var promise =  userManager.User.query(params).$promise;
+            var promise =  User.search(params);
             $scope.loading.addPromise(promise);
             promise.then(function (page) {
                 tableState.pagination.start = page.skip;
@@ -59,17 +57,11 @@
         };
 
         $scope.show = function() {
-            var params = {
+            lastParams = {
                 roles: multiselectService.getSelectedItems($scope.lookup.roles),
                 pageNumber: 1,
+                searchString: $scope.search
             };
-            if ($scope.search) {
-                _.forEach(filters, function(x) {
-                    x.value = $scope.search;
-                });
-                params.filter = filterService.combine(filters, filterService.logic.Or).toLINQ();
-            }
-            lastParams = params;
         };
 
         $scope.add = function () {

@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Account.cs" />
-    <Compile Include="Accounting\CardLimits.cs" />
     <Compile Include="Accounting\CardSettings.cs" />
     <Compile Include="Accounting\CardVendor.cs" />
     <Compile Include="Accounting\Currency.cs" />
