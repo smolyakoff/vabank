@@ -21,25 +21,29 @@
         
         <vb-datepicker id="{{model.uid}}"
                        ng-disabled="disable || model.disabled"
+                       placeholder="{{placeholder}}"
                        ng-model="model.bindable"
                        form-for-debounce="{{debounce}}"
                        ng-click="onFocus()"
                        ng-blur="onBlur()"
                        date-format="{{dateFormat}}"
-                       config="dateConfig">
+                       config="dateConfig"
+                       icon-side="left">
         </vb-datepicker>
-
-        <span ng-if="model.error"
-              class="glyphicon glyphicon-remove form-control-feedback"
-              tooltip="{{model.error}}"
-              tooltip-placement="right">
-        </span>
 
         <span ng-if="iconAfter" class="input-group-addon"
               ng-click="onIconAfterClick()">
             <i class="text-field-icon" ng-class="iconAfter"></i>
         </span>
+        
+        <span ng-if="model.error"
+              class="glyphicon glyphicon-remove form-control-feedback"
+              tooltip="{{model.error}}"
+              tooltip-placement="right">
+        </span>
+        
     </div>
+    
     <span class="help-block" ng-if="help">{{help}}</span>
 
 </div>

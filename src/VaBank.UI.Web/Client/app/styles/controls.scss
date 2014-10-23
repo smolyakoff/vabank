@@ -33,6 +33,14 @@
 }
 
 
+//UI Select
+.ui-select-bootstrap {
+    button.form-control {
+        border-color: transparent;
+    }
+}
+
+
 //Form errors
 .form-group.has-error {
     .input-group-addon {

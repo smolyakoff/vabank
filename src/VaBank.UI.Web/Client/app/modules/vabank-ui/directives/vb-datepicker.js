@@ -12,6 +12,7 @@
         controller.$inject = ['$scope'];
         function controller($scope) {
             $scope.dateFormat = $scope.dateFormat || 'LLLL';
+            $scope.iconSide = $scope.iconSide || 'right';
         };
 
         function link($scope, $element, $attrs) {
@@ -24,9 +25,11 @@
             require: '^ngModel',
             templateUrl: '/Client/app/modules/vabank-ui/templates/vb-datepicker.html',
             scope: {
+                iconSide: '@?',
                 ngModel: '=',
                 config: '=',
-                dateFormat: '@?'
+                dateFormat: '@?',
+                placeholder: '@'
             }
         };
         return directive;

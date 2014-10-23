@@ -215,6 +215,8 @@
     <Content Include="Client\app\areas\admin\card-management\card-management-service.js" />
     <Content Include="Client\app\areas\admin\card-management\assign-card.html" />
     <Content Include="Client\app\areas\admin\card-management\assign-card-ctrl.js" />
+    <Content Include="Client\app\areas\admin\card-management\new-account-ctrl.js" />
+    <Content Include="Client\app\areas\admin\card-management\new-account.html" />
     <Content Include="Client\app\areas\admin\card-management\new-card.html" />
     <Content Include="Client\app\areas\admin\system-log\exception-details-ctrl.js" />
     <Content Include="Client\app\areas\admin\system-log\exception-details.html" />
@@ -254,6 +256,7 @@
     <Content Include="Client\app\areas\global\errors\500.html" />
     <Content Include="Client\app\areas\global\errors\http-error-notifier-interceptor.js" />
     <Content Include="Client\app\areas\global\errors\error-resources.js" />
+    <Content Include="Client\app\areas\global\home-ctrl.js" />
     <Content Include="Client\app\areas\global\routing\routing-interceptor.js" />
     <Content Include="Client\app\areas\global\config\routes.js" />
     <Content Include="Client\app\areas\global\routing\routing-resolve.js" />

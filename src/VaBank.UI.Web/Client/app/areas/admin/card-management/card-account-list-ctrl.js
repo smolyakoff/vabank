@@ -16,7 +16,8 @@
                 owner: {
                     userId: 'adfasd-asdf',
                     firstName: 'Большой',
-                    lastName: 'Джон'
+                    lastName: 'Джон',
+                    userName: 'bigjohn'
                 },
                 balance: 500,
                 currency: {
@@ -30,7 +31,8 @@
                 owner: {
                     userId: 'adfasd-asdf',
                     firstName: 'Большой',
-                    lastName: 'Джон'
+                    lastName: 'Джон',
+                    userName: 'bigjohn'
                 },
                 balance: 500,
                 currency: {

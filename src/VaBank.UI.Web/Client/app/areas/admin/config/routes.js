@@ -91,6 +91,11 @@
                 url: '',
                 templateUrl: '/Client/app/areas/admin/card-management/card-account-list.html',
                 controller: 'cardAccountListController',
+
+            }).state('admin.cardManagement.newAccount', {
+                url: '/new',
+                templateUrl: '/Client/app/areas/admin/card-management/new-account.html',
+                controller: 'newAccountController',
             });
     }
 
