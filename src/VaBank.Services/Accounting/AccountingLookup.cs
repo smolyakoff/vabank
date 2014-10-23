@@ -8,7 +8,7 @@ using VaBank.Services.Contracts.Accounting.Models;
 
 namespace VaBank.Services.Accounting
 {
-    internal class AccountingLookup : AccountingLookupModel
+    public class AccountingLookup : AccountingLookupModel
     {
         internal AccountingLookup(IEnumerable<Currency> currencies)
         {

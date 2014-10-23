@@ -30,6 +30,7 @@ namespace VaBank.Services.Accounting
         {
             try
             {
+                throw new NotImplementedException();
             }
             catch (Exception ex)
             {
