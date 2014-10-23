@@ -11,7 +11,7 @@ namespace VaBank.Services.Contracts.Accounting
 {
     public interface IAccountManagementService
     {
-        AccountingLookup GetLookup();
+        AccountingLookupModel GetLookup();
 
         IList<UserCardModel> GetUserCards(IdentityQuery<Guid> userId);
 

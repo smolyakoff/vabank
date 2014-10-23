@@ -11,7 +11,7 @@ namespace VaBank.Core.Accounting
     {
         public Account(string accountNo)
         {
-
+            AccountNo = accountNo;
         }
 
         public string AccountNo { get; set; }
