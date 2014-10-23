@@ -7,9 +7,9 @@ using VaBank.Core.Common;
 
 namespace VaBank.Core.Accounting
 {
-    public class Card: Entity<Guid>
+    public class UserCard: Entity<Guid>
     {
-        public Card(Guid userId, Guid cardId)
+        public UserCard(Guid userId, Guid cardId)
         {
             if (cardId == Guid.Empty)
             {

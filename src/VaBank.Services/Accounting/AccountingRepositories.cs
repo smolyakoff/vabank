@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VaBank.Common.Data.Repositories;
+﻿using VaBank.Common.Data.Repositories;
+using VaBank.Core.Accounting;
 using VaBank.Services.Common;
 
 namespace VaBank.Services.Accounting
 {
     public class AccountingRepositories: IDependencyCollection
     {
-        public IQueryRepository<AccountingLookup> Lookups { get; set; }
+        public IQueryRepository<Currency> Currencies { get; set; }
+        public IQueryRepository<UserCard> UserCards { get; set; }
+        public IQueryRepository<CardAccount> CardAccounts { get; set; }
     }
 }

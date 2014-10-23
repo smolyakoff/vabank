@@ -30,6 +30,8 @@ namespace VaBank.Services.Accounting
         {
             try
             {
+                var currencies = _db.Currencies.ProjectAll<CurrencyModel>();
+                return new AccountingLookupModel() { Currencies = currencies.ToList() };
             }
             catch (Exception ex)
             {
@@ -39,12 +41,27 @@ namespace VaBank.Services.Accounting
 
         public IList<UserCardModel> GetUserCards(IdentityQuery<Guid> userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var userCards = _db.UserCards.ProjectThenQuery<UserCardModel>(userId);
+                return userCards;
+            }
+            catch(Exception ex)
+            {
+                throw new ServiceException("Cannot get user cards");
+            }
         }
 
         public IPagedList<CardAccountBriefModel> GetCardAccounts(CardAccountsQuery query)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //var cardAccounts = _db.CardAccounts.ProjectThenQueryPage<CardAccountModel>();
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Cannot get card accounts", ex);
+            }
         }
 
         public RequestedCardAccountModel RequestCardAccount(IdentityQuery<Guid> userId)

@@ -42,11 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Accounting\Account.cs" />
+    <Compile Include="Accounting\CardAccount.cs" />
     <Compile Include="Accounting\CardSettings.cs" />
     <Compile Include="Accounting\CardVendor.cs" />
     <Compile Include="Accounting\Currency.cs" />
-    <Compile Include="Accounting\Card.cs" />
+    <Compile Include="Accounting\UserCard.cs" />
     <Compile Include="App\ApplicationAction.cs" />
     <Compile Include="Maintenance\AuditLogEntry.cs" />
     <Compile Include="Maintenance\AuditLogBriefEntry.cs" />

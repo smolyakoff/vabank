@@ -7,9 +7,9 @@ using VaBank.Core.Common;
 
 namespace VaBank.Core.Accounting
 {
-    public class Account: Entity
+    public class CardAccount: Entity
     {
-        public Account(string accountNo)
+        public CardAccount(string accountNo)
         {
             AccountNo = accountNo;
         }
