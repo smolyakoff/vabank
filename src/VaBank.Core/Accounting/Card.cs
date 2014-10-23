@@ -18,6 +18,8 @@ namespace VaBank.Core.Accounting
             Id = cardId;
         }
 
+        public Guid UserId { get; set; }
+
         public string CardNo { get; set; }
 
         public CardVendor CardVendor { get; set; }
@@ -29,13 +31,5 @@ namespace VaBank.Core.Accounting
         public string SecureCardNo { get; set; }
 
         public DateTime ExpirationDateUtc { get; set; }
-
-        public Currency Currency { get; set; }
-
-        public decimal Balance { get; set; }
-
-        public string FriendlyName { get; set; }
-
-        public bool Blocked { get; set; }
     }
 }
