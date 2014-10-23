@@ -1072,6 +1072,9 @@
     <Content Include="Client\bower_components\angular-sanitize\README.md" />
     <Content Include="Client\app\areas\admin\card-management\card-management.scss" />
     <Content Include="Client\app\areas\admin\card-management\new-card-ctrl.js" />
+    <Content Include="Client\bower_components\angular-ui-select\dist\select.min.js.map">
+      <DependentUpon>select.min.js</DependentUpon>
+    </Content>
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -5,11 +5,12 @@
         .module('vabank.webapp')
         .service('cardManagementService', cardManagementService);
 
-    cardManagementService.$inject = ['$resource', 'dataUtil', 'uiTools'];
+    cardManagementService.$inject = ['$resource', 'dataUtil', 'uiTools', 'userManagementService'];
 
-    function cardManagementService($resource, dataUtil, uiTools) {
+    function cardManagementService($resource, dataUtil, uiTools, userManagementService) {
 
-        return {            
+        return {
+            User: userManagementService.User
         };
     }
 })();
