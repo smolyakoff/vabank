@@ -33,7 +33,7 @@ namespace VaBank.UI.Web.Api.Admin
             return Ok(lookup);
         }
 
-        [Route("{id}/operation")]
+        [Route("{id}")]
         [HttpGet]
         public IHttpActionResult Operation([FromUri]IdentityQuery<Guid> query)
         {
