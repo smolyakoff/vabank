@@ -52,23 +52,6 @@ namespace VaBank.Services.Accounting
             }
         }
 
-        public IPagedList<CardAccountBriefModel> GetCardAccounts(CardAccountsQuery query)
-        {
-            try
-            {
-                //var cardAccounts = _db.CardAccounts.ProjectThenQueryPage<CardAccountModel>();
-            }
-            catch (Exception ex)
-            {
-                throw new ServiceException("Cannot get card accounts", ex);
-            }
-        }
-
-        public RequestedCardAccountModel RequestCardAccount(IdentityQuery<Guid> userId)
-        {
-            throw new NotImplementedException();
-        }
-
         public UserMessage CreateCardAccount(CreateCardAccountCommand command)
         {
             throw new NotImplementedException();
@@ -85,6 +68,26 @@ namespace VaBank.Services.Accounting
         }
 
         public UserMessage SetCardLimits(SetCardLimitsCommand command)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AccountingLookupModel GetAccountingLookup()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPagedList<AccountBriefModel> GetCardAccounts(AccountQuery query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<CardModel> GetCards(IdentityQuery<string> accountNo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserMessage CreateCard(CreateCardCommand command)
         {
             throw new NotImplementedException();
         }
