@@ -44,7 +44,7 @@ namespace VaBank.Services.Accounting
         {
             try
             {
-                //TODO: why project then query? use ProjectIdentity instead
+                //TODO: project then query with identity query will not work here...
                 var userCards = _db.UserCards.ProjectThenQuery<UserCardModel>(userId);
                 return userCards;
             }
