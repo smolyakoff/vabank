@@ -92,6 +92,15 @@ namespace VaBank.Common.Data.Filtering.Converters
                 return array.ToObject(listType);
             }
 
+            private object Visit(string obj, Type type)
+            {
+                if (type == typeof (Guid))
+                {
+                    return Guid.Parse(obj);
+                }
+                return obj;
+            }
+
             private object Visit(object obj, Type type)
             {
                 return Convert.ChangeType(obj, type);

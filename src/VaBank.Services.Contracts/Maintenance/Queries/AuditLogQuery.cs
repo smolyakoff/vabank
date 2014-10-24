@@ -8,10 +8,6 @@ namespace VaBank.Services.Contracts.Maintenance.Queries
         {
             ClientFilter = new AlwaysTrueFilter();
         }
-
-        /// <summary>
-        /// Query for ApplicationAction
-        /// </summary>
         public IFilter ClientFilter { get; set; }
     }
 }

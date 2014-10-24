@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Data;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Integration.Owin;
@@ -9,6 +11,7 @@ using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using VaBank.Common.Data;
+using VaBank.Common.Data.Database;
 using VaBank.Services.Contracts.Common.Security;
 using VaBank.Services.Contracts.Common.Validation;
 using VaBank.Services.Contracts.Membership;
@@ -43,18 +46,26 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
                 return Task.FromResult<object>(null);
             }
             var container = context.OwinContext.GetAutofacLifetimeScope();
+            var transactionFactory = container.Resolve<ITransactionFactory>();
             var membershipService = container.Resolve<IAuthorizationService>();
             var userId = Guid.Parse(userIdClaim.Value);
             UserIdentityModel user = null;
+            var transaction = transactionFactory.BeginTransaction(IsolationLevel.ReadCommitted);
             try
             {
                 user = membershipService.RefreshLogin(new IdentityQuery<Guid>(userId));
+                transaction.Commit();
             }
             catch (SecurityException ex)
             {
+                transaction.Commit();
                 var errorJson = JsonConvert.SerializeObject(ex.UserMessage, options);
                 context.SetError("LoginFailure", errorJson);
                 return Task.FromResult<object>(null);
+            }
+            finally
+            {
+                transaction.Dispose();
             }
             if (user == null)
             {
@@ -127,29 +138,46 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
         {
             //Validate user name and password here
             var container = context.OwinContext.GetAutofacLifetimeScope();
+            var transactionFactory = container.Resolve<ITransactionFactory>();
             var membershipService = container.Resolve<IAuthorizationService>();
             var options = new JsonSerializerSettings()
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
             options.Converters.Insert(0, new HttpServiceErrorConverter());
+
+            var client = context.OwinContext.Get<ApplicationClientModel>("vabank:client");
+            if (client != null)
+            {
+                var appClientIdentity = new ClaimsIdentity(context.Options.AuthenticationType);
+                appClientIdentity.AddClaim(new Claim(ClaimModel.Types.ClientId, client.Id));
+                Thread.CurrentPrincipal = new ClaimsPrincipal(appClientIdentity);
+            }
             var loginCommand = new LoginCommand {Login = context.UserName, Password = context.Password};
             UserIdentityModel user = null;
+            var transaction = transactionFactory.BeginTransaction(IsolationLevel.ReadCommitted);
             try
             {
                 user = membershipService.Login(loginCommand);
+                transaction.Commit();
             }
             catch (ValidationException ex)
             {
                 var error = new HttpServiceError(ex);
                 context.SetError("LoginValidationError", JsonConvert.SerializeObject(error, options));
+                transaction.Rollback();
                 return Task.FromResult<object>(null);
             }
             catch (SecurityException ex)
             {
+                transaction.Commit();
                 var errorJson = JsonConvert.SerializeObject(new HttpServiceError(ex), options);
                 context.SetError("LoginFailure", errorJson);
                 return Task.FromResult<object>(null);
+            }
+            finally
+            {
+                transaction.Dispose();
             }
             if (user == null)
             {
@@ -160,7 +188,6 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             {
                 identity.AddClaim(new Claim(claimModel.Type, claimModel.Value));
             }
-            var client = context.OwinContext.Get<ApplicationClientModel>("vabank:client");
             identity.AddClaim(new Claim(ClaimModel.Types.ClientId, client.Id));
             context.OwinContext.Set("vabank:user", user);
 
@@ -192,7 +219,8 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
                 context.AdditionalResponseParameters.Add("roles", JsonConvert.SerializeObject(roles));
                 context.AdditionalResponseParameters.Add("userName", userNameClaim.Value);
                 context.AdditionalResponseParameters.Add("userId", userIdClaim.Value);           
-            }
+            } 
+
             return base.TokenEndpoint(context);
         }
     }

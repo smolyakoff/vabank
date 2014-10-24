@@ -82,6 +82,15 @@ namespace VaBank.Data.EntityFramework.Common
             return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Project().To<TModel>().ToList());
         }
 
+        public virtual IList<T> SelectAll<T>(Expression<Func<TEntity, T>> selector)
+        {
+            if (selector == null)
+            {
+                throw new ArgumentNullException("selector");
+            }
+            return EnsureRepositoryException(() => Context.Set<TEntity>().Select(selector).ToList());
+        } 
+
         public virtual IList<TEntity> Query(IQuery query)
         {
             if (query == null)
@@ -131,6 +140,15 @@ namespace VaBank.Data.EntityFramework.Common
             }
             return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).Project().To<TModel>().ToList());
         }
+
+        public virtual IList<T> Select<T>(IQuery query, Expression<Func<TEntity, T>> selector)
+        {
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).Select(selector).ToList());
+        } 
 
         public virtual IPagedList<TModel> ProjectPage<TModel>(IQuery query) where TModel : class
         {

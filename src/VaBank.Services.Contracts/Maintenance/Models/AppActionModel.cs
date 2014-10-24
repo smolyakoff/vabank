@@ -6,6 +6,8 @@ namespace VaBank.Services.Contracts.Maintenance.Models
     {
         public Guid EventId { get; set; }
 
+        public DateTime TimestampUtc { get; set; }
+
         public string Code { get; set; }
 
         public string Description { get; set; }

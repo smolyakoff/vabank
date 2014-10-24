@@ -4,7 +4,7 @@ using System.Threading;
 using VaBank.Common.Events;
 using VaBank.Services.Contracts.Membership.Models;
 
-namespace VaBank.Services.Contracts.Common
+namespace VaBank.Services.Contracts.Common.Events
 {
     public abstract class ApplicationEvent : IEvent
     {

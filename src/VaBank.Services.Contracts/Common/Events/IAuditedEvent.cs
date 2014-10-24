@@ -1,7 +1,7 @@
 ﻿using System;
 using VaBank.Common.Events;
 
-namespace VaBank.Services.Contracts.Common
+namespace VaBank.Services.Contracts.Common.Events
 {
     public interface IAuditedEvent : IEvent
     {

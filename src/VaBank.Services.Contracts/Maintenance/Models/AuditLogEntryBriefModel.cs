@@ -14,9 +14,11 @@ namespace VaBank.Services.Contracts.Maintenance.Models
 
         public Guid? UserId { get; set; }
 
+        public string ApplicationId { get; set; }
+
         public string UserName { get; set; }
 
-        public string ApplicationName { get; set; }
+        public DateTime StartedUtc { get; set; }
 
         public List<AppActionModel> AppActions { get; set; } 
     }

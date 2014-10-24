@@ -49,9 +49,13 @@ namespace VaBank.Common.Data.Database
         public DbCommand CreateCommand()
         {
             var command = _factory.CreateCommand();
-            if (command != null && HasCurrentTransaction)
+            if (command != null)
             {
-                command.Transaction = CurrentTransaction;
+                command.Connection = Connection;
+                if (HasCurrentTransaction)
+                {
+                    command.Transaction = CurrentTransaction;
+                }
             }
             return command;
         }

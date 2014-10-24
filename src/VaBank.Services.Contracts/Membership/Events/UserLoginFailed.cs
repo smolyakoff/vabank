@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VaBank.Services.Contracts.Common;
+using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Membership.Models;
 
 namespace VaBank.Services.Contracts.Membership.Events

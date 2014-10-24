@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Linq;
 using FluentValidation;
+using VaBank.Common.Data.Database;
 using VaBank.Common.Events;
 using VaBank.Common.Validation;
 using VaBank.Core.App;
 using VaBank.Core.Common;
 using VaBank.Services.Contracts;
 using VaBank.Services.Contracts.Common;
+using VaBank.Services.Contracts.Common.Events;
 using ValidationException = VaBank.Services.Contracts.Common.Validation.ValidationException;
 using VaBank.Common.IoC;
 
@@ -17,8 +19,8 @@ namespace VaBank.Services.Common
         private readonly IObjectFactory _objectFactory;
         private readonly ISendOnlyServiceBus _bus;
         private readonly ServiceOperationProvider _operationProvider;
-
-        protected readonly IUnitOfWork UnitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ITransactionProvider _transactionProvider;
         
         protected BaseService(BaseServiceDependencies dependencies)
         {
@@ -30,7 +32,8 @@ namespace VaBank.Services.Common
             _objectFactory = dependencies.ObjectFactory;
             _operationProvider = dependencies.OperationProvider;
             _bus = dependencies.ServiceBus;
-            UnitOfWork = dependencies.UnitOfWork;
+            _unitOfWork = dependencies.UnitOfWork;
+            _transactionProvider = dependencies.TransactionProvider;
         }
 
         protected virtual void EnsureIsValid<T>(T obj)
@@ -58,6 +61,16 @@ namespace VaBank.Services.Common
                 }
                 return operation;
             }
+        }
+
+        protected virtual void Commit()
+        {
+            //enforce operation for transactional work
+            if (_transactionProvider.HasCurrentTransaction)
+            {
+                _operationProvider.GetCurrent();
+            }
+            _unitOfWork.Commit();
         }
 
         protected virtual void Publish(ApplicationEvent appEvent)

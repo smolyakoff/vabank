@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VaBank.Services.Contracts.Accounting.Models;
 using VaBank.Services.Contracts.Common;
+using VaBank.Services.Contracts.Common.Events;
 
 namespace VaBank.Services.Contracts.Accounting.Events
 {

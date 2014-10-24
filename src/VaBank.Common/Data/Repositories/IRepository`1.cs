@@ -14,6 +14,7 @@ namespace VaBank.Common.Data.Repositories
         void Update(TEntity entity);
         void Delete(TEntity entity);
         IList<TEntity> FindAll();
+        IList<T> SelectAll<T>(Expression<Func<TEntity, T>> selector); 
         IList<TModel> ProjectAll<TModel>() where TModel : class;
     }
 }

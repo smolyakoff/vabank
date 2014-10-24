@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using VaBank.Services.Contracts.Common;
+using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Membership.Models;
 
 namespace VaBank.Services.Contracts.Membership.Events

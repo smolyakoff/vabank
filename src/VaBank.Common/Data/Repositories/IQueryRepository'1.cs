@@ -21,6 +21,8 @@ namespace VaBank.Common.Data.Repositories
         IList<TModel> Project<TModel>(IQuery query)
             where TModel : class;
 
+        IList<T> Select<T>(IQuery query, Expression<Func<TEntity, T>> selector);
+            
         IPagedList<TModel> ProjectPage<TModel>(IQuery query)
             where TModel : class;
 

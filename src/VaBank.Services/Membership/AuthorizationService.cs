@@ -1,6 +1,5 @@
 ﻿using System;
 using VaBank.Common.Data;
-using VaBank.Core.Common;
 using VaBank.Core.Membership;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
@@ -52,6 +51,7 @@ namespace VaBank.Services.Membership
                     }
                 }
                 UnitOfWork.Commit();
+                Publish(new UserLoginFailed(Operation.Id, user.ToModel<User, UserIdentityModel>()));
                 throw AccessFailure.ExceptionBecause(reason.Value);
             }
             catch (ServiceException)

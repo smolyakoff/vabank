@@ -4,48 +4,43 @@
     var app = angular.module('vabank.webapp');
     app.controller('auditLogController', auditLog);
     
-    auditLog.$inject = ['$scope','uiTools', 'auditLogService'];
+    auditLog.$inject = ['$scope','uiTools', 'auditLogService', 'data'];
 
-    function auditLog($scope, uiTools, auditLogService) {
+    function auditLog($scope, uiTools, auditLogService, data) {
+        var dataUtil = uiTools.manipulate;
         var multiselect = uiTools.control.multiselect;
         var filters = uiTools.manipulate.filters;
         var LogEntry = auditLogService.LogEntry;
         var User = auditLogService.User;
 
-        var anyUser = { userName: 'Любой', userId: filters.markers.any() };
+        var dummyUsers = [
+            { userName: 'Любой', userId: filters.markers.any() },
+            { userName: 'Аноним', userId: null }
+        ];
+
+        var createFilter = function () {
+            $scope.filter.code.value = multiselect.getSelectedItems($scope.lookup.codes);
+            var filter = dataUtil.filters.combine($scope.filter, dataUtil.filters.logic.And);
+            return filter;
+        };
 
         $scope.loading = uiTools.promiseTracker();
 
         $scope.lookup = {            
-          codes: multiselect.getSelectChoices(['LOGIN', 'UPDATE-USER'])
+          codes: multiselect.getSelectChoices(data.lookup.codes)
         };
+
+        $scope.filter = LogEntry.defaults.filter();
 
         $scope.users = [];
 
-        $scope.logs = [
-            {
-                operationId: 'abc',
-                startedUtc: new Date(),
-                userName: 'terminator',
-                applicationId: 'vabank.webapp',
-                appActions: [
-                    { code: 'LOGIN', description: 'User logged in', jsonData: '{ "abc": "abc"}' },
-                    { code: 'LOGIN', description: 'User logged in', jsonData: '{ "abc": "abc"}' },
-                    { code: 'LOGIN', description: 'User logged in', jsonData: '{ "abc": "abc"}' }
-                ]
-            },
-            {
-                operationId: 'abc',
-                startedUtc: new Date(),
-                userName: 'terminator',
-                applicationId: 'vabank.webapp',
-                appActions: [
-                    { code: 'LOGIN', description: 'User logged in', jsonData: '{ "abc": "abc"}' },
-                ]
-            }
-        ];
+        $scope.logs = data.logs;
 
         $scope.displayedLogs = [].concat($scope.logs);
+
+        $scope.toLocalDate = function(utcDate) {
+            return moment.utc(utcDate).toDate();
+        };
 
         $scope.formatUser = User.format;
 
@@ -54,12 +49,17 @@
                 return;
             }
             User.search({searchString: searchString}).then(function(users) {
-                $scope.users = [anyUser].concat(users);
+                $scope.users = dummyUsers.concat(users);
             });
         };
 
         $scope.show = function() {
-            debugger;
+            var filter = createFilter().toLINQ();
+            var promise = LogEntry.query({ filter: filter }).$promise;
+            $scope.loading.addPromise(promise);
+            promise.then(function(logs) {
+                $scope.logs = logs;
+            });
         };
     }
 

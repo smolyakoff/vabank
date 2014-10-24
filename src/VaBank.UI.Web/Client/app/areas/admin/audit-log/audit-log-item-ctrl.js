@@ -7,37 +7,26 @@
     auditLogItem.$inject = ['$scope', 'uiTools', 'auditLogService'];
 
     function auditLogItem($scope, uiTools, auditLogService) {
-        var item = $scope.log;
-        var transition = {
-            'app': 'db',
-            'db': 'app'
-        };
+        var log = $scope.log;
+        var LogEntry = auditLogService.LogEntry;
 
         $scope.view = 'app';
-        $scope.detailedLog = {
-            dbActions: [
-                {
-                    tableName: '[Membership].[User]',
-                    changes: [
-                        {
-                            action: 'Insert',
-                            timestampUtc: new Date(),
-                            values: { id: 213, userName: 'name', age: 15 }
-                        },
-                        {
-                            action: 'Update',
-                            timestampUtc: new Date(),
-                            values: { id: 213, userName: 'name', age: 15 }
-                        },
-                    ]
-                }
-            ]
-        };
+
+        $scope.itemLoading = uiTools.promiseTracker();
+
+        $scope.detailedLog = null;
 
         $scope.switchView = function () {
-            var currentView = $scope.view;
-            $scope.view = transition[currentView];
+            var previousView = $scope.view;
+            $scope.view = previousView === 'app' ? 'db' : 'app';
 
+            if ($scope.view == 'db' && $scope.detailedLog == null) {
+                var promise = LogEntry.get({ operationId: log.operationId }).$promise;
+                $scope.itemLoading.addPromise(promise);
+                promise.then(function(detailedLog) {
+                    $scope.detailedLog = detailedLog;
+                });
+            }
         };
     }
 

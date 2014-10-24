@@ -7,7 +7,7 @@
             </div>
             <div class="form-group to-filter">
                 <label>До</label>
-                <vb-datepicker data-ng-model="filter.to.value" data-config="{minView: 'day'}" ></vb-datepicker>
+                <vb-datepicker data-ng-model="filter.to.value" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
             </div>
             <div class="form-group">
                 <label>Действие</label>
@@ -50,12 +50,15 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th style="width: 150px">Время</th>
+                    <th style="width: 150px">Локальное время</th>
                     <th style="width: 300px">Действие</th>
                     <th>Описание</th>
                 </tr>
             </thead>
-            <tbody data-ng-repeat="log in displayedLogs" data-ng-controller="auditLogItemController">
+            <tbody ng-show="loading.active()">
+                <tr><td colspan="4"><div class="table-content" data-us-spinner=""></div></td></tr>
+            </tbody>
+            <tbody ng-show="!loading.active()" data-ng-repeat="log in displayedLogs" data-ng-controller="auditLogItemController">
                 <tr class="active" st-select-row="log">
                     <td colspan="4">
                         <div class="row">
@@ -67,7 +70,7 @@
                             <div class="col-xs-3">
                                 <div class="pull-right text-primary">
                                     <i class="glyphicon glyphicon-time"></i>
-                                    {{log.startedUtc | date }}
+                                    {{ toLocalDate(log.startedUtc) | date }}
                                 </div>
                             </div>
                             <div class="col-xs-2">
@@ -79,15 +82,26 @@
                         </div>
                     </td>
                 </tr>
-                <tr ng-if="view === 'app'" data-ng-repeat="appAction in log.appActions">
+                <tr ng-show="itemLoading.active()">
+                    <td colspan="4"><div class="table-content" data-us-spinner=""></div></td>
+                </tr>
+                <tr ng-if="view === 'app' && !itemLoading.active()" data-ng-repeat="appAction in log.appActions">
                     <td class="switch-audit-view text-center" ng-if="$index === 0" rowspan="{{log.appActions.length}}">
                         <a ng-click="switchView()"><i class="glyphicon glyphicon-retweet"></i></a>
                     </td>
-                    <td>{{appAction.timestampUtc | date: 'mediumTime'}}</td>
+                    <td>{{toLocalDate(appAction.timestampUtc) | date: 'mediumTime'}}</td>
                     <td>{{appAction.code | uppercase}}</td>
                     <td>{{appAction.description}}</td>
                 </tr>
-                <tr ng-if="view === 'db'" data-ng-repeat-start="dbAction in detailedLog.dbActions">
+                <tr ng-if="view === 'db' && detailedLog.dbActions.length === 0 && !itemLoading.active()">
+                    <td class="switch-audit-view text-center">
+                        <a ng-click="switchView()"><i class="glyphicon glyphicon-retweet"></i></a>
+                    </td>
+                    <td colspan="2">
+                        Нет изменений в базе данных
+                    </td>
+                </tr>
+                <tr ng-if="view === 'db'&& !itemLoading.active()" data-ng-repeat-start="dbAction in detailedLog.dbActions">
                     <td class="switch-audit-view text-center" ng-if="$index === 0" rowspan="{{dbAction.changes.length + 1}}">
                         <a ng-click="switchView()"><i class="glyphicon glyphicon-retweet"></i></a>
                     </td>
@@ -95,7 +109,7 @@
                         <b>{{dbAction.tableName}}</b>
                     </td>
                 </tr>
-                <tr ng-if="view === 'db'" data-ng-repeat="dbChange in dbAction.changes" data-ng-repeat-end="">
+                <tr ng-if="view === 'db' && !itemLoading.active()" data-ng-repeat="dbChange in dbAction.changes" data-ng-repeat-end="">
                     <td>{{dbChange.timestampUtc | date: 'mediumTime'}}</td>
                     <td>DB-{{dbChange.action | uppercase }}</td>
                     <td>

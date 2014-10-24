@@ -119,7 +119,9 @@ namespace VaBank.Services.Maintenance
             try
             {
                 var audit = _db.AuditLogs.Query(DbQuery.For<ApplicationAction>().FromClientQuery(query));
-                var models = audit.Select(x => x.ToClass<AuditLogBriefEntry, AuditLogEntryBriefModel>()).ToList();
+                var models = audit.Map<AuditLogBriefEntry, AuditLogEntryBriefModel>()
+                    .OrderByDescending(x => x.StartedUtc)
+                    .ToList();
                 return models;
             }
             catch (Exception ex)

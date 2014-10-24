@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net.NetworkInformation;
+using AutoMapper;
 using VaBank.Core.Maintenance;
 using VaBank.Services.Contracts.Maintenance.Models;
 using VaBank.Core.App;
@@ -24,9 +25,10 @@ namespace VaBank.Services.Maintenance
             CreateMap<AuditLogBriefEntry, AuditLogEntryBriefModel>()
                 .ForMember(dest => dest.OperationId, src => src.MapFrom(x => x.Operation.Id))
                 .ForMember(dest => dest.UserId, src => src.MapFrom(x => x.Operation.UserId))
-                .ForMember(dest => dest.AppActions, src => src.MapFrom(x => x.ApplicationActions))
                 .ForMember(dest => dest.UserName, src => src.MapFrom(x => x.Operation.User.UserName))
-                .ForMember(dest => dest.ApplicationName, src => src.MapFrom(x => x.Operation.ClientApplicationId));
+                .ForMember(dest => dest.ApplicationId, src => src.MapFrom(x => x.Operation.ClientApplicationId))
+                .ForMember(dest => dest.StartedUtc, src => src.MapFrom(x => x.Operation.StartedUtc))
+                .ForMember(dest => dest.AppActions, src => src.MapFrom(x => x.ApplicationActions));
 
             CreateMap<DatabaseOperation, DatabaseOperationModel>();
             CreateMap<VersionedDatabaseRow, DbChangeModel>()

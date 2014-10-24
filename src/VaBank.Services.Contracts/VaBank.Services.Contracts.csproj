@@ -67,7 +67,7 @@
     <Compile Include="Accounting\Queries\AccountQuery.cs" />
     <Compile Include="Common\DataNotFoundException.cs" />
     <Compile Include="Accounting\IAccountManagementService.cs" />
-    <Compile Include="Common\IAuditedEvent.cs" />
+    <Compile Include="Common\Events\IAuditedEvent.cs" />
     <Compile Include="Common\Models\UserNameModel.cs" />
     <Compile Include="Common\Resources\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -81,7 +81,7 @@
     <Compile Include="Common\Validation\IValidationService.cs" />
     <Compile Include="Common\Validation\ValidationRequest.cs" />
     <Compile Include="Common\Validation\ValidationResponse.cs" />
-    <Compile Include="Common\ApplicationEvent.cs" />
+    <Compile Include="Common\Events\ApplicationEvent.cs" />
     <Compile Include="Maintenance\Commands\LogAppActionCommand.cs" />
     <Compile Include="Maintenance\ILogManagementService.cs" />
     <Compile Include="Maintenance\Commands\SystemLogClearCommand.cs" />

@@ -7,11 +7,11 @@ namespace VaBank.Core.App
     {
         private readonly Dictionary<string, object> _values;
 
-        public VersionedDatabaseRow(Dictionary<string, object> values)
+        public VersionedDatabaseRow(long version, 
+            DateTime timestampUtc,
+            DatabaseOperation action)
         {
-            if (values == null)
-                throw new ArgumentNullException("values");
-            _values = values;
+            _values = new Dictionary<string, object>();
         }
 
         public long Version { get; set; }
@@ -19,6 +19,16 @@ namespace VaBank.Core.App
         public DateTime TimestampUtc { get; set; }
 
         public DatabaseOperation Action { get; set; }
+
+        public VersionedDatabaseRow SetValue(string key, object value)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                throw new ArgumentNullException("key");
+            }
+            _values[key] = value;
+            return this;
+        }
 
         public override IEnumerable<KeyValuePair<string, object>> Values
         {

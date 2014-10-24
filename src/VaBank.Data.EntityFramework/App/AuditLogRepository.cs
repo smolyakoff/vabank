@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
-using AutoMapper.QueryableExtensions;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Database;
 using VaBank.Common.Data.Repositories;
@@ -47,79 +45,25 @@ namespace VaBank.Data.EntityFramework.App
         {
             var operation = Context.Set<Operation>().Find(operationId);
             if (operation == null)
+            {
                 return null;
-
+            }
             return EnsureRepositoryException(() =>
             {
                 var actions = Context.Set<ApplicationAction>().Where(x => x.Operation.Id == operation.Id).ToList();
-                var auditTableNames = GetHistoryTableNames();
-                var command = DatabaseProvider.CreateCommand();
-                
-                var sqlParameter = new SqlParameter("@OperationId", SqlDbType.UniqueIdentifier)
-                {
-                    Value = operation.Id
-                };
-                command.Parameters.Add(sqlParameter);
-
-                var dbActions = new List<DatabaseAction>();
-                var adapter = DatabaseProvider.CreateAdapter();
-                adapter.SelectCommand = command;
-
-                var constantNames = Names.GetColumnNames();
-
-                foreach (var tableName in auditTableNames)
-                {
-                    command.CommandText = string.Format(
-                        "SELECT * {0} WHERE HistoryOperationId = @OperationId",
-                        tableName.GetFullTableName());
-                    var dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    var dbAction = new DatabaseAction
-                    {
-                        TableName = tableName.GetFullTableName(),
-                        ChangedRows = new List<VersionedDatabaseRow>()
-                    };
-                    dbActions.Add(dbAction);
-                    
-                    foreach (DataRow row in dataTable.Rows)
-                    {
-                        var values = new Dictionary<string, object>();
-                        var dbRow = new VersionedDatabaseRow(values);
-
-                        dbAction.ChangedRows.Add(dbRow);
-
-                        dbRow.Version = (long) row[Names.VersionColumnName];
-                        dbRow.TimestampUtc = (DateTime) row[Names.TimestampUtcColumnName];
-                        dbRow.Action = ToOperation(((char) row[Names.ActionColumnName]));
-
-                        foreach (
-                            var column in
-                                dataTable.Columns.Cast<DataColumn>()
-                                    .Where(column => !constantNames.Contains(column.ColumnName)))
-                        {
-                            values.Add(column.ColumnName, row[column.ColumnName]);
-                        }
-                    }
-                }
-
+                var dbActions = GetHistoryTableNames()
+                    .Select(x => new { dataTable = GetHistory(x, operationId), tableName = x})
+                    .Where(x => x.dataTable.Rows.Count > 0)
+                    .Select(x => new { x.tableName, rows = x.dataTable.Rows.Cast<DataRow>().Select(ToVersionedRow).ToList()})
+                    .Select(x => new DatabaseAction(x.tableName.FullName, x.rows))
+                    .ToList();
                 return new AuditLogEntry(operation, actions, dbActions);
             });
         }
 
-        private IEnumerable<TableNamePair> GetHistoryTableNames()
-        {
-            const string sql =
-                @"SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME LIKE '%[_]History'";
-
-            var auditTableNames = Context.Database.SqlQuery<TableNamePair>(sql).ToList();
-            return auditTableNames;
-        }
-
         public IList<string> GetUniqueCodes()
         {
-            return
-                EnsureRepositoryException(
-                    () => Context.Set<ApplicationAction>().Select(x => x.Code).Distinct().ToList());
+            return EnsureRepositoryException(() => Context.Set<ApplicationAction>().Select(x => x.Code).Distinct().ToList());
         }
 
         public void CreateAction(ApplicationAction action)
@@ -142,8 +86,55 @@ namespace VaBank.Data.EntityFramework.App
                 throw new RepositoryException(ex.Message, ex);
             }
         }
+
+        private DataTable GetHistory(TableName tableName, Guid operationId)
+        {
+            
+            var adapter = DatabaseProvider.CreateAdapter();
+            adapter.SelectCommand = DatabaseProvider.CreateCommand();
+            var sqlOperationId = adapter.SelectCommand.CreateParameter();
+            sqlOperationId.ParameterName = "@OperationId";
+            sqlOperationId.DbType = DbType.Guid;
+            sqlOperationId.Value = operationId;
+            adapter.SelectCommand.CommandText = 
+                string.Format("SELECT * FROM {0} WHERE HistoryOperationId = @OperationId", tableName.FullName);
+            adapter.SelectCommand.Parameters.Add(sqlOperationId);
+            var dataTable = new DataTable();
+            adapter.Fill(dataTable);
+            return dataTable;
+        }
+
+        private IEnumerable<TableName> GetHistoryTableNames()
+        {
+            const string sql =
+                @"SELECT TABLE_SCHEMA as [Schema], TABLE_NAME as [Name] FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME LIKE '%[_]History'";
+
+            var auditTableNames = Context.Database.SqlQuery<TableName>(sql).ToList();
+            return auditTableNames;
+        }
+
+        private static VersionedDatabaseRow ToVersionedRow(DataRow dataRow)
+        {
+            var constantNames = Names.GetColumnNames();
+
+            var version = (long)dataRow[Names.VersionColumnName];
+            var timestampUtc = (DateTime)dataRow[Names.TimestampUtcColumnName];
+            var action = ToOperation((char)dataRow[Names.ActionColumnName]);
+
+            var otherColumns = dataRow.Table.Columns
+                .Cast<DataColumn>()
+                .Where(x => !constantNames.Contains(x.ColumnName));
+
+            var row = new VersionedDatabaseRow(version, timestampUtc, action);
+
+            foreach (var column in otherColumns)
+            {
+                row.SetValue(column.ColumnName, dataRow[column]);
+            }
+            return row;
+        }
         
-        public static DatabaseOperation ToOperation(char value)
+        private static DatabaseOperation ToOperation(char value)
         {
             switch (value)
             {
@@ -158,15 +149,15 @@ namespace VaBank.Data.EntityFramework.App
             }
         }
 
-        private class TableNamePair
+        private class TableName
         {
-            public string TableSchema { get; set; }
+            public string Schema { get; set; }
 
-            public string TableName { get; set; }
+            public string Name { get; set; }
 
-            public string GetFullTableName()
+            public string FullName
             {
-                return string.Format("[{0}].[{1}]", TableSchema, TableName);
+                get { return string.Format("[{0}].[{1}]", Schema, Name); }
             }
         }
 
@@ -176,6 +167,7 @@ namespace VaBank.Data.EntityFramework.App
             public const string TimestampUtcColumnName = "HistoryTimestampUtc";
             public const string ActionColumnName = "HistoryAction";
             
+            //TODO: make this code usable for any type: move to ConstantCollection base class in VaBank.Common.Util namespace?
             public static IList<string> GetColumnNames()
             {
                 var type = typeof (Names);

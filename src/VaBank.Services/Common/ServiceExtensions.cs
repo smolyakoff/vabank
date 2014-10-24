@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
@@ -49,6 +50,13 @@ namespace VaBank.Services.Common
             where TEntity : Entity
         {
             return Mapper.Map<TModel, TEntity>(model);
+        }
+
+        public static IEnumerable<TDestination> Map<TSource, TDestination>(this IEnumerable<TSource> enumerable)
+        {
+            return enumerable == null 
+                ? null 
+                : enumerable.Select(Mapper.Map<TSource, TDestination>);
         }
     }
 }

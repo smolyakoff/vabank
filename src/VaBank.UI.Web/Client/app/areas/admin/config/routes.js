@@ -48,7 +48,15 @@
                 data: {
                     title: 'VaDmin - Аудит лог',
                 },
-                controller: 'auditLogController'
+                controller: 'auditLogController',
+                resolve: {
+                    data: ['routingResolve', 'auditLogService', function (routingResolve, auditLogService) {
+                        var LogEntry = auditLogService.LogEntry;
+                        return routingResolve.resolveAll(
+                            [LogEntry.query().$promise, LogEntry.lookup().$promise],
+                            ['logs', 'lookup']);
+                    }]
+                }
               
             }).state('admin.userManagement', {
                 url: '/users',

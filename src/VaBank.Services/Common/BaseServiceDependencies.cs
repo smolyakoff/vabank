@@ -1,6 +1,6 @@
-﻿using VaBank.Common.Events;
+﻿using VaBank.Common.Data.Database;
+using VaBank.Common.Events;
 using VaBank.Common.IoC;
-using VaBank.Core.App;
 using VaBank.Core.Common;
 
 namespace VaBank.Services.Common
@@ -14,5 +14,7 @@ namespace VaBank.Services.Common
         public ServiceOperationProvider OperationProvider { get; set; }
 
         public ISendOnlyServiceBus ServiceBus { get; set; }
+
+        public ITransactionProvider TransactionProvider { get; set; }
     }
 }
