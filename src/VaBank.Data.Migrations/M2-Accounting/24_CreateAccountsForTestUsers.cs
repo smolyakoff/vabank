@@ -23,7 +23,7 @@ namespace VaBank.Data.Migrations
                 foreach (var idPair in GetUserIdPairs(connection, transaction))
                 {
                     var accountNo = SeedHelper.GenerateRandomStringOfNumbers(13);
-                    var account = M2Account.Create(accountNo, "USD", 10000, nowUtc, expireUtc, "Рассчётный счёт");
+                    var account = M2Account.Create(accountNo, "USD", 10000, nowUtc, expireUtc, "CardAccount");
                     InsertAccount(account, connection, transaction);
                     InsertUserAccount(account.ToUserAccount(idPair.UserId), connection, transaction);
                 }

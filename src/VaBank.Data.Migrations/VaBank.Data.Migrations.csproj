@@ -72,6 +72,7 @@
     <Compile Include="M2-Accounting\16_CreateHistoryTableForUser.cs" />
     <Compile Include="M2-Accounting\21_CreateAppSetting.cs" />
     <Compile Include="M2-Accounting\20_CreateResource.cs" />
+    <Compile Include="M2-Accounting\25_AddResourceIdToCardVendor.cs" />
     <Compile Include="M2-Accounting\M2Account.cs" />
     <Compile Include="M2-Accounting\M2Currency.cs" />
     <Compile Include="M2-Accounting\M2UserAccount.cs" />

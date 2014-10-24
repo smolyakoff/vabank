@@ -30,7 +30,8 @@ namespace VaBank.Data.Migrations
                 .WithColumn("Name").AsName().NotNullable()
                 .WithColumn("Symbol").AsString(5).NotNullable();
 
-            Create.Table("CardVendor").InSchema(SchemaName).WithColumn("ID").AsCardVendorId().PrimaryKey("PK_CardVendor");
+            Create.Table("CardVendor").InSchema(SchemaName).WithColumn("ID").AsCardVendorId().PrimaryKey("PK_CardVendor")
+                .WithColumn("Name").AsShortName().NotNullable();
 
             Create.Table("Account").InSchema(SchemaName)
                 .WithColumn("AccountNo").AsAccountNumber().PrimaryKey("PK_Account")
@@ -46,10 +47,22 @@ namespace VaBank.Data.Migrations
                 .WithColumn("HolderFirstName").AsName().NotNullable()
                 .WithColumn("HolderLastName").AsName().NotNullable()
                 .WithColumn("ExpirationDateUtc").AsDateTime().NotNullable()
-                .WithColumn("CardVendorID").AsCardVendorId().NotNullable().ForeignKey("FK_Card_To_CardVendor", SchemaName, "CardVendor", "ID");
+                .WithColumn("CardVendorID").AsCardVendorId().NotNullable().ForeignKey("FK_Card_To_CardVendor", SchemaName, "CardVendor", "ID");            
+
+            Create.Table("Account_Card").InSchema(SchemaName)
+                .WithColumn("CardID").AsGuid().PrimaryKey("PK_Account_Card").ForeignKey("FK_Account_Card_To_Card", SchemaName, "Card", "CardID")
+                .WithColumn("AccountNo").AsAccountNumber().PrimaryKey("PK_Account_Card").ForeignKey("FK_Account_Card_To_Account", SchemaName, "Account", "AccountNo");
+
+            Create.Table("User_Card").InSchema(SchemaName)
+                .WithColumn("UserId").AsGuid().NotNullable().ForeignKey("FK_User_Card_To_User", MembershipSchemaName, "User", "UserID")
+                .WithColumn("CardID").AsGuid().PrimaryKey("PK_User_Card").ForeignKey("FK_User_Card_To_Card", SchemaName, "Card", "CardID");
+
+            Create.Table("User_Account").InSchema(SchemaName)
+                .WithColumn("UserId").AsGuid().NotNullable().ForeignKey("FK_User_Account_To_User", MembershipSchemaName, "User", "UserID")
+                .WithColumn("AccountNo").AsAccountNumber().PrimaryKey("PK_User_Account").ForeignKey("FK_User_Account_To_Account", SchemaName, "Account", "AccountNo");
 
             Create.Table("CardSettings").InSchema(SchemaName)
-                .WithColumn("CardID").AsGuid().PrimaryKey("PK_CardSettings").ForeignKey("FK_CardSettings_To_Card", SchemaName, "Card", "CardID")
+                .WithColumn("CardID").AsGuid().PrimaryKey("PK_CardSettings").ForeignKey("FK_CardSettings_To_User_Card", SchemaName, "User_Card", "CardID")
                 .WithColumn("Blocked").AsBoolean().NotNullable()
                 .WithColumn("BlockedDateUtc").AsDateTime()
                 .WithColumn("FriendlyName").AsShortName()
@@ -57,18 +70,6 @@ namespace VaBank.Data.Migrations
                 .WithColumn("LimitAmountPerDayAbroad").AsDecimal().NotNullable()
                 .WithColumn("LimitOperationsPerDayLocal").AsInt32().NotNullable()
                 .WithColumn("LimitOperationsPerDayAbroad").AsInt32().NotNullable();
-
-            Create.Table("Account_Card").InSchema(SchemaName)
-                .WithColumn("CardID").AsGuid().PrimaryKey("PK_Account_Card").ForeignKey("FK_Account_Card_To_Card", SchemaName, "Card", "CardID")
-                .WithColumn("AccountNo").AsAccountNumber().PrimaryKey("PK_Account_Card").ForeignKey("FK_Account_Card_To_Account", SchemaName, "Account", "AccountNo");
-
-            Create.Table("User_Card").InSchema(SchemaName)
-                .WithColumn("UserId").AsGuid().PrimaryKey("PK_User_Card").ForeignKey("FK_User_Card_To_User", MembershipSchemaName, "User", "UserID")
-                .WithColumn("CardID").AsGuid().PrimaryKey("PK_User_Card").ForeignKey("FK_User_Card_To_Card", SchemaName, "Card", "CardID");
-
-            Create.Table("User_Account").InSchema(SchemaName)
-                .WithColumn("UserId").AsGuid().PrimaryKey("PK_User_Account").ForeignKey("FK_User_Account_To_User", MembershipSchemaName, "User", "UserID")
-                .WithColumn("AccountNo").AsAccountNumber().PrimaryKey("PK_User_Account").ForeignKey("FK_User_Account_To_Account", SchemaName, "Account", "AccountNo");
         }
     }
 }
