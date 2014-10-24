@@ -17,21 +17,14 @@ namespace VaBank.Common.Data.Filtering.Converters
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            try
-            {
-                var stringValue = value as string;
-                if (string.IsNullOrEmpty(stringValue))
-                {
-                    return new AlwaysTrueFilter();
-                }
-                var filterQuery = JsonConvert.DeserializeObject<QueryStringFilter>(stringValue);
-                var filter = new DynamicLinqFilter(filterQuery.Query, filterQuery.Parameters);
-                return filter;
-            }
-            catch (Exception)
+            var stringValue = value as string;
+            if (string.IsNullOrEmpty(stringValue))
             {
                 return new AlwaysTrueFilter();
             }
+            var filterQuery = JsonConvert.DeserializeObject<QueryStringFilter>(stringValue);
+            var filter = new DynamicLinqFilter(filterQuery.Query, filterQuery.Parameters);
+            return filter;
         }
 
         private class QueryStringFilter
@@ -59,26 +52,10 @@ namespace VaBank.Common.Data.Filtering.Converters
                     .Select(x => x.ToType())
                     .ToList();
                 var parameters = JsonConvert.DeserializeObject<object[]>(ParametersJson);
-                return parameters.Select((o, i) => Visit((dynamic) o, types[i])).Cast<object>().ToArray();
+                return parameters.Select((o, i) => Visit(o, types[i])).ToArray();
             }
 
-            private object Visit(JArray jArray, Type type)
-            {
-                if (jArray == null)
-                {
-                    return null;
-                }
-                Type listType = typeof (List<>).MakeGenericType(type);
-                if (jArray.Count == 0)
-                {
-                    return Activator.CreateInstance(listType);
-                }
-                if (type == typeof (object))
-                {
-                    return InferType(jArray);
-                }
-                return jArray.ToObject(listType);
-            }
+            
 
             private object InferType(JArray array)
             {
@@ -92,18 +69,45 @@ namespace VaBank.Common.Data.Filtering.Converters
                 return array.ToObject(listType);
             }
 
-            private object Visit(string obj, Type type)
-            {
-                if (type == typeof (Guid))
-                {
-                    return Guid.Parse(obj);
-                }
-                return obj;
-            }
-
             private object Visit(object obj, Type type)
             {
-                return Convert.ChangeType(obj, type);
+                if (obj == null)
+                {
+                    return null;
+                }
+                if (obj is JArray)
+                {
+                    return VisitJArray((JArray)obj, type);
+                }
+                if (obj is string && type == typeof(Guid))
+                {
+                    return VisitGuidString((string) obj);
+                }
+                var converter = TypeDescriptor.GetConverter(obj);
+                return converter.CanConvertTo(type) ? converter.ConvertTo(obj, type) : obj;
+            }
+
+            private object VisitJArray(JArray jArray, Type type)
+            {
+                if (jArray == null)
+                {
+                    return null;
+                }
+                Type listType = typeof(List<>).MakeGenericType(type);
+                if (jArray.Count == 0)
+                {
+                    return Activator.CreateInstance(listType);
+                }
+                if (type == typeof(object))
+                {
+                    return InferType(jArray);
+                }
+                return jArray.ToObject(listType);
+            }
+
+            private object VisitGuidString(string obj)
+            {
+                return Guid.Parse(obj);
             }
         }
     }

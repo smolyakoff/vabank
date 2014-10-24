@@ -106,7 +106,8 @@
                 return prefix + options.propertyName + '.' + options.functionName + '(' + parameterName + ')';
             };
 
-            var emptyQuery = function() {
+            var emptyQuery = function (parameters) {
+                addParameter(parameters, null);
                 return '1 == 1';
             };
 
@@ -126,14 +127,14 @@
 
             var eqQuery = function (options, parameters) {
                 if (options.value instanceof markers.any) {
-                    return emptyQuery();
+                    return emptyQuery(parameters);
                 }
                 return operatorQuery(options, parameters);
             };
             
             var inQuery = function (options, parameters) {
                 if (isEmptyOrAnyMarkerArray(options.value)) {
-                    return emptyQuery();
+                    return emptyQuery(parameters);
                 }
                 return functionOverParameterQuery(options, parameters);
             };
