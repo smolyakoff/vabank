@@ -9,8 +9,8 @@ namespace VaBank.Data.Migrations
         public override void Up()
         {
             Create.Table("Action").InSchema("App")
-                .WithColumn("EventId").AsGuid().PrimaryKey("PK_Action")
-                .WithColumn("OperationId").AsGuid().NotNullable().ForeignKey("FK_Action_To_Operation", "App", "Operation", "Id")
+                .WithColumn("EventID").AsGuid().PrimaryKey("PK_Action")
+                .WithColumn("OperationID").AsGuid().NotNullable().ForeignKey("FK_Action_To_Operation", "App", "Operation", "ID")
                 .WithColumn("Code").AsShortName().NotNullable().Indexed("IX_Action_Code").WithDefaultValue("OPERATION")
                 .WithColumn("Description").AsBigString().Nullable()
                 .WithColumn("Data").AsText().Nullable()

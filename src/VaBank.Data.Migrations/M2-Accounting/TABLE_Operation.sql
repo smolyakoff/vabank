@@ -9,19 +9,19 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [App].[Operation](
-	[Id] [uniqueidentifier] NOT NULL,
-	[TransactionId] [bigint] NOT NULL,
+	[ID] [uniqueidentifier] NOT NULL,
+	[TransactionID] [bigint] NOT NULL,
 	[StartedUtc] [datetime] NOT NULL,
 	[Name] [nvarchar] (100) NOT NULL,
 	[Finished] [bit] NOT NULL,
 	[FinishedUtc] [datetime] NULL,
 	[DbUser] [nvarchar](256) NOT NULL,
 	[DbApplication] [varchar](256) NOT NULL,
-	[AppUserId] [uniqueidentifier] NULL,
-	[AppClientId] [nvarchar](100) NULL,
+	[AppUserID] [uniqueidentifier] NULL,
+	[AppClientID] [nvarchar](100) NULL,
  CONSTRAINT [PK_Operation] PRIMARY KEY CLUSTERED 
 (
-	[Id] ASC
+	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -30,7 +30,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_Id]  DEFAULT (newsequentialid()) FOR [Id]
+ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_ID]  DEFAULT (newsequentialid()) FOR [ID]
 GO
 
 ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_StartedUtc]  DEFAULT (getutcdate()) FOR [StartedUtc]

@@ -52,9 +52,9 @@ namespace VaBank.Data.Migrations
             using (var command = connection.CreateCommand())
             {
                 command.Transaction = transaction;
-                command.CommandText = "INSERT INTO [Accounting].[User_Account] ([AccountNo], [UserId]) VALUES (@AccountNo, @UserId)";
+                command.CommandText = "INSERT INTO [Accounting].[User_Account] ([AccountNo], [UserID]) VALUES (@AccountNo, @UserID)";
                 command.CreateSqlParameter("@AccountNo", userAccount.AccountNo);
-                command.CreateSqlParameter("@UserId", userAccount.UserId);
+                command.CreateSqlParameter("@UserID", userAccount.UserId);
                 command.ExecuteNonQuery();
             }
         }

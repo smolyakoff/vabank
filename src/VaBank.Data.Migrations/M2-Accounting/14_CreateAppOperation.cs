@@ -18,10 +18,10 @@ namespace VaBank.Data.Migrations
             Execute.EmbeddedScript("M2_Accounting.PROC_FinishOperation.sql");
 
             Create.ForeignKey("FK_Operation_To_User")
-                .FromTable("Operation").InSchema(SchemaName).ForeignColumn("AppUserId")
-                .ToTable("User").InSchema("Membership").PrimaryColumn("UserId");
+                .FromTable("Operation").InSchema(SchemaName).ForeignColumn("AppUserID")
+                .ToTable("User").InSchema("Membership").PrimaryColumn("UserID");
             Create.ForeignKey("FK_Operation_To_ApplicationClient")
-                .FromTable("Operation").InSchema(SchemaName).ForeignColumn("AppClientId")
+                .FromTable("Operation").InSchema(SchemaName).ForeignColumn("AppClientID")
                 .ToTable("ApplicationClient").InSchema("Membership").PrimaryColumn("ID");
 
             Create.Index("IX_Operation_StartedUtc")
@@ -30,7 +30,7 @@ namespace VaBank.Data.Migrations
 
             Create.Index("IX_Operation_AK")
                 .OnTable("Operation").InSchema("App")
-                .OnColumn("TransactionId").Descending()
+                .OnColumn("TransactionID").Descending()
                 .OnColumn("Finished").Ascending()
                 .OnColumn("StartedUtc").Descending();
         }

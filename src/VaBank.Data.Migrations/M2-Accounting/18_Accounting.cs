@@ -50,11 +50,11 @@ namespace VaBank.Data.Migrations
                 .WithColumn("CardVendorID").AsCardVendorId().NotNullable().ForeignKey("FK_Card_To_CardVendor", SchemaName, "CardVendor", "ID");
 
             Create.Table("User_Account").InSchema(SchemaName)
-                .WithColumn("UserId").AsGuid().NotNullable().ForeignKey("FK_User_Account_To_User", MembershipSchemaName, "User", "UserID")
+                .WithColumn("UserID").AsGuid().NotNullable().ForeignKey("FK_User_Account_To_User", MembershipSchemaName, "User", "UserID")
                 .WithColumn("AccountNo").AsAccountNumber().PrimaryKey("PK_User_Account").ForeignKey("FK_User_Account_To_Account", SchemaName, "Account", "AccountNo");
 
             Create.Table("User_Card").InSchema(SchemaName)
-                .WithColumn("UserId").AsGuid().NotNullable().ForeignKey("FK_User_Card_To_User", MembershipSchemaName, "User", "UserID")
+                .WithColumn("UserID").AsGuid().NotNullable().ForeignKey("FK_User_Card_To_User", MembershipSchemaName, "User", "UserID")
                 .WithColumn("CardID").AsGuid().PrimaryKey("PK_User_Card").ForeignKey("FK_User_Card_To_Card", SchemaName, "Card", "CardID");
 
             Create.Table("Account_Card").InSchema(SchemaName)

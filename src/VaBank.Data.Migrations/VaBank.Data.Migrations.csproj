@@ -65,7 +65,7 @@
     <Compile Include="M2-Accounting\23_SeedBasicCurrencies.cs" />
     <Compile Include="M2-Accounting\18_Accounting.cs" />
     <Compile Include="M2-Accounting\19_AddRowVersionColumnsToAccountingTables.cs" />
-    <Compile Include="M2-Accounting\24_CreateAccountsForTestUsers.cs" />
+    <Compile Include="M2-Accounting\24_SeedAccountsForTestUsers.cs" />
     <Compile Include="M2-Accounting\17_CreateAppAction.cs" />
     <Compile Include="M2-Accounting\14_CreateAppOperation.cs" />
     <Compile Include="M2-Accounting\15_CreateHistoryProcedures.cs" />
