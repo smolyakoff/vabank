@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using PagedList;
+using VaBank.Common.Data;
 using VaBank.Services.Contracts.Accounting.Commands;
 using VaBank.Services.Contracts.Accounting.Models;
 using VaBank.Services.Contracts.Accounting.Queries;
 using VaBank.Services.Contracts.Common.Models;
-using VaBank.Services.Contracts.Common.Queries;
 
 namespace VaBank.Services.Contracts.Accounting
 {

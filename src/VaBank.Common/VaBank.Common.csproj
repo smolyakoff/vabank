@@ -69,6 +69,7 @@
     <Compile Include="Data\DbQuery%271.cs" />
     <Compile Include="Data\DbQuery.cs" />
     <Compile Include="Data\IClientQuery.cs" />
+    <Compile Include="Data\IdentityQuery.cs" />
     <Compile Include="Data\IObjectConverter.cs" />
     <Compile Include="Data\JsonNetConverter.cs" />
     <Compile Include="Data\PagedDbQuery.cs" />

@@ -99,7 +99,6 @@
     <Compile Include="Maintenance\Queries\AuditLogQuery.cs" />
     <Compile Include="Maintenance\Queries\SystemLogQuery.cs" />
     <Compile Include="Common\Models\UserMessage.cs" />
-    <Compile Include="Common\Queries\IdentityQuery.cs" />
     <Compile Include="Common\ServiceException.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Membership\Commands\ChangePasswordCommand.cs" />
@@ -142,7 +141,9 @@
       <Name>VaBank.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Common\Queries\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Common\Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

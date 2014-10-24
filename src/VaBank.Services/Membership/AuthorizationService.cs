@@ -1,9 +1,9 @@
 ﻿using System;
+using VaBank.Common.Data;
 using VaBank.Core.Common;
 using VaBank.Core.Membership;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
-using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Membership;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.Security;

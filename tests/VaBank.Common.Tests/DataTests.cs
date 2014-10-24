@@ -129,7 +129,7 @@ namespace VaBank.Common.Tests
             var cars = Cars.AsQueryable().QueryPage(query);
 
             Assert.IsNotNull(cars);
-            Assert.IsInstanceOfType(cars, typeof(IPagedList<Car>));
+            Assert.IsInstanceOfType(cars, typeof (IPagedList<Car>));
             Assert.AreEqual(2, cars.TotalItemCount);
             Assert.AreEqual(2, cars.PageCount);
 
@@ -137,6 +137,21 @@ namespace VaBank.Common.Tests
             var expected = Cars.Where(x => x.Year > 2002 && new string[] {"Dodge", "Ford", "Chrysler"}.Contains(x.Make))
                 .OrderBy(x => x.Model)
                 .Take(1);
+            var actual = cars;
+            Assert.IsTrue(expected.SequenceEqual(actual));
+        }
+
+        [TestMethod]
+        [TestCategory("Production")]
+        public void Can_Do_IdentityQuery_WithIdSelector()
+        {
+            var query = new IdentityQuery<string>("Ford");
+            var dbQuery = query.ToDbQuery<Car, string>(x => x.Make);
+
+            var cars = Cars.AsQueryable().Query(dbQuery);
+
+            Assert.IsNotNull(cars);
+            var expected = Cars.Where(x => x.Make == "Ford");
             var actual = cars;
             Assert.IsTrue(expected.SequenceEqual(actual));
         }

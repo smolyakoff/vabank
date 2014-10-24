@@ -1,7 +1,7 @@
 ﻿using System;
 using PagedList;
+using VaBank.Common.Data;
 using VaBank.Services.Contracts.Common.Models;
-using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Membership.Commands;
 using VaBank.Services.Contracts.Membership.Models;
 using VaBank.Services.Contracts.Membership.Queries;

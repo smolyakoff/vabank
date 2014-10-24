@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using PagedList;
 using VaBank.Common.Data.Filtering;
 using VaBank.Common.Data.Paging;
@@ -21,7 +22,30 @@ namespace VaBank.Common.Data
             return pageable != null 
                 ? DbQuery.PagedFor<T>().FromClientQuery(clientQuery) 
                 : DbQuery.For<T>().FromClientQuery(clientQuery);
-        } 
+        }
+
+        public static DbQuery<TEntity> ToDbQuery<TEntity, TProperty>(this IIdentityQuery<TProperty> id, Expression<Func<TEntity, TProperty>> idSelector)
+            where TEntity : class 
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+            if (idSelector == null)
+            {
+                throw new ArgumentNullException("idSelector");
+            }
+            var equals = Expression.Equal(idSelector.Body, Expression.Constant(id.Id));
+            var identityExpression = (Expression<Func<TEntity, bool>>)Expression.Lambda(equals, idSelector.Parameters[0]);
+            return DbQuery.For<TEntity>().FilterBy(identityExpression);
+        }
+
+        public static DbQuery<TEntity> ToPropertyQuery<TEntity, TProperty>(this IIdentityQuery<TProperty> id, Expression<Func<TEntity, TProperty>> idSelector)
+            where TEntity : class
+        {
+            //just an alias method
+            return ToDbQuery(id, idSelector);
+        }
 
 
         public static IPagedList<T> QueryPage<T>(this IQueryable<T> queryable, IQuery query)

@@ -1,9 +1,12 @@
-﻿using PagedList;
+﻿using System.Security.Cryptography.X509Certificates;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VaBank.Common.Data;
+using VaBank.Core.Accounting;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Accounting;
 using VaBank.Services.Contracts.Accounting.Commands;
@@ -11,7 +14,6 @@ using VaBank.Services.Contracts.Accounting.Models;
 using VaBank.Services.Contracts.Accounting.Queries;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
-using VaBank.Services.Contracts.Common.Queries;
 
 namespace VaBank.Services.Accounting
 {
@@ -44,8 +46,8 @@ namespace VaBank.Services.Accounting
         {
             try
             {
-                //TODO: project then query with identity query will not work here...
-                var userCards = _db.UserCards.ProjectThenQuery<UserCardModel>(userId);
+                //TODO: bad entity design here. Why user card has its own id?
+                var userCards = _db.UserCards.Project<UserCardModel>(userId.ToDbQuery<UserCard>());
                 return userCards;
             }
             catch(Exception ex)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using VaBank.Common.Data;
 using VaBank.Services.Contracts.Common.Models;
-using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Maintenance.Commands;
 using VaBank.Services.Contracts.Maintenance.Models;
 using VaBank.Services.Contracts.Maintenance.Queries;

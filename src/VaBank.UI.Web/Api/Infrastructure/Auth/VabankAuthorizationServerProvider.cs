@@ -8,7 +8,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using VaBank.Services.Contracts.Common.Queries;
+using VaBank.Common.Data;
 using VaBank.Services.Contracts.Common.Security;
 using VaBank.Services.Contracts.Common.Validation;
 using VaBank.Services.Contracts.Membership;

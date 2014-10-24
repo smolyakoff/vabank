@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
+using VaBank.Common.Data;
 using VaBank.Core.Common;
 
 namespace VaBank.Services.Common
@@ -19,6 +22,16 @@ namespace VaBank.Services.Common
             {
                 throw new ArgumentException("Not all dependencies are resolved");
             }
+        }
+
+        public static DbQuery<TEntity> ToDbQuery<TEntity, T>(this IIdentityQuery<T> id)
+            where TEntity: Entity<T>
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+            return id.ToDbQuery<TEntity, T>(x => x.Id);
         }
 
         public static TModel ToClass<T, TModel>(this T obj)
