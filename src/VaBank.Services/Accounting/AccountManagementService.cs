@@ -31,6 +31,7 @@ namespace VaBank.Services.Accounting
             try
             {
                 var currencies = _db.Currencies.ProjectAll<CurrencyModel>();
+                //TODO: better pass everything through the constructor
                 return new AccountingLookupModel() { Currencies = currencies.ToList() };
             }
             catch (Exception ex)
@@ -43,12 +44,13 @@ namespace VaBank.Services.Accounting
         {
             try
             {
+                //TODO: why project then query? use ProjectIdentity instead
                 var userCards = _db.UserCards.ProjectThenQuery<UserCardModel>(userId);
                 return userCards;
             }
             catch(Exception ex)
             {
-                throw new ServiceException("Cannot get user cards");
+                throw new ServiceException("Cannot get user cards.", ex);
             }
         }
 
