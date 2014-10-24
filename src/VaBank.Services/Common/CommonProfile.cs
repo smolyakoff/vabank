@@ -6,7 +6,7 @@ namespace VaBank.Services.Common
 {
     public class CommonProfile : Profile
     {
-        public CommonProfile()
+        protected override void Configure()
         {
             CreateMap<User, UserNameModel>()
                 .ForMember(x => x.Email, cfg => cfg.MapFrom(y => y.Profile == null ? null : y.Profile.Email))
