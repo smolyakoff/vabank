@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Controllers;
+using System.Web.Http.Filters;
 using Autofac;
 using Autofac.Integration.WebApi;
 
@@ -24,7 +27,6 @@ namespace VaBank.UI.Web.Modules
             builder.RegisterModule<DataAccessModule>();
             builder.RegisterModule<ServicesModule>();
             builder.RegisterApiControllers(ThisAssembly);
-            builder.RegisterWebApiFilterProvider(_httpConfiguration);
         }
     }
 }

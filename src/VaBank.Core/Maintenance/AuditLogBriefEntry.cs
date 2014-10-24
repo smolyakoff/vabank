@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using VaBank.Core.App;
+using VaBank.Core.Common;
 
 namespace VaBank.Core.Maintenance
 {
-    public class AuditLogBriefEntry
+    public class AuditLogBriefEntry : Entity
     {
         public AuditLogBriefEntry(Operation operation, IEnumerable<ApplicationAction> actions)
         {

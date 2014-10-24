@@ -81,7 +81,7 @@ namespace VaBank.Services.Membership
             {
                 var user = command.ToEntity<CreateUserCommand, User>();
                 _db.Users.Create(user);
-                UnitOfWork.Commit();
+                Commit();
                 return user.ToModel<User, UserBriefModel>();
             }
             catch (Exception ex)
@@ -112,7 +112,7 @@ namespace VaBank.Services.Membership
                 {
                     user.UpdatePassword(command.Password);
                 }
-                UnitOfWork.Commit();
+                Commit();
             }
             catch (ServiceException)
             {
@@ -140,7 +140,7 @@ namespace VaBank.Services.Membership
                 }
                 Mapper.Map(command, user.Profile);
                 _db.UserProfiles.Update(user.Profile);
-                UnitOfWork.Commit();
+                Commit();
             }
             catch (ServiceException)
             {
@@ -168,7 +168,7 @@ namespace VaBank.Services.Membership
                 }
                 user.UpdatePassword(command.NewPassword);
                 _db.Tokens.Delete(DbQuery.For<ApplicationToken>().FilterBy(x => x.User.Id == command.UserId));
-                UnitOfWork.Commit();
+                Commit();
                 return UserMessage.Resource(() => Messages.PasswordChanged);
             }
             catch (ServiceException)

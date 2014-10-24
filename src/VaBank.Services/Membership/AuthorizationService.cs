@@ -50,7 +50,7 @@ namespace VaBank.Services.Membership
                         user.LockoutEndDateUtc = DateTime.MaxValue;
                     }
                 }
-                UnitOfWork.Commit();
+                Commit();
                 Publish(new UserLoginFailed(Operation.Id, user.ToModel<User, UserIdentityModel>()));
                 throw AccessFailure.ExceptionBecause(reason.Value);
             }
@@ -83,7 +83,7 @@ namespace VaBank.Services.Membership
                 token.Client = client;
                 token.User = user;
                 _db.ApplicationTokens.Create(token);
-                UnitOfWork.Commit();
+                Commit();
                 return command.ToClass<CreateTokenCommand, TokenModel>();
             }
             catch (Exception ex)
@@ -137,7 +137,7 @@ namespace VaBank.Services.Membership
                     return user.ToModel<User, UserIdentityModel>();
                 }
                 user.AccessFailedCount++;
-                UnitOfWork.Commit();
+                Commit();
                 throw AccessFailure.ExceptionBecause(reason.Value);
             }
             catch (Exception ex)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace VaBank.Core.App
 {
@@ -9,16 +10,19 @@ namespace VaBank.Core.App
 
         public VersionedDatabaseRow(long version, 
             DateTime timestampUtc,
-            DatabaseOperation action)
+            DatabaseOperation databaseOperation)
         {
             _values = new Dictionary<string, object>();
+            Version = version;
+            TimestampUtc = timestampUtc;
+            DatabaseOperation = databaseOperation;
         }
 
-        public long Version { get; set; }
+        public long Version { get; private set; }
 
-        public DateTime TimestampUtc { get; set; }
+        public DateTime TimestampUtc { get; private set; }
 
-        public DatabaseOperation Action { get; set; }
+        public DatabaseOperation DatabaseOperation { get; private set; }
 
         public VersionedDatabaseRow SetValue(string key, object value)
         {
@@ -30,9 +34,9 @@ namespace VaBank.Core.App
             return this;
         }
 
-        public override IEnumerable<KeyValuePair<string, object>> Values
+        public override ReadOnlyDictionary<string, object> Values
         {
-            get { return _values; }
+            get { return new ReadOnlyDictionary<string, object>(_values); }
         }
     }
 }

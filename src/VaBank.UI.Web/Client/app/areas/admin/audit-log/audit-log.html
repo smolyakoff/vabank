@@ -50,8 +50,8 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th style="width: 150px">Локальное время</th>
-                    <th style="width: 300px">Действие</th>
+                    <th style="width: 12%">Локальное время</th>
+                    <th style="width: 15%">Действие</th>
                     <th>Описание</th>
                 </tr>
             </thead>
@@ -97,7 +97,7 @@
                     <td class="switch-audit-view text-center">
                         <a ng-click="switchView()"><i class="glyphicon glyphicon-retweet"></i></a>
                     </td>
-                    <td colspan="2">
+                    <td colspan="3">
                         Нет изменений в базе данных
                     </td>
                 </tr>
@@ -105,18 +105,18 @@
                     <td class="switch-audit-view text-center" ng-if="$index === 0" rowspan="{{dbAction.changes.length + 1}}">
                         <a ng-click="switchView()"><i class="glyphicon glyphicon-retweet"></i></a>
                     </td>
-                    <td class="text-info" colspan="2">
+                    <td class="text-info" colspan="3">
                         <b>{{dbAction.tableName}}</b>
                     </td>
                 </tr>
                 <tr ng-if="view === 'db' && !itemLoading.active()" data-ng-repeat="dbChange in dbAction.changes" data-ng-repeat-end="">
                     <td>{{dbChange.timestampUtc | date: 'mediumTime'}}</td>
-                    <td>DB-{{dbChange.action | uppercase }}</td>
+                    <td>DB-{{dbChange.operation| uppercase }}</td>
                     <td>
                         <table class="table table-responsive db-change-table">
-                            <tr data-ng-repeat="(key, value) in dbChange.values">
-                                <td style="width: 20%">{{key}}</td>
-                                <td>{{value}}</td>
+                            <tr data-ng-repeat="pair in dbChange.values">
+                                <td>{{pair.key}}</td>
+                                <td style="width: 70%">{{pair.value}}</td>
                             </tr>
                         </table>
                     </td>

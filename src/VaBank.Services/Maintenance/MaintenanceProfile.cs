@@ -1,9 +1,7 @@
-﻿using System.Net.NetworkInformation;
-using AutoMapper;
+﻿using AutoMapper;
 using VaBank.Core.Maintenance;
 using VaBank.Services.Contracts.Maintenance.Models;
 using VaBank.Core.App;
-using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Maintenance.Commands;
 
 namespace VaBank.Services.Maintenance
@@ -32,9 +30,10 @@ namespace VaBank.Services.Maintenance
 
             CreateMap<DatabaseOperation, DatabaseOperationModel>();
             CreateMap<VersionedDatabaseRow, DbChangeModel>()
-                .ForMember(des => des.Action, src => src.MapFrom(x => x.Action))
+                .ForMember(des => des.Operation, src => src.MapFrom(x => x.DatabaseOperation))
                 .ForMember(des => des.Values, src => src.MapFrom(x => x.Values));
-            CreateMap<DatabaseAction, DbActionModel>();
+            CreateMap<DatabaseAction, DbActionModel>()
+                .ForMember(dest => dest.Changes, src => src.MapFrom(x => x.Rows));
             CreateMap<AuditLogEntry, AuditLogEntryModel>()
                 .ForMember(des => des.DbActions, src => src.MapFrom(x => x.DatabaseActions));
 

@@ -22,13 +22,11 @@ namespace VaBank.Core.App
                 throw new ArgumentOutOfRangeException("changedRows", "The database action should contain at least one change");
             }
             TableName = tableName;
-            ChangedRows = versionedDatabaseRows;
+            Rows = versionedDatabaseRows;
         }
 
         public string TableName { get; private set; }
 
-        //TODO: maybe add column names here?
-
-        public List<VersionedDatabaseRow> ChangedRows { get; private set; } 
+        public List<VersionedDatabaseRow> Rows { get; private set; } 
     }
 }

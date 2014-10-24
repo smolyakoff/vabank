@@ -90,7 +90,7 @@
     <Compile Include="Maintenance\Models\AuditLogEntryBriefModel.cs" />
     <Compile Include="Maintenance\Models\AuditLogEntryModel.cs" />
     <Compile Include="Maintenance\Models\AuditLogLookupModel.cs" />
-    <Compile Include="Maintenance\Models\DatabaseOperationModel.cs" />
+    <Compile Include="Maintenance\Models\DatabaseActionModel.cs" />
     <Compile Include="Maintenance\Models\DbActionModel.cs" />
     <Compile Include="Maintenance\Models\DbChangeModel.cs" />
     <Compile Include="Maintenance\Models\SystemLogEntryBriefModel.cs" />

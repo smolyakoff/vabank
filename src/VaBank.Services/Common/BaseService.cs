@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using FluentValidation;
 using VaBank.Common.Data.Database;
+using VaBank.Common.Data.Repositories;
 using VaBank.Common.Events;
 using VaBank.Common.Validation;
 using VaBank.Core.App;
 using VaBank.Core.Common;
+using VaBank.Core.Membership;
 using VaBank.Services.Contracts;
-using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Events;
 using ValidationException = VaBank.Services.Contracts.Common.Validation.ValidationException;
 using VaBank.Common.IoC;
@@ -21,6 +24,7 @@ namespace VaBank.Services.Common
         private readonly ServiceOperationProvider _operationProvider;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITransactionProvider _transactionProvider;
+        private readonly VaBankIdentity _identity;
         
         protected BaseService(BaseServiceDependencies dependencies)
         {
@@ -34,6 +38,7 @@ namespace VaBank.Services.Common
             _bus = dependencies.ServiceBus;
             _unitOfWork = dependencies.UnitOfWork;
             _transactionProvider = dependencies.TransactionProvider;
+            _identity = new VaBankIdentity(Thread.CurrentPrincipal.Identity as ClaimsIdentity, dependencies.UserRepository);
         }
 
         protected virtual void EnsureIsValid<T>(T obj)
@@ -50,6 +55,11 @@ namespace VaBank.Services.Common
             }
         }
 
+        protected VaBankIdentity Identity
+        {
+            get { return _identity; }
+        }
+
         protected Operation Operation
         {
             get
@@ -63,10 +73,9 @@ namespace VaBank.Services.Common
             }
         }
 
-        protected virtual void Commit()
+        protected virtual void Commit(CommitMode commitMode = CommitMode.Auto)
         {
-            //enforce operation for transactional work
-            if (_transactionProvider.HasCurrentTransaction)
+            if (_transactionProvider.HasCurrentTransaction || commitMode == CommitMode.EnsureOperation)
             {
                 _operationProvider.GetCurrent();
             }

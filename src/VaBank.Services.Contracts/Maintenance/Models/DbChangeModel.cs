@@ -7,10 +7,10 @@ namespace VaBank.Services.Contracts.Maintenance.Models
     {
         public long Version { get; set; }
 
-        public DatabaseOperationModel Action { get; set; }
+        public DatabaseOperationModel Operation { get; set; }
 
         public DateTime TimestampUtc { get; set; }
 
-        public Dictionary<string, object> Values { get; set; } 
+        public List<KeyValuePair<string, object>> Values { get; set; } 
     }
 }

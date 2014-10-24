@@ -74,7 +74,7 @@ namespace VaBank.Services.Maintenance
             try
             {
                 var deleted = _db.LogEntries.Delete(query.ToDbQuery<SystemLogEntry>());
-                UnitOfWork.Commit();
+                Commit();
                 return UserMessage.ResourceFormat(() => Messages.SystemLogClearSuccess, deleted);
             }
             catch (Exception ex)
@@ -89,7 +89,7 @@ namespace VaBank.Services.Maintenance
             try
             {
                 var deleted = _db.LogEntries.Delete(command.ToDbQuery());
-                UnitOfWork.Commit();
+                Commit();
                 return UserMessage.ResourceFormat(() => Messages.SystemLogClearSuccess, deleted);
             }
             catch (Exception ex)
@@ -136,7 +136,8 @@ namespace VaBank.Services.Maintenance
             try
             {
                 var entry = _db.AuditLogs.GetAuditEntryDetails(operationId.Id);
-                return entry.ToClass<AuditLogEntry, AuditLogEntryModel>();
+                var model = entry.ToClass<AuditLogEntry, AuditLogEntryModel>();
+                return model;
             }
             catch (Exception ex)
             {
@@ -161,7 +162,7 @@ namespace VaBank.Services.Maintenance
                     command.Description, 
                     command.Data);
                 _db.AuditLogs.CreateAction(appAction);
-                UnitOfWork.Commit();
+                Commit();
             }
             catch (Exception ex) 
             {

@@ -25,9 +25,12 @@
 
 .db-change-table {
     margin-bottom: 0;
+    table-layout:fixed;
     tbody > tr > td {
         border: 0;
         padding: 0;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
 
         &:first-child {
             font-weight: bold;

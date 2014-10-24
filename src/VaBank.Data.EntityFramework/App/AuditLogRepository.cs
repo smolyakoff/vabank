@@ -119,7 +119,7 @@ namespace VaBank.Data.EntityFramework.App
 
             var version = (long)dataRow[Names.VersionColumnName];
             var timestampUtc = (DateTime)dataRow[Names.TimestampUtcColumnName];
-            var action = ToOperation((char)dataRow[Names.ActionColumnName]);
+            var action = ToOperation(((string)dataRow[Names.ActionColumnName]));
 
             var otherColumns = dataRow.Table.Columns
                 .Cast<DataColumn>()
@@ -129,20 +129,21 @@ namespace VaBank.Data.EntityFramework.App
 
             foreach (var column in otherColumns)
             {
-                row.SetValue(column.ColumnName, dataRow[column]);
+                var value = dataRow[column] == DBNull.Value ? null : dataRow[column];
+                row.SetValue(column.ColumnName, value);
             }
             return row;
         }
         
-        private static DatabaseOperation ToOperation(char value)
+        private static DatabaseOperation ToOperation(string value)
         {
             switch (value)
             {
-                case 'U':
+                case "U":
                     return DatabaseOperation.Update;
-                case 'D':
+                case "D":
                     return DatabaseOperation.Delete;
-                case 'I':
+                case "I":
                     return DatabaseOperation.Insert;
                 default:
                     throw new InvalidOperationException("Can't convert char value to DatabaseOperation");
@@ -166,6 +167,7 @@ namespace VaBank.Data.EntityFramework.App
             public const string VersionColumnName = "HistoryId";
             public const string TimestampUtcColumnName = "HistoryTimestampUtc";
             public const string ActionColumnName = "HistoryAction";
+            public const string HistoryOperationIdColumnName = "HistoryOperationId";
             
             //TODO: make this code usable for any type: move to ConstantCollection base class in VaBank.Common.Util namespace?
             public static IList<string> GetColumnNames()

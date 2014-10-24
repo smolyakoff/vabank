@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 
 namespace VaBank.Core.App
 {
     public abstract class DatabaseRow
     {
-        public abstract IEnumerable<KeyValuePair<string, object>> Values { get; }
+        public abstract ReadOnlyDictionary<string, object> Values { get; }
     }
 }
