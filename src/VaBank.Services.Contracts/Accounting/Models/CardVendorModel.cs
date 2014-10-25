@@ -1,4 +1,6 @@
-﻿namespace VaBank.Services.Contracts.Accounting.Models
+﻿using VaBank.Common.Resources;
+
+namespace VaBank.Services.Contracts.Accounting.Models
 {
     public class CardVendorModel
     {
@@ -6,6 +8,6 @@
 
         public string Name { get; set; }
 
-        public string ImageUrl { get; set; }
+        public Link Image { get; set; }
     }
 }

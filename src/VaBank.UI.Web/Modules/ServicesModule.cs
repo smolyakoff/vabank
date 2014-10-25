@@ -44,13 +44,6 @@ namespace VaBank.UI.Web.Modules
                 .AsSelf()
                 .InstancePerRequest();
 
-            //Register uri provider
-            builder.RegisterType<CompositeUriProvider>()
-                .As<IUriProvider>()
-                .UsingConstructor(() => new CompositeUriProvider(
-                    new List<IUriProvider> { new WebServerUriProvider(string.Empty) })
-                ).SingleInstance();
-
             //Register dependency collections
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
                 .Where(t => typeof (IDependencyCollection).IsAssignableFrom(t))

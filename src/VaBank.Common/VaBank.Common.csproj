@@ -155,13 +155,16 @@
     <Compile Include="Resources\CompositeUriProvider.cs" />
     <Compile Include="Resources\DefaultUriProvider.cs" />
     <Compile Include="Resources\IUriProvider.cs" />
-    <Compile Include="Resources\Resource.cs" />
+    <Compile Include="Resources\EmbeddedResource.cs" />
+    <Compile Include="Resources\Link.cs" />
+    <Compile Include="Resources\LinkJsonSerializer.cs" />
     <Compile Include="Resources\WebServerUriProvider.cs" />
     <Compile Include="Security\Hash.cs" />
     <Compile Include="Security\Password.cs" />
     <Compile Include="Serialization\JsonCreationConverter.cs" />
-    <Compile Include="Validation\AdapterValidator.cs" />
-    <Compile Include="Validation\AlwaysTrueValidator.cs" />
+    <Compile Include="Validation\Validators\AdapterValidator.cs" />
+    <Compile Include="Validation\Validators\AlwaysTrueValidator.cs" />
+    <Compile Include="Validation\Argument.cs" />
     <Compile Include="Validation\ValidationFault.cs" />
     <Compile Include="Validation\IObjectValidator%271.cs" />
     <Compile Include="Validation\IObjectValidator.cs" />
@@ -169,6 +172,7 @@
     <Compile Include="Validation\StaticValidatorAttribute.cs" />
     <Compile Include="Validation\ValidationExtensions.cs" />
     <Compile Include="Validation\ValidatorNameAttribute.cs" />
+    <Compile Include="Validation\Validators\NotEmptyValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

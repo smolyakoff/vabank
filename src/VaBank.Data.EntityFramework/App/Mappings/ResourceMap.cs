@@ -12,7 +12,7 @@ namespace VaBank.Data.EntityFramework.App.Mappings
         {
             ToTable("Resource", "App");
             HasKey(x => x.Id);
-            Property(x => x.Location).IsRequired().HasMaxLength(RestrictionConstants.NameLength);
+            Property(x => x.Location).IsRequired().HasMaxLength(Restrict.Length.Name);
         }
 
     }

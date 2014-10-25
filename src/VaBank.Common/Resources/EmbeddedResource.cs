@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace VaBank.Common.Resources
 {
-    public static class Resource
+    public static class EmbeddedResource
     {
         public static Stream OpenRead(Assembly assembly, string resourcePath)
         {

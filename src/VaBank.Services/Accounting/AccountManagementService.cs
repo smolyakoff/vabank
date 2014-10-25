@@ -3,10 +3,8 @@ using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VaBank.Common.Data;
-using VaBank.Core.Accounting;
+using VaBank.Core.Accounting.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Accounting;
 using VaBank.Services.Contracts.Accounting.Commands;
@@ -19,26 +17,29 @@ namespace VaBank.Services.Accounting
 {
     public class AccountManagementService : BaseService, IAccountManagementService
     {
-        private readonly AccountingRepositories _db;
+        private readonly AccountingDependencies _deps;
 
-        public AccountManagementService(BaseServiceDependencies dependencies, AccountingRepositories repositories)
+        public AccountManagementService(BaseServiceDependencies dependencies, AccountingDependencies accountingDependencies)
             :base(dependencies)
         {
-            repositories.EnsureIsResolved();
-            _db = repositories;
+            dependencies.EnsureIsResolved();
+            _deps = accountingDependencies;
         }
 
-        public AccountingLookupModel GetLookup()
+        public AccountingLookupModel GetAccountingLookup()
         {
             try
             {
-                var currencies = _db.Currencies.ProjectAll<CurrencyModel>();
-                //TODO: better pass everything through the constructor
-                return new AccountingLookupModel() { Currencies = currencies.ToList() };
+                var lookup = new AccountingLookupModel
+                {
+                    CardVendors = _deps.CardVendors.ProjectAll<CardVendorModel>().ToList(),
+                    Currencies = _deps.Currencies.ProjectAll<CurrencyModel>().ToList()
+                };
+                return lookup;
             }
             catch (Exception ex)
             {
-                throw new ServiceException("Cannot get accounting lookup.", ex);
+                throw new ServiceException("Can't get accounting lookup.", ex);
             }
         }
 
@@ -46,8 +47,7 @@ namespace VaBank.Services.Accounting
         {
             try
             {
-                //TODO: bad entity design here. Why user card has its own id?
-                var userCards = _db.UserCards.Project<UserCardModel>(userId.ToDbQuery<UserCard>());
+                var userCards = _deps.UserCards.Project<UserCardModel>(userId.ToDbQuery<UserCard>());
                 return userCards;
             }
             catch(Exception ex)
@@ -72,11 +72,6 @@ namespace VaBank.Services.Accounting
         }
 
         public UserMessage SetCardLimits(SetCardLimitsCommand command)
-        {
-            throw new NotImplementedException();
-        }
-
-        public AccountingLookupModel GetAccountingLookup()
         {
             throw new NotImplementedException();
         }

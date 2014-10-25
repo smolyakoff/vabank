@@ -2,7 +2,7 @@
 using System.Linq;
 using FluentValidation.Validators;
 
-namespace VaBank.Common.Validation
+namespace VaBank.Common.Validation.Validators
 {
     internal class AdapterValidator<TInstance, T> : PropertyValidator
     {

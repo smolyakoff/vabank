@@ -56,9 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Accounting\AccountingLookup.cs" />
     <Compile Include="Accounting\AccountingProfile.cs" />
-    <Compile Include="Accounting\AccountingRepositories.cs" />
+    <Compile Include="Accounting\AccountingDependencies.cs" />
     <Compile Include="Accounting\AccountManagementService.cs" />
     <Compile Include="Accounting\Validators.cs" />
     <Compile Include="Common\BaseServiceDependencies.cs" />

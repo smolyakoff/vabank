@@ -2,7 +2,7 @@
 using VaBank.Common.Data.Database;
 using VaBank.Data.EntityFramework;
 
-namespace VaBank.Data.Tests
+namespace VaBank.Data.Tests.EntityFramework
 {
     [TestClass]
     public abstract class EntityFrameworkTest

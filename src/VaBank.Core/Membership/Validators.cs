@@ -31,7 +31,7 @@ namespace VaBank.Core.Membership
         static PasswordValidator()
         {
             WorstPasswords = new HashSet<string>(
-                Resource.ReadAsString(typeof(Entity).Assembly, "Membership/Resources/Top_500_Worst_Passwords.txt")
+                EmbeddedResource.ReadAsString(typeof(Entity).Assembly, "Membership/Resources/Top_500_Worst_Passwords.txt")
                 .Split(new [] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
                 .Distinct());
         }

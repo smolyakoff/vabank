@@ -42,13 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Accounting\CardAccount.cs" />
-    <Compile Include="Accounting\CardSettings.cs" />
-    <Compile Include="Accounting\CardVendor.cs" />
-    <Compile Include="Accounting\Currency.cs" />
-    <Compile Include="Accounting\UserCard.cs" />
+    <Compile Include="Accounting\Factories\CardLimitsFactory.cs" />
+    <Compile Include="Accounting\Entities\Account.cs" />
+    <Compile Include="Accounting\Entities\Card.cs" />
+    <Compile Include="Accounting\Entities\CardAccount.cs" />
+    <Compile Include="Accounting\Entities\CardLimits.cs" />
+    <Compile Include="Accounting\Entities\CardSettings.cs" />
+    <Compile Include="Accounting\Entities\CardVendor.cs" />
+    <Compile Include="Accounting\Entities\Currency.cs" />
+    <Compile Include="Accounting\Entities\UserAccount.cs" />
+    <Compile Include="Accounting\Entities\UserCard.cs" />
     <Compile Include="App\Entities\ApplicationAction.cs" />
-    <Compile Include="App\Providers\FileLinkUriProvider.cs" />
     <Compile Include="Maintenance\Entitities\AuditLogEntry.cs" />
     <Compile Include="Maintenance\Entitities\AuditLogBriefEntry.cs" />
     <Compile Include="App\Entities\DatabaseOperation.cs" />

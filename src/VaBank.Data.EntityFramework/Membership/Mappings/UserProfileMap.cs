@@ -10,14 +10,14 @@ namespace VaBank.Data.EntityFramework.Membership.Mappings
         public UserProfileMap()
         {
             ToTable("UserProfile", "Membership").HasKey(x => x.UserId);
-            Property(x => x.FirstName).HasMaxLength(RestrictionConstants.NameLength).IsRequired();
-            Property(x => x.LastName).HasMaxLength(RestrictionConstants.NameLength).IsRequired();
-            Property(x => x.Email).HasMaxLength(RestrictionConstants.EmailLength).IsRequired();
-            Property(x => x.PhoneNumber).HasMaxLength(RestrictionConstants.PhoneNumberLength).IsOptional();
+            Property(x => x.FirstName).HasMaxLength(Restrict.Length.Name).IsRequired();
+            Property(x => x.LastName).HasMaxLength(Restrict.Length.Name).IsRequired();
+            Property(x => x.Email).HasMaxLength(Restrict.Length.Email).IsRequired();
+            Property(x => x.PhoneNumber).HasMaxLength(Restrict.Length.PhoneNumber).IsOptional();
             Property(x => x.PhoneNumberConfirmed).IsRequired();
             Property(x => x.SmsConfirmationEnabled).IsRequired();
             Property(x => x.SmsNotificationEnabled).IsRequired();
-            Property(x => x.SecretPhrase).HasMaxLength(RestrictionConstants.BigStringLength).IsRequired();
+            Property(x => x.SecretPhrase).HasMaxLength(Restrict.Length.BigString).IsRequired();
             Property(x => x.RowVersion).IsRowVersion();
         }
     }

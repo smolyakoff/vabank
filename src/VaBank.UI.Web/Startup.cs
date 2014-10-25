@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Hosting;
@@ -20,6 +21,7 @@ using Microsoft.Owin;
 using SquishIt.Framework;
 using SquishIt.Sass;
 using VaBank.Common.Data;
+using VaBank.Common.Resources;
 using VaBank.Jobs;
 using VaBank.Jobs.Modules;
 using VaBank.UI.Web.Api.Infrastructure.Auth;
@@ -127,8 +129,10 @@ namespace VaBank.UI.Web
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
             };
             serializerSettings.Converters.Insert(0, new StringEnumConverter());
-            serializerSettings.Converters.Insert(1, new HttpServiceErrorConverter());
-            serializerSettings.Converters.Insert(2, new PagedListConverter());
+            serializerSettings.Converters.Insert(1, new LinkJsonConverter(
+                new CompositeUriProvider(new List<IUriProvider> { new WebServerUriProvider(string.Empty) })));
+            serializerSettings.Converters.Insert(2, new HttpServiceErrorConverter());
+            serializerSettings.Converters.Insert(3, new PagedListConverter());
             jsonFormatter.SerializerSettings = serializerSettings;
             configuration.Formatters.Add(jsonFormatter);
 

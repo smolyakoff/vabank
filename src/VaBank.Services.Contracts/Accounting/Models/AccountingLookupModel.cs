@@ -12,8 +12,6 @@ namespace VaBank.Services.Contracts.Accounting.Models
 
         public List<CurrencyModel> Currencies { get; set; }
 
-        public CardLimitsModel DefaultLimits { get; set; }
-
         public List<CardVendorModel> CardVendors { get; set; }
     }
 }

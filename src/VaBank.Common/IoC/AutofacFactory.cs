@@ -2,6 +2,7 @@
 using Autofac;
 using FluentValidation;
 using VaBank.Common.Validation;
+using VaBank.Common.Validation.Validators;
 
 namespace VaBank.Common.IoC
 {

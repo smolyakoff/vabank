@@ -42,7 +42,7 @@ namespace VaBank.Data.EntityFramework.App
                 var userIdSql = new SqlParameter("@AppUserId", (object)userId ?? DBNull.Value) {DbType = DbType.Guid};
                 var appClientIdSql = new SqlParameter("@AppClientId", (object)clientId ?? DBNull.Value);
                 var startedUtc = new SqlParameter("@StartedUtc", timestamp);
-                var nameSql = new SqlParameter("@Name", SqlDbType.NVarChar, RestrictionConstants.NameLength) {Value = (object)name ?? DBNull.Value};
+                var nameSql = new SqlParameter("@Name", SqlDbType.NVarChar, Restrict.Length.Name) {Value = (object)name ?? DBNull.Value};
                 const string sql =
                     @"EXEC [App].[StartOperation] @Id = @Id OUTPUT, @StartedUtc = @StartedUtc, @Name = @Name, @AppUserId = @AppUserId, @AppClientId = @AppClientId";
                 Context.Database.ExecuteSqlCommand(sql, operationId, userIdSql, appClientIdSql, startedUtc, nameSql);

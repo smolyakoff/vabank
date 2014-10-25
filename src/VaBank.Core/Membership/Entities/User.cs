@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Security.Claims;
 using VaBank.Common.Data.Linq;
 using VaBank.Common.Security;
+using VaBank.Common.Validation;
 using VaBank.Core.Common;
 
 namespace VaBank.Core.Membership.Entities
@@ -12,9 +13,9 @@ namespace VaBank.Core.Membership.Entities
     {
         public static User Create(string userName, string roleName, string password)
         {
-            EnsureArgumentValid<UserNameValidator, string>(userName, "userName");
-            EnsureArgumentValid<RoleValidator, string>(roleName, "roleName");
-            EnsureArgumentValid<PasswordValidator, string>(password, "password");
+            Argument.EnsureIsValid<UserNameValidator, string>(userName, "userName");
+            Argument.EnsureIsValid<RoleValidator, string>(roleName, "roleName");
+            Argument.EnsureIsValid<PasswordValidator, string>(password, "password");
             var user = new User {Id = Guid.NewGuid(), UserName = userName};
             user.Claims.Add(new UserClaim {UserId = user.Id, Type = ClaimTypes.Sid, Value = user.Id.ToString()});
             user.Claims.Add(new UserClaim {UserId = user.Id, Type = ClaimTypes.Name, Value = userName});
@@ -35,10 +36,10 @@ namespace VaBank.Core.Membership.Entities
 
         public string PasswordHash { get; private set; }
         public string PasswordSalt { get; private set; }
-        public bool LockoutEnabled { get; set; }
-        public DateTime? LockoutEndDateUtc { get; set; }
+        public bool LockoutEnabled { get; internal set; }
+        public DateTime? LockoutEndDateUtc { get; internal set; }
         public string UserName { get; set; }
-        public int AccessFailedCount { get; set; }
+        public int AccessFailedCount { get; internal set; }
         public bool Deleted { get; set; }
         public virtual ICollection<UserClaim> Claims { get; private set; }
         public virtual UserProfile Profile { get; set; }
@@ -56,7 +57,7 @@ namespace VaBank.Core.Membership.Entities
 
         public void UpdatePassword(string passwordText)
         {
-            EnsureArgumentValid<PasswordValidator, string>(passwordText, "passwordText");
+            Argument.EnsureIsValid<PasswordValidator, string>(passwordText, "passwordText");
             var password = Password.Create(passwordText);
             PasswordHash = password.PasswordHash;
             PasswordSalt = password.PasswordSalt;

@@ -1074,6 +1074,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Admin\AccountController.cs" />
     <Compile Include="Api\Admin\AuditLogController.cs" />
     <Compile Include="Api\Admin\SystemLogController.cs" />
     <Compile Include="Api\Admin\MaintenanceController.cs" />

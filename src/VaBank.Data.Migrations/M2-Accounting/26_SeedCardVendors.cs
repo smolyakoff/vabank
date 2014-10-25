@@ -5,7 +5,7 @@ namespace VaBank.Data.Migrations
 {
     [Migration(26, "Seed basic card vendors.")]
     [Tags("Development", "Test", "Production")]
-    public class SedCardVendors : Migration
+    public class SeedCardVendors : Migration
     {
         public override void Up()
         {

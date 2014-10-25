@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentValidation;
 using FluentValidation.Results;
+using VaBank.Common.Validation.Validators;
 
 namespace VaBank.Common.Validation
 {

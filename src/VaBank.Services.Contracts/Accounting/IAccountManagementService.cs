@@ -9,7 +9,7 @@ using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Contracts.Accounting
 {
-    public interface IAccountManagementService
+    public interface IAccountManagementService : IService
     {
         AccountingLookupModel GetAccountingLookup();
 

@@ -115,6 +115,7 @@ namespace VaBank.Services.Membership
                 {
                     user.UpdatePassword(command.Password);
                 }
+                Mapper.Map(command, user.Profile);
                 Commit();
             }
             catch (ServiceException)

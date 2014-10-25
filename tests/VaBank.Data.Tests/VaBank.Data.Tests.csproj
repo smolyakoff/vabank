@@ -61,11 +61,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AppContextTest.cs" />
-    <Compile Include="EntityFrameworkTest.cs" />
+    <Compile Include="EntityFramework\AppSchemaTest.cs" />
+    <Compile Include="EntityFramework\EntityFrameworkTest.cs" />
     <Compile Include="BaseTest.cs" />
+    <Compile Include="EntityFramework\AccountingSchemaTest.cs" />
     <Compile Include="SettingRepositoryTests.cs" />
-    <Compile Include="VaBankContextTests.cs" />
+    <Compile Include="EntityFramework\MembershipSchemaTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
