@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VaBank.Core.App;
+using VaBank.Core.App.Entities;
 
 namespace VaBank.Data.Tests
 {

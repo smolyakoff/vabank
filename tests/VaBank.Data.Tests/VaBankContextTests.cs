@@ -6,6 +6,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VaBank.Common.Data.Database;
 using VaBank.Core.App;
+using VaBank.Core.App.Entities;
 using VaBank.Core.Membership;
 using VaBank.Core.Membership.Entities;
 using VaBank.Data.EntityFramework;

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using VaBank.Core.App;
+using VaBank.Core.App.Entities;
 
-namespace VaBank.Core.Maintenance
+namespace VaBank.Core.Maintenance.Entitities
 {
     public class AuditLogEntry : AuditLogBriefEntry
     {

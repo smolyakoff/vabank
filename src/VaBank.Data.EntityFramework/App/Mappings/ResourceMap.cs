@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 using VaBank.Core.App;
+using VaBank.Core.App.Entities;
 using VaBank.Data.EntityFramework.Common;
 using VaBank.Data.EntityFramework.Membership.Mappings;
 

@@ -6,6 +6,7 @@ using System.Xml;
 using Newtonsoft.Json;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.App;
+using VaBank.Core.App.Repositories;
 using VaBank.Core.Maintenance;
 
 namespace VaBank.Data.EntityFramework.App

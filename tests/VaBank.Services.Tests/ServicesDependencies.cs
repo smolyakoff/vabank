@@ -11,6 +11,7 @@ using VaBank.Common.Events;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
 using VaBank.Core.App;
+using VaBank.Core.App.Providers;
 using VaBank.Core.Common;
 using VaBank.Data.EntityFramework;
 using VaBank.Data.EntityFramework.Common;

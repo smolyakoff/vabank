@@ -1,4 +1,6 @@
-﻿namespace VaBank.Core.App
+﻿using VaBank.Core.App.Entities;
+
+namespace VaBank.Core.App.Providers
 {
     public interface IOperationProvider
     {

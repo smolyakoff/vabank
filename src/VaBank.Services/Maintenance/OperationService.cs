@@ -1,5 +1,6 @@
 ﻿using System;
 using VaBank.Core.App;
+using VaBank.Core.App.Repositories;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Maintenance;

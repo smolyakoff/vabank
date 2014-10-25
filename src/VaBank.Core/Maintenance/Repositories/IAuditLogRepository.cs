@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using VaBank.Common.Data;
 using VaBank.Core.App;
+using VaBank.Core.App.Entities;
+using VaBank.Core.Maintenance.Entitities;
 
-namespace VaBank.Core.Maintenance
+namespace VaBank.Core.Maintenance.Repositories
 {
     public interface IAuditLogRepository
     {

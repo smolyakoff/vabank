@@ -1,9 +1,8 @@
 ﻿using System;
 using VaBank.Core.Common;
-using VaBank.Core.Membership;
 using VaBank.Core.Membership.Entities;
 
-namespace VaBank.Core.App
+namespace VaBank.Core.App.Entities
 {
     public class Operation : Entity, IDisposable
     {

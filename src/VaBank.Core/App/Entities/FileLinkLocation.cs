@@ -1,4 +1,4 @@
-﻿namespace VaBank.Core.App
+﻿namespace VaBank.Core.App.Entities
 {
     public enum FileLinkLocation
     {

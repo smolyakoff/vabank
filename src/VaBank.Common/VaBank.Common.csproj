@@ -152,6 +152,9 @@
     <Compile Include="IoC\IObjectFactory.cs" />
     <Compile Include="IoC\Lifetime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\CompositeUriProvider.cs" />
+    <Compile Include="Resources\DefaultUriProvider.cs" />
+    <Compile Include="Resources\IUriProvider.cs" />
     <Compile Include="Resources\Resource.cs" />
     <Compile Include="Security\Hash.cs" />
     <Compile Include="Security\Password.cs" />

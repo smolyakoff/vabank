@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VaBank.Core.App
+namespace VaBank.Core.App.Entities
 {
     public class FileLink : Resource
     {

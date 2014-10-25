@@ -1,7 +1,7 @@
 ﻿using System;
 using VaBank.Core.Common;
 
-namespace VaBank.Core.App
+namespace VaBank.Core.App.Entities
 {
     public class ApplicationAction : Entity
     {

@@ -8,7 +8,10 @@ using VaBank.Common.Data;
 using VaBank.Common.Data.Database;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.App;
+using VaBank.Core.App.Entities;
 using VaBank.Core.Maintenance;
+using VaBank.Core.Maintenance.Entitities;
+using VaBank.Core.Maintenance.Repositories;
 
 namespace VaBank.Data.EntityFramework.App
 {

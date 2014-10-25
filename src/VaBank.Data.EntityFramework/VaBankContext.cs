@@ -6,6 +6,7 @@ using System.Reflection;
 using VaBank.Common.Data.Database;
 using VaBank.Core.Common;
 using VaBank.Core.Maintenance;
+using VaBank.Core.Maintenance.Entitities;
 using VaBank.Core.Membership;
 using VaBank.Core.Membership.Entities;
 using VaBank.Data.EntityFramework.App.Mappings;

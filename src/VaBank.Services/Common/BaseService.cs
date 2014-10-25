@@ -8,6 +8,7 @@ using VaBank.Common.Data.Repositories;
 using VaBank.Common.Events;
 using VaBank.Common.Validation;
 using VaBank.Core.App;
+using VaBank.Core.App.Entities;
 using VaBank.Core.Common;
 using VaBank.Core.Membership;
 using VaBank.Services.Contracts;

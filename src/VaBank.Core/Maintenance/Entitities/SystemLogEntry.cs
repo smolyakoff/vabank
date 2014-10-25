@@ -1,7 +1,7 @@
 ﻿using System;
 using VaBank.Core.Common;
 
-namespace VaBank.Core.Maintenance
+namespace VaBank.Core.Maintenance.Entitities
 {
     public class SystemLogEntry : Entity<long>
     {

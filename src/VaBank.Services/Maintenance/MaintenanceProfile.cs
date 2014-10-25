@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using VaBank.Core.App.Entities;
 using VaBank.Core.Maintenance;
+using VaBank.Core.Maintenance.Entitities;
 using VaBank.Services.Contracts.Maintenance.Models;
 using VaBank.Core.App;
 using VaBank.Services.Contracts.Maintenance.Commands;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace VaBank.Core.App
+namespace VaBank.Common.Resources
 {
     public class CompositeUriProvider : IUriProvider
     {
@@ -18,19 +18,19 @@ namespace VaBank.Core.App
             _uriProviders.Add(new DefaultUriProvider());
         }
 
-        public string GetAbsoluteUri(FileLink fileLink)
+        public string GetAbsoluteUri(string relativeUri, string location)
         {
-            if (fileLink == null)
+            if (string.IsNullOrEmpty(relativeUri))
             {
-                throw new ArgumentNullException("fileLink");
+                throw new ArgumentNullException("relativeUri");
             }
-            var handler = _uriProviders.First(x => x.CanHandle(fileLink));
-            return handler.GetAbsoluteUri(fileLink);
+            var provider = _uriProviders.First(x => x.CanHandle(location));
+            return provider.GetAbsoluteUri(relativeUri, location);
         }
 
-        public bool CanHandle(FileLink fileLink)
+        public bool CanHandle(string location)
         {
-            return fileLink != null;
+            return !string.IsNullOrEmpty(location);
         }
     }
 }

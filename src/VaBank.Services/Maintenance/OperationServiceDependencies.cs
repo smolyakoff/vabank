@@ -1,4 +1,5 @@
 ﻿using VaBank.Core.App;
+using VaBank.Core.App.Repositories;
 using VaBank.Services.Common;
 
 namespace VaBank.Services.Maintenance

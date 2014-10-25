@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace VaBank.Core.App
+namespace VaBank.Core.App.Entities
 {
     public class VersionedDatabaseRow : DatabaseRow
     {

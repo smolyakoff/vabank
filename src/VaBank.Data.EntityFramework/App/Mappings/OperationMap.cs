@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using VaBank.Core.App;
+using VaBank.Core.App.Entities;
 using VaBank.Data.EntityFramework.Common;
 
 namespace VaBank.Data.EntityFramework.App.Mappings

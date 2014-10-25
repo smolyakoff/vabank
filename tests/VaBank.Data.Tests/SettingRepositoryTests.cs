@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using VaBank.Core.App;
+using VaBank.Core.App.Repositories;
 using VaBank.Core.Maintenance;
 
 namespace VaBank.Data.Tests

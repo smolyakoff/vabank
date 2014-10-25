@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Security.Claims;
+using VaBank.Core.App.Entities;
 
-namespace VaBank.Core.App
+namespace VaBank.Core.App.Repositories
 {
     public interface IOperationRepository
     {
