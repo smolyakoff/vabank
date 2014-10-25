@@ -64,7 +64,7 @@ namespace VaBank.Services.Common
                     throw new InvalidOperationException("Validator is null.");
                 }
                 var objectToValidate = _objectConverter.Convert(validationRequest.Value, validator.ValidatedType);
-                var result = validator.Validate(objectToValidate);
+                IList<ValidationFault> result = validator.Validate(objectToValidate);
                 return new ValidationResponse
                 {
                     ValidationFaults = result.Select(x => new ValidationFault(validationRequest.ValidatorName, x.Message)).ToList(),

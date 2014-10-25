@@ -29,13 +29,33 @@ namespace VaBank.Common.Validation
         public static IRuleBuilderOptions<TContainer, TProperty> UseValidator<TContainer, TProperty>(
             this IRuleBuilderOptions<TContainer, TProperty> options, ObjectValidator<TProperty> validator)
         {
+            if (validator == null)
+            {
+                throw new ArgumentNullException("validator");
+            }
             return validator.Validate(options);
         }
 
         public static IRuleBuilderOptions<TContainer, TProperty> UseValidator<TContainer, TProperty>(
             this IRuleBuilderInitial<TContainer, TProperty> options, ObjectValidator<TProperty> validator)
         {
+            if (validator == null)
+            {
+                throw new ArgumentNullException();
+            }
             return validator.Validate(options.Must(x => true));
+        }
+
+        public static IRuleBuilderOptions<TContainer, TProperty> UseValidator<TContainer, TProperty, T>(
+            this IRuleBuilderInitial<TContainer, TProperty> options, Func<TContainer, T> selector, ObjectValidator<T> validator)
+        {
+            return options.SetValidator(new AdapterValidator<TContainer, T>(selector, validator));
+        }
+
+        public static IRuleBuilderOptions<TContainer, TProperty> UseValidator<TContainer, TProperty, T>(
+            this IRuleBuilderOptions<TContainer, TProperty> options, Func<TContainer, T> selector, ObjectValidator<T> validator)
+        {
+            return options.SetValidator(new AdapterValidator<TContainer, T>(selector, validator));
         }
     }
 }

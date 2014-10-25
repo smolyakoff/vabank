@@ -24,14 +24,14 @@ namespace VaBank.Common.Validation
             return string.Empty;
         }
 
-        public bool CanValidate(Type type)
-        {
-            return typeof (T).IsAssignableFrom(type);
-        }
-
         public Type ValidatedType
         {
             get { return typeof (T); }
+        }
+
+        public Type ValidatedStateType
+        {
+            get { return null; }
         }
 
         public abstract IRuleBuilderOptions<TContainer, T> Validate<TContainer>(IRuleBuilderOptions<TContainer, T> builder);
@@ -45,13 +45,13 @@ namespace VaBank.Common.Validation
             return new ValidationFault("o", message);
         }
 
-        IList<ValidationFault> IObjectValidator.Validate(object obj)
+        IList<ValidationFault> IObjectValidator.Validate(object obj, object state)
         {
             if (obj == null)
             {
                 return Validate(default(T));
             }
-            if (!CanValidate(obj.GetType()))
+            if (!(obj is T))
             {
                 var message = string.Format("Can't validate object of type {0}.", obj.GetType());
                 throw new NotSupportedException(message);

@@ -160,11 +160,12 @@
     <Compile Include="Security\Hash.cs" />
     <Compile Include="Security\Password.cs" />
     <Compile Include="Serialization\JsonCreationConverter.cs" />
+    <Compile Include="Validation\AdapterValidator.cs" />
     <Compile Include="Validation\AlwaysTrueValidator.cs" />
     <Compile Include="Validation\ValidationFault.cs" />
     <Compile Include="Validation\IObjectValidator%271.cs" />
     <Compile Include="Validation\IObjectValidator.cs" />
-    <Compile Include="Validation\ObjectValidator.cs" />
+    <Compile Include="Validation\ObjectValidator%271.cs" />
     <Compile Include="Validation\StaticValidatorAttribute.cs" />
     <Compile Include="Validation\ValidationExtensions.cs" />
     <Compile Include="Validation\ValidatorNameAttribute.cs" />
