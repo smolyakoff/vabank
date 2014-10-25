@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Web.Hosting;
 using System.Web.Http;
 using Autofac;
 using Hangfire;

@@ -1,9 +1,11 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using Autofac;
 using AutoMapper;
 using FluentValidation;
 using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.IoC;
+using VaBank.Common.Resources;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
 using VaBank.Services.Common;
@@ -38,8 +40,16 @@ namespace VaBank.UI.Web.Modules
             otherValidators.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().AsSelf().InstancePerRequest());
 
             //Register operation provider
-            builder.RegisterType<ServiceOperationProvider>().AsSelf()
+            builder.RegisterType<ServiceOperationProvider>()
+                .AsSelf()
                 .InstancePerRequest();
+
+            //Register uri provider
+            builder.RegisterType<CompositeUriProvider>()
+                .As<IUriProvider>()
+                .UsingConstructor(() => new CompositeUriProvider(
+                    new List<IUriProvider> { new WebServerUriProvider(string.Empty) })
+                ).SingleInstance();
 
             //Register dependency collections
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)

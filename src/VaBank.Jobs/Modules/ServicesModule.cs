@@ -1,11 +1,11 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using Autofac;
 using AutoMapper;
 using FluentValidation;
-using System;
 using System.Linq;
-using System.Reflection;
 using VaBank.Common.Data;
 using VaBank.Common.IoC;
+using VaBank.Common.Resources;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
 using VaBank.Jobs.Common;
@@ -42,6 +42,13 @@ namespace VaBank.Jobs.Modules
             //Register operation provider
             builder.RegisterType<ServiceOperationProvider>().AsSelf()
                 .InstancePerLifetimeScope();
+
+            //Register uri provider
+            builder.RegisterType<CompositeUriProvider>()
+                .As<IUriProvider>()
+                .UsingConstructor(() => new CompositeUriProvider(
+                    new List<IUriProvider> { new WebServerUriProvider(string.Empty) })
+                ).SingleInstance();
 
             //Register dependency collections
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)

@@ -156,6 +156,7 @@
     <Compile Include="Resources\DefaultUriProvider.cs" />
     <Compile Include="Resources\IUriProvider.cs" />
     <Compile Include="Resources\Resource.cs" />
+    <Compile Include="Resources\WebServerUriProvider.cs" />
     <Compile Include="Security\Hash.cs" />
     <Compile Include="Security\Password.cs" />
     <Compile Include="Serialization\JsonCreationConverter.cs" />

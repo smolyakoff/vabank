@@ -18,14 +18,14 @@ namespace VaBank.Common.Resources
             _uriProviders.Add(new DefaultUriProvider());
         }
 
-        public string GetAbsoluteUri(string relativeUri, string location)
+        public string GetUri(string relativeUri, string location)
         {
             if (string.IsNullOrEmpty(relativeUri))
             {
                 throw new ArgumentNullException("relativeUri");
             }
             var provider = _uriProviders.First(x => x.CanHandle(location));
-            return provider.GetAbsoluteUri(relativeUri, location);
+            return provider.GetUri(relativeUri, location);
         }
 
         public bool CanHandle(string location)

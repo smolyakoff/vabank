@@ -2,7 +2,7 @@
 {
     public interface IUriProvider
     {
-        string GetAbsoluteUri(string relativeUri, string location);
+        string GetUri(string relativeUri, string location);
 
         bool CanHandle(string location);
     }

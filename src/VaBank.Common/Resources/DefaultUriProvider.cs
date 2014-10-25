@@ -4,7 +4,7 @@ namespace VaBank.Common.Resources
 {
     internal class DefaultUriProvider : IUriProvider
     {
-        public string GetAbsoluteUri(string relativeUri, string location)
+        public string GetUri(string relativeUri, string location)
         {
             if (string.IsNullOrEmpty(relativeUri))
             {

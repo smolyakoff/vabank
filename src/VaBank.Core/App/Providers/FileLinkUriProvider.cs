@@ -26,7 +26,7 @@ namespace VaBank.Core.App.Providers
                 var message = string.Format("Location [{0}] is not supported.", fileLink.Location);
                 throw new NotSupportedException(message);
             }
-            return _uriProvider.GetAbsoluteUri(fileLink.Uri, fileLink.Location);
+            return _uriProvider.GetUri(fileLink.Uri, fileLink.Location);
         }
     }
 }
