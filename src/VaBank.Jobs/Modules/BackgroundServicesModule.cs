@@ -20,6 +20,7 @@ namespace VaBank.Jobs.Modules
 
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterModule<CoreModule>();
             builder.RegisterModule<DataAccessModule>();
             builder.RegisterModule<ServicesModule>();
             builder.RegisterInstance(_serviceBus)
@@ -39,7 +40,7 @@ namespace VaBank.Jobs.Modules
                 .AsSelf()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-            builder.RegisterType<RegisterHangfireListener>().As<IStartable>();
+            builder.RegisterType<JobStartup>().As<IStartable>();
         }
     }
 }

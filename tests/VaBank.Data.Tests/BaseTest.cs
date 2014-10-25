@@ -39,6 +39,7 @@ namespace VaBank.Data.Tests
             builder.RegisterGeneric(typeof (Repository<>))
                 .As(typeof (IRepository<>))
                 .As(typeof (IQueryRepository<>))
+                .As(typeof (IPartialQueryRepository<>))
                 .InstancePerLifetimeScope();
 
             Container = builder.Build();

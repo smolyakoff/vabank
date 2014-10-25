@@ -4,6 +4,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
+using VaBank.Core.Membership.Repositories;
 using VaBank.Data.EntityFramework.Common;
 
 namespace VaBank.Data.EntityFramework.Membership

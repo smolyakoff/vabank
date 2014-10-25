@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Security.Claims;
+using VaBank.Common.Data.Linq;
 using VaBank.Common.Security;
 using VaBank.Core.Common;
 
-namespace VaBank.Core.Membership
+namespace VaBank.Core.Membership.Entities
 {
     public class User : Entity<Guid>
     {
@@ -20,6 +21,11 @@ namespace VaBank.Core.Membership
             user.Claims.Add(new UserClaim {UserId = user.Id, Type = ClaimTypes.Role, Value = roleName});
             user.UpdatePassword(password);
             return user;
+        }
+
+        public static class Spec
+        {
+            public static LinqSpec<User> Active = LinqSpec.For<User>(x => !x.Deleted);
         }
 
         protected User()
@@ -37,6 +43,11 @@ namespace VaBank.Core.Membership
         public virtual ICollection<UserClaim> Claims { get; private set; }
         public virtual UserProfile Profile { get; set; }
         public byte[] RowVersion { get; set; }
+
+        public bool IsActive
+        {
+            get { return !Deleted; }
+        }
 
         public bool ValidatePassword(string passwordText)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using VaBank.Core.Common;
 
-namespace VaBank.Core.Membership
+namespace VaBank.Core.Membership.Entities
 {
     public class UserClaim : Entity
     {

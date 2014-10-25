@@ -4,6 +4,7 @@ using VaBank.Common.Events;
 using VaBank.Common.IoC;
 using VaBank.Core.Common;
 using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
 
 namespace VaBank.Services.Common
 {

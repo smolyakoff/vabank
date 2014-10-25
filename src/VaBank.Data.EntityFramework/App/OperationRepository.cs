@@ -7,6 +7,7 @@ using System.Security.Claims;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.App;
 using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
 using VaBank.Data.EntityFramework.Common;
 
 namespace VaBank.Data.EntityFramework.App

@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using AutoMapper;
 using FluentValidation;
-using System;
 using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.IoC;
@@ -17,10 +16,11 @@ namespace VaBank.UI.Web.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //Add auto mapper profiles
-            var mappingProfiles =
-                typeof (BaseService).Assembly.GetTypes().Where(t => typeof (Profile).IsAssignableFrom(t)).ToList();
-            mappingProfiles.ForEach(x => Mapper.AddProfile(Activator.CreateInstance(x) as Profile));
+            //Regiser auto mapper profiles
+            builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
+                .Where(t => typeof (Profile).IsAssignableFrom(t) && !t.IsAbstract)
+                .As<Profile>()
+                .SingleInstance();
 
             //Register validation system
             builder.RegisterType<AutofacFactory>().AsImplementedInterfaces().InstancePerRequest();
@@ -58,6 +58,11 @@ namespace VaBank.UI.Web.Modules
                 .Where(t => typeof (IService).IsAssignableFrom(t))
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
+
+            //Register startup class
+            builder.RegisterType<ApplicationStartup>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

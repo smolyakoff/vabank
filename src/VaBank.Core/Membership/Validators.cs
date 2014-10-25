@@ -6,6 +6,7 @@ using FluentValidation;
 using VaBank.Common.Resources;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
+using VaBank.Core.Membership.Entities;
 using VaBank.Core.Membership.Resources;
 
 namespace VaBank.Core.Membership

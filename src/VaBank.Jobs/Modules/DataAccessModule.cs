@@ -31,6 +31,7 @@ namespace VaBank.Jobs.Modules
             builder.RegisterGeneric(typeof (Repository<>))
                 .As(typeof (IRepository<>))
                 .As(typeof (IQueryRepository<>))
+                .As(typeof(IPartialQueryRepository<>))
                 .InstancePerLifetimeScope();
         }
     }

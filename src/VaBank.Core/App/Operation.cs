@@ -1,6 +1,7 @@
 ﻿using System;
 using VaBank.Core.Common;
 using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
 
 namespace VaBank.Core.App
 {

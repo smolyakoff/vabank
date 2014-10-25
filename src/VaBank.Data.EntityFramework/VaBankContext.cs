@@ -7,6 +7,7 @@ using VaBank.Common.Data.Database;
 using VaBank.Core.Common;
 using VaBank.Core.Maintenance;
 using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
 using VaBank.Data.EntityFramework.App.Mappings;
 using VaBank.Data.EntityFramework.Maintenance.Mappings;
 using VaBank.Data.EntityFramework.Membership.Mappings;

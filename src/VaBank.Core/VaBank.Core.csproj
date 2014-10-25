@@ -69,18 +69,23 @@
     <Compile Include="Common\Entity`1.cs" />
     <Compile Include="App\ISettingRepository.cs" />
     <Compile Include="Maintenance\SystemLogEntry.cs" />
-    <Compile Include="Membership\ApplicationClient.cs" />
-    <Compile Include="Membership\ApplicationClientType.cs" />
-    <Compile Include="Membership\ApplicationToken.cs" />
-    <Compile Include="Membership\IApplicationTokenRepository.cs" />
+    <Compile Include="Membership\Access\AccessFailedCountUserLockoutPolicy.cs" />
+    <Compile Include="Membership\Access\AccessStatus.cs" />
+    <Compile Include="Membership\Entities\ApplicationClient.cs" />
+    <Compile Include="Membership\Entities\ApplicationClientType.cs" />
+    <Compile Include="Membership\Entities\ApplicationToken.cs" />
+    <Compile Include="Membership\Access\IAccessPolicy.cs" />
+    <Compile Include="Membership\Access\IUserLockoutPolicy.cs" />
+    <Compile Include="Membership\Access\LockoutAccessPolicy.cs" />
+    <Compile Include="Membership\Repositories\IApplicationTokenRepository.cs" />
     <Compile Include="Membership\Resources\Messages.Designer.cs">
       <DependentUpon>Messages.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Membership\User.cs" />
-    <Compile Include="Membership\UserClaim.cs" />
-    <Compile Include="Membership\UserProfile.cs" />
+    <Compile Include="Membership\Entities\User.cs" />
+    <Compile Include="Membership\Entities\UserClaim.cs" />
+    <Compile Include="Membership\Entities\UserProfile.cs" />
     <Compile Include="Common\IUnitOfWork.cs" />
     <Compile Include="Membership\Validators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

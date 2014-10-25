@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
 using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Common

@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Maintenance.Commands;
 
-namespace VaBank.Jobs
+namespace VaBank.Jobs.Maintenance
 {
-    public class JobsProfile : Profile
+    public class MaintenanceProfile : Profile
     {
         protected override void Configure()
         {

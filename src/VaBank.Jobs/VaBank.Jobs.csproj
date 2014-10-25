@@ -101,12 +101,13 @@
     <Compile Include="Common\ParameterJob.cs" />
     <Compile Include="Common\Serialization.cs" />
     <Compile Include="Common\VabankJob.cs" />
-    <Compile Include="JobsProfile.cs" />
     <Compile Include="JobStartup.cs" />
     <Compile Include="Maintenance\Audit\AuditJob.cs" />
     <Compile Include="Maintenance\Audit\AuditJobContext.cs" />
     <Compile Include="Maintenance\KeepAliveJob.cs" />
-    <Compile Include="Modules\RegisterHangfireListener.cs" />
+    <Compile Include="Maintenance\MaintenanceProfile.cs" />
+    <Compile Include="Modules\CoreModule.cs" />
+    <Compile Include="Modules\JobStartup.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
     <Compile Include="Modules\ServicesModule.cs" />
     <Compile Include="Modules\BackgroundServicesModule.cs" />

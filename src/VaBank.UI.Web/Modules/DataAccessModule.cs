@@ -30,6 +30,7 @@ namespace VaBank.UI.Web.Modules
             builder.RegisterGeneric(typeof (Repository<>))
                 .As(typeof (IRepository<>))
                 .As(typeof (IQueryRepository<>))
+                .As(typeof (IPartialQueryRepository<>))
                 .InstancePerRequest();
         }
     }

@@ -6,6 +6,7 @@ using PagedList;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
@@ -32,7 +33,9 @@ namespace VaBank.Services.Membership
             EnsureIsValid(query);
             try
             {
-                var usersPage = _db.Users.ProjectThenQueryPage<UserBriefModel>(query.ToDbQuery());
+                var usersPage = _db.Users.PartialProjectThenQueryPage<UserBriefModel>(
+                    User.Spec.Active,
+                    query.ToDbQuery());
                 return usersPage;
             }
             catch (Exception ex)
@@ -46,8 +49,8 @@ namespace VaBank.Services.Membership
             EnsureIsValid(id);
             try
             {
-                var user = _db.Users.ProjectIdentity<Guid, User, UserBriefModel>(id);
-                return user;
+                var user = _db.Users.PartialQueryIdentity(User.Spec.Active, id);
+                return user == null ? null : user.ToModel<User, UserBriefModel>();
             }
             catch (Exception ex)
             {
@@ -60,8 +63,8 @@ namespace VaBank.Services.Membership
             EnsureIsValid(id);
             try
             {
-                var user = _db.Users.QueryIdentity(id);
-                if (user == null || user.Deleted || user.Profile == null)
+                var user = _db.Users.PartialQueryIdentity(User.Spec.Active, id);
+                if (user == null || user.Profile == null)
                 {
                     return null;
                 }

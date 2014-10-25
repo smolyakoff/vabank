@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VaBank.Common.Data.Database;
 using VaBank.Core.App;
 using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
 using VaBank.Data.EntityFramework;
 using VaBank.Data.EntityFramework.App;
 

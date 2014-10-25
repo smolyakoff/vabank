@@ -19,6 +19,7 @@ using VaBank.Services.Contracts;
 
 namespace VaBank.Data.Tests
 {
+    //TODO: please, just copy modules from jobs...
     public static class ServicesDependencies
     {
         public static IContainer Container { get; private set; }
@@ -63,9 +64,10 @@ namespace VaBank.Data.Tests
         private static void InitializeServicesModule(ContainerBuilder builder)
         {
             //Add auto mapper profiles
-            var mappingProfiles =
-                typeof(BaseService).Assembly.GetTypes().Where(t => typeof(Profile).IsAssignableFrom(t)).ToList();
-            mappingProfiles.ForEach(x => Mapper.AddProfile(Activator.CreateInstance(x) as Profile));
+            builder.RegisterAssemblyTypes(typeof(BaseService).Assembly)
+                .Where(t => typeof(Profile).IsAssignableFrom(t) && !t.IsAbstract)
+                .As<Profile>()
+                .SingleInstance();
 
             //Register validation system
             builder.RegisterType<AutofacFactory>().AsImplementedInterfaces().InstancePerLifetimeScope();

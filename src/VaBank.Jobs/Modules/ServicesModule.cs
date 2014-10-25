@@ -8,6 +8,7 @@ using VaBank.Common.Data;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
+using VaBank.Jobs.Common;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts;
 
@@ -17,9 +18,11 @@ namespace VaBank.Jobs.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {            
-            var mappingProfiles =
-                Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof (Profile).IsAssignableFrom(t)).ToList();
-            mappingProfiles.ForEach(x => Mapper.AddProfile(Activator.CreateInstance(x) as Profile));
+            //Register automapper profiles
+            builder.RegisterAssemblyTypes(typeof (BaseJob<>).Assembly)
+                .Where(t => typeof (Profile).IsAssignableFrom(t) && !t.IsAbstract)
+                .As<Profile>()
+                .SingleInstance();
 
             //Register validation system
             builder.RegisterType<AutofacFactory>().AsImplementedInterfaces().InstancePerLifetimeScope();

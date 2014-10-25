@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
 using Autofac;
 using Autofac.Integration.WebApi;
 
@@ -24,6 +21,7 @@ namespace VaBank.UI.Web.Modules
 
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterModule<CoreModule>();
             builder.RegisterModule<DataAccessModule>();
             builder.RegisterModule<ServicesModule>();
             builder.RegisterApiControllers(ThisAssembly);

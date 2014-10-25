@@ -1,6 +1,6 @@
 ﻿using VaBank.Core.Common;
 
-namespace VaBank.Core.Membership
+namespace VaBank.Core.Membership.Entities
 {
     public class ApplicationClient : Entity<string>
     {

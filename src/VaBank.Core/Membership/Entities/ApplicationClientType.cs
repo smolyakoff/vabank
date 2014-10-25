@@ -1,4 +1,4 @@
-﻿namespace VaBank.Core.Membership
+﻿namespace VaBank.Core.Membership.Entities
 {
     public enum ApplicationClientType : byte
     {

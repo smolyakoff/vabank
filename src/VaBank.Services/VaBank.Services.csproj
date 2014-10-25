@@ -89,7 +89,7 @@
     <Compile Include="Membership\AccessFailure.cs" />
     <Compile Include="Membership\MembershipExtensions.cs" />
     <Compile Include="Membership\MembershipProfile.cs" />
-    <Compile Include="Membership\AuthorizationRepositories.cs" />
+    <Compile Include="Membership\AuthorizationServiceDepenencies.cs" />
     <Compile Include="Membership\AuthorizationService.cs" />
     <Compile Include="Membership\Messages.Designer.cs">
       <AutoGen>True</AutoGen>

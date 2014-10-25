@@ -1,6 +1,7 @@
 ﻿using System;
 using VaBank.Common.Data;
-using VaBank.Core.Membership;
+using VaBank.Core.Membership.Access;
+using VaBank.Core.Membership.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Membership;
@@ -14,13 +15,14 @@ namespace VaBank.Services.Membership
 {
     public class AuthorizationService : BaseService, IAuthorizationService
     {
-        private readonly AuthorizationRepositories _db;
+        private readonly AuthorizationServiceDepenencies _deps;
 
-        public AuthorizationService(BaseServiceDependencies dependencies, AuthorizationRepositories repositories) 
+        public AuthorizationService(BaseServiceDependencies dependencies,
+            AuthorizationServiceDepenencies serviceDepenencies)
             : base(dependencies)
         {
-            repositories.EnsureIsResolved();
-            _db = repositories;
+            serviceDepenencies.EnsureIsResolved();
+            _deps = serviceDepenencies;
         }
 
         public UserIdentityModel Login(LoginCommand command)
@@ -28,7 +30,7 @@ namespace VaBank.Services.Membership
             EnsureIsValid(command);
             try
             {
-                var user = _db.Users.QueryOne(command.ToDbQuery());
+                var user = _deps.Users.QueryOne(command.ToDbQuery());
                 if (user == null)
                 {
                     throw AccessFailure.ExceptionBecause(AccessFailureReason.BadCredentials);
@@ -39,16 +41,6 @@ namespace VaBank.Services.Membership
                     var model = user.ToModel<User, UserIdentityModel>();
                     Publish(new UserLoggedIn(Operation.Id, model));
                     return model;
-                }
-                ++user.AccessFailedCount;
-                if (reason == AccessFailureReason.BadCredentials)
-                {
-                    //TODO: this is domain logic
-                    if (user.AccessFailedCount > 3)
-                    {
-                        user.LockoutEnabled = true;
-                        user.LockoutEndDateUtc = DateTime.MaxValue;
-                    }
                 }
                 Commit();
                 Publish(new UserLoginFailed(Operation.Id, user.ToModel<User, UserIdentityModel>()));
@@ -70,19 +62,19 @@ namespace VaBank.Services.Membership
             try
             {
                 var token = command.ToEntity<CreateTokenCommand, ApplicationToken>();
-                var client = _db.ApplicationClients.Find(command.ClientId);
+                var client = _deps.ApplicationClients.Find(command.ClientId);
                 if (client == null)
                 {
-                    throw new InvalidOperationException("Token is referencing to invalid client.");
+                    throw NotFound.ExceptionFor<ApplicationClient>(command.ClientId);
                 }
-                var user = _db.Users.Find(command.UserId);
+                var user = _deps.Users.Find(command.UserId);
                 if (user == null)
                 {
-                    throw new InvalidOperationException("Token is referencing to invalid user.");
+                    throw NotFound.ExceptionFor<User>(command.UserId);
                 }
                 token.Client = client;
                 token.User = user;
-                _db.ApplicationTokens.Create(token);
+                _deps.ApplicationTokens.Create(token);
                 Commit();
                 return command.ToClass<CreateTokenCommand, TokenModel>();
             }
@@ -97,7 +89,7 @@ namespace VaBank.Services.Membership
             EnsureIsValid(query);
             try
             {
-                var token = _db.ApplicationTokens.GetAndDelete(query.Id);
+                var token = _deps.ApplicationTokens.GetAndDelete(query.Id);
                 return token == null ? null : new ProtectedTicketModel(token.ProtectedTicket);
             }
             catch (Exception ex)
@@ -108,11 +100,11 @@ namespace VaBank.Services.Membership
 
         public ApplicationClientModel GetClient(IdentityQuery<string> query)
         {
-            //TODO: maybe use caching for clients?
             EnsureIsValid(query);
             try
             {
-                var client = _db.ApplicationClients.ProjectIdentity<string, ApplicationClient, ApplicationClientModel>(query);
+                var client =
+                    _deps.ApplicationClients.ProjectIdentity<string, ApplicationClient, ApplicationClientModel>(query);
                 return client;
             }
             catch (Exception ex)
@@ -126,7 +118,7 @@ namespace VaBank.Services.Membership
             EnsureIsValid(query);
             try
             {
-                var user = _db.Users.QueryIdentity(query);
+                var user = _deps.Users.QueryIdentity(query);
                 if (user == null)
                 {
                     throw AccessFailure.ExceptionBecause(AccessFailureReason.BadCredentials);
@@ -136,7 +128,6 @@ namespace VaBank.Services.Membership
                 {
                     return user.ToModel<User, UserIdentityModel>();
                 }
-                user.AccessFailedCount++;
                 Commit();
                 throw AccessFailure.ExceptionBecause(reason.Value);
             }
@@ -146,37 +137,22 @@ namespace VaBank.Services.Membership
             }
         }
 
-        private AccessFailureReason? VerifyAccess(User user, string password)
+        private AccessFailureReason? VerifyAccess(User user, string password = null)
         {
-            var reason = VerifyAccess(user);
-            if (reason != null)
+            var access = password == null
+                ? _deps.UserAccessPolicy.VerifyAccess(user, null, false)
+                : _deps.UserAccessPolicy.VerifyAccess(user, password, true);
+            switch (access)
             {
-                return reason;
+                case AccessStatus.BadCredentials:
+                    return AccessFailureReason.BadCredentials;
+                case AccessStatus.Blocked:
+                    return AccessFailureReason.UserBlocked;
+                case AccessStatus.Deleted:
+                    return AccessFailureReason.UserDeleted;
+                default:
+                    return null;
             }
-            if (!Password.Validate(user.PasswordHash, user.PasswordSalt, password))
-            {
-                return AccessFailureReason.BadCredentials;
-            }
-            return null;
-        }
-
-        //TODO: this is domain logic, move to core
-        private AccessFailureReason? VerifyAccess(User user)
-        {
-            if (user.Deleted)
-            {
-                return AccessFailureReason.UserDeleted;
-            }
-            if (user.LockoutEnabled && user.LockoutEndDateUtc > DateTime.UtcNow)
-            {
-                return AccessFailureReason.UserBlocked;
-            }
-            if (user.LockoutEnabled && user.LockoutEndDateUtc < DateTime.UtcNow)
-            {
-                user.LockoutEnabled = false;
-                user.LockoutEndDateUtc = null;
-            }
-            return null;
         }
     }
 }

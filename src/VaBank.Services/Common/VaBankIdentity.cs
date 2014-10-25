@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
 
 namespace VaBank.Services.Common
 {

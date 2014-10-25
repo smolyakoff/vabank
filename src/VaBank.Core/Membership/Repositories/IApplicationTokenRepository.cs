@@ -1,6 +1,7 @@
 ﻿using VaBank.Common.Data.Repositories;
+using VaBank.Core.Membership.Entities;
 
-namespace VaBank.Core.Membership
+namespace VaBank.Core.Membership.Repositories
 {
     public interface IApplicationTokenRepository : IRepository
     {

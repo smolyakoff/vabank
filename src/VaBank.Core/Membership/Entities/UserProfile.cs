@@ -1,7 +1,7 @@
 ﻿using System;
 using VaBank.Core.Common;
 
-namespace VaBank.Core.Membership
+namespace VaBank.Core.Membership.Entities
 {
     public class UserProfile : Entity
     {

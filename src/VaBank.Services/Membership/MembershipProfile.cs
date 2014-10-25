@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
 using VaBank.Services.Contracts.Membership.Commands;
 using VaBank.Services.Contracts.Membership.Models;
 
