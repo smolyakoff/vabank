@@ -7,7 +7,6 @@
     auditLog.$inject = ['$scope','uiTools', 'auditLogService', 'data'];
 
     function auditLog($scope, uiTools, auditLogService, data) {
-        var dataUtil = uiTools.manipulate;
         var multiselect = uiTools.control.multiselect;
         var filters = uiTools.manipulate.filters;
         var LogEntry = auditLogService.LogEntry;
@@ -18,19 +17,13 @@
             { userName: 'Аноним', userId: null }
         ];
 
-        var createFilter = function () {
-            $scope.filter.code.value = multiselect.getSelectedItems($scope.lookup.codes);
-            var filter = dataUtil.filters.combine($scope.filter, dataUtil.filters.logic.And);
-            return filter;
-        };
-
         $scope.loading = uiTools.promiseTracker();
 
         $scope.lookup = {            
           codes: multiselect.getSelectChoices(data.lookup.codes)
         };
 
-        $scope.filter = LogEntry.defaults.filter();
+        $scope.filter = LogEntry.defaults.filterValues();
 
         $scope.users = [];
 
@@ -53,9 +46,9 @@
             });
         };
 
-        $scope.show = function() {
-            var filter = createFilter().toLINQ();
-            var promise = LogEntry.query({ filter: filter }).$promise;
+        $scope.show = function () {
+            $scope.filter.code = multiselect.getSelectedItems($scope.lookup.codes);
+            var promise = LogEntry.query($scope.filter).$promise;
             $scope.loading.addPromise(promise);
             promise.then(function(logs) {
                 $scope.logs = logs;

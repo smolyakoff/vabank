@@ -36,6 +36,15 @@
                             value: []
                         }
                     };
+                },
+                filterValues: function() {
+                    var filter = defaults.filter();
+                    var keys = _.keys(filter);
+                    var values = {};
+                    _.forEach(keys, function(k) {
+                        values[k] = filter[k].value;
+                    });
+                    return values;
                 }
             };
 
@@ -46,6 +55,20 @@
                 },
                 lookup: { url: '/api/logs/audit/lookup' }
             });
+            var queryResource = LogEntryImpl.query;
+            LogEntryImpl.query = function (params) {
+                var filter = defaults.filter();
+                var values = angular.extend({}, defaults.filterValues(), params);
+                filter.userId.propertyName = _.isNull(values.userId)
+                    ? 'operation.user'
+                    : 'operation.user.id';
+                _.each(values, function(v, k) {
+                    filter[k].value = v;
+                });
+                var linq = dataUtil.filters.combine(filter, dataUtil.filters.logic.And).toLINQ();
+                return queryResource({filter: linq});
+            };
+
             LogEntryImpl.defaults = defaults;
 
             return LogEntryImpl;
