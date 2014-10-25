@@ -31,7 +31,9 @@ namespace VaBank.Data.Migrations
                 LimitAmountPerDayLocal = 6000000.0m,
                 LimitAmountPerDayAbroad = 3000000.0m
             };
-            return new {Key = string.Format(Key, "BYR"), Value = JsonConvert.SerializeObject(limits)};
+            var json = JsonConvert.SerializeObject(limits);
+            var node = JsonConvert.DeserializeXNode(json, "Setting");
+            return new {Key = string.Format(Key, "BYR"), Value = node.ToString()};
         }
 
         private static object EuroLimits()
@@ -43,7 +45,9 @@ namespace VaBank.Data.Migrations
                 LimitAmountPerDayLocal = 1000m,
                 LimitAmountPerDayAbroad = 500m
             };
-            return new {Key = string.Format(Key, "EUR"), Value = JsonConvert.SerializeObject(limits)};
+            var json = JsonConvert.SerializeObject(limits);
+            var node = JsonConvert.DeserializeXNode(json, "Setting");
+            return new {Key = string.Format(Key, "EUR"), Value = node.ToString()};
         }
 
         private static object UsdLimits()
@@ -55,7 +59,9 @@ namespace VaBank.Data.Migrations
                 LimitAmountPerDayLocal = 1000m,
                 LimitAmountPerDayAbroad = 500m
             };
-            return new {Key = string.Format(Key, "USD"), Value = JsonConvert.SerializeObject(limits)};
+            var json = JsonConvert.SerializeObject(limits);
+            var node = JsonConvert.DeserializeXNode(json, "Setting");
+            return new {Key = string.Format(Key, "USD"), Value = node.ToString()};
         }
     }
 }
