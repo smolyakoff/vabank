@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(27, "Seed default card limits.")]
+    [Migration(26, "Seed default card limits.")]
     [Tags("Development", "Test", "Production")]
     public class SeedDefaultLimits : Migration
     {

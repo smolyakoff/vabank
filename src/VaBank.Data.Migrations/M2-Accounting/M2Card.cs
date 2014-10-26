@@ -17,7 +17,7 @@ namespace VaBank.Data.Migrations
                 ExpirationDateUtc = DateTime.Today.AddDays(360),
                 HolderFirstName = userName.ToUpper(),
                 HolderLastName = new string(userName.Reverse().ToArray()).ToUpper(),
-                CardNo = Seed.RandomStringOfNumbers(16)
+                CardNo = "4666" + Seed.RandomStringOfNumbers(2) + "00" + Seed.RandomStringOfNumbers(8)
             };
         }
 

@@ -6,7 +6,7 @@ using System.Data;
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(26, "Create accounts for test users.")]
+    [Migration(27, "Create accounts for test users.")]
     [Tags("Accounting", "Development", "Production", "Test")]
     public class CreateAccountsForTestUsers : Migration
     {
@@ -23,7 +23,7 @@ namespace VaBank.Data.Migrations
                 var expireUtc = nowUtc.AddYears(1);
                 foreach (var idPair in GetUserIdPairs(connection, transaction))
                 {
-                    var accountNo = Seed.RandomStringOfNumbers(13);
+                    var accountNo = "3014" + Seed.RandomStringOfNumbers(9);
                     var account = M2Account.Create(accountNo, "USD", 10000, nowUtc, expireUtc, "CardAccount");
                     var card = M2Card.Create(accountNo, idPair.UserId, idPair.UserName);
                     InsertAccount(account, connection, transaction);
@@ -66,11 +66,15 @@ namespace VaBank.Data.Migrations
         {
             connection.Execute(
                 "INSERT INTO [Accounting].[Card] ([CardId], [CardNo], [CardVendorId], [HolderFirstName], [HolderLastName], [ExpirationDateUtc])" +
-                "VALUES (@CardId, @CardNo, @CardVendorId, @HolderFirstName, @HolderLastName, @ExpirationDateUtc)", card.ToCard(),
-                transaction);
+                "VALUES (@CardId, @CardNo, @CardVendorId, @HolderFirstName, @HolderLastName, @ExpirationDateUtc)", 
+                card.ToCard(), transaction);
             connection.Execute(
                 "INSERT INTO [Accounting].[User_Card_Account] ([CardId], [UserId], [AccountNo]) VALUES (@CardId, @UserId, @AccountNo)",
                 card.ToUserCard(), transaction);
+            connection.Execute(
+                "INSERT INTO [Accounting].[CardSettings] " +
+                "([CardId], [Blocked], [LimitOperationsPerDayLocal], [LimitOperationsPerDayAbroad], [LimitAmountPerDayLocal], [LimitAmountPerDayAbroad])" +
+                "VALUES (@CardId, 0, 20, 10, 1000.0, 500.0)", card, transaction);
         }
 
         private List<UserIdPair> GetUserIdPairs(IDbConnection connection, IDbTransaction transaction)
