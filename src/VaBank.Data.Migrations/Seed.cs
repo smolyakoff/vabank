@@ -6,7 +6,7 @@ using System.Text;
 
 namespace VaBank.Data.Migrations
 {
-    public static class SeedHelper
+    public static class Seed
     {
         #region ADO.NET Helpers
 
@@ -34,7 +34,7 @@ namespace VaBank.Data.Migrations
 
         #endregion
 
-        public static string GenerateRandomStringOfNumbers(int length)
+        public static string RandomStringOfNumbers(int length)
         {
             var sb = new StringBuilder();
             var rand = new Random(Guid.NewGuid().GetHashCode());

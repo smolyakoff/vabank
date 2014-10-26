@@ -13,6 +13,7 @@ namespace VaBank.Services.Accounting
 
             CreateMap<CardAccount, CardAccountBriefModel>();
             CreateMap<UserCard, CardModel>()
+                .ForMember(x => x.CardId, cfg => cfg.MapFrom(x => x.Id))
                 .ForMember(x => x.CardholderFirstName, cfg => cfg.MapFrom(x => x.HolderFirstName))
                 .ForMember(x => x.CardholderLastName, cfg => cfg.MapFrom(x => x.HolderLastName))
                 .Include<UserCard, OwnedCardModel>();

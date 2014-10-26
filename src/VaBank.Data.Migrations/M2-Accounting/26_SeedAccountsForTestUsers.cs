@@ -1,11 +1,12 @@
-﻿using FluentMigrator;
+﻿using Dapper;
+using FluentMigrator;
 using System;
 using System.Collections.Generic;
 using System.Data;
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(24, "Create accounts for test users.")]
+    [Migration(26, "Create accounts for test users.")]
     [Tags("Accounting", "Development", "Production", "Test")]
     public class CreateAccountsForTestUsers : Migration
     {
@@ -22,10 +23,12 @@ namespace VaBank.Data.Migrations
                 var expireUtc = nowUtc.AddYears(1);
                 foreach (var idPair in GetUserIdPairs(connection, transaction))
                 {
-                    var accountNo = SeedHelper.GenerateRandomStringOfNumbers(13);
+                    var accountNo = Seed.RandomStringOfNumbers(13);
                     var account = M2Account.Create(accountNo, "USD", 10000, nowUtc, expireUtc, "CardAccount");
+                    var card = M2Card.Create(accountNo, idPair.UserId, idPair.UserName);
                     InsertAccount(account, connection, transaction);
                     InsertUserAccount(account.ToUserAccount(idPair.UserId), connection, transaction);
+                    InsertCard(card, connection, transaction);
                 }
             });
         }
@@ -57,6 +60,17 @@ namespace VaBank.Data.Migrations
                 command.CreateSqlParameter("@UserID", userAccount.UserId);
                 command.ExecuteNonQuery();
             }
+        }
+
+        private void InsertCard(M2Card card, IDbConnection connection, IDbTransaction transaction)
+        {
+            connection.Execute(
+                "INSERT INTO [Accounting].[Card] ([CardId], [CardNo], [CardVendorId], [HolderFirstName], [HolderLastName], [ExpirationDateUtc])" +
+                "VALUES (@CardId, @CardNo, @CardVendorId, @HolderFirstName, @HolderLastName, @ExpirationDateUtc)", card.ToCard(),
+                transaction);
+            connection.Execute(
+                "INSERT INTO [Accounting].[User_Card_Account] ([CardId], [UserId], [AccountNo]) VALUES (@CardId, @UserId, @AccountNo)",
+                card.ToUserCard(), transaction);
         }
 
         private List<UserIdPair> GetUserIdPairs(IDbConnection connection, IDbTransaction transaction)

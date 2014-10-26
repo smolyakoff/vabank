@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>..\..\packages\Dapper.1.37\lib\net45\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="FluentMigrator">
       <HintPath>..\..\packages\FluentMigrator.1.3.0.0\lib\40\FluentMigrator.dll</HintPath>
     </Reference>
@@ -69,17 +72,18 @@
     <Compile Include="M2-Accounting\23_SeedBasicCurrencies.cs" />
     <Compile Include="M2-Accounting\18_Accounting.cs" />
     <Compile Include="M2-Accounting\19_AddRowVersionColumnsToAccountingTables.cs" />
-    <Compile Include="M2-Accounting\24_SeedAccountsForTestUsers.cs" />
+    <Compile Include="M2-Accounting\26_SeedAccountsForTestUsers.cs" />
     <Compile Include="M2-Accounting\17_CreateAppAction.cs" />
     <Compile Include="M2-Accounting\14_CreateAppOperation.cs" />
     <Compile Include="M2-Accounting\15_CreateHistoryProcedures.cs" />
     <Compile Include="M2-Accounting\16_CreateHistoryTableForUser.cs" />
     <Compile Include="M2-Accounting\21_CreateAppSetting.cs" />
     <Compile Include="M2-Accounting\20_CreateResource.cs" />
-    <Compile Include="M2-Accounting\25_AddResourceIdToCardVendor.cs" />
-    <Compile Include="M2-Accounting\26_SeedCardVendors.cs" />
+    <Compile Include="M2-Accounting\24_AddResourceIdToCardVendor.cs" />
+    <Compile Include="M2-Accounting\25_SeedCardVendors.cs" />
     <Compile Include="M2-Accounting\27_SeedDefaultLimits.cs" />
     <Compile Include="M2-Accounting\M2Account.cs" />
+    <Compile Include="M2-Accounting\M2Card.cs" />
     <Compile Include="M2-Accounting\M2Currency.cs" />
     <Compile Include="M2-Accounting\M2Resource.cs" />
     <Compile Include="M2-Accounting\M2UserAccount.cs" />
@@ -87,7 +91,7 @@
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SeedHelper.cs" />
+    <Compile Include="Seed.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

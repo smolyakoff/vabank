@@ -3,7 +3,7 @@ using FluentMigrator;
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(26, "Seed basic card vendors.")]
+    [Migration(25, "Seed basic card vendors.")]
     [Tags("Development", "Test", "Production")]
     public class SeedCardVendors : Migration
     {
