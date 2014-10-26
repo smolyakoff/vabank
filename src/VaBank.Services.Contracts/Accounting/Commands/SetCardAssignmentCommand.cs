@@ -1,11 +1,10 @@
 ﻿using System;
-using VaBank.Services.Contracts.Common.Commands;
 
 namespace VaBank.Services.Contracts.Accounting.Commands
 {
-    public class SetCardAssignmentCommand : IUserCommand
+    public class SetCardAssignmentCommand
     {
-        public Guid UserId { get; set; }
+        public string AccountNo { get; set; }
 
         public Guid CardId { get; set; }
 

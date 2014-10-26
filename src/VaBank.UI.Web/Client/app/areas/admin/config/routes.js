@@ -99,6 +99,14 @@
                 url: '',
                 templateUrl: '/Client/app/areas/admin/card-management/card-account-list.html',
                 controller: 'cardAccountListController',
+                resolve: {
+                    data: ['routingResolve', 'cardManagementService', function (routingResolve, cardManagementService) {
+                        var CardAccount = cardManagementService.CardAccount;
+                        return routingResolve.resolveAll(
+                            [CardAccount.lookup().$promise],
+                            ['lookup']);
+                    }]
+                }
 
             }).state('admin.cardManagement.newAccount', {
                 url: '/new',

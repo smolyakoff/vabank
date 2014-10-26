@@ -12,7 +12,7 @@ namespace VaBank.Core.Accounting.Entities
             public static LinqSpec<UserCard> Linked = LinqSpec.For<UserCard>(x => x.Account != null);
         }
 
-        public UserCard(Card card, User owner, CardSettings settings) 
+        internal UserCard(Card card, User owner, CardSettings settings) 
         {
             Argument.NotNull(owner, "user");
             Argument.NotNull(card, "card");
@@ -27,7 +27,7 @@ namespace VaBank.Core.Accounting.Entities
             Settings = settings;
         }
 
-        public UserCard(CardAccount account, Card card, User owner, CardSettings settings)
+        internal UserCard(CardAccount account, Card card, User owner, CardSettings settings)
             :this(card, owner, settings)
         {
             Argument.NotNull(account, "cardAccount");
@@ -67,6 +67,10 @@ namespace VaBank.Core.Accounting.Entities
 
         public void Unlink()
         {
+            if (Account == null)
+            {
+                return;
+            }
             Account.Cards.Remove(this);
             Account = null;
         }

@@ -8,20 +8,21 @@
     accountListItemController.$inject = ['$scope', '$state', 'uiTools']; 
 
     function accountListItemController($scope, $state, uiTools) {
+        
+        $scope.itemLoading = uiTools.promiseTracker();
 
-        var init = function() {
-            $scope.changeTab('cards');
-        };
-
-        $scope.changeTab = function(tabName) {
+        $scope.changeTab = function (tabName) {
             var changed = $scope.tab !== tabName;
-            var selected = $scope.account.isSelected;
             $scope.tab = tabName;
-            if (changed && selected) {
+            if (changed) {
                 $scope.$broadcast('accountTabChanged', tabName);
             }
         };
 
-        init();
+        $scope.$watch('account.isSelected', function (selected) {
+            if (selected) {
+                $scope.changeTab('cards');
+            }
+        });
     }
 })();

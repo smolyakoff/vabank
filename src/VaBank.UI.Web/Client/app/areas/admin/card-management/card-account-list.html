@@ -33,13 +33,16 @@
                         <th>Срок действия</th>
                     </tr>
                 </thead>
-                <tbody ng-repeat="account in accounts" data-ng-controller="accountListItemController">
+                <tbody ng-show="loading.active()">
+                    <tr><td colspan="5"><div class="table-content" data-us-spinner=""></div></td></tr>
+                </tbody>
+                <tbody ng-show="!loading.active()" ng-repeat="account in accounts" data-ng-controller="accountListItemController">
                     <tr st-select-row="account">
                         <td>{{account.accountNo}}</td>
                         <td>{{account.owner.firstName}} {{account.owner.lastName}}</td>
-                        <td>{{account.balance}}</td>
+                        <td>{{account.balance | currency:account.currency.symbol}}</td>
                         <td>{{account.currency.isoName}}</td>
-                        <td>{{account.expirationDate | date}}</td>
+                        <td>{{account.expirationDateUtc | date}}</td>
                     </tr>
                     <tr data-ng-if="account.isSelected" class="active">
                         <td colspan="5">
@@ -59,6 +62,9 @@
                                 </div>
                                 <div class="col-xs-10">
                                     <div class="tab-content account-details">
+                                        <div class="tab-pane"
+                                             ng-show="itemLoading.active()">
+                                        </div>
                                         <div class="tab-pane"
                                              ng-controller="cardListController"
                                              ng-class="{active: tab == 'cards'}"
@@ -80,6 +86,16 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <div st-pagination=""
+                                 st-items-by-page="15"
+                                 st-displayed-pages="5">
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </section>

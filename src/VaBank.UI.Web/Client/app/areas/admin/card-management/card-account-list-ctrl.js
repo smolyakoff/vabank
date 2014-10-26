@@ -5,42 +5,43 @@
         .module('vabank.webapp')
         .controller('cardAccountListController', cardAccountListController);
 
-    cardAccountListController.$inject = ['$scope', '$state', 'uiTools']; 
+    cardAccountListController.$inject = ['$scope', '$state', 'uiTools', 'cardManagementService', 'data']; 
 
-    function cardAccountListController($scope, $state, uiTools) {
+    function cardAccountListController($scope, $state, uiTools, cardManagementService, data) {
 
-        $scope.accounts = [
-            {
-                accountNo: '15565646566',
-                cardNo: '4556-4548-5465-56454',
-                owner: {
-                    userId: 'adfasd-asdf',
-                    firstName: 'Большой',
-                    lastName: 'Джон',
-                    userName: 'bigjohn'
-                },
-                balance: 500,
-                currency: {
-                    isoName: 'USD'
-                },
-                expirationDate: new Date()
-            },
-            {
-                accountNo: '15565646566',
-                cardNo: '4556-4548-5465-56454',
-                owner: {
-                    userId: 'adfasd-asdf',
-                    firstName: 'Большой',
-                    lastName: 'Джон',
-                    userName: 'bigjohn'
-                },
-                balance: 500,
-                currency: {
-                    isoName: 'USD'
-                },
-                expirationDate: new Date()
-            }
-        ];
+        var CardAccount = cardManagementService.CardAccount;
+        var queryService = uiTools.manipulate.query;
+        
+
+        var lastParams = { searchString: '', pageNumber: 1 };
+        $scope.loading = uiTools.promiseTracker();
+
+        $scope.search = '';
+
+        $scope.accounts = [];
+
+        $scope.lookup = data.lookup;
+
+        $scope.query = function(tableState) {
+            var params = angular.extend(
+                {},
+                queryService.fromStTable(tableState),
+                lastParams);
+            var promise = CardAccount.search(params);
+            $scope.loading.addPromise(promise);
+            promise.then(function (page) {
+                tableState.pagination.start = page.skip;
+                tableState.pagination.numberOfPages = page.totalPages;
+                $scope.accounts = page.items;
+            });
+        };
+        
+        $scope.show = function () {
+            lastParams = {
+                pageNumber: 1,
+                searchString: $scope.search
+            };
+        };
 
     }
 })();

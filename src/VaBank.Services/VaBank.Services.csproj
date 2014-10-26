@@ -59,6 +59,11 @@
     <Compile Include="Accounting\AccountingProfile.cs" />
     <Compile Include="Accounting\AccountingDependencies.cs" />
     <Compile Include="Accounting\AccountManagementService.cs" />
+    <Compile Include="Accounting\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Accounting\Validators.cs" />
     <Compile Include="Common\BaseServiceDependencies.cs" />
     <Compile Include="Common\CommitMode.cs" />
@@ -118,6 +123,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Accounting\Messages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Maintenance\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>

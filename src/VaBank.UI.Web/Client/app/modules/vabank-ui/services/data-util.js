@@ -433,6 +433,10 @@
             return MultiSortImpl;
         })();
 
+        var createFilter = function(options) {
+            return new Filter(options);
+        };
+
         var combineSorts = function(sorts) {
             var schemaCheck = function (x) {
                 return Sort.schema(x);
@@ -485,6 +489,7 @@
                 operator: FilterOperator,
                 logic: FilterLogic,
                 combine: combineFilters,
+                create: createFilter,
                 markers: markers
             },
             sort: {

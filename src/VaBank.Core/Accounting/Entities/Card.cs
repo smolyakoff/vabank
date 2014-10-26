@@ -6,7 +6,7 @@ namespace VaBank.Core.Accounting.Entities
 {
     public class Card : Entity<Guid>
     {
-        public Card(
+        internal Card(
             string cardNo, 
             CardVendor cardVendor,
             string holderFirstName,

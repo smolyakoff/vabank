@@ -1,4 +1,8 @@
-﻿<form data-form-for="cardForm" validation-rules="validationRules">
+﻿<form data-form-for="cardForm" 
+      validation-rules="validationRules" 
+      data-submit-with="create()" 
+      data-submit-complete="onCreated(data)"
+      data-controller="formController">
     <dropdown-field attribute="userId"
                     label="Пользователь"
                     items="users"
@@ -14,20 +18,25 @@
     <dropdown-field attribute="cardVendorId"
                     label="Вид карты"
                     items="cardVendors"
-                    repeat="item.id as item in items track by $index"
+                    repeat="item.id as item in items"
                     display-attribute="name">
-        {{item.name}}
+        <div class="row card-vendor-item">
+            <div class="col-xs-1">
+                <img class="img img-responsive" ng-src="{{item.image}}" />
+            </div>
+            <div class="col-xs-11">{{item.name}}</div>
+        </div>
     </dropdown-field>
-    <text-field attribute="cardholderFirstName" 
+    <text-field attribute="cardholderFirstName"
                 label="Имя на карте">
     </text-field>
-    <text-field attribute="cardholderLastName" 
+    <text-field attribute="cardholderLastName"
                 label="Фамилия на карте">
     </text-field>
-    <date-field attribute="expirationDate" 
-                label="Срок действия" 
-                date-config="{minView: 'day'}" 
-                date-format="LL">
+    <date-field attribute="expirationDateUtc"
+                label="Срок действия"
+                date-config="{minView: 'month', startView: 'month'}"
+                date-format="MM/YY">
     </date-field>
     <submit-button button-class="btn btn-warning" label="Создать"></submit-button>
 </form>

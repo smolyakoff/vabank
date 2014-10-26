@@ -28,31 +28,33 @@
         });
 
         User.defaults = {};
-        User.defaults.filter = {
-            userName: {
-                propertyName: 'userName',
-                propertyType: 'string',
-                operator: dataUtil.filters.operator.Contains,
-                value: ''
-            },
-            email: {
-                propertyName: 'email',
-                propertyType: 'string',
-                operator: dataUtil.filters.operator.Contains,
-                value: ''
-            },
-            firstName: {
-                propertyName: 'firstName',
-                propertyType: 'string',
-                operator: dataUtil.filters.operator.Contains,
-                value: ''
-            },
-            lastName: {
-                propertyName: 'lastName',
-                propertyType: 'string',
-                operator: dataUtil.filters.operator.Contains,
-                value: ''
-            }
+        User.defaults.filter = function() {
+            return {
+                userName: {
+                    propertyName: 'userName',
+                    propertyType: 'string',
+                    operator: dataUtil.filters.operator.Contains,
+                    value: ''
+                },
+                email: {
+                    propertyName: 'email',
+                    propertyType: 'string',
+                    operator: dataUtil.filters.operator.Contains,
+                    value: ''
+                },
+                firstName: {
+                    propertyName: 'firstName',
+                    propertyType: 'string',
+                    operator: dataUtil.filters.operator.Contains,
+                    value: ''
+                },
+                lastName: {
+                    propertyName: 'lastName',
+                    propertyType: 'string',
+                    operator: dataUtil.filters.operator.Contains,
+                    value: ''
+                }
+            };
         };
         User.defaults.sort = 'userName asc';
         User.defaults.new = { role: 'Customer' };
@@ -70,7 +72,7 @@
                 params.pageSize = 10000000;
             }
             if (options.searchString) {
-                var filters = angular.copy(User.defaults.filter);
+                var filters = angular.copy(User.defaults.filter());
                 _.forEach(filters, function(x) {
                     x.value = options.searchString;
                 });

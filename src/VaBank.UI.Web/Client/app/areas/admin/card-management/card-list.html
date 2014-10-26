@@ -2,7 +2,6 @@
     <thead>
         <tr class="warning">
             <th style="width: 30px"></th>
-            <th>ID</th>
             <th>Номер карты</th>
             <th>Вид карты</th>
             <th>Владелец</th>
@@ -12,13 +11,12 @@
     <tbody>
         <tr ng-repeat="card in cards">
             <td>
-                <button class="btn btn-xs"><i class="glyphicon glyphicon-remove"></i></button>
+                <button class="btn btn-xs" ng-click="unassign(card)"><i class="glyphicon glyphicon-remove"></i></button>
             </td>
-            <td>{{card.id}}</td>
             <td>{{card.cardNo}}</td>
             <td>{{card.cardVendor.name}}</td>
             <td>{{card.cardholderFirstName}} {{card.cardholderLastName}}</td>
-            <td>{{card.expirationDate | date }}</td>
+            <td>{{card.expirationDateUtc | date:'MM/yy' }}</td>
         </tr>
     </tbody>
 </table>

@@ -9,31 +9,27 @@
 
 	function newCardController($scope, $state, uiTools, cardManagementService) {
 
+	    var lookup = angular.copy($scope.lookup);
 	    var User = cardManagementService.User;
+	    var AccountCard = cardManagementService.AccountCard;
 	    var account = angular.copy($scope.account);
-      
 
-		$scope.$on('accountTabChanged', function (e, tabName) {
-			if (tabName === 'new-card') {
-				
-			}
-		});
+	    var defaults = {
+	        accountNo: account.accountNo,
+	        expirationDateUtc: account.expirationDateUtc,
+	        userId: account.owner.userId,
+	        cardVendorId: lookup.cardVendors[0].id
+	    };
 
 		$scope.loading = uiTools.promiseTracker();
 
 	    $scope.users = [account.owner];
 
-		$scope.cardVendors = [
-		    { id: 'visa', name: 'Visa' },
-			{ id: 'mastercard', name: 'MasterCard' }
-		];
+	    $scope.cardVendors = lookup.cardVendors;
 
-		$scope.cardForm = {
-		    accountNo: account.accountNo,
-		    expirationDate: account.expirationDate,
-		    userId: account.owner.userId,
-            cardVendorId: $scope.cardVendors[0].id
-		};
+	    $scope.formController = {};
+
+	    $scope.cardForm = angular.copy(defaults);
 
 	    $scope.validationRules = {
 	        userId: { required: true },
@@ -63,5 +59,20 @@
 	    };
 
 	    $scope.formatUser = User.format;
+
+	    $scope.create = function () {
+	        var promise = AccountCard.create($scope.cardForm).$promise;
+	        return uiTools.validate.handleServerResponse(promise);
+	    };
+
+	    $scope.onCreated = function(response) {
+	        uiTools.notify({	            
+	            type: 'success',
+	            message: response.message
+	        });
+	        $scope.cardForm = angular.copy(defaults);
+	        $scope.formController.resetFields();
+	        $scope.changeTab('cards');
+	    };
 	}
 })();

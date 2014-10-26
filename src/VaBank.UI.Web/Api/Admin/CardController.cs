@@ -6,11 +6,11 @@ using VaBank.Services.Contracts.Accounting.Queries;
 namespace VaBank.UI.Web.Api.Admin
 {
     [RoutePrefix("api/cards")]
-    public class UserCardController : ApiController
+    public class CardController : ApiController
     {
         private readonly IAccountManagementService _accountManagementService;
 
-        public UserCardController(IAccountManagementService accountManagementService)
+        public CardController(IAccountManagementService accountManagementService)
         {
             if (accountManagementService == null)
             {
@@ -25,6 +25,5 @@ namespace VaBank.UI.Web.Api.Admin
         {
             return Ok(_accountManagementService.GetOwnedCards(query));
         }
-
     }
 }

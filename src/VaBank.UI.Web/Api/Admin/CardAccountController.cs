@@ -2,16 +2,18 @@
 using System.Web.Http;
 using VaBank.Common.Data;
 using VaBank.Services.Contracts.Accounting;
+using VaBank.Services.Contracts.Accounting.Commands;
 using VaBank.Services.Contracts.Accounting.Queries;
+using VaBank.UI.Web.Api.Infrastructure.Filters;
 
 namespace VaBank.UI.Web.Api.Admin
 {
-    [RoutePrefix("api/accounts")]
-    public class AccountController : ApiController
+    [RoutePrefix("api/accounts/card")]
+    public class CardAccountController : ApiController
     {
         private readonly IAccountManagementService _accountManagementService;
 
-        public AccountController(IAccountManagementService accountManagementService)
+        public CardAccountController(IAccountManagementService accountManagementService)
         {
             if (accountManagementService == null)
             {
@@ -32,6 +34,22 @@ namespace VaBank.UI.Web.Api.Admin
         public IHttpActionResult Get(AccountQuery query)
         {
             return Ok(_accountManagementService.GetCardAccounts(query));
+        }
+
+        [HttpPost]
+        [Route("{id}/assign")]
+        [Transaction]
+        public IHttpActionResult AssignCard(SetCardAssignmentCommand command)
+        {
+            return Ok(_accountManagementService.SetCardAssignment(command));
+        }
+
+        [HttpPost]
+        [Route("{id}/cards")]
+        [Transaction]
+        public IHttpActionResult CreateCard(CreateCardCommand command)
+        {
+            return Ok(_accountManagementService.CreateCard(command));
         }
 
         [HttpGet]

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Membership.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Accounting;
 using VaBank.Services.Contracts.Accounting.Commands;
@@ -47,7 +48,7 @@ namespace VaBank.Services.Accounting
             EnsureIsValid(query);
             try
             {
-                var accounts = _deps.CardAccounts.ProjectPage<CardAccountBriefModel>(query.ToDbQuery<CardAccountBriefModel>());
+                var accounts = _deps.CardAccounts.ProjectThenQueryPage<CardAccountBriefModel>(query.ToDbQuery<CardAccountBriefModel>());
                 return accounts;
             }
             catch (Exception ex)
@@ -61,7 +62,8 @@ namespace VaBank.Services.Accounting
             EnsureIsValid(query);
             try
             {
-                var ownedCards = _deps.UserCards.Project<OwnedCardModel>(query.ToDbQuery<OwnedCardModel>());
+                var dbQuery = query.ToDbQuery<OwnedCardModel>();
+                var ownedCards = _deps.UserCards.ProjectThenQuery<OwnedCardModel>(dbQuery);
                 return ownedCards;
             }
             catch (Exception ex)
@@ -103,7 +105,39 @@ namespace VaBank.Services.Accounting
 
         public UserMessage CreateCard(CreateCardCommand command)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(command);
+            try
+            {
+                var cardAccount = _deps.CardAccounts.Find(command.AccountNo);
+                if (cardAccount == null)
+                {
+                    throw NotFound.ExceptionFor<CardAccount>(command.AccountNo);
+                }
+                var user = _deps.Users.Find(command.UserId);
+                if (user == null)
+                {
+                    throw NotFound.ExceptionFor<User>(command.UserId);
+                }
+                var cardVendor = _deps.CardVendors.Find(command.CardVendorId);
+                if (cardVendor == null)
+                {
+                    throw NotFound.ExceptionFor<CardVendor>(command.CardVendorId);
+                }
+                var userCard = _deps.UserCardFactory.Create(
+                    cardAccount,
+                    cardVendor,
+                    user,
+                    command.CardholderFirstName,
+                    command.CardholderLastName,
+                    command.ExpirationDateUtc);
+                _deps.UserCards.Create(userCard);
+                Commit();
+                return UserMessage.ResourceFormat(() => Messages.CardEmitted, userCard.CardNo);
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Cannot create card.", ex);
+            }
         }
 
         public UserMessage CreateCardAccount(CreateCardAccountCommand command)
@@ -126,7 +160,37 @@ namespace VaBank.Services.Accounting
 
         public UserMessage SetCardAssignment(SetCardAssignmentCommand command)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(command);
+            try
+            {
+                var userCard = _deps.UserCards.Find(command.CardId);
+                if (userCard == null)
+                {
+                    throw NotFound.ExceptionFor<UserCard>(command.CardId);
+                }
+                UserMessage message;
+                if (!command.Assigned)
+                {
+                    userCard.Unlink();
+                    message = UserMessage.Resource(() => Messages.CardUnlinked);
+                }
+                else
+                {
+                    var cardAccount = _deps.CardAccounts.Find(command.AccountNo);
+                    if (cardAccount == null)
+                    {
+                        throw NotFound.ExceptionFor<CardAccount>(command.AccountNo);
+                    }
+                    userCard.LinkTo(cardAccount);
+                    message = UserMessage.Resource(() => Messages.CardLinked);
+                }
+                Commit();
+                return message;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Cannot set card assignment.", ex);
+            }
         }
 
         public UserMessage SetCardLimits(SetCardLimitsCommand command)

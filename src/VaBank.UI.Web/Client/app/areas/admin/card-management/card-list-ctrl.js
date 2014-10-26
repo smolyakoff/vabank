@@ -5,44 +5,48 @@
         .module('vabank.webapp')
         .controller('cardListController', cardListController);
 
-    cardListController.$inject = ['$scope', '$state', 'uiTools'];
+    cardListController.$inject = ['$scope', '$state', 'uiTools', 'cardManagementService'];
 
-    function cardListController($scope, $state, uiTools) {
+    function cardListController($scope, $state, uiTools, cardManagementService) {
         var account = $scope.account;
+        var AccountCard = cardManagementService.AccountCard;
 
-        var tabOpened = function() {
-            //load cards from server here
+        var loadData = function() {
+            var promise = AccountCard.query({ accountNo: account.accountNo }).$promise;
+            $scope.itemLoading.addPromise(promise);
+            promise.then(function (cards) {
+                $scope.cards = cards;
+            });
         };
 
-        $scope.cards = [
-            {
-                cardId: 'id',
-                cardNo: '1525-1010-1245-1424',
-                cardholderFirstName: 'JOHN',
-                cardholderLastName: 'DOE',
-                cardVendor : {
-                    name: 'Visa',
-                    imageUrl: '/Client/images/icons/visa-curved-128px.png'
-                }
-            },
-            {
-                cardId: 'id',
-                cardNo: '6666-1010-1214-1424',
-                cardholderFirstName: 'JOHN',
-                cardholderLastName: 'DOE',
-                cardVendor: {
-                    name: 'Visa',
-                    imageUrl: '/Client/images/icons/visa-curved-128px.png'
-                }
-            }
-        ];
+        $scope.cards = [];
 
         $scope.displayedCards = angular.copy($scope.cards);
 
-        $scope.$on('accountTabChanged', function(e, tabName) {
+        $scope.unassign = function (card) {
+            var assignment = {                
+                cardId: card.cardId,
+                accountNo: account.accountNo,
+                assigned: false
+            };
+            var promise = AccountCard.assign(assignment).$promise;
+            $scope.itemLoading.addPromise(promise);
+            promise.then(function(response) {
+                $scope.cards = _.without($scope.cards, card);
+                uiTools.notify({                    
+                    type: 'success',
+                    message: response.message
+                });
+            });
+
+        };
+
+        $scope.$on('accountTabChanged', function (e, tabName) {
             if (tabName === 'cards') {
-                tabOpened();
+                loadData();
             }
         });
+
+        loadData();
     }
 })();
