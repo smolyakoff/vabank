@@ -28,6 +28,6 @@ namespace VaBank.Core.Accounting.Entities
 
         public DateTime ExpirationDateUtc { get; set; }
 
-        public virtual string Type { get; protected set; }
+        public string Type { get; protected set; }
     }
 }

@@ -4,7 +4,7 @@ using VaBank.Common.Validation;
 
 namespace VaBank.Core.Accounting.Entities
 {
-    public class CardAccount: UserAccount
+    public class CardAccount : UserAccount
     {
         public CardAccount(string accountNo, Currency currency, UserCard card)
             :base(currency, card.Owner)
@@ -12,8 +12,8 @@ namespace VaBank.Core.Accounting.Entities
             Argument.NotNull(card, "card");
             AccountNo = accountNo;
             Type = "CardAccount";
-            card.Account = this;
-            Cards = new Collection<UserCard> {card};
+            Cards = new Collection<UserCard>();
+            card.LinkTo(this);
         }
 
         protected CardAccount()
@@ -22,7 +22,5 @@ namespace VaBank.Core.Accounting.Entities
         }
 
         public virtual ICollection<UserCard> Cards { get; protected set; }
-
-        public override string Type { get; protected set; }
     }
 }
