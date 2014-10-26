@@ -9,7 +9,7 @@ namespace VaBank.Data.EntityFramework.Accounting.Mappings
         {
             ToTable("User_Account", "Accounting");
 
-            HasRequired(x => x.User).WithMany().Map(x => x.MapKey("UserID"));
+            HasRequired(x => x.Owner).WithMany().Map(x => x.MapKey("UserID"));
         }
     }
 }

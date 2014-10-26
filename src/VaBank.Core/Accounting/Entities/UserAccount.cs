@@ -5,17 +5,17 @@ namespace VaBank.Core.Accounting.Entities
 {
     public abstract class UserAccount : Account
     {
-        protected UserAccount(Currency currency, User user)
+        protected UserAccount(Currency currency, User owner)
             :base(currency)
         {
-            Argument.NotNull(user, "user");
-            User = user;
+            Argument.NotNull(owner, "user");
+            Owner = owner;
         }
 
         protected UserAccount()
         {
         }
 
-        public virtual User User { get; protected set; }
+        public virtual User Owner { get; protected set; }
     }
 }

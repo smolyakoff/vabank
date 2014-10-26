@@ -3,7 +3,7 @@ using VaBank.Core.Common;
 
 namespace VaBank.Core.Accounting.Entities
 {
-    public class CardSettings: Entity
+    public class CardSettings : Entity
     {
         public CardSettings(Guid cardId, CardLimits limits)
         {
@@ -19,26 +19,18 @@ namespace VaBank.Core.Accounting.Entities
             Limits = limits;
         }
 
+        protected CardSettings()
+        {
+        }
+
         public Guid CardId { get; protected set; }
 
-        public bool Blocked { get; private set; }
+        public bool Blocked { get; internal set; }
 
-        public DateTime? BlockedDateUtc { get; private set; }
+        public DateTime? BlockedDateUtc { get; internal set; }
 
         public string FriendlyName { get; set; }
 
         public CardLimits Limits { get; private set; }
-
-        public void Block()
-        {
-            Blocked = true;
-            BlockedDateUtc = DateTime.UtcNow;
-        }
-
-        public void Unblock()
-        {
-            Blocked = false;
-            BlockedDateUtc = null;
-        }
     }
 }

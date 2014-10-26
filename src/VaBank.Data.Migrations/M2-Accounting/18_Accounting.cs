@@ -54,16 +54,17 @@ namespace VaBank.Data.Migrations
                 .WithColumn("UserID").AsGuid().NotNullable().ForeignKey("FK_User_Account_To_User", MembershipSchemaName, "User", "UserID")
                 .WithColumn("AccountNo").AsAccountNumber().PrimaryKey("PK_User_Account").ForeignKey("FK_User_Account_To_Account", SchemaName, "Account", "AccountNo");
 
-            Create.Table("User_Card").InSchema(SchemaName)
-                .WithColumn("UserID").AsGuid().NotNullable().ForeignKey("FK_User_Card_To_User", MembershipSchemaName, "User", "UserID")
-                .WithColumn("CardID").AsGuid().PrimaryKey("PK_User_Card").ForeignKey("FK_User_Card_To_Card", SchemaName, "Card", "CardID");
-
-            Create.Table("Account_Card").InSchema(SchemaName)
-                .WithColumn("CardID").AsGuid().PrimaryKey("PK_Account_Card").ForeignKey("FK_Account_Card_To_User_Card", SchemaName, "User_Card", "CardID")
-                .WithColumn("AccountNo").AsAccountNumber().NotNullable().ForeignKey("FK_Account_Card_To_User_Account", SchemaName, "User_Account", "AccountNo");
+            Create.Table("User_Card_Account").InSchema(SchemaName)
+                .WithColumn("UserID").AsUserId().NotNullable()
+                    .ForeignKey("FK_User_Card_Account_To_User", MembershipSchemaName, "User", "UserID")
+                .WithColumn("CardID").AsCardId().NotNullable()
+                    .ForeignKey("FK_User_Card_Account_To_Card", SchemaName, "Card", "CardID")
+                    .PrimaryKey("PK_User_Card_Account")
+                .WithColumn("AccountNo").AsAccountNumber().Nullable()
+                    .ForeignKey("FK_User_Card_Account_To_User_Account", SchemaName, "User_Account", "AccountNo");
 
             Create.Table("CardSettings").InSchema(SchemaName)
-                .WithColumn("CardID").AsGuid().PrimaryKey("PK_CardSettings").ForeignKey("FK_CardSettings_To_User_Card", SchemaName, "User_Card", "CardID")
+                .WithColumn("CardID").AsGuid().PrimaryKey("PK_CardSettings").ForeignKey("FK_CardSettings_To_User_Card_Account", SchemaName, "User_Card_Account", "CardID")
                 .WithColumn("Blocked").AsBoolean().NotNullable()
                 .WithColumn("BlockedDateUtc").AsDateTime().Nullable()
                 .WithColumn("FriendlyName").AsShortName().Nullable()
