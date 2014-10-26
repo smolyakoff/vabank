@@ -12,15 +12,15 @@ namespace VaBank.Services.Contracts.Accounting.Events
 {
     public class UserCardLimitChanged : ApplicationEvent, IAuditedEvent
     {
-        public UserCardLimitChanged(CardAccountModel accountModel)
+        public UserCardLimitChanged(CardAccountModel cardAccountModel)
         {
-            if (accountModel == null)
+            if (cardAccountModel == null)
             {
                 throw new ArgumentNullException("user card");
             }
-            CardAccountModel = accountModel;
+            CardAccountModel = cardAccountModel;
             Code = "USER_CARD_LIMIT_CHANGED";
-            Description = string.Format("User card [{0}] limits changed.", accountModel.CardNo);
+            Description = string.Format("User card [{0}] limits changed.", cardAccountModel.CardNo);
             Data = null;
         }
 

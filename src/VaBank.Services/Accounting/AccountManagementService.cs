@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using PagedList;
+﻿using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,22 +42,81 @@ namespace VaBank.Services.Accounting
             }
         }
 
+        public IPagedList<CardAccountBriefModel> GetCardAccounts(AccountQuery query)
+        {
+            EnsureIsValid(query);
+            try
+            {
+                var accounts = _deps.CardAccounts.ProjectPage<CardAccountBriefModel>(query.ToDbQuery<CardAccountBriefModel>());
+                return accounts;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Cannot get card accounts.", ex);
+            }
+        }
+
+        public IList<OwnedCardModel> GetOwnedCards(CardQuery query)
+        {
+            EnsureIsValid(query);
+            try
+            {
+                var ownedCards = _deps.UserCards.Project<OwnedCardModel>(query.ToDbQuery<OwnedCardModel>());
+                return ownedCards;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Cannot get cards for account.", ex);
+            }
+        }
+
+
+        public IList<CardModel> GetAccountCards(IdentityQuery<string> accountNo)
+        {
+            EnsureIsValid(accountNo);
+            try
+            {
+                var userCards = _deps.UserCards.PartialProject<CardModel>(
+                    UserCard.Spec.Linked,
+                    accountNo.ToDbQuery<UserCard, string>(x => x.Account.AccountNo));
+                return userCards;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Cannot get cards for account.", ex);
+            }
+        }
+
         public IList<UserCardModel> GetUserCards(IdentityQuery<Guid> userId)
         {
+            EnsureIsValid(userId);
             try
             {
                 var userCards = _deps.UserCards.Project<UserCardModel>(userId.ToDbQuery<UserCard>());
                 return userCards;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ServiceException("Cannot get user cards.", ex);
             }
         }
 
-        public UserMessage CreateCardAccount(CreateCardAccountCommand command)
+        public UserMessage CreateCard(CreateCardCommand command)
         {
             throw new NotImplementedException();
+        }
+
+        public UserMessage CreateCardAccount(CreateCardAccountCommand command)
+        {
+            EnsureIsValid(command);
+            try
+            {
+                throw new NotImplementedException();
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Cannot create card account.", ex);
+            }
         }
 
         public UserMessage SetCardBlock(SetCardBlockCommand command)
@@ -76,19 +134,6 @@ namespace VaBank.Services.Accounting
             throw new NotImplementedException();
         }
 
-        public IPagedList<AccountBriefModel> GetCardAccounts(AccountQuery query)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<CardModel> GetCards(IdentityQuery<string> accountNo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UserMessage CreateCard(CreateCardCommand command)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

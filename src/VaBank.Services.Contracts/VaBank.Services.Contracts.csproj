@@ -55,9 +55,10 @@
     <Compile Include="Accounting\Commands\SetCardBlockCommand.cs" />
     <Compile Include="Accounting\Commands\SetCardLimitsCommand.cs" />
     <Compile Include="Accounting\Events\UserCardLimitChanged.cs" />
-    <Compile Include="Accounting\Models\AccountBriefModel.cs" />
+    <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\AccountingLookupModel.cs" />
     <Compile Include="Accounting\Models\CardModel.cs" />
+    <Compile Include="Accounting\Models\OwnedCardModel.cs" />
     <Compile Include="Accounting\Models\RequestedCardAccountModel.cs" />
     <Compile Include="Accounting\Models\CardAccountModel.cs" />
     <Compile Include="Accounting\Models\CardLimitsModel.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Accounting\Models\CurrencyModel.cs" />
     <Compile Include="Accounting\Models\UserCardModel.cs" />
     <Compile Include="Accounting\Queries\AccountQuery.cs" />
+    <Compile Include="Accounting\Queries\CardQuery.cs" />
     <Compile Include="Common\DataNotFoundException.cs" />
     <Compile Include="Accounting\IAccountManagementService.cs" />
     <Compile Include="Common\Events\IAuditedEvent.cs" />

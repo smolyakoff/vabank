@@ -3,7 +3,7 @@ using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Contracts.Accounting.Models
 {
-    public class AccountBriefModel
+    public class CardAccountBriefModel
     {
         public string AccountNo { get; set; }
 
@@ -11,7 +11,9 @@ namespace VaBank.Services.Contracts.Accounting.Models
 
         public decimal Balance { get; set; }
 
-        public UserNameModel User { get; set; }
+        public UserNameModel Owner { get; set; }
+
+        public DateTime OpenDateUtc { get; set; }
 
         public DateTime ExpirationDateUtc { get; set; }
     }

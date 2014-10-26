@@ -15,9 +15,11 @@ namespace VaBank.Services.Contracts.Accounting
 
         IList<UserCardModel> GetUserCards(IdentityQuery<Guid> userId);
 
-        IPagedList<AccountBriefModel> GetCardAccounts(AccountQuery query);
+        IPagedList<CardAccountBriefModel> GetCardAccounts(AccountQuery query);
 
-        IList<CardModel> GetCards(IdentityQuery<string> accountNo);
+        IList<OwnedCardModel> GetOwnedCards(CardQuery query); 
+            
+        IList<CardModel> GetAccountCards(IdentityQuery<string> accountNo);
             
         //RequestedCardAccountModel RequestCardAccount(IdentityQuery<Guid> userId);
 

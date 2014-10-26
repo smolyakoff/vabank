@@ -38,8 +38,8 @@ namespace VaBank.Data.Migrations
                 .WithColumn("AccountNo").AsAccountNumber().PrimaryKey("PK_Account")
                 .WithColumn("CurrencyISOName").AsCurrencyISOName().ForeignKey("FK_Account_To_Currency", SchemaName, "Currency", "CurrencyISOName")
                 .WithColumn("Balance").AsDecimal().NotNullable().WithDefaultValue(0)
-                .WithColumn("OpenDateUtc").AsDateTime().NotNullable()
-                .WithColumn("ExpirationDateUtc").AsDateTime().NotNullable()
+                .WithColumn("OpenDateUtc").AsDate().NotNullable()
+                .WithColumn("ExpirationDateUtc").AsDate().NotNullable()
                 .WithColumn("Type").AsShortName().NotNullable();
 
             Create.Table("Card").InSchema(SchemaName)
@@ -47,7 +47,7 @@ namespace VaBank.Data.Migrations
                 .WithColumn("CardNo").AsCardNumber().NotNullable().Unique("IX_Card_CardNo")
                 .WithColumn("HolderFirstName").AsName().NotNullable()
                 .WithColumn("HolderLastName").AsName().NotNullable()
-                .WithColumn("ExpirationDateUtc").AsDateTime().NotNullable()
+                .WithColumn("ExpirationDateUtc").AsDate().NotNullable()
                 .WithColumn("CardVendorID").AsCardVendorId().NotNullable().ForeignKey("FK_Card_To_CardVendor", SchemaName, "CardVendor", "ID");
 
             Create.Table("User_Account").InSchema(SchemaName)

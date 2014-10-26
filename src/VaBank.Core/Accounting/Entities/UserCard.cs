@@ -1,4 +1,5 @@
 ﻿using System;
+using VaBank.Common.Data.Linq;
 using VaBank.Common.Validation;
 using VaBank.Core.Membership.Entities;
 
@@ -6,6 +7,11 @@ namespace VaBank.Core.Accounting.Entities
 {
     public class UserCard : Card
     {
+        public static class Spec
+        {
+            public static LinqSpec<UserCard> Linked = LinqSpec.For<UserCard>(x => x.Account != null);
+        }
+
         public UserCard(Card card, User owner, CardSettings settings) 
         {
             Argument.NotNull(owner, "user");

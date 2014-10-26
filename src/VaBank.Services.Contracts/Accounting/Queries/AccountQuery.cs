@@ -9,7 +9,7 @@ namespace VaBank.Services.Contracts.Accounting.Queries
         public AccountQuery()
         {
             ClientFilter = new AlwaysTrueFilter();
-            ClientSort = new RandomSort();
+            ClientSort = new DynamicLinqSort("OpenDateUtc DESC");
             ClientPage = new ClientPage {PageNumber = 1, PageSize = 10};
         }
 

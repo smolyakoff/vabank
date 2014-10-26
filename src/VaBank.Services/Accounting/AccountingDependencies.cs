@@ -8,7 +8,7 @@ namespace VaBank.Services.Accounting
     {
         public IQueryRepository<Currency> Currencies { get; set; }
 
-        public IQueryRepository<UserCard> UserCards { get; set; }
+        public IPartialQueryRepository<UserCard> UserCards { get; set; }
 
         public IQueryRepository<CardAccount> CardAccounts { get; set; }
 
