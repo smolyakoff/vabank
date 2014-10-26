@@ -112,6 +112,14 @@
                 url: '/new',
                 templateUrl: '/Client/app/areas/admin/card-management/new-account.html',
                 controller: 'newAccountController',
+                resolve: {
+                    data: ['routingResolve', 'cardManagementService', function (routingResolve, cardManagementService) {
+                        var CardAccount = cardManagementService.CardAccount;
+                        return routingResolve.resolveAll(
+                            [CardAccount.lookup().$promise],
+                            ['lookup']);
+                    }]
+                }
             });
     }
 

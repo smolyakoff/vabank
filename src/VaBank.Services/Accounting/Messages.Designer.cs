@@ -61,6 +61,15 @@ namespace VaBank.Services.Accounting {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Карт-счет №{0} был успешно открыт..
+        /// </summary>
+        public static string AccountOpened {
+            get {
+                return ResourceManager.GetString("AccountOpened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Была успешно выпущена карта с номером: {0}..
         /// </summary>
         public static string CardEmitted {

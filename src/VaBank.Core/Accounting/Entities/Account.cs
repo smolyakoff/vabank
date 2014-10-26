@@ -26,7 +26,7 @@ namespace VaBank.Core.Accounting.Entities
 
         public DateTime OpenDateUtc { get; protected set; }
 
-        public DateTime ExpirationDateUtc { get; set; }
+        public DateTime ExpirationDateUtc { get; internal set; }
 
         public string Type { get; protected set; }
     }

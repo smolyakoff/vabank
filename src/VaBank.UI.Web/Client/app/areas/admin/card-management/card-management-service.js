@@ -10,6 +10,10 @@
     function cardManagementService($resource, dataUtil, uiTools, userManagementService) {
 
         var CardAccount = $resource('/api/accounts/card/:accountNo', { accountNo: '@accountNo' }, {
+            create: {
+                url: '/api/accounts/card',
+                method: 'POST'
+            },
             query: {
                 isArray: false,
                 params: {sort: 'openDateUtc DESC'}

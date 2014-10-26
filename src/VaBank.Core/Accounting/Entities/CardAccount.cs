@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using VaBank.Common.Validation;
+using VaBank.Core.Membership.Entities;
 
 namespace VaBank.Core.Accounting.Entities
 {
     public class CardAccount : UserAccount
     {
-        public CardAccount(string accountNo, Currency currency, UserCard card)
-            :base(currency, card.Owner)
+        internal CardAccount(string accountNo, Currency currency, User owner)
+            :base(currency, owner)
         {
-            Argument.NotNull(card, "card");
+            Argument.EnsureIsValid<AccountNumberValidator, string>(accountNo, "accountNo");
             AccountNo = accountNo;
             Type = "CardAccount";
             Cards = new Collection<UserCard>();
-            card.LinkTo(this);
         }
 
         protected CardAccount()

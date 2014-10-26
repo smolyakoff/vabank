@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Core.Accounting.Entities;
-using VaBank.Core.Membership.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Accounting;
 using VaBank.Services.Contracts.Accounting.Commands;
@@ -108,21 +107,9 @@ namespace VaBank.Services.Accounting
             EnsureIsValid(command);
             try
             {
-                var cardAccount = _deps.CardAccounts.Find(command.AccountNo);
-                if (cardAccount == null)
-                {
-                    throw NotFound.ExceptionFor<CardAccount>(command.AccountNo);
-                }
-                var user = _deps.Users.Find(command.UserId);
-                if (user == null)
-                {
-                    throw NotFound.ExceptionFor<User>(command.UserId);
-                }
-                var cardVendor = _deps.CardVendors.Find(command.CardVendorId);
-                if (cardVendor == null)
-                {
-                    throw NotFound.ExceptionFor<CardVendor>(command.CardVendorId);
-                }
+                var cardAccount = _deps.CardAccounts.SurelyFind(command.AccountNo);
+                var user = _deps.Users.SurelyFind(command.UserId);
+                var cardVendor = _deps.CardVendors.SurelyFind(command.CardVendorId);
                 var userCard = _deps.UserCardFactory.Create(
                     cardAccount,
                     cardVendor,
@@ -145,7 +132,25 @@ namespace VaBank.Services.Accounting
             EnsureIsValid(command);
             try
             {
-                throw new NotImplementedException();
+                var user = _deps.Users.SurelyFind(command.UserId);
+                var cardVendor = _deps.CardVendors.SurelyFind(command.CardVendorId);
+                var currency = _deps.Currencies.SurelyFind(command.CurrencyISOName);
+                var cardAccount = _deps.CardAccountFactory.Create(
+                    currency, 
+                    user, 
+                    command.InitialBalance,
+                    command.AccountExpirationDateUtc);
+                _deps.CardAccounts.Create(cardAccount);
+                var userCard = _deps.UserCardFactory.Create(
+                    cardAccount,
+                    cardVendor,
+                    user,
+                    command.CardholderFirstName,
+                    command.CardholderLastName,
+                    command.CardExpirationDateUtc);
+                _deps.UserCards.Create(userCard);
+                Commit();
+                return UserMessage.ResourceFormat(() => Messages.AccountOpened, cardAccount.AccountNo);
             }
             catch (Exception ex)
             {
@@ -163,11 +168,7 @@ namespace VaBank.Services.Accounting
             EnsureIsValid(command);
             try
             {
-                var userCard = _deps.UserCards.Find(command.CardId);
-                if (userCard == null)
-                {
-                    throw NotFound.ExceptionFor<UserCard>(command.CardId);
-                }
+                var userCard = _deps.UserCards.SurelyFind(command.CardId);
                 UserMessage message;
                 if (!command.Assigned)
                 {
@@ -176,11 +177,7 @@ namespace VaBank.Services.Accounting
                 }
                 else
                 {
-                    var cardAccount = _deps.CardAccounts.Find(command.AccountNo);
-                    if (cardAccount == null)
-                    {
-                        throw NotFound.ExceptionFor<CardAccount>(command.AccountNo);
-                    }
+                    var cardAccount = _deps.CardAccounts.SurelyFind(command.AccountNo);
                     userCard.LinkTo(cardAccount);
                     message = UserMessage.Resource(() => Messages.CardLinked);
                 }

@@ -37,6 +37,14 @@ namespace VaBank.UI.Web.Api.Admin
         }
 
         [HttpPost]
+        [Route]
+        [Transaction]
+        public IHttpActionResult Create(CreateCardAccountCommand command)
+        {
+            return Ok(_accountManagementService.CreateCardAccount(command));
+        }
+
+        [HttpPost]
         [Route("{id}/assign")]
         [Transaction]
         public IHttpActionResult AssignCard(SetCardAssignmentCommand command)

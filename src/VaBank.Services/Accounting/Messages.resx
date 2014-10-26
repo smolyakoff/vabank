@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountOpened" xml:space="preserve">
+    <value>Карт-счет №{0} был успешно открыт.</value>
+  </data>
   <data name="CardEmitted" xml:space="preserve">
     <value>Была успешно выпущена карта с номером: {0}.</value>
   </data>

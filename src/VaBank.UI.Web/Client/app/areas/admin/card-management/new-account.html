@@ -5,7 +5,10 @@
                 <h3 class="panel-title">Открыть карт-счет</h3>
             </div>
             <div class="panel-body">
-                <form data-form-for="cardAccountForm" data-validation-rules="validationRules" data-submit-with="create()" data-submit-complete="onCreated(data)">
+                <form data-form-for="cardAccountForm" 
+                      data-validation-rules="validationRules" 
+                      data-submit-with="create()" 
+                      data-submit-complete="onCreated(data)">
                     <h5 class="text-primary">Счет</h5>
                     <dropdown-field attribute="userId"
                                     label="Пользователь"
@@ -28,7 +31,7 @@
                             </text-field>
                         </div>
                         <div class="col-xs-4">
-                            <dropdown-field attribute="currencyId"
+                            <dropdown-field attribute="currencyISOName"
                                             label="Валюта"
                                             items="lookup.currencies"
                                             repeat="item.isoName as item in items"
@@ -38,7 +41,7 @@
                         </div>
                     </div>
                     <date-field 
-                        attribute="expirationDate"
+                        attribute="accountExpirationDateUtc"
                         label="Срок действия"
                         placeholder="Задайте срок действия счета"
                         date-format="LL"
@@ -51,14 +54,19 @@
                                     label="Вид карты"
                                     items="lookup.cardVendors"
                                     repeat="item.id as item in items"
-                                    display-attribute="isoName">
-                        {{item.name}}
+                                    display-attribute="name">
+                        <div class="row card-vendor-item">
+                            <div class="col-xs-1">
+                                <img class="img img-responsive" ng-src="{{item.image}}" />
+                            </div>
+                            <div class="col-xs-11">{{item.name}}</div>
+                        </div>
                     </dropdown-field>
-                    <date-field attribute="cardExpirationDate"
+                    <date-field attribute="cardExpirationDateUtc"
                                 label="Срок действия"
                                 placeholder="Задайте срок действия карты"
-                                date-format="LL"
-                                date-config="{minView: 'day'}">
+                                date-format="MM/YY"
+                                date-config="{minView: 'month', startView: 'month'}">
                     </date-field>
                     <div class="row">
                         <div class="col-xs-6">

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
 using VaBank.Common.Data;
+using VaBank.Common.Data.Repositories;
 using VaBank.Core.Common;
 
 namespace VaBank.Services.Common
@@ -23,6 +24,17 @@ namespace VaBank.Services.Common
             {
                 throw new ArgumentException("Not all dependencies are resolved");
             }
+        }
+
+        public static T SurelyFind<T>(this IRepository<T> repository, params object[] keys)
+            where T : class
+        {
+            var entity = repository.Find(keys);
+            if (entity == null)
+            {
+                throw NotFound.ExceptionFor<T>(keys);
+            }
+            return entity;
         }
 
         public static DbQuery<TEntity> ToDbQuery<TEntity, T>(this IIdentityQuery<T> id)

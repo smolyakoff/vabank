@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.IoC;

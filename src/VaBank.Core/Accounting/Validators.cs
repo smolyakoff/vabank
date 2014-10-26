@@ -15,4 +15,14 @@ namespace VaBank.Core.Accounting
             return builder.InclusiveBetween(now, maxDate);
         }
     }
+
+    [StaticValidator]
+    [ValidatorName("accountNumber")]
+    public class AccountNumberValidator : ObjectValidator<string>
+    {
+        public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
+        {
+            return builder.Length(13);
+        }
+    }
 }

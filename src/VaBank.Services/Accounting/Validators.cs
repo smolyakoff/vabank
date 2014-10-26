@@ -74,4 +74,34 @@ namespace VaBank.Services.Accounting
             return userCard.Account == null || userCard.Account.AccountNo == command.AccountNo;
         }
     }
+
+    [StaticValidator]
+    internal class CreateCardAccountCommandValidator : AbstractValidator<CreateCardAccountCommand>
+    {
+        public CreateCardAccountCommandValidator()
+        {
+            RuleFor(x => x.UserId)
+                .NotEqual(Guid.Empty);
+            RuleFor(x => x.CurrencyISOName)
+                .NotEmpty();
+            RuleFor(x => x.CardVendorId)
+                .NotEmpty();
+            RuleFor(x => x.InitialBalance)
+                .GreaterThanOrEqualTo(0);
+            RuleFor(x => x.AccountExpirationDateUtc)
+                .GreaterThan(DateTime.UtcNow.Date);
+            RuleFor(x => x.CardholderFirstName)
+                .NotEmpty();
+            RuleFor(x => x.CardholderLastName)
+                .NotEmpty();
+            RuleFor(x => x.CardExpirationDateUtc)
+                .GreaterThan(DateTime.UtcNow.Date)
+                .Must(LessThanAccountExpirationDate);
+        }
+
+        private static bool LessThanAccountExpirationDate(CreateCardAccountCommand command, DateTime cardExpirationDate)
+        {
+            return cardExpirationDate <= command.AccountExpirationDateUtc;
+        }
+    }
 }

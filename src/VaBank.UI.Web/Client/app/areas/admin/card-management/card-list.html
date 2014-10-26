@@ -1,4 +1,7 @@
-﻿<table class="table table-responsive" st-table="cards" st-safe-src="displayedCards">
+﻿<table class="table table-responsive"
+       st-table="cards"
+       st-safe-src="displayedCards"
+       ng-show="cards.length > 0">
     <thead>
         <tr class="warning">
             <th style="width: 30px"></th>
@@ -16,7 +19,10 @@
             <td>{{card.cardNo}}</td>
             <td>{{card.cardVendor.name}}</td>
             <td>{{card.cardholderFirstName}} {{card.cardholderLastName}}</td>
-            <td>{{card.expirationDateUtc | date:'MM/yy' }}</td>
+            <td>{{card.expirationDateUtc | date:'MM/yy':'UTC' }}</td>
         </tr>
     </tbody>
 </table>
+<div ng-show="cards.length == 0">
+    Нет привязанных карт
+</div>

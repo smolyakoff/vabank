@@ -19,5 +19,7 @@ namespace VaBank.Services.Accounting
         public IRepository<User> Users { get; set; }
 
         public UserCardFactory UserCardFactory { get; set; }
+
+        public CardAccountFactory CardAccountFactory { get; set; }
     }
 }
