@@ -5,8 +5,8 @@
         .module('vabank.webapp')
         .controller('transferController', transferController);
 
-    transferController.$inject = ['$scope', 'cardsService'];
+    transferController.$inject = ['$scope'];
 
-    function transferController($scope, cardsService) {
+    function transferController($scope) {
     }
 })();

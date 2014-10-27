@@ -5,7 +5,7 @@
         .module('vabank.webapp')
         .controller('accountStatementController', accountStatementController);
 
-    accountStatementController.$inject = ['$scope', 'cardsService'];
+    accountStatementController.$inject = ['$scope'];
 
     function accountStatementController($scope) {
 
