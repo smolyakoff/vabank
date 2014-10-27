@@ -1,57 +1,106 @@
 ﻿<section class="row">
     <div class="col-xs-12">
-        <table class="table table-responsive card-list" align="center">
+        <table class="table table-responsive card-list">
             <thead>
-                <tr class="initialism">
+                <tr class="initialism warning">
                     <th>Карта</th> 
                     <th>Баланс</th>
                     <th>Срок действия карты</th>
                     <th>Статус блокировки</th>
-                    <th>Смс оповещения</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="card in cards">
+            <tbody ng-repeat="card in cards" ng-controller="customerCardController">
                 <tr>
-                    <td class="row">
-                        <div class="col-xs-2">
-                            <a><img src="/Client/app/images/icons/maestro-curved-32px.png"></a>
-                        </div>
-                        <div class="col-xs-10">
-                            <p class="text-left">{{card.name}} <i class="glyphicon glyphicon-edit" ng-click=""></i></p>
-                            <p class="text-left">*Номер карты</p>
-                            <p class="text-left">Обладатель: {{}}</p>
-                            <a ng-click="isCollapsed = !isCollapsed">Установка лимитов на карту</a>
-                        </div>
-                    </td>
-                    <td>{{ card.balance }} BYR</td>
-                    <td>{{  }}</td>
-                    <td>{{ card.block }}</td>
-                    <td>{{  }}</td>
-                </tr>
-                <tr>
-                    <td colspan="5" class="limits">
-                        <div collapse="isCollapsed" class="form-inline">
-                            <div class="col-xs-6">
-                                <div>
-                                    <label>Лимит на количество операций в день, в РБ:</label>
-                                    <input type="number" min="0" class="form-control">
-                                </div>
-                                <div>
-                                    <label>Лимит на сумму в день, в РБ:</label>
-                                    <input type="number" min="0" step="50" class="form-control">
+                    <td>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img class="img img-responsive card-logo center" ng-src="{{card.cardVendor.image}}">
+                                <div class="text-center">
+                                    Валюта: {{card.currency.isoName}}
                                 </div>
                             </div>
-
+                            <div class="col-xs-9 card-info">
+                                <div class="text-primary">
+                                    <b class="initialism" ng-if="!nameEdit">{{card.name || card.cardVendor.name}}</b>
+                                    <div class="input-group card-name-editor" ng-if="nameEdit">
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="Введите свое имя для карты"
+                                               ng-model="card.friendlyName">
+                                        <span class="input-group-addon link-addon">
+                                            <a><i class="glyphicon glyphicon-remove text-danger"></i></a>
+                                        </span>
+                                        <span class="input-group-addon link-addon">
+                                            <a><i class="glyphicon glyphicon-ok text-success"></i></a>
+                                        </span>
+                                    </div>
+                                    <a ng-if="!nameEdit" ng-click="editName()"><i class="glyphicon glyphicon-edit"></i></a>
+                                </div>
+                                <p><b>Номер: {{card.secureCardNo}}</b></p>
+                                <p>{{card.cardholderFirstName}} {{card.cardholderLastName}}</p>
+                                <a class="action-link" ng-class="{'text-muted': limitsHidden }" ng-click="limitsHidden = !limitsHidden">
+                                    <i class="glyphicon glyphicon-chevron-down"></i>
+                                    Лимит снятий
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="balance">
+                        {{card.balance | currency:''}} {{card.currency.isoName}}
+                    </td>
+                    <td class="text-center">{{card.expirationDateUtc | date:'MM/yy'}}</td>
+                    <td class="text-center">
+                        <span ng-if="!card.blocked" class="text-success">Активна</span>
+                        <div>
+                            <a class="action-link text-muted">
+                                {{card.blocked == false ? 'Блокировать' : 'Разблокировать'}}
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-collapse="limitsHidden">
+                    <td colspan="5" class="limits">
+                        <div class="row" ng-form="limitsForm">
                             <div class="col-xs-6">
-                                <div>
-                                    <label>Лимит на количество операций в день, вне РБ:</label>
-                                    <input type="number" min="0" class="form-control">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-6">Лимит на количество операций в день, в РБ:</label>
+                                        <div class="col-xs-6">
+                                            <input type="number" class="form-control" ng-model="limits.operationsPerDayLocal" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-6">Лимит на количество операций в день, вне РБ:</label>
+                                        <div class="col-xs-6">
+                                            <input type="number" class="form-control" ng-model="limits.operationsPerDayAbroad" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label>Лимит на сумму в день, вне РБ:</label>
-                                    <input type="number" min="0" step="50" class="form-control">
+                                
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-6">Лимит на cумму в день, в РБ:</label>
+                                        <div class="col-xs-6">
+                                            <input type="number" class="form-control" ng-model="limits.amountPerDayLocal" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-xs-6">Лимит на сумму в день, вне РБ:</label>
+                                        <div class="col-xs-6">
+                                            <input type="number" class="form-control" ng-model="limits.amountPerDayAbroad" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <button class="btn btn-primary">Сохранить</button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px">
+                            <div class="col-xs-12">
+                                <div class="pull-right">
+                                    <button class="btn btn-default btn-sm " ng-submit="cancel()">Отмена</button>
+                                    <button class="btn btn-danger btn-sm " ng-submit="updateLimits()">Обновить лимиты</button>
+                                </div>
                             </div>
                         </div>
                     </td>

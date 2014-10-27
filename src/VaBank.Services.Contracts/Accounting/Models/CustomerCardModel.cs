@@ -6,7 +6,7 @@ namespace VaBank.Services.Contracts.Accounting.Models
     {
         public string SecureCardNo { get; set; }
 
-        public string CardholerFirstName { get; set; }
+        public string CardholderFirstName { get; set; }
 
         public string CardholderLastName { get; set; }
 

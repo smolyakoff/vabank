@@ -1,19 +1,35 @@
-﻿.my-cards-content {
-    margin-top: 30px;
-}
-.from-date, .to-date {
+﻿.from-date, .to-date {
     .input-group {
         width: 170px;
     }
 }
+
 .card-list.table {
-    thead > tr > th,td {
-        text-align:center;
-        vertical-align:middle;
-                width: 20%;
+    thead > tr > th {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    tbody > tr > td {
+        vertical-align: middle;
+
+        &.balance {
+            text-align: center;
+            font-weight: bold;
+        }
 
         &.limits {
-          text-align: right;
+            .form-group {
+                margin-bottom: 0;
+            }
         }
     }
+}
+
+.card-info p {
+    margin-bottom: 5px;
+}
+
+.card-name-editor {
+    max-width: 450px;
 }

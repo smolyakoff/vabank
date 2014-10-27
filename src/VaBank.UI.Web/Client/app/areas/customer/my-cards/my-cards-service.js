@@ -9,5 +9,17 @@
 
     function myCardsService($resource, dataUtil, authService) {
 
+        var getUserId = function() {
+            return authService.getUser().id;
+        };
+
+        var Card = $resource('/api/users/:userId/cards', { userId: getUserId }, {
+            
+        });
+
+        return {
+            Card: Card
+        };
+
     }
 })();

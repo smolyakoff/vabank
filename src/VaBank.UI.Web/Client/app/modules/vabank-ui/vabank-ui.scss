@@ -15,7 +15,7 @@
     position: relative;
 }
 .paper-checkbox input[type=checkbox]   { display:none; }
-.paper-checkbox label, p               { padding-left:30px; }
+.paper-checkbox label            { padding-left:30px; }
 .paper-checkbox label                  { cursor:pointer; }
 .paper-checkbox label span             { display:block; position:absolute; left:0; 
   -webkit-transition-duration:0.3s; -moz-transition-duration:0.3s; transition-duration:0.3s;

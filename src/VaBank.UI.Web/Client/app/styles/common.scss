@@ -1,9 +1,9 @@
 ﻿.modal {
- overflow-y: auto;
+    overflow-y: auto;
 }
 
 .modal-open {
- overflow: auto;
+    overflow: auto;
 }
 
 .offset-bottom {
@@ -17,9 +17,20 @@ img.center {
 }
 
 .table-content {
-    text-align:middle;
-    min-height:200px;
+    text-align: middle;
+    min-height: 200px;
     position: relative;
 }
 
+a.action-link {
+    cursor: pointer;
+}
 
+.link-addon {
+    padding-left: 6px;
+    padding-right: 6px;
+
+    :hover {
+        color: $link-hover-color;
+    }
+}

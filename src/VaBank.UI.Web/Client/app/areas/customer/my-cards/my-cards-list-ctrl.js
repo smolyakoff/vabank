@@ -5,9 +5,10 @@
         .module('vabank.webapp')
         .controller('myCardsListController', myCardsListController);
 
-    myCardsListController.$inject = ['$scope', 'myCardsService'];
+    myCardsListController.$inject = ['$scope', 'myCardsService', 'data'];
 
-    function myCardsListController($scope, myCardsService) {
+    function myCardsListController($scope, myCardsService, data) {
 
+        $scope.cards = data;
     }
 })();

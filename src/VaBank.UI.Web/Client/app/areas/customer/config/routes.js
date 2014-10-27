@@ -40,9 +40,8 @@
                 templateUrl: '/Client/app/areas/customer/profile/profile-edit.html',
                 controller: 'profileEditController',
                 resolve: {
-                    data: ['authService', 'profileService', function (authService, profileService) {
-                        var user = authService.getUser();
-                        return profileService.Profile.get({ userId: user.id }).$promise;
+                    data: ['profileService', function (profileService) {
+                        return profileService.Profile.get().$promise;
                     }]
                 }
             })
@@ -63,7 +62,12 @@
             .state('customer.cards.list', {
                 url: '',
                 templateUrl: '/Client/app/areas/customer/my-cards/my-cards-list.html',
-                controller: 'myCardsListController'
+                controller: 'myCardsListController',
+                resolve: {
+                    data: ['myCardsService', function(myCardsService) {
+                        return myCardsService.Card.query().$promise;
+                    }]
+                }
             })
             .state('customer.cards.accountStatement', {
                 url: '/statement',
