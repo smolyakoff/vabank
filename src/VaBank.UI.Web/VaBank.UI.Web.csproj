@@ -227,14 +227,14 @@
     <Content Include="Client\app\areas\admin\user-management\user-list-ctrl.js" />
     <Content Include="Client\app\areas\admin\user-management\user-management-service.js" />
     <Content Include="Client\app\areas\admin\user-management\user-list.html" />
-    <Content Include="Client\app\areas\customer\cards\cards-list-ctrl.js" />
-    <Content Include="Client\app\areas\customer\cards\cards-list.html" />
-    <Content Include="Client\app\areas\customer\cards\cards-statement-ctrl.js" />
-    <Content Include="Client\app\areas\customer\cards\cards-statement.html" />
-    <Content Include="Client\app\areas\customer\cards\cards-transfer-ctrl.js" />
-    <Content Include="Client\app\areas\customer\cards\cards-transfer.html" />
-    <Content Include="Client\app\areas\customer\cards\cards-service.js" />
-    <Content Include="Client\app\areas\customer\cards\cards.html" />
+    <Content Include="Client\app\areas\customer\my-cards\my-cards-list-ctrl.js" />
+    <Content Include="Client\app\areas\customer\my-cards\my-cards-list.html" />
+    <Content Include="Client\app\areas\customer\my-cards\account-statement-ctrl.js" />
+    <Content Include="Client\app\areas\customer\my-cards\account-statement.html" />
+    <Content Include="Client\app\areas\customer\my-cards\transfer-ctrl.js" />
+    <Content Include="Client\app\areas\customer\my-cards\transfer.html" />
+    <Content Include="Client\app\areas\customer\my-cards\my-cards-service.js" />
+    <Content Include="Client\app\areas\customer\my-cards\my-cards.html" />
     <Content Include="Client\app\areas\customer\customer-ctrl.js" />
     <Content Include="Client\app\areas\customer\customer.html" />
     <Content Include="Client\app\areas\customer\config\routes.js" />
@@ -958,7 +958,7 @@
     <Content Include="Client\app\modules\vabank-ui\vabank-ui.scss" />
     <Content Include="Client\app\areas\admin\user-management\user-management.scss" />
     <Content Include="Client\app\areas\customer\profile\profile.scss" />
-    <Content Include="Client\app\areas\customer\cards\cards.scss" />
+    <Content Include="Client\app\areas\customer\my-cards\my-cards.scss" />
     <Content Include="Client\app\areas\admin\audit-log\audit-log.scss" />
     <Content Include="Client\bower_components\angular-local-storage\CHANGELOG.md" />
     <Content Include="Client\bower_components\angular-ui-router\api\angular-ui-router.d.ts" />
@@ -1081,6 +1081,7 @@
     <Compile Include="Api\Admin\MaintenanceController.cs" />
     <Compile Include="Api\Common\UserController.cs" />
     <Compile Include="Api\Common\ValidationController.cs" />
+    <Compile Include="Api\Customer\CustomerCardController.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankAuthorizationServerProvider.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankRefreshTokenProvider.cs" />
     <Compile Include="Api\Infrastructure\Converters\HttpServiceErrorConverter.cs" />
@@ -1133,7 +1134,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Api\Customer\" />
     <Folder Include="Client\bower_components\bootstrap-sass-official\assets\images\" />
   </ItemGroup>
   <PropertyGroup>

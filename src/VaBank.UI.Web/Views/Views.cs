@@ -91,6 +91,7 @@ namespace VaBank.UI.Web.Views
                 .AddDirectory(ApplicationPath("areas/customer"))
                 .AddDirectory(ApplicationPath("areas/customer/cabinet"))
                 .AddDirectory(ApplicationPath("areas/customer/profile"))
+                .AddDirectory(ApplicationPath("areas/customer/my-cards"))
                 .AddDirectory(ApplicationPath("areas/admin/config"))
                 .AddDirectory(ApplicationPath("areas/admin"));
 

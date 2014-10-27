@@ -58,7 +58,7 @@
   <ItemGroup>
     <Compile Include="Accounting\AccountingProfile.cs" />
     <Compile Include="Accounting\AccountingDependencies.cs" />
-    <Compile Include="Accounting\AccountManagementService.cs" />
+    <Compile Include="Accounting\CardAccountManagementService.cs" />
     <Compile Include="Accounting\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

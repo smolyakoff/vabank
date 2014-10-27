@@ -9,31 +9,32 @@ using VaBank.UI.Web.Api.Infrastructure.Filters;
 namespace VaBank.UI.Web.Api.Admin
 {
     [RoutePrefix("api/accounts/card")]
+    [Authorize(Roles = "Admin")]
     public class CardAccountController : ApiController
     {
-        private readonly IAccountManagementService _accountManagementService;
+        private readonly ICardAccountManagementService _cardAccountManagementService;
 
-        public CardAccountController(IAccountManagementService accountManagementService)
+        public CardAccountController(ICardAccountManagementService cardAccountManagementService)
         {
-            if (accountManagementService == null)
+            if (cardAccountManagementService == null)
             {
-                throw new ArgumentNullException("accountManagementService");
+                throw new ArgumentNullException("cardAccountManagementService");
             }
-            _accountManagementService = accountManagementService;
+            _cardAccountManagementService = cardAccountManagementService;
         }
 
         [HttpGet]
         [Route("lookup")]
         public IHttpActionResult Lookup()
         {
-            return Ok(_accountManagementService.GetAccountingLookup());
+            return Ok(_cardAccountManagementService.GetAccountingLookup());
         }
 
         [HttpGet]
         [Route]
         public IHttpActionResult Get(AccountQuery query)
         {
-            return Ok(_accountManagementService.GetCardAccounts(query));
+            return Ok(_cardAccountManagementService.GetCardAccounts(query));
         }
 
         [HttpPost]
@@ -41,7 +42,7 @@ namespace VaBank.UI.Web.Api.Admin
         [Transaction]
         public IHttpActionResult Create(CreateCardAccountCommand command)
         {
-            return Ok(_accountManagementService.CreateCardAccount(command));
+            return Ok(_cardAccountManagementService.CreateCardAccount(command));
         }
 
         [HttpPost]
@@ -49,7 +50,7 @@ namespace VaBank.UI.Web.Api.Admin
         [Transaction]
         public IHttpActionResult AssignCard(SetCardAssignmentCommand command)
         {
-            return Ok(_accountManagementService.SetCardAssignment(command));
+            return Ok(_cardAccountManagementService.SetCardAssignment(command));
         }
 
         [HttpPost]
@@ -57,14 +58,14 @@ namespace VaBank.UI.Web.Api.Admin
         [Transaction]
         public IHttpActionResult CreateCard(CreateCardCommand command)
         {
-            return Ok(_accountManagementService.CreateCard(command));
+            return Ok(_cardAccountManagementService.CreateCard(command));
         }
 
         [HttpGet]
         [Route("{id}/cards")]
         public IHttpActionResult Cards([FromUri] IdentityQuery<string> accountNo)
         {
-            return Ok(_accountManagementService.GetAccountCards(accountNo));
+            return Ok(_cardAccountManagementService.GetAccountCards(accountNo));
         }
         
     }

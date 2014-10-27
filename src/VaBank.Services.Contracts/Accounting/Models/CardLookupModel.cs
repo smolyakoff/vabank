@@ -2,9 +2,9 @@
 
 namespace VaBank.Services.Contracts.Accounting.Models
 {
-    public class AccountingLookupModel
+    public class CardLookupModel
     {
-        public AccountingLookupModel()
+        public CardLookupModel()
         {
             Currencies = new List<CurrencyModel>();
             CardVendors = new List<CardVendorModel>();

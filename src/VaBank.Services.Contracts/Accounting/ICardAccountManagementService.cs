@@ -9,19 +9,17 @@ using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Contracts.Accounting
 {
-    public interface IAccountManagementService : IService
+    public interface ICardAccountManagementService : IService
     {
-        AccountingLookupModel GetAccountingLookup();
+        CardLookupModel GetAccountingLookup();
 
-        IList<UserCardModel> GetUserCards(IdentityQuery<Guid> userId);
+        IList<CustomerCardModel> GetCustomerCards(IdentityQuery<Guid> userId);
 
         IPagedList<CardAccountBriefModel> GetCardAccounts(AccountQuery query);
 
-        IList<OwnedCardModel> GetOwnedCards(CardQuery query); 
+        IList<UserCardModel> GetUserCards(CardQuery query); 
             
         IList<CardModel> GetAccountCards(IdentityQuery<string> accountNo);
-            
-        //RequestedCardAccountModel RequestCardAccount(IdentityQuery<Guid> userId);
 
         UserMessage CreateCard(CreateCardCommand command);
 

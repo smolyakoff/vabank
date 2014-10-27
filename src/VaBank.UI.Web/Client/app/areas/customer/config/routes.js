@@ -54,7 +54,7 @@
             .state('customer.cards', {
                 url: 'cards',
                 'abstract': true,
-                templateUrl: '/Client/app/areas/customer/cards/cards.html',
+                templateUrl: '/Client/app/areas/customer/my-cards/my-cards.html',
                 data: {
                     title: 'VaBank - Платежные карты',
                     subtitle: 'Мои платежные карты'
@@ -62,18 +62,18 @@
             })
             .state('customer.cards.list', {
                 url: '',
-                templateUrl: '/Client/app/areas/customer/cards/cards-list.html',
-                controller: 'cardsListController'
+                templateUrl: '/Client/app/areas/customer/my-cards/my-cards-list.html',
+                controller: 'myCardsListController'
             })
-            .state('customer.cards.statement', {
+            .state('customer.cards.accountStatement', {
                 url: '/statement',
-                templateUrl: '/Client/app/areas/customer/cards/cards-statement.html',
-                controller: 'cardsStatementController'
+                templateUrl: '/Client/app/areas/customer/my-cards/account-statement.html',
+                controller: 'accountStatementController'
             })
             .state('customer.cards.transfer', {
                 url: '/transfer',
-                templateUrl: '/Client/app/areas/customer/cards/cards-transfer.html',
-                controller: 'cardsTransferController'
+                templateUrl: '/Client/app/areas/customer/my-cards/transfer.html',
+                controller: 'transferController'
             });
     }
 

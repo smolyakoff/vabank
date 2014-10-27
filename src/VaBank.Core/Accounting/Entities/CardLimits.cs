@@ -6,12 +6,12 @@
         {
         }
 
-        public int LimitOperationsPerDayLocal { get; set; }
+        public int OperationsPerDayLocal { get; set; }
 
-        public int LimitOperationsPerDayAbroad { get; set; }
+        public int OperationsPerDayAbroad { get; set; }
 
-        public decimal LimitAmountPerDayLocal { get; set; }
+        public decimal AmountPerDayLocal { get; set; }
 
-        public decimal LimitAmountPerDayAbroad { get; set; }
+        public decimal AmountPerDayAbroad { get; set; }
     }
 }

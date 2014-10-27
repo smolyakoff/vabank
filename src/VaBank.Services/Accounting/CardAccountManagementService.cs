@@ -14,22 +14,22 @@ using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Accounting
 {
-    public class AccountManagementService : BaseService, IAccountManagementService
+    public class CardAccountManagementService : BaseService, ICardAccountManagementService
     {
         private readonly AccountingDependencies _deps;
 
-        public AccountManagementService(BaseServiceDependencies dependencies, AccountingDependencies accountingDependencies)
+        public CardAccountManagementService(BaseServiceDependencies dependencies, AccountingDependencies accountingDependencies)
             :base(dependencies)
         {
             dependencies.EnsureIsResolved();
             _deps = accountingDependencies;
         }
 
-        public AccountingLookupModel GetAccountingLookup()
+        public CardLookupModel GetAccountingLookup()
         {
             try
             {
-                var lookup = new AccountingLookupModel
+                var lookup = new CardLookupModel
                 {
                     CardVendors = _deps.CardVendors.ProjectAll<CardVendorModel>().ToList(),
                     Currencies = _deps.Currencies.ProjectAll<CurrencyModel>().ToList()
@@ -39,6 +39,22 @@ namespace VaBank.Services.Accounting
             catch (Exception ex)
             {
                 throw new ServiceException("Can't get accounting lookup.", ex);
+            }
+        }
+
+        public IList<CustomerCardModel> GetCustomerCards(IdentityQuery<Guid> userId)
+        {
+            EnsureIsValid(userId);
+            try
+            {
+                var cards = _deps.UserCards.PartialQuery(
+                    UserCard.Spec.Linked,
+                    userId.ToPropertyQuery<UserCard, Guid>(x => x.Owner.Id));
+                return cards.Map<UserCard, CustomerCardModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get customer cards.", ex);
             }
         }
 
@@ -56,13 +72,13 @@ namespace VaBank.Services.Accounting
             }
         }
 
-        public IList<OwnedCardModel> GetOwnedCards(CardQuery query)
+        public IList<UserCardModel> GetUserCards(CardQuery query)
         {
             EnsureIsValid(query);
             try
             {
-                var dbQuery = query.ToDbQuery<OwnedCardModel>();
-                var ownedCards = _deps.UserCards.ProjectThenQuery<OwnedCardModel>(dbQuery);
+                var dbQuery = query.ToDbQuery<UserCardModel>();
+                var ownedCards = _deps.UserCards.ProjectThenQuery<UserCardModel>(dbQuery);
                 return ownedCards;
             }
             catch (Exception ex)
@@ -88,12 +104,12 @@ namespace VaBank.Services.Accounting
             }
         }
 
-        public IList<UserCardModel> GetUserCards(IdentityQuery<Guid> userId)
+        public IList<CustomerCardModel> GetUserCards(IdentityQuery<Guid> userId)
         {
             EnsureIsValid(userId);
             try
             {
-                var userCards = _deps.UserCards.Project<UserCardModel>(userId.ToDbQuery<UserCard>());
+                var userCards = _deps.UserCards.Project<CustomerCardModel>(userId.ToDbQuery<UserCard>());
                 return userCards;
             }
             catch (Exception ex)

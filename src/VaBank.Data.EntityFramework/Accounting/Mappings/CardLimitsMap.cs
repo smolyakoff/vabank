@@ -7,10 +7,10 @@ namespace VaBank.Data.EntityFramework.Accounting.Mappings
     {
         public CardLimitsMap()
         {
-            Property(x => x.LimitAmountPerDayAbroad).HasColumnName("LimitAmountPerDayAbroad").IsRequired();
-            Property(x => x.LimitAmountPerDayLocal).HasColumnName("LimitAmountPerDayLocal").IsRequired();
-            Property(x => x.LimitOperationsPerDayAbroad).HasColumnName("LimitOperationsPerDayAbroad").IsRequired();
-            Property(x => x.LimitOperationsPerDayLocal).HasColumnName("LimitOperationsPerDayLocal").IsRequired();
+            Property(x => x.AmountPerDayAbroad).HasColumnName("LimitAmountPerDayAbroad").IsRequired();
+            Property(x => x.AmountPerDayLocal).HasColumnName("LimitAmountPerDayLocal").IsRequired();
+            Property(x => x.OperationsPerDayAbroad).HasColumnName("LimitOperationsPerDayAbroad").IsRequired();
+            Property(x => x.OperationsPerDayLocal).HasColumnName("LimitOperationsPerDayLocal").IsRequired();
         }
     }
 }
