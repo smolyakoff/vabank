@@ -58,6 +58,7 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("underscore/underscore.js"))
                 .Add(BowerPath("js-schema/js-schema.debug.js"))
                 .Add(BowerPath("spin.js/spin.js"))
+                .Add(NodePath("accounting/accounting.js"))
                 .Add(BowerPath("angular/angular.js"))
                 .Add(BowerPath("angular-sanitize/angular-sanitize.js"))
                 .Add(BowerPath("angular-resource/angular-resource.js"))
@@ -97,6 +98,11 @@ namespace VaBank.UI.Web.Views
 
 
             return bundle.Render("~/Client/app_#.js");
+        }
+
+        private static string NodePath(string relativePath)
+        {
+            return string.Format("/Client/node_modules/{0}", relativePath);
         }
 
         private static string BowerPath(string relativePath)

@@ -228,6 +228,7 @@
     <Content Include="Client\app\areas\admin\user-management\user-management-service.js" />
     <Content Include="Client\app\areas\admin\user-management\user-list.html" />
     <Content Include="Client\app\areas\customer\my-cards\customer-card-ctrl.js" />
+    <Content Include="Client\app\areas\customer\my-cards\limits-form.html" />
     <Content Include="Client\app\areas\customer\my-cards\my-cards-list-ctrl.js" />
     <Content Include="Client\app\areas\customer\my-cards\my-cards-list.html" />
     <Content Include="Client\app\areas\customer\my-cards\account-statement-ctrl.js" />
@@ -285,6 +286,7 @@
     <Content Include="Client\app\modules\vabank-ui\directives\date-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\st-table-force-pipe.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-confirm.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\vb-currency.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-datepicker.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\string-format.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\truncate.js" />
@@ -933,6 +935,26 @@
     <Content Include="Client\bower_components\underscore\underscore-min.js" />
     <Content Include="Client\bower_components\underscore\underscore-min.map" />
     <Content Include="Client\bower_components\underscore\underscore.js" />
+    <Content Include="Client\node_modules\accounting\accounting.js" />
+    <Content Include="Client\node_modules\accounting\accounting.min.js" />
+    <Content Include="Client\node_modules\accounting\demo-resources\js\libs\jquery.min.js" />
+    <Content Include="Client\node_modules\accounting\demo-resources\js\prettify.js" />
+    <Content Include="Client\node_modules\accounting\demo-resources\style.css" />
+    <Content Include="Client\node_modules\accounting\index.html" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\core\formatMoneySpec.js" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\core\formatNumberSpec.js" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\core\unformatSpec.js" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\lib\jasmine\jasmine-html.js" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\lib\jasmine\jasmine.css" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\lib\jasmine\jasmine.js" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\runner.html" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\methods.js" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\speed.js" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\test.html" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\vendor\jquery.js" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\vendor\jslitmus.js" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\vendor\qunit.css" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\vendor\qunit.js" />
     <Content Include="packages.config" />
     <Content Include="Configs\NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1060,6 +1082,10 @@
     <Content Include="Client\bower_components\angular-ui-select\dist\select.min.js.map">
       <DependentUpon>select.min.js</DependentUpon>
     </Content>
+    <Content Include="Client\node_modules\accounting\license" />
+    <Content Include="Client\node_modules\accounting\package.json" />
+    <Content Include="Client\node_modules\accounting\readme.md" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\lib\jasmine\MIT.LICENSE" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>

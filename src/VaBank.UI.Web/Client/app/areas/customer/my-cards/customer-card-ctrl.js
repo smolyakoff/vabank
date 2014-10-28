@@ -14,6 +14,8 @@
         var card = $scope.card;
         var pristineCard = angular.copy(card);
 
+        $scope.limitsForm = {};
+
         $scope.limits = card.cardLimits;
 
         $scope.limitsHidden = true;
@@ -47,6 +49,21 @@
                     message: 'Имя карты было успешно обновлено'
                 });
                 $scope.toggleEditName(false);
+            });
+        };
+
+        $scope.cancelLimits = function() {
+            angular.extend($scope.limits, pristineCard.cardLimits);
+        };
+
+        $scope.updateLimits = function () {
+            Card.updateSettings({ cardId: card.cardId }, {
+                cardLimits: $scope.limits
+            }).$promise.then(function(response) {
+                uiTools.notify({                    
+                    type: 'success',
+                    message: 'Лимиты были успешно обновлены'
+                });
             });
         };
     }
