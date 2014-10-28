@@ -63,6 +63,16 @@
     }
 }
 
+//Buttons 
+.input-group-btn .btn {
+    background: none;
+    box-shadow: none;
+
+    :hover {
+        color: $link-hover-color
+    }
+}
+
 //Tables
 .st-sort-descent:before {
     content: '\25BC';

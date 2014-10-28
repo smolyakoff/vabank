@@ -29,6 +29,6 @@ namespace VaBank.Services.Contracts.Accounting
 
         UserMessage SetCardAssignment(SetCardAssignmentCommand command);
 
-        UserMessage SetCardLimits(SetCardLimitsCommand command);
+        UserMessage UpdateCardSettings(UpdateCardSettingsCommand command);
     }
 }

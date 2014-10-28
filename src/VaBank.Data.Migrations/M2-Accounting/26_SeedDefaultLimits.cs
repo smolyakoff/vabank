@@ -26,10 +26,10 @@ namespace VaBank.Data.Migrations
         {
             var limits = new
             {
-                LimitOperationsPerDayLocal = 20,
-                LimitOperationsPerDayAbroad = 10,
-                LimitAmountPerDayLocal = 6000000.0m,
-                LimitAmountPerDayAbroad = 3000000.0m
+                OperationsPerDayLocal = 20,
+                OperationsPerDayAbroad = 10,
+                AmountPerDayLocal = 6000000.0m,
+                AmountPerDayAbroad = 3000000.0m
             };
             var json = JsonConvert.SerializeObject(limits);
             var node = JsonConvert.DeserializeXNode(json, "Setting");
@@ -40,10 +40,10 @@ namespace VaBank.Data.Migrations
         {
             var limits = new
             {
-                LimitOperationsPerDayLocal = 20,
-                LimitOperationsPerDayAbroad = 10,
-                LimitAmountPerDayLocal = 1000m,
-                LimitAmountPerDayAbroad = 500m
+                OperationsPerDayLocal = 20,
+                OperationsPerDayAbroad = 10,
+                AmountPerDayLocal = 1000m,
+                AmountPerDayAbroad = 500m
             };
             var json = JsonConvert.SerializeObject(limits);
             var node = JsonConvert.DeserializeXNode(json, "Setting");
@@ -54,10 +54,10 @@ namespace VaBank.Data.Migrations
         {
             var limits = new
             {
-                LimitOperationsPerDayLocal = 20,
-                LimitOperationsPerDayAbroad = 10,
-                LimitAmountPerDayLocal = 1000m,
-                LimitAmountPerDayAbroad = 500m
+                OperationsPerDayLocal = 20,
+                OperationsPerDayAbroad = 10,
+                AmountPerDayLocal = 1000m,
+                AmountPerDayAbroad = 500m
             };
             var json = JsonConvert.SerializeObject(limits);
             var node = JsonConvert.DeserializeXNode(json, "Setting");

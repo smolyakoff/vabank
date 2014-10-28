@@ -12,6 +12,7 @@
 
     tbody > tr > td {
         vertical-align: middle;
+        padding: 16px;
 
         &.balance {
             text-align: center;
@@ -26,10 +27,14 @@
     }
 }
 
+.card-info-cell {
+    width: 450px;
+}
+
 .card-info p {
     margin-bottom: 5px;
 }
 
 .card-name-editor {
-    max-width: 450px;
+    max-width: 300px;
 }

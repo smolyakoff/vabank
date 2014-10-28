@@ -25,12 +25,3 @@ img.center {
 a.action-link {
     cursor: pointer;
 }
-
-.link-addon {
-    padding-left: 6px;
-    padding-right: 6px;
-
-    :hover {
-        color: $link-hover-color;
-    }
-}

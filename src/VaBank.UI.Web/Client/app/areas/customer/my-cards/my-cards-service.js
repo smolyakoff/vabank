@@ -13,8 +13,20 @@
             return authService.getUser().id;
         };
 
-        var Card = $resource('/api/users/:userId/cards', { userId: getUserId }, {
-            
+        var Card = $resource('/api/cards/:cardId', {}, {
+            query: {
+                url: '/api/users/:userId/cards',
+                isArray: true,
+                params: { userId: getUserId },
+            },
+            updateSettings : {
+                url: '/api/cards/:cardId/settings',
+                method: 'PUT',
+            },
+            block: {
+                url: '/api/cards/:cardId/block',
+                method: 'POST',
+            }
         });
 
         return {

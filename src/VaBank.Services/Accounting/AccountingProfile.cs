@@ -22,8 +22,10 @@ namespace VaBank.Services.Accounting
                 .ForMember(x => x.AccountNo, cfg => cfg.MapFrom(src => src.Account.AccountNo));
 
             CreateMap<CardLimits, CardLimitsModel>();
+            CreateMap<CardLimitsModel, CardLimits>();
 
             CreateMap<UserCard, CustomerCardModel>()
+                .ForMember(x => x.CardId, cfg => cfg.MapFrom(x => x.Id))
                 .ForMember(x => x.SecureCardNo, cfg => cfg.MapFrom(x => x.CardNo.Substring(0, 6) + "__" + x.CardNo.Substring(11, 4)))
                 .ForMember(x => x.CardholderFirstName, cfg => cfg.MapFrom(x => x.HolderFirstName))
                 .ForMember(x => x.CardholderLastName, cfg => cfg.MapFrom(x => x.HolderLastName))

@@ -1,4 +1,5 @@
-﻿using PagedList;
+﻿using AutoMapper;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,9 @@ namespace VaBank.Services.Accounting
     {
         private readonly AccountingDependencies _deps;
 
-        public CardAccountManagementService(BaseServiceDependencies dependencies, AccountingDependencies accountingDependencies)
-            :base(dependencies)
+        public CardAccountManagementService(BaseServiceDependencies dependencies,
+            AccountingDependencies accountingDependencies)
+            : base(dependencies)
         {
             dependencies.EnsureIsResolved();
             _deps = accountingDependencies;
@@ -63,7 +65,9 @@ namespace VaBank.Services.Accounting
             EnsureIsValid(query);
             try
             {
-                var accounts = _deps.CardAccounts.ProjectThenQueryPage<CardAccountBriefModel>(query.ToDbQuery<CardAccountBriefModel>());
+                var accounts =
+                    _deps.CardAccounts.ProjectThenQueryPage<CardAccountBriefModel>(
+                        query.ToDbQuery<CardAccountBriefModel>());
                 return accounts;
             }
             catch (Exception ex)
@@ -137,6 +141,10 @@ namespace VaBank.Services.Accounting
                 Commit();
                 return UserMessage.ResourceFormat(() => Messages.CardEmitted, userCard.CardNo);
             }
+            catch (ServiceException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 throw new ServiceException("Cannot create card.", ex);
@@ -152,8 +160,8 @@ namespace VaBank.Services.Accounting
                 var cardVendor = _deps.CardVendors.SurelyFind(command.CardVendorId);
                 var currency = _deps.Currencies.SurelyFind(command.CurrencyISOName);
                 var cardAccount = _deps.CardAccountFactory.Create(
-                    currency, 
-                    user, 
+                    currency,
+                    user,
                     command.InitialBalance,
                     command.AccountExpirationDateUtc);
                 _deps.CardAccounts.Create(cardAccount);
@@ -168,6 +176,10 @@ namespace VaBank.Services.Accounting
                 Commit();
                 return UserMessage.ResourceFormat(() => Messages.AccountOpened, cardAccount.AccountNo);
             }
+            catch (ServiceException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 throw new ServiceException("Cannot create card account.", ex);
@@ -176,7 +188,33 @@ namespace VaBank.Services.Accounting
 
         public UserMessage SetCardBlock(SetCardBlockCommand command)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(command);
+            try
+            {
+                var userCard = _deps.UserCards.SurelyFind(command.CardId);
+                var cardName = userCard.Settings.FriendlyName ?? userCard.CardVendor.Name;
+                UserMessage message;
+                if (command.Blocked)
+                {
+                    message = UserMessage.ResourceFormat(() => Messages.CardBlocked, cardName);
+                    userCard.Block();
+                }
+                else
+                {
+                    message = UserMessage.ResourceFormat(() => Messages.CardUnblocked, cardName);
+                    userCard.Unblock();
+                }
+                Commit();
+                return message;
+            }
+            catch (ServiceException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Cannot set card block.", ex);
+            }
         }
 
         public UserMessage SetCardAssignment(SetCardAssignmentCommand command)
@@ -200,17 +238,41 @@ namespace VaBank.Services.Accounting
                 Commit();
                 return message;
             }
+            catch (ServiceException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 throw new ServiceException("Cannot set card assignment.", ex);
             }
         }
 
-        public UserMessage SetCardLimits(SetCardLimitsCommand command)
+        public UserMessage UpdateCardSettings(UpdateCardSettingsCommand command)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(command);
+            try
+            {
+                var userCard = _deps.UserCards.SurelyFind(command.CardId);
+                if (!string.IsNullOrEmpty(command.FriendlyName))
+                {
+                    userCard.Settings.FriendlyName = command.FriendlyName;
+                }
+                if (command.CardLimits != null)
+                {
+                    Mapper.Map(command.CardLimits, userCard.Settings.Limits);
+                }
+                Commit();
+                return UserMessage.Resource(() => Messages.CardSettingsUpdated);
+            }
+            catch (ServiceException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Cannot update card settings.", ex);
+            }
         }
-
-       
     }
 }

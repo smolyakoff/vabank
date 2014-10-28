@@ -53,7 +53,7 @@
     <Compile Include="Accounting\Commands\SetCardAssignmentCommand.cs" />
     <Compile Include="Accounting\Commands\CreateCardAccountCommand.cs" />
     <Compile Include="Accounting\Commands\SetCardBlockCommand.cs" />
-    <Compile Include="Accounting\Commands\SetCardLimitsCommand.cs" />
+    <Compile Include="Accounting\Commands\UpdateCardSettingsCommand.cs" />
     <Compile Include="Accounting\Events\UserCardLimitChanged.cs" />
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardLookupModel.cs" />
