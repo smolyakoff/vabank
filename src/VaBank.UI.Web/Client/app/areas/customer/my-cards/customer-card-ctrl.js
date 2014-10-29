@@ -13,7 +13,19 @@
 
         var card = $scope.card;
         var pristineCard = angular.copy(card);
-        $scope.limits = card.cardLimits;
+
+        $scope.settingsForm = {            
+          cardLimits: card.cardLimits  
+        };
+
+        $scope.limitValidationRules = {
+            cardLimits: {
+                amountPerDayLocal: { custom: uiTools.validate.getValidator('min', 0) },
+                amountPerDayAbroad: { custom: uiTools.validate.getValidator('min', 0) },
+                operationsPerDayLocal: { custom: uiTools.validate.getValidator('min', 0) },
+                operationsPerDayAbroad: { custom: uiTools.validate.getValidator('min', 0) }
+            }
+        };
 
         $scope.limitsHidden = true;
         $scope.nameEdit = false;
@@ -49,31 +61,23 @@
             });
         };
 
-        $scope.cancelLimits = function (limitsForm) {
-            limitsForm.$setPristine();
-            angular.extend($scope.limits, pristineCard.cardLimits);
+        $scope.cancelLimits = function () {
+            $scope.settingsForm.cardLimits = angular.copy(pristineCard.cardLimits);
         };
 
-        $scope.updateLimits = function (limitsForm) {
-            Card.updateSettings({ cardId: card.cardId }, {
-                cardLimits: $scope.limits
-            }).$promise.then(
-            function () {
-                uiTools.notify({                    
-                    type: 'success',
-                    message: 'Лимиты были успешно обновлены'
-                });
-            },
-            function (failureResponse) {
-                if (failureResponse.status === 400) {
-                    var failures = failureResponse.data.faults;
-                    _.each(failures, function(x) {
-                        var prop = x.propertyName.replace('CardLimits.', '');
-                        prop = prop[0].toLowerCase() + prop.substring(1);
-                        limitsForm[prop].$setValidity('range', false);
-                    });
-                }
+        $scope.updateLimits = function () {
+            var promise = Card.updateSettings(
+                { cardId: card.cardId },
+                $scope.settingsForm).$promise;
+            return uiTools.validate.handleServerResponse(promise);
+        };
+
+        $scope.onLimitsUpdated = function (data) {
+            uiTools.notify({
+                type: 'success',
+                message: 'Лимиты были успешно обновлены'
             });
+            pristineCard.cardLimits = $scope.settingsForm.cardLimits;
         };
     }
 })();

@@ -1,83 +1,51 @@
-﻿<div class="row" ng-form="" name="limitsForm">
-    <div class="col-xs-6">
-        <div class="form-horizontal">
-            <div class="form-group"
-                 ng-class="{'has-error': limitsForm.operationsPerDayLocal.$invalid, 'has-feedback': limitsForm.operationsPerDayLocal.$invalid}">
-                <label class="control-label col-xs-6">Лимит на количество операций в день, в РБ:</label>
-                <div class="col-xs-6">
-                    <input class="form-control"
-                           name="operationsPerDayLocal"
-                           ng-model="limits.operationsPerDayLocal"
-                           type="number" />
-                    <span ng-if="limitsForm.operationsPerDayLocal.$invalid"
-                          class="glyphicon glyphicon-remove form-control-feedback"
-                          tooltip="Недопустимое значение лимита"
-                          tooltip-placement="right">
-                    </span>
+﻿<form form-for="settingsForm" 
+      validation-rules="limitValidationRules"
+      submit-with="updateLimits()" 
+      submit-complete="onLimitsUpdated(data)">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-xs-6">Лимит на количество операций в день, в РБ:</label>
+                    <div class="col-xs-6">
+                        <text-field type="number" attribute="cardLimits.operationsPerDayLocal" ></text-field>
+                    </div>
                 </div>
-                
-            </div>
-            <div class="form-group"
-                 ng-class="{'has-error': limitsForm.operationsPerDayAbroad.$invalid, 'has-feedback': limitsForm.operationsPerDayAbroad.$invalid}">
-                <label class="control-label col-xs-6">Лимит на количество операций в день, вне РБ:</label>
-                <div class="col-xs-6">
-                    <input name="operationsPerDayAbroad"
-                           class="form-control"
-                           ng-model="limits.operationsPerDayAbroad"
-                           type="number" />
-                    <span ng-if="limitsForm.operationsPerDayAbroad.$invalid"
-                          class="glyphicon glyphicon-remove form-control-feedback"
-                          tooltip="Недопустимое значение лимита"
-                          tooltip-placement="right">
-                    </span>
+                <div class="form-group">
+                    <label class="control-label col-xs-6">Лимит на количество операций в день, вне РБ:</label>
+                    <div class="col-xs-6">
+                        <text-field type="number" attribute="cardLimits.operationsPerDayAbroad"></text-field>
+                    </div>
                 </div>
             </div>
         </div>
-
-    </div>
-    <div class="col-xs-6">
-        <div class="form-horizontal">
-            <div class="form-group"
-                 ng-class="{'has-error': limitsForm.amountPerDayLocal.$invalid, 'has-feedback': limitsForm.amountPerDayLocal.$invalid}">
-                <label class="control-label col-xs-6">Лимит на cумму в день, в РБ:</label>
-                <div class="col-xs-6">
-                    <vb-currency name="amountPerDayLocal"
-                                 ng-model="limits.amountPerDayLocal"
-                                 symbol="{{card.currency.symbol}}"
-                                 min="0">
-                    </vb-currency>
-                    <span ng-if="limitsForm.amountPerDayLocal.$invalid"
-                          class="glyphicon glyphicon-remove form-control-feedback"
-                          tooltip="Недопустимое значение лимита"
-                          tooltip-placement="left">
-                    </span>
+        <div class="col-xs-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-xs-6">Лимит на cумму в день, в РБ:</label>
+                    <div class="col-xs-6">
+                        <currency-field attribute="cardLimits.amountPerDayLocal"
+                                        symbol="{{card.currency.symbol}}">
+                        </currency-field>
+                    </div>
                 </div>
-
-            </div>
-            <div class="form-group"
-                 ng-class="{'has-error': limitsForm.amountPerDayAbroad.$invalid, 'has-feedback': limitsForm.amountPerDayAbroad.$invalid}">
-                <label class="control-label col-xs-6">Лимит на сумму в день, вне РБ:</label>
-                <div class="col-xs-6">
-                    <vb-currency name="amountPerDayAbroad"
-                                 min="0"
-                                 ng-model="limits.amountPerDayAbroad"
-                                 symbol="{{card.currency.symbol}}">
-                    </vb-currency>
-                    <span ng-if="limitsForm.amountPerDayAbroad.$invalid"
-                          class="glyphicon glyphicon-remove form-control-feedback"
-                          tooltip="Недопустимое значение лимита"
-                          tooltip-placement="left">
-                    </span>
+                <div class="form-group">
+                    <label class="control-label col-xs-6">Лимит на сумму в день, вне РБ:</label>
+                    <div class="col-xs-6">
+                        <currency-field attribute="cardLimits.amountPerDayAbroad"
+                                        symbol="{{card.currency.symbol}}">
+                        </currency-field>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row" style="margin-top: 10px">
-    <div class="col-xs-12">
-        <div class="pull-right">
-            <button class="btn btn-default btn-sm " ng-click="cancelLimits(limitsForm)" ng-disabled="limitsForm.$pristine">Отмена</button>
-            <button class="btn btn-danger btn-sm " ng-click="updateLimits(limitsForm)" ng-disabled="limitsForm.$invalid">Обновить лимиты</button>
+    <div class="row" style="margin-top: 10px">
+        <div class="col-xs-12">
+            <div class="pull-right">
+                <a class="btn btn-default btn-sm " ng-click="cancelLimits()">Отмена</a>
+                <submit-button label="Обновить лимиты" button-class="btn btn-sm btn-danger"></submit-button>
+            </div>
         </div>
     </div>
-</div>
+</form>

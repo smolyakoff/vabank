@@ -135,16 +135,20 @@ namespace VaBank.Services.Accounting
             var limitsRange = _cardLimitsFactory.FindRange(currency.ISOName);
             RuleFor(x => x.CardLimits.AmountPerDayLocal).InclusiveBetween(
                 limitsRange.AmountPerDayLocal.LowerBound, 
-                limitsRange.AmountPerDayLocal.UpperBound);
+                limitsRange.AmountPerDayLocal.UpperBound)
+                .When(x => x.CardLimits != null);
             RuleFor(x => x.CardLimits.AmountPerDayAbroad).InclusiveBetween(
                 limitsRange.AmountPerDayAbroad.LowerBound,
-                limitsRange.AmountPerDayAbroad.UpperBound);
+                limitsRange.AmountPerDayAbroad.UpperBound)
+                .When(x => x.CardLimits != null); ;
             RuleFor(x => x.CardLimits.OperationsPerDayLocal).InclusiveBetween(
                 limitsRange.OperationsPerDayLocal.LowerBound,
-                limitsRange.OperationsPerDayLocal.UpperBound);
+                limitsRange.OperationsPerDayLocal.UpperBound)
+                .When(x => x.CardLimits != null); ;
             RuleFor(x => x.CardLimits.OperationsPerDayAbroad).InclusiveBetween(
                 limitsRange.OperationsPerDayAbroad.LowerBound,
-                limitsRange.OperationsPerDayAbroad.UpperBound);
+                limitsRange.OperationsPerDayAbroad.UpperBound)
+                .When(x => x.CardLimits != null); ;
             return base.Validate(command);
         }
 

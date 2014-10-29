@@ -56,6 +56,7 @@ namespace VaBank.UI.Web.Views
             bundle
                 .Add(BowerPath("moment/moment.js"))
                 .Add(BowerPath("underscore/underscore.js"))
+                .Add(BowerPath("underscore-deep/underscore.deep.js"))
                 .Add(BowerPath("js-schema/js-schema.debug.js"))
                 .Add(BowerPath("spin.js/spin.js"))
                 .Add(NodePath("accounting/accounting.js"))

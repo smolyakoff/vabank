@@ -18,26 +18,31 @@
               ng-click="onIconBeforeClick()">
             <i class="text-field-icon" ng-class="iconBefore"></i>
         </span>
-
-        <span ng-if="!multiline" ng-include src="'form-for/templates/text-field/_input.html'"></span>
-
-        <span ng-if="multiline" ng-include src="'form-for/templates/text-field/_textarea.html'"></span>
-
-        <span ng-if="model.error && !multiline"
-              class="glyphicon glyphicon-remove form-control-feedback"
-              tooltip="{{model.error}}"
-              tooltip-placement="left">
-        </span>
+        
+        <vb-currency id="{{model.uid}}"
+                     ng-disabled="disable || model.disabled"
+                     placeholder="{{placeholder}}"
+                     ng-model="model.bindable"
+                     form-for-debounce="{{debounce}}"
+                     symbol="{{symbol}}"
+                     precision="{{precision}}"
+                     thousand="{{thousand}}"
+                     decimal="{{decimal}}">
+        </vb-currency>
 
         <span ng-if="iconAfter" class="input-group-addon"
               ng-click="onIconAfterClick()">
             <i class="text-field-icon" ng-class="iconAfter"></i>
         </span>
+
+        <span ng-if="model.error"
+              class="glyphicon glyphicon-remove form-control-feedback"
+              tooltip="{{model.error}}"
+              tooltip-placement="left">
+        </span>
+
     </div>
+
     <span class="help-block" ng-if="help">{{help}}</span>
-    <span class="help-block has-error" ng-if="multiline && model.error">
-        <field-error error="model.error"
-                     uid="{{model.uid}}-error">
-        </field-error>
-    </span>
+
 </div>

@@ -282,6 +282,7 @@
     <Content Include="Client\app\modules\vabank-ui\config\form-for.js" />
     <Content Include="Client\app\modules\vabank-ui\config\toastr-config.js" />
     <Content Include="Client\app\modules\vabank-ui\config\local-storage-config.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\currency-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\dropdown-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\date-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\st-table-force-pipe.js" />
@@ -297,6 +298,7 @@
     <Content Include="Client\app\modules\vabank-ui\templates\forms\checkbox-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\date-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\dropdown-field.html" />
+    <Content Include="Client\app\modules\vabank-ui\templates\forms\currency-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\text-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-confirmation-dialog.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-datepicker.html" />
@@ -915,6 +917,7 @@
     <Content Include="Client\bower_components\moment\min\moment.min.js" />
     <Content Include="Client\bower_components\moment\moment.js" />
     <Content Include="Client\bower_components\moment\README.md" />
+    <Content Include="Client\bower_components\ngSanitize\index.js" />
     <Content Include="Client\bower_components\spin.js\.bower.json" />
     <Content Include="Client\bower_components\spin.js\.gitignore" />
     <Content Include="Client\bower_components\spin.js\.jshintrc" />
@@ -924,6 +927,7 @@
     <Content Include="Client\bower_components\spin.js\LICENSE.txt" />
     <Content Include="Client\bower_components\spin.js\README.md" />
     <Content Include="Client\bower_components\spin.js\spin.js" />
+    <Content Include="Client\bower_components\underscore-deep\underscore.deep.js" />
     <Content Include="Client\bower_components\underscore\.bower.json" />
     <Content Include="Client\bower_components\underscore\.eslintrc" />
     <Content Include="Client\bower_components\underscore\.gitignore" />
@@ -1086,6 +1090,14 @@
     <Content Include="Client\node_modules\accounting\package.json" />
     <Content Include="Client\node_modules\accounting\readme.md" />
     <Content Include="Client\node_modules\accounting\tests\jasmine\lib\jasmine\MIT.LICENSE" />
+    <Content Include="Client\bower_components\ngSanitize\.bower.json" />
+    <Content Include="Client\bower_components\ngSanitize\bower.json" />
+    <Content Include="Client\bower_components\ngSanitize\LICENSE" />
+    <Content Include="Client\bower_components\ngSanitize\package.json" />
+    <Content Include="Client\bower_components\ngSanitize\README.md" />
+    <Content Include="Client\bower_components\underscore-deep\.bower.json" />
+    <Content Include="Client\bower_components\underscore-deep\bower.json" />
+    <Content Include="Client\bower_components\underscore-deep\README.md" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
