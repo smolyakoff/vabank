@@ -11,5 +11,9 @@ namespace VaBank.Core.Accounting.Entities
         public Range<decimal> AmountPerDayLocal { get; set; }
 
         public Range<decimal> AmountPerDayAbroad { get; set; }
+
+        public Range<int> OperationsPerDayLocal { get; set; }
+
+        public Range<int> OperationsPerDayAbroad { get; set; }
     }
 }

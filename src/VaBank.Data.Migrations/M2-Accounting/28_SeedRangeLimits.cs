@@ -28,7 +28,9 @@ namespace VaBank.Data.Migrations
             var limits = new
             {
                 AmountPerDayLocal = Range.Create<decimal>(10000m, 100000000m),
-                AmountPerDayAbroad = Range.Create<decimal>(10000m, 50000000m)
+                AmountPerDayAbroad = Range.Create<decimal>(10000m, 50000000m),
+                OperationsPerDayLocal = Range.Create(0, 500),
+                OperationsPerDayAbroad = Range.Create(0, 250),
             };
             var json = JsonConvert.SerializeObject(limits);
             var node = JsonConvert.DeserializeXNode(json, "Setting");
@@ -40,7 +42,9 @@ namespace VaBank.Data.Migrations
             var limits = new
             {
                 AmountPerDayLocal = Range.Create<decimal>(5m, 100000m),
-                AmountPerDayAbroad = Range.Create<decimal>(5m, 50000m)
+                AmountPerDayAbroad = Range.Create<decimal>(5m, 50000m),
+                OperationsPerDayLocal = Range.Create(0, 500),
+                OperationsPerDayAbroad = Range.Create(0, 250),
             };
             var json = JsonConvert.SerializeObject(limits);
             var node = JsonConvert.DeserializeXNode(json, "Setting");
@@ -52,7 +56,9 @@ namespace VaBank.Data.Migrations
             var limits = new
             {
                 AmountPerDayLocal = Range.Create<decimal>(5m, 100000m),
-                AmountPerDayAbroad = Range.Create<decimal>(5m, 50000m)
+                AmountPerDayAbroad = Range.Create<decimal>(5m, 50000m),
+                OperationsPerDayLocal = Range.Create(0, 500),
+                OperationsPerDayAbroad = Range.Create(0, 250),
             };
             var json = JsonConvert.SerializeObject(limits);
             var node = JsonConvert.DeserializeXNode(json, "Setting");

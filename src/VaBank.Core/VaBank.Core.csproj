@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Entities\CardLimitsRange.cs" />
-    <Compile Include="Accounting\Exceptions\CardLimitsNotFoundException.cs" />
     <Compile Include="Accounting\Factories\CardAccountFactory.cs" />
     <Compile Include="Accounting\Factories\CardFactory.cs" />
     <Compile Include="Accounting\Factories\UserCardFactory.cs" />
@@ -57,7 +56,6 @@
     <Compile Include="Accounting\Entities\Currency.cs" />
     <Compile Include="Accounting\Entities\UserAccount.cs" />
     <Compile Include="Accounting\Entities\UserCard.cs" />
-    <Compile Include="Accounting\Repositories\ICardLimitsRangeRepository.cs" />
     <Compile Include="Accounting\Validators.cs" />
     <Compile Include="App\Entities\ApplicationAction.cs" />
     <Compile Include="Maintenance\Entitities\AuditLogEntry.cs" />

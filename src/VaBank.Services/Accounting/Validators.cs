@@ -1,11 +1,13 @@
 ﻿using System;
 using FluentValidation;
-using JetBrains.Annotations;
 using VaBank.Common.Data.Repositories;
+using VaBank.Common.Util;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Accounting.Factories;
 using VaBank.Services.Contracts.Accounting.Commands;
+using VaBank.Services.Contracts.Accounting.Models;
 
 namespace VaBank.Services.Accounting
 {
@@ -107,9 +109,39 @@ namespace VaBank.Services.Accounting
 
     internal class UpdateCardSettingsCommandValidator : AbstractValidator<UpdateCardSettingsCommand>
     {
-        public UpdateCardSettingsCommandValidator()
+        private readonly IRepository<UserCard> _userCardRepository;
+
+        private readonly CardLimitsFactory _cardLimitsFactory;
+
+        public UpdateCardSettingsCommandValidator(
+            CardLimitsFactory cardLimitsFactory, 
+            IRepository<UserCard> userCardRepository)
         {
-            RuleFor(x => x.CardId).NotEqual(Guid.Empty);
+            Assert.NotNull("cardLimitsRangeRepository", cardLimitsFactory);
+            Assert.NotNull("userCardRepository", userCardRepository);
+
+            _cardLimitsFactory = cardLimitsFactory;
+            _userCardRepository = userCardRepository;
+
+            RuleFor(x => x.CardId).NotEqual(Guid.Empty).Must(CardExists);
+            RuleFor(x => x.CardLimits).Must(AreCardLimitsValid);
+        }
+
+        private bool CardExists(Guid cardId)
+        {
+            var userCard = _userCardRepository.Find(cardId);
+            return userCard != null && userCard.Account != null;
+        }
+
+        private bool AreCardLimitsValid(UpdateCardSettingsCommand command, CardLimitsModel limits)
+        {
+            var userCard = _userCardRepository.Find(command.CardId);
+            var currency = userCard.Account.Currency;
+            var limitsRange = _cardLimitsFactory.FindRange(currency.ISOName);
+            return limitsRange.AmountPerDayAbroad.Contains(limits.AmountPerDayAbroad) &&
+                   limitsRange.AmountPerDayLocal.Contains(limits.AmountPerDayLocal) &&
+                   limitsRange.OperationsPerDayAbroad.Contains(limits.OperationsPerDayAbroad) &&
+                   limitsRange.OperationsPerDayLocal.Contains(limits.OperationsPerDayLocal);
         }
     }
 
