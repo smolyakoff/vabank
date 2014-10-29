@@ -1,13 +1,8 @@
 ﻿using FluentMigrator;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VaBank.Common.Util;
 
-namespace VaBank.Data.Migrations.M2_Accounting
+namespace VaBank.Data.Migrations
 {
     [Migration(28, "Seed range card limits.")]
     [Tags("Development", "Test", "Production")]
@@ -32,8 +27,8 @@ namespace VaBank.Data.Migrations.M2_Accounting
         {
             var limits = new
             {
-                AmountPerDayLocal = Range.Create<decimal>(10000m, 6000000m),
-                AmountPerDayAbroad = Range.Create<decimal>(10000m, 3000000m)
+                AmountPerDayLocal = Range.Create<decimal>(10000m, 100000000m),
+                AmountPerDayAbroad = Range.Create<decimal>(10000m, 50000000m)
             };
             var json = JsonConvert.SerializeObject(limits);
             var node = JsonConvert.DeserializeXNode(json, "Setting");
@@ -44,8 +39,8 @@ namespace VaBank.Data.Migrations.M2_Accounting
         {
             var limits = new
             {
-                AmountPerDayLocal = Range.Create<decimal>(5m, 1000m),
-                AmountPerDayAbroad = Range.Create<decimal>(5m, 500m)
+                AmountPerDayLocal = Range.Create<decimal>(5m, 100000m),
+                AmountPerDayAbroad = Range.Create<decimal>(5m, 50000m)
             };
             var json = JsonConvert.SerializeObject(limits);
             var node = JsonConvert.DeserializeXNode(json, "Setting");
@@ -56,8 +51,8 @@ namespace VaBank.Data.Migrations.M2_Accounting
         {
             var limits = new
             {
-                AmountPerDayLocal = Range.Create<decimal>(5m, 1000m),
-                AmountPerDayAbroad = Range.Create<decimal>(5m, 500m)
+                AmountPerDayLocal = Range.Create<decimal>(5m, 100000m),
+                AmountPerDayAbroad = Range.Create<decimal>(5m, 50000m)
             };
             var json = JsonConvert.SerializeObject(limits);
             var node = JsonConvert.DeserializeXNode(json, "Setting");
