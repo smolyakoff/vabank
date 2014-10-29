@@ -1,16 +1,28 @@
 ﻿<div class="row" ng-form="limitsForm">
     <div class="col-xs-6">
         <div class="form-horizontal">
-            <div class="form-group">
+            <div class="form-group"
+                 ng-class="{'has-error': limitsForm.operationsPerDayLocal.$invalid, 'has-feedback': limitsForm.operationsPerDayLocal.$invalid}">
                 <label class="control-label col-xs-6">Лимит на количество операций в день, в РБ:</label>
                 <div class="col-xs-6">
                     <input class="form-control" ng-model="limits.operationsPerDayLocal" type="number" />
                 </div>
+                <span ng-if="limitsForm.operationsPerDayLocal.$invalid"
+                      class="glyphicon glyphicon-remove form-control-feedback"
+                      tooltip="Недопустимое значение лимита"
+                      tooltip-placement="right">
+                </span>
             </div>
-            <div class="form-group">
+            <div class="form-group"
+                 ng-class="{'has-error': limitsForm.operationsPerDayAbroad.$invalid, 'has-feedback': limitsForm.operationsPerDayAbroad.$invalid}">
                 <label class="control-label col-xs-6">Лимит на количество операций в день, вне РБ:</label>
                 <div class="col-xs-6">
                     <input class="form-control" ng-model="limits.operationsPerDayAbroad" type="number" />
+                    <span ng-if="limitsForm.operationsPerDayAbroad.$invalid"
+                          class="glyphicon glyphicon-remove form-control-feedback"
+                          tooltip="Недопустимое значение лимита"
+                          tooltip-placement="right">
+                    </span>
                 </div>
             </div>
         </div>
@@ -18,21 +30,34 @@
     </div>
     <div class="col-xs-6">
         <div class="form-horizontal">
-            <div class="form-group">
+            <div class="form-group"
+                 ng-class="{'has-error': limitsForm.amountPerDayLocal.$invalid, 'has-feedback': limitsForm.amountPerDayLocal.$invalid}">
                 <label class="control-label col-xs-6">Лимит на cумму в день, в РБ:</label>
                 <div class="col-xs-6">
                     <vb-currency name="amountPerDayLocal"
-                                 ng-class="{'has-error': limitsForm.amountPerDayLocal.$invalid}"
-                                 ng-model="limits.amountPerDayLocal" min="100"
-                                 symbol="{{card.currency.symbol}}" />
-                    
+                                 ng-model="limits.amountPerDayLocal"
+                                 symbol="{{card.currency.symbol}}">
+                    </vb-currency>
+                    <span ng-if="limitsForm.amountPerDayLocal.$invalid"
+                          class="glyphicon glyphicon-remove form-control-feedback"
+                          tooltip="Недопустимое значение лимита"
+                          tooltip-placement="left">
+                    </span>
                 </div>
+
             </div>
-            <div class="form-group">
+            <div class="form-group"
+                 ng-class="{'has-error': limitsForm.amountPerDayAbroad.$invalid, 'has-feedback': limitsForm.amountPerDayAbroad.$invalid}">
                 <label class="control-label col-xs-6">Лимит на сумму в день, вне РБ:</label>
                 <div class="col-xs-6">
-                    <vb-currency ng-model="limits.amountPerDayAbroad"
+                    <vb-currency ng-model="limits.amountPerDayLocal"
+                                 ng-class="{'has-error': limitsForm.amountPerDayAbroard.$invalid}"
                                  symbol="{{card.currency.symbol}}" />
+                    <span ng-if="limitsForm.amountPerDayAbroad.$invalid"
+                          class="glyphicon glyphicon-remove form-control-feedback"
+                          tooltip="Недопустимое значение лимита"
+                          tooltip-placement="left">
+                    </span>
                 </div>
             </div>
         </div>
