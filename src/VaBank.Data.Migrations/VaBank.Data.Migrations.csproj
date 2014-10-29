@@ -121,6 +121,9 @@
     <EmbeddedResource Include="M2-Accounting\PROC_DropHistoryTable.sql" />
     <EmbeddedResource Include="M2-Accounting\PROC_GenerateHistoryTable.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="M1-Authentication\ChangeUserClaimPK.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
