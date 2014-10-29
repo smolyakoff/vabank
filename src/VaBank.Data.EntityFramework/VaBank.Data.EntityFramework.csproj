@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting\CardLimitsRangeRepository.cs" />
     <Compile Include="Accounting\Mappings\AccountMap.cs" />
     <Compile Include="Accounting\Mappings\CardAccountMap.cs" />
     <Compile Include="Accounting\Mappings\CardLimitsMap.cs" />

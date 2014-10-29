@@ -82,6 +82,7 @@
     <Compile Include="M2-Accounting\24_AddResourceIdToCardVendor.cs" />
     <Compile Include="M2-Accounting\25_SeedCardVendors.cs" />
     <Compile Include="M2-Accounting\26_SeedDefaultLimits.cs" />
+    <Compile Include="M2-Accounting\28_SeedRangeLimits.cs" />
     <Compile Include="M2-Accounting\M2Account.cs" />
     <Compile Include="M2-Accounting\M2Card.cs" />
     <Compile Include="M2-Accounting\M2Currency.cs" />
