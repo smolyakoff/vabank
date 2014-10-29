@@ -22,7 +22,7 @@ CREATE TABLE [App].[Operation](
  CONSTRAINT [PK_Operation] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
-)
+))
 
 GO
 
