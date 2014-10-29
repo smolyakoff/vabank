@@ -7,7 +7,7 @@ using VaBank.Core.App.Repositories;
 
 namespace VaBank.Data.EntityFramework.Accounting
 {
-    public class CardLimitsRangeRepository : ICardLimitsRangeRepository
+    public class CardLimitsRangeRepository : IRepository, ICardLimitsRangeRepository
     {
         private const string Key = "VaBank.Accounting.CardLimits.Range.{0}";
 
