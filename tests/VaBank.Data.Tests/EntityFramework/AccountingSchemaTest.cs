@@ -23,7 +23,7 @@ namespace VaBank.Data.Tests.EntityFramework
 
             Context.Set<UserCard>().Add(userCard);
 
-            var account = new CardAccount("1234567890123", currency, userCard) {ExpirationDateUtc = DateTime.UtcNow.AddDays(300)};
+            var account = new CardAccount("1234567890123", currency, user) {ExpirationDateUtc = DateTime.UtcNow.AddDays(300)};
 
             Context.Set<CardAccount>().Add(account);
             Context.SaveChanges();
@@ -54,7 +54,7 @@ namespace VaBank.Data.Tests.EntityFramework
             Context.Set<UserCard>().Add(userCard1);
             Context.Set<UserCard>().Add(userCard2);
 
-            var account1 = new CardAccount("test", currency, userCard1) { ExpirationDateUtc = DateTime.UtcNow.AddDays(300) };
+            var account1 = new CardAccount("1234567891234", currency, user) { ExpirationDateUtc = DateTime.UtcNow.AddDays(300) };
             account1.Cards.Add(userCard2);
             Context.Set<CardAccount>().Add(account1);
 

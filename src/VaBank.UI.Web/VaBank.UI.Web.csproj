@@ -701,7 +701,6 @@
     <Content Include="Client\bower_components\isteven-angular-multiselect\.bower.json" />
     <Content Include="Client\bower_components\isteven-angular-multiselect\angular-multi-select.css" />
     <Content Include="Client\bower_components\isteven-angular-multiselect\angular-multi-select.js" />
-    <Content Include="Client\bower_components\isteven-angular-multiselect\CHANGELOG.md" />
     <Content Include="Client\bower_components\isteven-angular-multiselect\LICENSE.txt" />
     <Content Include="Client\bower_components\jquery\.bower.json" />
     <Content Include="Client\bower_components\jquery\bower.json" />
@@ -1184,12 +1183,6 @@
     <MSDeployUseChecksum>true</MSDeployUseChecksum>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <TypeScriptCompileOnSaveEnabled>False</TypeScriptCompileOnSaveEnabled>
-    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
-    <TypeScriptSourceMap>False</TypeScriptSourceMap>
-  </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

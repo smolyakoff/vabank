@@ -30,7 +30,7 @@ namespace VaBank.Common.Data.Linq.Dynamic
 
                 return _customTypes;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 
                 return new HashSet<Type>();
