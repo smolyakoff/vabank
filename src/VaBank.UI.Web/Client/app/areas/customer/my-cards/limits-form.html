@@ -1,11 +1,14 @@
-﻿<div class="row" ng-form="limitsForm">
+﻿<div class="row" ng-form="" name="limitsForm">
     <div class="col-xs-6">
         <div class="form-horizontal">
             <div class="form-group"
                  ng-class="{'has-error': limitsForm.operationsPerDayLocal.$invalid, 'has-feedback': limitsForm.operationsPerDayLocal.$invalid}">
                 <label class="control-label col-xs-6">Лимит на количество операций в день, в РБ:</label>
                 <div class="col-xs-6">
-                    <input class="form-control" ng-model="limits.operationsPerDayLocal" type="number" />
+                    <input class="form-control"
+                           name="operationsPerDayLocal"
+                           ng-model="limits.operationsPerDayLocal"
+                           type="number" />
                 </div>
                 <span ng-if="limitsForm.operationsPerDayLocal.$invalid"
                       class="glyphicon glyphicon-remove form-control-feedback"
@@ -17,7 +20,10 @@
                  ng-class="{'has-error': limitsForm.operationsPerDayAbroad.$invalid, 'has-feedback': limitsForm.operationsPerDayAbroad.$invalid}">
                 <label class="control-label col-xs-6">Лимит на количество операций в день, вне РБ:</label>
                 <div class="col-xs-6">
-                    <input class="form-control" ng-model="limits.operationsPerDayAbroad" type="number" />
+                    <input name="operationsPerDayAbroad"
+                           class="form-control"
+                           ng-model="limits.operationsPerDayAbroad"
+                           type="number" />
                     <span ng-if="limitsForm.operationsPerDayAbroad.$invalid"
                           class="glyphicon glyphicon-remove form-control-feedback"
                           tooltip="Недопустимое значение лимита"
@@ -50,8 +56,8 @@
                  ng-class="{'has-error': limitsForm.amountPerDayAbroad.$invalid, 'has-feedback': limitsForm.amountPerDayAbroad.$invalid}">
                 <label class="control-label col-xs-6">Лимит на сумму в день, вне РБ:</label>
                 <div class="col-xs-6">
-                    <vb-currency ng-model="limits.amountPerDayLocal"
-                                 ng-class="{'has-error': limitsForm.amountPerDayAbroard.$invalid}"
+                    <vb-currency name="amountPerDayAbroad"
+                                 ng-model="limits.amountPerDayAbroad"
                                  symbol="{{card.currency.symbol}}" />
                     <span ng-if="limitsForm.amountPerDayAbroad.$invalid"
                           class="glyphicon glyphicon-remove form-control-feedback"
@@ -66,8 +72,8 @@
 <div class="row" style="margin-top: 10px">
     <div class="col-xs-12">
         <div class="pull-right">
-            <button class="btn btn-default btn-sm " ng-click="cancelLimits()" ng-disabled="limitsForm.$pristine">Отмена</button>
-            <button class="btn btn-danger btn-sm " ng-click="updateLimits()">Обновить лимиты</button>
+            <button class="btn btn-default btn-sm " ng-click="cancelLimits(limitsForm)" ng-disabled="limitsForm.$pristine">Отмена</button>
+            <button class="btn btn-danger btn-sm " ng-click="updateLimits()" ng-disabled="limitsForm.$invalid">Обновить лимиты</button>
         </div>
     </div>
 </div>

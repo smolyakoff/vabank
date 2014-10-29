@@ -13,9 +13,6 @@
 
         var card = $scope.card;
         var pristineCard = angular.copy(card);
-
-        $scope.limitsForm = {};
-
         $scope.limits = card.cardLimits;
 
         $scope.limitsHidden = true;
@@ -52,7 +49,8 @@
             });
         };
 
-        $scope.cancelLimits = function() {
+        $scope.cancelLimits = function (limitsForm) {
+            limitsForm.$setPristine();
             angular.extend($scope.limits, pristineCard.cardLimits);
         };
 
