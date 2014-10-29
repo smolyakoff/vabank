@@ -29,7 +29,7 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_ID]  DEFAULT (newsequentialid()) FOR [ID]
+ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_ID]  DEFAULT (newid()) FOR [ID]
 GO
 
 ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_StartedUtc]  DEFAULT (getutcdate()) FOR [StartedUtc]
