@@ -104,4 +104,20 @@ namespace VaBank.Services.Accounting
             return cardExpirationDate <= command.AccountExpirationDateUtc;
         }
     }
+
+    internal class UpdateCardSettingsCommandValidator : AbstractValidator<UpdateCardSettingsCommand>
+    {
+        public UpdateCardSettingsCommandValidator()
+        {
+            RuleFor(x => x.CardId).NotEqual(Guid.Empty);
+        }
+    }
+
+    internal class SetCardBlockCommandValidator : AbstractValidator<SetCardBlockCommand>
+    {
+        public SetCardBlockCommandValidator()
+        {
+            RuleFor(x => x.CardId).NotEqual(Guid.Empty);
+        }
+    }
 }
