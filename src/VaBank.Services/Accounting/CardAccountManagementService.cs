@@ -262,12 +262,12 @@ namespace VaBank.Services.Accounting
                 var userCard = _deps.UserCards.SurelyFind(command.CardId);
                 if (!string.IsNullOrEmpty(command.FriendlyName))
                 {
-                    userCard.Settings.FriendlyName = command.FriendlyName;
-                    events.Add(new UserCardLimitChanged(userCard.ToModel<UserCard, CustomerCardModel>(), Operation.Id));
+                    userCard.Settings.FriendlyName = command.FriendlyName;                    
                 }
                 if (command.CardLimits != null)
                 {
                     Mapper.Map(command.CardLimits, userCard.Settings.Limits);
+                    events.Add(new UserCardLimitChanged(userCard.ToModel<UserCard, CustomerCardModel>(), Operation.Id));
                 }
                 Commit();
                 events.ForEach(Publish);
