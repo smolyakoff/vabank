@@ -7,6 +7,7 @@ using VaBank.UI.Web.Api.Infrastructure.Filters;
 
 namespace VaBank.UI.Web.Api.Customer
 {
+    [Authorize(Roles = "Customer")]
     public class CustomerCardController : ApiController
     {
         private readonly ICardAccountManagementService _cardAccountManagementService;

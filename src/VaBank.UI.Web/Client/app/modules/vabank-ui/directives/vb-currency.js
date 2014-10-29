@@ -35,7 +35,10 @@
                 }
             };
 
-            var format = function(value) {
+            var format = function (value) {
+                _.each(validators, function (v, k) {
+                    ngModelCtrl.$setValidity(k, v(value));
+                });
                 return accounting.formatMoney(value, '', $scope.precision, $scope.thousand, $scope.decimal);
             };
 
@@ -62,7 +65,9 @@
             });
 
             $input.on('blur', function (e) {
-                ngModelCtrl.$setViewValue(format(e.target.value), 'blur');
+                $scope.$apply(function() {
+                    ngModelCtrl.$setViewValue(format(e.target.value), 'blur');
+                });             
                 ngModelCtrl.$render();
             });
 

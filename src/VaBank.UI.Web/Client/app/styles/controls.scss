@@ -61,6 +61,10 @@
     .tooltip.right .tooltip-arrow {
         border-right-color: $state-danger-text;
     }
+
+    .tooltip.left .tooltip-arrow {
+        border-left-color: $state-danger-text;
+    }
 }
 
 //Buttons 
