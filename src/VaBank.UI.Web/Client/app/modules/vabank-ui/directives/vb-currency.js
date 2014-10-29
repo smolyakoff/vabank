@@ -27,11 +27,11 @@
             var validators = {
                 max: function (modelValue) {
                     var max = $scope.max ? accounting.unformat($scope.max) : null;
-                    return !_.isNumber(max) || modelValue < max;
+                    return !_.isNumber(max) || modelValue <= max;
                 },
                 min: function (modelValue) {
                     var min = $scope.min ? accounting.unformat($scope.min) : null;
-                    return !_.isNumber(min) || modelValue > min;
+                    return !_.isNumber(min) || modelValue >= min;
                 }
             };
 

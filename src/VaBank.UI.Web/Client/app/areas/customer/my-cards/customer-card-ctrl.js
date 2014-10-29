@@ -54,14 +54,25 @@
             angular.extend($scope.limits, pristineCard.cardLimits);
         };
 
-        $scope.updateLimits = function () {
+        $scope.updateLimits = function (limitsForm) {
             Card.updateSettings({ cardId: card.cardId }, {
                 cardLimits: $scope.limits
-            }).$promise.then(function(response) {
+            }).$promise.then(
+            function () {
                 uiTools.notify({                    
                     type: 'success',
                     message: 'Лимиты были успешно обновлены'
                 });
+            },
+            function (failureResponse) {
+                if (failureResponse.status === 400) {
+                    var failures = failureResponse.data.faults;
+                    _.each(failures, function(x) {
+                        var prop = x.propertyName.replace('CardLimits.', '');
+                        prop = prop[0].toLowerCase() + prop.substring(1);
+                        limitsForm[prop].$setValidity('range', false);
+                    });
+                }
             });
         };
     }

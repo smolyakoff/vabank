@@ -21,14 +21,14 @@ namespace VaBank.UI.Web.Api.Customer
             _cardAccountManagementService = cardAccountManagementService;
         }
 
-        [Route("api/users/{id}/cards")]
+        [Route("api/users/{id:guid}/cards")]
         [HttpGet]
         public IHttpActionResult Get([FromUri]IdentityQuery<Guid> userId)
         {
             return Ok(_cardAccountManagementService.GetCustomerCards(userId));
         }
 
-        [Route("api/cards/{id}/settings")]
+        [Route("api/cards/{id:guid}/settings")]
         [HttpPut]
         [Transaction]
         public IHttpActionResult UpdateSettings([FromUri]Guid id, UpdateCardSettingsCommand command)
@@ -37,7 +37,7 @@ namespace VaBank.UI.Web.Api.Customer
             return Ok(_cardAccountManagementService.UpdateCardSettings(command));
         }
 
-        [Route("api/cards/{id}/block")]
+        [Route("api/cards/{id:guid}/block")]
         [HttpPost]
         [Transaction]
         public IHttpActionResult Block([FromUri]Guid id, SetCardBlockCommand command)

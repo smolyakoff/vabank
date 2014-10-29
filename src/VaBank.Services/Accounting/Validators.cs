@@ -1,5 +1,7 @@
 ﻿using System;
 using FluentValidation;
+using FluentValidation.Results;
+using FluentValidation.Validators;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.Util;
 using VaBank.Common.Validation;
@@ -124,24 +126,32 @@ namespace VaBank.Services.Accounting
             _userCardRepository = userCardRepository;
 
             RuleFor(x => x.CardId).NotEqual(Guid.Empty).Must(CardExists);
-            RuleFor(x => x.CardLimits).Must(AreCardLimitsValid);
+        }
+
+        public override ValidationResult Validate(UpdateCardSettingsCommand command)
+        {
+            var userCard = _userCardRepository.Find(command.CardId);
+            var currency = userCard.Account.Currency;
+            var limitsRange = _cardLimitsFactory.FindRange(currency.ISOName);
+            RuleFor(x => x.CardLimits.AmountPerDayLocal).InclusiveBetween(
+                limitsRange.AmountPerDayLocal.LowerBound, 
+                limitsRange.AmountPerDayLocal.UpperBound);
+            RuleFor(x => x.CardLimits.AmountPerDayAbroad).InclusiveBetween(
+                limitsRange.AmountPerDayAbroad.LowerBound,
+                limitsRange.AmountPerDayAbroad.UpperBound);
+            RuleFor(x => x.CardLimits.OperationsPerDayLocal).InclusiveBetween(
+                limitsRange.OperationsPerDayLocal.LowerBound,
+                limitsRange.OperationsPerDayLocal.UpperBound);
+            RuleFor(x => x.CardLimits.OperationsPerDayAbroad).InclusiveBetween(
+                limitsRange.OperationsPerDayAbroad.LowerBound,
+                limitsRange.OperationsPerDayAbroad.UpperBound);
+            return base.Validate(command);
         }
 
         private bool CardExists(Guid cardId)
         {
             var userCard = _userCardRepository.Find(cardId);
             return userCard != null && userCard.Account != null;
-        }
-
-        private bool AreCardLimitsValid(UpdateCardSettingsCommand command, CardLimitsModel limits)
-        {
-            var userCard = _userCardRepository.Find(command.CardId);
-            var currency = userCard.Account.Currency;
-            var limitsRange = _cardLimitsFactory.FindRange(currency.ISOName);
-            return limitsRange.AmountPerDayAbroad.Contains(limits.AmountPerDayAbroad) &&
-                   limitsRange.AmountPerDayLocal.Contains(limits.AmountPerDayLocal) &&
-                   limitsRange.OperationsPerDayAbroad.Contains(limits.OperationsPerDayAbroad) &&
-                   limitsRange.OperationsPerDayLocal.Contains(limits.OperationsPerDayLocal);
         }
     }
 
