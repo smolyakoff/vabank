@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VaBank.Services.Contracts.Common;
+using VaBank.Common.Util;
 using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Membership.Models;
 
@@ -12,15 +8,12 @@ namespace VaBank.Services.Contracts.Membership.Events
 {
     public class UserProfileUpdated : ApplicationEvent, IAuditedEvent
     {
-        public UserProfileUpdated(UserProfileModel userProfileModel)
+        public UserProfileUpdated(Guid operationId, UserProfileModel userProfile)
         {
-            if (userProfileModel == null)
-            {
-                throw new ArgumentNullException("user profile");
-            }
-            ProfileModel = userProfileModel;
+            Assert.NotNull("userProfile", userProfile);
+            OperationId = operationId;
             Code = "USER_PROFILE_UPDATED";
-            Description = string.Format("User profile changed.");
+            Description = string.Format("User profile [{0}] changed.", userProfile.UserId);
             Data = null;
         }
 
@@ -38,7 +31,5 @@ namespace VaBank.Services.Contracts.Membership.Events
 
         [JsonProperty]
         public object Data { get; private set; }
-
-        public UserProfileModel ProfileModel { get; private set; }
     }
 }

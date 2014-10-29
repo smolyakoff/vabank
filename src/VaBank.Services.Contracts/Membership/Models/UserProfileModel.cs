@@ -15,6 +15,8 @@ namespace VaBank.Services.Contracts.Membership.Models
 
         public string PhoneNumber { get; set; }
 
+        public bool PhoneNumberConfirmed { get; set; }
+
         public bool SmsNotificationEnabled { get; set; }
 
         public bool SmsConfirmationEnabled { get; set; }
