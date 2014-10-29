@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Linq;
-using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Membership.Commands;
 using VaBank.Services.Contracts.Membership.Models;
@@ -20,7 +21,11 @@ namespace VaBank.Services.Membership
 
         public static DbQuery<UserBriefModel> ToDbQuery(this UsersQuery query)
         {
-            var spec = query.Roles.Aggregate(Specs.Active, (current, role) => current && Specs.InRole(role));
+            var spec = LinqSpec.For<UserBriefModel>(x => true);
+            if (query.Roles != null && query.Roles.Length > 0)
+            {
+                spec = spec && Specs.HasAtLeastOneRoleFrom(query.Roles);
+            }
             return DbQuery.PagedFor<UserBriefModel>().FromClientQuery(query).AndFilterBy(spec);
         }
 
@@ -39,10 +44,12 @@ namespace VaBank.Services.Membership
             }
         }
 
-
         private static class Specs
         {
-            public static readonly LinqSpec<UserBriefModel> Active = LinqSpec.For<UserBriefModel>(x => !x.Deleted);
+            public static LinqSpec<UserBriefModel> HasAtLeastOneRoleFrom(IEnumerable<string> roleNames)
+            {
+                return LinqSpec.For<UserBriefModel>(x => x.Claims.Any(y => y.Type == ClaimTypes.Role && roleNames.Contains(y.Value)));
+            } 
 
             public static LinqSpec<UserBriefModel> InRole(string roleName)
             {

@@ -1,5 +1,7 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
+using VaBank.Data.EntityFramework.Common;
 
 namespace VaBank.Data.EntityFramework.Membership.Mappings
 {
@@ -12,12 +14,12 @@ namespace VaBank.Data.EntityFramework.Membership.Mappings
                 .HasForeignKey(x => x.UserId);
             Property(x => x.Id).HasColumnName("UserID");
             Property(x => x.LockoutEndDateUtc).IsOptional();
-            Property(x => x.PasswordHash).HasMaxLength(RestrictionConstants.SecurityStringLength)
+            Property(x => x.PasswordHash).HasMaxLength(Restrict.Length.SecurityString)
                 .IsRequired();
-            Property(x => x.PasswordSalt).HasMaxLength(RestrictionConstants.SecurityStringLength)
+            Property(x => x.PasswordSalt).HasMaxLength(Restrict.Length.SecurityString)
                 .IsRequired();
             Property(x => x.LockoutEnabled).IsRequired();
-            Property(x => x.UserName).HasMaxLength(RestrictionConstants.ShortNameLength)
+            Property(x => x.UserName).HasMaxLength(Restrict.Length.ShortName)
                 .IsRequired();
             Property(x => x.AccessFailedCount).IsRequired();
             Property(x => x.Deleted).IsRequired();

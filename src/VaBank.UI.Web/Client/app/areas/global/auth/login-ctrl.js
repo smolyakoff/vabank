@@ -24,13 +24,10 @@
         $scope.login = function () {
            
             function onSuccess() {
-                var user = authService.getUser();
                 if ($stateParams.redirect) {
                     $location.path($stateParams.redirect);
-                } else if (user.isInRole('Admin')) {
-                    $state.go('admin');
                 } else {
-                    $state.go('customer.cabinet');
+                    $state.go('home');
                 }
             }
             

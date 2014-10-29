@@ -2,6 +2,7 @@
 using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Core.Maintenance;
+using VaBank.Core.Maintenance.Entitities;
 using VaBank.Services.Contracts.Maintenance;
 using VaBank.Services.Contracts.Maintenance.Commands;
 

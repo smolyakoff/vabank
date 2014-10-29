@@ -40,9 +40,8 @@
                 templateUrl: '/Client/app/areas/customer/profile/profile-edit.html',
                 controller: 'profileEditController',
                 resolve: {
-                    data: ['authService', 'profileService', function (authService, profileService) {
-                        var user = authService.getUser();
-                        return profileService.Profile.get({ userId: user.id }).$promise;
+                    data: ['profileService', function (profileService) {
+                        return profileService.Profile.get().$promise;
                     }]
                 }
             })
@@ -50,6 +49,35 @@
                 url: '/change-password',
                 templateUrl: '/Client/app/areas/customer/profile/profile-change-pwd.html',
                 controller: 'changePasswordController'
+            })
+            .state('customer.cards', {
+                url: 'cards',
+                'abstract': true,
+                templateUrl: '/Client/app/areas/customer/my-cards/my-cards.html',
+                data: {
+                    title: 'VaBank - Платежные карты',
+                    subtitle: 'Мои платежные карты'
+                },
+            })
+            .state('customer.cards.list', {
+                url: '',
+                templateUrl: '/Client/app/areas/customer/my-cards/my-cards-list.html',
+                controller: 'myCardsListController',
+                resolve: {
+                    data: ['myCardsService', function(myCardsService) {
+                        return myCardsService.Card.query().$promise;
+                    }]
+                }
+            })
+            .state('customer.cards.accountStatement', {
+                url: '/statement',
+                templateUrl: '/Client/app/areas/customer/my-cards/account-statement.html',
+                controller: 'accountStatementController'
+            })
+            .state('customer.cards.transfer', {
+                url: '/transfer',
+                templateUrl: '/Client/app/areas/customer/my-cards/transfer.html',
+                controller: 'transferController'
             });
     }
 

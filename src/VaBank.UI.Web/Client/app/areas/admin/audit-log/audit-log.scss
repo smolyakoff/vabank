@@ -1,0 +1,39 @@
+﻿.search-row {
+    width: 100%;
+}
+
+.from-filter, .to-filter {
+    .input-group {
+        width: 150px;
+    }
+}
+
+.switch-audit-view {
+    width: 30px;
+    vertical-align: middle !important;
+    a {
+        height: 100%;
+    }
+}
+
+.audit-user-search {
+    min-width: 200px;
+    input {
+        min-width: 200px;
+    }
+}
+
+.db-change-table {
+    margin-bottom: 0;
+    table-layout:fixed;
+    tbody > tr > td {
+        border: 0;
+        padding: 0;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+
+        &:first-child {
+            font-weight: bold;
+        }
+    }
+}

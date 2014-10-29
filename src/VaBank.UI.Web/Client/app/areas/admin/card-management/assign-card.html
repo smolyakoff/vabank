@@ -1,0 +1,28 @@
+﻿<table class="table table-responsive" 
+       st-table="cards" 
+       st-safe-src="displayedCards"
+       ng-show="cards.length > 0">
+    <thead>
+        <tr class="warning">
+            <th style="width: 30px"></th>
+            <th>Номер карты</th>
+            <th>Вид карты</th>
+            <th>Владелец</th>
+            <th>Срок карты</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="card in cards">
+            <td>
+                <button class="btn btn-xs" ng-click="assign(card)"><i class="glyphicon glyphicon-link"></i></button>
+            </td>
+            <td>{{card.cardNo}}</td>
+            <td>{{card.cardVendor.name}}</td>
+            <td>{{card.cardholderFirstName}} {{card.cardholderLastName}}</td>
+            <td>{{card.expirationDateUtc | date:'MM/yy' }}</td>
+        </tr>
+    </tbody>
+</table>
+<div ng-show="cards.length == 0">
+    Нет непривязанных карт.
+</div>

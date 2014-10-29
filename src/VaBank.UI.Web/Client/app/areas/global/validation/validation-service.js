@@ -5,14 +5,20 @@
         .module('vabank.webapp')
         .factory('validationService', validationService);
 
-    validationService.$inject = ['$http', '$q'];
+    validationService.$inject = ['$http', '$q', '$filter'];
 
-    function validationService($http, $q) {
+    function validationService($http, $q, $filter) {
 
         var API_URL = '/api/validate/';
 
-        var camelCase = function(input) {
-            return input[0].toLowerCase() + input.substring(1);
+        var format = $filter('stringFormat');
+
+        var camelCase = function (input) {
+            var props = input.split('.');
+            var camelCased = _.map(props, function(x) {
+                return x[0].toLowerCase() + x.substring(1);
+            });
+            return camelCased.join('.');
         };
 
         var constructMessage = function(faults) {
@@ -83,11 +89,43 @@
             return asConditional(validator, condition);
         };
         
+        var createValidator = function (checker) {
+            return function (value, model, options) {
+                var deferred = $q.defer();
+                var message = checker(value, model, options);
+                if (_.isString(message)) {
+                    deferred.reject(message);
+                }
+                deferred.resolve();
+                return deferred.promise;
+            };
+        };
+
+        var min = function(name, options) {
+            return createValidator(function(value, model) {
+                if (value < options) {
+                    return format('Значение не должно быть меньше {0}.', options);
+                }
+                return null;
+            });
+        };
+        
+        var max = function (name, options) {
+            return createValidator(function (value, model) {
+                if (value > options) {
+                    return format('Значение не должно превышать {0}.', options);
+                }
+                return null;
+            });
+        };
+        
         var validators = {
             'userName': server,
             'phone': server,
             'password': server,
-            'passwordConfirmation': passwordConfirmation
+            'passwordConfirmation': passwordConfirmation,
+            'min': min,
+            'max': max
         };
 
         var getValidator = function(name, options) {
@@ -113,9 +151,10 @@
                 return {};
             }
             var map = {};
-            _.forEach(faults, function (fault) {
-                var exisingMessage = map[fault.propertyName] || '';
-                map[camelCase(fault.propertyName)] = exisingMessage + fault.message;
+            _.each(faults, function (fault) {
+                var camelCased = camelCase(fault.propertyName);
+                var exisingMessage = map[camelCased] || '';
+                _.deep(map, camelCased, exisingMessage + fault.message);
             });
             return map;
         };
@@ -139,18 +178,6 @@
             var deferred = $q.defer();
             promise.then(onSuccess, onFailure);
             return deferred.promise;
-        };
-
-        var createValidator = function (checker) {
-            return function(value, model) {
-                var deferred = $q.defer();
-                var message = checker(value, model);
-                if (_.isString(message)) {
-                    deferred.reject(message);
-                }
-                deferred.resolve();
-                return deferred.promise;
-            };
         };
 
         var combineValidators = function (validatorArray) {

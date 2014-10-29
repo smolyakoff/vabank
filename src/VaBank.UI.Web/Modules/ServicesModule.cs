@@ -1,14 +1,15 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using Autofac;
 using AutoMapper;
 using FluentValidation;
-using System;
 using System.Linq;
+using VaBank.Common.Data;
+using VaBank.Common.IoC;
+using VaBank.Common.Resources;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
 using VaBank.Services.Common;
-using VaBank.Services.Common.Validation;
 using VaBank.Services.Contracts;
-using VaBank.UI.Web.Api.Infrastructure.IoC;
 using Module = Autofac.Module;
 
 namespace VaBank.UI.Web.Modules
@@ -17,10 +18,11 @@ namespace VaBank.UI.Web.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //Add auto mapper profiles
-            var mappingProfiles =
-                typeof (BaseService).Assembly.GetTypes().Where(t => typeof (Profile).IsAssignableFrom(t)).ToList();
-            mappingProfiles.ForEach(x => Mapper.AddProfile(Activator.CreateInstance(x) as Profile));
+            //Regiser auto mapper profiles
+            builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
+                .Where(t => typeof (Profile).IsAssignableFrom(t) && !t.IsAbstract)
+                .As<Profile>()
+                .SingleInstance();
 
             //Register validation system
             builder.RegisterType<AutofacFactory>().AsImplementedInterfaces().InstancePerRequest();
@@ -37,18 +39,33 @@ namespace VaBank.UI.Web.Modules
             staticValidators.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().AsSelf().SingleInstance());
             otherValidators.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().AsSelf().InstancePerRequest());
 
-            //Register repository collections
+            //Register operation provider
+            builder.RegisterType<ServiceOperationProvider>()
+                .AsSelf()
+                .InstancePerRequest();
+
+            //Register dependency collections
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
-                .Where(t => typeof (IRepositoryCollection).IsAssignableFrom(t))
+                .Where(t => typeof (IDependencyCollection).IsAssignableFrom(t))
                 .PropertiesAutowired()
                 .AsSelf()
                 .InstancePerRequest();
+
+            //Register service bus
+            builder.RegisterInstance(VaBankServiceBus.Instance)
+                .AsImplementedInterfaces()
+                .SingleInstance();
 
             //Register services
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
                 .Where(t => typeof (IService).IsAssignableFrom(t))
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
+
+            //Register startup class
+            builder.RegisterType<ApplicationStartup>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

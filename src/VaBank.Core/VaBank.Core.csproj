@@ -42,21 +42,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting\Entities\CardLimitsRange.cs" />
+    <Compile Include="Accounting\Factories\CardAccountFactory.cs" />
+    <Compile Include="Accounting\Factories\CardFactory.cs" />
+    <Compile Include="Accounting\Factories\UserCardFactory.cs" />
+    <Compile Include="Accounting\Factories\CardLimitsFactory.cs" />
+    <Compile Include="Accounting\Entities\Account.cs" />
+    <Compile Include="Accounting\Entities\Card.cs" />
+    <Compile Include="Accounting\Entities\CardAccount.cs" />
+    <Compile Include="Accounting\Entities\CardLimits.cs" />
+    <Compile Include="Accounting\Entities\CardSettings.cs" />
+    <Compile Include="Accounting\Entities\CardVendor.cs" />
+    <Compile Include="Accounting\Entities\Currency.cs" />
+    <Compile Include="Accounting\Entities\UserAccount.cs" />
+    <Compile Include="Accounting\Entities\UserCard.cs" />
+    <Compile Include="Accounting\Validators.cs" />
+    <Compile Include="App\Entities\ApplicationAction.cs" />
+    <Compile Include="Maintenance\Entitities\AuditLogEntry.cs" />
+    <Compile Include="Maintenance\Entitities\AuditLogBriefEntry.cs" />
+    <Compile Include="App\Entities\DatabaseOperation.cs" />
+    <Compile Include="App\Entities\DatabaseAction.cs" />
+    <Compile Include="App\Entities\DatabaseRow.cs" />
+    <Compile Include="App\Entities\FileLinkLocation.cs" />
+    <Compile Include="Maintenance\Repositories\IAuditLogRepository.cs" />
+    <Compile Include="App\Providers\IOperationProvider.cs" />
+    <Compile Include="App\Repositories\IOperationRepository.cs" />
+    <Compile Include="App\Entities\FileLink.cs" />
+    <Compile Include="App\Entities\Operation.cs" />
+    <Compile Include="App\Entities\Resource.cs" />
+    <Compile Include="App\Entities\VersionedDatabaseRow.cs" />
+    <Compile Include="Common\DateRange.cs" />
     <Compile Include="Common\Entity.cs" />
     <Compile Include="Common\Entity`1.cs" />
-    <Compile Include="Maintenance\SystemLogEntry.cs" />
-    <Compile Include="Membership\ApplicationClient.cs" />
-    <Compile Include="Membership\ApplicationClientType.cs" />
-    <Compile Include="Membership\ApplicationToken.cs" />
-    <Compile Include="Membership\IApplicationTokenRepository.cs" />
+    <Compile Include="App\Repositories\ISettingRepository.cs" />
+    <Compile Include="Maintenance\Entitities\SystemLogEntry.cs" />
+    <Compile Include="Membership\Access\AccessFailedCountUserLockoutPolicy.cs" />
+    <Compile Include="Membership\Access\AccessStatus.cs" />
+    <Compile Include="Membership\Entities\ApplicationClient.cs" />
+    <Compile Include="Membership\Entities\ApplicationClientType.cs" />
+    <Compile Include="Membership\Entities\ApplicationToken.cs" />
+    <Compile Include="Membership\Access\IAccessPolicy.cs" />
+    <Compile Include="Membership\Access\IUserLockoutPolicy.cs" />
+    <Compile Include="Membership\Access\LockoutAccessPolicy.cs" />
+    <Compile Include="Membership\Repositories\IApplicationTokenRepository.cs" />
     <Compile Include="Membership\Resources\Messages.Designer.cs">
       <DependentUpon>Messages.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Membership\User.cs" />
-    <Compile Include="Membership\UserClaim.cs" />
-    <Compile Include="Membership\UserProfile.cs" />
+    <Compile Include="Membership\Entities\User.cs" />
+    <Compile Include="Membership\Entities\UserClaim.cs" />
+    <Compile Include="Membership\Entities\UserProfile.cs" />
     <Compile Include="Common\IUnitOfWork.cs" />
     <Compile Include="Membership\Validators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +115,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Membership\Resources\Top_500_Worst_Passwords.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

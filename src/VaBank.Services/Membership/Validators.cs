@@ -5,6 +5,7 @@ using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.Validation;
 using VaBank.Core.Membership;
+using VaBank.Core.Membership.Entities;
 using VaBank.Services.Contracts.Membership.Commands;
 using VaBank.Services.Contracts.Membership.Queries;
 

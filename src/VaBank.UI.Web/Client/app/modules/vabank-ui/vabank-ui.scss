@@ -15,7 +15,7 @@
     position: relative;
 }
 .paper-checkbox input[type=checkbox]   { display:none; }
-.paper-checkbox label, p               { padding-left:30px; }
+.paper-checkbox label            { padding-left:30px; }
 .paper-checkbox label                  { cursor:pointer; }
 .paper-checkbox label span             { display:block; position:absolute; left:0; 
   -webkit-transition-duration:0.3s; -moz-transition-duration:0.3s; transition-duration:0.3s;
@@ -104,6 +104,10 @@
 @keyframes growCircle {
   0%, 100%   { transform:scale(0); }
   70%        { background:#DDD; transform:scale(1.25); }
+}
+
+.vb-currency {
+    .input-group-addon { padding: 8px 8px 8px 6px; }
 }
 
 

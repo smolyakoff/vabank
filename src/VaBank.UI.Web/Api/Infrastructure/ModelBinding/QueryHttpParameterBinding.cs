@@ -108,8 +108,13 @@ namespace VaBank.UI.Web.Api.Infrastructure.ModelBinding
         {
             var uriBinding = _descriptor.BindWithAttribute(new FromUriAttribute());
             await uriBinding.ExecuteBindingAsync(metadataProvider, actionContext, cancellationToken);
+            var bindedValue = GetValue(actionContext) as IClientQuery;
             var query = GetValue(actionContext) as IClientQuery ??
                         Activator.CreateInstance(_descriptor.ParameterType) as IClientQuery;
+            if (bindedValue == null)
+            {
+                SetValue(actionContext, query);
+            }
             var clientFilterable = query as IClientFilterable;
             var clientSortable = query as IClientSortable;
             var clientPageable = query as IClientPageable;

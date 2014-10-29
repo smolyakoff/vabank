@@ -1,0 +1,84 @@
+﻿<section class="row offset-bottom">
+    <div class="col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Открыть карт-счет</h3>
+            </div>
+            <div class="panel-body">
+                <form data-form-for="cardAccountForm" 
+                      data-validation-rules="validationRules" 
+                      data-submit-with="create()" 
+                      data-submit-complete="onCreated(data)">
+                    <h5 class="text-primary">Счет</h5>
+                    <dropdown-field attribute="userId"
+                                    label="Пользователь"
+                                    items="users"
+                                    refresh="searchUser"
+                                    placeholder="Найдите пользователя"
+                                    repeat="item.userId as item in items track by $index"
+                                    display-attribute="userName"
+                                    export-scope="formatUser">
+                        <div class="text-info" ng-bind-html="item.userName | highlight: $select.search"></div>
+                        <div ng-bind-html="formatUser(item) | highlight: $select.search">
+                        </div>
+                    </dropdown-field>
+                    
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <text-field type="number"
+                                        attribute="initialBalance"
+                                        label="Начальный баланс">
+                            </text-field>
+                        </div>
+                        <div class="col-xs-4">
+                            <dropdown-field attribute="currencyISOName"
+                                            label="Валюта"
+                                            items="lookup.currencies"
+                                            repeat="item.isoName as item in items"
+                                            display-attribute="isoName">
+                                {{item.name}} ({{item.isoName}})
+                            </dropdown-field>
+                        </div>
+                    </div>
+                    <date-field 
+                        attribute="accountExpirationDateUtc"
+                        label="Срок действия"
+                        placeholder="Задайте срок действия счета"
+                        date-format="LL"
+                        date-config="{minView: 'day'}">
+                    </date-field>
+
+                    <h5 class="text-primary">Карта</h5>
+                    <dropdown-field 
+                                    attribute="cardVendorId"
+                                    label="Вид карты"
+                                    items="lookup.cardVendors"
+                                    repeat="item.id as item in items"
+                                    display-attribute="name">
+                        <div class="row card-vendor-item">
+                            <div class="col-xs-1">
+                                <img class="img img-responsive" ng-src="{{item.image}}" />
+                            </div>
+                            <div class="col-xs-11">{{item.name}}</div>
+                        </div>
+                    </dropdown-field>
+                    <date-field attribute="cardExpirationDateUtc"
+                                label="Срок действия"
+                                placeholder="Задайте срок действия карты"
+                                date-format="MM/YY"
+                                date-config="{minView: 'month', startView: 'month'}">
+                    </date-field>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <text-field attribute="cardholderFirstName" label="Имя на карте"></text-field>
+                        </div>
+                        <div class="col-xs-6">
+                            <text-field attribute="cardholderLastName" label="Фамилия на карте"></text-field>
+                        </div>
+                    </div>
+                    <submit-button button-class="btn btn-primary" label="Создать"></submit-button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

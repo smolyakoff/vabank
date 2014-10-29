@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -57,10 +61,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="VaBankContextTests.cs" />
+    <Compile Include="EntityFramework\AppSchemaTest.cs" />
+    <Compile Include="EntityFramework\EntityFrameworkTest.cs" />
+    <Compile Include="BaseTest.cs" />
+    <Compile Include="EntityFramework\AccountingSchemaTest.cs" />
+    <Compile Include="SettingRepositoryTests.cs" />
+    <Compile Include="EntityFramework\MembershipSchemaTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\VaBank.Common\VaBank.Common.csproj">
+      <Project>{E06FB03E-8249-4F94-9568-EC1247769273}</Project>
+      <Name>VaBank.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\VaBank.Core\VaBank.Core.csproj">
       <Project>{87e0a3c9-5ccd-4154-9ee3-e65cb54efd0e}</Project>
       <Name>VaBank.Core</Name>

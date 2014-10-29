@@ -15,9 +15,34 @@
     .multiSelect .button {
         display: inline-block;
     }
+
+    .ui-select-bootstrap {
+        display: inline-block;
+
+        > .ui-select-match > .caret {
+            position: relative;
+            margin-bottom: 3px;
+            top: 0;
+            right: 0;
+        }
+
+        .ui-select-choices-row > a {
+            white-space: normal;
+        }
+    }
 }
 
-.form-group.has-error {
+
+//UI Select
+.ui-select-bootstrap {
+    button.form-control {
+        border-color: transparent;
+    }
+}
+
+
+//Form errors
+.has-error {
     .input-group-addon {
         border: 0;
         background-color: transparent;
@@ -34,7 +59,25 @@
     }
 
     .tooltip.right .tooltip-arrow {
-        border-right-color: $state-danger-text
+        border-right-color: $state-danger-text;
+    }
+
+    .tooltip.left .tooltip-arrow {
+        border-left-color: $state-danger-text;
+    }
+}
+
+.form-horizontal .has-feedback .form-control-feedback {
+    right: 0;
+}
+
+//Buttons 
+.input-group-btn .btn {
+    background: none;
+    box-shadow: none;
+
+    :hover {
+        color: $link-hover-color
     }
 }
 
@@ -46,19 +89,20 @@
 .st-sort-ascent:before {
     content: '\25B2';
 }
+
 .table {
-    > tbody tr.st-selected {
-        background-color: $state-success-bg
+    > tbody tr.st-selected > td {
+        background-color: $state-success-bg;
     }
 }
+
 .table-striped {
-    > tbody > tr.st-selected:nth-child(odd)> td {
-        background-color: $state-success-bg
+    > tbody > tr.st-selected:nth-child(odd) > td {
+        background-color: $state-success-bg;
     }
 }
+
 .table div.pagination {
     margin-top: 0;
     margin-bottom: 0;
 }
-     
-

@@ -1,0 +1,48 @@
+﻿<div class="form-group"
+     ng-class="{disabled: disable || model.disabled, 'has-error': model.error, 'has-feedback': model.error}">
+
+    <field-label ng-if="label"
+                 input-uid="{{model.uid}}"
+                 iud="{{model.uid}}-label"
+                 label="{{label}}"
+                 help="{{help}}"
+                 required="{{model.required}}">
+    </field-label>
+
+    <!--<field-error error="model.error"
+                 uid="{{model.uid}}-error">
+    </field-error>-->
+
+    <div ng-class="{'input-group': iconBefore || iconAfter}">
+        <span ng-if="iconBefore" class="input-group-addon"
+              ng-click="onIconBeforeClick()">
+            <i class="text-field-icon" ng-class="iconBefore"></i>
+        </span>
+        
+        <vb-currency id="{{model.uid}}"
+                     ng-disabled="disable || model.disabled"
+                     placeholder="{{placeholder}}"
+                     ng-model="model.bindable"
+                     form-for-debounce="{{debounce}}"
+                     symbol="{{symbol}}"
+                     precision="{{precision}}"
+                     thousand="{{thousand}}"
+                     decimal="{{decimal}}">
+        </vb-currency>
+
+        <span ng-if="iconAfter" class="input-group-addon"
+              ng-click="onIconAfterClick()">
+            <i class="text-field-icon" ng-class="iconAfter"></i>
+        </span>
+
+        <span ng-if="model.error"
+              class="glyphicon glyphicon-remove form-control-feedback"
+              tooltip="{{model.error}}"
+              tooltip-placement="left">
+        </span>
+
+    </div>
+
+    <span class="help-block" ng-if="help">{{help}}</span>
+
+</div>

@@ -9,7 +9,7 @@
     function registerRoutes($locationProvider, $stateProvider, $urlRouterProvider, serverInfo) {
         $locationProvider.html5Mode(true);
 
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/home');
 
         $stateProvider.state('login', {            
             url: '/login?redirect',
@@ -20,6 +20,14 @@
                 access: {
                     allowAnonymous: true
                 }
+            }
+        });
+
+        $stateProvider.state('home', {
+            url: '/home',
+            controller: 'homeController',
+            data: {
+                access: {allowAnonymous: true}
             }
         });
 

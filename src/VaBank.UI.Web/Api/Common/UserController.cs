@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using VaBank.Services.Contracts.Common.Queries;
+using VaBank.Common.Data;
 using VaBank.Services.Contracts.Membership;
 using VaBank.Services.Contracts.Membership.Commands;
 using VaBank.Services.Contracts.Membership.Queries;
@@ -60,10 +60,8 @@ namespace VaBank.UI.Web.Api.Common
         public IHttpActionResult Update([FromUri]Guid id, UpdateUserCommand command)
         {
             command.UserId = id;
-            var updated = _userManagementService.UpdateUser(command);
-            return updated
-                ? (IHttpActionResult) ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent))
-                : NotFound();
+            _userManagementService.UpdateUser(command);
+            return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
         }
 
 
@@ -81,10 +79,8 @@ namespace VaBank.UI.Web.Api.Common
         public IHttpActionResult UpdateProfile([FromUri] Guid id, UpdateProfileCommand command)
         {
             command.UserId = id;
-            var updated = _userManagementService.UpdateProfile(command);
-            return updated
-                ? (IHttpActionResult)ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent))
-                : NotFound();
+            _userManagementService.UpdateProfile(command);
+            return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
         }
 
         [HttpPost]
@@ -95,7 +91,7 @@ namespace VaBank.UI.Web.Api.Common
             command.UserId = id;
             var message = _userManagementService.ChangePassword(command);
             return message == null
-                ? (IHttpActionResult) NotFound()
+                ? (IHttpActionResult) InternalServerError()
                 : Ok(message);
         }
 

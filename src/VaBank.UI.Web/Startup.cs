@@ -1,9 +1,9 @@
-﻿using System.Configuration;
-using System.Net;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Web.Hosting;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using Autofac;
 using Hangfire;
 using Hangfire.Dashboard;
@@ -21,6 +21,9 @@ using Microsoft.Owin;
 using SquishIt.Framework;
 using SquishIt.Sass;
 using VaBank.Common.Data;
+using VaBank.Common.Resources;
+using VaBank.Jobs;
+using VaBank.Jobs.Modules;
 using VaBank.UI.Web.Api.Infrastructure.Auth;
 using VaBank.UI.Web.Api.Infrastructure.Converters;
 using VaBank.UI.Web.Api.Infrastructure.Filters;
@@ -42,9 +45,11 @@ namespace VaBank.UI.Web
         public void Configuration(IAppBuilder config)
         {
             Bundle.RegisterStylePreprocessor(new SassPreprocessor());
+            var httpConfig = ConfigureWebApi();
+
             config.Use<ExceptionMiddleware>();
             config.Use<CultureMiddleware>();
-            config.UseAutofacMiddleware(ConfigureAutofac());
+            config.UseAutofacMiddleware(ConfigureAutofac(httpConfig));
 
             config.UseStaticFiles("/Client");
 
@@ -58,17 +63,14 @@ namespace VaBank.UI.Web
             config.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
             
             config.UseHangfire(ConfigureHangfire);          
-
-            var httpConfig = ConfigureWebApi();
             config.UseWebApi(httpConfig);
             config.UseAutofacWebApi(httpConfig);
             
             config.Use(Handler);
 
             _logger.Info("Application is started!");
-            #if !DEBUG
-                RecurringJob.AddOrUpdate("KeepAlive", () => KeepAlive(), EveryTenMinutes);
-            #endif
+            var jobStartup = new JobStartup();
+            jobStartup.Start();
         }
 
         public Task Handler(IOwinContext context, Func<Task> next)
@@ -96,9 +98,12 @@ namespace VaBank.UI.Web
         {
             var connectionString = ConfigurationManager.ConnectionStrings["Vabank.Db"].ConnectionString;
             config.UseDashboardPath("/admin/hangfire");
-            var storageOptions = new SqlServerStorageOptions {QueuePollInterval = TimeSpan.FromMinutes(1)};
+            var storageOptions = new SqlServerStorageOptions {QueuePollInterval = TimeSpan.FromSeconds(15)};
             config.UseStorage(new SqlServerStorage(connectionString, storageOptions));
             config.UseAuthorizationFilters(new AuthorizationFilter {Roles = "Admin"});
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new BackgroundServicesModule(VaBankServiceBus.Instance));
+            config.UseAutofacActivator(builder.Build());
             config.UseServer();
         }
 
@@ -113,6 +118,7 @@ namespace VaBank.UI.Web
 
             //Filters
             configuration.Filters.Add(new ServiceExceptionFilterAttribute());
+            configuration.Filters.Add(new ServiceOperationAttribute());
 
             //Formatters and converters
             configuration.Formatters.Clear();
@@ -123,42 +129,32 @@ namespace VaBank.UI.Web
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
             };
             serializerSettings.Converters.Insert(0, new StringEnumConverter());
-            serializerSettings.Converters.Insert(1, new HttpServiceErrorConverter());
-            serializerSettings.Converters.Insert(2, new PagedListConverter());
+            serializerSettings.Converters.Insert(1, new LinkJsonConverter(
+                new CompositeUriProvider(new List<IUriProvider> { new WebServerUriProvider(string.Empty) })));
+            serializerSettings.Converters.Insert(2, new HttpServiceErrorConverter());
+            serializerSettings.Converters.Insert(3, new PagedListConverter());
             jsonFormatter.SerializerSettings = serializerSettings;
             configuration.Formatters.Add(jsonFormatter);
+
+            //Binding rules
             configuration.ParameterBindingRules.Insert(0, x => 
                 typeof(IClientQuery).IsAssignableFrom(x.ParameterType) 
                 ? new QueryHttpParameterBinding(x) 
                 : null);
 
-            //Model Binders
-            //configuration.Services.Insert(
-                //typeof(ModelBinderProvider), 0, new InheritanceAwareModelBinderProvider(typeof(IClientQuery), new QueryModelBinder()));
 
             configuration.Services.Add(typeof(IExceptionLogger), new GlobalExceptionLogger());
-            //configuration.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());
 
             configuration.EnsureInitialized();
             return configuration;
         }
 
-        private static ILifetimeScope ConfigureAutofac()
+        private static ILifetimeScope ConfigureAutofac(HttpConfiguration httpConfig)
         {
             var builder = new ContainerBuilder();
-            builder.RegisterModule<DataAccessModule>();
-            builder.RegisterModule<ServicesModule>();
-            builder.RegisterModule<WebApiModule>();
+            builder.RegisterModule(new WebApiModule(httpConfig));
             var container = builder.Build();
             return container;
-        }
-
-        public static void KeepAlive()
-        {
-            var client = new WebClient();
-            client.DownloadData("https://vabank.azurewebsites.net");
-            var logger = LogManager.GetCurrentClassLogger();
-            logger.Info("Keep alive was triggered.");
         }
     }
 }

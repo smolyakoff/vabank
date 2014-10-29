@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="FluentValidation">
       <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
@@ -53,18 +56,26 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Database\IConnectionProvider.cs" />
+    <Compile Include="Data\Database\IDatabaseProvider.cs" />
+    <Compile Include="Data\Database\ConfigurationFileDatabaseProvider.cs" />
     <Compile Include="Data\DbQuery%271.cs" />
     <Compile Include="Data\DbQuery.cs" />
     <Compile Include="Data\IClientQuery.cs" />
+    <Compile Include="Data\IdentityQuery.cs" />
+    <Compile Include="Data\IObjectConverter.cs" />
+    <Compile Include="Data\JsonNetConverter.cs" />
     <Compile Include="Data\PagedDbQuery.cs" />
     <Compile Include="Data\Paging\ClientPage.cs" />
     <Compile Include="Data\Repositories\ConcurrencyException.cs" />
+    <Compile Include="Data\Repositories\IPartialQueryRepository.cs" />
     <Compile Include="Data\Repositories\IQueryRepository%271.cs" />
     <Compile Include="Data\Repositories\IRepository`1.cs" />
     <Compile Include="Data\Filtering\CombinedFilter.cs" />
@@ -129,18 +140,42 @@
     <Compile Include="Data\Sorting\SortDirection.cs" />
     <Compile Include="Data\Sorting\SortingExtensions.cs" />
     <Compile Include="Data\Filtering\SpecFilter.cs" />
+    <Compile Include="Data\Database\ITransactionFactory.cs" />
+    <Compile Include="Data\Database\ITransactionProvider.cs" />
+    <Compile Include="Events\IEventListener%271.cs" />
+    <Compile Include="Events\InMemoryServiceBus.cs" />
+    <Compile Include="Events\IServiceBus.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\ISendOnlyServiceBus.cs" />
+    <Compile Include="IoC\AutofacFactory.cs" />
+    <Compile Include="IoC\InjectableAttribute.cs" />
+    <Compile Include="IoC\IObjectFactory.cs" />
+    <Compile Include="IoC\Lifetime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\Resource.cs" />
+    <Compile Include="Resources\CompositeUriProvider.cs" />
+    <Compile Include="Resources\DefaultUriProvider.cs" />
+    <Compile Include="Resources\IUriProvider.cs" />
+    <Compile Include="Resources\EmbeddedResource.cs" />
+    <Compile Include="Resources\Link.cs" />
+    <Compile Include="Resources\LinkJsonSerializer.cs" />
+    <Compile Include="Resources\WebServerUriProvider.cs" />
     <Compile Include="Security\Hash.cs" />
     <Compile Include="Security\Password.cs" />
     <Compile Include="Serialization\JsonCreationConverter.cs" />
+    <Compile Include="Util\Assert.cs" />
+    <Compile Include="Util\Randomizer.cs" />
+    <Compile Include="Util\Range.cs" />
+    <Compile Include="Validation\Validators\AdapterValidator.cs" />
+    <Compile Include="Validation\Validators\AlwaysTrueValidator.cs" />
+    <Compile Include="Validation\Argument.cs" />
     <Compile Include="Validation\ValidationFault.cs" />
     <Compile Include="Validation\IObjectValidator%271.cs" />
     <Compile Include="Validation\IObjectValidator.cs" />
-    <Compile Include="Validation\ObjectValidator.cs" />
+    <Compile Include="Validation\ObjectValidator%271.cs" />
     <Compile Include="Validation\StaticValidatorAttribute.cs" />
     <Compile Include="Validation\ValidationExtensions.cs" />
     <Compile Include="Validation\ValidatorNameAttribute.cs" />
+    <Compile Include="Validation\Validators\NotEmptyValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

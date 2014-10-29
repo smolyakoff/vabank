@@ -1,7 +1,7 @@
 ﻿using System;
 using PagedList;
+using VaBank.Common.Data;
 using VaBank.Services.Contracts.Common.Models;
-using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Membership.Commands;
 using VaBank.Services.Contracts.Membership.Models;
 using VaBank.Services.Contracts.Membership.Queries;
@@ -18,10 +18,10 @@ namespace VaBank.Services.Contracts.Membership
 
         UserBriefModel CreateUser(CreateUserCommand command);
 
-        bool UpdateUser(UpdateUserCommand command);
+        void UpdateUser(UpdateUserCommand command);
 
         UserMessage ChangePassword(ChangePasswordCommand command);
 
-        bool UpdateProfile(UpdateProfileCommand command);
+        void UpdateProfile(UpdateProfileCommand command);
     }
 }

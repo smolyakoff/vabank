@@ -1,0 +1,128 @@
+﻿<section class="row offset-bottom">
+    <div class="col-xs-10">
+        <div class="form-inline">
+            <div class="form-group from-filter">
+                <label>От</label>
+                <vb-datepicker data-ng-model="filter.from" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
+            </div>
+            <div class="form-group to-filter">
+                <label>До</label>
+                <vb-datepicker data-ng-model="filter.to" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
+            </div>
+            <div class="form-group">
+                <label>Действие</label>
+                <div data-multi-select
+                     input-model="lookup.codes"
+                     default-label="Любое"
+                     button-label="label"
+                     item-label="label"
+                     tick-property="ticked"
+                     helper-elements="all filter none reset"
+                     max-labels="1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Пользователь</label>
+                <ui-select class="audit-user-search" ng-model="filter.userId">
+                    <ui-select-match placeholder="Найти...">{{$select.selected.userName || $select.selected.label}}</ui-select-match>
+                    <ui-select-choices repeat="user.userId as user in users track by $index"
+                                       refresh="searchUser($select.search)">
+                        <div class="text-info" ng-bind-html="user.userName | highlight: $select.search">
+                        </div>
+                        <div data-ng-if="user.email" ng-bind-html="formatUser(user) | highlight: $select.search">
+                        </div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <div class="btn-toolbar pull-right" role="toolbar">
+            <button class="btn btn-primary" ng-click="show()">Показать</button>
+        </div>
+    </div>
+</section>
+<section class="row">
+    <div class="col-xs-12">
+        <table class="table table-responsive"
+               st-table="displayedLogs"
+               st-safe-src="logs">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th style="width: 12%">Локальное время</th>
+                    <th style="width: 15%">Действие</th>
+                    <th>Описание</th>
+                </tr>
+            </thead>
+            <tbody ng-show="loading.active()">
+                <tr><td colspan="4"><div class="table-content" data-us-spinner=""></div></td></tr>
+            </tbody>
+            <tbody ng-show="!loading.active()" data-ng-repeat="log in displayedLogs" data-ng-controller="auditLogItemController">
+                <tr class="active" st-select-row="log">
+                    <td colspan="4">
+                        <div class="row">
+                            <div class="col-xs-7">
+                                <b class="text-primary">
+                                    <span class="badge">{{view === 'app' ? 'A' : 'D'}}</span> Операция №{{log.operationId}}  
+                                </b>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="pull-right text-primary">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                    {{ toLocalDate(log.startedUtc) | date }}
+                                </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <div class="pull-right">
+                                    <span class="label label-info" ng-show="log.userName">{{log.userName}}</span>
+                                    <span class="label label-default" ng-show="log.applicationId">{{log.applicationId}}</span>
+                                </div>      
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-show="itemLoading.active()">
+                    <td colspan="4"><div class="table-content" data-us-spinner=""></div></td>
+                </tr>
+                <tr ng-if="view === 'app' && !itemLoading.active()" data-ng-repeat="appAction in log.appActions">
+                    <td class="switch-audit-view text-center" ng-if="$index === 0" rowspan="{{log.appActions.length}}">
+                        <a ng-click="switchView()"><i class="glyphicon glyphicon-retweet"></i></a>
+                    </td>
+                    <td>{{toLocalDate(appAction.timestampUtc) | date: 'mediumTime'}}</td>
+                    <td>{{appAction.code | uppercase}}</td>
+                    <td>{{appAction.description}}</td>
+                </tr>
+                <tr ng-if="view === 'db' && detailedLog.dbActions.length === 0 && !itemLoading.active()">
+                    <td class="switch-audit-view text-center">
+                        <a ng-click="switchView()"><i class="glyphicon glyphicon-retweet"></i></a>
+                    </td>
+                    <td colspan="3">
+                        Нет отслеживаемых изменений в базе данных
+                    </td>
+                </tr>
+                <tr ng-if="view === 'db'&& !itemLoading.active()" data-ng-repeat-start="dbAction in detailedLog.dbActions">
+                    <td class="switch-audit-view text-center" ng-if="$index === 0" rowspan="{{dbAction.changes.length + 1}}">
+                        <a ng-click="switchView()"><i class="glyphicon glyphicon-retweet"></i></a>
+                    </td>
+                    <td class="text-info" colspan="3">
+                        <b>{{dbAction.tableName}}</b>
+                    </td>
+                </tr>
+                <tr ng-if="view === 'db' && !itemLoading.active()" data-ng-repeat="dbChange in dbAction.changes" data-ng-repeat-end="">
+                    <td>{{dbChange.timestampUtc | date: 'mediumTime'}}</td>
+                    <td>DB-{{dbChange.operation| uppercase }}</td>
+                    <td>
+                        <table class="table table-responsive db-change-table">
+                            <tr data-ng-repeat="pair in dbChange.values">
+                                <td>{{pair.key}}</td>
+                                <td style="width: 70%">{{pair.value}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+            
+        </table>
+    </div>
+</section>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using EntityFramework.Extensions;
@@ -11,7 +12,7 @@ using VaBank.Common.Data.Repositories;
 
 namespace VaBank.Data.EntityFramework.Common
 {
-    public class Repository<TEntity> : IQueryRepository<TEntity>
+    public class Repository<TEntity> : IPartialQueryRepository<TEntity>
         where TEntity : class
     {
         protected readonly DbContext Context;
@@ -81,6 +82,15 @@ namespace VaBank.Data.EntityFramework.Common
             return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Project().To<TModel>().ToList());
         }
 
+        public virtual IList<T> SelectAll<T>(Expression<Func<TEntity, T>> selector)
+        {
+            if (selector == null)
+            {
+                throw new ArgumentNullException("selector");
+            }
+            return EnsureRepositoryException(() => Context.Set<TEntity>().Select(selector).ToList());
+        } 
+
         public virtual IList<TEntity> Query(IQuery query)
         {
             if (query == null)
@@ -131,6 +141,15 @@ namespace VaBank.Data.EntityFramework.Common
             return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).Project().To<TModel>().ToList());
         }
 
+        public virtual IList<T> Select<T>(IQuery query, Expression<Func<TEntity, T>> selector)
+        {
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).Select(selector).ToList());
+        } 
+
         public virtual IPagedList<TModel> ProjectPage<TModel>(IQuery query) where TModel : class
         {
             if (query == null)
@@ -162,7 +181,85 @@ namespace VaBank.Data.EntityFramework.Common
         {
             var models = page.Select(Mapper.Map<TEntity, TModel>);
             return new StaticPagedList<TModel>(models, page.PageNumber, page.PageSize, page.TotalItemCount);
-        } 
+        }
+
+        public IList<TEntity> PartialQuery(Expression<Func<TEntity, bool>> filter, IQuery query)
+        {
+            if (filter == null)
+            {
+                throw new ArgumentNullException("filter");
+            }
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+            return EnsureRepositoryException(() => Context.Set<TEntity>().Where(filter).Query(query).ToList());
+        }
+
+        public IPagedList<TEntity> PartialQueryPage(Expression<Func<TEntity, bool>> filter, IQuery query)
+        {
+            if (filter == null)
+            {
+                throw new ArgumentNullException("filter");
+            }
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+            return EnsureRepositoryException(() => Context.Set<TEntity>().Where(filter).QueryPage(query));
+        }
+
+        public IList<TModel> PartialProject<TModel>(Expression<Func<TEntity, bool>> filter, IQuery query) where TModel : class
+        {
+            if (filter == null)
+            {
+                throw new ArgumentNullException("filter");
+            }
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+            return EnsureRepositoryException(() => Context.Set<TEntity>().Where(filter).Query(query).Project().To<TModel>().ToList());
+        }
+
+        public IPagedList<TModel> PartialProjectPage<TModel>(Expression<Func<TEntity, bool>> filter, IQuery query) where TModel : class
+        {
+            if (filter == null)
+            {
+                throw new ArgumentNullException("filter");
+            }
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+            return EnsureRepositoryException(() => MapPage<TModel>(Context.Set<TEntity>().Where(filter).QueryPage(query)));
+        }
+
+        public IList<TModel> PartialProjectThenQuery<TModel>(Expression<Func<TEntity, bool>> filter, IQuery query) where TModel : class
+        {
+            if (filter == null)
+            {
+                throw new ArgumentNullException("filter");
+            }
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+            return EnsureRepositoryException(() => Context.Set<TEntity>().Where(filter).Project().To<TModel>().Query(query).ToList());
+        }
+
+        public IPagedList<TModel> PartialProjectThenQueryPage<TModel>(Expression<Func<TEntity, bool>> filter, IQuery query) where TModel : class
+        {
+            if (filter == null)
+            {
+                throw new ArgumentNullException("filter");
+            }
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+            return EnsureRepositoryException(() => Context.Set<TEntity>().Where(filter).Project().To<TModel>().QueryPage(query));
+        }
 
         protected T EnsureRepositoryException<T>(Func<T> call)
         {

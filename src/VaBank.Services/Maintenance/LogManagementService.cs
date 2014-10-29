@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentValidation;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
-using VaBank.Core.Common;
+using VaBank.Core.App;
+using VaBank.Core.App.Entities;
 using VaBank.Core.Maintenance;
+using VaBank.Core.Maintenance.Entitities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
-using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Maintenance;
 using VaBank.Services.Contracts.Maintenance.Commands;
 using VaBank.Services.Contracts.Maintenance.Models;
 using VaBank.Services.Contracts.Maintenance.Queries;
-
 
 namespace VaBank.Services.Maintenance
 {
@@ -22,8 +21,8 @@ namespace VaBank.Services.Maintenance
     {
         private readonly MaintenanceRepositories _db;
 
-        public LogManagementService(IUnitOfWork unitOfWork, IValidatorFactory validatorFactory, MaintenanceRepositories repositories) 
-            : base(unitOfWork, validatorFactory)
+        public LogManagementService(BaseServiceDependencies dependencies, MaintenanceRepositories repositories) 
+            : base(dependencies)
         {
             repositories.EnsureIsResolved();
             _db = repositories;
@@ -42,7 +41,7 @@ namespace VaBank.Services.Maintenance
             }
         }
 
-        public IEnumerable<SystemLogEntryBriefModel> GetSystemLogEntries(SystemLogQuery query)
+        public IList<SystemLogEntryBriefModel> GetSystemLogEntries(SystemLogQuery query)
         {
             EnsureIsValid(query);
             try
@@ -77,7 +76,7 @@ namespace VaBank.Services.Maintenance
             try
             {
                 var deleted = _db.LogEntries.Delete(query.ToDbQuery<SystemLogEntry>());
-                UnitOfWork.Commit();
+                Commit();
                 return UserMessage.ResourceFormat(() => Messages.SystemLogClearSuccess, deleted);
             }
             catch (Exception ex)
@@ -92,12 +91,84 @@ namespace VaBank.Services.Maintenance
             try
             {
                 var deleted = _db.LogEntries.Delete(command.ToDbQuery());
-                UnitOfWork.Commit();
+                Commit();
                 return UserMessage.ResourceFormat(() => Messages.SystemLogClearSuccess, deleted);
             }
             catch (Exception ex)
             {
                 throw new ServiceException("Cannot clear system log entries.", ex);
+            }
+        }
+
+        public AuditLogLookupModel GetAuditLogLookup()
+        {
+            try
+            {
+                var codes = _db.AuditLogs.GetUniqueCodes();
+                var model = new AuditLogLookupModel();
+                model.Codes.AddRange(codes);
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Cannot get audit log lookup model.", ex);
+            }
+        }
+
+        public IList<AuditLogEntryBriefModel> GetAuditLogEntries(AuditLogQuery query)
+        {
+            EnsureIsValid(query);
+            try
+            {
+                var audit = _db.AuditLogs.Query(DbQuery.For<ApplicationAction>().FromClientQuery(query));
+                var models = audit.Map<AuditLogBriefEntry, AuditLogEntryBriefModel>()
+                    .OrderByDescending(x => x.StartedUtc)
+                    .ToList();
+                return models;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get audit log entries.", ex);
+            }
+        }
+
+        public AuditLogEntryModel GetAuditLogEntry(IdentityQuery<Guid> operationId)
+        {
+            EnsureIsValid(operationId);
+            try
+            {
+                var entry = _db.AuditLogs.GetAuditEntryDetails(operationId.Id);
+                var model = entry.ToClass<AuditLogEntry, AuditLogEntryModel>();
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get audit log entry.", ex);
+            }
+        }
+        
+        public void LogApplicationAction(LogAppActionCommand command)
+        {
+            EnsureIsValid(command);
+            try
+            {
+                var operation = _db.Operations.Find(command.OperationId);
+                if (operation == null)
+                {
+                    throw NotFound.ExceptionFor<Operation>(command.OperationId);
+                }
+                var appAction = ApplicationAction.Create(
+                    operation, 
+                    command.Code, 
+                    command.TimestampUtc,
+                    command.Description, 
+                    command.Data);
+                _db.AuditLogs.CreateAction(appAction);
+                Commit();
+            }
+            catch (Exception ex) 
+            {
+                throw new ServiceException("Can't create application action.", ex);
             }
         }
     }

@@ -19,7 +19,7 @@
 
         $scope.loading = promiseTracker();
 
-        $scope.filter = angular.copy(LogEntry.defaults.filter);
+        $scope.filter = LogEntry.defaults.filter();
 
         $scope.lookups = {
             levels: multiselect.getSelectChoices(data.lookup.levels, {tickMode: 'all'}),

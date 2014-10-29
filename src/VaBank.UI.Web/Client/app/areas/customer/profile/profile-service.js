@@ -5,10 +5,15 @@
         .module('vabank.webapp')
         .service('profileService', profileService);
 
-    profileService.$inject = ['$resource'];
+    profileService.$inject = ['$resource', 'authService'];
 
-    function profileService($resource) {
-        var Profile = $resource('/api/users/:userId/profile', { userId: '@userId' }, {            
+    function profileService($resource, authService) {
+
+        var getUserId = function() {
+            return authService.getUser().id;
+        };
+
+        var Profile = $resource('/api/users/:userId/profile', { userId: getUserId }, {            
             save: {
                 method: 'PUT'
             },

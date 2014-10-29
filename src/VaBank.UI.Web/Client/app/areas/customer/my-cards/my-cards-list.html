@@ -1,0 +1,73 @@
+﻿<section class="row">
+    <div class="col-xs-12">
+        <table class="table table-responsive card-list">
+            <thead>
+                <tr class="initialism warning">
+                    <th>Карта</th> 
+                    <th>Баланс</th>
+                    <th>Срок действия карты</th>
+                    <th>Статус блокировки</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="card in cards" ng-controller="customerCardController">
+                <tr>
+                    <td class="card-info-cell">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img class="img img-responsive card-logo center" ng-src="{{card.cardVendor.image}}">
+                                <div class="text-center">
+                                    Валюта: {{card.currency.isoName}}
+                                </div>
+                            </div>
+                            <div class="col-xs-9 card-info">
+                                <div class="text-primary">
+                                    <b class="initialism" ng-if="!nameEdit">{{card.friendlyName || card.cardVendor.name}}</b>
+                                    <div class="input-group input-group-sm card-name-editor" ng-if="nameEdit">
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-required
+                                               placeholder="Введите свое имя для карты"
+                                               ng-model="card.friendlyName">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-sm" ng-click="cancelEditName()">
+                                                <i class="glyphicon glyphicon-remove text-danger"></i>
+                                            </button>
+                                        </span>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-sm" ng-click="saveName()" ng-disabled="!card.friendlyName">
+                                                <i class="glyphicon glyphicon-ok text-success"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <a ng-if="!nameEdit" ng-click="toggleEditName(true)"><i class="glyphicon glyphicon-edit"></i></a>
+                                </div>
+                                <p><b>Номер: {{card.secureCardNo}}</b></p>
+                                <p>{{card.cardholderFirstName}} {{card.cardholderLastName}}</p>
+                                <a class="action-link" ng-class="{'text-muted': limitsHidden }" ng-click="limitsHidden = !limitsHidden">
+                                    <i class="glyphicon" ng-class="{'glyphicon-chevron-down' : limitsHidden, 'glyphicon-chevron-up': !limitsHidden}"></i>
+                                    Лимит снятий
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="balance">
+                        {{card.balance | currency:''}} {{card.currency.isoName}}
+                    </td>
+                    <td class="text-center">{{card.expirationDateUtc | date:'MM/yy'}}</td>
+                    <td class="text-center">
+                        <span ng-if="!card.blocked" class="text-success">Активна</span>
+                        <span ng-if="card.blocked" class="text-danger">Заблокирована</span>
+                        <div>
+                            <a class="action-link text-muted" ng-click="setCardBlock(!card.blocked)">
+                                {{card.blocked == false ? 'Блокировать' : 'Разблокировать'}}
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-collapse="limitsHidden">
+                    <td colspan="5" class="limits" ng-include="'/Client/app/areas/customer/my-cards/limits-form.html'"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

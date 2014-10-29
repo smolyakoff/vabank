@@ -1,0 +1,21 @@
+﻿.account-search {
+    min-width: 300px;
+}
+
+.account-details {
+    padding: 5px;
+    .table {
+        background-color: transparent;
+    }
+}
+
+.card-vendor-item {
+    img {
+        max-height: 30px;
+    }
+    div:nth-child(2){
+        height: 30px;
+        line-height: 30px;
+        vertical-align: middle;
+    }
+}

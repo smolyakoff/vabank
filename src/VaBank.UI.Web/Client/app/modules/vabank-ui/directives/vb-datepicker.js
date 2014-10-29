@@ -9,18 +9,25 @@
     
     function vbDatepicker() {
 
-        var link = function (scope, element, attrs) {
+        function postLink($scope, $element, $attrs) {
         };
+        
+        function compile(element, attributes) {
+            attributes.iconPlacement = attributes.iconPlacement || 'right';
+            attributes.dateFormat = attributes.dateFormat || 'LLLL';
+        }
 
         var directive = {
-            link: link,
+            compile: compile,
             restrict: 'EA',
             require: '^ngModel',
             templateUrl: '/Client/app/modules/vabank-ui/templates/vb-datepicker.html',
             scope: {
+                iconPlacement: '@?',
                 ngModel: '=',
                 config: '=',
-                dateFormat: '@'
+                dateFormat: '@?',
+                placeholder: '@?'
             }
         };
         return directive;

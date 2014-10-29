@@ -2,11 +2,13 @@
     'use strict';
     var webapp = angular.module('vabank.webapp', [
         'ngResource',
+        'ngSanitize',
         'ui.router',
         'LocalStorageModule',
         'ui.bootstrap',
         'ui.bootstrap.datetimepicker',
         'ui.dateTimeInput',
+        'ui.select',
         'cfp.loadingBar',
         'ajoslin.promise-tracker',
         'angularSpinner',
@@ -19,11 +21,11 @@
         'vabank.auth'
     ]);
 
-    webapp.run(['routingInterceptor', 'formForConfig', main]);
+    webapp.run(['routingInterceptor', 'uiConfig', main]);
     
-    function main(routingInterceptor, formConfig) {
+    function main(routingInterceptor, uiConfig) {
         routingInterceptor.initialize();
-        formConfig.init();
+        uiConfig.init();
     }
 
 })();

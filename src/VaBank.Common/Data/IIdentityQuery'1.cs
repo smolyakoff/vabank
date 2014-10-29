@@ -1,8 +1,6 @@
-﻿using VaBank.Common.Data.Filtering;
-
-namespace VaBank.Common.Data
+﻿namespace VaBank.Common.Data
 {
-    public interface IIdentityQuery<out T> : IFilterableQuery
+    public interface IIdentityQuery<out T> : IClientQuery
     {
         T Id { get; }
     }

@@ -4,7 +4,8 @@ using Autofac;
 using Autofac.Integration.Owin;
 using Microsoft.Owin.Security.Infrastructure;
 using NLog;
-using VaBank.Services.Contracts.Common.Queries;
+using VaBank.Common.Data;
+using VaBank.Services.Contracts.Maintenance;
 using VaBank.Services.Contracts.Membership;
 using VaBank.Services.Contracts.Membership.Commands;
 using VaBank.Services.Contracts.Membership.Models;
@@ -29,6 +30,7 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
 
             var container = context.OwinContext.GetAutofacLifetimeScope();
             var membershipService = container.Resolve<IAuthorizationService>();
+            var operationService = container.Resolve<IOperationService>();
 
             var tokenId = Guid.NewGuid().ToString("N");
             var token = new CreateTokenCommand
@@ -44,6 +46,10 @@ namespace VaBank.UI.Web.Api.Infrastructure.Auth
             context.Ticket.Properties.ExpiresUtc = token.ExpiresUtc;
             token.ProtectedTicket = context.SerializeTicket();
             membershipService.CreateToken(token);
+            if (operationService.HasCurrent)
+            {
+                operationService.Stop(operationService.Current);
+            }
             context.SetToken(tokenId);
             base.Create(context);
         }

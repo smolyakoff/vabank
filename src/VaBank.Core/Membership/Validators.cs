@@ -6,6 +6,7 @@ using FluentValidation;
 using VaBank.Common.Resources;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
+using VaBank.Core.Membership.Entities;
 using VaBank.Core.Membership.Resources;
 
 namespace VaBank.Core.Membership
@@ -30,7 +31,7 @@ namespace VaBank.Core.Membership
         static PasswordValidator()
         {
             WorstPasswords = new HashSet<string>(
-                Resource.ReadAsString(typeof(Entity).Assembly, "Membership/Resources/Top_500_Worst_Passwords.txt")
+                EmbeddedResource.ReadAsString(typeof(Entity).Assembly, "Membership/Resources/Top_500_Worst_Passwords.txt")
                 .Split(new [] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
                 .Distinct());
         }
@@ -52,7 +53,7 @@ namespace VaBank.Core.Membership
     {
         public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
         {
-            return builder.Matches(@"\+375 *\(?(29|33|44|25)\)? *\d{7}").WithLocalizedMessage(() => Messages.CheckNumberPhone);
+            return builder.Matches(@"\+375 *\(?(29|33|44|25)\)? *\d{7}$").WithLocalizedMessage(() => Messages.CheckNumberPhone);
         }
     }
 
@@ -62,7 +63,7 @@ namespace VaBank.Core.Membership
     {
         public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
         {
-            return builder.Must(UserClaim.Role.RoleNames.Contains).WithLocalizedMessage(() => Messages.InvalidRole);
+            return builder.Must(UserClaim.IsSupportedRole).WithLocalizedMessage(() => Messages.InvalidRole);
         }
     }
 }

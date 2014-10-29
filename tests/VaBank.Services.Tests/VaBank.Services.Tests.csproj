@@ -35,7 +35,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -50,7 +69,34 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ServicesDependencies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\VaBank.Common\VaBank.Common.csproj">
+      <Project>{e06fb03e-8249-4f94-9568-ec1247769273}</Project>
+      <Name>VaBank.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\VaBank.Core\VaBank.Core.csproj">
+      <Project>{87e0a3c9-5ccd-4154-9ee3-e65cb54efd0e}</Project>
+      <Name>VaBank.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\VaBank.Data.EntityFramework\VaBank.Data.EntityFramework.csproj">
+      <Project>{39a10c5c-1058-41d3-b40f-d0ece134cd6f}</Project>
+      <Name>VaBank.Data.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\VaBank.Services.Contracts\VaBank.Services.Contracts.csproj">
+      <Project>{c203f56a-2032-4ba5-a8aa-0cb7fd38b784}</Project>
+      <Name>VaBank.Services.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\VaBank.Services\VaBank.Services.csproj">
+      <Project>{adfbf54d-6506-4af9-996b-59f55ffc2066}</Project>
+      <Name>VaBank.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
@@ -72,6 +118,7 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
