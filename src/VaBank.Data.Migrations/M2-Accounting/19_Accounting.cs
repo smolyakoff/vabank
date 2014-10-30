@@ -2,7 +2,7 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(18, "Tables for card accounts")]
+    [Migration(19, "Tables for card accounts")]
     [Tags("Accounting", "Development", "Production", "Test")]
     public class Accounting: Migration
     {

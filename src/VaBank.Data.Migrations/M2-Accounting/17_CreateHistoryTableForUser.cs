@@ -2,7 +2,7 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(16, "Added history table for [Membership].[User]")]
+    [Migration(17, "Added history table for [Membership].[User]")]
     [Tags("History", "Development", "Production", "Test")]
     public class CreateHistoryTableForUser : Migration
     {

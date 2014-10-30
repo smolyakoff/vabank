@@ -94,14 +94,21 @@ namespace VaBank.Data.EntityFramework.App
         {
             try
             {
-                const string sql = "SELECT [Id] FROM [App].[CurrentOperation]";
-                var id = Context.Database.SqlQuery<Guid>(sql).FirstOrDefault();
-                return id == Guid.Empty ? null : Context.Set<Operation>().Find(id);
+                var id = GetCurrentOperationId();
+                return id == null ? null : Find(id.Value);
             }
             catch (Exception ex)
             {
-                throw new RepositoryException("Can't release operation marker from the db.", ex);
+                throw new RepositoryException("Can't get current operation.", ex);
             }
+        }
+
+        private Guid? GetCurrentOperationId()
+        {
+            const string sql = "EXEC [App].[CurrentOperationId] @Id = @Id OUTPUT";
+            var id = new SqlParameter("@Id", SqlDbType.UniqueIdentifier) { Direction = ParameterDirection.Output };
+            Context.Database.ExecuteSqlCommand(sql, id);
+            return id.Value == DBNull.Value ? null : (Guid?)id.Value;
         }
     }
 }

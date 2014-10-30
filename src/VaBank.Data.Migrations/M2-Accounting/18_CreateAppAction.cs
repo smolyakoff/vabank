@@ -2,7 +2,7 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(17, "Create [App].[Action] table.")]
+    [Migration(18, "Create [App].[Action] table.")]
     [Tags("App", "Development", "Production", "Test")]
     public class CreateAppAction : Migration
     {

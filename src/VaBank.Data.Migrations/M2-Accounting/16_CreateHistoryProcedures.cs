@@ -2,7 +2,7 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(15, "Create stored procedures for generating and dropping history tables")]
+    [Migration(16, "Create stored procedures for generating and dropping history tables")]
     [Tags("History", "Development", "Production", "Test")]
     public class CreateHistoryProcedures : Migration
     {

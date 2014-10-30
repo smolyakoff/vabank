@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(23, "Seed basic currencies.")]
+    [Migration(24, "Seed basic currencies.")]
     [Tags("Accounting", "Development", "Production", "Test")]
     public class SeedBasicCurrencies : Migration
     {

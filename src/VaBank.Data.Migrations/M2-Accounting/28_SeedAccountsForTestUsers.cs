@@ -6,7 +6,7 @@ using System.Data;
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(27, "Create accounts for test users.")]
+    [Migration(28, "Create accounts for test users.")]
     [Tags("Accounting", "Development", "Production", "Test")]
     public class CreateAccountsForTestUsers : Migration
     {

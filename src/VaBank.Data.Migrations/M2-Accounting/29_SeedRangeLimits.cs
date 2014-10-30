@@ -4,7 +4,7 @@ using VaBank.Common.Util;
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(28, "Seed range card limits.")]
+    [Migration(29, "Seed range card limits.")]
     [Tags("Development", "Test", "Production")]
     public class SeedRangeLimits : Migration
     {

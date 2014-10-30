@@ -69,27 +69,29 @@
     <Compile Include="M1-Authentication\08_SeedClientProduction.cs" />
     <Compile Include="M1-Authentication\07_SeedUsers.cs" />
     <Compile Include="M1-Authentication\M1User.cs" />
-    <Compile Include="M2-Accounting\23_SeedBasicCurrencies.cs" />
-    <Compile Include="M2-Accounting\18_Accounting.cs" />
-    <Compile Include="M2-Accounting\19_AddRowVersionColumnsToAccountingTables.cs" />
-    <Compile Include="M2-Accounting\27_SeedAccountsForTestUsers.cs" />
-    <Compile Include="M2-Accounting\17_CreateAppAction.cs" />
-    <Compile Include="M2-Accounting\14_CreateAppOperation.cs" />
-    <Compile Include="M2-Accounting\15_CreateHistoryProcedures.cs" />
-    <Compile Include="M2-Accounting\16_CreateHistoryTableForUser.cs" />
-    <Compile Include="M2-Accounting\21_CreateAppSetting.cs" />
-    <Compile Include="M2-Accounting\20_CreateResource.cs" />
-    <Compile Include="M2-Accounting\24_AddResourceIdToCardVendor.cs" />
-    <Compile Include="M2-Accounting\25_SeedCardVendors.cs" />
-    <Compile Include="M2-Accounting\26_SeedDefaultLimits.cs" />
-    <Compile Include="M2-Accounting\29_AddAccountingHistoryTables.cs" />
-    <Compile Include="M2-Accounting\28_SeedRangeLimits.cs" />
+    <Compile Include="M2-Accounting\14_CreateCurrentTransactionId_Dev.cs" />
+    <Compile Include="M2-Accounting\14_CreateCurrentTransactionId_Prod.cs" />
+    <Compile Include="M2-Accounting\24_SeedBasicCurrencies.cs" />
+    <Compile Include="M2-Accounting\19_Accounting.cs" />
+    <Compile Include="M2-Accounting\20_AddRowVersionColumnsToAccountingTables.cs" />
+    <Compile Include="M2-Accounting\28_SeedAccountsForTestUsers.cs" />
+    <Compile Include="M2-Accounting\18_CreateAppAction.cs" />
+    <Compile Include="M2-Accounting\15_CreateAppOperation.cs" />
+    <Compile Include="M2-Accounting\16_CreateHistoryProcedures.cs" />
+    <Compile Include="M2-Accounting\17_CreateHistoryTableForUser.cs" />
+    <Compile Include="M2-Accounting\22_CreateAppSetting.cs" />
+    <Compile Include="M2-Accounting\21_CreateResource.cs" />
+    <Compile Include="M2-Accounting\25_AddResourceIdToCardVendor.cs" />
+    <Compile Include="M2-Accounting\26_SeedCardVendors.cs" />
+    <Compile Include="M2-Accounting\27_SeedDefaultLimits.cs" />
+    <Compile Include="M2-Accounting\30_AddAccountingHistoryTables.cs" />
+    <Compile Include="M2-Accounting\29_SeedRangeLimits.cs" />
     <Compile Include="M2-Accounting\M2Account.cs" />
     <Compile Include="M2-Accounting\M2Card.cs" />
     <Compile Include="M2-Accounting\M2Currency.cs" />
     <Compile Include="M2-Accounting\M2Resource.cs" />
     <Compile Include="M2-Accounting\M2UserAccount.cs" />
-    <Compile Include="M2-Accounting\22_SeedTestSettings.cs" />
+    <Compile Include="M2-Accounting\23_SeedTestSettings.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,7 +111,7 @@
     <EmbeddedResource Include="M2-Accounting\TRG_Operation_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="M2-Accounting\VIEW_CurrentOperation.sql" />
+    <EmbeddedResource Include="M2-Accounting\PROC_CurrentOperationId.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="M2-Accounting\PROC_FinishOperation.sql" />
@@ -123,6 +125,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="M1-Authentication\ChangeUserClaimPK.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="M2-Accounting\PROC_CurrentTransactionId_Azure.sql" />
+    <EmbeddedResource Include="M2-Accounting\PROC_CurrentTransactionId.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

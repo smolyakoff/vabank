@@ -2,7 +2,7 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(22, "Filling empty settings for tests.")]
+    [Migration(23, "Filling empty settings for tests.")]
     [Tags("Maintenance", "Test")]
     public class SeedTestSettings : Migration
     {

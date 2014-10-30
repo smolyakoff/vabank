@@ -2,7 +2,7 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(29, "Add some history tables for audit purposes.")]
+    [Migration(30, "Add some history tables for audit purposes.")]
     [Tags("Development", "Test", "Production")]
     public class AddAccountingHistoryTables : Migration
     {
