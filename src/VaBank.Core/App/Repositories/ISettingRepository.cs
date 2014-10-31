@@ -1,9 +1,13 @@
-﻿namespace VaBank.Core.App.Repositories
+﻿using System.Collections.Generic;
+
+namespace VaBank.Core.App.Repositories
 {
     public interface ISettingRepository
     {
-        T Get<T>(string key) where T : class;
+        T GetOrDefault<T>(string key);
 
-        void Set<T>(string key, T value) where T : class;
+        void Set<T>(string key, T value);
+
+        Dictionary<string, T> BatchGet<T>(params string[] keys);
     }
 }

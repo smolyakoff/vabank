@@ -109,11 +109,11 @@
     </Reference>
     <Reference Include="LibSass.x86, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\libsassnet.1.9\lib\net40\LibSass.x86.dll</HintPath>
+      <HintPath>..\..\packages\libsassnet.1.7\lib\net40\LibSass.x86.dll</HintPath>
     </Reference>
     <Reference Include="libsassnet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\libsassnet.1.9\lib\net40\libsassnet.dll</HintPath>
+      <HintPath>..\..\packages\libsassnet.1.7\lib\net40\libsassnet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin">
@@ -282,6 +282,7 @@
     <Content Include="Client\app\modules\vabank-ui\config\form-for.js" />
     <Content Include="Client\app\modules\vabank-ui\config\toastr-config.js" />
     <Content Include="Client\app\modules\vabank-ui\config\local-storage-config.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\currency-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\dropdown-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\date-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\st-table-force-pipe.js" />
@@ -297,6 +298,7 @@
     <Content Include="Client\app\modules\vabank-ui\templates\forms\checkbox-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\date-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\dropdown-field.html" />
+    <Content Include="Client\app\modules\vabank-ui\templates\forms\currency-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\text-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-confirmation-dialog.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-datepicker.html" />
@@ -699,7 +701,6 @@
     <Content Include="Client\bower_components\isteven-angular-multiselect\.bower.json" />
     <Content Include="Client\bower_components\isteven-angular-multiselect\angular-multi-select.css" />
     <Content Include="Client\bower_components\isteven-angular-multiselect\angular-multi-select.js" />
-    <Content Include="Client\bower_components\isteven-angular-multiselect\CHANGELOG.md" />
     <Content Include="Client\bower_components\isteven-angular-multiselect\LICENSE.txt" />
     <Content Include="Client\bower_components\jquery\.bower.json" />
     <Content Include="Client\bower_components\jquery\bower.json" />
@@ -915,6 +916,7 @@
     <Content Include="Client\bower_components\moment\min\moment.min.js" />
     <Content Include="Client\bower_components\moment\moment.js" />
     <Content Include="Client\bower_components\moment\README.md" />
+    <Content Include="Client\bower_components\ngSanitize\index.js" />
     <Content Include="Client\bower_components\spin.js\.bower.json" />
     <Content Include="Client\bower_components\spin.js\.gitignore" />
     <Content Include="Client\bower_components\spin.js\.jshintrc" />
@@ -924,6 +926,7 @@
     <Content Include="Client\bower_components\spin.js\LICENSE.txt" />
     <Content Include="Client\bower_components\spin.js\README.md" />
     <Content Include="Client\bower_components\spin.js\spin.js" />
+    <Content Include="Client\bower_components\underscore-deep\underscore.deep.js" />
     <Content Include="Client\bower_components\underscore\.bower.json" />
     <Content Include="Client\bower_components\underscore\.eslintrc" />
     <Content Include="Client\bower_components\underscore\.gitignore" />
@@ -1086,6 +1089,14 @@
     <Content Include="Client\node_modules\accounting\package.json" />
     <Content Include="Client\node_modules\accounting\readme.md" />
     <Content Include="Client\node_modules\accounting\tests\jasmine\lib\jasmine\MIT.LICENSE" />
+    <Content Include="Client\bower_components\ngSanitize\.bower.json" />
+    <Content Include="Client\bower_components\ngSanitize\bower.json" />
+    <Content Include="Client\bower_components\ngSanitize\LICENSE" />
+    <Content Include="Client\bower_components\ngSanitize\package.json" />
+    <Content Include="Client\bower_components\ngSanitize\README.md" />
+    <Content Include="Client\bower_components\underscore-deep\.bower.json" />
+    <Content Include="Client\bower_components\underscore-deep\bower.json" />
+    <Content Include="Client\bower_components\underscore-deep\README.md" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1172,12 +1183,6 @@
     <MSDeployUseChecksum>true</MSDeployUseChecksum>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <TypeScriptCompileOnSaveEnabled>False</TypeScriptCompileOnSaveEnabled>
-    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
-    <TypeScriptSourceMap>False</TypeScriptSourceMap>
-  </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VaBank.Services.Contracts.Common;
+using VaBank.Common.Util;
 using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Membership.Models;
 
@@ -15,10 +11,7 @@ namespace VaBank.Services.Contracts.Membership.Events
 
         public UserLoginFailed(Guid operationId, UserIdentityModel user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException("user");
-            }
+            Assert.NotNull("user", user);
             OperationId = operationId;
             Code = "LOGIN_FAILED";
             Description = string.Format("User [{0}] could not to log in.", user.UserName);

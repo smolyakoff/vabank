@@ -2,7 +2,7 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(19, "Add rowversion columns to Account table")]
+    [Migration(20, "Add rowversion columns to Account table")]
     [Tags("Accounting", "Development", "Production", "Test")]
     public class AddRowVersionColumnsToAccountingTables: Migration
     {

@@ -10,8 +10,8 @@ BEGIN
 	SET NOCOUNT ON;
 	IF @Id IS NULL
 	BEGIN
-		DECLARE @currentTransactionId BIGINT =
-			(SELECT [transaction_id] FROM [sys].[dm_tran_current_transaction])
+		DECLARE @currentTransactionId BIGINT
+		EXEC [App].[CurrentTransactionId] @transaction_id = @currentTransactionId OUTPUT
 		SET @Id = (
 			SELECT TOP 1 [Id]
 			FROM [App].[Operation]

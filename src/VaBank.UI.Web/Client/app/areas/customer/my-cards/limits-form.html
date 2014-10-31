@@ -1,48 +1,51 @@
-﻿<div class="row" ng-form="limitsForm">
-    <div class="col-xs-6">
-        <div class="form-horizontal">
-            <div class="form-group">
-                <label class="control-label col-xs-6">Лимит на количество операций в день, в РБ:</label>
-                <div class="col-xs-6">
-                    <input class="form-control" ng-model="limits.operationsPerDayLocal" type="number" />
+﻿<form form-for="settingsForm" 
+      validation-rules="limitValidationRules"
+      submit-with="updateLimits()" 
+      submit-complete="onLimitsUpdated(data)">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-xs-6">Лимит на количество операций в день, в РБ:</label>
+                    <div class="col-xs-6">
+                        <text-field type="number" attribute="cardLimits.operationsPerDayLocal" ></text-field>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-6">Лимит на количество операций в день, вне РБ:</label>
-                <div class="col-xs-6">
-                    <input class="form-control" ng-model="limits.operationsPerDayAbroad" type="number" />
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-xs-6">
-        <div class="form-horizontal">
-            <div class="form-group">
-                <label class="control-label col-xs-6">Лимит на cумму в день, в РБ:</label>
-                <div class="col-xs-6">
-                    <vb-currency name="amountPerDayLocal"
-                                 ng-class="{'has-error': limitsForm.amountPerDayLocal.$invalid}"
-                                 ng-model="limits.amountPerDayLocal" min="100"
-                                 symbol="{{card.currency.symbol}}" />
-                    
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-6">Лимит на сумму в день, вне РБ:</label>
-                <div class="col-xs-6">
-                    <vb-currency ng-model="limits.amountPerDayAbroad"
-                                 symbol="{{card.currency.symbol}}" />
+                <div class="form-group">
+                    <label class="control-label col-xs-6">Лимит на количество операций в день, вне РБ:</label>
+                    <div class="col-xs-6">
+                        <text-field type="number" attribute="cardLimits.operationsPerDayAbroad"></text-field>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="row" style="margin-top: 10px">
-    <div class="col-xs-12">
-        <div class="pull-right">
-            <button class="btn btn-default btn-sm " ng-click="cancelLimits()" ng-disabled="limitsForm.$pristine">Отмена</button>
-            <button class="btn btn-danger btn-sm " ng-click="updateLimits()">Обновить лимиты</button>
+        <div class="col-xs-6">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-xs-6">Лимит на cумму в день, в РБ:</label>
+                    <div class="col-xs-6">
+                        <currency-field attribute="cardLimits.amountPerDayLocal"
+                                        symbol="{{card.currency.symbol}}">
+                        </currency-field>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-6">Лимит на сумму в день, вне РБ:</label>
+                    <div class="col-xs-6">
+                        <currency-field attribute="cardLimits.amountPerDayAbroad"
+                                        symbol="{{card.currency.symbol}}">
+                        </currency-field>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    <div class="row" style="margin-top: 10px">
+        <div class="col-xs-12">
+            <div class="pull-right">
+                <a class="btn btn-default btn-sm " ng-click="cancelLimits()">Отмена</a>
+                <submit-button label="Обновить лимиты" button-class="btn btn-sm btn-danger"></submit-button>
+            </div>
+        </div>
+    </div>
+</form>

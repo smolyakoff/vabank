@@ -2,7 +2,7 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(14, "Created app schema and Operation")]
+    [Migration(15, "Created app schema and Operation")]
     [Tags("App", "Development", "Production", "Test")]
     public class CreateAppOperation : Migration
     {
@@ -10,11 +10,10 @@ namespace VaBank.Data.Migrations
 
         public override void Up()
         {
-            Create.Schema(SchemaName);
             Execute.EmbeddedScript("M2_Accounting.TABLE_Operation.sql");
             Execute.EmbeddedScript("M2_Accounting.TRG_Operation_Insert.sql");
             Execute.EmbeddedScript("M2_Accounting.PROC_StartOperation.sql");
-            Execute.EmbeddedScript("M2_Accounting.VIEW_CurrentOperation.sql");
+            Execute.EmbeddedScript("M2_Accounting.PROC_CurrentOperationId.sql");
             Execute.EmbeddedScript("M2_Accounting.PROC_FinishOperation.sql");
 
             Create.ForeignKey("FK_Operation_To_User")
@@ -38,7 +37,7 @@ namespace VaBank.Data.Migrations
         public override void Down()
         {
             Execute.Sql("DROP PROCEDURE [App].[StartOperation], [App].[FinishOperation]");
-            Execute.Sql("DROP VIEW [App].[CurrentOperation]");
+            Execute.Sql("DROP PROCEDURE [App].[CurrentOperationId]");
             Delete.ForeignKey("FK_Operation_To_User");
             Delete.ForeignKey("FK_Operation_To_ApplicationClient");
             Delete.Table("Operation").InSchema("App");

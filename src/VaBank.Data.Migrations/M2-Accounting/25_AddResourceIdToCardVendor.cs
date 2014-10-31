@@ -3,7 +3,7 @@ using FluentMigrator;
 
 namespace VaBank.Data.Migrations 
 {
-    [Migration(24, "Add ResourceId column to [Accounting].[CardVendor] with FK to [App].[Resource] ID")]
+    [Migration(25, "Add ResourceId column to [Accounting].[CardVendor] with FK to [App].[Resource] ID")]
     [Tags("Accounting", "Development", "Production", "Test")]
     public class AddResourceIdToCardVendor : Migration
     {

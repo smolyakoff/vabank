@@ -27,15 +27,18 @@
             var validators = {
                 max: function (modelValue) {
                     var max = $scope.max ? accounting.unformat($scope.max) : null;
-                    return !_.isNumber(max) || modelValue < max;
+                    return !_.isNumber(max) || modelValue <= max;
                 },
                 min: function (modelValue) {
                     var min = $scope.min ? accounting.unformat($scope.min) : null;
-                    return !_.isNumber(min) || modelValue > min;
+                    return !_.isNumber(min) || modelValue >= min;
                 }
             };
 
-            var format = function(value) {
+            var format = function (value) {
+                _.each(validators, function (v, k) {
+                    ngModelCtrl.$setValidity(k, v(value));
+                });
                 return accounting.formatMoney(value, '', $scope.precision, $scope.thousand, $scope.decimal);
             };
 
@@ -62,7 +65,9 @@
             });
 
             $input.on('blur', function (e) {
-                ngModelCtrl.$setViewValue(format(e.target.value), 'blur');
+                $scope.$apply(function() {
+                    ngModelCtrl.$setViewValue(format(e.target.value), 'blur');
+                });             
                 ngModelCtrl.$render();
             });
 

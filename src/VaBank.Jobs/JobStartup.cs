@@ -1,4 +1,7 @@
-﻿namespace VaBank.Jobs
+﻿using VaBank.Jobs.Common;
+using VaBank.Jobs.Maintenance;
+
+namespace VaBank.Jobs
 {
     public class JobStartup
     {

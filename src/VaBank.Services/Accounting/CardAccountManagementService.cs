@@ -8,9 +8,11 @@ using VaBank.Core.Accounting.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Accounting;
 using VaBank.Services.Contracts.Accounting.Commands;
+using VaBank.Services.Contracts.Accounting.Events;
 using VaBank.Services.Contracts.Accounting.Models;
 using VaBank.Services.Contracts.Accounting.Queries;
 using VaBank.Services.Contracts.Common;
+using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Accounting
@@ -194,10 +196,12 @@ namespace VaBank.Services.Accounting
                 var userCard = _deps.UserCards.SurelyFind(command.CardId);
                 var cardName = userCard.Settings.FriendlyName ?? userCard.CardVendor.Name;
                 UserMessage message;
+                var events = new List<ApplicationEvent>();
                 if (command.Blocked)
                 {
                     message = UserMessage.ResourceFormat(() => Messages.CardBlocked, cardName);
                     userCard.Block();
+                    events.Add(new UserCardBlocked(userCard.ToModel<UserCard, CustomerCardModel>(), Operation.Id));
                 }
                 else
                 {
@@ -205,6 +209,7 @@ namespace VaBank.Services.Accounting
                     userCard.Unblock();
                 }
                 Commit();
+                events.ForEach(Publish);
                 return message;
             }
             catch (ServiceException)
@@ -253,16 +258,19 @@ namespace VaBank.Services.Accounting
             EnsureIsValid(command);
             try
             {
+                var events = new List<ApplicationEvent>();
                 var userCard = _deps.UserCards.SurelyFind(command.CardId);
                 if (!string.IsNullOrEmpty(command.FriendlyName))
                 {
-                    userCard.Settings.FriendlyName = command.FriendlyName;
+                    userCard.Settings.FriendlyName = command.FriendlyName;                    
                 }
                 if (command.CardLimits != null)
                 {
                     Mapper.Map(command.CardLimits, userCard.Settings.Limits);
+                    events.Add(new UserCardLimitChanged(userCard.ToModel<UserCard, CustomerCardModel>(), Operation.Id));
                 }
                 Commit();
+                events.ForEach(Publish);
                 return UserMessage.Resource(() => Messages.CardSettingsUpdated);
             }
             catch (ServiceException)

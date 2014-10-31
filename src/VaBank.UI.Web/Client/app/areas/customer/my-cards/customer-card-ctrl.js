@@ -14,9 +14,18 @@
         var card = $scope.card;
         var pristineCard = angular.copy(card);
 
-        $scope.limitsForm = {};
+        $scope.settingsForm = {            
+          cardLimits: card.cardLimits  
+        };
 
-        $scope.limits = card.cardLimits;
+        $scope.limitValidationRules = {
+            cardLimits: {
+                amountPerDayLocal: { custom: uiTools.validate.getValidator('min', 0) },
+                amountPerDayAbroad: { custom: uiTools.validate.getValidator('min', 0) },
+                operationsPerDayLocal: { custom: uiTools.validate.getValidator('min', 0) },
+                operationsPerDayAbroad: { custom: uiTools.validate.getValidator('min', 0) }
+            }
+        };
 
         $scope.limitsHidden = true;
         $scope.nameEdit = false;
@@ -52,19 +61,23 @@
             });
         };
 
-        $scope.cancelLimits = function() {
-            angular.extend($scope.limits, pristineCard.cardLimits);
+        $scope.cancelLimits = function () {
+            $scope.settingsForm.cardLimits = angular.copy(pristineCard.cardLimits);
         };
 
         $scope.updateLimits = function () {
-            Card.updateSettings({ cardId: card.cardId }, {
-                cardLimits: $scope.limits
-            }).$promise.then(function(response) {
-                uiTools.notify({                    
-                    type: 'success',
-                    message: 'Лимиты были успешно обновлены'
-                });
+            var promise = Card.updateSettings(
+                { cardId: card.cardId },
+                $scope.settingsForm).$promise;
+            return uiTools.validate.handleServerResponse(promise);
+        };
+
+        $scope.onLimitsUpdated = function (data) {
+            uiTools.notify({
+                type: 'success',
+                message: 'Лимиты были успешно обновлены'
             });
+            pristineCard.cardLimits = $scope.settingsForm.cardLimits;
         };
     }
 })();
