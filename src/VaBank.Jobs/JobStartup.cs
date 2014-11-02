@@ -1,5 +1,7 @@
-﻿using VaBank.Jobs.Common;
+﻿using Hangfire;
+using VaBank.Jobs.Common;
 using VaBank.Jobs.Maintenance;
+using VaBank.Jobs.Maintenance.Accounting;
 
 namespace VaBank.Jobs
 {
@@ -13,7 +15,8 @@ namespace VaBank.Jobs
         private static void RegisterRecurring()
         {
             #if !DEBUG
-                VabankJob.AddOrUpdateRecurring<KeepAliveJob>("KeepAlive", "*/10 * * * *");
+            VabankJob.AddOrUpdateRecurring<KeepAliveJob>("KeepAlive", "*/10 * * * *");
+            VabankJob.AddOrUpdateRecurring<CurrencyRatesUpdateJob>("UpdateCurrencyRates", Cron.Daily(21));
             #endif
         }
     }

@@ -33,7 +33,6 @@ namespace VaBank.Jobs.Modules
             var automapperProfiles = _rootScope.Resolve<IEnumerable<Profile>>().ToList();
             automapperProfiles.ForEach(Mapper.AddProfile);
             _serviceBus.Subscribe(new HangfireEventListener(_rootScope));
-
         }
     }
 }
