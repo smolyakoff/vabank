@@ -9,7 +9,7 @@ using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Contracts.Accounting
 {
-    public interface ICardAccountManagementService : IService
+    public interface ICardAccountService : IService
     {
         CardLookupModel GetAccountingLookup();
 

@@ -17,11 +17,11 @@ using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Accounting
 {
-    public class CardAccountManagementService : BaseService, ICardAccountManagementService
+    public class CardAccountService : BaseService, ICardAccountService
     {
         private readonly AccountingDependencies _deps;
 
-        public CardAccountManagementService(BaseServiceDependencies dependencies,
+        public CardAccountService(BaseServiceDependencies dependencies,
             AccountingDependencies accountingDependencies)
             : base(dependencies)
         {

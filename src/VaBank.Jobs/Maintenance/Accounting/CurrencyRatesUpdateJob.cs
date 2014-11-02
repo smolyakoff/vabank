@@ -12,7 +12,7 @@ namespace VaBank.Jobs.Maintenance.Accounting
 
         protected override void Execute(DefaultJobContext context)
         {
-            var service = RootScope.Resolve<ICurrencyRateManagementService>();
+            var service = RootScope.Resolve<ICurrencyRateService>();
             service.UpdateRates();
         }
     }

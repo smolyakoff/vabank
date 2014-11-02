@@ -2,7 +2,7 @@
 
 namespace VaBank.Services.Contracts.Accounting
 {
-    public interface ICurrencyRateManagementService
+    public interface ICurrencyRateService
     {
         void UpdateRates();
 

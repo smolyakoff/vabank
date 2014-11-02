@@ -8,7 +8,7 @@ using VaBank.Services.Contracts.Membership.Queries;
 
 namespace VaBank.Services.Contracts.Membership
 {
-    public interface IUserManagementService
+    public interface IUserService
     {
         IPagedList<UserBriefModel> GetUsers(UsersQuery query);
 

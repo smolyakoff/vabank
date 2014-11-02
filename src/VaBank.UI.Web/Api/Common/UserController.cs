@@ -14,15 +14,15 @@ namespace VaBank.UI.Web.Api.Common
     [Authorize]
     public class UserController : ApiController
     {
-        private readonly IUserManagementService _userManagementService;
+        private readonly IUserService _userService;
 
-        public UserController(IUserManagementService userManagementService)
+        public UserController(IUserService userService)
         {
-            if (userManagementService == null)
+            if (userService == null)
             {
-                throw new ArgumentNullException("userManagementService");
+                throw new ArgumentNullException("userService");
             }
-            _userManagementService = userManagementService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -30,7 +30,7 @@ namespace VaBank.UI.Web.Api.Common
         [Authorize(Roles = "Admin")]
         public IHttpActionResult Get(UsersQuery query)
         {
-            var page = _userManagementService.GetUsers(query);
+            var page = _userService.GetUsers(query);
             return Ok(page);
         }
 
@@ -39,7 +39,7 @@ namespace VaBank.UI.Web.Api.Common
         [Authorize(Roles = "Admin")]
         public IHttpActionResult Get([FromUri] IdentityQuery<Guid> query)
         {
-            var user = _userManagementService.GetUser(query);
+            var user = _userService.GetUser(query);
             return user == null ? (IHttpActionResult)NotFound() : Ok(user);
         }
 
@@ -49,7 +49,7 @@ namespace VaBank.UI.Web.Api.Common
         [Transaction]
         public IHttpActionResult Create(CreateUserCommand command)
         {
-            var user = _userManagementService.CreateUser(command);
+            var user = _userService.CreateUser(command);
             return Created(Url.Route("GetUser", new {id = user.UserId}), user);
         }
 
@@ -60,7 +60,7 @@ namespace VaBank.UI.Web.Api.Common
         public IHttpActionResult Update([FromUri]Guid id, UpdateUserCommand command)
         {
             command.UserId = id;
-            _userManagementService.UpdateUser(command);
+            _userService.UpdateUser(command);
             return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
         }
 
@@ -69,7 +69,7 @@ namespace VaBank.UI.Web.Api.Common
         [Route("{id}/profile")]
         public IHttpActionResult GetProfile([FromUri] IdentityQuery<Guid> query)
         {
-            var profile = _userManagementService.GetProfile(query);
+            var profile = _userService.GetProfile(query);
             return profile == null ? (IHttpActionResult)NotFound() : Ok(profile);
         }
 
@@ -79,7 +79,7 @@ namespace VaBank.UI.Web.Api.Common
         public IHttpActionResult UpdateProfile([FromUri] Guid id, UpdateProfileCommand command)
         {
             command.UserId = id;
-            _userManagementService.UpdateProfile(command);
+            _userService.UpdateProfile(command);
             return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
         }
 
@@ -89,7 +89,7 @@ namespace VaBank.UI.Web.Api.Common
         public IHttpActionResult ChangePassword([FromUri] Guid id, ChangePasswordCommand command)
         {
             command.UserId = id;
-            var message = _userManagementService.ChangePassword(command);
+            var message = _userService.ChangePassword(command);
             return message == null
                 ? (IHttpActionResult) InternalServerError()
                 : Ok(message);

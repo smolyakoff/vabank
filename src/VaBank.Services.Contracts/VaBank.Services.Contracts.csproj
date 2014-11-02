@@ -55,7 +55,7 @@
     <Compile Include="Accounting\Commands\SetCardBlockCommand.cs" />
     <Compile Include="Accounting\Commands\UpdateCardSettingsCommand.cs" />
     <Compile Include="Accounting\Events\UserCardLimitChanged.cs" />
-    <Compile Include="Accounting\ICurrencyRateManagementService.cs" />
+    <Compile Include="Accounting\ICurrencyRateService.cs" />
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardLookupModel.cs" />
     <Compile Include="Accounting\Models\CardModel.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="Accounting\Queries\AccountQuery.cs" />
     <Compile Include="Accounting\Queries\CardQuery.cs" />
     <Compile Include="Common\DataNotFoundException.cs" />
-    <Compile Include="Accounting\ICardAccountManagementService.cs" />
+    <Compile Include="Accounting\ICardAccountService.cs" />
     <Compile Include="Common\Events\IAuditedEvent.cs" />
     <Compile Include="Common\Models\UserNameModel.cs" />
     <Compile Include="Common\Resources\Messages.Designer.cs">
@@ -87,7 +87,7 @@
     <Compile Include="Common\Validation\ValidationResponse.cs" />
     <Compile Include="Common\Events\ApplicationEvent.cs" />
     <Compile Include="Maintenance\Commands\LogAppActionCommand.cs" />
-    <Compile Include="Maintenance\ILogManagementService.cs" />
+    <Compile Include="Maintenance\ILogService.cs" />
     <Compile Include="Maintenance\Commands\SystemLogClearCommand.cs" />
     <Compile Include="Maintenance\IOperationService.cs" />
     <Compile Include="Maintenance\Models\AppActionModel.cs" />
@@ -115,7 +115,7 @@
     <Compile Include="Membership\Events\UserLoggedIn.cs" />
     <Compile Include="Membership\Events\UserLoginFailed.cs" />
     <Compile Include="Membership\Events\UserProfileUpdated.cs" />
-    <Compile Include="Membership\IUserManagementService.cs" />
+    <Compile Include="Membership\IUserService.cs" />
     <Compile Include="Membership\Models\ApplicationClientModel.cs" />
     <Compile Include="Membership\Models\ApplicationClientTypeModel.cs" />
     <Compile Include="Membership\Models\ClaimModel.cs" />

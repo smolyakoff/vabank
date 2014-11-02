@@ -18,11 +18,11 @@ using VaBank.Services.Contracts.Membership.Queries;
 
 namespace VaBank.Services.Membership
 {
-    public class UserManagementService : BaseService, IUserManagementService
+    public class UserService : BaseService, IUserService
     {
         private readonly UserManagementRepositories _db;
 
-        public UserManagementService(BaseServiceDependencies dependencies, UserManagementRepositories repositories) 
+        public UserService(BaseServiceDependencies dependencies, UserManagementRepositories repositories) 
             : base(dependencies)
         {
             repositories.EnsureIsResolved();

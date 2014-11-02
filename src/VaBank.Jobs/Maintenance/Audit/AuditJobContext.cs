@@ -7,6 +7,6 @@ namespace VaBank.Jobs.Maintenance.Audit
 {
     public class AuditJobContext : DefaultJobContext<IAuditedEvent>
     {
-        public ILogManagementService LogManagementService { get; set; }
+        public ILogService LogService { get; set; }
     }
 }

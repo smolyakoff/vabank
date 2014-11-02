@@ -17,11 +17,11 @@ using VaBank.Services.Contracts.Maintenance.Queries;
 
 namespace VaBank.Services.Maintenance
 {
-    public class LogManagementService : BaseService, ILogManagementService
+    public class LogService : BaseService, ILogService
     {
         private readonly MaintenanceRepositories _db;
 
-        public LogManagementService(BaseServiceDependencies dependencies, MaintenanceRepositories repositories) 
+        public LogService(BaseServiceDependencies dependencies, MaintenanceRepositories repositories) 
             : base(dependencies)
         {
             repositories.EnsureIsResolved();

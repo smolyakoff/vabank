@@ -10,22 +10,22 @@ namespace VaBank.UI.Web.Api.Customer
     [Authorize(Roles = "Customer")]
     public class CustomerCardController : ApiController
     {
-        private readonly ICardAccountManagementService _cardAccountManagementService;
+        private readonly ICardAccountService _cardAccountService;
 
-        public CustomerCardController(ICardAccountManagementService cardAccountManagementService)
+        public CustomerCardController(ICardAccountService cardAccountService)
         {
-            if (cardAccountManagementService == null)
+            if (cardAccountService == null)
             {
-                throw new ArgumentNullException("cardAccountManagementService");
+                throw new ArgumentNullException("cardAccountService");
             }
-            _cardAccountManagementService = cardAccountManagementService;
+            _cardAccountService = cardAccountService;
         }
 
         [Route("api/users/{id:guid}/cards")]
         [HttpGet]
         public IHttpActionResult Get([FromUri]IdentityQuery<Guid> userId)
         {
-            return Ok(_cardAccountManagementService.GetCustomerCards(userId));
+            return Ok(_cardAccountService.GetCustomerCards(userId));
         }
 
         [Route("api/cards/{id:guid}/settings")]
@@ -34,7 +34,7 @@ namespace VaBank.UI.Web.Api.Customer
         public IHttpActionResult UpdateSettings([FromUri]Guid id, UpdateCardSettingsCommand command)
         {
             command.CardId = id;
-            return Ok(_cardAccountManagementService.UpdateCardSettings(command));
+            return Ok(_cardAccountService.UpdateCardSettings(command));
         }
 
         [Route("api/cards/{id:guid}/block")]
@@ -43,7 +43,7 @@ namespace VaBank.UI.Web.Api.Customer
         public IHttpActionResult Block([FromUri]Guid id, SetCardBlockCommand command)
         {
             command.CardId = id;
-            return Ok(_cardAccountManagementService.SetCardBlock(command));
+            return Ok(_cardAccountService.SetCardBlock(command));
         }
     }
 }

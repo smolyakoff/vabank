@@ -8,7 +8,7 @@ using VaBank.Services.Contracts.Maintenance.Queries;
 
 namespace VaBank.Services.Contracts.Maintenance
 {
-    public interface ILogManagementService : IService
+    public interface ILogService : IService
     {
         SystemLogLookupModel GetSystemLogLookup();
 
