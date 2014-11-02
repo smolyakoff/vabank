@@ -1099,6 +1099,7 @@
     <Content Include="Client\bower_components\underscore-deep\.bower.json" />
     <Content Include="Client\bower_components\underscore-deep\bower.json" />
     <Content Include="Client\bower_components\underscore-deep\README.md" />
+    <Content Include="Client\app\areas\customer\cabinet\cabinet.scss" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
