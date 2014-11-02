@@ -7,7 +7,7 @@ using VaBank.Services.NBRBWebService;
 
 namespace VaBank.Services.Accounting.External
 {
-    public static class NbrbServiceClient
+    internal static class NbrbServiceClient
     {
         public static IList<CurrencyRate> GetAllRates(DateTime date)
         {

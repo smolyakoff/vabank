@@ -55,9 +55,12 @@
     <Compile Include="Accounting\Commands\SetCardBlockCommand.cs" />
     <Compile Include="Accounting\Commands\UpdateCardSettingsCommand.cs" />
     <Compile Include="Accounting\Events\UserCardLimitChanged.cs" />
+    <Compile Include="Accounting\ICurrencyRateManagementService.cs" />
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardLookupModel.cs" />
     <Compile Include="Accounting\Models\CardModel.cs" />
+    <Compile Include="Accounting\Models\CurrencyRateModel.cs" />
+    <Compile Include="Accounting\Models\CurrencyRatesLookupModel.cs" />
     <Compile Include="Accounting\Models\UserCardModel.cs" />
     <Compile Include="Accounting\Models\CardAccountModel.cs" />
     <Compile Include="Accounting\Models\CardLimitsModel.cs" />

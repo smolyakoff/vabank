@@ -14,7 +14,7 @@ namespace VaBank.Services.NBRBWebService {
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://www.nbrb.by/", ConfigurationName="NBRBWebService.ExRatesSoap")]
-    public interface ExRatesSoap {
+    internal interface ExRatesSoap {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://www.nbrb.by/CurrenciesRefDaily", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -144,12 +144,12 @@ namespace VaBank.Services.NBRBWebService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ExRatesSoapChannel : VaBank.Services.NBRBWebService.ExRatesSoap, System.ServiceModel.IClientChannel {
+    internal interface ExRatesSoapChannel : VaBank.Services.NBRBWebService.ExRatesSoap, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ExRatesSoapClient : System.ServiceModel.ClientBase<VaBank.Services.NBRBWebService.ExRatesSoap>, VaBank.Services.NBRBWebService.ExRatesSoap {
+    internal partial class ExRatesSoapClient : System.ServiceModel.ClientBase<VaBank.Services.NBRBWebService.ExRatesSoap>, VaBank.Services.NBRBWebService.ExRatesSoap {
         
         public ExRatesSoapClient() {
         }
