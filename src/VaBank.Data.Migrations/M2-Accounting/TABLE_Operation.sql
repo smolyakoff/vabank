@@ -22,15 +22,14 @@ CREATE TABLE [App].[Operation](
  CONSTRAINT [PK_Operation] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+))
 
 GO
 
 SET ANSI_PADDING OFF
 GO
 
-ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_ID]  DEFAULT (newsequentialid()) FOR [ID]
+ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_ID]  DEFAULT (newid()) FOR [ID]
 GO
 
 ALTER TABLE [App].[Operation] ADD  CONSTRAINT [DF_Operation_StartedUtc]  DEFAULT (getutcdate()) FOR [StartedUtc]

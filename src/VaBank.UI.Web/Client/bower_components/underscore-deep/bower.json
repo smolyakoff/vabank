@@ -1,0 +1,15 @@
+{
+    "name": "underscore-deep",
+    "version": "1.0.1",
+    "main": "underscore.deep.js",
+    "homepage": "http://github.com/glencrossbrunet/underscore-calculate",
+    "keywords": [ "underscore", "_", "deep", "nested", "object", "property" ],
+    "authors": [ "furf", "demircancelebi" ],
+    "ignore": [
+        "bower_components",
+        ".gitignore"
+    ],
+    "dependencies": {
+        "underscore": "~1.5.2"
+    }
+}

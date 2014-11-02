@@ -12,6 +12,7 @@ using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Membership;
 using VaBank.Services.Contracts.Membership.Commands;
+using VaBank.Services.Contracts.Membership.Events;
 using VaBank.Services.Contracts.Membership.Models;
 using VaBank.Services.Contracts.Membership.Queries;
 
@@ -145,6 +146,7 @@ namespace VaBank.Services.Membership
                 Mapper.Map(command, user.Profile);
                 _db.UserProfiles.Update(user.Profile);
                 Commit();
+                Publish(new UserProfileUpdated(Operation.Id, user.Profile.ToModel<UserProfile, UserProfileModel>()));
             }
             catch (ServiceException)
             {

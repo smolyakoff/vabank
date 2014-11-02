@@ -23,7 +23,7 @@ namespace VaBank.Data.Tests
         {
             var expected = new Man { Name = "Zakhar", Age = 21 };
             _settings.Set<Man>(Keys.ManSettingName, expected);
-            var actual = _settings.Get<Man>(Keys.ManSettingName);
+            var actual = _settings.GetOrDefault<Man>(Keys.ManSettingName);
             Assert.AreEqual(expected, actual);
         }
 

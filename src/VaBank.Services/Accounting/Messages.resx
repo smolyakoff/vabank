@@ -120,11 +120,20 @@
   <data name="AccountOpened" xml:space="preserve">
     <value>Карт-счет №{0} был успешно открыт.</value>
   </data>
+  <data name="CardBlocked" xml:space="preserve">
+    <value>Карта {0} была заблокирована!</value>
+  </data>
   <data name="CardEmitted" xml:space="preserve">
     <value>Была успешно выпущена карта с номером: {0}.</value>
   </data>
   <data name="CardLinked" xml:space="preserve">
     <value>Карта была успешно привязана к карт-счету.</value>
+  </data>
+  <data name="CardSettingsUpdated" xml:space="preserve">
+    <value>Настройки карты были успешно обновлены.</value>
+  </data>
+  <data name="CardUnblocked" xml:space="preserve">
+    <value>Карта {0} разблокирована!</value>
   </data>
   <data name="CardUnlinked" xml:space="preserve">
     <value>Карта была успешно отвязана от счета.</value>

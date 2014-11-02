@@ -109,11 +109,11 @@
     </Reference>
     <Reference Include="LibSass.x86, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\libsassnet.1.9\lib\net40\LibSass.x86.dll</HintPath>
+      <HintPath>..\..\packages\libsassnet.1.7\lib\net40\LibSass.x86.dll</HintPath>
     </Reference>
     <Reference Include="libsassnet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\libsassnet.1.9\lib\net40\libsassnet.dll</HintPath>
+      <HintPath>..\..\packages\libsassnet.1.7\lib\net40\libsassnet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin">
@@ -227,14 +227,16 @@
     <Content Include="Client\app\areas\admin\user-management\user-list-ctrl.js" />
     <Content Include="Client\app\areas\admin\user-management\user-management-service.js" />
     <Content Include="Client\app\areas\admin\user-management\user-list.html" />
-    <Content Include="Client\app\areas\customer\cards\cards-list-ctrl.js" />
-    <Content Include="Client\app\areas\customer\cards\cards-list.html" />
-    <Content Include="Client\app\areas\customer\cards\cards-statement-ctrl.js" />
-    <Content Include="Client\app\areas\customer\cards\cards-statement.html" />
-    <Content Include="Client\app\areas\customer\cards\cards-transfer-ctrl.js" />
-    <Content Include="Client\app\areas\customer\cards\cards-transfer.html" />
-    <Content Include="Client\app\areas\customer\cards\cards-service.js" />
-    <Content Include="Client\app\areas\customer\cards\cards.html" />
+    <Content Include="Client\app\areas\customer\my-cards\customer-card-ctrl.js" />
+    <Content Include="Client\app\areas\customer\my-cards\limits-form.html" />
+    <Content Include="Client\app\areas\customer\my-cards\my-cards-list-ctrl.js" />
+    <Content Include="Client\app\areas\customer\my-cards\my-cards-list.html" />
+    <Content Include="Client\app\areas\customer\my-cards\account-statement-ctrl.js" />
+    <Content Include="Client\app\areas\customer\my-cards\account-statement.html" />
+    <Content Include="Client\app\areas\customer\my-cards\transfer-ctrl.js" />
+    <Content Include="Client\app\areas\customer\my-cards\transfer.html" />
+    <Content Include="Client\app\areas\customer\my-cards\my-cards-service.js" />
+    <Content Include="Client\app\areas\customer\my-cards\my-cards.html" />
     <Content Include="Client\app\areas\customer\customer-ctrl.js" />
     <Content Include="Client\app\areas\customer\customer.html" />
     <Content Include="Client\app\areas\customer\config\routes.js" />
@@ -282,10 +284,12 @@
     <Content Include="Client\app\modules\vabank-ui\config\form-for.js" />
     <Content Include="Client\app\modules\vabank-ui\config\toastr-config.js" />
     <Content Include="Client\app\modules\vabank-ui\config\local-storage-config.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\currency-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\dropdown-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\date-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\st-table-force-pipe.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-confirm.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\vb-currency.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-datepicker.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\string-format.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\truncate.js" />
@@ -296,6 +300,7 @@
     <Content Include="Client\app\modules\vabank-ui\templates\forms\checkbox-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\date-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\dropdown-field.html" />
+    <Content Include="Client\app\modules\vabank-ui\templates\forms\currency-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\text-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-confirmation-dialog.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\vb-datepicker.html" />
@@ -698,7 +703,6 @@
     <Content Include="Client\bower_components\isteven-angular-multiselect\.bower.json" />
     <Content Include="Client\bower_components\isteven-angular-multiselect\angular-multi-select.css" />
     <Content Include="Client\bower_components\isteven-angular-multiselect\angular-multi-select.js" />
-    <Content Include="Client\bower_components\isteven-angular-multiselect\CHANGELOG.md" />
     <Content Include="Client\bower_components\isteven-angular-multiselect\LICENSE.txt" />
     <Content Include="Client\bower_components\jquery\.bower.json" />
     <Content Include="Client\bower_components\jquery\bower.json" />
@@ -914,6 +918,7 @@
     <Content Include="Client\bower_components\moment\min\moment.min.js" />
     <Content Include="Client\bower_components\moment\moment.js" />
     <Content Include="Client\bower_components\moment\README.md" />
+    <Content Include="Client\bower_components\ngSanitize\index.js" />
     <Content Include="Client\bower_components\spin.js\.bower.json" />
     <Content Include="Client\bower_components\spin.js\.gitignore" />
     <Content Include="Client\bower_components\spin.js\.jshintrc" />
@@ -923,6 +928,7 @@
     <Content Include="Client\bower_components\spin.js\LICENSE.txt" />
     <Content Include="Client\bower_components\spin.js\README.md" />
     <Content Include="Client\bower_components\spin.js\spin.js" />
+    <Content Include="Client\bower_components\underscore-deep\underscore.deep.js" />
     <Content Include="Client\bower_components\underscore\.bower.json" />
     <Content Include="Client\bower_components\underscore\.eslintrc" />
     <Content Include="Client\bower_components\underscore\.gitignore" />
@@ -934,6 +940,26 @@
     <Content Include="Client\bower_components\underscore\underscore-min.js" />
     <Content Include="Client\bower_components\underscore\underscore-min.map" />
     <Content Include="Client\bower_components\underscore\underscore.js" />
+    <Content Include="Client\node_modules\accounting\accounting.js" />
+    <Content Include="Client\node_modules\accounting\accounting.min.js" />
+    <Content Include="Client\node_modules\accounting\demo-resources\js\libs\jquery.min.js" />
+    <Content Include="Client\node_modules\accounting\demo-resources\js\prettify.js" />
+    <Content Include="Client\node_modules\accounting\demo-resources\style.css" />
+    <Content Include="Client\node_modules\accounting\index.html" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\core\formatMoneySpec.js" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\core\formatNumberSpec.js" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\core\unformatSpec.js" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\lib\jasmine\jasmine-html.js" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\lib\jasmine\jasmine.css" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\lib\jasmine\jasmine.js" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\runner.html" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\methods.js" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\speed.js" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\test.html" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\vendor\jquery.js" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\vendor\jslitmus.js" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\vendor\qunit.css" />
+    <Content Include="Client\node_modules\accounting\tests\qunit\vendor\qunit.js" />
     <Content Include="packages.config" />
     <Content Include="Configs\NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -960,7 +986,7 @@
     <Content Include="Client\app\modules\vabank-ui\vabank-ui.scss" />
     <Content Include="Client\app\areas\admin\user-management\user-management.scss" />
     <Content Include="Client\app\areas\customer\profile\profile.scss" />
-    <Content Include="Client\app\areas\customer\cards\cards.scss" />
+    <Content Include="Client\app\areas\customer\my-cards\my-cards.scss" />
     <Content Include="Client\app\areas\admin\audit-log\audit-log.scss" />
     <Content Include="Client\bower_components\angular-local-storage\CHANGELOG.md" />
     <Content Include="Client\bower_components\angular-ui-router\api\angular-ui-router.d.ts" />
@@ -1061,7 +1087,18 @@
     <Content Include="Client\bower_components\angular-ui-select\dist\select.min.js.map">
       <DependentUpon>select.min.js</DependentUpon>
     </Content>
-    <Content Include="Client\app\areas\customer\cabinet\cabinet.scss" />
+    <Content Include="Client\node_modules\accounting\license" />
+    <Content Include="Client\node_modules\accounting\package.json" />
+    <Content Include="Client\node_modules\accounting\readme.md" />
+    <Content Include="Client\node_modules\accounting\tests\jasmine\lib\jasmine\MIT.LICENSE" />
+    <Content Include="Client\bower_components\ngSanitize\.bower.json" />
+    <Content Include="Client\bower_components\ngSanitize\bower.json" />
+    <Content Include="Client\bower_components\ngSanitize\LICENSE" />
+    <Content Include="Client\bower_components\ngSanitize\package.json" />
+    <Content Include="Client\bower_components\ngSanitize\README.md" />
+    <Content Include="Client\bower_components\underscore-deep\.bower.json" />
+    <Content Include="Client\bower_components\underscore-deep\bower.json" />
+    <Content Include="Client\bower_components\underscore-deep\README.md" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1084,6 +1121,7 @@
     <Compile Include="Api\Admin\MaintenanceController.cs" />
     <Compile Include="Api\Common\UserController.cs" />
     <Compile Include="Api\Common\ValidationController.cs" />
+    <Compile Include="Api\Customer\CustomerCardController.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankAuthorizationServerProvider.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankRefreshTokenProvider.cs" />
     <Compile Include="Api\Infrastructure\Converters\HttpServiceErrorConverter.cs" />
@@ -1136,7 +1174,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Api\Customer\" />
     <Folder Include="Client\bower_components\bootstrap-sass-official\assets\images\" />
   </ItemGroup>
   <PropertyGroup>
@@ -1148,12 +1185,6 @@
     <MSDeployUseChecksum>true</MSDeployUseChecksum>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <TypeScriptCompileOnSaveEnabled>False</TypeScriptCompileOnSaveEnabled>
-    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
-    <TypeScriptSourceMap>False</TypeScriptSourceMap>
-  </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

@@ -6,24 +6,25 @@ using VaBank.Services.Contracts.Accounting.Queries;
 namespace VaBank.UI.Web.Api.Admin
 {
     [RoutePrefix("api/cards")]
+    [Authorize(Roles = "Admin")]
     public class CardController : ApiController
     {
-        private readonly IAccountManagementService _accountManagementService;
+        private readonly ICardAccountManagementService _cardAccountManagementService;
 
-        public CardController(IAccountManagementService accountManagementService)
+        public CardController(ICardAccountManagementService cardAccountManagementService)
         {
-            if (accountManagementService == null)
+            if (cardAccountManagementService == null)
             {
-                throw new ArgumentNullException("accountManagementService");
+                throw new ArgumentNullException("cardAccountManagementService");
             }
-            _accountManagementService = accountManagementService;
+            _cardAccountManagementService = cardAccountManagementService;
         }
 
         [HttpGet]
         [Route]
         public IHttpActionResult Get(CardQuery query)
         {
-            return Ok(_accountManagementService.GetOwnedCards(query));
+            return Ok(_cardAccountManagementService.GetUserCards(query));
         }
     }
 }

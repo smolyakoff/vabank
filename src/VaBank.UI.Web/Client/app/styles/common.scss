@@ -1,9 +1,9 @@
 ﻿.modal {
-    overflow-y: auto;
+ overflow-y: auto;
 }
 
 .modal-open {
-    overflow: auto;
+ overflow: auto;
 }
 
 .offset-bottom {
@@ -101,4 +101,8 @@ img.center {
         text-align: right;
         font-size: 14px;
     }
+}
+
+a.action-link {
+    cursor: pointer;
 }

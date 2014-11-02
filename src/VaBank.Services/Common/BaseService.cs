@@ -44,15 +44,22 @@ namespace VaBank.Services.Common
 
         protected virtual void EnsureIsValid<T>(T obj)
         {
-            var validator = _objectFactory.Create<IValidator<T>>();
-            if (validator == null) return;
+            var validatorType = typeof (IValidator<T>);
+            EnsureIsValid(obj, validatorType);
+        }
+
+        protected virtual void EnsureIsValid<T>(T obj, Type validatorType)
+        {
+            var validator = _objectFactory.Create(validatorType) as IValidator<T>;
+            if (validator == null)
+            {
+                return;
+            }
             var validationResult = validator.Validate(obj);
             if (!validationResult.IsValid)
             {
-                var faults =
-                    validationResult.Errors.Select(x => new ValidationFault(x.PropertyName, x.ErrorMessage)).ToList();
-                throw new ValidationException(
-                    "Object has validation errors. See ValidationFaults property for more information.", faults);
+                var faults = validationResult.Errors.ToValidationFaults();
+                throw new ValidationException("Object has validation errors. See ValidationFaults property for more information.", faults);
             }
         }
 

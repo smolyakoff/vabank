@@ -135,7 +135,7 @@ BEGIN
 		-- Set primary key and default values
 		SET @CreateStatement = 'ALTER TABLE [' + @Owner + '].[' + @TableName + @HistoryNameExtension + '] ADD '
 		SET @CreateStatement = @CreateStatement + 'CONSTRAINT [DF_' + @TableName + @HistoryNameExtension + '_HistoryTimestampUtc] DEFAULT (GETUTCDATE()) FOR [HistoryTimestampUtc],'
-		SET @CreateStatement = @CreateStatement + 'CONSTRAINT [PK_' + @TableName + @HistoryNameExtension + '] PRIMARY KEY CLUSTERED ([HistoryId]) ON [PRIMARY]'
+		SET @CreateStatement = @CreateStatement + 'CONSTRAINT [PK_' + @TableName + @HistoryNameExtension + '] PRIMARY KEY CLUSTERED ([HistoryId])'
 
 		EXEC (@CreateStatement)
 
@@ -169,7 +169,8 @@ BEGIN
 	PRINT 'Creating triggers' 
 	DECLARE @PreHistoryStatement VARCHAR(500) = 
 		'BEGIN TRANSACTION HistoryTransaction ' + 
-	    'DECLARE @operationId uniqueidentifier = (SELECT Id FROM [App].[CurrentOperation]) ' +
+	    'DECLARE @operationId uniqueidentifier ' +
+		'EXEC [App].[CurrentOperationId] @ID = @operationId OUTPUT ' + 
 		'DECLARE @isNewOperation bit = 0 ' +
 		'IF @operationId IS NULL SET @isNewOperation = 1 ' +
 		'IF @isNewOperation = 1 EXEC [App].[StartOperation] @Id = @operationId OUTPUT '

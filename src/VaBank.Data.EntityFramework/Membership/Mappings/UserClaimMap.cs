@@ -10,8 +10,8 @@ namespace VaBank.Data.EntityFramework.Membership.Mappings
         public UserClaimMap()
         {
             ToTable("UserClaim", "Membership").HasKey(x => new { x.UserId, x.Type, x.Value });
-            Property(x => x.Value).HasMaxLength(Restrict.Length.BigString)
-                .IsRequired();
+            Property(x => x.Type).IsRequired().IsUnicode(false);
+            Property(x => x.Value).HasMaxLength(512).IsRequired();
         }
     }
 }

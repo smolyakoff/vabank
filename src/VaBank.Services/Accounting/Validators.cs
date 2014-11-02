@@ -1,11 +1,15 @@
 ﻿using System;
 using FluentValidation;
-using JetBrains.Annotations;
+using FluentValidation.Results;
+using FluentValidation.Validators;
 using VaBank.Common.Data.Repositories;
+using VaBank.Common.Util;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Accounting.Factories;
 using VaBank.Services.Contracts.Accounting.Commands;
+using VaBank.Services.Contracts.Accounting.Models;
 
 namespace VaBank.Services.Accounting
 {
@@ -102,6 +106,64 @@ namespace VaBank.Services.Accounting
         private static bool LessThanAccountExpirationDate(CreateCardAccountCommand command, DateTime cardExpirationDate)
         {
             return cardExpirationDate <= command.AccountExpirationDateUtc;
+        }
+    }
+
+    internal class UpdateCardSettingsCommandValidator : AbstractValidator<UpdateCardSettingsCommand>
+    {
+        private readonly IRepository<UserCard> _userCardRepository;
+
+        private readonly CardLimitsFactory _cardLimitsFactory;
+
+        public UpdateCardSettingsCommandValidator(
+            CardLimitsFactory cardLimitsFactory, 
+            IRepository<UserCard> userCardRepository)
+        {
+            Assert.NotNull("cardLimitsRangeRepository", cardLimitsFactory);
+            Assert.NotNull("userCardRepository", userCardRepository);
+
+            _cardLimitsFactory = cardLimitsFactory;
+            _userCardRepository = userCardRepository;
+
+            RuleFor(x => x.CardId).NotEqual(Guid.Empty).Must(CardExists);
+        }
+
+        public override ValidationResult Validate(UpdateCardSettingsCommand command)
+        {
+            var userCard = _userCardRepository.Find(command.CardId);
+            var currency = userCard.Account.Currency;
+            var limitsRange = _cardLimitsFactory.FindRange(currency.ISOName);
+            RuleFor(x => x.CardLimits.AmountPerDayLocal).InclusiveBetween(
+                limitsRange.AmountPerDayLocal.LowerBound, 
+                limitsRange.AmountPerDayLocal.UpperBound)
+                .When(x => x.CardLimits != null);
+            RuleFor(x => x.CardLimits.AmountPerDayAbroad).InclusiveBetween(
+                limitsRange.AmountPerDayAbroad.LowerBound,
+                limitsRange.AmountPerDayAbroad.UpperBound)
+                .When(x => x.CardLimits != null); ;
+            RuleFor(x => x.CardLimits.OperationsPerDayLocal).InclusiveBetween(
+                limitsRange.OperationsPerDayLocal.LowerBound,
+                limitsRange.OperationsPerDayLocal.UpperBound)
+                .When(x => x.CardLimits != null); ;
+            RuleFor(x => x.CardLimits.OperationsPerDayAbroad).InclusiveBetween(
+                limitsRange.OperationsPerDayAbroad.LowerBound,
+                limitsRange.OperationsPerDayAbroad.UpperBound)
+                .When(x => x.CardLimits != null); ;
+            return base.Validate(command);
+        }
+
+        private bool CardExists(Guid cardId)
+        {
+            var userCard = _userCardRepository.Find(cardId);
+            return userCard != null && userCard.Account != null;
+        }
+    }
+
+    internal class SetCardBlockCommandValidator : AbstractValidator<SetCardBlockCommand>
+    {
+        public SetCardBlockCommandValidator()
+        {
+            RuleFor(x => x.CardId).NotEqual(Guid.Empty);
         }
     }
 }

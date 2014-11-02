@@ -1,25 +1,19 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VaBank.Common.Util;
 using VaBank.Services.Contracts.Accounting.Models;
-using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Events;
 
 namespace VaBank.Services.Contracts.Accounting.Events
 {
     public class UserCardBlocked: ApplicationEvent, IAuditedEvent
     {
-        public UserCardBlocked(CardAccountModel cardAccountModel)
+        public UserCardBlocked(CustomerCardModel card, Guid operationId)
         {
-            if (cardAccountModel == null)
-            {
-                throw new ArgumentNullException("user card");
-            }
+            Assert.NotNull("card", card);
+            OperationId = operationId;
             Code = "USER_CARD_BLOCKED";
-            Description = string.Format("User card [{0}] blocked.", cardAccountModel.CardNo);
+            Description = string.Format("User card [{0}] blocked.", card.CardId);
             Data = null;
         }
 

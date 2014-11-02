@@ -52,10 +52,11 @@
     > .sidebar-brand {
         font-size: 18px;
         line-height: 60px;
-        padding: 20px;
+        padding: 25px 20px 20px 20px;
     }
 
     li {
+        cursor: pointer;
         line-height: 40px;
         text-indent: 20px;
 
@@ -118,4 +119,8 @@
 
 .page-title {
     margin: 0;
+}
+
+.card-logo {
+    max-height: 50px;
 }

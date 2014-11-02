@@ -1,0 +1,40 @@
+﻿.from-date, .to-date {
+    .input-group {
+        width: 170px;
+    }
+}
+
+.card-list.table {
+    thead > tr > th {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    tbody > tr > td {
+        vertical-align: middle;
+        padding: 16px;
+
+        &.balance {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        &.limits {
+            .form-group {
+                margin-bottom: 5px;
+            }
+        }
+    }
+}
+
+.card-info-cell {
+    width: 450px;
+}
+
+.card-info p {
+    margin-bottom: 5px;
+}
+
+.card-name-editor {
+    max-width: 300px;
+}

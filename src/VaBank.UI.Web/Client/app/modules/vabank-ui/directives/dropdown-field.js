@@ -21,7 +21,7 @@
             }
         }
 
-        controller.inject = ['$scope'];
+        controller.$inject = ['$scope'];
         function controller($scope) {
             $scope.refresh = $scope.refresh || angular.noop;
         }
@@ -45,8 +45,4 @@
             controller: controller
         };
     }
-
-    
-
-
 })();

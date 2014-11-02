@@ -15,6 +15,6 @@ BEGIN
 	INSERT INTO [App].[Operation] 
 		   ([StartedUtc], [Name], [AppUserId], [AppClientId])
 	VALUES (ISNULL(@StartedUtc, GETUTCDATE()), ISNULL(@Name, N'DB-CHANGE'), @AppUserId, @AppClientId)
-	SET @Id = (SELECT [Id] FROM [App].[CurrentOperation])
+	EXEC [App].[CurrentOperationId] @Id = @Id OUTPUT
 END
 GO

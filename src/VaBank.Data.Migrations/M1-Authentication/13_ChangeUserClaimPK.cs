@@ -13,9 +13,7 @@ namespace VaBank.Data.Migrations
 
         public override void Up()
         {
-            Delete.PrimaryKey("PK_UserClaim").FromTable("UserClaim").InSchema("Membership");
-            Create.PrimaryKey("PK_UserClaim").OnTable("UserClaim").WithSchema("Membership")
-                .Columns("UserID", "Type", "Value");
+            Execute.EmbeddedScript("M1_Authentication.ChangeUserClaimPK.sql");
         }
     }
 }

@@ -80,6 +80,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -102,6 +103,7 @@
     <Compile Include="Common\Serialization.cs" />
     <Compile Include="Common\VabankJob.cs" />
     <Compile Include="JobStartup.cs" />
+    <Compile Include="Maintenance\Accounting\CurrencyRatesUpdateJob.cs" />
     <Compile Include="Maintenance\Audit\AuditJob.cs" />
     <Compile Include="Maintenance\Audit\AuditJobContext.cs" />
     <Compile Include="Maintenance\KeepAliveJob.cs" />

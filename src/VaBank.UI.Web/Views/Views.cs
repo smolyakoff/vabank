@@ -56,8 +56,10 @@ namespace VaBank.UI.Web.Views
             bundle
                 .Add(BowerPath("moment/moment.js"))
                 .Add(BowerPath("underscore/underscore.js"))
+                .Add(BowerPath("underscore-deep/underscore.deep.js"))
                 .Add(BowerPath("js-schema/js-schema.debug.js"))
                 .Add(BowerPath("spin.js/spin.js"))
+                .Add(NodePath("accounting/accounting.js"))
                 .Add(BowerPath("angular/angular.js"))
                 .Add(BowerPath("angular-sanitize/angular-sanitize.js"))
                 .Add(BowerPath("angular-resource/angular-resource.js"))
@@ -65,7 +67,7 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("angular-ui-router/release/angular-ui-router.js"))
                 .Add(BowerPath("angular-bootstrap/ui-bootstrap.js"))
                 .Add(BowerPath("angular-bootstrap/ui-bootstrap-tpls.js"))
-                .Add(BowerPath("angular-ui-select/dist/select.js"))
+                .Add(BowerPath("angular-ui-select/dist/select.min.js"))
                 .Add(BowerPath("angular-loading-bar/build/loading-bar.js"))
                 .Add(BowerPath("angular-promise-tracker/promise-tracker.js"))
                 .Add(BowerPath("angular-spinner/angular-spinner.js"))
@@ -91,11 +93,17 @@ namespace VaBank.UI.Web.Views
                 .AddDirectory(ApplicationPath("areas/customer"))
                 .AddDirectory(ApplicationPath("areas/customer/cabinet"))
                 .AddDirectory(ApplicationPath("areas/customer/profile"))
+                .AddDirectory(ApplicationPath("areas/customer/my-cards"))
                 .AddDirectory(ApplicationPath("areas/admin/config"))
                 .AddDirectory(ApplicationPath("areas/admin"));
 
 
             return bundle.Render("~/Client/app_#.js");
+        }
+
+        private static string NodePath(string relativePath)
+        {
+            return string.Format("/Client/node_modules/{0}", relativePath);
         }
 
         private static string BowerPath(string relativePath)

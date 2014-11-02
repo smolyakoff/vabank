@@ -42,7 +42,7 @@
 
 
 //Form errors
-.form-group.has-error {
+.has-error {
     .input-group-addon {
         border: 0;
         background-color: transparent;
@@ -60,6 +60,24 @@
 
     .tooltip.right .tooltip-arrow {
         border-right-color: $state-danger-text;
+    }
+
+    .tooltip.left .tooltip-arrow {
+        border-left-color: $state-danger-text;
+    }
+}
+
+.form-horizontal .has-feedback .form-control-feedback {
+    right: 0;
+}
+
+//Buttons 
+.input-group-btn .btn {
+    background: none;
+    box-shadow: none;
+
+    :hover {
+        color: $link-hover-color
     }
 }
 
