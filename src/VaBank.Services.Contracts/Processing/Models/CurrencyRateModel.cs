@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VaBank.Services.Contracts.Accounting.Models
+namespace VaBank.Services.Contracts.Processing.Models
 {
     public class CurrencyRateModel
     {

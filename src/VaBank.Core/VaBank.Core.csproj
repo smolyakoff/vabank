@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Entities\CardLimitsRange.cs" />
-    <Compile Include="Accounting\Entities\CurrencyRate.cs" />
+    <Compile Include="Processing\Entities\CurrencyRate.cs" />
     <Compile Include="Accounting\Factories\CardAccountFactory.cs" />
     <Compile Include="Accounting\Factories\CardFactory.cs" />
     <Compile Include="Accounting\Factories\UserCardFactory.cs" />

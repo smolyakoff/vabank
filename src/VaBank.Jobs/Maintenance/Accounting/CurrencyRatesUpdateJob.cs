@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using VaBank.Jobs.Common;
 using VaBank.Services.Contracts.Accounting;
+using VaBank.Services.Contracts.Processing;
 
 namespace VaBank.Jobs.Maintenance.Accounting
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using VaBank.Core.Common;
 
-namespace VaBank.Core.Accounting.Entities
+namespace VaBank.Core.Processing.Entities
 {
     public class CurrencyRate : Entity
     {

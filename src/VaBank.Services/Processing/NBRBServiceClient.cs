@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Processing.Entities;
 using VaBank.Services.NBRBWebService;
 
-namespace VaBank.Services.Accounting.External
+namespace VaBank.Services.Processing
 {
     internal static class NbrbServiceClient
     {
