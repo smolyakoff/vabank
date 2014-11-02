@@ -10,6 +10,7 @@ using VaBank.Common.Validation;
 using VaBank.Core.Common;
 using VaBank.Jobs.Common;
 using VaBank.Services.Common;
+using VaBank.Services.Common.Transactions;
 using VaBank.Services.Contracts;
 
 namespace VaBank.Jobs.Modules

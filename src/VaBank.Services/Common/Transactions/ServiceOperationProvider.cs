@@ -2,12 +2,11 @@
 using System.Security.Claims;
 using System.Threading;
 using NLog;
-using VaBank.Core.App;
 using VaBank.Core.App.Entities;
 using VaBank.Core.App.Providers;
 using VaBank.Core.App.Repositories;
 
-namespace VaBank.Services.Common
+namespace VaBank.Services.Common.Transactions
 {
     public class ServiceOperationProvider : IOperationProvider
     {

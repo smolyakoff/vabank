@@ -5,6 +5,7 @@ using VaBank.Common.IoC;
 using VaBank.Core.Common;
 using VaBank.Core.Membership;
 using VaBank.Core.Membership.Entities;
+using VaBank.Services.Common.Transactions;
 
 namespace VaBank.Services.Common
 {

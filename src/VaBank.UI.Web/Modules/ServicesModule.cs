@@ -9,6 +9,7 @@ using VaBank.Common.Resources;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
 using VaBank.Services.Common;
+using VaBank.Services.Common.Transactions;
 using VaBank.Services.Contracts;
 using Module = Autofac.Module;
 

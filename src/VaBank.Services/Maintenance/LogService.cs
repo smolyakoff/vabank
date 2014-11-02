@@ -8,6 +8,7 @@ using VaBank.Core.App.Entities;
 using VaBank.Core.Maintenance;
 using VaBank.Core.Maintenance.Entitities;
 using VaBank.Services.Common;
+using VaBank.Services.Common.Exceptions;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Maintenance;

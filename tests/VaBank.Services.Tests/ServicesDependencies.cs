@@ -16,6 +16,7 @@ using VaBank.Core.Common;
 using VaBank.Data.EntityFramework;
 using VaBank.Data.EntityFramework.Common;
 using VaBank.Services.Common;
+using VaBank.Services.Common.Transactions;
 using VaBank.Services.Contracts;
 
 namespace VaBank.Data.Tests

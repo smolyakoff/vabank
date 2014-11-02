@@ -8,6 +8,7 @@ using VaBank.Common.Data.Repositories;
 using VaBank.Core.Membership;
 using VaBank.Core.Membership.Entities;
 using VaBank.Services.Common;
+using VaBank.Services.Common.Exceptions;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Membership;

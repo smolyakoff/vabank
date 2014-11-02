@@ -61,6 +61,9 @@
     <Compile Include="Accounting\AccountingProfile.cs" />
     <Compile Include="Accounting\AccountingDependencies.cs" />
     <Compile Include="Accounting\CardAccountService.cs" />
+    <Compile Include="Common\Security\MethodCallDenied.cs" />
+    <Compile Include="Common\Security\RoleSecurityValidator.cs" />
+    <Compile Include="Common\Security\SecurityValidatorException.cs" />
     <Compile Include="Processing\NBRBServiceClient.cs" />
     <Compile Include="Accounting\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -69,14 +72,14 @@
     </Compile>
     <Compile Include="Accounting\Validators.cs" />
     <Compile Include="Common\BaseServiceDependencies.cs" />
-    <Compile Include="Common\CommitMode.cs" />
+    <Compile Include="Common\Transactions\CommitMode.cs" />
     <Compile Include="Common\CommonProfile.cs" />
-    <Compile Include="Common\NotFound.cs" />
-    <Compile Include="Common\ServiceOperationProvider.cs" />
+    <Compile Include="Common\Exceptions\NotFound.cs" />
+    <Compile Include="Common\Transactions\ServiceOperationProvider.cs" />
     <Compile Include="Common\IDependencyCollection.cs" />
     <Compile Include="Common\ServiceExtensions.cs" />
     <Compile Include="Common\VaBankIdentity.cs" />
-    <Compile Include="Common\ValidationService.cs" />
+    <Compile Include="Common\Validation\ValidationService.cs" />
     <Compile Include="Maintenance\LogService.cs" />
     <Compile Include="Maintenance\MaintenanceExtensions.cs" />
     <Compile Include="Maintenance\MaintenanceProfile.cs" />

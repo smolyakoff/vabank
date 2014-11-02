@@ -1,6 +1,6 @@
 ﻿using VaBank.Services.Contracts.Common;
 
-namespace VaBank.Services.Common
+namespace VaBank.Services.Common.Exceptions
 {
     internal static class NotFound
     {

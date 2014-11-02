@@ -55,6 +55,7 @@
     <Compile Include="Accounting\Commands\SetCardBlockCommand.cs" />
     <Compile Include="Accounting\Commands\UpdateCardSettingsCommand.cs" />
     <Compile Include="Accounting\Events\UserCardLimitChanged.cs" />
+    <Compile Include="Common\Validation\ISecurityValidator.cs" />
     <Compile Include="Processing\ICurrencyRateService.cs" />
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardLookupModel.cs" />

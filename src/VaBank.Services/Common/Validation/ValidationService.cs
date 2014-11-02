@@ -9,7 +9,7 @@ using VaBank.Core.Common;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Validation;
 
-namespace VaBank.Services.Common
+namespace VaBank.Services.Common.Validation
 {
     public class ValidationService : IValidationService
     {

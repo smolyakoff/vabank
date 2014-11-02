@@ -1,4 +1,4 @@
-﻿namespace VaBank.Services.Common
+﻿namespace VaBank.Services.Common.Transactions
 {
     public enum CommitMode
     {
