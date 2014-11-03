@@ -92,6 +92,7 @@
     <Compile Include="M2-Accounting\M2Resource.cs" />
     <Compile Include="M2-Accounting\M2UserAccount.cs" />
     <Compile Include="M2-Accounting\23_SeedTestSettings.cs" />
+    <Compile Include="M3-Processing\31_AddPrecisionToCurrency.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -130,9 +131,7 @@
     <EmbeddedResource Include="M2-Accounting\PROC_CurrentTransactionId_Azure.sql" />
     <EmbeddedResource Include="M2-Accounting\PROC_CurrentTransactionId.sql" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="M3-Processing\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
