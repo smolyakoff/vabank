@@ -50,8 +50,8 @@ namespace VaBank.Jobs.Common
         }
 
         public static void AddOrUpdateRecurring<TJob, TJobContext>(string jobId, string cronExpression)
-            where TJobContext : class, IJobContext
             where TJob : BaseJob<TJobContext>
+            where TJobContext : class, IJobContext
         {
             jobId = string.IsNullOrEmpty(jobId) ? typeof (TJob).Name : jobId;
             RecurringJob.AddOrUpdate<TJob>(jobId, x => x.Execute(null, JobCancellationToken.Null), cronExpression);

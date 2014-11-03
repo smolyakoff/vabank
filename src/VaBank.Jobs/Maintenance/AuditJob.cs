@@ -5,7 +5,7 @@ using VaBank.Jobs.Common;
 using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Maintenance.Commands;
 
-namespace VaBank.Jobs.Maintenance.Audit
+namespace VaBank.Jobs.Maintenance
 {
     [AutomaticRetry(Attempts = 1)]
     public class AuditJob : EventListenerJob<AuditJobContext, IAuditedEvent>

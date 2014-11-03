@@ -2,7 +2,7 @@
 using System.Configuration;
 using VaBank.Jobs.Common;
 using VaBank.Jobs.Maintenance;
-using VaBank.Jobs.Maintenance.Processing;
+using VaBank.Jobs.Processing;
 
 namespace VaBank.Jobs
 {
@@ -15,11 +15,13 @@ namespace VaBank.Jobs
 
         private static void RegisterRecurring()
         {
+            //TODO : normal settings, not app settings from web.config
+            //TODO: uncommment when job is actually implemented
+            //var ratesCron = ConfigurationManager.AppSettings["updateCurrencyTimeUtc"] ?? Cron.Daily(21);
+            //VabankJob.AddOrUpdateRecurring<UpdateCurrencyRatesJob, UpdateCurrencyRatesJobContext>("UpdateCurrencyRates", ratesCron);
+            
 #if !DEBUG
-            VabankJob.AddOrUpdateRecurring<KeepAliveJob, DefaultJobContext>("KeepAlive", "*/10 * * * *");
-
-            var ratesCron = ConfigurationManager.AppSettings["updateCurrencyTimeUtc"] ?? Cron.Daily(21);
-            VabankJob.AddOrUpdateRecurring<CurrencyRatesUpdateJob, CurrencyRatesUpdateJobContext>("UpdateCurrencyRates", ratesCron);
+          VabankJob.AddOrUpdateRecurring<KeepAliveJob, DefaultJobContext>("KeepAlive", "*/10 * * * *");  
 #endif
         }
     }
