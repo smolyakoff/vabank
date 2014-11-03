@@ -1,4 +1,10 @@
-﻿namespace VaBank.Jobs
+﻿using Hangfire;
+using System.Configuration;
+using VaBank.Jobs.Common;
+using VaBank.Jobs.Maintenance;
+using VaBank.Jobs.Processing;
+
+namespace VaBank.Jobs
 {
     public class JobStartup
     {

@@ -1122,6 +1122,7 @@
     <Compile Include="Api\Admin\MaintenanceController.cs" />
     <Compile Include="Api\Common\UserController.cs" />
     <Compile Include="Api\Common\ValidationController.cs" />
+    <Compile Include="Api\Customer\CurrencyRateController.cs" />
     <Compile Include="Api\Customer\CustomerCardController.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankAuthorizationServerProvider.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankRefreshTokenProvider.cs" />
