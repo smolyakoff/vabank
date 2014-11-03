@@ -102,6 +102,10 @@
     <Compile Include="Common\ParameterJob.cs" />
     <Compile Include="Common\Serialization.cs" />
     <Compile Include="Common\VabankJob.cs" />
+    <Compile Include="Configuration\IJobConfig.cs" />
+    <Compile Include="Configuration\IJobConfigProvider.cs" />
+    <Compile Include="Configuration\ReccuringJobConfig.cs" />
+    <Compile Include="Configuration\SettingsJobConfigProvider.cs" />
     <Compile Include="JobStartup.cs" />
     <Compile Include="Processing\UpdateCurrencyRatesJob.cs" />
     <Compile Include="Processing\UpdateCurrencyRatesJobContext.cs" />

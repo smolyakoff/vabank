@@ -15,10 +15,10 @@ namespace VaBank.Jobs
 
         private static void RegisterRecurring()
         {
-            //TODO : normal settings, not app settings from web.config
-            //TODO: uncommment when job is actually implemented
-            //var ratesCron = ConfigurationManager.AppSettings["updateCurrencyTimeUtc"] ?? Cron.Daily(21);
-            //VabankJob.AddOrUpdateRecurring<UpdateCurrencyRatesJob, UpdateCurrencyRatesJobContext>("UpdateCurrencyRates", ratesCron);
+            //TODO: uncomment when job is actually implemented
+            //var jobConfig = _jobConfigProvider.Get<ReccuringJobConfig>("UpdateCurrencyRates");
+            //var cronExpression = jobConfig == null ? Cron.Daily(21) : jobConfig.CronExpression;
+            //VabankJob.AddOrUpdateRecurring<UpdateCurrencyRatesJob, UpdateCurrencyRatesJobContext>("UpdateCurrencyRates", cronExpression);
             
 #if !DEBUG
           VabankJob.AddOrUpdateRecurring<KeepAliveJob, DefaultJobContext>("KeepAlive", "*/10 * * * *");  
