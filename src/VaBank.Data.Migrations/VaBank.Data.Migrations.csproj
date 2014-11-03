@@ -94,6 +94,7 @@
     <Compile Include="M2-Accounting\23_SeedTestSettings.cs" />
     <Compile Include="M3-Processing\31_AddPrecisionToCurrency.cs" />
     <Compile Include="M3-Processing\32_SeedUpdateCurrencyRatesJobSetting.cs" />
+    <Compile Include="M3-Processing\33_AddSecurityCodeTable.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
