@@ -7,14 +7,16 @@ using VaBank.Services.NBRBWebService;
 
 namespace VaBank.Services.Processing
 {
-    internal static class NbrbServiceClient
+    internal class NbrbServiceClient
     {
-        public static IList<CurrencyRate> GetAllRates(DateTime date)
+        private readonly ExRatesSoapClient _client = new ExRatesSoapClient();
+        
+        public IList<CurrencyRate> GetAllRates(DateTime date)
         {
             return GetCurrencyRatesRows(date).Select(x => ToCurrencyRate(x, date)).ToList();
         }
 
-        public static IList<CurrencyRate> GetTodayRates(DateTime date, params string[] currencyISONames)
+        public IList<CurrencyRate> GetTodayRates(DateTime date, params string[] currencyISONames)
         {
             return
                 GetCurrencyRatesRows(date)
@@ -23,25 +25,24 @@ namespace VaBank.Services.Processing
                     .ToList();
         }
 
-        public static IList<CurrencyRate> GetAllTodayRates()
+        public IList<CurrencyRate> GetAllTodayRates()
         {
             return GetAllRates(DateTime.Today);
         }
 
-        public static IList<CurrencyRate> GetTodayRates(params string[] currencyISONames)
+        public IList<CurrencyRate> GetTodayRates(params string[] currencyISONames)
         {
             return GetTodayRates(DateTime.Today, currencyISONames);
         }
 
-        private static CurrencyRate ToCurrencyRate(DataRow row, DateTime date)
+        private CurrencyRate ToCurrencyRate(DataRow row, DateTime date)
         {
             return CurrencyRate.Create((string) row[Names.ISOName], "BYR", (decimal) row[Names.Rate], date);
         }
 
-        private static IEnumerable<DataRow> GetCurrencyRatesRows(DateTime date)
+        private IEnumerable<DataRow> GetCurrencyRatesRows(DateTime date)
         {
-            var client = new ExRatesSoapClient();
-            return client.ExRatesDaily(date).Tables[0].Rows.OfType<DataRow>();
+            return _client.ExRatesDaily(date).Tables[0].Rows.OfType<DataRow>();            
         }
 
         private static class Names

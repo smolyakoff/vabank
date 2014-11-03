@@ -1,20 +1,17 @@
 ﻿using Autofac;
 using VaBank.Jobs.Common;
-using VaBank.Services.Contracts.Accounting;
-using VaBank.Services.Contracts.Processing;
 
 namespace VaBank.Jobs.Maintenance.Accounting
 {
-    public class CurrencyRatesUpdateJob : BaseJob<DefaultJobContext>
+    public class CurrencyRatesUpdateJob : BaseJob<CurrencyRatesUpdateJobContext>
     {
         public CurrencyRatesUpdateJob(ILifetimeScope scope) : base(scope)
         {
         }
 
-        protected override void Execute(DefaultJobContext context)
+        protected override void Execute(CurrencyRatesUpdateJobContext context)
         {
-            var service = RootScope.Resolve<ICurrencyRateService>();
-            service.UpdateRates();
+            context.CurrencyRateService.UpdateRates();
         }
     }
 }
