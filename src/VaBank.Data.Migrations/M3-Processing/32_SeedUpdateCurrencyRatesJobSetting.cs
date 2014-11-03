@@ -22,7 +22,7 @@ namespace VaBank.Data.Migrations.M3_Processing
         {
             //TODO: Fill real cron expression
             var config = new { CronExpression = "" };
-            var json = JsonConvert.SerializeObject(limits);
+            var json = JsonConvert.SerializeObject(config);
             var node = JsonConvert.DeserializeXNode(json, "Setting");
             return new { Key = string.Format(SettingKey, "UpdateCurrencyRates"), Value = node.ToString() };
         }
