@@ -61,9 +61,17 @@
     <Compile Include="Accounting\AccountingProfile.cs" />
     <Compile Include="Accounting\AccountingDependencies.cs" />
     <Compile Include="Accounting\CardAccountService.cs" />
+    <Compile Include="Common\Security\AuthenticatedSecurityValidator.cs" />
+    <Compile Include="Common\Security\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Common\Security\MethodCallDenied.cs" />
     <Compile Include="Common\Security\RoleSecurityValidator.cs" />
+    <Compile Include="Common\Security\SecurityValidator%271.cs" />
     <Compile Include="Common\Security\SecurityValidatorException.cs" />
+    <Compile Include="Common\Security\UserCommandValidator.cs" />
     <Compile Include="Processing\NBRBServiceClient.cs" />
     <Compile Include="Accounting\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -139,6 +147,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Accounting\Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Security\Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Maintenance\Messages.resx">

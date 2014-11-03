@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Autofac;
+using Autofac.Core;
 using AutoMapper;
 using FluentValidation;
 using System.Linq;
@@ -39,6 +40,11 @@ namespace VaBank.UI.Web.Modules
 
             staticValidators.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().AsSelf().SingleInstance());
             otherValidators.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().AsSelf().InstancePerRequest());
+
+            //Register identity
+            builder.RegisterType<VaBankIdentity>()
+                .AsSelf()
+                .InstancePerRequest();
 
             //Register operation provider
             builder.RegisterType<ServiceOperationProvider>()

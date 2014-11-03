@@ -1,18 +1,42 @@
 ﻿using System.Linq;
-using System.Threading;
-using FluentValidation;
+using FluentValidation.Results;
 using VaBank.Common.Validation;
+using VaBank.Core.Membership.Entities;
 
 namespace VaBank.Services.Common.Security
 {
-    public class RoleSecurityValidator : AbstractValidator<object>
+    public class RoleSecurityValidator<T> : AuthenticatedSecurityValidator<T>
     {
-        public RoleSecurityValidator(params string[] roles)
+        private readonly string[] _roles;
+
+        public RoleSecurityValidator(VaBankIdentity identity, params string[] roles)
+            :base(identity)
         {
             Argument.NotNull(roles, "roles");
-            var principal = Thread.CurrentPrincipal;
+            _roles = roles;
+            Custom(HasRole);
+        }
 
-            RuleFor(x => x).Must(o => roles.Any(principal.IsInRole));
+        private ValidationFailure HasRole(T context)
+        {
+            if (!_roles.Any(Identity.IsInRole))
+            {
+                return new ValidationFailure("{root}", Messages.InsufficientRights);
+            }
+            return null;
+        }
+    }
+
+    public static class RoleSecurity
+    {
+        public static RoleSecurityValidator<T> AdminOnly<T>(T context, VaBankIdentity identity)
+        {
+            return new RoleSecurityValidator<T>(identity, UserClaim.Roles.Admin);
+        }
+
+        public static RoleSecurityValidator<T> CustomerOnly<T>(T context, VaBankIdentity identity)
+        {
+            return new RoleSecurityValidator<T>(identity, UserClaim.Roles.Customer);
         }
     }
 }

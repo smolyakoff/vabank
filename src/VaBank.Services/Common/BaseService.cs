@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Security.Claims;
-using System.Threading;
 using FluentValidation;
 using VaBank.Common.Data.Database;
 using VaBank.Common.Events;
@@ -24,7 +22,7 @@ namespace VaBank.Services.Common
         private readonly ServiceOperationProvider _operationProvider;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITransactionProvider _transactionProvider;
-        private readonly VaBankIdentity _identity;
+        private VaBankIdentity _identity = null;
 
         protected BaseService(BaseServiceDependencies dependencies)
         {
@@ -38,8 +36,6 @@ namespace VaBank.Services.Common
             _bus = dependencies.ServiceBus;
             _unitOfWork = dependencies.UnitOfWork;
             _transactionProvider = dependencies.TransactionProvider;
-            _identity = new VaBankIdentity(Thread.CurrentPrincipal.Identity as ClaimsIdentity,
-                dependencies.UserRepository);
         }
 
         protected virtual void EnsureIsSecure<T>(T obj)
@@ -52,6 +48,17 @@ namespace VaBank.Services.Common
             where TValidator : ISecurityValidator<T>
         {
             EnsureIsSecure(obj, typeof(TValidator));
+        }
+
+        protected virtual void EnsureIsSecure<T, TValidator>(T obj, TValidator validator)
+            where TValidator : class, ISecurityValidator<T>
+        {
+            Argument.NotNull(validator, "validator");
+            var validationResult = validator.Validate(obj);
+            if (!validationResult.IsValid)
+            {
+                throw new SecurityValidatorException(validationResult.Errors);
+            }
         }
 
         protected virtual void EnsureIsValid<T>(T obj)
@@ -68,7 +75,7 @@ namespace VaBank.Services.Common
 
         protected VaBankIdentity Identity
         {
-            get { return _identity; }
+            get { return _identity ?? (_identity = _objectFactory.Create<VaBankIdentity>()); }
         }
 
         protected Operation Operation

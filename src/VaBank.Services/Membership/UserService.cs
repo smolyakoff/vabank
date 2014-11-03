@@ -9,6 +9,7 @@ using VaBank.Core.Membership;
 using VaBank.Core.Membership.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Common.Exceptions;
+using VaBank.Services.Common.Security;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Membership;
@@ -133,6 +134,7 @@ namespace VaBank.Services.Membership
         public void UpdateProfile(UpdateProfileCommand command)
         {
             EnsureIsValid(command);
+            EnsureIsSecure(command, new UserCommandValidator(Identity));
             try
             {
                 var user = _db.Users.Find(command.UserId);
