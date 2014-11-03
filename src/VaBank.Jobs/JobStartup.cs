@@ -1,8 +1,8 @@
-﻿using System.Configuration;
-using Hangfire;
+﻿using Hangfire;
+using System.Configuration;
 using VaBank.Jobs.Common;
 using VaBank.Jobs.Maintenance;
-using VaBank.Jobs.Maintenance.Accounting;
+using VaBank.Jobs.Maintenance.Processing;
 
 namespace VaBank.Jobs
 {
@@ -16,10 +16,10 @@ namespace VaBank.Jobs
         private static void RegisterRecurring()
         {
 #if !DEBUG
-            VabankJob.AddOrUpdateRecurring<KeepAliveJob>("KeepAlive", "*/10 * * * *");
+            VabankJob.AddOrUpdateRecurring<KeepAliveJob, DefaultJobContext>("KeepAlive", "*/10 * * * *");
 
             var ratesCron = ConfigurationManager.AppSettings["updateCurrencyTimeUtc"] ?? Cron.Daily(21);
-            VabankJob.AddOrUpdateRecurring<CurrencyRatesUpdateJob>("UpdateCurrencyRates", ratesCron);
+            VabankJob.AddOrUpdateRecurring<CurrencyRatesUpdateJob, CurrencyRatesUpdateJobContext>("UpdateCurrencyRates", ratesCron);
 #endif
         }
     }

@@ -1,7 +1,7 @@
 ﻿using VaBank.Jobs.Common;
 using VaBank.Services.Contracts.Processing;
 
-namespace VaBank.Jobs.Maintenance.Accounting
+namespace VaBank.Jobs.Maintenance.Processing
 {
     public class CurrencyRatesUpdateJobContext : DefaultJobContext
     {

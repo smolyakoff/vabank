@@ -103,8 +103,8 @@
     <Compile Include="Common\Serialization.cs" />
     <Compile Include="Common\VabankJob.cs" />
     <Compile Include="JobStartup.cs" />
-    <Compile Include="Maintenance\Accounting\CurrencyRatesUpdateJob.cs" />
-    <Compile Include="Maintenance\Accounting\CurrencyRatesUpdateJobContext.cs" />
+    <Compile Include="Maintenance\Processing\CurrencyRatesUpdateJob.cs" />
+    <Compile Include="Maintenance\Processing\CurrencyRatesUpdateJobContext.cs" />
     <Compile Include="Maintenance\Audit\AuditJob.cs" />
     <Compile Include="Maintenance\Audit\AuditJobContext.cs" />
     <Compile Include="Maintenance\KeepAliveJob.cs" />

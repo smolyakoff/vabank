@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using VaBank.Jobs.Common;
 
-namespace VaBank.Jobs.Maintenance.Accounting
+namespace VaBank.Jobs.Maintenance.Processing
 {
     public class CurrencyRatesUpdateJob : BaseJob<CurrencyRatesUpdateJobContext>
     {
