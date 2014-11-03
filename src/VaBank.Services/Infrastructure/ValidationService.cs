@@ -7,9 +7,9 @@ using VaBank.Common.IoC;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
 using VaBank.Services.Contracts.Common;
-using VaBank.Services.Contracts.Common.Validation;
+using VaBank.Services.Contracts.Infrastructure;
 
-namespace VaBank.Services.Common.Validation
+namespace VaBank.Services.Infrastructure
 {
     public class ValidationService : IValidationService
     {
@@ -45,29 +45,29 @@ namespace VaBank.Services.Common.Validation
             _objectConverter = objectConverter;
         }
 
-        public ValidationResponse Validate(ValidationRequest validationRequest)
+        public ValidationResultModel Validate(ValidationCommand validationCommand)
         {
-            if (validationRequest == null)
+            if (validationCommand == null)
             {
-                throw new ArgumentNullException("validationRequest");
+                throw new ArgumentNullException("validationCommand");
             }
-            if (!Validators.ContainsKey(validationRequest.ValidatorName))
+            if (!Validators.ContainsKey(validationCommand.ValidatorName))
             {
-                return new ValidationResponse {IsValidatorFound = false};
+                return new ValidationResultModel {IsValidatorFound = false};
             }
             try
             {
-                var validatorType = Validators[validationRequest.ValidatorName];
+                var validatorType = Validators[validationCommand.ValidatorName];
                 var validator = _objectFactory.Create(validatorType) as IObjectValidator;
                 if (validator == null)
                 {
                     throw new InvalidOperationException("Validator is null.");
                 }
-                var objectToValidate = _objectConverter.Convert(validationRequest.Value, validator.ValidatedType);
+                var objectToValidate = _objectConverter.Convert(validationCommand.Value, validator.ValidatedType);
                 IList<ValidationFault> result = validator.Validate(objectToValidate);
-                return new ValidationResponse
+                return new ValidationResultModel
                 {
-                    ValidationFaults = result.Select(x => new ValidationFault(validationRequest.ValidatorName, x.Message)).ToList(),
+                    ValidationFaults = result.Select(x => new ValidationFault(validationCommand.ValidatorName, x.Message)).ToList(),
                     IsValidatorFound = true
                 };
             }

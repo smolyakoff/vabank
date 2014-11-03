@@ -4,12 +4,13 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Xml;
 using Newtonsoft.Json;
-using VaBank.Common.Data.Database;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.Util;
 using VaBank.Core.App.Repositories;
+using VaBank.Core.Common;
 
 namespace VaBank.Data.EntityFramework.App
 {
@@ -39,6 +40,14 @@ namespace VaBank.Data.EntityFramework.App
             {
                 throw new RepositoryException(ex.Message, ex);
             }
+        }
+
+        public T GetOrDefault<T>() where T : class
+        {
+            var settingsType = typeof (T);
+            var settingsAttribute = settingsType.GetCustomAttribute(typeof (SettingsAttribute)) as SettingsAttribute;
+            var key = settingsAttribute == null ? settingsType.FullName : settingsAttribute.GetKey(settingsType);
+            return GetOrDefault<T>(key);
         }
 
         public void Set<T>(string key, T value)

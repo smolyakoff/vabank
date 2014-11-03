@@ -10,6 +10,7 @@ using VaBank.Services.Common.Security;
 using VaBank.Services.Common.Transactions;
 using VaBank.Services.Contracts;
 using VaBank.Services.Contracts.Common.Events;
+using VaBank.Services.Contracts.Common.Security;
 using VaBank.Services.Contracts.Common.Validation;
 using ValidationException = VaBank.Services.Contracts.Common.Validation.ValidationException;
 

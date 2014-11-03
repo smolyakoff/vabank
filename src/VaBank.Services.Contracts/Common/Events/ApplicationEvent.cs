@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading;
-using VaBank.Common.Events;
 using VaBank.Services.Contracts.Membership.Models;
 
 namespace VaBank.Services.Contracts.Common.Events
 {
-    public abstract class ApplicationEvent : IEvent
+    public abstract class ApplicationEvent : IApplicationEvent
     {
         protected ApplicationEvent()
         {

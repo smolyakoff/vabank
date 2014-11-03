@@ -3,7 +3,7 @@ using System.Linq;
 using FluentValidation;
 using FluentValidation.Results;
 using VaBank.Common.Validation;
-using VaBank.Services.Contracts.Common.Validation;
+using VaBank.Services.Contracts.Common.Security;
 
 namespace VaBank.Services.Common.Security
 {
