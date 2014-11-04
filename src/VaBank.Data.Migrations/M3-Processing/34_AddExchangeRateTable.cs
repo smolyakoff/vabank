@@ -1,17 +1,12 @@
 ﻿using FluentMigrator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(34, "Add ExchangeRate table to [Accounting] schema.")]
+    [Migration(34, "Add ExchangeRate table to [Processing] schema.")]
     [Tags("Development", "Test", "Production")]
     public class AddExchangeRateTable : Migration
     {
-        private const string SchemaName = "Accounting";
+        private const string SchemaName = "Processing";
         public override void Down()
         {
             Delete.Table("ExchangeRate").InSchema(SchemaName);
