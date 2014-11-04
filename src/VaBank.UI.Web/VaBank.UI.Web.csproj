@@ -271,6 +271,7 @@
     <Content Include="Client\app\images\icons\cards\visa-curved-128px.png" />
     <Content Include="Client\app\images\icons\cards\visa-curved-32px.png" />
     <Content Include="Client\app\images\icons\cards\visa-curved-64px.png" />
+    <Content Include="Client\app\images\icons\consultant\consultant.png" />
     <Content Include="Client\app\images\icons\currency\eur.png" />
     <Content Include="Client\app\images\icons\currency\usd.png" />
     <Content Include="Client\app\images\logo\vabank-logo-big.png" />
