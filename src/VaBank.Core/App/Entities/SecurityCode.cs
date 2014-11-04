@@ -27,7 +27,7 @@ namespace VaBank.Core.App.Entities
             {
                 return false;
             }
-            return Hash.Compute(code) == CodeHash && ExpirationDateUtc > DateTime.UtcNow;
+            return ExpirationDateUtc > DateTime.UtcNow && Hash.Compute(code) == CodeHash ;
         }
     }
 }

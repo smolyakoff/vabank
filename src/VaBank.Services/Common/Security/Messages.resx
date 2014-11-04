@@ -120,4 +120,10 @@
   <data name="InsufficientRights" xml:space="preserve">
     <value>Недостаточно прав для доступа к этому сервису.</value>
   </data>
+  <data name="InvalidSecurityCode" xml:space="preserve">
+    <value>Неверный код подтверждения операции.</value>
+  </data>
+  <data name="MissingSecurityCode" xml:space="preserve">
+    <value>Не задан код подтверждения операции.</value>
+  </data>
 </root>

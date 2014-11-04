@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VaBank.Services.Contracts.Infrastructure
+namespace VaBank.Services.Contracts.Infrastructure.Secuirty
 {
     public class SecurityCodeTicketModel
     {

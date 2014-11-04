@@ -8,7 +8,11 @@ namespace VaBank.Common.Serialization
             string rootElementName = "Root",
             JsonSerializerSettings settings = null)
         {
-            var json = JsonConvert.SerializeObject(value, settings ?? JsonConvert.DefaultSettings());
+            settings = settings ??
+                       (JsonConvert.DefaultSettings == null
+                           ? new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.Arrays}
+                           : JsonConvert.DefaultSettings());
+            var json = JsonConvert.SerializeObject(value, settings);
             var xmlElement = JsonConvert.DeserializeXNode(json, rootElementName);
             return xmlElement.ToString();
         }

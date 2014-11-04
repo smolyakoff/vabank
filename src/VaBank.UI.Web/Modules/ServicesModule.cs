@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using Autofac;
 using Autofac.Core;
 using AutoMapper;
@@ -20,6 +21,26 @@ namespace VaBank.UI.Web.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            //Register injectables
+            var injectables = typeof(BaseService).Assembly.GetTypes()
+                .Where(t => t.GetCustomAttribute<InjectableAttribute>() != null)
+                .Select(t => new { Lifetime = t.GetCustomAttribute<InjectableAttribute>().Lifetime, Type = t })
+                .ToList();
+
+            foreach (var injectable in injectables)
+            {
+                var registration = builder.RegisterType(injectable.Type).AsImplementedInterfaces().AsSelf();
+                switch (injectable.Lifetime)
+                {
+                    case Lifetime.Singleton:
+                        registration.SingleInstance();
+                        break;
+                    case Lifetime.PerDependency:
+                        registration.InstancePerDependency();
+                        break;
+                }
+            }
+
             //Regiser auto mapper profiles
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
                 .Where(t => typeof (Profile).IsAssignableFrom(t) && !t.IsAbstract)

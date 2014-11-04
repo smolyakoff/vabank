@@ -1,5 +1,5 @@
 ﻿using System;
-using VaBank.Core.Common;
+using VaBank.Common.Util;
 
 namespace VaBank.Core.App.Settings
 {

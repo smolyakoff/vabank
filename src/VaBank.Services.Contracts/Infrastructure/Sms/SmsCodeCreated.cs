@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using VaBank.Common.Validation;
 using VaBank.Services.Contracts.Common.Events;
 
-namespace VaBank.Services.Contracts.Infrastructure
+namespace VaBank.Services.Contracts.Infrastructure.Sms
 {
     public class SmsCodeCreated : ApplicationEvent
     {

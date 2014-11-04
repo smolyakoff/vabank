@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VaBank.Core.Common
+namespace VaBank.Common.Util
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class SettingsAttribute : Attribute

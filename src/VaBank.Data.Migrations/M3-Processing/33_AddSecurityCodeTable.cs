@@ -18,7 +18,7 @@ namespace VaBank.Data.Migrations.M3_Processing
                 .WithColumn("IsActive").AsBoolean().NotNullable().WithDefaultValue(true)
                 .WithColumn("CodeHash").AsSecurityString().NotNullable();
 
-            Insert.IntoTable("App").InSchema("Setting")
+            Insert.IntoTable("Setting").InSchema("App")
                 .Row(new
                 {
                     Key = SecurityCodeExpirationKey, 

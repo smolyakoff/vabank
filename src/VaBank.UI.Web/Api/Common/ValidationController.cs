@@ -2,6 +2,7 @@
 using System.Web.Http;
 using VaBank.Services.Contracts.Common.Validation;
 using VaBank.Services.Contracts.Infrastructure;
+using VaBank.Services.Contracts.Infrastructure.Validation;
 
 namespace VaBank.UI.Web.Api.Common
 {

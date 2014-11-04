@@ -19,7 +19,7 @@ namespace VaBank.Services.Common.Security
             _identity = identity;
         } 
 
-        protected virtual void Inherit(ISecurityValidator<T> validator, string propertyName = "{root}")
+        protected void Inherit(ISecurityValidator<T> validator, string propertyName = "{root}")
         {
             Argument.NotNull(validator, "validator");
             Custom(o =>

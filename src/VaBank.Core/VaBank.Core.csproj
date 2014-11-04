@@ -49,7 +49,6 @@
     <Compile Include="App\Factories\SecurityCodeFactory.cs" />
     <Compile Include="App\Settings\SecurityCodeSettings.cs" />
     <Compile Include="Common\IVersionedEntity.cs" />
-    <Compile Include="Common\SettingsAttribute.cs" />
     <Compile Include="Processing\Converting\CurrencyConverter.cs" />
     <Compile Include="Processing\Converting\CurrencyConverting.cs" />
     <Compile Include="Processing\Converting\CurrencyConvertingResult.cs" />

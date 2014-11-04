@@ -1,4 +1,4 @@
-﻿namespace VaBank.Services.Contracts.Infrastructure
+﻿namespace VaBank.Services.Contracts.Infrastructure.Validation
 {
     public class ValidationCommand
     {

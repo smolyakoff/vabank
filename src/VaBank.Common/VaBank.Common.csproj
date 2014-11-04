@@ -164,8 +164,10 @@
     <Compile Include="Serialization\JsonCreationConverter.cs" />
     <Compile Include="Serialization\JsonNetXml.cs" />
     <Compile Include="Util\Assert.cs" />
+    <Compile Include="Util\Runtime.cs" />
     <Compile Include="Util\Randomizer.cs" />
     <Compile Include="Util\Range.cs" />
+    <Compile Include="Util\SettingsAttribute.cs" />
     <Compile Include="Validation\Validators\AdapterValidator.cs" />
     <Compile Include="Validation\Validators\AlwaysTrueValidator.cs" />
     <Compile Include="Validation\Argument.cs" />

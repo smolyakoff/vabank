@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using FluentValidation;
 using VaBank.Common.Data.Database;
 using VaBank.Common.Events;
@@ -9,6 +10,7 @@ using VaBank.Core.Common;
 using VaBank.Services.Common.Security;
 using VaBank.Services.Common.Transactions;
 using VaBank.Services.Contracts;
+using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Common.Security;
 using VaBank.Services.Contracts.Common.Validation;
@@ -43,6 +45,12 @@ namespace VaBank.Services.Common
         {
             var validatorType = typeof(ISecurityValidator<T>);
             EnsureIsSecure(obj, validatorType);
+        }
+
+        protected virtual void EnsureIsSecure<TValidator>()
+            where TValidator : ISecurityValidator<object>
+        {
+            EnsureIsSecure<object, TValidator>(null);
         }
 
         protected virtual void EnsureIsSecure<T, TValidator>(T obj)

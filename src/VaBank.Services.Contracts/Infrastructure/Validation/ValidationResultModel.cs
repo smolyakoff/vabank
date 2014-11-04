@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using VaBank.Common.Validation;
 
-namespace VaBank.Services.Contracts.Infrastructure
+namespace VaBank.Services.Contracts.Infrastructure.Validation
 {
     public class ValidationResultModel
     {
