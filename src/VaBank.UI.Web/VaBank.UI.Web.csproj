@@ -271,6 +271,7 @@
     <Content Include="Client\app\images\icons\cards\visa-curved-128px.png" />
     <Content Include="Client\app\images\icons\cards\visa-curved-32px.png" />
     <Content Include="Client\app\images\icons\cards\visa-curved-64px.png" />
+    <Content Include="Client\app\images\icons\consultant\consultant.png" />
     <Content Include="Client\app\images\icons\currency\eur.png" />
     <Content Include="Client\app\images\icons\currency\usd.png" />
     <Content Include="Client\app\images\logo\vabank-logo-big.png" />
@@ -1099,6 +1100,7 @@
     <Content Include="Client\bower_components\underscore-deep\.bower.json" />
     <Content Include="Client\bower_components\underscore-deep\bower.json" />
     <Content Include="Client\bower_components\underscore-deep\README.md" />
+    <Content Include="Client\app\areas\customer\cabinet\cabinet.scss" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>

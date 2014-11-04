@@ -1,9 +1,9 @@
 ﻿.modal {
- overflow-y: auto;
+    overflow-y: auto;
 }
 
 .modal-open {
- overflow: auto;
+    overflow: auto;
 }
 
 .offset-bottom {
@@ -22,12 +22,8 @@ img.center {
     position: relative;
 }
 
-.cabinet-content {
-    margin-top: 15px;
-}
-
 .tile {
-    height: 326px;
+    height: 300px;
     color: #ffffff;
 
     &.blue {
@@ -59,8 +55,14 @@ img.center {
         margin: auto;
     }
 
-    .currency-body {
+    .tile-body {
         padding: 0 15px 15px 15px;
+    }
+
+    .badge {
+        background-color: azure;
+        color: gray;
+        font-size: 14px;
     }
 
     .exchange-rates-table {
@@ -96,9 +98,17 @@ img.center {
         border-bottom: 1px solid #efefef;
     }
 
+    .phone-big {
+        font-size: 30px;
+        vertical-align: middle;
+    }
+
+    .icon-phone {
+        font-style: italic;
+    }
+
     .footer {
         padding: 15px;
-        text-align: right;
         font-size: 14px;
     }
 }
