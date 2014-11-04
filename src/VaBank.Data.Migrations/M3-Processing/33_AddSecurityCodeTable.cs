@@ -1,6 +1,6 @@
 ﻿using System;
 using FluentMigrator;
-using VaBank.Common.Serialization;
+using Newtonsoft.Json;
 
 namespace VaBank.Data.Migrations.M3_Processing
 {
@@ -22,10 +22,10 @@ namespace VaBank.Data.Migrations.M3_Processing
                 .Row(new
                 {
                     Key = SecurityCodeExpirationKey, 
-                    Value = JsonNetXml.SerializeObject(new
+                    Value = JsonConvert.SerializeObject(new
                     {
                         SmsCodeExpirationPeriod = TimeSpan.FromMinutes(5)
-                    }, "Setting")
+                    })
                 });
         }
 

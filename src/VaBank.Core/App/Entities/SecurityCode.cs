@@ -22,6 +22,10 @@ namespace VaBank.Core.App.Entities
 
         public bool Deactivate(string code)
         {
+            if (!IsActive)
+            {
+                return false;
+            }
             IsActive = false;
             if (string.IsNullOrEmpty(code))
             {

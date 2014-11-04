@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using FluentMigrator;
-using VaBank.Common.Serialization;
+using Newtonsoft.Json;
 
 namespace VaBank.Data.Migrations.M3_Processing
 {
-    [Migration(35, "Created settings for sms and email services (dev).")]
-    [Tags("Development", "Test")]
-    public class SmsAndEmailSettingsDev : Migration
+    [Migration(36, "Created settings for sms and email services (prod).")]
+    [Tags("Production")]
+    public class SmsAndEmailSettingsProd : Migration
     {
         private static class SettingsKeys
         {
@@ -22,26 +22,26 @@ namespace VaBank.Data.Migrations.M3_Processing
         public override void Up()
         {
             Insert.IntoTable("Setting").InSchema("App")
-                .Row(new {Key = SettingsKeys.Twilio, Value = JsonNetXml.SerializeObject(TwilioSettings, "Setting")})
-                .Row(new {Key = SettingsKeys.SendGrid, Value = JsonNetXml.SerializeObject(SendGridSettings, "Setting")})
-                .Row(new {Key = SettingsKeys.SmsService, Value = JsonNetXml.SerializeObject(SmsServiceSettings, "Setting")})
-                .Row(new {Key = SettingsKeys.SmsLogger, Value = JsonNetXml.SerializeObject(SmsLoggerSettings, "Setting")});
+                .Row(new { Key = SettingsKeys.Twilio, Value = JsonConvert.SerializeObject(TwilioSettings) })
+                .Row(new { Key = SettingsKeys.SendGrid, Value = JsonConvert.SerializeObject(SendGridSettings) })
+                .Row(new { Key = SettingsKeys.SmsService, Value = JsonConvert.SerializeObject(SmsServiceSettings) })
+                .Row(new { Key = SettingsKeys.SmsLogger, Value = JsonConvert.SerializeObject(SmsLoggerSettings) });
 
         }
 
         public override void Down()
         {
             Delete.FromTable("Setting").InSchema("App")
-                .Row(new {Key = SettingsKeys.Twilio})
-                .Row(new {Key = SettingsKeys.SendGrid})
-                .Row(new {Key = SettingsKeys.SmsService})
-                .Row(new {Key = SettingsKeys.SmsLogger});
+                .Row(new { Key = SettingsKeys.Twilio })
+                .Row(new { Key = SettingsKeys.SendGrid })
+                .Row(new { Key = SettingsKeys.SmsService })
+                .Row(new { Key = SettingsKeys.SmsLogger });
         }
 
         private readonly object SmsServiceSettings = new
         {
-            UseLogger = true,
-            OutboundPhoneNumber = "+15005550006"
+            UseLogger = false,
+            OutboundPhoneNumber = "+14439556678"
         };
 
         private readonly object SmsLoggerSettings = new
@@ -60,8 +60,8 @@ namespace VaBank.Data.Migrations.M3_Processing
 
         private readonly object TwilioSettings = new
         {
-            AccountSid = "AC6c28da9b9c4e1e7f180ff20ad27f06be",
-            AuthToken = "9249c0016094a1775702047e13b55caf"
+            AccountSid = "AC14ec5d1e73a1201ca793c79121a7fa9b",
+            AuthToken = "3a2c00b548b5f16abda3dd0897dd5c12"
         };
     }
 }

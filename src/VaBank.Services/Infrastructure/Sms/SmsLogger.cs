@@ -40,7 +40,7 @@ namespace VaBank.Services.Infrastructure.Sms
             }
             var emailBuilder = new StringBuilder();
             emailBuilder.AppendFormat("From: {0}", sms.From).AppendLine()
-                        .AppendFormat("To:   {0}", sms.From).AppendLine()
+                        .AppendFormat("To:   {0}", sms.To).AppendLine()
                         .AppendFormat("Text: {0}", sms.Text).AppendLine();
             var email = new SendEmailCommand
             {

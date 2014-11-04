@@ -63,6 +63,7 @@
     <Compile Include="Infrastructure\Email\IEmailService.cs" />
     <Compile Include="Infrastructure\Email\SendEmailCommand.cs" />
     <Compile Include="Infrastructure\Secuirty\ISecurityCodeService.cs" />
+    <Compile Include="Infrastructure\Sms\ISmsEvent.cs" />
     <Compile Include="Infrastructure\Sms\ISmsService.cs" />
     <Compile Include="Infrastructure\Sms\SendSmsCommand.cs" />
     <Compile Include="Infrastructure\Sms\SmsCodeCreated.cs" />

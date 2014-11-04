@@ -77,6 +77,7 @@
     <Compile Include="App\Mappings\FileLinkMap.cs" />
     <Compile Include="App\Mappings\OperationMap.cs" />
     <Compile Include="App\Mappings\ResourceMap.cs" />
+    <Compile Include="App\Mappings\SecurityCodeMap.cs" />
     <Compile Include="App\OperationRepository.cs" />
     <Compile Include="App\SettingRepository.cs" />
     <Compile Include="Membership\ApplicationTokenRepository.cs" />

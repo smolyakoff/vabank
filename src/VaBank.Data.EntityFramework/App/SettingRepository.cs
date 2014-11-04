@@ -5,12 +5,10 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
-using System.Xml;
 using Newtonsoft.Json;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.Util;
 using VaBank.Core.App.Repositories;
-using VaBank.Core.Common;
 
 namespace VaBank.Data.EntityFramework.App
 {
@@ -33,8 +31,8 @@ namespace VaBank.Data.EntityFramework.App
             {
                 var keyParam = new SqlParameter("@Key", key);
                 const string sql = "SELECT [Value] FROM [App].[Setting] WHERE [Key] = @Key";
-                var xml = Context.Database.SqlQuery<string>(sql, keyParam).ToList().SingleOrDefault();
-                return xml == null ? default(T) : Deserialize<T>(xml);
+                var json = Context.Database.SqlQuery<string>(sql, keyParam).ToList().FirstOrDefault();
+                return Deserialize<T>(json);
             }
             catch (Exception ex)
             {
@@ -93,13 +91,13 @@ namespace VaBank.Data.EntityFramework.App
             }
         }
 
-        private static T Deserialize<T>(string xml)
+        private static T Deserialize<T>(string json)
         {
-            var document = new XmlDocument();
-            document.LoadXml(xml);
-            var json = JsonConvert.SerializeXmlNode(document, Newtonsoft.Json.Formatting.None, true);
-            var value = JsonConvert.DeserializeObject<T>(json);
-            return value;
+            if (string.IsNullOrEmpty(json))
+            {
+                return default(T);
+            }
+            return JsonConvert.DeserializeObject<T>(json);
         }
 
         private class KeyValue

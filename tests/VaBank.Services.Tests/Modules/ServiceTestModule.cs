@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using VaBank.Common.Events;
+using VaBank.Services.Tests.Fakes;
 
 namespace VaBank.Services.Tests.Modules
 {
@@ -14,6 +14,10 @@ namespace VaBank.Services.Tests.Modules
             builder.RegisterInstance(TestServiceBus.Instance)
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder.RegisterType<TestStartup>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
         }
     }
 }

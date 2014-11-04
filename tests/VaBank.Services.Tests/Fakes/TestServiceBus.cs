@@ -1,7 +1,7 @@
 ﻿using System;
 using VaBank.Common.Events;
 
-namespace VaBank.Services.Tests
+namespace VaBank.Services.Tests.Fakes
 {
     public static class TestServiceBus
     {
