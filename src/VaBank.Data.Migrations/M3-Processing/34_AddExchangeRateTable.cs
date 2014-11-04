@@ -14,10 +14,11 @@ namespace VaBank.Data.Migrations
 
         public override void Up()
         {
+            Create.Schema(SchemaName);
             Create.Table("ExchangeRate").InSchema(SchemaName)
                 .WithColumn("ExchangeRateID").AsGuid().PrimaryKey("PK_Currency")
-                .WithColumn("FromCurrencyISOName").AsCurrencyISOName().ForeignKey("FK_ExchangeRate_To_FromCurrency", SchemaName, "Currency", "CurrencyISOName")
-                .WithColumn("ToCurrencyISOName").AsCurrencyISOName().ForeignKey("FK_ExchangeRate_To_ToCurrency", SchemaName, "Currency", "CurrencyISOName")
+                .WithColumn("FromCurrencyISOName").AsCurrencyISOName().ForeignKey("FK_ExchangeRate_To_FromCurrency", "Accounting", "Currency", "CurrencyISOName")
+                .WithColumn("ToCurrencyISOName").AsCurrencyISOName().ForeignKey("FK_ExchangeRate_To_ToCurrency", "Accounting", "Currency", "CurrencyISOName")
                 .WithColumn("BuyRate").AsDecimal().NotNullable()
                 .WithColumn("SellRate").AsDecimal().NotNullable()
                 .WithColumn("TimeStampUtc").AsDateTime().NotNullable()
