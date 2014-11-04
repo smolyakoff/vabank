@@ -11,6 +11,7 @@ namespace VaBank.Core.Accounting.Entities
         public string ISOName { get; protected set; }
         public string Symbol { get; protected set; }
         public string Name { get; protected set; }
+        public int Precision { get; protected set; }
 
         public override string ToString()
         {

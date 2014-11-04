@@ -8,7 +8,7 @@ namespace VaBank.Core.Membership.Entities
     public class UserClaim : Entity
     {
         private static readonly List<string> SupportedRoles = 
-            new List<string> { "Admin", "Customer" };
+            new List<string> { Roles.Admin, Roles.Customer };
 
         public static class Types
         {
@@ -19,6 +19,13 @@ namespace VaBank.Core.Membership.Entities
             public const string UserName = ClaimTypes.Name;
 
             public const string ClientId = "https://vabank.azurewebsites.net/api/claimTypes/clientId";
+        }
+
+        public static class Roles
+        {
+            public const string Admin = "Admin";
+
+            public const string Customer = "Customer";
         }
 
         public static bool IsSupportedRole(string roleName)

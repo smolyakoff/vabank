@@ -1,7 +1,8 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
+using System;
 using VaBank.Common.Events;
 using VaBank.Jobs.Common;
+using VaBank.Jobs.Configuration;
 
 namespace VaBank.Jobs.Modules
 {
@@ -41,6 +42,9 @@ namespace VaBank.Jobs.Modules
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder.RegisterType<JobStartup>().As<IStartable>();
+
+            //Configuration
+            builder.RegisterType<SettingsJobConfigProvider>().As<IJobConfigProvider>().SingleInstance();
         }
     }
 }

@@ -10,18 +10,18 @@ namespace VaBank.UI.Web.Api.Admin
     [Authorize(Roles="Admin")]
     public class AuditLogController : ApiController
     {
-        private readonly ILogManagementService _logManagementService;
+        private readonly ILogService _logService;
 
-        public AuditLogController(ILogManagementService logManagementService)
+        public AuditLogController(ILogService logService)
         {
-            _logManagementService = logManagementService;
+            _logService = logService;
         }
 
         [Route]
         [HttpGet]
         public IHttpActionResult Query(AuditLogQuery query)
         {
-            var audit = _logManagementService.GetAuditLogEntries(query);
+            var audit = _logService.GetAuditLogEntries(query);
             return Ok(audit);
         }
 
@@ -29,7 +29,7 @@ namespace VaBank.UI.Web.Api.Admin
         [HttpGet]        
         public IHttpActionResult Lookup()
         {
-            var lookup = _logManagementService.GetAuditLogLookup();
+            var lookup = _logService.GetAuditLogLookup();
             return Ok(lookup);
         }
 
@@ -37,7 +37,7 @@ namespace VaBank.UI.Web.Api.Admin
         [HttpGet]
         public IHttpActionResult Operation([FromUri]IdentityQuery<Guid> query)
         {
-            var entry = _logManagementService.GetAuditLogEntry(query);
+            var entry = _logService.GetAuditLogEntry(query);
             return entry == null ? (IHttpActionResult)NotFound() : Ok(entry);
         }
     }

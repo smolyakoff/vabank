@@ -1,7 +1,6 @@
 ﻿using System;
 using FluentValidation;
 using FluentValidation.Results;
-using FluentValidation.Validators;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.Util;
 using VaBank.Common.Validation;
@@ -9,7 +8,6 @@ using VaBank.Core.Accounting;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Accounting.Factories;
 using VaBank.Services.Contracts.Accounting.Commands;
-using VaBank.Services.Contracts.Accounting.Models;
 
 namespace VaBank.Services.Accounting
 {

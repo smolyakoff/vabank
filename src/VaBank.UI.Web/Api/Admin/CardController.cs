@@ -9,22 +9,22 @@ namespace VaBank.UI.Web.Api.Admin
     [Authorize(Roles = "Admin")]
     public class CardController : ApiController
     {
-        private readonly ICardAccountManagementService _cardAccountManagementService;
+        private readonly ICardAccountService _cardAccountService;
 
-        public CardController(ICardAccountManagementService cardAccountManagementService)
+        public CardController(ICardAccountService cardAccountService)
         {
-            if (cardAccountManagementService == null)
+            if (cardAccountService == null)
             {
-                throw new ArgumentNullException("cardAccountManagementService");
+                throw new ArgumentNullException("cardAccountService");
             }
-            _cardAccountManagementService = cardAccountManagementService;
+            _cardAccountService = cardAccountService;
         }
 
         [HttpGet]
         [Route]
         public IHttpActionResult Get(CardQuery query)
         {
-            return Ok(_cardAccountManagementService.GetUserCards(query));
+            return Ok(_cardAccountService.GetUserCards(query));
         }
     }
 }

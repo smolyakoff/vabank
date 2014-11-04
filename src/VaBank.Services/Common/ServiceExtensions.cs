@@ -7,6 +7,7 @@ using AutoMapper;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Common;
+using VaBank.Services.Common.Exceptions;
 
 namespace VaBank.Services.Common
 {

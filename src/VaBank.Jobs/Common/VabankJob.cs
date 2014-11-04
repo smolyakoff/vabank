@@ -49,8 +49,9 @@ namespace VaBank.Jobs.Common
             return BackgroundJob.Enqueue<TJob>(x => x.Execute(json, JobCancellationToken.Null));
         }
 
-        public static void AddOrUpdateRecurring<TJob>(string jobId, string cronExpression)
-            where TJob : BaseJob<DefaultJobContext>
+        public static void AddOrUpdateRecurring<TJob, TJobContext>(string jobId, string cronExpression)
+            where TJob : BaseJob<TJobContext>
+            where TJobContext : class, IJobContext
         {
             jobId = string.IsNullOrEmpty(jobId) ? typeof (TJob).Name : jobId;
             RecurringJob.AddOrUpdate<TJob>(jobId, x => x.Execute(null, JobCancellationToken.Null), cronExpression);

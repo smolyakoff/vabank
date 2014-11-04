@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading;
 using FluentValidation;
 using VaBank.Common.Data.Database;
-using VaBank.Common.Data.Repositories;
 using VaBank.Common.Events;
+using VaBank.Common.IoC;
 using VaBank.Common.Validation;
-using VaBank.Core.App;
 using VaBank.Core.App.Entities;
 using VaBank.Core.Common;
-using VaBank.Core.Membership;
+using VaBank.Services.Common.Security;
+using VaBank.Services.Common.Transactions;
 using VaBank.Services.Contracts;
 using VaBank.Services.Contracts.Common.Events;
+using VaBank.Services.Contracts.Common.Validation;
 using ValidationException = VaBank.Services.Contracts.Common.Validation.ValidationException;
-using VaBank.Common.IoC;
 
 namespace VaBank.Services.Common
 {
@@ -25,8 +22,8 @@ namespace VaBank.Services.Common
         private readonly ServiceOperationProvider _operationProvider;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITransactionProvider _transactionProvider;
-        private readonly VaBankIdentity _identity;
-        
+        private VaBankIdentity _identity = null;
+
         protected BaseService(BaseServiceDependencies dependencies)
         {
             if (dependencies == null)
@@ -39,7 +36,29 @@ namespace VaBank.Services.Common
             _bus = dependencies.ServiceBus;
             _unitOfWork = dependencies.UnitOfWork;
             _transactionProvider = dependencies.TransactionProvider;
-            _identity = new VaBankIdentity(Thread.CurrentPrincipal.Identity as ClaimsIdentity, dependencies.UserRepository);
+        }
+
+        protected virtual void EnsureIsSecure<T>(T obj)
+        {
+            var validatorType = typeof(ISecurityValidator<T>);
+            EnsureIsSecure(obj, validatorType);
+        }
+
+        protected virtual void EnsureIsSecure<T, TValidator>(T obj)
+            where TValidator : ISecurityValidator<T>
+        {
+            EnsureIsSecure(obj, typeof(TValidator));
+        }
+
+        protected virtual void EnsureIsSecure<T, TValidator>(T obj, TValidator validator)
+            where TValidator : class, ISecurityValidator<T>
+        {
+            Argument.NotNull(validator, "validator");
+            var validationResult = validator.Validate(obj);
+            if (!validationResult.IsValid)
+            {
+                throw new SecurityValidatorException(validationResult.Errors);
+            }
         }
 
         protected virtual void EnsureIsValid<T>(T obj)
@@ -48,24 +67,15 @@ namespace VaBank.Services.Common
             EnsureIsValid(obj, validatorType);
         }
 
-        protected virtual void EnsureIsValid<T>(T obj, Type validatorType)
+        protected virtual void EnsureIsValid<T, TValidator>(T obj)
+            where TValidator : IValidator<T>
         {
-            var validator = _objectFactory.Create(validatorType) as IValidator<T>;
-            if (validator == null)
-            {
-                return;
-            }
-            var validationResult = validator.Validate(obj);
-            if (!validationResult.IsValid)
-            {
-                var faults = validationResult.Errors.ToValidationFaults();
-                throw new ValidationException("Object has validation errors. See ValidationFaults property for more information.", faults);
-            }
+            EnsureIsValid(obj, typeof (TValidator));
         }
 
         protected VaBankIdentity Identity
         {
-            get { return _identity; }
+            get { return _identity ?? (_identity = _objectFactory.Create<VaBankIdentity>()); }
         }
 
         protected Operation Operation
@@ -93,6 +103,44 @@ namespace VaBank.Services.Common
         protected virtual void Publish(ApplicationEvent appEvent)
         {
             _bus.Publish(appEvent);
+        }
+
+        private void EnsureIsSecure<T>(T obj, Type validatorType)
+        {
+            if (!_objectFactory.CanCreate(validatorType))
+            {
+                return;
+            }
+            var validator = _objectFactory.Create(validatorType) as ISecurityValidator<T>;
+            if (validator == null)
+            {
+                throw new InvalidOperationException("Object factory returned null for security validator.");
+            }
+            var validationResult = validator.Validate(obj);
+            if (!validationResult.IsValid)
+            {
+                throw new SecurityValidatorException(validationResult.Errors);
+            }
+        }
+
+        private void EnsureIsValid<T>(T obj, Type validatorType)
+        {
+            if (!_objectFactory.CanCreate(validatorType))
+            {
+                return;
+            }
+            var validator = _objectFactory.Create(validatorType) as IValidator<T>;
+            if (validator == null)
+            {
+                throw new InvalidOperationException("Object factory returned null for validator.");
+            }
+            var validationResult = validator.Validate(obj);
+            if (!validationResult.IsValid)
+            {
+                var faults = validationResult.Errors.ToValidationFaults();
+                throw new ValidationException(
+                    "Object has validation errors. See ValidationFaults property for more information.", faults);
+            }
         }
     }
 }

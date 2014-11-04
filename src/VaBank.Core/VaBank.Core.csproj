@@ -43,7 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Entities\CardLimitsRange.cs" />
-    <Compile Include="Accounting\Entities\CurrencyRate.cs" />
+    <Compile Include="Processing\Converting\CurrencyConverter.cs" />
+    <Compile Include="Processing\Converting\CurrencyConverting.cs" />
+    <Compile Include="Processing\Converting\CurrencyConvertingResult.cs" />
+    <Compile Include="Processing\Repositories\CurrencyNamePair.cs" />
+    <Compile Include="Processing\Entities\CurrencyRate.cs" />
     <Compile Include="Accounting\Factories\CardAccountFactory.cs" />
     <Compile Include="Accounting\Factories\CardFactory.cs" />
     <Compile Include="Accounting\Factories\UserCardFactory.cs" />
@@ -96,6 +100,7 @@
     <Compile Include="Membership\Entities\UserProfile.cs" />
     <Compile Include="Common\IUnitOfWork.cs" />
     <Compile Include="Membership\Validators.cs" />
+    <Compile Include="Processing\Repositories\ICurrencyRateRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,18 +11,18 @@ namespace VaBank.UI.Web.Api.Admin
     [Authorize(Roles = "Admin")]
     public class SystemLogController : ApiController
     {
-        private readonly ILogManagementService _logManagementService;
+        private readonly ILogService _logService;
 
-        public SystemLogController(ILogManagementService logManagementService)
+        public SystemLogController(ILogService logService)
         {
-            _logManagementService = logManagementService;
+            _logService = logService;
         }
 
         [HttpGet]
         [Route]
         public IHttpActionResult Query(SystemLogQuery query)
         {
-            var logs = _logManagementService.GetSystemLogEntries(query);
+            var logs = _logService.GetSystemLogEntries(query);
             return Ok(logs);
         }
 
@@ -30,7 +30,7 @@ namespace VaBank.UI.Web.Api.Admin
         [Route("{id}/exception")]
         public IHttpActionResult Exception([FromUri]IdentityQuery<long> query)
         {
-            var message = _logManagementService.GetSystemLogException(query);
+            var message = _logService.GetSystemLogException(query);
             return message == null ? (IHttpActionResult)NotFound() : Ok(message);
         }
 
@@ -39,7 +39,7 @@ namespace VaBank.UI.Web.Api.Admin
         [Transaction]
         public IHttpActionResult Clear(SystemLogClearCommand command)
         {
-            var message = _logManagementService.ClearSystemLog(command);
+            var message = _logService.ClearSystemLog(command);
             return Ok(message);
         }
 
@@ -47,7 +47,7 @@ namespace VaBank.UI.Web.Api.Admin
         [Route("lookup")]
         public IHttpActionResult Lookup()
         {
-            var lookup = _logManagementService.GetSystemLogLookup();
+            var lookup = _logService.GetSystemLogLookup();
             return Ok(lookup);
         }
     }

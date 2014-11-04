@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using Autofac;
+﻿using Autofac;
 using AutoMapper;
 using FluentValidation;
 using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.IoC;
-using VaBank.Common.Resources;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
 using VaBank.Jobs.Common;
 using VaBank.Services.Common;
+using VaBank.Services.Common.Transactions;
 using VaBank.Services.Contracts;
 
 namespace VaBank.Jobs.Modules
@@ -38,6 +37,11 @@ namespace VaBank.Jobs.Modules
 
             staticValidators.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().AsSelf().SingleInstance());
             otherValidators.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces().AsSelf().InstancePerLifetimeScope());
+
+            //Register identity
+            builder.RegisterType<VaBankIdentity>()
+                .AsSelf()
+                .InstancePerLifetimeScope();
 
             //Register operation provider
             builder.RegisterType<ServiceOperationProvider>().AsSelf()

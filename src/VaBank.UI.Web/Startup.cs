@@ -69,8 +69,9 @@ namespace VaBank.UI.Web
             config.Use(Handler);
 
             _logger.Info("Application is started!");
-            var jobStartup = new JobStartup();
-            jobStartup.Start();
+                        
+            //var jobStartup = new JobStartup();
+            //jobStartup.Start();
         }
 
         public Task Handler(IOwinContext context, Func<Task> next)
