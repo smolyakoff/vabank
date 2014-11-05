@@ -2,11 +2,11 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(34, "Add ExchangeRate table to [Accounting] schema.")]
+    [Migration(34, "Add ExchangeRate table to [Processing] schema.")]
     [Tags("Development", "Test", "Production")]
     public class AddExchangeRateTable : Migration
     {
-        private const string SchemaName = "Accounting";
+        private const string SchemaName = "Processing";
         public override void Down()
         {
             Delete.Table("ExchangeRate").InSchema(SchemaName);
@@ -14,6 +14,7 @@ namespace VaBank.Data.Migrations
 
         public override void Up()
         {
+            Create.Schema(SchemaName);
             Create.Table("ExchangeRate").InSchema(SchemaName)
                 .WithColumn("ExchangeRateID").AsGuid().PrimaryKey("PK_ExchangeRate")
                 .WithColumn("FromCurrencyISOName").AsCurrencyISOName().ForeignKey("FK_ExchangeRate_To_FromCurrency", "Accounting", "Currency", "CurrencyISOName")
@@ -23,7 +24,7 @@ namespace VaBank.Data.Migrations
                 .WithColumn("TimeStampUtc").AsDateTime().NotNullable()
                 .WithColumn("IsActual").AsBoolean().NotNullable().Indexed("IX_IsActual");
 
-            Execute.Sql("ALTER TABLE [Accounting].[ExchangeRate] ADD CONSTRAINT UQ_FromToCurrencyTimeStamp UNIQUE(FromCurrencyISOName, ToCurrencyISOName, TimeStampUtc);");
+            Execute.Sql("ALTER TABLE [Processing].[ExchangeRate] ADD CONSTRAINT UQ_FromToCurrencyTimeStamp UNIQUE(FromCurrencyISOName, ToCurrencyISOName, TimeStampUtc);");
         }
     }
 }
