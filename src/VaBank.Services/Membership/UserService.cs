@@ -5,7 +5,6 @@ using AutoMapper;
 using PagedList;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
-using VaBank.Core.Membership;
 using VaBank.Core.Membership.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Common.Exceptions;

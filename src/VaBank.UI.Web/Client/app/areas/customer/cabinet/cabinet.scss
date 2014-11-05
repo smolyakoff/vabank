@@ -1,3 +1,20 @@
-﻿.tile {
-  height: 250px;
+﻿.cabinet-content {
+    margin-top: 15px;
+}
+
+.consultant {
+    background-image: url("/Client/app/images/icons/consultant/consultant.png");
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+.phone-list {
+    padding: 22px 0 23px;
+    list-style: none;
+
+    .phone-number {
+        font-size: 20px;
+        margin: auto;
+    }
 }

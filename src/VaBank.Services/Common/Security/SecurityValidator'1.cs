@@ -3,7 +3,7 @@ using System.Linq;
 using FluentValidation;
 using FluentValidation.Results;
 using VaBank.Common.Validation;
-using VaBank.Services.Contracts.Common.Validation;
+using VaBank.Services.Contracts.Common.Security;
 
 namespace VaBank.Services.Common.Security
 {
@@ -19,7 +19,7 @@ namespace VaBank.Services.Common.Security
             _identity = identity;
         } 
 
-        protected virtual void Inherit(ISecurityValidator<T> validator, string propertyName = "{root}")
+        protected void Inherit(ISecurityValidator<T> validator, string propertyName = "{root}")
         {
             Argument.NotNull(validator, "validator");
             Custom(o =>

@@ -1,12 +1,7 @@
-﻿using System;
-using VaBank.Common.Events;
-
-namespace VaBank.Services.Contracts.Common.Events
+﻿namespace VaBank.Services.Contracts.Common.Events
 {
-    public interface IAuditedEvent : IEvent
+    public interface IAuditedEvent : IOperationEvent
     {
-        Guid OperationId { get; }
-
         string Code { get; }
 
         string Description { get; }

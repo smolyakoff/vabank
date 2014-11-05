@@ -9,6 +9,11 @@ namespace VaBank.Services.Common.Exceptions
             return new DataNotFoundException();
         }
 
+        public static DataNotFoundException ExceptionFor<T>()
+        {
+            return new DataNotFoundException(typeof(T));
+        }
+
         public static DataNotFoundException ExceptionFor<T>(object key)
         {
             return new DataNotFoundException(typeof(T), key);

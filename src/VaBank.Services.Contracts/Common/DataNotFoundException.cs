@@ -10,6 +10,11 @@ namespace VaBank.Services.Contracts.Common
         {
         }
 
+        public DataNotFoundException(Type objectType)
+            : base(UserMessage.ResourceFormat(() => Messages.TypedDataNotFound, objectType.Name, "Unknown"))
+        {
+        }
+
         public DataNotFoundException(Type objectType, object key) : base(UserMessage.ResourceFormat(() => Messages.TypedDataNotFound, objectType.Name, key))
         {
         }

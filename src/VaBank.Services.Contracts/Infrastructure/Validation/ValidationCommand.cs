@@ -1,6 +1,6 @@
-﻿namespace VaBank.Services.Contracts.Common.Validation
+﻿namespace VaBank.Services.Contracts.Infrastructure.Validation
 {
-    public class ValidationRequest
+    public class ValidationCommand
     {
         public string ValidatorName { get; set; }
 

@@ -2,14 +2,14 @@
 
 namespace VaBank.Services.Common.Security
 {
-    public class AuthenticatedSecurityValidator<T> : SecurityValidator<T>
+    public class AuthenticatedSecurityValidator : SecurityValidator<object>
     {
         public AuthenticatedSecurityValidator(VaBankIdentity identity) : base(identity)
         {
             Custom(IsAuthenticated);
         }
 
-        private ValidationFailure IsAuthenticated(T context)
+        private ValidationFailure IsAuthenticated(object context)
         {
             return Identity.IsAuthenticated 
                 ? null 

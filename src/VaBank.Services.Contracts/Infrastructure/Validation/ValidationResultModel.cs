@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using VaBank.Common.Validation;
 
-namespace VaBank.Services.Contracts.Common.Validation
+namespace VaBank.Services.Contracts.Infrastructure.Validation
 {
-    public class ValidationResponse
+    public class ValidationResultModel
     {
-        public ValidationResponse()
+        public ValidationResultModel()
         {
             ValidationFaults = new List<ValidationFault>();
         }
