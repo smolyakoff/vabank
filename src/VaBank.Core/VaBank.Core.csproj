@@ -48,7 +48,11 @@
     <Compile Include="App\Entities\SecurityCodePair.cs" />
     <Compile Include="App\Factories\SecurityCodeFactory.cs" />
     <Compile Include="App\Settings\SecurityCodeSettings.cs" />
+    <Compile Include="Common\HistoricalEntity.cs" />
     <Compile Include="Common\IVersionedEntity.cs" />
+    <Compile Include="Common\Repositories\IHistoryRepository.cs" />
+    <Compile Include="Membership\Entities\HistoricalUser.cs" />
+    <Compile Include="Membership\Entities\IUser.cs" />
     <Compile Include="Processing\Converting\CurrencyConverter.cs" />
     <Compile Include="Processing\Converting\CurrencyConverting.cs" />
     <Compile Include="Processing\Converting\CurrencyConvertingResult.cs" />
