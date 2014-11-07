@@ -1,3 +1,91 @@
-﻿<section class="row">
-    В разработке
+﻿<section class="row transfer">
+    <div class="col-xs-12">
+        <form form-for="transferForm">
+            <wizard hide-indicators="true">
+                <wz-step>
+                    <div class="panel panel-wizard">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Выбор карты</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h6 class="text-primary wizard-subtitle">Отправитель</h6>
+                                    <div class="row grid-center" ng-repeat="card in cards" >
+                                        <div class="col-xs-1 text-center">
+                                            <radio-field attribute="fromCardId" value="{{card.cardId}}"></radio-field>
+                                        </div>
+                                        <div class="col-xs-11">
+                                            <div class="row">
+                                                <div class="col-lg-2">
+                                                    <img class="img img-responsive card-logo" ng-src="{{card.cardVendor.image}}"/>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <b class="initialism">
+                                                        {{card.friendlyName || card.cardVendor.name}}
+                                                    </b>
+                                                    <span class="text-muted">{{card.secureCardNo}}</span>
+                                                    <p>{{card.balance | extcurrency:card.currency.symbol:card.currency.precision }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <h6 class="text-primary wizard-subtitle">Получатель</h6>
+                                    <fieldset>
+                                        <radio-field label="Моя карта" 
+                                                     attribute="cardSource" 
+                                                     value="my" 
+                                                     disable="isOneCard">
+                                        </radio-field>
+                                        <radio-field label="Карта VaBank"
+                                                     disable="isOneCard" 
+                                                     attribute="cardSource" 
+                                                     value="vabank">
+                                        </radio-field>
+                                    </fieldset>
+                                    <div ng-show="transferForm.cardSource === 'my'">
+                                        <dropdown-field attribute="toCardId"
+                                                        items="cards"
+                                                        placeholder="Выберите карту"
+                                                        repeat="item.cardId as item in items | filter: {cardId: '!' + transferForm.fromCardId}"
+                                                        search-enabled="false"
+                                                        display-attribute="friendlyName || cardVendor.name"
+                                                        export-scope="transferForm">
+                                            {{item.friendlyName || item.cardVendor.name}} <span class="text-muted">{{item.secureCardNo}}</span>
+                                        </dropdown-field>
+                                    </div>
+                                    <div ng-show="transferForm.cardSource === 'vabank'">
+                                        <masked-field attribute="toCard.cardNumber"
+                                                      mask="9999 9999 9999 9999"
+                                                      placeholder="•••• •••• •••• ••••"
+                                                      label="Номер карты">
+                                        </masked-field>
+                                        <masked-field attribute="toCard.expiration"
+                                                      mask="99.99"
+                                                      placeholder="дд.гг"
+                                                      label="Срок действия">
+                                        </masked-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <currency-field attribute="amount"
+                                            label="Сумма перевода"
+                                            symbol="{{getSourceCard().currency.symbol}}"
+                                            precision="{{getSourceCard().currency.precision}}">
+                            </currency-field>
+                            <a class="btn btn-default pull-right" wz-next="">Продолжить</a>
+                        </div>
+
+                    </div>
+                </wz-step>
+
+                <wz-step>
+                </wz-step>
+                <wz-step>
+                </wz-step>
+            </wizard>
+        </form>
+    </div>
 </section>

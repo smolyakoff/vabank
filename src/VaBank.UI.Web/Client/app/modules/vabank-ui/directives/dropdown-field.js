@@ -24,6 +24,10 @@
         controller.$inject = ['$scope'];
         function controller($scope) {
             $scope.refresh = $scope.refresh || angular.noop;
+
+            $scope.displaySelectedItem = function(item) {
+                return $scope.$eval($scope.displayAttribute, item);
+            };
         }
 
         return {
@@ -37,6 +41,7 @@
                 repeat: '@',
                 placeholder: '@',
                 attribute: '@',
+                searchEnabled: '@?',
                 displayAttribute: '@?',
                 disable: '=',
                 help: '@?',

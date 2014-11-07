@@ -15,9 +15,9 @@
             <i class="text-field-icon" ng-class="iconBefore"></i>
         </span>
         
-        <ui-select ng-model="model.bindable">
+        <ui-select ng-model="model.bindable" search-enabled="{{searchEnabled}}">
             <ui-select-match placeholder="{{placeholder}}">
-                <span ng-if="displayAttribute">{{$select.selected[displayAttribute]}}</span>
+                <span ng-if="displayAttribute">{{displaySelectedItem($select.selected)}}</span>
                 <span ng-if="!displayAttribute">{{$select.selected | json}}</span>
             </ui-select-match>
             <ui-select-choices repeat="{{repeat}}"

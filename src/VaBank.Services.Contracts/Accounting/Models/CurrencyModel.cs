@@ -7,5 +7,7 @@
         public string Symbol { get; set; }
 
         public string Name { get; set; }
+
+        public int Precision { get; set; }
     }
 }
