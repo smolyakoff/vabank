@@ -2,7 +2,7 @@
 {
     public class TodayCurrencyRateQuery
     {
-        public string BuyingCurrencyISOName { get; set; }
-        public string SellingCurrencyISOName { get; set; }
+        public string FromISOName { get; set; }
+        public string ToISOName { get; set; }
     }
 }

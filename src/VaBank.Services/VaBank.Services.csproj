@@ -100,6 +100,7 @@
     <Compile Include="Infrastructure\Sms\SmsServiceSettings.cs" />
     <Compile Include="Infrastructure\Sms\TwilioClientFactory.cs" />
     <Compile Include="Infrastructure\Sms\TwilioClientSettings.cs" />
+    <Compile Include="Processing\NBRBCurrencyRate.cs" />
     <Compile Include="Processing\NBRBServiceClient.cs" />
     <Compile Include="Accounting\Messages.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using VaBank.Core.Processing.Entities;
 using VaBank.Services.NBRBWebService;
 
 namespace VaBank.Services.Processing
@@ -10,13 +9,13 @@ namespace VaBank.Services.Processing
     internal class NbrbServiceClient
     {
         private readonly ExRatesSoapClient _client = new ExRatesSoapClient();
-        
-        public IList<CurrencyRate> GetAllRates(DateTime date)
+
+        public IList<NBRBCurrencyRate> GetAllRates(DateTime date)
         {
             return GetCurrencyRatesRows(date).Select(x => ToCurrencyRate(x, date)).ToList();
         }
 
-        public IList<CurrencyRate> GetTodayRates(DateTime date, params string[] currencyISONames)
+        public IList<NBRBCurrencyRate> GetTodayRates(DateTime date, params string[] currencyISONames)
         {
             return
                 GetCurrencyRatesRows(date)
@@ -25,19 +24,24 @@ namespace VaBank.Services.Processing
                     .ToList();
         }
 
-        public IList<CurrencyRate> GetAllTodayRates()
+        public IList<NBRBCurrencyRate> GetAllTodayRates()
         {
             return GetAllRates(DateTime.Today);
         }
 
-        public IList<CurrencyRate> GetTodayRates(params string[] currencyISONames)
+        public IList<NBRBCurrencyRate> GetTodayRates(params string[] currencyISONames)
         {
             return GetTodayRates(DateTime.Today, currencyISONames);
         }
 
-        private CurrencyRate ToCurrencyRate(DataRow row, DateTime date)
+        private NBRBCurrencyRate ToCurrencyRate(DataRow row, DateTime date)
         {
-            return CurrencyRate.Create((string) row[Names.ISOName], "BYR", (decimal) row[Names.Rate], date);
+            return new NBRBCurrencyRate
+            {
+                ISOName = (string) row[Names.ISOName], 
+                Rate = (decimal) row[Names.Rate],
+                Date = date
+            };
         }
 
         private IEnumerable<DataRow> GetCurrencyRatesRows(DateTime date)

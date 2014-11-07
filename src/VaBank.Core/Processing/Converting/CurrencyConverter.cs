@@ -28,8 +28,12 @@ namespace VaBank.Core.Processing.Converting
             if (converting.From.ISOName == converting.To.ISOName)
                 throw new InvalidOperationException("Can't convert currency to same type.");
 
-            var currencyRate = _currencyRateRepository.GetRate(new CurrencyNamePair(converting.To.ISOName, converting.From.ISOName), rateDate);
-            var resultAmount = converting.Amount * currencyRate.Rate;
+            var currencyRate =
+                _currencyRateRepository.GetRate(new CurrencyNamePair(converting.To.ISOName, converting.From.ISOName),
+                    rateDate);
+            var resultAmount = string.CompareOrdinal(converting.From.ISOName, converting.To.ISOName) > 1
+                ? converting.Amount*currencyRate.BuyingRate
+                : converting.Amount*currencyRate.SellingRate;
 
             return new CurrencyConvertingResult
             {
