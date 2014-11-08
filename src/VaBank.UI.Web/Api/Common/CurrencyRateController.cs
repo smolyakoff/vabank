@@ -3,7 +3,7 @@ using System.Web.Http;
 using VaBank.Services.Contracts.Processing;
 using VaBank.Services.Contracts.Processing.Queries;
 
-namespace VaBank.UI.Web.Api.Customer
+namespace VaBank.UI.Web.Api.Common
 {
     [RoutePrefix("api/currencies/rates")]
     public class CurrencyRateController : ApiController
