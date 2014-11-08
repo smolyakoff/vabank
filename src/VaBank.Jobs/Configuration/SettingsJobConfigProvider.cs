@@ -23,7 +23,7 @@ namespace VaBank.Jobs.Configuration
             return _settingRepository.GetOrDefault<TJobConfig>(GetKey(jobName));
         }
 
-        private string GetKey(string jobName)
+        private static string GetKey(string jobName)
         {
             return string.Format(SettingKey, jobName);
         }

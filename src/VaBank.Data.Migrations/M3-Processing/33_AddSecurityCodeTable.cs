@@ -2,7 +2,7 @@
 using FluentMigrator;
 using Newtonsoft.Json;
 
-namespace VaBank.Data.Migrations.M3_Processing
+namespace VaBank.Data.Migrations
 {
     [Migration(33, "Added security code table to store sms security codes.")]
     [Tags("Development", "Test", "Production")]

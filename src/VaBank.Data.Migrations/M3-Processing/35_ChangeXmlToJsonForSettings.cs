@@ -5,7 +5,7 @@ using FluentMigrator;
 using Newtonsoft.Json;
 using Formatting = Newtonsoft.Json.Formatting;
 
-namespace VaBank.Data.Migrations.M3_Processing
+namespace VaBank.Data.Migrations
 {
     [Migration(35, "Changed xml column to json for [App].[Setting]")]
     [Tags("Development", "Test", "Production")]
