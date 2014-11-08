@@ -148,7 +148,6 @@
     <Compile Include="Membership\Models\UserIdentityModel.cs" />
     <Compile Include="Membership\Queries\UsersQuery.cs" />
     <Compile Include="Processing\Queries\CurrencyRateQuery.cs" />
-    <Compile Include="Processing\Queries\TodayCurrencyRateQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Validation\ValidationException.cs" />
   </ItemGroup>

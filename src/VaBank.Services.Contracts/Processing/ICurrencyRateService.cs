@@ -9,7 +9,6 @@ namespace VaBank.Services.Contracts.Processing
         void UpdateRates();
         CurrencyRatesLookupModel GetAllTodayRates();
         CurrencyRatesLookupModel GetAllRates(DateTime date);
-        CurrencyRateModel GetTodayRate(TodayCurrencyRateQuery query);
         CurrencyRateModel GetRate(CurrencyRateQuery query);
     }
 }

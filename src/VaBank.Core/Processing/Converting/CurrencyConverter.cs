@@ -1,15 +1,17 @@
 ﻿using System;
+using VaBank.Common.Data;
+using VaBank.Common.Data.Repositories;
 using VaBank.Common.IoC;
-using VaBank.Core.Processing.Repositories;
+using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Core.Processing.Converting
 {
     [Injectable]
     public class CurrencyConverter
     {
-        private readonly ICurrencyRateRepository _currencyRateRepository;
+        private readonly IQueryRepository<CurrencyRate> _currencyRateRepository;
 
-        public CurrencyConverter(ICurrencyRateRepository currencyRateRepository)
+        public CurrencyConverter(IQueryRepository<CurrencyRate> currencyRateRepository)
         {
             if (_currencyRateRepository == null)
                 throw new ArgumentNullException("currencyRateRepository");
@@ -29,11 +31,12 @@ namespace VaBank.Core.Processing.Converting
                 throw new InvalidOperationException("Can't convert currency to same type.");
 
             var currencyRate =
-                _currencyRateRepository.GetRate(new CurrencyNamePair(converting.To.ISOName, converting.From.ISOName),
-                    rateDate);
+                _currencyRateRepository.QueryOne(DbQuery.For<CurrencyRate>().FilterBy(x =>
+                    x.From.ISOName == converting.From.ISOName && x.To.ISOName == converting.To.ISOName &&
+                    x.TimestampUtc.Date == rateDate));
             var resultAmount = string.CompareOrdinal(converting.From.ISOName, converting.To.ISOName) > 1
-                ? converting.Amount*currencyRate.BuyingRate
-                : converting.Amount*currencyRate.SellingRate;
+                ? converting.Amount*currencyRate.BuyRate
+                : converting.Amount*currencyRate.SellRate;
 
             return new CurrencyConvertingResult
             {

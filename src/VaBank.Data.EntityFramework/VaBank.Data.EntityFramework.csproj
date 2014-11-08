@@ -89,6 +89,7 @@
     <Compile Include="Membership\Mappings\UserMap.cs" />
     <Compile Include="Membership\Mappings\UserProfileMap.cs" />
     <Compile Include="Common\Repository`1.cs" />
+    <Compile Include="Processing\Mappings\CurrencyRateMap.cs" />
     <Compile Include="VaBankContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -10,30 +10,30 @@ namespace VaBank.UI.Web.Api.Common
     {
         private readonly ICurrencyRateService _currencyRateService;
 
-        [Route]
+        public CurrencyRateController(ICurrencyRateService currencyRateService)
+        {
+            if (currencyRateService == null)
+                throw new ArgumentNullException("currencyRateService");
+            _currencyRateService = currencyRateService;
+        }
+
+        [Route("today")]
         [HttpGet]        
         public IHttpActionResult GetAllTodayRates()
         {
             return Ok(_currencyRateService.GetAllTodayRates());
         }
 
-        [Route("{date:datetime}")]
+        [Route("lookup/{date:datetime}")]
         [HttpGet]
         public IHttpActionResult GetAllRates([FromUri]DateTime date)
         {
             return Ok(_currencyRateService.GetAllRates(date));
         }
 
-        [Route("from/{buyingCurrencyISOName:alpha}/to/{sellingCurrencyISOName:alpha}")]
+        [Route()]
         [HttpGet]
-        public IHttpActionResult GetTodayRate([FromUri]TodayCurrencyRateQuery query)
-        {
-            return Ok(_currencyRateService.GetTodayRate(query));
-        }
-
-        [Route("{date:datetime}/from/{buyingCurrencyISOName:alpha}/to/{sellingCurrencyISOName:alpha}")]
-        [HttpGet]
-        public IHttpActionResult GetRate([FromUri]CurrencyRateQuery query)
+        public IHttpActionResult Get(CurrencyRateQuery query)
         {
             return Ok(_currencyRateService.GetRate(query));
         }

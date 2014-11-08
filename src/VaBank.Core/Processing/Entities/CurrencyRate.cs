@@ -1,48 +1,50 @@
 ﻿using System;
+using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Common;
 
 namespace VaBank.Core.Processing.Entities
 {
-    public class CurrencyRate : Entity
+    public class CurrencyRate : Entity<Guid>
     {
         protected CurrencyRate() { }
 
-        public string FromISOName { get; protected set; }
+        public Currency From { get; protected set; }
 
-        public string ToISOName { get; protected set; }
+        public Currency To { get; protected set; }
 
-        public decimal BuyingRate { get; protected set; }
+        public decimal BuyRate { get; protected set; }
 
-        public decimal SellingRate { get; protected set; }
+        public decimal SellRate { get; protected set; }
 
         public DateTime TimestampUtc { get; protected set; }
 
-        public static CurrencyRate Create(string fromISOName, string toISOName, 
-            decimal buyingRate, decimal sellingRate, DateTime timeStampUtc)
-        {
-            if (string.IsNullOrEmpty(fromISOName))
-                throw new ArgumentNullException("fromISOName");
-            if (string.IsNullOrEmpty(toISOName))
-                throw new ArgumentNullException("toISOName");
+        public bool IsActual { get; protected set; }
 
-            if (string.CompareOrdinal(fromISOName, toISOName) > 1)
+        public static CurrencyRate Create(Currency from, Currency to, 
+            decimal buyingRate, decimal sellingRate, DateTime timeStampUtc, bool isActual)
+        {
+            if (from == null)
+                throw new ArgumentNullException("from");
+            if (to == null)
+                throw new ArgumentNullException("to");
+            if (from.ISOName == to.ISOName)
+                throw new InvalidOperationException("Can't create rate to same currency type.");
+
+            if (string.CompareOrdinal(from.ISOName, to.ISOName) > 1)
             {
-                return new CurrencyRate
-                {
-                    BuyingRate = buyingRate,
-                    SellingRate = sellingRate,
-                    FromISOName = toISOName,
-                    ToISOName = fromISOName,
-                    TimestampUtc = timeStampUtc
-                };
+                var temp = to;
+                to = from;
+                from = temp;
             }
             return new CurrencyRate
             {
-                BuyingRate = buyingRate,
-                SellingRate = sellingRate,
-                FromISOName = fromISOName,
-                ToISOName = toISOName,
-                TimestampUtc = timeStampUtc
+                BuyRate = buyingRate,
+                SellRate = sellingRate,
+                From = from,
+                To = to,
+                TimestampUtc = timeStampUtc,
+                Id = Guid.NewGuid(),
+                IsActual = isActual
             };
         }
     }
