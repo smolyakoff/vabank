@@ -1,19 +1,94 @@
 ﻿<section class="row">
-    <div class="col-xs-3 col-md-3">
+    <div class="hidden-xs hidden-sm hidden-md col-lg-3">
         <div class="panel tile azure">
-            <div class="panel-body">
-                Профиль
+            <div class="panel-heading">
+                <h4 class="title">Профиль</h4>
+            </div>
+            <div class="panel-body tile-body">
+                <div class="img-center">
+                    <img class="img img-responsive profile-logo" src="/Client/app/images/icons/common/profile.png">
+                </div>
+            </div>
+            <div class="footer-default text-center">
+                <a class="action-link text-white" data-ui-sref="customer.profile.edit">
+                    Шумилова Наталья
+                </a>
             </div>
         </div>
     </div>
-    <div class="col-xs-6 col-md-6">
-        <div class="panel tile light-grey">
-            <div class="panel-body">
-                Карты
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="panel tile light-gray">
+            <div class="panel-heading">
+                <h4 class="title">Платежные карты</h4>
+            </div>
+            <div class="panel-body tile-body">
+                <carousel class="cards-carousel">
+                    <slide>
+                        <div class="row active">
+                            <div class="col-xs-6">
+                                <div class="initialism screen-lg">
+                                    <span class="text-vinous">Дружеское имя </span>
+                                    <span class="text-darkgreen">987654__4236 </span>
+                                </div>
+                                <div class="img-center ">
+                                    <img class="img img-responsive card-logo" src="/Client/app/images/icons/cards/visa-curved-128px.png">
+                                </div>
+                                <div class="text-center screen-lg">
+                                    <p class="text-vinous">100.000 BYR</p>
+                                </div>
+                                <div class="footer-default text-center">
+                                    <a class="action-link text-darkgreen" data-ui-sref="customer.cards.transfer">
+                                        Перевод между картами
+                                        <i class="glyphicon glyphicon-chevron-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="initialism screen-lg">
+                                    <span class="text-vinous">Дружеское имя </span>
+                                    <span class="text-darkgreen">987654__4236 </span>
+                                </div>
+                                <div class="img-center">
+                                    <img class="img img-responsive card-logo" src="/Client/app/images/icons/cards/visa-curved-128px.png">
+                                </div>
+                                <div class="text-center screen-lg">
+                                    <p class="text-vinous">100.000 BYR</p>
+                                </div>
+                                <div class="footer-default text-center">
+                                    <a class="action-link text-darkgreen" data-ui-sref="customer.cards.transfer">
+                                        Перевод между картами
+                                        <i class="glyphicon glyphicon-chevron-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </slide>
+                    <slide>
+                        <div class="row">
+                            <div class="initialism screen-md">
+                                <span class="text-vinous">Дружеское имя </span>
+                                <span class="text-darkgreen">987654__4236 </span>
+                            </div>
+                            <div class="img-center">
+                                <img class="img img-responsive card-logo" src="/Client/app/images/icons/cards/visa-curved-128px.png">
+                            </div>
+                            <div class="text-center screen-lg">
+                                <p class="text-vinous">100.000 BYR</p>
+                            </div>
+                            <div class="footer text-center">
+                                <a class="action-link text-darkgreen" data-ui-sref="customer.cards.transfer">
+                                    Перевод между картами
+                                    <i class="glyphicon glyphicon-chevron-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </slide>
+                </carousel>
             </div>
         </div>
     </div>
-    <div class="col-xs-3 col-md-3">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3">
         <div class="panel tile vinous">
             <div class="panel-heading">
                 <h4 class="title">Курсы валют</h4>
@@ -59,9 +134,11 @@
 </section>
 <section class="row">
     <div class="col-xs-9 col-md-9">
-        <div class="panel tile grey">
+        <div class="panel tile gray">
+            <div class="panel-heading">
+                <h4 class="title">Платежи</h4>
+            </div>
             <div class="panel-body">
-                Платежи
             </div>
         </div>
     </div>
