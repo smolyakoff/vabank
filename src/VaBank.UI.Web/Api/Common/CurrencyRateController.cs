@@ -17,7 +17,7 @@ namespace VaBank.UI.Web.Api.Common
             _currencyRateService = currencyRateService;
         }
 
-        [Route("today")]
+        [Route("lookup/today")]
         [HttpGet]        
         public IHttpActionResult GetAllTodayRates()
         {
