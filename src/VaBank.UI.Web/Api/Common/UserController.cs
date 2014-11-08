@@ -26,46 +26,6 @@ namespace VaBank.UI.Web.Api.Common
         }
 
         [HttpGet]
-        [Route]
-        [Authorize(Roles = "Admin")]
-        public IHttpActionResult Get(UsersQuery query)
-        {
-            var page = _userService.GetUsers(query);
-            return Ok(page);
-        }
-
-        [HttpGet]
-        [Route("{id}", Name = "GetUser")]
-        [Authorize(Roles = "Admin")]
-        public IHttpActionResult Get([FromUri] IdentityQuery<Guid> query)
-        {
-            var user = _userService.GetUser(query);
-            return user == null ? (IHttpActionResult)NotFound() : Ok(user);
-        }
-
-        [HttpPost]
-        [Route("")]
-        [Authorize(Roles = "Admin")]
-        [Transaction]
-        public IHttpActionResult Create(CreateUserCommand command)
-        {
-            var user = _userService.CreateUser(command);
-            return Created(Url.Route("GetUser", new {id = user.UserId}), user);
-        }
-
-        [HttpPut]
-        [Route("{id}")]
-        [Authorize(Roles = "Admin")]
-        [Transaction]
-        public IHttpActionResult Update([FromUri]Guid id, UpdateUserCommand command)
-        {
-            command.UserId = id;
-            _userService.UpdateUser(command);
-            return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
-        }
-
-
-        [HttpGet]
         [Route("{id}/profile")]
         public IHttpActionResult GetProfile([FromUri] IdentityQuery<Guid> query)
         {

@@ -7,11 +7,11 @@ namespace VaBank.UI.Web.Api.Admin
 {
     [RoutePrefix("api/cards")]
     [Authorize(Roles = "Admin")]
-    public class CardController : ApiController
+    public class CardAdminController : ApiController
     {
         private readonly ICardAccountService _cardAccountService;
 
-        public CardController(ICardAccountService cardAccountService)
+        public CardAdminController(ICardAccountService cardAccountService)
         {
             if (cardAccountService == null)
             {

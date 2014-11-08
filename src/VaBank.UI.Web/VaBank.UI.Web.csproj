@@ -227,6 +227,7 @@
     <Content Include="Client\app\areas\admin\user-management\user-list-ctrl.js" />
     <Content Include="Client\app\areas\admin\user-management\user-management-service.js" />
     <Content Include="Client\app\areas\admin\user-management\user-list.html" />
+    <Content Include="Client\app\areas\customer\security-code-service.js" />
     <Content Include="Client\app\areas\customer\my-cards\customer-card-ctrl.js" />
     <Content Include="Client\app\areas\customer\my-cards\limits-form.html" />
     <Content Include="Client\app\areas\customer\my-cards\my-cards-list-ctrl.js" />
@@ -293,6 +294,8 @@
     <Content Include="Client\app\modules\vabank-ui\directives\vb-confirm.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-currency.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-datepicker.js" />
+    <Content Include="Client\app\modules\vabank-ui\filters\exp-date.js" />
+    <Content Include="Client\app\modules\vabank-ui\filters\card-number.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\string-format.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\ext-currency.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\truncate.js" />
@@ -1160,15 +1163,17 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\Admin\CardAccountController.cs" />
+    <Compile Include="Api\Admin\CardAccountAdminController.cs" />
     <Compile Include="Api\Admin\AuditLogController.cs" />
-    <Compile Include="Api\Admin\CardController.cs" />
+    <Compile Include="Api\Admin\CardAdminController.cs" />
     <Compile Include="Api\Admin\SystemLogController.cs" />
     <Compile Include="Api\Admin\MaintenanceController.cs" />
+    <Compile Include="Api\Admin\UserAdminController.cs" />
     <Compile Include="Api\Common\UserController.cs" />
     <Compile Include="Api\Common\ValidationController.cs" />
-    <Compile Include="Api\Customer\CurrencyRateController.cs" />
+    <Compile Include="Api\Common\CurrencyRateController.cs" />
     <Compile Include="Api\Customer\CustomerCardController.cs" />
+    <Compile Include="Api\Customer\SecurityCodeController.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankAuthorizationServerProvider.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankRefreshTokenProvider.cs" />
     <Compile Include="Api\Infrastructure\Converters\HttpServiceErrorConverter.cs" />
