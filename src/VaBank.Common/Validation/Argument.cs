@@ -49,9 +49,22 @@ namespace VaBank.Common.Validation
             }
         }
 
+        public static void Satisfies<T>(T value, Func<T, bool> condition, string paramName = "", string violationMessage = "")
+        {
+            if (!condition(value))
+            {
+                violationMessage = violationMessage ?? string.Empty;
+                paramName = paramName ?? string.Empty;
+                throw new ArgumentException(violationMessage, paramName);
+            }
+        }
+
         public static void NotEmpty(string argument, string argumentName)
         {
-            EnsureIsValid<NotEmptyValidator, string>(argument, argumentName);
+            if (string.IsNullOrEmpty(argument))
+            {
+                throw new ArgumentException("Argument is not expected ");
+            }
         }
 
         public T SafeSet<T, TValidator>(T value, out T field)

@@ -14,6 +14,7 @@ namespace VaBank.Data.EntityFramework.Accounting.Mappings
             Property(x => x.OpenDateUtc).IsRequired();
             Property(x => x.ExpirationDateUtc).IsRequired();
             Property(x => x.Type).IsRequired();
+            Property(x => x.RowVersion).IsRowVersion();
 
             HasRequired(x => x.Currency).WithMany().Map(x => x.MapKey("CurrencyISOName"));
         }

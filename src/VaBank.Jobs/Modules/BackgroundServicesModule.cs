@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using System;
+using AutoMapper;
 using VaBank.Common.Events;
 using VaBank.Jobs.Common;
 using VaBank.Jobs.Configuration;
@@ -21,9 +22,17 @@ namespace VaBank.Jobs.Modules
 
         protected override void Load(ContainerBuilder builder)
         {
+            //Modules
             builder.RegisterModule<CoreModule>();
             builder.RegisterModule<DataAccessModule>();
             builder.RegisterModule<ServicesModule>();
+
+            //Automapper profiles
+            builder.RegisterAssemblyTypes(typeof(BaseJob<>).Assembly)
+                .Where(t => typeof(Profile).IsAssignableFrom(t) && !t.IsAbstract)
+                .As<Profile>()
+                .SingleInstance();
+
             builder.RegisterInstance(_serviceBus)
                 .AsImplementedInterfaces();
             builder.RegisterAssemblyTypes(ThisAssembly)

@@ -8,12 +8,13 @@ namespace VaBank.Services.Common.Security
     {
         public UserCommandValidator(VaBankIdentity identity) : base(identity)
         {
+            Inherit(new AuthenticatedSecurityValidator(identity));
             Custom(IsSecure);
         }
 
         private ValidationFailure IsSecure(IUserCommand command)
         {
-            if (Identity.UserId.HasValue && Identity.IsInRole(UserClaim.Roles.Customer) && command.UserId != Identity.UserId)
+            if (Identity.IsInRole(UserClaim.Roles.Customer) && command.UserId != Identity.UserId)
             {
                 return new ValidationFailure(RootPropertyName, Messages.InsufficientRights);
             }

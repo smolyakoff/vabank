@@ -46,6 +46,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid.SmtpApi">
+      <HintPath>..\..\packages\SendGrid.SmtpApi.1.1.3\lib\net40\SendGrid.SmtpApi.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGridMail">
+      <HintPath>..\..\packages\Sendgrid.5.0.0\lib\SendGridMail.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -56,6 +66,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Twilio.Api, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Twilio.3.6.20\lib\3.5\Twilio.Api.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\AccountingProfile.cs" />
@@ -69,9 +83,24 @@
     </Compile>
     <Compile Include="Common\Security\MethodCallDenied.cs" />
     <Compile Include="Common\Security\RoleSecurityValidator.cs" />
+    <Compile Include="Common\Security\CodeSecurityValidator.cs" />
     <Compile Include="Common\Security\SecurityValidator%271.cs" />
     <Compile Include="Common\Security\SecurityValidatorException.cs" />
     <Compile Include="Common\Security\UserCommandValidator.cs" />
+    <Compile Include="Infrastructure\Email\EmailService.cs" />
+    <Compile Include="Infrastructure\Email\EmailServiceDependencies.cs" />
+    <Compile Include="Infrastructure\Email\SendGridClientFactory.cs" />
+    <Compile Include="Infrastructure\Email\SendGridClientSettings.cs" />
+    <Compile Include="Infrastructure\InfrastructureProfile.cs" />
+    <Compile Include="Infrastructure\Sms\SmsLogger.cs" />
+    <Compile Include="Infrastructure\Sms\SmsLoggerSettings.cs" />
+    <Compile Include="Infrastructure\Sms\SmsModel.cs" />
+    <Compile Include="Infrastructure\Sms\SmsService.cs" />
+    <Compile Include="Infrastructure\Sms\SmsServiceDependencies.cs" />
+    <Compile Include="Infrastructure\Sms\SmsServiceSettings.cs" />
+    <Compile Include="Infrastructure\Sms\TwilioClientFactory.cs" />
+    <Compile Include="Infrastructure\Sms\TwilioClientSettings.cs" />
+    <Compile Include="Processing\NBRBCurrencyRate.cs" />
     <Compile Include="Processing\NBRBServiceClient.cs" />
     <Compile Include="Accounting\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -87,7 +116,7 @@
     <Compile Include="Common\IDependencyCollection.cs" />
     <Compile Include="Common\ServiceExtensions.cs" />
     <Compile Include="Common\VaBankIdentity.cs" />
-    <Compile Include="Common\Validation\ValidationService.cs" />
+    <Compile Include="Infrastructure\Validation\ValidationService.cs" />
     <Compile Include="Maintenance\LogService.cs" />
     <Compile Include="Maintenance\MaintenanceExtensions.cs" />
     <Compile Include="Maintenance\MaintenanceProfile.cs" />

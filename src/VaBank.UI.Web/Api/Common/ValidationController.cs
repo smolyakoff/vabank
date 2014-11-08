@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web.Http;
 using VaBank.Services.Contracts.Common.Validation;
+using VaBank.Services.Contracts.Infrastructure;
+using VaBank.Services.Contracts.Infrastructure.Validation;
 
 namespace VaBank.UI.Web.Api.Common
 {
@@ -21,7 +23,7 @@ namespace VaBank.UI.Web.Api.Common
         [HttpPost]
         public IHttpActionResult Validate([FromUri]string name, [FromBody] object value)
         {
-            var request = new ValidationRequest {ValidatorName = name, Value = value};
+            var request = new ValidationCommand {ValidatorName = name, Value = value};
             var result = _validationService.Validate(request);
             if (result == null || !result.IsValidatorFound)
             {

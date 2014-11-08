@@ -3,7 +3,7 @@ using VaBank.Core.Common;
 
 namespace VaBank.Core.Membership.Entities
 {
-    public class UserProfile : Entity
+    public class UserProfile : Entity, IVersionedEntity
     {
         public UserProfile(Guid userId)
         {

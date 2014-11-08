@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function() {
     'use strict';
 
     angular.module('vabank.webapp')
@@ -40,7 +40,7 @@
                 templateUrl: '/Client/app/areas/customer/profile/profile-edit.html',
                 controller: 'profileEditController',
                 resolve: {
-                    data: ['profileService', function (profileService) {
+                    data: ['profileService', function(profileService) {
                         return profileService.Profile.get().$promise;
                     }]
                 }
@@ -77,7 +77,15 @@
             .state('customer.cards.transfer', {
                 url: '/transfer',
                 templateUrl: '/Client/app/areas/customer/my-cards/transfer.html',
-                controller: 'transferController'
+                controller: 'transferController',
+                resolve: {
+                    data: ['myCardsService', 'profileService', 'routingResolve',
+                        function (myCardsService, profileService, routingResolve) {
+                            var cards = myCardsService.Card.query().$promise;
+                            var profile = profileService.Profile.get().$promise;
+                            return routingResolve.resolveAll([cards, profile], ['cards', 'profile']);
+                        }]
+                }
             });
     }
 

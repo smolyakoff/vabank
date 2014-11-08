@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using Autofac;
 using AutoMapper;
 using FluentValidation;
 using System.Linq;
@@ -16,9 +17,29 @@ namespace VaBank.Jobs.Modules
     internal class ServicesModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
-        {            
+        {
+            //Register injectables
+            var injectables = typeof(BaseService).Assembly.GetTypes()
+                .Where(t => t.GetCustomAttribute<InjectableAttribute>() != null)
+                .Select(t => new { Lifetime = t.GetCustomAttribute<InjectableAttribute>().Lifetime, Type = t })
+                .ToList();
+
+            foreach (var injectable in injectables)
+            {
+                var registration = builder.RegisterType(injectable.Type).AsImplementedInterfaces().AsSelf();
+                switch (injectable.Lifetime)
+                {
+                    case Lifetime.Singleton:
+                        registration.SingleInstance();
+                        break;
+                    case Lifetime.PerDependency:
+                        registration.InstancePerDependency();
+                        break;
+                }
+            }
+
             //Register automapper profiles
-            builder.RegisterAssemblyTypes(typeof (BaseJob<>).Assembly)
+            builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
                 .Where(t => typeof (Profile).IsAssignableFrom(t) && !t.IsAbstract)
                 .As<Profile>()
                 .SingleInstance();

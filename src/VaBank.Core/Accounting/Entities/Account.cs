@@ -4,7 +4,7 @@ using VaBank.Core.Common;
 
 namespace VaBank.Core.Accounting.Entities
 {
-    public abstract class Account : Entity
+    public abstract class Account : Entity, IVersionedEntity
     {
         protected Account(Currency currency)
             :this()
@@ -29,5 +29,7 @@ namespace VaBank.Core.Accounting.Entities
         public DateTime ExpirationDateUtc { get; internal set; }
 
         public string Type { get; protected set; }
+
+        public byte[] RowVersion { get; protected set; }
     }
 }

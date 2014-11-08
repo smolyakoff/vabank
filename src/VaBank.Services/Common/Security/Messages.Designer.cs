@@ -68,5 +68,23 @@ namespace VaBank.Services.Common.Security {
                 return ResourceManager.GetString("InsufficientRights", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неверный код подтверждения операции..
+        /// </summary>
+        internal static string InvalidSecurityCode {
+            get {
+                return ResourceManager.GetString("InvalidSecurityCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не задан код подтверждения операции..
+        /// </summary>
+        internal static string MissingSecurityCode {
+            get {
+                return ResourceManager.GetString("MissingSecurityCode", resourceCulture);
+            }
+        }
     }
 }

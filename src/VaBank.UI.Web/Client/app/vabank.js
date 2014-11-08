@@ -4,6 +4,7 @@
         'ngResource',
         'ngSanitize',
         'ui.router',
+        'ui.mask',
         'LocalStorageModule',
         'ui.bootstrap',
         'ui.bootstrap.datetimepicker',
@@ -16,6 +17,7 @@
         'smart-table',
         'formFor', 
         'formFor.bootstrapTemplates',
+        'mgo-angular-wizard',
         
         'vabank.ui',
         'vabank.auth'

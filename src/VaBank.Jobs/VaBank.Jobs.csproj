@@ -106,6 +106,13 @@
     <Compile Include="Configuration\IJobConfigProvider.cs" />
     <Compile Include="Configuration\ReccuringJobConfig.cs" />
     <Compile Include="Configuration\SettingsJobConfigProvider.cs" />
+    <Compile Include="Infrastructure\SmsMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SmsMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\SmsNotificationJob.cs" />
+    <Compile Include="Infrastructure\SmsNotificationJobContext.cs" />
     <Compile Include="JobStartup.cs" />
     <Compile Include="Processing\UpdateCurrencyRatesJob.cs" />
     <Compile Include="Processing\UpdateCurrencyRatesJobContext.cs" />
@@ -124,7 +131,12 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Infrastructure\SmsMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SmsMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VaBank.Common\VaBank.Common.csproj">
       <Project>{e06fb03e-8249-4f94-9568-ec1247769273}</Project>

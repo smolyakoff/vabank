@@ -7,27 +7,42 @@ namespace VaBank.Core.Processing.Entities
     {
         protected CurrencyRate() { }
 
-        public string BuyingCurrencyISOName { get; protected set; }
+        public string FromISOName { get; protected set; }
 
-        public string SellingCurrencyISOName { get; protected set; }
+        public string ToISOName { get; protected set; }
 
-        public decimal Rate { get; set; }
+        public decimal BuyingRate { get; protected set; }
 
-        public DateTime Date { get; protected set; }
+        public decimal SellingRate { get; protected set; }
 
-        public static CurrencyRate Create(string buyingCurrencyISOName, string sellingCurrencyISOName, 
-            decimal rate, DateTime date)
+        public DateTime TimestampUtc { get; protected set; }
+
+        public static CurrencyRate Create(string fromISOName, string toISOName, 
+            decimal buyingRate, decimal sellingRate, DateTime timeStampUtc)
         {
-            if (string.IsNullOrEmpty(buyingCurrencyISOName))
-                throw new ArgumentNullException("buyingCurrencyISOName");
-            if (string.IsNullOrEmpty(sellingCurrencyISOName))
-                throw new ArgumentNullException("sellingCurrencyISOName");
+            if (string.IsNullOrEmpty(fromISOName))
+                throw new ArgumentNullException("fromISOName");
+            if (string.IsNullOrEmpty(toISOName))
+                throw new ArgumentNullException("toISOName");
+
+            if (string.CompareOrdinal(fromISOName, toISOName) > 1)
+            {
+                return new CurrencyRate
+                {
+                    BuyingRate = buyingRate,
+                    SellingRate = sellingRate,
+                    FromISOName = toISOName,
+                    ToISOName = fromISOName,
+                    TimestampUtc = timeStampUtc
+                };
+            }
             return new CurrencyRate
             {
-                BuyingCurrencyISOName = buyingCurrencyISOName,
-                SellingCurrencyISOName = sellingCurrencyISOName,
-                Date = date,
-                Rate = rate
+                BuyingRate = buyingRate,
+                SellingRate = sellingRate,
+                FromISOName = fromISOName,
+                ToISOName = toISOName,
+                TimestampUtc = timeStampUtc
             };
         }
     }

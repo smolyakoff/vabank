@@ -4,19 +4,19 @@ namespace VaBank.Core.Processing.Repositories
 {
     public class CurrencyNamePair
     {
-        public CurrencyNamePair(string buyingCurrencyISOName, string sellingCurrencyISOName)
+        public CurrencyNamePair(string fromISOName, string toISOName)
         {
-            if (string.IsNullOrEmpty(buyingCurrencyISOName))
-                throw new ArgumentNullException("buyingCurrencyISOName");
-            if (string.IsNullOrEmpty(sellingCurrencyISOName))
-                throw new ArgumentNullException("sellingCurrencyISOName");
+            if (string.IsNullOrEmpty(fromISOName))
+                throw new ArgumentNullException("fromISOName");
+            if (string.IsNullOrEmpty(toISOName))
+                throw new ArgumentNullException("toISOName");
 
-            BuyingCurrencyISOName = buyingCurrencyISOName;
-            SellingCurrencyISOName = sellingCurrencyISOName;
+            FromISOName = fromISOName;
+            ToISOName = toISOName;
         }
 
-        public string BuyingCurrencyISOName { get; protected set; }
+        public string FromISOName { get; protected set; }
 
-        public string SellingCurrencyISOName { get; protected set; }
+        public string ToISOName { get; protected set; }
     }
 }

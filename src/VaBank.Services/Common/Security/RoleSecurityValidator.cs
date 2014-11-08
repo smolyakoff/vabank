@@ -5,7 +5,7 @@ using VaBank.Core.Membership.Entities;
 
 namespace VaBank.Services.Common.Security
 {
-    public class RoleSecurityValidator<T> : AuthenticatedSecurityValidator<T>
+    public class RoleSecurityValidator : AuthenticatedSecurityValidator
     {
         private readonly string[] _roles;
 
@@ -17,7 +17,7 @@ namespace VaBank.Services.Common.Security
             Custom(HasRole);
         }
 
-        private ValidationFailure HasRole(T context)
+        private ValidationFailure HasRole(object context)
         {
             if (!_roles.Any(Identity.IsInRole))
             {
@@ -29,14 +29,14 @@ namespace VaBank.Services.Common.Security
 
     public static class RoleSecurity
     {
-        public static RoleSecurityValidator<T> AdminOnly<T>(T context, VaBankIdentity identity)
+        public static RoleSecurityValidator AdminOnly(VaBankIdentity identity)
         {
-            return new RoleSecurityValidator<T>(identity, UserClaim.Roles.Admin);
+            return new RoleSecurityValidator(identity, UserClaim.Roles.Admin);
         }
 
-        public static RoleSecurityValidator<T> CustomerOnly<T>(T context, VaBankIdentity identity)
+        public static RoleSecurityValidator CustomerOnly(VaBankIdentity identity)
         {
-            return new RoleSecurityValidator<T>(identity, UserClaim.Roles.Customer);
+            return new RoleSecurityValidator(identity, UserClaim.Roles.Customer);
         }
     }
 }

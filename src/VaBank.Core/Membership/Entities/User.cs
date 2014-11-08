@@ -9,7 +9,7 @@ using VaBank.Core.Common;
 
 namespace VaBank.Core.Membership.Entities
 {
-    public class User : Entity<Guid>
+    public class User : Entity<Guid>, IVersionedEntity
     {
         public static User Create(string userName, string roleName, string password)
         {

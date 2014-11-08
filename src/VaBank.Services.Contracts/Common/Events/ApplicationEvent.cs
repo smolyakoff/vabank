@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading;
-using VaBank.Common.Events;
+using Newtonsoft.Json;
 using VaBank.Services.Contracts.Membership.Models;
 
 namespace VaBank.Services.Contracts.Common.Events
 {
-    public abstract class ApplicationEvent : IEvent
+    public abstract class ApplicationEvent : IApplicationEvent
     {
         protected ApplicationEvent()
         {
@@ -14,8 +14,10 @@ namespace VaBank.Services.Contracts.Common.Events
             UserId = GetUserId();
         }
 
+        [JsonProperty]
         public DateTime TimestampUtc { get; protected set; }
 
+        [JsonProperty]
         public Guid? UserId { get; protected set; }
 
         private static Guid? GetUserId()

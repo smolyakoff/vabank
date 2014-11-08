@@ -1,0 +1,26 @@
+﻿<div class="field radio-field" style="display: inline-block;">
+    <!--<field-error ng-if="!hideErrorMessage"
+                 error="model.error"
+                 left-aligned="true"
+                 uid="{{uid}}-error">
+    </field-error>-->
+
+    <label class="paper-radio" ng-class="{disabled: disable || model.disabled, 'has-error': model.error}">
+        <input aria-manager
+               id="{{uid}}"
+               type="radio"
+               name="{{attribute}}"
+               tabindex="{{tabIndex}}"
+               ng-model="model.bindable"
+               ng-value="value"
+               data-ng-disabled="disable || model.disabled">
+        <span class="outer"><span class="inner"></span></span>
+        <field-label class="radio-label"
+                     ng-if="label"
+                     input-uid="{{uid}}"
+                     uid="{{uid}}-label"
+                     label="{{label}}"
+                     help="{{help}}">
+        </field-label>
+    </label>
+</div>

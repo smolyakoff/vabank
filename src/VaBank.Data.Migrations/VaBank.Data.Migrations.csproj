@@ -95,7 +95,10 @@
     <Compile Include="M3-Processing\31_AddPrecisionToCurrency.cs" />
     <Compile Include="M3-Processing\32_SeedUpdateCurrencyRatesJobSetting.cs" />
     <Compile Include="M3-Processing\33_AddSecurityCodeTable.cs" />
-    <Compile Include="M3-Processing\34_AddExchangeRateTable.cs" />
+	<Compile Include="M3-Processing\34_AddExchangeRateTable.cs" />
+	<Compile Include="M3-Processing\35_ChangeXmlToJsonForSettings.cs" />
+    <Compile Include="M3-Processing\36_SmsAndEmailSettings_Prod.cs" />
+    <Compile Include="M3-Processing\36_SmsAndEmailSettings_Dev.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,9 +136,6 @@
   <ItemGroup>
     <EmbeddedResource Include="M2-Accounting\PROC_CurrentTransactionId_Azure.sql" />
     <EmbeddedResource Include="M2-Accounting\PROC_CurrentTransactionId.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="M3-Processing\AddConstraintToExchangeRate.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

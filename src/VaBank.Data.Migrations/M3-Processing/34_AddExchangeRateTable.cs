@@ -16,13 +16,15 @@ namespace VaBank.Data.Migrations
         {
             Create.Schema(SchemaName);
             Create.Table("ExchangeRate").InSchema(SchemaName)
-                .WithColumn("ExchangeRateID").AsGuid().PrimaryKey("PK_Currency")
+                .WithColumn("ExchangeRateID").AsGuid().PrimaryKey("PK_ExchangeRate")
                 .WithColumn("FromCurrencyISOName").AsCurrencyISOName().ForeignKey("FK_ExchangeRate_To_FromCurrency", "Accounting", "Currency", "CurrencyISOName")
                 .WithColumn("ToCurrencyISOName").AsCurrencyISOName().ForeignKey("FK_ExchangeRate_To_ToCurrency", "Accounting", "Currency", "CurrencyISOName")
                 .WithColumn("BuyRate").AsDecimal().NotNullable()
                 .WithColumn("SellRate").AsDecimal().NotNullable()
                 .WithColumn("TimeStampUtc").AsDateTime().NotNullable()
                 .WithColumn("IsActual").AsBoolean().NotNullable().Indexed("IX_IsActual");
+
+            Execute.Sql("ALTER TABLE [Processing].[ExchangeRate] ADD CONSTRAINT UQ_FromToCurrencyTimeStamp UNIQUE(FromCurrencyISOName, ToCurrencyISOName, TimeStampUtc);");
         }
     }
 }
