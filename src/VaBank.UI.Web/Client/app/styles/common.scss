@@ -23,23 +23,23 @@ img.center {
 }
 
 .tile {
-    height: 300px;
+    height: 250px;
     color: #ffffff;
 
     &.blue {
         background: #0d73c2;
     }
 
-    &.grey {
+    &.gray {
         background: #cccccc;
     }
 
     &.azure {
-        background: #88b8f8;
+        background: $brand-primary;
     }
 
-    &.light-grey {
-        background: #e5e1e1;
+    &.light-gray {
+        background: $state-warning-bg;
     }
 
     &.vinous {
@@ -48,7 +48,7 @@ img.center {
 
     .title {
         margin-top: 0;
-        color: inherit;
+        color: white;
     }
 
     .table-condensed {
@@ -109,6 +109,11 @@ img.center {
 
     .footer {
         padding: 15px;
+        font-size: 14px;
+    }
+
+    .footer-default {
+        padding: 5px;
         font-size: 14px;
     }
 }

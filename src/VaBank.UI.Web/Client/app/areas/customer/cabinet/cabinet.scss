@@ -3,7 +3,7 @@
 }
 
 .consultant {
-    background-image: url("/Client/app/images/icons/consultant/consultant.png");
+    background-image: url("/Client/app/images/icons/common/consultant.png");
     background-position: 100% 100%;
     background-repeat: no-repeat;
     height: 100%;
@@ -17,4 +17,62 @@
         font-size: 20px;
         margin: auto;
     }
+}
+
+.cards-carousel {
+    .carousel-control.left {
+        background-image: inherit;
+        color: black;
+    }
+
+    .carousel-control.right {
+        background-image: inherit;
+        color: black;
+    }
+
+    .carousel-indicators {
+        display: none;
+    }
+
+    .card-logo {
+        max-height: 64px;
+        margin: auto;
+    }
+
+    .screen-lg {
+        font-size: 18px;
+    }
+
+    .screen-md {
+        font-size: 12px;
+    }
+
+    .carousel-control .glyphicon-chevron-left {
+        margin-top: -35px;
+    }
+
+    .carousel-control .glyphicon-chevron-right {
+        margin-top: -35px;
+    }
+
+    .text-vinous {
+        margin: 0;
+    }
+}
+
+.text-vinous {
+    color: #851313;
+}
+
+.text-darkgreen {
+    color: darkgreen;
+}
+
+.text-white {
+    color: white;
+}
+
+.profile-logo {
+    max-height: 124px;
+    margin: auto;
 }
