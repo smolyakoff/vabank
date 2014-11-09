@@ -13,6 +13,7 @@
         'cfp.loadingBar',
         'ajoslin.promise-tracker',
         'angularSpinner',
+        'angularMoment',
         'multi-select',
         'smart-table',
         'formFor', 

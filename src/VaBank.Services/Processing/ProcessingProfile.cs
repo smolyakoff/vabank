@@ -9,8 +9,8 @@ namespace VaBank.Services.Processing
         protected override void Configure()
         {
             CreateMap<ExchangeRate, ExchangeRateModel>()
-                .ForMember(x => x.BaseCurrencyISOName, cfg => cfg.MapFrom(x => x.Base.ISOName))
-                .ForMember(x => x.ForeignCurrencyISOName, cfg => cfg.MapFrom(x => x.Foreign.ISOName));
+                .ForMember(x => x.BaseCurrency, cfg => cfg.MapFrom(x => x.Base))
+                .ForMember(x => x.ForeignCurrency, cfg => cfg.MapFrom(x => x.Foreign));
         }
     }
 }

@@ -257,6 +257,8 @@
     <Content Include="Client\app\areas\global\errors\500.html" />
     <Content Include="Client\app\areas\global\errors\http-error-notifier-interceptor.js" />
     <Content Include="Client\app\areas\global\errors\error-resources.js" />
+    <Content Include="Client\app\areas\global\exchange-rates\exchange-rate-service.js" />
+    <Content Include="Client\app\areas\global\exchange-rates\local-rates-widget-ctrl.js" />
     <Content Include="Client\app\areas\global\home-ctrl.js" />
     <Content Include="Client\app\areas\global\routing\routing-interceptor.js" />
     <Content Include="Client\app\areas\global\config\routes.js" />
@@ -494,6 +496,12 @@
     <Content Include="Client\bower_components\angular-local-storage\LICENSE" />
     <Content Include="Client\bower_components\angular-local-storage\package.json" />
     <Content Include="Client\bower_components\angular-local-storage\README.md" />
+    <Content Include="Client\bower_components\angular-moment\.gitignore" />
+    <Content Include="Client\bower_components\angular-moment\angular-moment.js" />
+    <Content Include="Client\bower_components\angular-moment\angular-moment.min.js" />
+    <Content Include="Client\bower_components\angular-moment\Gruntfile.js" />
+    <Content Include="Client\bower_components\angular-moment\karma.conf.js" />
+    <Content Include="Client\bower_components\angular-moment\tests.js" />
     <Content Include="Client\bower_components\angular-promise-tracker\.bower.json" />
     <Content Include="Client\bower_components\angular-promise-tracker\.editorconfig" />
     <Content Include="Client\bower_components\angular-promise-tracker\.gitignore" />
@@ -1151,6 +1159,17 @@
     <Content Include="Client\bower_components\angular-ui-utils\.travis.yml" />
     <Content Include="Client\bower_components\angular-ui-utils\bower.json" />
     <Content Include="Client\bower_components\angular-ui-utils\CHANGELOG.md" />
+    <Content Include="Client\bower_components\angular-moment\.bower.json" />
+    <Content Include="Client\bower_components\angular-moment\.editorconfig" />
+    <Content Include="Client\bower_components\angular-moment\.jshintrc" />
+    <Content Include="Client\bower_components\angular-moment\.npmignore" />
+    <Content Include="Client\bower_components\angular-moment\.travis.yml" />
+    <Content Include="Client\bower_components\angular-moment\angular-moment.min.js.map" />
+    <Content Include="Client\bower_components\angular-moment\bower.json" />
+    <Content Include="Client\bower_components\angular-moment\CHANGELOG.md" />
+    <Content Include="Client\bower_components\angular-moment\CONTRIBUTING.md" />
+    <Content Include="Client\bower_components\angular-moment\package.json" />
+    <Content Include="Client\bower_components\angular-moment\README.md" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>

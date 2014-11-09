@@ -147,7 +147,6 @@
     <Compile Include="Membership\Models\UserBriefModel.cs" />
     <Compile Include="Membership\Models\UserIdentityModel.cs" />
     <Compile Include="Membership\Queries\UsersQuery.cs" />
-    <Compile Include="Processing\Models\ExchangeRatesTableModel.cs" />
     <Compile Include="Processing\Queries\CurrencyRateQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Validation\ValidationException.cs" />

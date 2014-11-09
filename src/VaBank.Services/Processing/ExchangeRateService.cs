@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting;
 using VaBank.Common.Validation;
@@ -24,12 +25,12 @@ namespace VaBank.Services.Processing
             _settings = new ExchangeRateServiceSettings();
         }
 
-        public ExchangeRatesTableModel GetLocalCurrencyRates()
+        public IList<ExchangeRateModel> GetLocalCurrencyRates()
         {
             try
             {
                 var rates = _deps.ExchangeRates.GetAllActual(_settings.NationalCurrencyISOName);
-                return new ExchangeRatesTableModel(rates.Map<ExchangeRate, ExchangeRateModel>().ToList());
+                return rates.Map<ExchangeRate, ExchangeRateModel>().ToList();
             }
             catch (Exception ex)
             {

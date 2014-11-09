@@ -51,12 +51,11 @@ img.center {
         background: #851313;
     }
 
-    .tile-spinner {
-        padding: 15px 0 0 0;
-    }
-
-    .spinner {
-        right: 15px;
+    .spinner-container {
+        padding-top: 25px;
+        .spinner {
+            right: 20px;
+        }
     }
 
     .title {

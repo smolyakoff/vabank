@@ -9,7 +9,7 @@ namespace VaBank.Data.Migrations
     {
         public override void Up()
         {
-            var timestamp = new DateTime(2014, 11, 7, 19, 0, 0);
+            var timestamp = new DateTime(2014, 11, 7, 19, 0, 0, 0, DateTimeKind.Utc);
             Insert.IntoTable("ExchangeRate").InSchema("Processing")
                 .Row(new
                 {

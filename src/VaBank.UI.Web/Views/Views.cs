@@ -73,6 +73,7 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("angular-loading-bar/build/loading-bar.js"))
                 .Add(BowerPath("angular-promise-tracker/promise-tracker.js"))
                 .Add(BowerPath("angular-spinner/angular-spinner.js"))
+                .Add(BowerPath("angular-moment/angular-moment.js"))
                 .Add(BowerPath("angular-toastr/dist/angular-toastr.js"))
                 .Add(BowerPath("angular-bootstrap-datetimepicker/src/js/datetimepicker.js"))
                 .Add(BowerPath("angular-date-time-input/src/dateTimeInput.js"))
