@@ -73,7 +73,7 @@
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardLookupModel.cs" />
     <Compile Include="Accounting\Models\CardModel.cs" />
-    <Compile Include="Processing\Models\CurrencyRateModel.cs" />
+    <Compile Include="Processing\Models\ExchangeRateModel.cs" />
     <Compile Include="Processing\Models\CurrencyRatesLookupModel.cs" />
     <Compile Include="Accounting\Models\UserCardModel.cs" />
     <Compile Include="Accounting\Models\CardAccountModel.cs" />
@@ -147,6 +147,7 @@
     <Compile Include="Membership\Models\UserBriefModel.cs" />
     <Compile Include="Membership\Models\UserIdentityModel.cs" />
     <Compile Include="Membership\Queries\UsersQuery.cs" />
+    <Compile Include="Processing\Models\ExchangeRatesTableModel.cs" />
     <Compile Include="Processing\Queries\CurrencyRateQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Validation\ValidationException.cs" />

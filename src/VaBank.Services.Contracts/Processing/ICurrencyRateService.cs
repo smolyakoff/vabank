@@ -1,14 +1,11 @@
-﻿using System;
-using VaBank.Services.Contracts.Processing.Models;
-using VaBank.Services.Contracts.Processing.Queries;
+﻿using VaBank.Services.Contracts.Processing.Models;
 
 namespace VaBank.Services.Contracts.Processing
 {
     public interface ICurrencyRateService
     {
+        ExchangeRatesTableModel GetLocalCurrencyRates();
+
         void UpdateRates();
-        CurrencyRatesLookupModel GetAllTodayRates();
-        CurrencyRatesLookupModel GetAllRates(DateTime date);
-        CurrencyRateModel GetRate(CurrencyRateQuery query);
     }
 }

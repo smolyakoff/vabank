@@ -7,5 +7,7 @@ namespace VaBank.Common.Data.Database
         DbDataAdapter CreateAdapter();
 
         DbCommand CreateCommand();
+
+        DbParameter CreateParameter();
     }
 }

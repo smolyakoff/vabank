@@ -95,10 +95,11 @@
     <Compile Include="M3-Processing\31_AddPrecisionToCurrency.cs" />
     <Compile Include="M3-Processing\32_SeedUpdateCurrencyRatesJobSetting.cs" />
     <Compile Include="M3-Processing\33_AddSecurityCodeTable.cs" />
-	<Compile Include="M3-Processing\34_AddExchangeRateTable.cs" />
-	<Compile Include="M3-Processing\35_ChangeXmlToJsonForSettings.cs" />
+    <Compile Include="M3-Processing\34_AddExchangeRateTable.cs" />
+    <Compile Include="M3-Processing\35_ChangeXmlToJsonForSettings.cs" />
     <Compile Include="M3-Processing\36_SmsAndEmailSettings_Prod.cs" />
     <Compile Include="M3-Processing\36_SmsAndEmailSettings_Dev.cs" />
+    <Compile Include="M3-Processing\37_SeedExchangeRates.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

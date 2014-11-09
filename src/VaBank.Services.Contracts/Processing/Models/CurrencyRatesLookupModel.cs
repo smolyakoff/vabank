@@ -4,6 +4,6 @@ namespace VaBank.Services.Contracts.Processing.Models
 {
     public class CurrencyRatesLookupModel
     {
-        public List<CurrencyRateModel> CurrencyRates { get; set; }
+        public List<ExchangeRateModel> CurrencyRates { get; set; }
     }
 }
