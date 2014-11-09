@@ -227,6 +227,8 @@
     <Content Include="Client\app\areas\admin\user-management\user-list-ctrl.js" />
     <Content Include="Client\app\areas\admin\user-management\user-management-service.js" />
     <Content Include="Client\app\areas\admin\user-management\user-list.html" />
+    <Content Include="Client\app\areas\customer\cabinet\cabinet-ctrl.js" />
+    <Content Include="Client\app\areas\customer\cabinet\cabinet-service.js" />
     <Content Include="Client\app\areas\customer\security-code-service.js" />
     <Content Include="Client\app\areas\customer\my-cards\customer-card-ctrl.js" />
     <Content Include="Client\app\areas\customer\my-cards\limits-form.html" />

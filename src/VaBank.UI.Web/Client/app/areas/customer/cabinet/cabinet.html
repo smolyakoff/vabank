@@ -2,14 +2,21 @@
     <div class="hidden-xs hidden-sm hidden-md col-lg-3">
         <div class="panel tile azure">
             <div class="panel-heading">
-                <h4 class="title">Профиль</h4>
+                <div class="row">
+                    <div class="col-xs-10">
+                        <h4 class="title">Профиль</h4>
+                    </div>
+                    <div class="col-xs-2" style="padding-left: 0; padding-right: 0;">
+                        <div class=" tile-spinner" data-us-spinner="{lines:7, radius:3, length: 4, width:4, color:'white', left:'initial'}"></div>
+                    </div>
+                </div>
             </div>
             <div class="panel-body tile-body">
                 <div class="img-center">
                     <img class="img img-responsive profile-logo" src="/Client/app/images/icons/common/profile.png">
                 </div>
             </div>
-            <div class="footer-default text-center">
+            <div class="footer-profile text-center">
                 <a class="action-link text-white" data-ui-sref="customer.profile.edit">
                     Шумилова Наталья
                 </a>
@@ -19,7 +26,14 @@
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <div class="panel tile light-gray">
             <div class="panel-heading">
-                <h4 class="title">Платежные карты</h4>
+                <div class="row">
+                    <div class="col-xs-10">
+                        <h4 class="title">Платежные карты</h4>
+                    </div>
+                    <div class="col-xs-2" style="padding-left: 0; padding-right: 0;">
+                        <div class=" tile-spinner" data-us-spinner="{lines:7, radius:3, length: 4, width:4, color:'white', left:'initial'}"></div>
+                    </div>
+                </div>
             </div>
             <div class="panel-body tile-body">
                 <carousel class="cards-carousel">
@@ -36,7 +50,7 @@
                                 <div class="text-center screen-lg">
                                     <p class="text-vinous">100.000 BYR</p>
                                 </div>
-                                <div class="footer-default text-center">
+                                <div class="footer-card text-center">
                                     <a class="action-link text-darkgreen" data-ui-sref="customer.cards.transfer">
                                         Перевод между картами
                                         <i class="glyphicon glyphicon-chevron-right"></i>
@@ -54,7 +68,7 @@
                                 <div class="text-center screen-lg">
                                     <p class="text-vinous">100.000 BYR</p>
                                 </div>
-                                <div class="footer-default text-center">
+                                <div class="footer-card text-center">
                                     <a class="action-link text-darkgreen" data-ui-sref="customer.cards.transfer">
                                         Перевод между картами
                                         <i class="glyphicon glyphicon-chevron-right"></i>
@@ -62,7 +76,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </slide>
                     <slide>
                         <div class="row">
@@ -143,7 +156,7 @@
         </div>
     </div>
     <div class="col-xs-3 col-md-3">
-        <div class="panel tile blue">
+        <div class="panel tile blue" id="consultant">
             <div class="consultant">
                 <div class="panel-heading">
                     <h4 class="title">VaBank - Консультант</h4>

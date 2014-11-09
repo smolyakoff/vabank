@@ -23,7 +23,7 @@ img.center {
 }
 
 .grid-center {
-    display:flex;
+    display: flex;
     align-items: center;
 }
 
@@ -51,6 +51,14 @@ img.center {
         background: #851313;
     }
 
+    .tile-spinner {
+        padding: 15px 0 0 0;
+    }
+
+    .spinner {
+        right: 15px;
+    }
+
     .title {
         margin-top: 0;
         color: white;
@@ -73,6 +81,15 @@ img.center {
     .footer {
         padding: 15px;
         font-size: 14px;
+    }
+
+    .footer-card {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .footer-profile {
+        font-size: 20px;
     }
 }
 
@@ -103,11 +120,6 @@ img.center {
         img {
             margin-right: 5px;
         }
-    }
-
-    .footer-default {
-        padding: 5px;
-        font-size: 14px;
     }
 }
 
