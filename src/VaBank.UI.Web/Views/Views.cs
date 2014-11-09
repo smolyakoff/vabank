@@ -56,12 +56,14 @@ namespace VaBank.UI.Web.Views
 
             bundle
                 .Add(BowerPath("moment/moment.js"))
+                .Add(BowerPath("moment/locale/ru.js"))
                 .Add(BowerPath("underscore/underscore.js"))
                 .Add(BowerPath("underscore-deep/underscore.deep.js"))
                 .Add(BowerPath("js-schema/js-schema.debug.js"))
                 .Add(BowerPath("spin.js/spin.js"))
                 .Add(NodePath("accounting/accounting.js"))
                 .Add(BowerPath("angular/angular.js"))
+                .Add(BowerPath("angular-i18n/angular-locale_ru.js"))
                 .Add(BowerPath("angular-sanitize/angular-sanitize.js"))
                 .Add(BowerPath("angular-resource/angular-resource.js"))
                 .Add(BowerPath("angular-local-storage/dist/angular-local-storage.js"))
