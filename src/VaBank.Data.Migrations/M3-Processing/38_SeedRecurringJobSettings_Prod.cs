@@ -11,7 +11,7 @@ namespace VaBank.Data.Migrations
         {
             Insert.IntoTable("Setting").InSchema("App")
                 .Row(new { Key = "VaBank.Jobs.Recurring.KeepAlive", Value = Serialize(true, "*/10 * * * *") })
-                .Row(new { Key = "VaBank.Jobs.Recurring.UpdateExchangeRates", Value = Serialize(true, "0	19	*	*	1,2,3,4,5") });
+                .Row(new { Key = "VaBank.Jobs.Recurring.UpdateExchangeRates", Value = Serialize(true, "0 19 * * 1,2,3,4,5") });
 
         }
 
