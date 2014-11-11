@@ -37,7 +37,7 @@ namespace VaBank.Data.Migrations
                     BaseCurrencyISOName = "USD",
                     ForeignCurrencyISOName = "EUR",
                     BuyRate = 0.8m,
-                    SellRate = 1.25m,
+                    SellRate = 0.82m,
                     TimestampUtc = timestamp,
                     IsActual = true
                 });

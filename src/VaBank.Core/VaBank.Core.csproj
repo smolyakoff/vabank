@@ -49,10 +49,16 @@
     <Compile Include="App\Factories\SecurityCodeFactory.cs" />
     <Compile Include="App\Settings\SecurityCodeSettings.cs" />
     <Compile Include="Common\IVersionedEntity.cs" />
+    <Compile Include="Processing\ConversionRate.cs" />
     <Compile Include="Processing\CurrencyConverter.cs" />
     <Compile Include="Processing\CurrencyConversion.cs" />
-    <Compile Include="Processing\ExchangeRateFactory.cs" />
+    <Compile Include="Processing\IntegerRoundingMode.cs" />
+    <Compile Include="Processing\ExchangeRateCalculator.cs" />
+    <Compile Include="Processing\IntegerRounding.cs" />
+    <Compile Include="Processing\ExchangeRateSettings.cs" />
     <Compile Include="Processing\Factories\CurrencyConverterFactory.cs" />
+    <Compile Include="Processing\MoneyMath.cs" />
+    <Compile Include="Processing\MoneyRounding.cs" />
     <Compile Include="Processing\Repositories\ExchangeRateKey.cs" />
     <Compile Include="Processing\Entities\ExchangeRate.cs" />
     <Compile Include="Accounting\Factories\CardAccountFactory.cs" />

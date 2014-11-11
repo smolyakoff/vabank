@@ -10,6 +10,6 @@ namespace VaBank.Services.Processing
     {
         public IExchangeRateRepository ExchangeRates { get; set; }
         public IRepository<Currency> Currencies { get; set; }
-        public ExchangeRateFactory ExchangeRateFactory { get; set; }
+        public ExchangeRateCalculator ExchangeRateCalculator { get; set; }
     }
 }

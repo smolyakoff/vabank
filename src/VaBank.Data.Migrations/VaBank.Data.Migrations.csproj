@@ -99,6 +99,8 @@
     <Compile Include="M3-Processing\35_ChangeXmlToJsonForSettings.cs" />
     <Compile Include="M3-Processing\36_SmsAndEmailSettings_Prod.cs" />
     <Compile Include="M3-Processing\36_SmsAndEmailSettings_Dev.cs" />
+    <Compile Include="M3-Processing\38_SeedRecurringJobSettings_Prod.cs" />
+    <Compile Include="M3-Processing\38_SeedRecurringJobSettings_Dev.cs" />
     <Compile Include="M3-Processing\37_SeedExchangeRates.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />

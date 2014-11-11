@@ -2,57 +2,48 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using VaBank.Core.Processing;
 using VaBank.Services.NBRBWebService;
 
 namespace VaBank.Services.Processing
 {
-    internal class NbrbServiceClient
+    internal class NBRBServiceClient : IDisposable
     {
+        private bool _isDisposed;
+
         private readonly ExRatesSoapClient _client = new ExRatesSoapClient();
 
-        public IList<NBRBCurrencyRate> GetAllRates(DateTime date)
+        private static class Columns
         {
-            return GetCurrencyRatesRows(date).Select(x => ToCurrencyRate(x, date)).ToList();
+            public const string ISOName = "Cur_Abbreviation";
+            public const string Rate = "Cur_OfficialRate";
         }
 
-        public IList<NBRBCurrencyRate> GetRates(DateTime date, params string[] currencyISONames)
+        public IList<ConversionRate> GetLatestRates()
         {
-            return
-                GetCurrencyRatesRows(date)
-                    .Where(x => currencyISONames.Contains(x[Names.ISOName]))
-                    .Select(x => ToCurrencyRate(x, date))
-                    .ToList();
+            var rates = GetRateRows(DateTime.Now).Select(Parse).ToList();
+            return rates;
         }
 
-        public IList<NBRBCurrencyRate> GetAllTodayRates()
+        private static ConversionRate Parse(DataRow row)
         {
-            return GetAllRates(DateTime.Today);
+            var conversion = new CurrencyConversion("BYR", (string) row[Columns.ISOName]);
+            return new ConversionRate(conversion, (decimal) row[Columns.Rate]);
         }
 
-        public IList<NBRBCurrencyRate> GetTodayRates(params string[] currencyISONames)
-        {
-            return GetRates(DateTime.Today, currencyISONames);
-        }
-
-        private NBRBCurrencyRate ToCurrencyRate(DataRow row, DateTime date)
-        {
-            return new NBRBCurrencyRate
-            {
-                ISOName = (string) row[Names.ISOName], 
-                Rate = (decimal) row[Names.Rate],
-                Date = date
-            };
-        }
-
-        private IEnumerable<DataRow> GetCurrencyRatesRows(DateTime date)
+        private IEnumerable<DataRow> GetRateRows(DateTime date)
         {
             return _client.ExRatesDaily(date).Tables[0].Rows.OfType<DataRow>();            
         }
 
-        private static class Names
+        public void Dispose()
         {
-            public const string ISOName = "Cur_Abbreviation";
-            public const string Rate = "Cur_OfficialRate";
+            if (_isDisposed)
+            {
+                return;
+            }
+            _client.Close();
+            _isDisposed = true;
         }
     }
 }

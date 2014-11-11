@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
-using VaBank.Core.Processing.Entities;
 using VaBank.Core.Processing.Repositories;
 
 namespace VaBank.Core.Processing.Factories
@@ -11,18 +9,15 @@ namespace VaBank.Core.Processing.Factories
     [Injectable]
     public class CurrencyConverterFactory
     {
-        private static readonly SortedList<string, int> CurrencyPriorityList = new SortedList<string, int>
-        {
-            {"BYR", 0},
-            {"USD", 1}
-        };
-
         private readonly IExchangeRateRepository _exchangeRateRepository;
+
+        private readonly ExchangeRateSettings _settings;
 
         public CurrencyConverterFactory(IExchangeRateRepository exchangeRateRepository)
         {
             Argument.NotNull(exchangeRateRepository, "exchangeRateRepository");
             _exchangeRateRepository = exchangeRateRepository;
+            _settings = new ExchangeRateSettings();
         }
 
         public CurrencyConverter Create(CurrencyConversion conversion)
@@ -37,15 +32,8 @@ namespace VaBank.Core.Processing.Factories
             {
                 return rates[0].Converter;
             }
-            var rate = rates.OrderBy(GetPriority).First();
+            var rate = rates.OrderBy(x => _settings.GetPriority(x.Base.ISOName)).First();
             return rate.Converter;
-        }
-
-        private static int GetPriority(ExchangeRate rate)
-        {
-            return !CurrencyPriorityList.ContainsKey(rate.Base.ISOName) 
-                ? int.MaxValue 
-                : CurrencyPriorityList[rate.Base.ISOName];
         }
     }
 }

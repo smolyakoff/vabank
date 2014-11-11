@@ -61,8 +61,13 @@ namespace VaBank.UI.Web
             });
             config.UseOAuthAuthorizationServer(ConfigureOAuthServer());
             config.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-            
-            config.UseHangfire(ConfigureHangfire);          
+
+            JobStartup jobStartup = null;
+            config.UseHangfire(hangfireConfig =>
+            {
+                var module = ConfigureHangfire(hangfireConfig);
+                jobStartup = module.Resolve<JobStartup>();
+            });          
             config.UseWebApi(httpConfig);
             config.UseAutofacWebApi(httpConfig);
             
@@ -70,8 +75,7 @@ namespace VaBank.UI.Web
 
             _logger.Info("Application is started!");
                         
-            //var jobStartup = new JobStartup();
-            //jobStartup.Start();
+            jobStartup.Start();
         }
 
         public Task Handler(IOwinContext context, Func<Task> next)
@@ -95,7 +99,7 @@ namespace VaBank.UI.Web
             };
         }
 
-        private static void ConfigureHangfire(IBootstrapperConfiguration config)
+        private static ILifetimeScope ConfigureHangfire(IBootstrapperConfiguration config)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["Vabank.Db"].ConnectionString;
             config.UseDashboardPath("/admin/hangfire");
@@ -104,8 +108,10 @@ namespace VaBank.UI.Web
             config.UseAuthorizationFilters(new AuthorizationFilter {Roles = "Admin"});
             var builder = new ContainerBuilder();
             builder.RegisterModule(new BackgroundServicesModule(VaBankServiceBus.Instance));
-            config.UseAutofacActivator(builder.Build());
+            var module = builder.Build(); 
+            config.UseAutofacActivator(module);
             config.UseServer();
+            return module;
         }
 
         private static HttpConfiguration ConfigureWebApi()

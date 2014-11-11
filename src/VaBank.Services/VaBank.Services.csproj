@@ -39,6 +39,9 @@
     <Reference Include="FluentValidation">
       <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="MoreLinq">
+      <HintPath>..\..\packages\morelinq.1.1.0\lib\net35\MoreLinq.dll</HintPath>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\..\packages\NLog.3.1.0.0\lib\net45\NLog.dll</HintPath>
     </Reference>
@@ -102,7 +105,6 @@
     <Compile Include="Infrastructure\Sms\TwilioClientSettings.cs" />
     <Compile Include="Processing\ExchangeRateService.cs" />
     <Compile Include="Processing\ExchangeRateServiceDependencies.cs" />
-    <Compile Include="Processing\ExchangeRateServiceSettings.cs" />
     <Compile Include="Processing\NBRBCurrencyRate.cs" />
     <Compile Include="Processing\NBRBServiceClient.cs" />
     <Compile Include="Accounting\Messages.Designer.cs">

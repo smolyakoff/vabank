@@ -3,7 +3,7 @@ using VaBank.Services.Contracts.Processing;
 
 namespace VaBank.Jobs.Processing
 {
-    public class UpdateCurrencyRatesJobContext : DefaultJobContext
+    public class UpdateExchangeRatesJobContext : DefaultJobContext
     {
         public ICurrencyRateService CurrencyRateService { get; set; }
     }
