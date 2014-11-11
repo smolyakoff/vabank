@@ -87,9 +87,7 @@ namespace VaBank.Core.Processing
 
         private decimal RoundRate(decimal rate, int multiplicity)
         {  
-            var @int = (long)Math.Ceiling(rate);
-
-            return @int % multiplicity != 0 ? (@int / multiplicity) * multiplicity + multiplicity : @int;
+            return Math.Ceiling(rate/multiplicity)*multiplicity;
         }        
 
         private class Factors
