@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using VaBank.Common.Validation;
 
 namespace VaBank.Common.Util
 {
@@ -32,6 +33,12 @@ namespace VaBank.Common.Util
                 .Select(x => Random.Next(0, 10))
                 .Select(x => x.ToString(CultureInfo.InvariantCulture));
             return string.Join(string.Empty, numbers.ToArray());
+        }
+
+        public static double FromRange(Range<double> range)
+        {
+            Argument.NotNull(range, "range");
+            return range.LowerBound + (range.UpperBound - range.LowerBound) * Random.NextDouble();
         }
     }
 }
