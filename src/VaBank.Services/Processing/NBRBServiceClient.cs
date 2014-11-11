@@ -15,7 +15,7 @@ namespace VaBank.Services.Processing
             return GetCurrencyRatesRows(date).Select(x => ToCurrencyRate(x, date)).ToList();
         }
 
-        public IList<NBRBCurrencyRate> GetTodayRates(DateTime date, params string[] currencyISONames)
+        public IList<NBRBCurrencyRate> GetRates(DateTime date, params string[] currencyISONames)
         {
             return
                 GetCurrencyRatesRows(date)
@@ -31,7 +31,7 @@ namespace VaBank.Services.Processing
 
         public IList<NBRBCurrencyRate> GetTodayRates(params string[] currencyISONames)
         {
-            return GetTodayRates(DateTime.Today, currencyISONames);
+            return GetRates(DateTime.Today, currencyISONames);
         }
 
         private NBRBCurrencyRate ToCurrencyRate(DataRow row, DateTime date)

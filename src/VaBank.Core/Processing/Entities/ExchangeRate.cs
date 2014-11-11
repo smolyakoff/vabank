@@ -21,7 +21,7 @@ namespace VaBank.Core.Processing.Entities
         {
             Argument.NotNull(baseCurrency, "baseCurrency");
             Argument.NotNull(foreignCurrency, "foreignCurrency");
-            Argument.Satisfies(foreignCurrency, x => x.ISOName == baseCurrency.ISOName, "foreignCurrency", "Can't create rate to same currency.");
+            Argument.Satisfies(foreignCurrency, x => x.ISOName != baseCurrency.ISOName, "foreignCurrency", "Can't create rate to same currency.");
             Argument.Satisfies(buyRate, x => x > 0, "buyRate");
             Argument.Satisfies(sellRate, x => x > 0, "sellRate");
 
