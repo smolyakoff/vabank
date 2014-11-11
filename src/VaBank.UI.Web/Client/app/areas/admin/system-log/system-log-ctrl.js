@@ -30,6 +30,10 @@
 
         $scope.displayedLogs = [].concat(data.logs);
 
+        $scope.toLocalDate = function (utcDate) {
+            return moment.utc(utcDate).toDate();
+        };
+
         $scope.show = function () {
             var filter = createFilter().toLINQ();
             $scope.logs = LogEntry.query({ filter: filter });

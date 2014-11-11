@@ -51,7 +51,7 @@
             <thead>
                 <tr>
                     <th st-sort="eventId" style="width: 70px">ID</th>
-                    <th st-sort="timestampUtc" st-sort-default="" style="width: 220px">Время UTC</th>
+                    <th st-sort="timestampUtc" st-sort-default="" style="width: 220px">Локальное Время</th>
                     <th st-sort="type">Тип</th>
                     <th st-sort="level" style="width: 150px">Уровень</th>
                     <th st-sort="user">Пользователь</th>
@@ -75,7 +75,7 @@
             <tbody ng-show="!loading.active()">
                 <tr ng-repeat="log in displayedLogs" data-ng-class="{warning: log.level === 'WARN', info: log.level === 'INFO', danger: log.level === 'FATAL' || log.level === 'ERROR'}">
                     <td>{{log.eventId}}</td>
-                    <td>{{log.timestampUtc}}</td>
+                    <td>{{toLocalDate(log.timestampUtc) | date: 'medium'}}</td>
                     <td>{{log.type}}</td>
                     <td>{{log.level}}</td>
                     <td>{{log.user}}</td>
