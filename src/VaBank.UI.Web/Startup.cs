@@ -49,6 +49,9 @@ namespace VaBank.UI.Web
 
             config.Use<ExceptionMiddleware>();
             config.Use<CultureMiddleware>();
+            #if (!DEBUG)
+            config.Use<RedirectToHttpsMiddleware>();
+            #endif
             config.UseAutofacMiddleware(ConfigureAutofac(httpConfig));
 
             config.UseStaticFiles("/Client");

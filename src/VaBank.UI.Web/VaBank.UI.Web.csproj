@@ -1943,6 +1943,7 @@
     <Compile Include="Api\Infrastructure\Models\HttpServiceError.cs" />
     <Compile Include="Middleware\CultureMiddleware.cs" />
     <Compile Include="Middleware\ExceptionMiddleware.cs" />
+    <Compile Include="Middleware\RedirectToHttpsMiddleware.cs" />
     <Compile Include="Modules\CoreModule.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
     <Compile Include="Modules\ApplicationStartup.cs" />
