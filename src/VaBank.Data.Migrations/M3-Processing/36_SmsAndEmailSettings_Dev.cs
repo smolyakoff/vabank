@@ -2,7 +2,7 @@
 using FluentMigrator;
 using Newtonsoft.Json;
 
-namespace VaBank.Data.Migrations.M3_Processing
+namespace VaBank.Data.Migrations
 {
     [Migration(36, "Created settings for sms and email services (dev).")]
     [Tags("Development", "Test")]

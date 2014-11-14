@@ -60,6 +60,12 @@ namespace VaBank.Common.Data.Database
             return command;
         }
 
+        public DbParameter CreateParameter()
+        {
+            var param = _factory.CreateParameter();
+            return param;
+        }
+
         public DbTransaction BeginTransaction(IsolationLevel isolationLevel)
         {
             if (CurrentTransaction != null)

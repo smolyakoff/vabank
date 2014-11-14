@@ -1,7 +1,5 @@
-﻿.from-date, .to-date {
-    .input-group {
-        width: 170px;
-    }
+﻿.my-cards-content {
+    padding-top: 10px;
 }
 
 .card-list.table {
@@ -37,4 +35,11 @@
 
 .card-name-editor {
     max-width: 300px;
+}
+
+.transfer {
+    .wizard-subtitle {
+        font-weight: 500;
+        margin-top: 0;
+    }
 }

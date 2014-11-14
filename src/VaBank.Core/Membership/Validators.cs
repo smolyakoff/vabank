@@ -53,7 +53,7 @@ namespace VaBank.Core.Membership
     {
         public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
         {
-            return builder.Matches(@"\+375 *\(?(29|33|44|25)\)? *\d{7}$").WithLocalizedMessage(() => Messages.CheckNumberPhone);
+            return builder.Matches(@"^\+375 *\(?(29|33|44|25)\)? *\d{7}$").WithLocalizedMessage(() => Messages.CheckNumberPhone);
         }
     }
 

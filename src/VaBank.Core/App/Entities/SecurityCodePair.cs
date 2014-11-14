@@ -24,7 +24,7 @@ namespace VaBank.Core.App.Entities
                 var byteCode = new byte[8];
                 rng.GetBytes(byteCode);
                 var code = BitConverter.ToUInt64(byteCode, 0);
-                var smsCode = (code % 100000UL).ToString(CultureInfo.InvariantCulture);
+                var smsCode = (code % 100000UL).ToString(CultureInfo.InvariantCulture).PadLeft(6, '0');
                 var id = Guid.NewGuid();
                 var privateCode = new SecurityCode(id, expirationPeriod, smsCode);
                 var publicCode = new PublicSecurityCode(id, smsCode);

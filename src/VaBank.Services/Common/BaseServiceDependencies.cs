@@ -1,9 +1,8 @@
 ﻿using VaBank.Common.Data.Database;
-using VaBank.Common.Data.Repositories;
 using VaBank.Common.Events;
 using VaBank.Common.IoC;
+using VaBank.Core.App.Repositories;
 using VaBank.Core.Common;
-using VaBank.Core.Membership.Entities;
 using VaBank.Services.Common.Transactions;
 
 namespace VaBank.Services.Common
@@ -19,5 +18,7 @@ namespace VaBank.Services.Common
         public ISendOnlyServiceBus ServiceBus { get; set; }
 
         public ITransactionProvider TransactionProvider { get; set; }
+
+        public ISettingRepository Settings { get; set; }
     }
 }

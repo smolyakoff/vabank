@@ -25,7 +25,8 @@
                     <label class="control-label col-xs-6">Лимит на cумму в день, в РБ:</label>
                     <div class="col-xs-6">
                         <currency-field attribute="cardLimits.amountPerDayLocal"
-                                        symbol="{{card.currency.symbol}}">
+                                        symbol="{{card.currency.symbol}}"
+                                        precision="{{card.currency.precision}}">
                         </currency-field>
                     </div>
                 </div>
@@ -33,7 +34,8 @@
                     <label class="control-label col-xs-6">Лимит на сумму в день, вне РБ:</label>
                     <div class="col-xs-6">
                         <currency-field attribute="cardLimits.amountPerDayAbroad"
-                                        symbol="{{card.currency.symbol}}">
+                                        symbol="{{card.currency.symbol}}"
+                                        precision="{{card.currency.precision}}">
                         </currency-field>
                     </div>
                 </div>

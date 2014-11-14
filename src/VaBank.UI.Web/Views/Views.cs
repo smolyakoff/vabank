@@ -44,6 +44,7 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("isteven-angular-multiselect/angular-multi-select.css"))
                 .Add(BowerPath("angular-loading-bar/build/loading-bar.css"))
                 .Add(BowerPath("angular-toastr/dist/angular-toastr.css"))
+                .Add(BowerPath("angular-wizard/dist/angular-wizard.min.css"))
                 .Add(ApplicationPath("styles/vabank.scss"));
 
             return bundle.Render("~/Client/styles_#.css");
@@ -55,29 +56,34 @@ namespace VaBank.UI.Web.Views
 
             bundle
                 .Add(BowerPath("moment/moment.js"))
+                .Add(BowerPath("moment/locale/ru.js"))
                 .Add(BowerPath("underscore/underscore.js"))
                 .Add(BowerPath("underscore-deep/underscore.deep.js"))
                 .Add(BowerPath("js-schema/js-schema.debug.js"))
                 .Add(BowerPath("spin.js/spin.js"))
                 .Add(NodePath("accounting/accounting.js"))
                 .Add(BowerPath("angular/angular.js"))
+                .Add(BowerPath("angular-i18n/angular-locale_ru.js"))
                 .Add(BowerPath("angular-sanitize/angular-sanitize.js"))
                 .Add(BowerPath("angular-resource/angular-resource.js"))
                 .Add(BowerPath("angular-local-storage/dist/angular-local-storage.js"))
                 .Add(BowerPath("angular-ui-router/release/angular-ui-router.js"))
+                .Add(BowerPath("angular-ui-utils/mask.js"))
                 .Add(BowerPath("angular-bootstrap/ui-bootstrap.js"))
                 .Add(BowerPath("angular-bootstrap/ui-bootstrap-tpls.js"))
-                .Add(BowerPath("angular-ui-select/dist/select.min.js"))
+                .Add(BowerPath("angular-ui-select/dist/select.js"))
                 .Add(BowerPath("angular-loading-bar/build/loading-bar.js"))
                 .Add(BowerPath("angular-promise-tracker/promise-tracker.js"))
                 .Add(BowerPath("angular-spinner/angular-spinner.js"))
+                .Add(BowerPath("angular-moment/angular-moment.js"))
                 .Add(BowerPath("angular-toastr/dist/angular-toastr.js"))
                 .Add(BowerPath("angular-bootstrap-datetimepicker/src/js/datetimepicker.js"))
                 .Add(BowerPath("angular-date-time-input/src/dateTimeInput.js"))
                 .Add(BowerPath("isteven-angular-multiselect/angular-multi-select.js"))
                 .Add(BowerPath("angular-smart-table/dist/smart-table.debug.js"))
                 .Add(BowerPath("angular-form-for/dist/form-for.js"))
-                .Add(BowerPath("angular-form-for/dist/form-for.bootstrap-templates.js"));
+                .Add(BowerPath("angular-form-for/dist/form-for.bootstrap-templates.js"))
+                .Add(BowerPath("angular-wizard/dist/angular-wizard.js"));
 
             bundle
                 .Add(ApplicationPath("modules/vabank-ui/vabank-ui.js"))

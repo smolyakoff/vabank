@@ -15,9 +15,9 @@
             <i class="text-field-icon" ng-class="iconBefore"></i>
         </span>
         
-        <ui-select ng-model="model.bindable">
+        <ui-select ng-model="model.bindable" search-enabled="{{searchEnabled}}">
             <ui-select-match placeholder="{{placeholder}}">
-                <span ng-if="displayAttribute">{{$select.selected[displayAttribute]}}</span>
+                <span ng-if="displayAttribute">{{displaySelectedItem($select.selected)}}</span>
                 <span ng-if="!displayAttribute">{{$select.selected | json}}</span>
             </ui-select-match>
             <ui-select-choices repeat="{{repeat}}"
@@ -25,17 +25,13 @@
                 <div uis-transclude-append=""></div>
             </ui-select-choices>
         </ui-select>
-
-        <span ng-if="model.error"
-              class="glyphicon glyphicon-remove form-control-feedback"
-              tooltip="{{model.error}}"
-              tooltip-placement="right">
-        </span>
-
         <span ng-if="iconAfter" class="input-group-addon"
               ng-click="onIconAfterClick()">
             <i class="text-field-icon" ng-class="iconAfter"></i>
         </span>
     </div>
+    <field-error error="model.error"
+                 uid="{{model.uid}}-error">
+    </field-error>
     <span class="help-block" ng-if="help">{{help}}</span>
 </div>

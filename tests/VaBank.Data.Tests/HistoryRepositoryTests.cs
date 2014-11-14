@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Autofac;
 using VaBank.Data.EntityFramework;
 using VaBank.Core.Membership.Entities;
+using VaBank.Data.EntityFramework.Common;
 
 namespace VaBank.Data.Tests
 {

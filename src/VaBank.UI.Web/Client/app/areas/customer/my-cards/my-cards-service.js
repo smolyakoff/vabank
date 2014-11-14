@@ -5,9 +5,9 @@
         .module('vabank.webapp')
         .service('myCardsService', myCardsService);
 
-    myCardsService.$inject = ['$resource', 'dataUtil', 'authService'];
+    myCardsService.$inject = ['$resource', 'dataUtil', 'authService', 'securityCodeService'];
 
-    function myCardsService($resource, dataUtil, authService) {
+    function myCardsService($resource, dataUtil, authService, securityCodeService) {
 
         var getUserId = function() {
             return authService.getUser().id;
@@ -29,8 +29,11 @@
             }
         });
 
+        var SecurityCode = securityCodeService;
+
         return {
-            Card: Card
+            Card: Card,
+            SecurityCode: SecurityCode
         };
 
     }

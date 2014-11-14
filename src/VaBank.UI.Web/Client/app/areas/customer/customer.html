@@ -6,18 +6,18 @@
             </li>
             <li data-ui-sref="customer.cabinet"
                 ng-class="{active: $state.includes('customer.cabinet')}">
-                <a><i class="glyphicon glyphicon-home"></i> Домой</a>
+                <a><i class="glyphicon glyphicon-home"></i> Мой кабинет</a>
             </li>
             <li data-ui-sref="customer.cards.list"
                 ng-class="{active: $state.includes('customer.cards')}">
                 <a><i class="glyphicon glyphicon-credit-card"></i> Мои карточки</a>
             </li>
-            <li><a href="#"> Платежи</a></li>
+            <li><a href="#"><i class="glyphicon glyphicon-usd"></i> Платежи</a></li>
             <li data-ui-sref="customer.profile.edit"
                 ng-class="{active: $state.includes('customer.profile')}">
                 <a><i class="glyphicon glyphicon-user"></i> Профиль</a>
             </li>
-            <li data-ng-click="logout()"><a> Выход</a></li>
+            <li data-ng-click="logout()"><a><i class="glyphicon glyphicon-off"></i> Выход</a></li>
         </ul>
     </div>
     <div id="page-content-wrapper">

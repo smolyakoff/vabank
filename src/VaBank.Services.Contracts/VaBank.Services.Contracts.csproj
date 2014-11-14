@@ -69,11 +69,14 @@
     <Compile Include="Infrastructure\Sms\SmsCodeCreated.cs" />
     <Compile Include="Infrastructure\Secuirty\SecurityCodeTicketModel.cs" />
     <Compile Include="Common\Security\ISecurityValidator.cs" />
+    <Compile Include="Processing\Commands\InternalTransferCommand.cs" />
+    <Compile Include="Processing\Commands\PrivateInternalTransferCommand.cs" />
     <Compile Include="Processing\ICurrencyRateService.cs" />
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardLookupModel.cs" />
     <Compile Include="Accounting\Models\CardModel.cs" />
-    <Compile Include="Processing\Models\CurrencyRateModel.cs" />
+    <Compile Include="Processing\IInternalTransferService.cs" />
+    <Compile Include="Processing\Models\ExchangeRateModel.cs" />
     <Compile Include="Processing\Models\CurrencyRatesLookupModel.cs" />
     <Compile Include="Accounting\Models\UserCardModel.cs" />
     <Compile Include="Accounting\Models\CardAccountModel.cs" />
@@ -147,8 +150,9 @@
     <Compile Include="Membership\Models\UserBriefModel.cs" />
     <Compile Include="Membership\Models\UserIdentityModel.cs" />
     <Compile Include="Membership\Queries\UsersQuery.cs" />
+    <Compile Include="Processing\Models\TransferModel.cs" />
+    <Compile Include="Processing\Models\TransferStatus.cs" />
     <Compile Include="Processing\Queries\CurrencyRateQuery.cs" />
-    <Compile Include="Processing\Queries\TodayCurrencyRateQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Validation\ValidationException.cs" />
   </ItemGroup>
@@ -163,7 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\Queries\" />
-    <Folder Include="Processing\Commands\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Common\Resources\Messages.resx">

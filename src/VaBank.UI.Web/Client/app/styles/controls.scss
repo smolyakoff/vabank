@@ -106,3 +106,28 @@
     margin-top: 0;
     margin-bottom: 0;
 }
+
+//Wizard
+.panel-wizard {
+    border-radius: 0;
+
+    &.panel-warning > .panel-heading {
+      background-color: $state-warning-bg;
+    }
+
+    &.panel-success > .panel-heading {
+      background-color: $state-success-bg;
+    }
+
+    &.panel-danger > .panel-heading {
+      background-color: $state-danger-bg;
+    }
+
+    > .panel-heading {
+        text-transform: uppercase;
+        .panel-title {
+            color: $gray;
+            font-weight: bold;
+        }
+    }
+}

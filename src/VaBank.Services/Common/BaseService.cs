@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using FluentValidation;
 using VaBank.Common.Data.Database;
 using VaBank.Common.Events;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
 using VaBank.Core.App.Entities;
+using VaBank.Core.App.Repositories;
 using VaBank.Core.Common;
 using VaBank.Services.Common.Security;
 using VaBank.Services.Common.Transactions;
 using VaBank.Services.Contracts;
-using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Common.Security;
-using VaBank.Services.Contracts.Common.Validation;
 using ValidationException = VaBank.Services.Contracts.Common.Validation.ValidationException;
 
 namespace VaBank.Services.Common
@@ -25,6 +23,7 @@ namespace VaBank.Services.Common
         private readonly ServiceOperationProvider _operationProvider;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITransactionProvider _transactionProvider;
+        private readonly ISettingRepository _settings;
         private VaBankIdentity _identity = null;
 
         protected BaseService(BaseServiceDependencies dependencies)
@@ -39,6 +38,7 @@ namespace VaBank.Services.Common
             _bus = dependencies.ServiceBus;
             _unitOfWork = dependencies.UnitOfWork;
             _transactionProvider = dependencies.TransactionProvider;
+            _settings = dependencies.Settings;
         }
 
         protected virtual void EnsureIsSecure<T>(T obj)
@@ -112,6 +112,18 @@ namespace VaBank.Services.Common
         protected virtual void Publish(ApplicationEvent appEvent)
         {
             _bus.Publish(appEvent);
+        }
+
+        protected TSettings LoadSettings<TSettings>() 
+            where TSettings : class
+        {
+            var settings = _settings.GetOrDefault<TSettings>();
+            if (settings == null)
+            {
+                var message = string.Format("Can't load settings of type [{0}]", typeof(TSettings).FullName);
+                throw new InvalidOperationException(message);
+            }
+            return settings;
         }
 
         private void EnsureIsSecure<T>(T obj, Type validatorType)

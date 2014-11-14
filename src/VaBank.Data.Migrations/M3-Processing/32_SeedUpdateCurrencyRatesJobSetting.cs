@@ -1,10 +1,10 @@
 ﻿using FluentMigrator;
 using Newtonsoft.Json;
 
-namespace VaBank.Data.Migrations.M3_Processing
+namespace VaBank.Data.Migrations
 {
     [Migration(32, "Seed UpdateCurrencyRates job setting")]
-    [Tags("Development", "Test", "Production")]
+    [Tags("Development", "Test")]
     public class SeedUpdateCurrencyRatesJobSetting : Migration
     {
         private const string SettingKey = "VaBank.Jobs.{0}";

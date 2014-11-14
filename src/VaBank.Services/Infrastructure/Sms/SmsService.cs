@@ -2,7 +2,6 @@
 using VaBank.Common.Validation;
 using VaBank.Core.App.Entities;
 using VaBank.Services.Common;
-using VaBank.Services.Common.Exceptions;
 using VaBank.Services.Common.Security;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Infrastructure.Secuirty;
@@ -22,11 +21,7 @@ namespace VaBank.Services.Infrastructure.Sms
             smsServiceDependencies.EnsureIsResolved();
             _deps = smsServiceDependencies;
 
-            _settings = _deps.Settings.GetOrDefault<SmsServiceSettings>();
-            if (_settings == null)
-            {
-                throw NotFound.ExceptionFor<SmsServiceSettings>();
-            }
+            _settings = LoadSettings<SmsServiceSettings>();
         }
 
         public void SendSms(SendSmsCommand command)

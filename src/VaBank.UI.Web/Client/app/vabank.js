@@ -4,6 +4,7 @@
         'ngResource',
         'ngSanitize',
         'ui.router',
+        'ui.mask',
         'LocalStorageModule',
         'ui.bootstrap',
         'ui.bootstrap.datetimepicker',
@@ -12,10 +13,12 @@
         'cfp.loadingBar',
         'ajoslin.promise-tracker',
         'angularSpinner',
+        'angularMoment',
         'multi-select',
         'smart-table',
         'formFor', 
         'formFor.bootstrapTemplates',
+        'mgo-angular-wizard',
         
         'vabank.ui',
         'vabank.auth'

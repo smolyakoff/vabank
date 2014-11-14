@@ -13,7 +13,12 @@ namespace VaBank.Services.Contracts.Infrastructure.Sms
             Argument.NotEmpty(code, "code");
 
             Id = id;
-            Code = Code;
+            Code = code;
+        }
+
+        [JsonConstructor]
+        protected SmsCodeCreated()
+        {
         }
 
         [JsonProperty]

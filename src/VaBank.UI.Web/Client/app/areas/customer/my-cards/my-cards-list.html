@@ -51,7 +51,7 @@
                         </div>
                     </td>
                     <td class="balance">
-                        {{card.balance | currency:''}} {{card.currency.isoName}}
+                        {{card.balance | extcurrency:'':card.currency.precision}} {{card.currency.isoName}}
                     </td>
                     <td class="text-center">{{card.expirationDateUtc | date:'MM/yy'}}</td>
                     <td class="text-center">

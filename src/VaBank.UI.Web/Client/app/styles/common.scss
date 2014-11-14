@@ -22,33 +22,45 @@ img.center {
     position: relative;
 }
 
+.grid-center {
+    display: flex;
+    align-items: center;
+}
+
 .tile {
-    height: 300px;
+    height: 250px;
     color: #ffffff;
 
     &.blue {
         background: #0d73c2;
     }
 
-    &.grey {
+    &.gray {
         background: #cccccc;
     }
 
     &.azure {
-        background: #88b8f8;
+        background: $brand-primary;
     }
 
-    &.light-grey {
-        background: #e5e1e1;
+    &.light-gray {
+        background: $state-warning-bg;
     }
 
     &.vinous {
         background: #851313;
     }
 
+    .spinner-container {
+        padding-top: 25px;
+        .spinner {
+            right: 20px;
+        }
+    }
+
     .title {
         margin-top: 0;
-        color: inherit;
+        color: white;
     }
 
     .table-condensed {
@@ -65,51 +77,48 @@ img.center {
         font-size: 14px;
     }
 
-    .exchange-rates-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        padding: 0 15px 15px 15px;
+    .footer {
+        padding: 15px;
+        font-size: 14px;
     }
 
-    .exchange-rates-table td {
+    .footer-card {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .footer-profile {
+        font-size: 20px;
+    }
+}
+
+.exchange-rates-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    padding: 0 15px 15px 15px;
+
+    thead td {
+        font-size: 16px;
+    }
+
+    td {
         padding: 8px 0;
         text-align: right;
         vertical-align: middle;
-    }
+        border-bottom: 1px solid #efefef;
 
-    .exchange-rates-table td:first-child {
-        text-align: left;
-    }
-
-    .exchange-rates-table thead td {
-        font-size: 16px;
+        &:first-child {
+            text-align: left;
+        }
     }
 
     .currency-col {
         font-weight: bold;
-    }
 
-    .exchange-rates-table .currency-col img {
-        margin-right: 5px;
-    }
-
-    .exchange-rates-table tbody td {
-        border-bottom: 1px solid #efefef;
-    }
-
-    .phone-big {
-        font-size: 30px;
-        vertical-align: middle;
-    }
-
-    .icon-phone {
-        font-style: italic;
-    }
-
-    .footer {
-        padding: 15px;
-        font-size: 14px;
+        img {
+            margin-right: 5px;
+        }
     }
 }
 

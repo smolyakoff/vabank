@@ -3,7 +3,7 @@ using System;
 using AutoMapper;
 using VaBank.Common.Events;
 using VaBank.Jobs.Common;
-using VaBank.Jobs.Configuration;
+using VaBank.Jobs.Common.Settings;
 
 namespace VaBank.Jobs.Modules
 {
@@ -50,10 +50,8 @@ namespace VaBank.Jobs.Modules
                 .AsSelf()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-            builder.RegisterType<JobStartup>().As<IStartable>();
-
-            //Configuration
-            builder.RegisterType<SettingsJobConfigProvider>().As<IJobConfigProvider>().SingleInstance();
+            builder.RegisterType<JobSettingsProvider>().AsSelf().InstancePerDependency();
+            builder.RegisterType<JobStartup>().AsSelf().SingleInstance();
         }
     }
 }

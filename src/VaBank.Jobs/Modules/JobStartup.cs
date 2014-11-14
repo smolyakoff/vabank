@@ -1,36 +1,30 @@
 ﻿using Autofac;
 using AutoMapper;
-using Hangfire;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using VaBank.Common.Events;
 using VaBank.Jobs.Common;
-using VaBank.Jobs.Configuration;
+using VaBank.Jobs.Common.Settings;
+using VaBank.Jobs.Maintenance;
 using VaBank.Jobs.Processing;
 
 namespace VaBank.Jobs.Modules
 {
-    internal class JobStartup : IStartable
+    public class JobStartup
     {
         private readonly IServiceBus _serviceBus;
 
         private readonly ILifetimeScope _rootScope;
 
-        private readonly IJobConfigProvider _jobConfigProvider;
-
-        public JobStartup(IServiceBus serviceBus, ILifetimeScope scope)
+        public JobStartup(ILifetimeScope rootScope)
         {
-            if (serviceBus == null)
+            if (rootScope == null)
             {
-                throw new ArgumentNullException("serviceBus");
+                throw new ArgumentNullException("rootScope");
             }
-            if (scope == null)
-            {
-                throw new ArgumentNullException("scope");
-            }
-            _serviceBus = serviceBus;
-            _rootScope = scope;
+            _serviceBus = rootScope.Resolve<IServiceBus>();
+            _rootScope = rootScope;
         }
 
         public void Start()
@@ -39,16 +33,29 @@ namespace VaBank.Jobs.Modules
             automapperProfiles.ForEach(Mapper.AddProfile);
             _serviceBus.Subscribe(new HangfireEventListener(_rootScope));
 
-            //Recurring jobs
+            RegisterRecurring(); 
+        }
 
-            //TODO: uncomment when job is actually implemented
-            //var jobConfig = _jobConfigProvider.Get<ReccuringJobConfig>("UpdateCurrencyRates");
-            //var cronExpression = jobConfig == null ? Cron.Daily(21) : jobConfig.CronExpression;
-            //VabankJob.AddOrUpdateRecurring<UpdateCurrencyRatesJob, UpdateCurrencyRatesJobContext>("UpdateCurrencyRates", cronExpression);
+        private void RegisterRecurring()
+        {
+            using (var scope = _rootScope.BeginLifetimeScope())
+            {
+                var provider = scope.Resolve<JobSettingsProvider>();
+                RegisterRecurring<KeepAliveJob, DefaultJobContext>(provider, "KeepAlive");
+                RegisterRecurring<UpdateExchangeRatesJob, UpdateExchangeRatesJobContext>(provider, "UpdateExchangeRates");
+            }
+        }
 
-#if !DEBUG
-          VabankJob.AddOrUpdateRecurring<KeepAliveJob, DefaultJobContext>("KeepAlive", "*/10 * * * *");  
-#endif
+        private void RegisterRecurring<TJob, TJobContext>(JobSettingsProvider settingsProvider, string jobName) 
+            where TJob : BaseJob<TJobContext> 
+            where TJobContext : class, IJobContext
+        {
+            var key = string.Format("Recurring.{0}", jobName);
+            var settings = settingsProvider.SurelyGetSettings<RecurringJobSettings>(key);
+            if (settings.Enabled)
+            {
+                VabankJob.AddOrUpdateRecurring<TJob, TJobContext>(jobName, settings.Cron);
+            }
         }
     }
 }

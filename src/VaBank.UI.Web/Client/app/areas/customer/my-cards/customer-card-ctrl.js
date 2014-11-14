@@ -20,10 +20,10 @@
 
         $scope.limitValidationRules = {
             cardLimits: {
-                amountPerDayLocal: { custom: uiTools.validate.getValidator('min', 0) },
-                amountPerDayAbroad: { custom: uiTools.validate.getValidator('min', 0) },
-                operationsPerDayLocal: { custom: uiTools.validate.getValidator('min', 0) },
-                operationsPerDayAbroad: { custom: uiTools.validate.getValidator('min', 0) }
+                amountPerDayLocal: { custom: uiTools.validate.getValidator('min', {value: 0}) },
+                amountPerDayAbroad: { custom: uiTools.validate.getValidator('min', {value: 0}) },
+                operationsPerDayLocal: { custom: uiTools.validate.getValidator('min', {value: 0}) },
+                operationsPerDayAbroad: { custom: uiTools.validate.getValidator('min', {value: 0}) }
             }
         };
 

@@ -50,13 +50,24 @@
     <Compile Include="App\Settings\SecurityCodeSettings.cs" />
     <Compile Include="Common\HistoricalEntity.cs" />
     <Compile Include="Common\IVersionedEntity.cs" />
+    <Compile Include="Processing\ConversionRate.cs" />
+    <Compile Include="Processing\CurrencyConverter.cs" />
+    <Compile Include="Processing\CurrencyConversion.cs" />
+    <Compile Include="Processing\IntegerRoundingMode.cs" />
+    <Compile Include="Processing\ExchangeRateCalculator.cs" />
+    <Compile Include="Processing\IntegerRounding.cs" />
+    <Compile Include="Processing\ExchangeRateSettings.cs" />
+    <Compile Include="Processing\Factories\CurrencyConverterFactory.cs" />
+    <Compile Include="Processing\MoneyMath.cs" />
+    <Compile Include="Processing\MoneyRounding.cs" />
+    <Compile Include="Processing\Repositories\ExchangeRateKey.cs" />
+    <Compile Include="Processing\Entities\ExchangeRate.cs" />
     <Compile Include="Common\Repositories\IHistoryRepository.cs" />
     <Compile Include="Membership\Entities\HistoricalUser.cs" />
     <Compile Include="Membership\Entities\IUser.cs" />
     <Compile Include="Processing\Converting\CurrencyConverter.cs" />
     <Compile Include="Processing\Converting\CurrencyConverting.cs" />
     <Compile Include="Processing\Converting\CurrencyConvertingResult.cs" />
-    <Compile Include="Processing\Repositories\CurrencyNamePair.cs" />
     <Compile Include="Processing\Entities\CurrencyRate.cs" />
     <Compile Include="Accounting\Factories\CardAccountFactory.cs" />
     <Compile Include="Accounting\Factories\CardFactory.cs" />
@@ -110,7 +121,7 @@
     <Compile Include="Membership\Entities\UserProfile.cs" />
     <Compile Include="Common\IUnitOfWork.cs" />
     <Compile Include="Membership\Validators.cs" />
-    <Compile Include="Processing\Repositories\ICurrencyRateRepository.cs" />
+    <Compile Include="Processing\Repositories\IExchangeRateRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

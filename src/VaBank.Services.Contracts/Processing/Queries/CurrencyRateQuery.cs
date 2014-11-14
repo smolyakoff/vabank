@@ -1,9 +1,15 @@
 ﻿using System;
+using VaBank.Common.Data.Filtering;
 
 namespace VaBank.Services.Contracts.Processing.Queries
 {
-    public class CurrencyRateQuery : TodayCurrencyRateQuery
+    public class CurrencyRateQuery : IClientFilterable
     {
-        public DateTime Date { get; set; }
+        public CurrencyRateQuery()
+        {
+            ClientFilter = new AlwaysTrueFilter();
+        }
+        
+        public IFilter ClientFilter { get; set; }
     }
 }
