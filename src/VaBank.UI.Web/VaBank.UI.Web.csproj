@@ -279,6 +279,7 @@
     <Content Include="Client\app\images\icons\common\consultant.png" />
     <Content Include="Client\app\images\icons\common\profile.png" />
     <Content Include="Client\app\images\icons\currency\eur.png" />
+    <Content Include="Client\app\images\icons\currency\rub.png" />
     <Content Include="Client\app\images\icons\currency\usd.png" />
     <Content Include="Client\app\images\logo\vabank-logo-big.png" />
     <Content Include="Client\app\images\logo\vabank-logo-middle.png" />

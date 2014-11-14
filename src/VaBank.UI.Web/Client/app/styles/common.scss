@@ -28,7 +28,7 @@ img.center {
 }
 
 .tile {
-    height: 250px;
+    height: 280px;
     color: #ffffff;
 
     &.blue {
@@ -53,6 +53,7 @@ img.center {
 
     .spinner-container {
         padding-top: 25px;
+
         .spinner {
             right: 20px;
         }
@@ -83,7 +84,7 @@ img.center {
     }
 
     .footer-card {
-        padding: 5px;
+        padding: 25px;
         font-size: 14px;
     }
 

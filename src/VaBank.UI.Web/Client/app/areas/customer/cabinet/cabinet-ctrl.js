@@ -3,10 +3,10 @@
 
     angular.module('vabank.webapp').controller('cabinetController', cabinetController);
 
-    cabinetController.$inject = ['$scope'];
+    cabinetController.$inject = ['$scope', 'myCardsService', 'data'];
 
-    function cabinetController($scope) {
-
+    function cabinetController($scope, myCardsService, data) {
+        $scope.userProfile = data.profile;
 
     }
 

@@ -1,41 +1,71 @@
-﻿<section class="row">
-    В разработке
-</section>
-<!--<section class="row">
-    <div class="col-xs-12">
+﻿<section class="row offset-bottom my-cards-content">
+    <div class="col-xs-10">
         <div class="form-inline">
-            <div class="form-group">
-                <label>Получить выписку по карте</label>
+            <div class="form-group heading-bank-statement">
+                <label>Карта для выписки</label>
+                <ui-select ng-model="card.selected" ng-disabled="disabled">
+                    <ui-select-match placeholder="Выберите карту из списка">{{$select.selected.friendlyName || $select.selected.cardVendor.name}}</ui-select-match>
+                    <ui-select-choices repeat="card in cards | filter: $select.search">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img class="img bank-statement-card" ng-src="{{card.cardVendor.image}}" />
+                            </div>
+                            <div class="col-xs-9">
+                                <span ng-bind-html="card.friendlyName || card.cardVendor.name | highlight: $select.search"></span>
+                            </div>
+                        </div>
+                    </ui-select-choices>
+                </ui-select>
             </div>
-            <div class="form-group from-date">
-                <label for="">От</label>
-                <vb-datepicker data-ng-model="dateTime.from.value" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
+            <div class="form-group heading-bank-statement">
+                <label>Выписка за дату</label>
+                <ui-select ng-model="date.selected" ng-disabled="disabled">
+                    <ui-select-match placeholder="Выберите дату из списка">{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="date in dates | filter: $select.search">
+                        <span ng-bind-html="date.name | highlight: $select.search"></span>
+                    </ui-select-choices>
+                </ui-select>
             </div>
-            <div class="form-group to-date">
-                <label for="">До</label>
-                <vb-datepicker data-ng-model="dateTime.to.value" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
+            <div class="form-group from-filter">
+                <label>От</label>
+                <vb-datepicker data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
+            </div>
+            <div class="form-group to-filter">
+                <label>До</label>
+                <vb-datepicker data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
             </div>
         </div>
-        <table class="table table-striped cards-content">
+    </div>
+    <div class="col-xs-2">
+        <div class="btn-toolbar pull-right" role="toolbar">
+            <button class="btn btn-primary" ng-click="show()">Показать</button>
+        </div>
+    </div>
+</section>
+<section class="row">
+    <div class="col-xs-12">
+        <table class="table table-responsive" st-table="" st-safe-src="">
             <thead>
-                <tr class="initialism">
-                    <th>Дата</th>
-                    <th>Тип</th>
-                    <th>Сумма</th>
-                    <th>Валюта</th>
-                    <th>Примечание</th>
+                <tr>
+                    <th st-sort="timeTransaction">Дата транзакции</th>
+                    <th st-sort="timeOperation">Дата операции</th>
+                    <th st-sort="amount">Сумма</th>
+                    <th st-sort="currency">Валюта</th>
+                    <th st-sort="">Обороты</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody ng-show="loading.active()">
+                <tr><td colspan="5"><div class="table-content" data-us-spinner=""></div></td></tr>
+            </tbody>
+            <tbody ng-show="!loading.active()">
                 <tr>
-                    <td>{{  }}</td>
-                    <td>{{  }}</td>
-                    <td>{{  }}</td>
-                    <td>{{  }}</td>
-                    <td>{{  }}</td>
+                    <td>{{}}</td>
+                    <td>{{}}</td>
+                    <td>{{}}</td>
+                    <td>{{}}</td>
+                    <td>{{}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-</section>-->
-
+</section>

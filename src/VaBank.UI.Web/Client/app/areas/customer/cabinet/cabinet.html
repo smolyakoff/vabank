@@ -11,7 +11,7 @@
             </div>
             <div class="footer-profile text-center">
                 <a class="action-link text-white" data-ui-sref="customer.profile.edit">
-                    Шумилова Наталья
+                    {{userProfile.firstName}} {{userProfile.lastName}}
                 </a>
             </div>
         </div>
@@ -37,7 +37,7 @@
                                     <span class="text-vinous">Дружеское имя </span>
                                     <span class="text-darkgreen">987654__4236 </span>
                                 </div>
-                                <div class="img-center ">
+                                <div class="img-center img-card">
                                     <img class="img img-responsive card-logo" src="/Client/app/images/icons/cards/visa-curved-128px.png">
                                 </div>
                                 <div class="text-center screen-lg">
@@ -55,7 +55,7 @@
                                     <span class="text-vinous">Дружеское имя </span>
                                     <span class="text-darkgreen">987654__4236 </span>
                                 </div>
-                                <div class="img-center">
+                                <div class="img-center img-card">
                                     <img class="img img-responsive card-logo" src="/Client/app/images/icons/cards/visa-curved-128px.png">
                                 </div>
                                 <div class="text-center screen-lg">
@@ -76,13 +76,13 @@
                                 <span class="text-vinous">Дружеское имя </span>
                                 <span class="text-darkgreen">987654__4236 </span>
                             </div>
-                            <div class="img-center">
+                            <div class="img-center img-card">
                                 <img class="img img-responsive card-logo" src="/Client/app/images/icons/cards/visa-curved-128px.png">
                             </div>
                             <div class="text-center screen-lg">
                                 <p class="text-vinous">100.000 BYR</p>
                             </div>
-                            <div class="footer text-center">
+                            <div class="footer-card text-center">
                                 <a class="action-link text-darkgreen" data-ui-sref="customer.cards.transfer">
                                     Перевод между картами
                                     <i class="glyphicon glyphicon-chevron-right"></i>
@@ -101,7 +101,7 @@
                     <h4 class="title">Курсы валют</h4>
                 </div>
                 <div class="col-xs-2 spinner-container">
-                    <div ng-show="loading.active()" 
+                    <div ng-show="loading.active()"
                          data-us-spinner="{lines:7, radius:3, length: 4, width:4, color:'white', left:'initial'}">
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                 <div class="footer">
                     <ul class="phone-list">
                         <li>
-                            <p class="phone-number"> + 375 (44, 29, 25)</p>
+                            <p class="phone-number"> + 375 (29)</p>
                             <p class="phone-number"><b>173-21-50</b></p>
                         </li>
                     </ul>

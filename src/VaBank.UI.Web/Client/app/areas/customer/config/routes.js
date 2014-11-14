@@ -25,6 +25,15 @@
             .state('customer.cabinet', {
                 url: '',
                 templateUrl: '/Client/app/areas/customer/cabinet/cabinet.html',
+                controller: 'cabinetController',
+                resolve: {
+                    data: ['myCardsService', 'profileService', 'routingResolve',
+                        function (myCardsService, profileService, routingResolve) {
+                            var cards = myCardsService.Card.query().$promise;
+                            var profile = profileService.Profile.get().$promise;
+                            return routingResolve.resolveAll([cards, profile], ['cards', 'profile']);
+                        }]
+                }
             })
             .state('customer.profile', {
                 url: 'profile',
@@ -72,7 +81,15 @@
             .state('customer.cards.accountStatement', {
                 url: '/statement',
                 templateUrl: '/Client/app/areas/customer/my-cards/account-statement.html',
-                controller: 'accountStatementController'
+                controller: 'accountStatementController',
+                resolve: {
+                    data: ['myCardsService', 'profileService', 'routingResolve',
+                        function (myCardsService, profileService, routingResolve) {
+                            var cards = myCardsService.Card.query().$promise;
+                            var profile = profileService.Profile.get().$promise;
+                            return routingResolve.resolveAll([cards, profile], ['cards', 'profile']);
+                        }]
+                }
             })
             .state('customer.cards.transfer', {
                 url: '/transfer',

@@ -32,11 +32,13 @@
     .carousel-control.left {
         background-image: inherit;
         color: black;
+        margin-left: -25px;
     }
 
     .carousel-control.right {
         background-image: inherit;
         color: black;
+        margin-right: -25px;
     }
 
     .carousel-indicators {
@@ -46,6 +48,10 @@
     .card-logo {
         max-height: 64px;
         margin: auto;
+    }
+
+    .img-card {
+        padding-top: 15px;
     }
 
     .screen-lg {
