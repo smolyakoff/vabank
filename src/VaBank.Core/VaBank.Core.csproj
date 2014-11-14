@@ -65,10 +65,6 @@
     <Compile Include="Common\Repositories\IHistoryRepository.cs" />
     <Compile Include="Membership\Entities\HistoricalUser.cs" />
     <Compile Include="Membership\Entities\IUser.cs" />
-    <Compile Include="Processing\Converting\CurrencyConverter.cs" />
-    <Compile Include="Processing\Converting\CurrencyConverting.cs" />
-    <Compile Include="Processing\Converting\CurrencyConvertingResult.cs" />
-    <Compile Include="Processing\Entities\CurrencyRate.cs" />
     <Compile Include="Accounting\Factories\CardAccountFactory.cs" />
     <Compile Include="Accounting\Factories\CardFactory.cs" />
     <Compile Include="Accounting\Factories\UserCardFactory.cs" />
