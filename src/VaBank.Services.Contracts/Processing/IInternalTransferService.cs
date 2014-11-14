@@ -7,6 +7,6 @@ namespace VaBank.Services.Contracts.Processing
     {
         TransferModel Transfer(InternalTransferCommand command);
 
-        TransferModel PrivateTrnasfer(PrivateInternalTransferCommand command);
+        TransferModel PersonalTransfer(PersonalInternalTransferCommand command);
     }
 }

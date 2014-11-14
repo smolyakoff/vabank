@@ -70,7 +70,7 @@
     <Compile Include="Infrastructure\Secuirty\SecurityCodeTicketModel.cs" />
     <Compile Include="Common\Security\ISecurityValidator.cs" />
     <Compile Include="Processing\Commands\InternalTransferCommand.cs" />
-    <Compile Include="Processing\Commands\PrivateInternalTransferCommand.cs" />
+    <Compile Include="Processing\Commands\PersonalInternalTransferCommand.cs" />
     <Compile Include="Processing\ICurrencyRateService.cs" />
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardLookupModel.cs" />
