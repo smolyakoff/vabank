@@ -103,6 +103,7 @@
     <Compile Include="M3-Processing\38_SeedRecurringJobSettings_Dev.cs" />
     <Compile Include="M3-Processing\37_SeedExchangeRates.cs" />
     <Compile Include="M3-Processing\39_AddRussianCurrency.cs" />
+    <Compile Include="M3-Processing\40_TransactionProcessing.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
