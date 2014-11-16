@@ -11,8 +11,8 @@ namespace VaBank.Data.Migrations
         public override void Up()
         {
             Create.Table("OperationCategory").InSchema(SchemaName)
-                .WithColumn("Code").AsShortName().PrimaryKey("PK_OperationCategory")
-                .WithColumn("Parent").AsShortName()
+                .WithColumn("Code").AsName().PrimaryKey("PK_OperationCategory")
+                .WithColumn("Parent").AsName().Nullable()
                     .ForeignKey("FK_OperationCategory_To_OperationCategory", "Processing", "OperationCategory", "Code")
                     .Indexed("IX_OperationCategory_Parent")
                 .WithColumn("Name").AsShortName().NotNullable()
@@ -23,10 +23,12 @@ namespace VaBank.Data.Migrations
                 .WithColumn("UserID").AsUserId().NotNullable()
                     .ForeignKey("FK_Operation_To_User", "Membership", "User", "UserID")
                     .Indexed("IX_Operation_UserId")
-                .WithColumn("CategoryCode").AsShortName().NotNullable()
+                .WithColumn("CategoryCode").AsName().NotNullable()
                     .ForeignKey("FK_OperationCategory_To_Operation", SchemaName, "OperationCategory", "Code")
                     .Indexed("IX_Operation_CategoryCode")
                 .WithColumn("CreatedDateUtc").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+                .WithColumn("CompletedDateUtc").AsDateTime().Nullable()
+                .WithColumn("ErrorMessage").AsBigString().Nullable()
                 .WithColumn("Status").AsInt32().NotNullable()
                     .Indexed("IX_Operation_Status");
 
@@ -42,16 +44,17 @@ namespace VaBank.Data.Migrations
                 .WithColumn("RemainingBalance").AsDecimal().NotNullable()
                 .WithColumn("CreatedDateUtc").AsDateTime().NotNullable()
                 .WithColumn("PostDateUtc").AsDateTime().NotNullable()
-                .WithColumn("Place").AsName().NotNullable()
+                .WithColumn("Location").AsName().NotNullable()
                 .WithColumn("Description").AsBigString().Nullable()
+                .WithColumn("ErrorMessage").AsBigString().Nullable()
                 .WithColumn("Status").AsInt32().NotNullable().Indexed("IX_Transaction_Status");
 
             Create.Table("Transfer").InSchema(SchemaName)
                 .WithColumn("OperationID").AsInt64().PrimaryKey("PK_Transfer")
                     .ForeignKey("FK_Operation_To_Transfer", SchemaName, "Operation", "ID")
-                .WithColumn("FromTransactionID").AsGuid().NotNullable()
+                .WithColumn("FromTransactionID").AsGuid().Nullable()
                     .ForeignKey("FK_Transaction_To_Transfer_From", SchemaName, "Transaction", "ID")
-                .WithColumn("ToTransactionID").AsGuid().NotNullable()
+                .WithColumn("ToTransactionID").AsGuid().Nullable()
                     .ForeignKey("FK_Transaction_To_Transfer_To", SchemaName, "Transaction", "ID");
                     
             Create.Table("CardTransfer").InSchema(SchemaName)
@@ -59,14 +62,21 @@ namespace VaBank.Data.Migrations
                     .ForeignKey("FK_Transfer_To_CardTransfer", SchemaName, "Transfer", "OperationID")
                 .WithColumn("FromCardID").AsCardId().NotNullable()
                     .ForeignKey("FK_Card_To_CardTransfer_From", "Accounting", "Card", "CardID")
-                .WithColumn("ToCardID").AsGuid().NotNullable()
+                .WithColumn("ToCardID").AsGuid().Nullable()
                     .ForeignKey("FK_Card_To_CardTransfer_To", "Accounting", "Card", "CardID")
+                .WithColumn("ToCardNo").AsCardNumber().Nullable()
+                .WithColumn("ToCardExpirationDateUtc").AsDateTime().Nullable()
+                .WithColumn("Amount").AsDecimal().NotNullable()
                 .WithColumn("Type").AsInt32().NotNullable().Indexed("IX_CardTransfer_Type");
         }
 
         public override void Down()
         {
-            //Do nothing.
+            Delete.Table("CardTransfer").InSchema(SchemaName);
+            Delete.Table("Transfer").InSchema(SchemaName);
+            Delete.Table("Transaction").InSchema(SchemaName);
+            Delete.Table("Operation").InSchema(SchemaName);
+            Delete.Table("OperationCategory").InSchema(SchemaName);
         }
     }
 }
