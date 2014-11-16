@@ -1,6 +1,7 @@
 ﻿using System;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
+using VaBank.Core.Processing.Exceptions;
 
 namespace VaBank.Core.Accounting.Entities
 {
@@ -22,7 +23,7 @@ namespace VaBank.Core.Accounting.Entities
 
         public virtual Currency Currency { get; set; }
 
-        public decimal Balance { get; set; }
+        public decimal Balance { get; protected set; }
 
         public DateTime OpenDateUtc { get; protected set; }
 
@@ -31,5 +32,25 @@ namespace VaBank.Core.Accounting.Entities
         public string Type { get; protected set; }
 
         public byte[] RowVersion { get; protected set; }
+
+        public virtual Account Deposit(decimal amount)
+        {
+            Argument.Satisfies(amount, x => x >= 0, "amount", "Deposit amount should be zero or greater.");
+
+            Balance += amount;
+            return this;
+        }
+
+        public virtual Account Withdraw(decimal amount)
+        {
+            Argument.Satisfies(amount, x => x >= 0, "amount", "Withdrawal amount should be zero or greater.");
+            //By default, we do not allow credits.
+            if (amount > Balance)
+            {
+                throw new InsufficientFundsException(Balance, amount);
+            }
+            Balance -= amount;
+            return this;
+        }
     }
 }

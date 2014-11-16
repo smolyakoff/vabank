@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Linq;
-using VaBank.Common.IoC;
 using VaBank.Common.Validation;
 using VaBank.Core.Processing.Repositories;
 
 namespace VaBank.Core.Processing.Factories
 {
-    [Injectable]
-    public class CurrencyConverterFactory
+    internal class CurrencyConverterFactory
     {
         private readonly IExchangeRateRepository _exchangeRateRepository;
 

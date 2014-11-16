@@ -14,8 +14,9 @@ namespace VaBank.Core.Processing
 
         public CurrencyConversion(string fromCurrencyISOName, string toCurrencyISOName)
         {
-            Argument.NotNull(fromCurrencyISOName, "fromCurrencyISOName");
-            Argument.NotNull(toCurrencyISOName, "toCurrencyISOName");
+            Argument.NotEmpty(fromCurrencyISOName, "fromCurrencyISOName");
+            Argument.NotEmpty(toCurrencyISOName, "toCurrencyISOName");
+            Argument.Satisfies(fromCurrencyISOName, x => x != toCurrencyISOName, "toCurrencyISOName", "Can't create conversion to the same currency.");
             _fromCurrencyISOName = fromCurrencyISOName;
             _toCurrencyISOName = toCurrencyISOName;
             _exchangeRateKey = new ExchangeRateKey(fromCurrencyISOName, toCurrencyISOName);

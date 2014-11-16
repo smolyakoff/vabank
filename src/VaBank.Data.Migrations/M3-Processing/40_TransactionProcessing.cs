@@ -20,9 +20,6 @@ namespace VaBank.Data.Migrations
 
             Create.Table("Operation").InSchema(SchemaName)
                 .WithColumn("ID").AsInt64().PrimaryKey("PK_Operation")
-                .WithColumn("UserID").AsUserId().NotNullable()
-                    .ForeignKey("FK_Operation_To_User", "Membership", "User", "UserID")
-                    .Indexed("IX_Operation_UserId")
                 .WithColumn("CategoryCode").AsName().NotNullable()
                     .ForeignKey("FK_OperationCategory_To_Operation", SchemaName, "OperationCategory", "Code")
                     .Indexed("IX_Operation_CategoryCode")
@@ -31,6 +28,11 @@ namespace VaBank.Data.Migrations
                 .WithColumn("ErrorMessage").AsBigString().Nullable()
                 .WithColumn("Status").AsInt32().NotNullable()
                     .Indexed("IX_Operation_Status");
+
+            Create.Table("Operation_User").InSchema(SchemaName)
+                .WithColumn("OperationID").AsInt64().NotNullable().PrimaryKey("PK_Operation_User")
+                .WithColumn("UserID").AsGuid().NotNullable()
+                    .ForeignKey("FK_User_To_Operation_User", "Membership", "User", "UserID");
 
             Create.Table("Transaction").InSchema(SchemaName)
                 .WithColumn("TransactionID").AsGuid().PrimaryKey("PK_Transaction")

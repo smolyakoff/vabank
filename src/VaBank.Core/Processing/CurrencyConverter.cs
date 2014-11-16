@@ -1,10 +1,11 @@
 ﻿using System;
 using VaBank.Common.Validation;
+using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Core.Processing
 {
-    public class CurrencyConverter
+    public class CurrencyConverter : ICurrencyConverter
     {
         private readonly ExchangeRate _exchangeRate;
 
@@ -14,7 +15,7 @@ namespace VaBank.Core.Processing
             _exchangeRate = exchangeRate;
         }
 
-        public decimal Convert(CurrencyConversion conversion, decimal amount)
+        internal decimal Convert(CurrencyConversion conversion, decimal amount, out Currency resultingCurrency)
         {
             if (_exchangeRate.Key != conversion.ExchangeRateKey)
             {
@@ -24,15 +25,18 @@ namespace VaBank.Core.Processing
             var convertedAmount = _exchangeRate.Base.ISOName == conversion.From 
                 ? ConvertFromBase(amount) 
                 : ConvertFromForeign(amount);
+            resultingCurrency = _exchangeRate.Base.ISOName == conversion.From
+                ? _exchangeRate.Foreign
+                : _exchangeRate.Base;
             return convertedAmount;
         }
 
-        private decimal ConvertFromBase(decimal amount)
+        public decimal ConvertFromBase(decimal amount)
         {
             return amount / _exchangeRate.SellRate;
         }
 
-        private decimal ConvertFromForeign(decimal amount)
+        public decimal ConvertFromForeign(decimal amount)
         {
             return amount * _exchangeRate.BuyRate;
         }
