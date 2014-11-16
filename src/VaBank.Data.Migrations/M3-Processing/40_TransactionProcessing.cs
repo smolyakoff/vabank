@@ -59,6 +59,13 @@ namespace VaBank.Data.Migrations
             Create.Table("Transfer").InSchema(SchemaName)
                 .WithColumn("OperationID").AsInt64().PrimaryKey("PK_Transfer")
                     .ForeignKey("FK_Operation_To_Transfer", SchemaName, "Operation", "ID")
+                .WithColumn("CurrencyISOName").AsCurrencyISOName().NotNullable()
+                    .ForeignKey("FK_Currency_To_Transfer", "Accounting", "Currency", "CurrencyISOName")
+                .WithColumn("FromAccountNo").AsAccountNumber().NotNullable()
+                    .ForeignKey("FK_Account_To_Transfer_From", "Accounting", "Account", "AccountNo")
+                .WithColumn("ToAccountNo").AsAccountNumber().NotNullable()
+                    .ForeignKey("FK_Account_To_Transfer_To", "Accounting", "Account", "AccountNo")
+                .WithColumn("Amount").AsDecimal().NotNullable()
                 .WithColumn("FromTransactionID").AsGuid().Nullable()
                     .ForeignKey("FK_Transaction_To_Transfer_From", SchemaName, "Transaction", "TransactionID")
                 .WithColumn("ToTransactionID").AsGuid().Nullable()
@@ -69,11 +76,8 @@ namespace VaBank.Data.Migrations
                     .ForeignKey("FK_Transfer_To_CardTransfer", SchemaName, "Transfer", "OperationID")
                 .WithColumn("FromCardID").AsCardId().NotNullable()
                     .ForeignKey("FK_Card_To_CardTransfer_From", "Accounting", "Card", "CardID")
-                .WithColumn("ToCardID").AsGuid().Nullable()
+                .WithColumn("ToCardID").AsCardId().NotNullable()
                     .ForeignKey("FK_Card_To_CardTransfer_To", "Accounting", "Card", "CardID")
-                .WithColumn("ToCardNo").AsCardNumber().Nullable()
-                .WithColumn("ToCardExpirationDateUtc").AsDateTime().Nullable()
-                .WithColumn("Amount").AsDecimal().NotNullable()
                 .WithColumn("Type").AsInt32().NotNullable().Indexed("IX_CardTransfer_Type");
         }
 
