@@ -33,7 +33,7 @@ namespace VaBank.Data.Migrations
                     .Indexed("IX_Operation_Status");
 
             Create.Table("Transaction").InSchema(SchemaName)
-                .WithColumn("ID").AsGuid().PrimaryKey("PK_Transaction")
+                .WithColumn("TransactionID").AsGuid().PrimaryKey("PK_Transaction")
                 .WithColumn("AccountNo").AsAccountNumber().NotNullable()
                     .ForeignKey("FK_Account_To_Transaction", "Accounting", "Account", "AccountNo")
                     .Indexed("IX_Transaction_AccountNo")
@@ -49,13 +49,20 @@ namespace VaBank.Data.Migrations
                 .WithColumn("ErrorMessage").AsBigString().Nullable()
                 .WithColumn("Status").AsInt32().NotNullable().Indexed("IX_Transaction_Status");
 
+            Create.Table("CardTransaction").InSchema(SchemaName)
+                .WithColumn("TransactionID").AsGuid().NotNullable().PrimaryKey("PK_CardTransaction")
+                    .ForeignKey("FK_Transaction_To_CardTransaction", "Processing", "Transaction", "TransactionID")
+                .WithColumn("CardID").AsGuid().NotNullable()
+                    .ForeignKey("FK_Card_To_CardTransaction", "Accounting", "Card", "CardID")
+                    .Indexed("IX_CardTransaction_CardID");
+
             Create.Table("Transfer").InSchema(SchemaName)
                 .WithColumn("OperationID").AsInt64().PrimaryKey("PK_Transfer")
                     .ForeignKey("FK_Operation_To_Transfer", SchemaName, "Operation", "ID")
                 .WithColumn("FromTransactionID").AsGuid().Nullable()
-                    .ForeignKey("FK_Transaction_To_Transfer_From", SchemaName, "Transaction", "ID")
+                    .ForeignKey("FK_Transaction_To_Transfer_From", SchemaName, "Transaction", "TransactionID")
                 .WithColumn("ToTransactionID").AsGuid().Nullable()
-                    .ForeignKey("FK_Transaction_To_Transfer_To", SchemaName, "Transaction", "ID");
+                    .ForeignKey("FK_Transaction_To_Transfer_To", SchemaName, "Transaction", "TransactionID");
                     
             Create.Table("CardTransfer").InSchema(SchemaName)
                 .WithColumn("OperationID").AsInt64().PrimaryKey("PK_CardTransfer")
