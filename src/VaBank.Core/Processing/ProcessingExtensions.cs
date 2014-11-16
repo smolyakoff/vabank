@@ -4,10 +4,17 @@ using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Core.Processing
 {
-    public static class ProcessingExtensions
+    //TODO: write withdraw and deposit for base account
+    internal static class ProcessingExtensions
     {
-        public static CardTransaction Withdraw(this UserCard userCard, Money money, MoneyConverter moneyConverter)
+        public static CardTransaction Withdraw(
+            this UserCard userCard, 
+            string description,
+            string location,
+            Money money, 
+            MoneyConverter moneyConverter)
         {
+            Argument.NotEmpty(description, "description");
             Argument.NotNull(userCard, "userCard");
             Argument.NotNull(money, "money");
             Argument.NotNull(moneyConverter, "moneyConverter");
@@ -15,11 +22,17 @@ namespace VaBank.Core.Processing
             Argument.Satisfies(userCard, x => x.Account != null, "userCard", "Card should be bound to a bank account.");
 
             var convertedMoney = Withdraw(userCard.Account, money, moneyConverter);
-            return new CardTransaction(userCard, money.Currency, - money.Amount, - convertedMoney.Amount);
+            return new CardTransaction(description, location, userCard, money.Currency, - money.Amount, - convertedMoney.Amount, userCard.Account.Balance);
         }
 
-        public static CardTransaction Deposit(this UserCard userCard, Money money, MoneyConverter moneyConverter)
+        public static CardTransaction Deposit(
+            this UserCard userCard,
+            string description,
+            string location,
+            Money money, 
+            MoneyConverter moneyConverter)
         {
+            Argument.NotEmpty(description, "description");
             Argument.NotNull(userCard, "userCard");
             Argument.NotNull(money, "money");
             Argument.NotNull(moneyConverter, "moneyConverter");
@@ -27,7 +40,7 @@ namespace VaBank.Core.Processing
             Argument.Satisfies(userCard, x => x.Account != null, "userCard", "Card should be bound to a bank account.");
 
             var convertedMoney = Deposit(userCard.Account, money, moneyConverter);
-            return new CardTransaction(userCard, money.Currency, money.Amount, convertedMoney.Amount);
+            return new CardTransaction(description, location, userCard, money.Currency, money.Amount, convertedMoney.Amount, userCard.Account.Balance);
         }
 
         private static Money Withdraw(this Account account, Money money, MoneyConverter moneyConverter)

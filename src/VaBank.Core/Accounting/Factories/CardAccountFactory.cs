@@ -38,9 +38,9 @@ namespace VaBank.Core.Accounting.Factories
             }
             var account = new CardAccount(accountNo, currency, owner)
             {
-                Balance = initalBalance,
                 ExpirationDateUtc = expirationDateUtc
             };
+            account.Deposit(initalBalance);
             return account;
         }
 

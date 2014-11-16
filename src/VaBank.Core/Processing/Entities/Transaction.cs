@@ -27,11 +27,13 @@ namespace VaBank.Core.Processing.Entities
             TransactionAmount = transactionAmount;
             AccountAmount = accountAmount;
             RemainingBalance = remainingBalance;
+            Description = description;
             Location = location;
         }
 
         protected Transaction()
         {
+            Id = Guid.NewGuid();
             CreatedDateUtc = DateTime.UtcNow;
             Status = ProcessStatus.Pending;
         }

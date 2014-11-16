@@ -6,6 +6,7 @@ using VaBank.Services.Contracts.Accounting.Commands;
 using VaBank.Services.Contracts.Accounting.Models;
 using VaBank.Services.Contracts.Accounting.Queries;
 using VaBank.Services.Contracts.Common.Models;
+using VaBank.Services.Contracts.Processing.Queries;
 
 namespace VaBank.Services.Contracts.Accounting
 {
@@ -30,5 +31,7 @@ namespace VaBank.Services.Contracts.Accounting
         UserMessage SetCardAssignment(SetCardAssignmentCommand command);
 
         UserMessage UpdateCardSettings(UpdateCardSettingsCommand command);
+
+        CardAccountStatementModel GetCardAccountStatement(CardAccountStatementQuery query);
     }
 }

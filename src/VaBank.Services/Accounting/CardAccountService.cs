@@ -14,6 +14,7 @@ using VaBank.Services.Contracts.Accounting.Queries;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Common.Models;
+using VaBank.Services.Contracts.Processing.Queries;
 
 namespace VaBank.Services.Accounting
 {
@@ -281,6 +282,11 @@ namespace VaBank.Services.Accounting
             {
                 throw new ServiceException("Cannot update card settings.", ex);
             }
+        }
+
+        public CardAccountStatementModel GetCardAccountStatement(CardAccountStatementQuery query)
+        {
+            throw new NotImplementedException();
         }
     }
 }

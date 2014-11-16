@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
-using VaBank.Core.App;
 using VaBank.Core.App.Entities;
-using VaBank.Core.Maintenance;
 using VaBank.Core.Maintenance.Entitities;
 using VaBank.Services.Common;
 using VaBank.Services.Common.Exceptions;
@@ -171,6 +169,16 @@ namespace VaBank.Services.Maintenance
             {
                 throw new ServiceException("Can't create application action.", ex);
             }
+        }
+
+        public IList<TransactionLogEntryBriefModel> GetTransactionLogEntries()
+        {
+            throw new NotImplementedException();
+        }
+
+        public TransactionLogEntryModel GetTransactionLogEntry(IdentityQuery<Guid> transactionId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

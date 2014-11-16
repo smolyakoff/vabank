@@ -103,9 +103,9 @@
     <Compile Include="Infrastructure\Sms\SmsServiceSettings.cs" />
     <Compile Include="Infrastructure\Sms\TwilioClientFactory.cs" />
     <Compile Include="Infrastructure\Sms\TwilioClientSettings.cs" />
+    <Compile Include="Processing\CardTransferClientService.cs" />
     <Compile Include="Processing\ExchangeRateService.cs" />
     <Compile Include="Processing\ExchangeRateServiceDependencies.cs" />
-    <Compile Include="Processing\NBRBCurrencyRate.cs" />
     <Compile Include="Processing\NBRBServiceClient.cs" />
     <Compile Include="Accounting\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -152,6 +152,8 @@
     <Compile Include="Membership\UserService.cs" />
     <Compile Include="Membership\Validators.cs" />
     <Compile Include="Processing\ProcessingProfile.cs" />
+    <Compile Include="Processing\ProcessingService.cs" />
+    <Compile Include="Processing\ProcessingServiceDependencies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\NBRBWebService\Reference.cs">
       <AutoGen>True</AutoGen>
