@@ -68,6 +68,7 @@
     <Compile Include="Processing\Entities\Transfer.cs" />
     <Compile Include="Processing\Entities\UserBankOperation.cs" />
     <Compile Include="Processing\Exceptions\InsufficientFundsException.cs" />
+    <Compile Include="Processing\Factories\CardTransferFactory.cs" />
     <Compile Include="Processing\Factories\ProcessorFactory.cs" />
     <Compile Include="Processing\ICurrencyConverter.cs" />
     <Compile Include="Processing\IntegerRoundingMode.cs" />

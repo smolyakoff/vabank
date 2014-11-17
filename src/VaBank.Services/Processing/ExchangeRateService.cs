@@ -23,7 +23,7 @@ namespace VaBank.Services.Processing
             ExchangeRateServiceDependencies exchangeRateServiceDependencies)
             : base(dependencies)
         {
-            Argument.NotNull(exchangeRateServiceDependencies, "exchangeRateServiceDependencies");
+            exchangeRateServiceDependencies.EnsureIsResolved();
             _deps = exchangeRateServiceDependencies;
             _settings = new ExchangeRateSettings();
         }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using VaBank.Core.Processing.Entities;
+using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Processing.Models;
 
 namespace VaBank.Services.Processing
@@ -11,6 +12,11 @@ namespace VaBank.Services.Processing
             CreateMap<ExchangeRate, ExchangeRateModel>()
                 .ForMember(x => x.BaseCurrency, cfg => cfg.MapFrom(x => x.Base))
                 .ForMember(x => x.ForeignCurrency, cfg => cfg.MapFrom(x => x.Foreign));
+            CreateMap<ProcessStatus, ProcessStatusModel>();            
+            CreateMap<BankOperation, BankOperationModel>()
+                .ForMember(x => x.CategoryCode, cfg => cfg.MapFrom(x => x.Category.Code))
+                .ForMember(x => x.Id, cfg => cfg.MapFrom(x => x.Id))
+                .ForMember(x => x.Status, cfg => cfg.MapFrom(x => x.Status));                   
         }
     }
 }
