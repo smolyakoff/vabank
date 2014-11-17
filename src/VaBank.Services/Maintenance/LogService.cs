@@ -173,7 +173,14 @@ namespace VaBank.Services.Maintenance
 
         public IList<TransactionLogEntryBriefModel> GetTransactionLogEntries()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _db.Transactions.ProjectAll<TransactionLogEntryBriefModel>();
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get all transaction models.", ex);
+            }
         }
 
         public TransactionLogEntryModel GetTransactionLogEntry(IdentityQuery<Guid> transactionId)

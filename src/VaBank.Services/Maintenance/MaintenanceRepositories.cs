@@ -1,9 +1,8 @@
 ﻿using VaBank.Common.Data.Repositories;
-using VaBank.Core.App;
 using VaBank.Core.App.Repositories;
-using VaBank.Core.Maintenance;
 using VaBank.Core.Maintenance.Entitities;
 using VaBank.Core.Maintenance.Repositories;
+using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
 
 namespace VaBank.Services.Maintenance
@@ -15,5 +14,7 @@ namespace VaBank.Services.Maintenance
         public IAuditLogRepository AuditLogs { get; set; }
 
         public IOperationRepository Operations { get; set; }
+
+        public IRepository<Transaction> Transactions { get; set; }
     }
 }

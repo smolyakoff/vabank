@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CardDoesNotExistError" xml:space="preserve">
-    <value>Карта не существует.</value>
+    <value>Карта {0} не существует.</value>
   </data>
   <data name="CardIsBlockedError" xml:space="preserve">
-    <value>Карта заблокирована.</value>
+    <value>Карта {0} заблокирована.</value>
   </data>
   <data name="CardIsInvalidError" xml:space="preserve">
-    <value>Карта не валидна.</value>
+    <value>Карта {0} не валидна.</value>
   </data>
 </root>

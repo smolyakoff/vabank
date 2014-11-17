@@ -61,7 +61,7 @@ namespace VaBank.Services.Processing {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Карта не существует..
+        ///   Looks up a localized string similar to Карта {0} не существует..
         /// </summary>
         internal static string CardDoesNotExistError {
             get {
@@ -70,7 +70,7 @@ namespace VaBank.Services.Processing {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Карта заблокирована..
+        ///   Looks up a localized string similar to Карта {0} заблокирована..
         /// </summary>
         internal static string CardIsBlockedError {
             get {
@@ -79,7 +79,7 @@ namespace VaBank.Services.Processing {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Карта не валидна..
+        ///   Looks up a localized string similar to Карта {0} не валидна..
         /// </summary>
         internal static string CardIsInvalidError {
             get {
