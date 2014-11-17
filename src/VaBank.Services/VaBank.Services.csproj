@@ -107,6 +107,11 @@
     <Compile Include="Processing\CardTransferClientServiceDependencies.cs" />
     <Compile Include="Processing\ExchangeRateService.cs" />
     <Compile Include="Processing\ExchangeRateServiceDependencies.cs" />
+    <Compile Include="Processing\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Processing\NBRBServiceClient.cs" />
     <Compile Include="Accounting\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -198,6 +203,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Membership\Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Processing\Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

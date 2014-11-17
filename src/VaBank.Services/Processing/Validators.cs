@@ -23,6 +23,18 @@ namespace VaBank.Services.Processing
             
             //TODO: add validation rules
             RuleFor(x => x.Amount).GreaterThan(0);
+            RuleFor(x => x.FromCardId).Must(CardExists)
+                .WithLocalizedMessage(() => Messages.CardDoesNotExistError);
+            RuleFor(x => x.FromCardId).Must(CardIsNotBlocked)
+                .WithLocalizedMessage(() => Messages.CardIsBlockedError);
+            RuleFor(x => x.FromCardId).Must(CardIsValid)
+                .WithLocalizedMessage(() => Messages.CardIsInvalidError);
+        }
+
+        private bool CardExists(Guid cardId)
+        {
+            var card = _userCards.Find(cardId);
+            return card != null;
         }
 
         private bool CardIsNotBlocked(Guid cardId)
