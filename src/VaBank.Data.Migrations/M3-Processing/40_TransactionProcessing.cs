@@ -30,7 +30,7 @@ namespace VaBank.Data.Migrations
                     .Indexed("IX_Operation_Status");
 
             Create.Table("Operation_User").InSchema(SchemaName)
-                .WithColumn("OperationID").AsInt64().NotNullable().PrimaryKey("PK_Operation_User")
+                .WithColumn("OperationID").AsInt64().NotNullable().PrimaryKey("PK_Operation_User").ForeignKey("FK_Operation_To_Operation_User", SchemaName, "Operation", "ID")
                 .WithColumn("UserID").AsGuid().NotNullable()
                     .ForeignKey("FK_User_To_Operation_User", "Membership", "User", "UserID");
 
