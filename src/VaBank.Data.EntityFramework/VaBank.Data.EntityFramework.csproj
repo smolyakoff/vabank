@@ -94,6 +94,7 @@
     <Compile Include="Common\Repository`1.cs" />
     <Compile Include="Processing\ExchangeRateRepository.cs" />
     <Compile Include="Processing\Mappings\ExchangeRateMap.cs" />
+    <Compile Include="Processing\Mappings\OperationCategoryMap.cs" />
     <Compile Include="VaBankContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
