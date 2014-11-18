@@ -1,5 +1,6 @@
 ﻿using VaBank.Common.Data.Repositories;
 using VaBank.Core.App.Repositories;
+using VaBank.Core.Common;
 using VaBank.Core.Maintenance.Entitities;
 using VaBank.Core.Maintenance.Repositories;
 using VaBank.Core.Processing.Entities;
@@ -16,5 +17,7 @@ namespace VaBank.Services.Maintenance
         public IOperationRepository Operations { get; set; }
 
         public IRepository<Transaction> Transactions { get; set; }
+
+        public IHistoricalRepository HistoricalRepository { get; set; }
     }
 }

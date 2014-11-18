@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using VaBank.Core.App.Entities;
-using VaBank.Core.Maintenance;
 using VaBank.Core.Maintenance.Entitities;
-using VaBank.Services.Contracts.Maintenance.Models;
-using VaBank.Core.App;
+using VaBank.Core.Processing.Entities;
 using VaBank.Services.Contracts.Maintenance.Commands;
+using VaBank.Services.Contracts.Maintenance.Models;
 
 namespace VaBank.Services.Maintenance
 {
@@ -40,6 +39,15 @@ namespace VaBank.Services.Maintenance
                 .ForMember(des => des.DbActions, src => src.MapFrom(x => x.DatabaseActions));
 
             CreateMap<LogAppActionCommand, ApplicationAction>();
+
+            CreateMap<ITransaction, TransactionLogEntryBriefModel>()
+                .ForMember(x => x.TransactionId, cfg => cfg.MapFrom(x => x.Id))
+                .Include<Transaction, TransactionLogEntryBriefModel>()
+                .Include<HistoricalTransaction, TransactionLogEntryHistoricalModel>();
+            CreateMap<Transaction, TransactionLogEntryBriefModel>();
+            CreateMap<HistoricalTransaction, TransactionLogEntryHistoricalModel>()
+                .ForMember(x => x.TimestampUtc, cfg => cfg.MapFrom(x => x.HistoryTimestampUtc))
+                .ForMember(x => x.ChangeOwnerUserId, cfg => cfg.MapFrom(x => x.HistoryOperation.UserId));
         }
     }
 }

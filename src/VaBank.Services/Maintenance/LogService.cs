@@ -5,6 +5,7 @@ using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.App.Entities;
 using VaBank.Core.Maintenance.Entitities;
+using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Common.Exceptions;
 using VaBank.Services.Contracts.Common;
@@ -185,7 +186,21 @@ namespace VaBank.Services.Maintenance
 
         public TransactionLogEntryModel GetTransactionLogEntry(IdentityQuery<Guid> transactionId)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(transactionId);
+            try
+            {
+                var versions = _db.HistoricalRepository.GetAllBySurrogateKey<HistoricalTransaction>(transactionId.Id)
+                    .Select(x => x.ToClass<HistoricalTransaction, TransactionLogEntryHistoricalModel>()).ToList();
+                return new TransactionLogEntryModel
+                {
+                    TransactionId = transactionId.Id,
+                    Versions = versions
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get all transaction models.", ex);
+            }
         }
     }
 }
