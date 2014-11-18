@@ -1,10 +1,12 @@
-﻿using VaBank.Common.Validation;
+﻿using VaBank.Common.IoC;
+using VaBank.Common.Validation;
 using VaBank.Core.Processing.Entities;
 using VaBank.Core.Processing.Factories;
 using VaBank.Core.Processing.Processors.Abstract;
 
 namespace VaBank.Core.Processing.Processors
 {
+    [Injectable]
     public class CentralProcessor
     {
         private readonly ProcessorFactory _processorFactory;
