@@ -10,6 +10,6 @@ namespace VaBank.Core.Common
         char HistoryAction { get; }
         DateTime HistoryTimestampUtc { get; }
         Guid HistoryOperationId { get; }
-        Expression<Func<T, bool>> GetSurrogateKeyFilterExpression(object surrogateKey);
+        string SurrogateKeyPropertyName { get; }
     }
 }
