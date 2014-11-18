@@ -5,7 +5,7 @@ using VaBank.Core.Common;
 
 namespace VaBank.Core.Processing.Entities
 {
-    public class Transaction : Entity<Guid>
+    public class Transaction : Entity<Guid>, ITransaction
     {
         private Account _account;
 
