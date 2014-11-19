@@ -8,8 +8,8 @@ namespace VaBank.Jobs.Processing
     {
         protected override void Configure()
         {
-            CreateMap<IBankOperationEvent, ProcessBankOperationCommand>()
-                .ForMember(x => x.BankOperationId, cfg => cfg.MapFrom(x => x.BankOperationId));
+            CreateMap<IBankOperationEvent, ProcessBankOperationCommand>();
+            CreateMap<ITransactionEvent, ProcessTransactionCommand>();
         }
     }
 }
