@@ -6,6 +6,15 @@ namespace VaBank.Core.Processing.Entities
 {
     public abstract class BankOperation : Entity<long>
     {
+        internal BankOperation(OperationCategory category, ProcessStatus status, DateTime createdDateUtc, DateTime? completedDateUtc, string errorMessage)
+        {
+            Category = category;
+            Status = status;
+            CreatedDateUtc = createdDateUtc;
+            CompletedDateUtc = completedDateUtc;
+            ErrorMessage = errorMessage;
+        }
+
         protected BankOperation(OperationCategory category) : this()
         {
             Argument.NotNull(category, "category");
