@@ -3,6 +3,7 @@ using System.Web.Http;
 using VaBank.Common.Data;
 using VaBank.Services.Contracts.Accounting;
 using VaBank.Services.Contracts.Accounting.Commands;
+using VaBank.Services.Contracts.Processing.Queries;
 using VaBank.UI.Web.Api.Infrastructure.Filters;
 
 namespace VaBank.UI.Web.Api.Customer
@@ -44,6 +45,14 @@ namespace VaBank.UI.Web.Api.Customer
         {
             command.CardId = id;
             return Ok(_cardAccountService.SetCardBlock(command));
+        }
+
+        [Route("api/cards/{id:guid}/statement")]
+        [HttpGet]
+        public IHttpActionResult Statement([FromUri]Guid id, CardAccountStatementQuery query)
+        {
+            query.CardId = id;
+            return Ok(_cardAccountService.GetCardAccountStatement(query));
         }
     }
 }

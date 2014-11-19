@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Accounting;
 using VaBank.Services.Contracts.Accounting.Commands;
@@ -286,7 +287,23 @@ namespace VaBank.Services.Accounting
 
         public CardAccountStatementModel GetCardAccountStatement(CardAccountStatementQuery query)
         {
-            throw new NotImplementedException();
+            //TODO: should check logic
+            EnsureIsValid(query);
+            try
+            {
+                var statementModel = _deps.UserCards.SurelyFind(query.CardId).ToModel<UserCard, CardAccountStatementModel>();
+                statementModel.DateRange = query.DateRange;
+                statementModel.Transactions.AddRange(_deps.CardTransactions
+                    .Project<CardAccountStatementItemModel>(DbQuery.For<CardTransaction>()
+                    .FilterBy(x => x.Card.Id == query.CardId
+                        && x.PostDateUtc <= query.DateRange.UpperBound
+                        && x.PostDateUtc >= query.DateRange.LowerBound)));
+                return statementModel;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get card account statement.", ex);
+            }
         }
     }
 }

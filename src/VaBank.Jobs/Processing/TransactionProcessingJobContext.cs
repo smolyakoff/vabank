@@ -4,7 +4,7 @@ using VaBank.Services.Contracts.Processing.Events;
 
 namespace VaBank.Jobs.Processing
 {
-    public class OperationProcessingJobContext : DefaultJobContext<IBankOperationEvent>
+    public class TransactionProcessingJobContext : DefaultJobContext<ITransactionEvent>
     {
         public IProcessingService ProcessingService { get; set; }
     }

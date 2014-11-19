@@ -1,6 +1,7 @@
 ﻿using Autofac;
-using System;
+using AutoMapper;
 using VaBank.Jobs.Common;
+using VaBank.Services.Contracts.Processing.Commands;
 using VaBank.Services.Contracts.Processing.Events;
 
 namespace VaBank.Jobs.Processing
@@ -14,11 +15,8 @@ namespace VaBank.Jobs.Processing
         }
         
         protected override void Execute(OperationProcessingJobContext context)
-        {            
-            var operation = context.Operations.Find(context.Data.BankOperationId);
-            if (operation == null)
-                throw new InvalidOperationException("Can't process bank operation, because it was deleted.");
-            context.Processor.Process(operation);
+        {  
+            context.ProcessingService.ProcessBankOperation(Mapper.Map<ProcessBankOperationCommand>(context.Data));
         }
     }
 }
