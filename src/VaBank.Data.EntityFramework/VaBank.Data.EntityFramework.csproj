@@ -96,6 +96,10 @@
     <Compile Include="Processing\ExchangeRateRepository.cs" />
     <Compile Include="Processing\Mappings\ExchangeRateMap.cs" />
     <Compile Include="Processing\Mappings\OperationCategoryMap.cs" />
+    <Compile Include="Processing\Mappings\OperationMap.cs" />
+    <Compile Include="Processing\Mappings\TransactionMap.cs" />
+    <Compile Include="Processing\Mappings\CardTransactionMap.cs" />
+    <Compile Include="Processing\Mappings\UserBankOperationMap.cs" />
     <Compile Include="VaBankContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
