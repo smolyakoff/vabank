@@ -113,6 +113,7 @@
     <Compile Include="Infrastructure\SmsNotificationJobContext.cs" />
     <Compile Include="Processing\OperationProcessingJob.cs" />
     <Compile Include="Processing\OperationProcessingJobContext.cs" />
+    <Compile Include="Processing\ProcessingProfile.cs" />
     <Compile Include="Processing\UpdateExchangeRatesJob.cs" />
     <Compile Include="Processing\UpdateExchangeRatesJobContext.cs" />
     <Compile Include="Maintenance\AuditJob.cs" />
