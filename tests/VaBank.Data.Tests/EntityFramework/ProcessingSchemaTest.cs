@@ -13,16 +13,7 @@ namespace VaBank.Data.Tests.EntityFramework
 {
     [TestClass]
     public class ProcessingSchemaTest: EntityFrameworkTest
-    {
-        private UserCard _fromCard;
-        private UserCard _toCard;
-
-        public ProcessingSchemaTest()
-        {
-            _fromCard = Context.Set<UserCard>().First();
-            _toCard = Context.Set<UserCard>().Last();
-        }
-        
+    {        
         [TestCategory("Development")]
         [TestMethod]
         public void Can_VaBank_Context_Save_OperationCategory()
@@ -54,7 +45,8 @@ namespace VaBank.Data.Tests.EntityFramework
         public void Can_Vabank_Context_Save_CardTransaction()
         {
             var currency = Context.Set<Currency>().Find("USD");
-            var cardTransaction = new CardTransaction("Test_Card_Transaction", "Belarus, Minsk, Karastayanova str. 43-18", _fromCard, currency, 50, 50, 0);
+            var formCard = Context.Set<UserCard>().First();
+            var cardTransaction = new CardTransaction("Test_Card_Transaction", "Belarus, Minsk, Karastayanova str. 43-18", formCard, currency, 50, 50, 0);
             Context.Set<CardTransaction>().Add(cardTransaction);
             Context.SaveChanges();
         }
@@ -64,7 +56,9 @@ namespace VaBank.Data.Tests.EntityFramework
         public void Can_Vabank_Context_Save_CardTransfer()
         {          
             var operationCategory = Context.Set<OperationCategory>().Find("TRANSFER-CARD");
-            var transfer = new CardTransfer(operationCategory, _fromCard, _toCard, 50);
+            var fromCard = Context.Set<UserCard>().First();
+            var toCard = Context.Set<UserCard>().Last();
+            var transfer = new CardTransfer(operationCategory, fromCard, toCard, 50);
             Context.Set<CardTransfer>().Add(transfer);
             Context.SaveChanges();
         }
