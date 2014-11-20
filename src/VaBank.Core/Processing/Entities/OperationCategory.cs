@@ -6,12 +6,6 @@ namespace VaBank.Core.Processing.Entities
     public class OperationCategory : Entity, IReferenceEntity
     {
         //TODO: children collection
-        internal OperationCategory(string code, string name, string description): this()
-        {
-            Code = code;
-            Name = name;
-            Description = description;
-        }
 
         protected OperationCategory()
         {
