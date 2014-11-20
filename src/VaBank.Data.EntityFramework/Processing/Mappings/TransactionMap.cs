@@ -15,7 +15,8 @@ namespace VaBank.Data.EntityFramework.Processing.Mappings
         {
             ToTable("Transaction", "Processing");
             HasKey(x => x.Id).Property(x => x.Id).HasColumnName("TransactionID");
-            HasRequired(x => x.AccountNo).WithMany().Map(x => x.MapKey("AccountNo"));
+            //Ignore(x => x.AccountNo);
+            HasRequired(x => x.Account).WithMany().Map(x => x.MapKey("AccountNo"));
             HasRequired(x => x.Currency).WithMany().Map(x => x.MapKey("CurrencyISOName"));
             Property(x => x.TransactionAmount).IsRequired();
             Property(x => x.AccountAmount).IsRequired();
