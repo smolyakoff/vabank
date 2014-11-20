@@ -8,12 +8,13 @@ using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Data.EntityFramework.Processing.Mappings
 {
-    public class CardTransactionMap: EntityTypeConfiguration<CardTransaction>
+    public class CardTransferMap: EntityTypeConfiguration<CardTransfer>
     {
-        public CardTransactionMap()
+        public CardTransferMap()
         {
-            ToTable("CardTransaction", "Processing");
-            HasRequired(x => x.Card).WithMany().Map(x => x.MapKey("CardID"));
+            ToTable("CardTransfer", "Processing");
+            HasKey(x => x.Id).Property(x => x.Id).HasColumnName("OperationID");
+            Property(x => x.Type);
         }
     }
 }
