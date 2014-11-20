@@ -1,7 +1,10 @@
 ﻿using Autofac;
 using System.Data.Entity;
+using System.Linq;
+using System.Reflection;
 using VaBank.Common.Data.Database;
 using VaBank.Common.Data.Repositories;
+using VaBank.Common.IoC;
 using VaBank.Core.Common;
 using VaBank.Data.EntityFramework;
 using VaBank.Data.EntityFramework.Common;
@@ -41,6 +44,25 @@ namespace VaBank.Data.Tests
                 .As(typeof (IQueryRepository<>))
                 .As(typeof (IPartialQueryRepository<>))
                 .InstancePerLifetimeScope();
+
+            var injectables = typeof(Entity).Assembly.GetTypes()
+                .Where(t => t.GetCustomAttribute<InjectableAttribute>() != null)
+                .Select(t => new { Lifetime = t.GetCustomAttribute<InjectableAttribute>().Lifetime, Type = t })
+                .ToList();
+
+            foreach (var injectable in injectables)
+            {
+                var registration = builder.RegisterType(injectable.Type).AsImplementedInterfaces().AsSelf();
+                switch (injectable.Lifetime)
+                {
+                    case Lifetime.Singleton:
+                        registration.SingleInstance();
+                        break;
+                    case Lifetime.PerDependency:
+                        registration.InstancePerDependency();
+                        break;
+                }
+            }
 
             Container = builder.Build();
         }
