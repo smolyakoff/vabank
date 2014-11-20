@@ -1,6 +1,7 @@
 ﻿using VaBank.Common.Data.Repositories;
 using VaBank.Core.App.Repositories;
 using VaBank.Core.Common;
+using VaBank.Core.Common.History;
 using VaBank.Core.Maintenance.Entitities;
 using VaBank.Core.Maintenance.Repositories;
 using VaBank.Core.Processing.Entities;

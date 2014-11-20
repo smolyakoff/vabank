@@ -189,7 +189,7 @@ namespace VaBank.Services.Maintenance
             EnsureIsValid(transactionId);
             try
             {
-                var versions = _db.HistoricalRepository.GetAllBySurrogateKey<HistoricalTransaction>(transactionId.Id)
+                var versions = _db.HistoricalRepository.GetAllVersions<HistoricalTransaction>(transactionId.Id)
                     .Select(x => x.ToClass<HistoricalTransaction, TransactionLogEntryHistoricalModel>()).ToList();
                 return new TransactionLogEntryModel
                 {

@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Linq.Expressions;
-using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.App.Entities;
-using VaBank.Core.Common;
+using VaBank.Core.Common.History;
 
 namespace VaBank.Core.Processing.Entities
 {
+    [Historical(typeof(HistoricalTransactionSpecification))]
     public class HistoricalTransaction : ITransaction, IHistoricalEntity<HistoricalTransaction>
     {
         internal HistoricalTransaction()
@@ -15,11 +14,13 @@ namespace VaBank.Core.Processing.Entities
         
         public long HistoryId { get; internal set; }
 
-        public char HistoryAction { get; internal set; }
-
         public DateTime HistoryTimestampUtc { get; internal set; }
 
         public Guid HistoryOperationId { get; internal set; }
+
+        public char HistoryAction { get; internal set; }
+
+        public Guid Id { get; internal set; }
 
         public virtual Operation HistoryOperation { get; internal set; }
 
@@ -44,12 +45,5 @@ namespace VaBank.Core.Processing.Entities
         public string ErrorMessage { get; internal set; }
 
         public ProcessStatus Status { get; internal set; }
-
-        public Guid Id { get; internal set; }
-
-        public string SurrogateKeyPropertyName
-        {
-            get { return "Id"; }
-        }
     }
 }

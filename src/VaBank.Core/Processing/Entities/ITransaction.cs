@@ -5,6 +5,7 @@ namespace VaBank.Core.Processing.Entities
 {
     public interface ITransaction
     {
+        Guid Id { get; }
         string AccountNo { get; }
         Currency Currency { get; }
         decimal TransactionAmount { get; }
@@ -16,6 +17,5 @@ namespace VaBank.Core.Processing.Entities
         string Location { get; }
         string ErrorMessage { get; }
         ProcessStatus Status { get; }
-        Guid Id { get; }
     }
 }

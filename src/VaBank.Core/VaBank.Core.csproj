@@ -52,8 +52,10 @@
     <Compile Include="App\Factories\SecurityCodeFactory.cs" />
     <Compile Include="App\Settings\SecurityCodeSettings.cs" />
     <Compile Include="Common\DomainException.cs" />
-    <Compile Include="Common\IHistoricalEntity.cs" />
-    <Compile Include="Common\IHistoricalRepository.cs" />
+    <Compile Include="Common\History\HistoricalAttribute.cs" />
+    <Compile Include="Common\History\IHistoricalEntity.cs" />
+    <Compile Include="Common\History\IHistoricalRepository.cs" />
+    <Compile Include="Common\History\IHistoricalEntitySpecification%271.cs" />
     <Compile Include="Common\IReferenceEntity.cs" />
     <Compile Include="Common\IVersionedEntity.cs" />
     <Compile Include="Common\Validators.cs" />
@@ -65,6 +67,7 @@
     <Compile Include="Processing\Entities\CardTransferType.cs" />
     <Compile Include="Processing\Entities\BankOperation.cs" />
     <Compile Include="Processing\Entities\HistoricalTransaction.cs" />
+    <Compile Include="Processing\Entities\HistoricalTransactionSpecification.cs" />
     <Compile Include="Processing\Entities\ITransaction.cs" />
     <Compile Include="Processing\Entities\OperationCategory.cs" />
     <Compile Include="Processing\Entities\ProcessStatus.cs" />

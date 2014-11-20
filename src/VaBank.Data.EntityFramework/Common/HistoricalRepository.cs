@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using System.Reflection;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.Validation;
-using VaBank.Core.Common;
-using System.Linq;
-using System.Linq.Expressions;
+using VaBank.Core.Common.History;
 
 namespace VaBank.Data.EntityFramework.Common
 {
     public class HistoricalRepository : IRepository, IHistoricalRepository
     {
+        private static readonly Dictionary<Type, object> Specs = new Dictionary<Type, object>(); 
+
         protected readonly DbContext Context;
 
         public HistoricalRepository(DbContext context)
@@ -18,45 +20,58 @@ namespace VaBank.Data.EntityFramework.Common
             Argument.NotNull(context, "context");
             Context = context;
         }
+
+        public IList<THistoricalEntity> GetAllVersions<THistoricalEntity>(params object[] originalKeys) where THistoricalEntity : class, IHistoricalEntity<THistoricalEntity>
+        {
+            return EnsureRepositoryException(() =>
+            {
+                var spec = LoadSpec<THistoricalEntity>();
+                var versions = Context.Set<THistoricalEntity>()
+                    .Where(spec.OriginalKey(originalKeys).Expression)
+                    .OrderByDescending(x => x.HistoryTimestampUtc)
+                    .ToList();
+                return versions;
+            });
+        }
+
+        public THistoricalEntity GetLastVersion<THistoricalEntity>(params object[] originalKeys) where THistoricalEntity : class, IHistoricalEntity<THistoricalEntity>
+        {
+            return EnsureRepositoryException(() =>
+            {
+                var spec = LoadSpec<THistoricalEntity>();
+                var version = Context.Set<THistoricalEntity>()
+                    .Where(spec.OriginalKey(originalKeys).Expression)
+                    .Where(x => x.HistoryAction != 'D')
+                    .OrderByDescending(x => x.HistoryTimestampUtc)
+                    .FirstOrDefault();
+                return version;
+            });
+        }
+
+        private static IHistoricalEntitySpecification<T> LoadSpec<T>()
+        {
+            if (Specs.ContainsKey(typeof (T)))
+            {
+                return (IHistoricalEntitySpecification<T>) Specs[typeof(T)];
+            }
+            var attribute = typeof (T).GetCustomAttribute(typeof (HistoricalAttribute)) as HistoricalAttribute;
+            if (attribute == null)
+            {
+                var message = string.Format("No historical spec found for [{0}].", typeof (T).Name);
+                throw new InvalidOperationException(message);
+            }
+            try
+            {
+                var spec = attribute.Spec<T>();
+                Specs[typeof (T)] = spec;
+                return spec;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Historical spec type mismatch.", ex);
+            }
+        } 
         
-        public IList<THistoricalEntity> GetAllBySurrogateKey<THistoricalEntity>(object surrogateKey) where THistoricalEntity : class, IHistoricalEntity<THistoricalEntity>
-        {
-            Argument.NotNull(surrogateKey, "surrogateKey");
-
-            return EnsureRepositoryException(() =>
-            {
-                return Context.Set<THistoricalEntity>().Where(GetSurrogateKeyFilterExpression<THistoricalEntity>(surrogateKey)).ToList();
-            });
-        }
-
-        public THistoricalEntity GetLast<THistoricalEntity>(object surrogateKey) where THistoricalEntity : class, IHistoricalEntity<THistoricalEntity>
-        {
-            Argument.NotNull(surrogateKey, "surrogateKey");
-
-            return EnsureRepositoryException(() =>
-            {
-                return Context.Set<THistoricalEntity>().Where(GetSurrogateKeyFilterExpression<THistoricalEntity>(surrogateKey)).OrderBy(x => x.HistoryTimestampUtc).LastOrDefault();
-            });
-        }
-
-        public IList<THistoricalEntity> GetAll<THistoricalEntity>() where THistoricalEntity : class, IHistoricalEntity<THistoricalEntity>
-        {
-            return EnsureRepositoryException(() =>
-            {
-                return Context.Set<THistoricalEntity>().ToList();
-            });
-        }
-
-        private Expression<Func<THistoricalEntity, bool>> GetSurrogateKeyFilterExpression<THistoricalEntity>(object surrogateKey) 
-            where THistoricalEntity : class, IHistoricalEntity<THistoricalEntity>
-        {
-            var obj = (THistoricalEntity)Activator.CreateInstance(typeof(THistoricalEntity), true);
-            var parameter = Expression.Parameter(surrogateKey.GetType(), "x");
-            Expression body = Expression.Property(parameter, obj.SurrogateKeyPropertyName);
-            body = Expression.Equal(body, Expression.Constant(surrogateKey));
-            return Expression.Lambda<Func<THistoricalEntity, bool>>(body, parameter);
-        }
-
         protected T EnsureRepositoryException<T>(Func<T> call)
         {
             try
