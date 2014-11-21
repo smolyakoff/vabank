@@ -4,7 +4,7 @@ using VaBank.Core.Common;
 
 namespace VaBank.Core.Processing.Entities
 {
-    public abstract class BankOperation : Entity<long>
+    public abstract class BankOperation : Entity<long>, IBankOperation
     { 
         protected BankOperation(OperationCategory category) : this()
         {

@@ -66,8 +66,10 @@
     <Compile Include="Processing\Entities\CardTransfer.cs" />
     <Compile Include="Processing\Entities\CardTransferType.cs" />
     <Compile Include="Processing\Entities\BankOperation.cs" />
+    <Compile Include="Processing\Entities\HistoricalBankOperation.cs" />
     <Compile Include="Processing\Entities\HistoricalTransaction.cs" />
     <Compile Include="Processing\Entities\HistoricalTransactionSpecification.cs" />
+    <Compile Include="Processing\Entities\IBankOperation.cs" />
     <Compile Include="Processing\Entities\ITransaction.cs" />
     <Compile Include="Processing\Entities\OperationCategory.cs" />
     <Compile Include="Processing\Entities\ProcessStatus.cs" />
