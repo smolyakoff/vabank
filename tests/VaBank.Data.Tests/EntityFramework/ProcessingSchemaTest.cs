@@ -56,8 +56,9 @@ namespace VaBank.Data.Tests.EntityFramework
         public void Can_Vabank_Context_Save_CardTransfer()
         {          
             var operationCategory = Context.Set<OperationCategory>().Find("TRANSFER-CARD");
-            var fromCard = Context.Set<UserCard>().First();
-            var toCard = Context.Set<UserCard>().Last();
+            var cards = Context.Set<UserCard>().OrderBy(x => x.CardNo).Take(2).ToList();
+            var fromCard = cards[0];
+            var toCard = cards[1];
             var transfer = new CardTransfer(operationCategory, fromCard, toCard, 50);
             Context.Set<CardTransfer>().Add(transfer);
             Context.SaveChanges();

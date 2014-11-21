@@ -19,7 +19,7 @@ namespace VaBank.Data.Migrations
                 .WithColumn("Description").AsBigString().Nullable();
 
             Create.Table("Operation").InSchema(SchemaName)
-                .WithColumn("ID").AsInt64().PrimaryKey("PK_Operation")
+                .WithColumn("ID").AsInt64().PrimaryKey("PK_Operation").Identity()
                 .WithColumn("CategoryCode").AsName().NotNullable()
                     .ForeignKey("FK_OperationCategory_To_Operation", SchemaName, "OperationCategory", "Code")
                     .Indexed("IX_Operation_CategoryCode")
