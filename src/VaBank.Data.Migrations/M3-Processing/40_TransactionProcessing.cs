@@ -45,7 +45,7 @@ namespace VaBank.Data.Migrations
                 .WithColumn("AccountAmount").AsDecimal().NotNullable()
                 .WithColumn("RemainingBalance").AsDecimal().NotNullable()
                 .WithColumn("CreatedDateUtc").AsDateTime().NotNullable()
-                .WithColumn("PostDateUtc").AsDateTime().NotNullable()
+                .WithColumn("PostDateUtc").AsDateTime().Nullable()
                 .WithColumn("Location").AsName().NotNullable()
                 .WithColumn("Description").AsBigString().Nullable()
                 .WithColumn("ErrorMessage").AsBigString().Nullable()
