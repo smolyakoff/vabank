@@ -9,6 +9,8 @@ namespace VaBank.Services.Contracts.Processing.Models
 
         public string AccountNo { get; set; }
 
+        public string Code { get; set; }
+
         public string Description { get; set; }
 
         public ProcessStatusModel Status { get; set; }

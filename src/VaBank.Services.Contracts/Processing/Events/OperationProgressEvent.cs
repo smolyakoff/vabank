@@ -6,9 +6,9 @@ using VaBank.Services.Contracts.Processing.Models;
 
 namespace VaBank.Services.Contracts.Processing.Events
 {
-    public class OperationChangedEvent : ApplicationEvent, IBankOperationEvent
+    public class OperationProgressEvent : ApplicationEvent, IBankOperationEvent
     {
-        public OperationChangedEvent(Guid appOperationId, BankOperationModel bankOperation)
+        public OperationProgressEvent(Guid appOperationId, BankOperationModel bankOperation)
         {
             Argument.NotNull(bankOperation, "bankOperation");
 
@@ -21,7 +21,7 @@ namespace VaBank.Services.Contracts.Processing.Events
         }
 
         [JsonConstructor]
-        protected OperationChangedEvent()
+        protected OperationProgressEvent()
         {
         }
 
@@ -42,14 +42,14 @@ namespace VaBank.Services.Contracts.Processing.Events
 
         private static string FormatCode(BankOperationModel bankOperation)
         {
-            const string pattern = "OP_{0}_{1}";
-            var code = string.Format(pattern, bankOperation.Status, bankOperation.CategoryCode.Replace('-','_'));
+            const string pattern = "OP_{0}";
+            var code = string.Format(pattern, bankOperation.CategoryCode.Replace('-','_')).ToUpperInvariant();
             return code;
         }
 
         private static string FormatDescription(BankOperationModel bankOperation)
         {
-            var description = string.Format("Bank operation #{0}[{1}] was changed.", bankOperation.Id,
+            var description = string.Format("Bank operation #{0}[{1}] is in progress.", bankOperation.Id,
                 bankOperation.CategoryCode);
             return description;
         }

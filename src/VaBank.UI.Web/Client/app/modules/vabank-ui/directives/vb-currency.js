@@ -43,7 +43,7 @@
             };
 
             var parse = function (viewValue) {
-                var modelValue = accounting.unformat(viewValue);
+                var modelValue = accounting.unformat(viewValue, $scope.decimal);
                 _.each(validators, function(v, k) {
                     ngModelCtrl.$setValidity(k, v(modelValue));
                 });

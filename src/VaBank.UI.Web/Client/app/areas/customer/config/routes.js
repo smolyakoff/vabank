@@ -29,7 +29,7 @@
                 resolve: {
                     data: ['myCardsService', 'profileService', 'routingResolve',
                         function (myCardsService, profileService, routingResolve) {
-                            var cards = myCardsService.Card.query().$promise;
+                            var cards = myCardsService.Card.query.$promise;
                             var profile = profileService.Profile.get().$promise;
                             return routingResolve.resolveAll([cards, profile], ['cards', 'profile']);
                         }]
@@ -98,7 +98,7 @@
                 resolve: {
                     data: ['myCardsService', 'profileService', 'routingResolve',
                         function (myCardsService, profileService, routingResolve) {
-                            var cards = myCardsService.Card.query().$promise;
+                            var cards = myCardsService.Card.queryNotBlocked();
                             var profile = profileService.Profile.get().$promise;
                             return routingResolve.resolveAll([cards, profile], ['cards', 'profile']);
                         }]

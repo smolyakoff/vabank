@@ -229,6 +229,7 @@
     <Content Include="Client\app\areas\admin\user-management\user-list.html" />
     <Content Include="Client\app\areas\customer\cabinet\cabinet-ctrl.js" />
     <Content Include="Client\app\areas\customer\cabinet\cabinet-service.js" />
+    <Content Include="Client\app\areas\customer\my-cards\transfer-service.js" />
     <Content Include="Client\app\areas\customer\security-code-service.js" />
     <Content Include="Client\app\areas\customer\my-cards\customer-card-ctrl.js" />
     <Content Include="Client\app\areas\customer\my-cards\limits-form.html" />
@@ -1927,6 +1928,7 @@
     <Compile Include="Api\Common\UserController.cs" />
     <Compile Include="Api\Common\ValidationController.cs" />
     <Compile Include="Api\Common\CurrencyRateController.cs" />
+    <Compile Include="Api\Customer\CardTransferController.cs" />
     <Compile Include="Api\Customer\CustomerCardController.cs" />
     <Compile Include="Api\Customer\SecurityCodeController.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankAuthorizationServerProvider.cs" />

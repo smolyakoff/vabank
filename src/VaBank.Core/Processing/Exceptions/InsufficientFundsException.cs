@@ -8,10 +8,8 @@ namespace VaBank.Core.Processing.Exceptions
         private readonly decimal _balance;
         private readonly decimal _requestedAmount;
 
-        private const string MessageFormat = "Insufficient funds. Actual balance: {0}. Requested amount: {1}.";
-
         public InsufficientFundsException(decimal balance, decimal requestedAmount)
-            :base(string.Format(MessageFormat, balance, requestedAmount))
+            :base(string.Format(Messages.InsufficientFundsErrorMessage, balance, requestedAmount))
         {
             Argument.Satisfies(requestedAmount, x => x > balance, "requestedAmount");
             _balance = balance;

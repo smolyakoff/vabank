@@ -25,6 +25,10 @@ namespace VaBank.Core.Processing.Entities
                 : CardTransferType.Interbank;
         }
 
+        protected CardTransfer()
+        {
+        }
+
         public virtual Card SourceCard { get; set; }
 
         public virtual Card DestinationCard { get; set; }

@@ -84,8 +84,8 @@
     <Compile Include="Processing\Events\IBankOperationEvent.cs" />
     <Compile Include="Common\Events\PostponedEvent.cs" />
     <Compile Include="Processing\Events\ITransactionEvent.cs" />
-    <Compile Include="Processing\Events\OperationChangedEvent.cs" />
-    <Compile Include="Processing\Events\TransactionChangedEvent.cs" />
+    <Compile Include="Processing\Events\OperationProgressEvent.cs" />
+    <Compile Include="Processing\Events\TransactionProgressEvent.cs" />
     <Compile Include="Processing\ICurrencyRateService.cs" />
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardLookupModel.cs" />

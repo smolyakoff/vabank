@@ -20,6 +20,9 @@ namespace VaBank.Core.Processing.Entities
             Card = card;
         }
 
+        protected CardTransaction()
+        {
+        }
 
         public virtual Card Card { get; protected set; }
     }

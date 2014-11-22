@@ -52,7 +52,7 @@ namespace VaBank.Services.Processing.Transactions
             var operation = command.BankOperation.ToModel<BankOperation, BankOperationModel>();
             return new List<ApplicationEvent>()
             {
-                new OperationChangedEvent(command.OperationId, operation)
+                new OperationProgressEvent(command.OperationId, operation)
             };
         }
 
@@ -66,7 +66,7 @@ namespace VaBank.Services.Processing.Transactions
             var operation = command.BankOperation.ToModel<BankOperation, BankOperationModel>();
             return new List<ApplicationEvent>()
             {
-                new OperationChangedEvent(command.OperationId, operation)
+                new OperationProgressEvent(command.OperationId, operation)
             };
         }
 
@@ -74,7 +74,7 @@ namespace VaBank.Services.Processing.Transactions
         {
             var transactionModel = command.Transaction.ToModel<TransactionModel>();
             var operationId = command.BankOperation == null ? null : (long?)command.BankOperation.Id;
-            var @event = new TransactionChangedEvent(command.OperationId, transactionModel, operationId);
+            var @event = new TransactionProgressEvent(command.OperationId, transactionModel, operationId);
             return new List<ApplicationEvent>()
             {
                 new PostponedEvent(@event, policy.GetScheduledDateUtc(command.Transaction, command.BankOperation))

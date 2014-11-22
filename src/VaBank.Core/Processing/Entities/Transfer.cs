@@ -38,19 +38,7 @@ namespace VaBank.Core.Processing.Entities
         public virtual Transaction Deposit
         {
             get { return _deposit; }
-            set
-            {
-                if (value == null)
-                {
-                    _deposit = null;
-                    return;
-                }
-                if (value.AccountNo != To.AccountNo)
-                {
-                    throw new ArgumentException("Deposit transaction should target destination account.");
-                }
-                _deposit = value;
-            }
+            internal set { _deposit = value; }
         }
 
         public virtual Currency Currency { get; protected set; }
@@ -60,6 +48,17 @@ namespace VaBank.Core.Processing.Entities
         public Money MoneyAmount
         {
             get {return new Money(Currency, Amount);}
+        }
+
+        public Transfer SetDepositTransaction(Transaction transaction)
+        {
+            Argument.NotNull(transaction, "transaction");
+            if (transaction.AccountNo != To.AccountNo)
+            {
+                throw new ArgumentException("Deposit transaction should target destination account.");
+            }
+            _deposit = transaction;
+            return this;
         }
     }
 }

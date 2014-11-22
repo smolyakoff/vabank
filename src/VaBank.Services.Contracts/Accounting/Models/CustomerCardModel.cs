@@ -6,6 +6,8 @@ namespace VaBank.Services.Contracts.Accounting.Models
     {
         public Guid CardId { get; set; }
 
+        public string AccountNo { get; set; }
+
         public string SecureCardNo { get; set; }
 
         public string CardholderFirstName { get; set; }

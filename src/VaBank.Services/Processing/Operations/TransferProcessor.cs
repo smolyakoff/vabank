@@ -76,7 +76,7 @@ namespace VaBank.Services.Processing.Operations
             var transactionModel = transfer.Withdrawal.ToModel<Transaction, TransactionModel>();
             return new List<ApplicationEvent>()
             {
-                new TransactionChangedEvent(appOperationId, transactionModel, transfer.Id)
+                new TransactionProgressEvent(appOperationId, transactionModel, transfer.Id)
             };
         }
 
@@ -84,12 +84,12 @@ namespace VaBank.Services.Processing.Operations
         {
             var transactionName = TransactionReferenceBook.ForOperation(transfer);
             var depositTransaction = Deposit(transfer.To, transfer, transactionName.Code, transactionName.Description);
-            transfer.Deposit = depositTransaction;
+            transfer.SetDepositTransaction(depositTransaction);
             var transactionModel = depositTransaction.ToModel<Transaction, TransactionModel>();
             TransferRepository.Update(transfer);
             return new List<ApplicationEvent>()
             {
-                new TransactionChangedEvent(appOperationId, transactionModel, transfer.Id)
+                new TransactionProgressEvent(appOperationId, transactionModel, transfer.Id)
             };
         }
 
@@ -116,7 +116,7 @@ namespace VaBank.Services.Processing.Operations
             var transactionModel = compensationTransaction.ToModel<Transaction, TransactionModel>();
             return new List<ApplicationEvent>
             {
-                new TransactionChangedEvent(appOperationId, transactionModel, transfer.Id)
+                new TransactionProgressEvent(appOperationId, transactionModel, transfer.Id)
             };
         } 
     }

@@ -27,7 +27,7 @@ namespace VaBank.Services.Processing
                 .WithLocalizedMessage(() => Messages.CardDoesNotExistError);
             RuleFor(x => x.FromCardId).Must(CardIsNotBlocked)
                 .WithLocalizedMessage(() => Messages.CardIsBlockedError);
-            RuleFor(x => x.FromCardId).Must(CardIsValid)
+            RuleFor(x => x.FromCardId).Must(CardIsNotExpired)
                 .WithLocalizedMessage(() => Messages.CardIsInvalidError);
         }
 
@@ -37,6 +37,7 @@ namespace VaBank.Services.Processing
             return card != null;
         }
 
+        //TODO: move to security validator
         private bool CardIsNotBlocked(Guid cardId)
         {
             var card = _userCards.Find(cardId);
@@ -47,8 +48,9 @@ namespace VaBank.Services.Processing
             return true;
         }
 
-        private bool CardIsValid(Guid cardId)
+        private bool CardIsNotExpired(Guid cardId)
         {
+            //TODO: check month only
             var card = _userCards.Find(cardId);
             if (card != null)
             {

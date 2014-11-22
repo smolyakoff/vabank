@@ -102,7 +102,7 @@
                     </td>
                 </tr>
                 <tr ng-if="view === 'db'&& !itemLoading.active()" data-ng-repeat-start="dbAction in detailedLog.dbActions">
-                    <td class="switch-audit-view text-center" ng-if="$index === 0" rowspan="{{dbAction.changes.length + 1}}">
+                    <td class="switch-audit-view text-center" ng-if="$index === 0" rowspan="{{detailedLog.dbActions.length * 2}}">
                         <a ng-click="switchView()"><i class="glyphicon glyphicon-retweet"></i></a>
                     </td>
                     <td class="text-info" colspan="3">

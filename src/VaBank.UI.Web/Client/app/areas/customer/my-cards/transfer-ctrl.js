@@ -5,12 +5,21 @@
         .module('vabank.webapp')
         .controller('transferController', transferController);
 
-    transferController.$inject = ['$scope', '$timeout', 'uiTools', 'WizardHandler', 'myCardsService', 'data'];
+    transferController.$inject = ['$scope', '$timeout', '$state', 'uiTools', 'WizardHandler', 'myCardsService', 'data'];
 
-    function transferController($scope, $timeout, uiTools, wizardHandler, myCardsService, data) {
+    function transferController($scope, $timeout, $state, uiTools, wizardHandler, myCardsService, data) {
+        
+        if (data.cards.length === 0) {
+            uiTools.notify({
+                type: 'warning',
+                message: 'Нет карт с которых разрешен перевод.'
+            });
+            $state.go('customer.cards.list');
+        }
 
         var validate = uiTools.validate;
         var SecurityCode = myCardsService.SecurityCode;
+        var Transfer = myCardsService.Transfer;
 
         var stepIndex = 0;
         var steps = ['fill', 'approve'];
@@ -23,17 +32,20 @@
             return model.cardSource == 'vabank';
         };
 
+        $scope.cards = data.cards;
+        $scope.cannotDoPersonalTransfer = data.cards.length == 1 || _.all(data.cards, function(x) {
+            return x.accountNo === $scope.cards[0].accountNo;
+        });
+        
         var defaultForm = {
-            cardSource: data.cards.length == 1 ? 'vabank' : 'my',
+            cardSource: $scope.cannotDoPersonalTransfer ? 'vabank' : 'my',
             fromCardId: data.cards[0].cardId,
             toCard: {},
             toCardId: null,
             amount: 5,
             securityCode: {}
         };
-
-        $scope.cards = data.cards;
-        $scope.isOneCard = data.cards.length == 1;
+        
         $scope.smsConfirmationEnabled = data.profile.smsConfirmationEnabled;
         $scope.smsCodeSent = false;
         $scope.transferFormController = {};
@@ -103,6 +115,14 @@
             return _.findWhere($scope.cards, { cardId: fromCardId });
         };
 
+        $scope.canBeDestinationCard = function(card) {
+            var source = $scope.getSourceCard();
+            if (!_.isString(source.accountNo)) {
+                return true;
+            }
+            return source.accountNo != card.accountNo;
+        };
+
         $scope.back = function() {
             wizardHandler.wizard('transferWizard').previous();
             stepIndex -= 1;
@@ -128,8 +148,32 @@
         };
 
         $scope.approve = function () {
-            stepIndex = 2;
-            wizardHandler.wizard('transferWizard').goTo(stepIndex);
+            function onSuccess() {
+                stepIndex = 2;
+                wizardHandler.wizard('transferWizard').goTo(stepIndex);
+            }
+            function onError(response) {
+                $scope.errorMessage = response.data.message;
+                stepIndex = 3;
+                wizardHandler.wizard('transferWizard').goTo(stepIndex);
+            }
+
+            var transfer = {
+                type: $scope.transferForm.cardSource == 'my' ? 'personal' : 'interbank',
+                fromCardId: $scope.transferForm.fromCardId,
+                amount: $scope.transferForm.amount
+            };
+            if ($scope.smsConfirmationEnabled) {
+                transfer.securityCode = $scope.transferForm.securityCode;
+            }
+            if (transfer.type === 'personal') {
+                transfer.toCardId = $scope.transferForm.toCardId;
+            } else {
+                transfer.toCardNo = $scope.transferForm.toCard.cardNumber;
+                transfer.toCardExpirationDateUtc = $scope.transferForm.toCard.expiration;
+            }
+            var promise = Transfer.create(transfer).$promise;
+            promise.then(onSuccess, onError);
         };
 
         $scope.$watch('transferForm.fromCardId', function (val) {

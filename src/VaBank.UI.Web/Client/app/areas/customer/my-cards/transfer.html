@@ -41,10 +41,10 @@
                                         <radio-field label="Моя карта"
                                                      attribute="cardSource"
                                                      value="my"
-                                                     disable="isOneCard">
+                                                     disable="cannotDoPersonalTransfer">
                                         </radio-field>
                                         <radio-field label="Карта VaBank"
-                                                     disable="isOneCard"
+                                                     disable="cannotDoPersonalTransfer"
                                                      attribute="cardSource"
                                                      value="vabank">
                                         </radio-field>
@@ -53,10 +53,10 @@
                                         <dropdown-field attribute="toCardId"
                                                         items="cards"
                                                         placeholder="Выберите карту"
-                                                        repeat="item.cardId as item in items | filter: {cardId: '!' + transferForm.fromCardId}"
+                                                        repeat="item.cardId as item in items | filter: canBeDestinationCard"
                                                         search-enabled="false"
                                                         display-attribute="friendlyName || cardVendor.name"
-                                                        export-scope="transferForm">
+                                                        export-scope="transferForm,canBeDestinationCard">
                                             {{item.friendlyName || item.cardVendor.name}} <span class="text-muted">{{item.secureCardNo}}</span>
                                         </dropdown-field>
                                     </div>
@@ -183,6 +183,26 @@
                             <button class="btn btn-primary" ui-sref="customer.cards.list">
                                 Перейти к моим картам
                             </button>
+                        </div>
+                    </div>
+                </wz-step>
+                <wz-step>
+                    <div class="panel panel-wizard panel-danger">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Ошибка операции</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>Во время операции произошла ошибка: </p>
+                            <p class="text-danger">{{errorMessage}}</p>
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-default" ui-sref="customer.cards.list">
+                                    Перейти к моим картам
+                                </button>
+                                <button class="btn btn-primary" data-ng-click="cancel()">
+                                    Попробовать заново
+                                </button>
+                            </div>
+                            
                         </div>
                     </div>
                 </wz-step>

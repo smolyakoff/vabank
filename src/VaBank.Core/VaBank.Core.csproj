@@ -85,6 +85,11 @@
     <Compile Include="Processing\IntegerRounding.cs" />
     <Compile Include="Processing\ExchangeRateSettings.cs" />
     <Compile Include="Processing\Factories\CurrencyConverterFactory.cs" />
+    <Compile Include="Processing\Messages.Designer.cs">
+      <DependentUpon>Messages.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Processing\Money.cs" />
     <Compile Include="Processing\MoneyConverter.cs" />
     <Compile Include="Processing\MoneyMath.cs" />
@@ -167,6 +172,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Membership\Resources\Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Processing\Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Processing\Resources\Descriptions.resx">

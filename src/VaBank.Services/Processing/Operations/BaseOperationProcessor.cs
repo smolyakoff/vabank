@@ -52,7 +52,7 @@ namespace VaBank.Services.Processing.Operations
             if (postponeDate != null)
             {
                 var operationModel = command.BankOperation.ToModel<BankOperation, BankOperationModel>();
-                var @event = new OperationChangedEvent(command.OperationId, operationModel);
+                var @event = new OperationProgressEvent(command.OperationId, operationModel);
                 return new List<ApplicationEvent>
                 {
                     new PostponedEvent(@event, postponeDate.Value)
