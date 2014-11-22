@@ -126,4 +126,10 @@
   <data name="CardIsInvalidError" xml:space="preserve">
     <value>Карта {0} не валидна.</value>
   </data>
+  <data name="TransferFailed" xml:space="preserve">
+    <value>Ошибка обработки перевода: {0}.</value>
+  </data>
+  <data name="TransferFailedUnknownReason" xml:space="preserve">
+    <value>Денежный перевод №{0} не может быть выполнен. Обратитесь в службу поддержки.</value>
+  </data>
 </root>

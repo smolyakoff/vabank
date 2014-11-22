@@ -45,8 +45,8 @@ namespace VaBank.Data.Tests.EntityFramework
         public void Can_Vabank_Context_Save_CardTransaction()
         {
             var currency = Context.Set<Currency>().Find("USD");
-            var formCard = Context.Set<UserCard>().First();
-            var cardTransaction = new CardTransaction("Test_Card_Transaction", "Belarus, Minsk, Karastayanova str. 43-18", formCard, currency, 50, 50, 0);
+            var fromCard = Context.Set<UserCard>().First();
+            var cardTransaction = new CardTransaction("ABC", "Test_Card_Transaction", "Belarus, Minsk, Karastayanova str. 43-18", fromCard.Account, fromCard, currency, 50, 50);
             Context.Set<CardTransaction>().Add(cardTransaction);
             Context.SaveChanges();
         }
@@ -56,7 +56,10 @@ namespace VaBank.Data.Tests.EntityFramework
         public void Can_Vabank_Context_Save_CardTransfer()
         {          
             var operationCategory = Context.Set<OperationCategory>().Find("TRANSFER-CARD");
-            var cards = Context.Set<UserCard>().OrderBy(x => x.CardNo).Take(2).ToList();
+            var cards = Context.Set<UserCard>().OrderBy(x => x.CardNo)
+                .Where(x => x.Account != null)
+                .Take(2)
+                .ToList();
             var fromCard = cards[0];
             var toCard = cards[1];
             var transfer = new CardTransfer(operationCategory, fromCard, toCard, 50);

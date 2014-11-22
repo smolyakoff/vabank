@@ -1,11 +1,13 @@
-﻿using VaBank.Jobs.Common;
+﻿using VaBank.Common.Data.Database;
+using VaBank.Jobs.Common;
 using VaBank.Services.Contracts.Processing;
 using VaBank.Services.Contracts.Processing.Events;
 
 namespace VaBank.Jobs.Processing
 {
-    public class TransactionProcessingJobContext : DefaultJobContext<ITransactionEvent>
+    public class TransactionProcessingJobContext : DefaultJobContext<ITransactionEvent>, ITransactionalJobContext
     {
         public IProcessingService ProcessingService { get; set; }
+        public ITransactionFactory TransactionFactory { get; set; }
     }
 }

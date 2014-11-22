@@ -52,10 +52,9 @@ namespace VaBank.Data.EntityFramework.App
         {
             try
             {
-                var json = JsonConvert.SerializeObject(value);
-                var xml = JsonConvert.DeserializeXNode(json, "Setting").ToString();
+                var json = Serialize(value);
                 var keyParam = new SqlParameter("@Key", key);
-                var valueParam = new SqlParameter("@Value", System.Data.SqlDbType.Xml) {Value = xml};
+                var valueParam = new SqlParameter("@Value", SqlDbType.NVarChar) {Value = json};
                 const string sql = @"MERGE [App].[Setting] AS target
                                     USING (SELECT @Key, @Value) AS source ([Key], [Value])
                                     ON (target.[Key] = source.[Key])
@@ -98,6 +97,12 @@ namespace VaBank.Data.EntityFramework.App
                 return default(T);
             }
             return JsonConvert.DeserializeObject<T>(json);
+        }
+
+        private static string Serialize<T>(T obj)
+        {
+            var @object = obj as object;
+            return @object == null ? null : JsonConvert.SerializeObject(obj);
         }
 
         private class KeyValue

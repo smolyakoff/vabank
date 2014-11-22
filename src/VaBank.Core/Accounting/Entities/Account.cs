@@ -33,7 +33,7 @@ namespace VaBank.Core.Accounting.Entities
 
         public byte[] RowVersion { get; protected set; }
 
-        public virtual Account Deposit(decimal amount)
+        internal virtual Account Deposit(decimal amount)
         {
             Argument.Satisfies(amount, x => x >= 0, "amount", "Deposit amount should be zero or greater.");
 
@@ -41,7 +41,7 @@ namespace VaBank.Core.Accounting.Entities
             return this;
         }
 
-        public virtual Account Withdraw(decimal amount)
+        internal virtual Account Withdraw(decimal amount)
         {
             Argument.Satisfies(amount, x => x >= 0, "amount", "Withdrawal amount should be zero or greater.");
             //By default, we do not allow credits.

@@ -57,6 +57,7 @@
     <Compile Include="Accounting\Events\UserCardLimitChanged.cs" />
     <Compile Include="Accounting\Models\CardAccountStatementItemModel.cs" />
     <Compile Include="Accounting\Models\CardAccountStatementModel.cs" />
+    <Compile Include="Common\Commands\IOperationCommand.cs" />
     <Compile Include="Processing\Commands\ICardCommand.cs" />
     <Compile Include="Common\Commands\ISecurityCodeCommand.cs" />
     <Compile Include="Common\Events\IApplicationEvent.cs" />
@@ -81,8 +82,10 @@
     <Compile Include="Processing\Commands\ProcessBankOperationCommand.cs" />
     <Compile Include="Processing\Commands\ProcessTransactionCommand.cs" />
     <Compile Include="Processing\Events\IBankOperationEvent.cs" />
+    <Compile Include="Common\Events\PostponedEvent.cs" />
     <Compile Include="Processing\Events\ITransactionEvent.cs" />
-    <Compile Include="Processing\Events\OperationStartedEvent.cs" />
+    <Compile Include="Processing\Events\OperationChangedEvent.cs" />
+    <Compile Include="Processing\Events\TransactionChangedEvent.cs" />
     <Compile Include="Processing\ICurrencyRateService.cs" />
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardLookupModel.cs" />

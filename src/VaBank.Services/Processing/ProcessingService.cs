@@ -1,5 +1,4 @@
 ﻿using System;
-using MoreLinq;
 using NLog;
 using VaBank.Common.Validation;
 using VaBank.Core.Processing.Entities;
@@ -8,6 +7,8 @@ using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Processing;
 using VaBank.Services.Contracts.Processing.Commands;
 using VaBank.Services.Contracts.Processing.Models;
+using VaBank.Services.Processing.Operations;
+using VaBank.Services.Processing.Transactions;
 
 namespace VaBank.Services.Processing
 {
@@ -31,16 +32,13 @@ namespace VaBank.Services.Processing
             try
             {
                 var operation = _deps.BankOperations.SurelyFind(command.BankOperationId);
-                var result = _deps.CentralProcessor.Process(operation);
-                result.StartedTransactions.ForEach(_deps.Transactions.Create);
+                var appOperationId = Operation.Id;
+                var events = _deps.CentralProcessor.Process(new BankOperationProcessorCommand(appOperationId, operation));
                 Commit();
-                if (result.RescheduledDateUtc != null)
+                foreach (var @event in events)
                 {
-                    //publish operation rescheduled event
-                    //Publish();
+                    Publish(@event);
                 }
-                //TODO: 
-                //foreach started transaction publish transaction started event
                 return operation.ToModel<BankOperation, BankOperationModel>();
             }
             catch (Exception ex)
@@ -55,27 +53,11 @@ namespace VaBank.Services.Processing
             {
                 var transaction = _deps.Transactions.SurelyFind(command.TransactionId);
                 var operation = _deps.BankOperations.Find(command.OperationId);
-                var result = _deps.CentralProcessor.Process(transaction, operation);
+                var events = _deps.CentralProcessor.Process(new TransactionProcessorCommand(Operation.Id, transaction, operation));
                 Commit();
-                if (result.RescheduledDateUtc != null)
+                foreach (var @event in events)
                 {
-                    //publish transaction rescheduled event
-                    //Publish();
-                }
-                if (result.NotifyOperationProcessor)
-                {
-                    if (operation == null)
-                    {
-                        _logger.Error("Can't notify operation processor because transaction is not bound to operation.");
-                    }
-                    else if (result.RescheduledDateUtc != null)
-                    {
-                        _logger.Warn("No need to notify transaction processor. Transaction was rescheduled.");
-                    }
-                    else
-                    {
-                       //TODO: publish operation processor notification, so ProcessBankOperation will be called again
-                    }
+                    Publish(@event);
                 }
                 return transaction.ToModel<Transaction, TransactionModel>();
             }

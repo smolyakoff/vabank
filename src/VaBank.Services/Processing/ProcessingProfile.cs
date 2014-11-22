@@ -14,7 +14,8 @@ namespace VaBank.Services.Processing
                 .ForMember(x => x.ForeignCurrency, cfg => cfg.MapFrom(x => x.Foreign));
             CreateMap<ProcessStatus, ProcessStatusModel>();
             CreateMap<BankOperation, BankOperationModel>()
-                .ForMember(x => x.CategoryCode, cfg => cfg.MapFrom(x => x.Category.Code));            
+                .ForMember(x => x.CategoryCode, cfg => cfg.MapFrom(x => x.Category.Code));
+            CreateMap<Transaction, TransactionModel>();
         }
     }
 }

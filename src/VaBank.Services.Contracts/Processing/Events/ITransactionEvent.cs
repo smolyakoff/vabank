@@ -5,6 +5,8 @@ namespace VaBank.Services.Contracts.Processing.Events
 {
     public interface ITransactionEvent : IAuditedEvent
     {
-        Guid TransactionId { get; set; }
+        Guid TransactionId { get; }
+
+        long? BankOperationId { get; }
     }
 }

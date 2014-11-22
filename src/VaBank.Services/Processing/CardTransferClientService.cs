@@ -32,13 +32,10 @@ namespace VaBank.Services.Processing
                 var fromCard = _deps.UserCards.SurelyFind(command.FromCardId);
                 var toCard = _deps.UserCards.SurelyFind(command.ToCardId);
                 var transfer = _deps.CardTransferFactory.Create(fromCard, toCard, command.Amount);
-                
                 _deps.CardTransfers.Create(transfer);                
                 Commit();
-                
                 var model = transfer.ToModel<BankOperation, BankOperationModel>();
-                PublishTransferEvent(model);
-
+                Publish(new OperationChangedEvent(Operation.Id, model));
                 return model;
             }
             catch (Exception ex)
@@ -55,26 +52,20 @@ namespace VaBank.Services.Processing
                 var fromCard = _deps.UserCards.SurelyFind(command.FromCardId);                
                 var toCard = _deps.UserCards.QueryOne(DbQuery.For<UserCard>().FilterBy(x => x.CardNo == command.ToCardNo));
                 if (toCard == null)
-                    throw NotFound.ExceptionFor<UserCard>();
+                {
+                    throw NotFound.ExceptionFor<UserCard>(command.ToCardNo);
+                }
                 var transfer = _deps.CardTransferFactory.Create(fromCard, toCard, command.Amount);
-
                 _deps.CardTransfers.Create(transfer);
                 Commit();
-
                 var model = transfer.ToModel<BankOperation, BankOperationModel>();
-                PublishTransferEvent(model);
-
+                Publish(new OperationChangedEvent(Operation.Id, model));
                 return model;
             }
             catch (Exception ex)
             {
                 throw new ServiceException("Can't create transfer.", ex);
             }
-        }
-
-        protected void PublishTransferEvent(BankOperationModel model)
-        {
-            Publish(new OperationStartedEvent(Operation.Id, model));
         }
     }
 }

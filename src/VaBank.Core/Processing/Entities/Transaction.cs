@@ -14,21 +14,32 @@ namespace VaBank.Core.Processing.Entities
             Currency transactionCurrency,
             decimal transactionAmount,
             decimal accountAmount,
-            decimal remainingBalance,
+            string code,
             string description,
             string location) : this()
         {
             Argument.NotNull(account, "account");
             Argument.NotNull(transactionCurrency, "transactionCurrency");
+            Argument.NotNull(code, "code");
             Argument.NotEmpty(description, "description");
 
             Account = account;
             Currency = transactionCurrency;
             TransactionAmount = transactionAmount;
             AccountAmount = accountAmount;
-            RemainingBalance = remainingBalance;
+            Code = code;
             Description = description;
             Location = location;
+
+            if (Type == TransactionType.Withdrawal)
+            {
+                Account.Withdraw(-AccountAmount);
+                RemainingBalance = account.Balance;
+            }
+            else
+            {
+                RemainingBalance = account.Balance + accountAmount;
+            }
         }
 
         protected Transaction()
@@ -58,9 +69,16 @@ namespace VaBank.Core.Processing.Entities
 
         public decimal RemainingBalance { get; protected set; }
 
+        public TransactionType Type
+        {
+            get { return TransactionAmount > 0 ? TransactionType.Deposit : TransactionType.Withdrawal; }
+        }
+
         public DateTime CreatedDateUtc { get; protected set; }
 
         public DateTime? PostDateUtc { get; set; }
+
+        public string Code { get; protected set; }
 
         public string Description { get; protected set; }
 
@@ -74,6 +92,11 @@ namespace VaBank.Core.Processing.Entities
         {
             Argument.NotNull(message, "message");
 
+            if (Type == TransactionType.Withdrawal)
+            {
+                Account.Deposit(-AccountAmount);
+            }
+            RemainingBalance = Account.Balance;
             ErrorMessage = message;
             Status = ProcessStatus.Failed;
         }
@@ -82,6 +105,11 @@ namespace VaBank.Core.Processing.Entities
         {
             Argument.EnsureIsValid<FutureDateValidator, DateTime>(postDateUtc, "postDateUtc");
 
+            if (Type == TransactionType.Deposit)
+            {
+                Account.Deposit(AccountAmount);
+            }
+            RemainingBalance = Account.Balance;
             PostDateUtc = postDateUtc;
             Status = ProcessStatus.Completed;
         }

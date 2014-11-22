@@ -86,5 +86,23 @@ namespace VaBank.Services.Processing {
                 return ResourceManager.GetString("CardIsInvalidError", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка обработки перевода: {0}..
+        /// </summary>
+        internal static string TransferFailed {
+            get {
+                return ResourceManager.GetString("TransferFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Денежный перевод №{0} не может быть выполнен. Обратитесь в службу поддержки..
+        /// </summary>
+        internal static string TransferFailedUnknownReason {
+            get {
+                return ResourceManager.GetString("TransferFailedUnknownReason", resourceCulture);
+            }
+        }
     }
 }

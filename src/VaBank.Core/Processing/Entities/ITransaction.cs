@@ -13,6 +13,7 @@ namespace VaBank.Core.Processing.Entities
         decimal RemainingBalance { get; }
         DateTime CreatedDateUtc { get; }
         DateTime? PostDateUtc { get; }
+        string Code { get; }
         string Description { get; }
         string Location { get; }
         string ErrorMessage { get; }

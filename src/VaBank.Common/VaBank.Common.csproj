@@ -163,6 +163,7 @@
     <Compile Include="Security\Password.cs" />
     <Compile Include="Serialization\JsonCreationConverter.cs" />
     <Compile Include="Util\Assert.cs" />
+    <Compile Include="Util\DateMath.cs" />
     <Compile Include="Util\Runtime.cs" />
     <Compile Include="Util\Randomizer.cs" />
     <Compile Include="Util\Range.cs" />

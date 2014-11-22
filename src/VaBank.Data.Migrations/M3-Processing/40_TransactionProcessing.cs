@@ -47,6 +47,7 @@ namespace VaBank.Data.Migrations
                 .WithColumn("CreatedDateUtc").AsDateTime().NotNullable()
                 .WithColumn("PostDateUtc").AsDateTime().Nullable()
                 .WithColumn("Location").AsName().NotNullable()
+                .WithColumn("Code").AsName().NotNullable()
                 .WithColumn("Description").AsBigString().Nullable()
                 .WithColumn("ErrorMessage").AsBigString().Nullable()
                 .WithColumn("Status").AsInt32().NotNullable().Indexed("IX_Transaction_Status");

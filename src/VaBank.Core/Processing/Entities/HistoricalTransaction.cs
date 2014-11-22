@@ -38,6 +38,8 @@ namespace VaBank.Core.Processing.Entities
 
         public DateTime? PostDateUtc { get; internal set; }
 
+        public string Code { get; internal set; }
+
         public string Description { get; internal set; }
 
         public string Location { get; internal set; }

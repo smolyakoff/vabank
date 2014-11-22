@@ -98,6 +98,7 @@
     <Compile Include="Common\IJob.cs" />
     <Compile Include="Common\IJobContext%271.cs" />
     <Compile Include="Common\IJobContext.cs" />
+    <Compile Include="Common\ITransactionalJobContext.cs" />
     <Compile Include="Common\JobNameAttribute.cs" />
     <Compile Include="Common\ParameterJob.cs" />
     <Compile Include="Common\Serialization.cs" />

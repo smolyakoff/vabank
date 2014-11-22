@@ -4,57 +4,84 @@ using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Core.Processing
 {
-    //TODO: write withdraw and deposit for base account
-    internal static class ProcessingExtensions
+    public static class ProcessingExtensions
     {
         public static CardTransaction Withdraw(
-            this UserCard userCard, 
+            this Account account,
+            Card card,
+            string code,
             string description,
             string location,
             Money money, 
             MoneyConverter moneyConverter)
         {
+            Argument.NotNull(account, "account");
+            Argument.NotNull(card, "card");
+            Argument.NotEmpty(code, "code");
             Argument.NotEmpty(description, "description");
-            Argument.NotNull(userCard, "userCard");
             Argument.NotNull(money, "money");
             Argument.NotNull(moneyConverter, "moneyConverter");
             Argument.Satisfies(money, x => x.Amount >= 0, "money", "Money amount should be 0 or greater.");
-            Argument.Satisfies(userCard, x => x.Account != null, "userCard", "Card should be bound to a bank account.");
 
-            var convertedMoney = Withdraw(userCard.Account, money, moneyConverter);
-            return new CardTransaction(description, location, userCard, money.Currency, - money.Amount, - convertedMoney.Amount, userCard.Account.Balance);
+            var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
+            return new CardTransaction(code, description, location, account, card, money.Currency, - money.Amount, - convertedMoney.Amount);
         }
 
         public static CardTransaction Deposit(
-            this UserCard userCard,
+            this Account account,
+            Card card,
+            string code,
             string description,
             string location,
             Money money, 
             MoneyConverter moneyConverter)
         {
+            Argument.NotNull(account, "account");
+            Argument.NotNull(card, "card");
+            Argument.NotEmpty(code, "code");
             Argument.NotEmpty(description, "description");
-            Argument.NotNull(userCard, "userCard");
             Argument.NotNull(money, "money");
             Argument.NotNull(moneyConverter, "moneyConverter");
             Argument.Satisfies(money, x => x.Amount >= 0, "money", "Money amount should be 0 or greater.");
-            Argument.Satisfies(userCard, x => x.Account != null, "userCard", "Card should be bound to a bank account.");
 
-            var convertedMoney = Deposit(userCard.Account, money, moneyConverter);
-            return new CardTransaction(description, location, userCard, money.Currency, money.Amount, convertedMoney.Amount, userCard.Account.Balance);
+            var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
+            return new CardTransaction(code, description, location, account, card, money.Currency, money.Amount, convertedMoney.Amount);
         }
 
-        private static Money Withdraw(this Account account, Money money, MoneyConverter moneyConverter)
+        public static Transaction Deposit(this Account account,
+            string code,
+            string description,
+            string location,
+            Money money,
+            MoneyConverter moneyConverter)
         {
-            var moneyToWithdraw = moneyConverter.Convert(money, account.Currency.ISOName);
-            account.Withdraw(moneyToWithdraw.Amount);
-            return moneyToWithdraw;
+            Argument.NotEmpty(code, "code");
+            Argument.NotEmpty(description, "description");
+            Argument.NotNull(account, "account");
+            Argument.NotNull(money, "money");
+            Argument.NotNull(moneyConverter, "moneyConverter");
+            Argument.Satisfies(money, x => x.Amount >= 0, "money", "Money amount should be 0 or greater.");
+
+            var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
+            return new Transaction(account, money.Currency, money.Amount, convertedMoney.Amount, code, description, location);
         }
 
-        private static Money Deposit(this Account account, Money money, MoneyConverter moneyConverter)
+        public static Transaction Withdraw(this Account account,
+            string code,
+            string description,
+            string location,
+            Money money,
+            MoneyConverter moneyConverter)
         {
-            var moneyToDeposit = moneyConverter.Convert(money, account.Currency.ISOName);
-            account.Deposit(moneyToDeposit.Amount);
-            return moneyToDeposit;
+            Argument.NotEmpty(code, "code");
+            Argument.NotEmpty(description, "description");
+            Argument.NotNull(account, "account");
+            Argument.NotNull(money, "money");
+            Argument.NotNull(moneyConverter, "moneyConverter");
+            Argument.Satisfies(money, x => x.Amount >= 0, "money", "Money amount should be 0 or greater.");
+
+            var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
+            return new Transaction(account, money.Currency, - money.Amount, - convertedMoney.Amount, code, description, location);
         }
     }
 }

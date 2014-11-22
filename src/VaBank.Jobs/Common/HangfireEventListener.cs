@@ -3,7 +3,9 @@ using Autofac.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NLog;
 using VaBank.Common.Events;
+using VaBank.Services.Contracts.Common.Events;
 
 namespace VaBank.Jobs.Common
 {
@@ -13,15 +15,29 @@ namespace VaBank.Jobs.Common
 
         protected readonly ILifetimeScope Scope;
 
+        private readonly Logger _logger;
+
         public HangfireEventListener(ILifetimeScope scope)
         {
             if (scope == null)
+            {
                 throw new ArgumentNullException("scope");
+            }
+            _logger = LogManager.GetCurrentClassLogger();
             Scope = scope;
         }
         
         public void Handle(IEvent appEvent)
         {
+            Action<Type, IEvent> enqueue = (type, @event) => VabankJob.Enqueue(type, @event);
+            var postponed = appEvent as PostponedEvent;
+            if (postponed != null)
+            {
+                _logger.Info("Event of type [{0}] was postponed to {1}.", postponed.Event.GetType().Name, postponed.ScheduledDateUtc);
+                appEvent = postponed.Event;
+                var delay = postponed.ScheduledDateUtc - DateTime.UtcNow;
+                enqueue = (type, @event) => VabankJob.Schedule(type, @event, delay);
+            }
             var eventType = appEvent.GetType();
             IEnumerable<Type> handlerTypes;
             if (HandlersCache.ContainsKey(eventType))
@@ -37,9 +53,10 @@ namespace VaBank.Jobs.Common
                 .Distinct()
                 .ToList();
             }
+            
             foreach (var type in handlerTypes)
             {
-                VabankJob.Enqueue(type, appEvent);
+                enqueue(type, appEvent);
             }
         }
 

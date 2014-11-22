@@ -74,11 +74,11 @@
     <Compile Include="Processing\Entities\OperationCategory.cs" />
     <Compile Include="Processing\Entities\ProcessStatus.cs" />
     <Compile Include="Processing\Entities\Transaction.cs" />
+    <Compile Include="Processing\Entities\TransactionType.cs" />
     <Compile Include="Processing\Entities\Transfer.cs" />
     <Compile Include="Processing\Entities\UserBankOperation.cs" />
     <Compile Include="Processing\Exceptions\InsufficientFundsException.cs" />
     <Compile Include="Processing\Factories\CardTransferFactory.cs" />
-    <Compile Include="Processing\Factories\ProcessorFactory.cs" />
     <Compile Include="Processing\ICurrencyConverter.cs" />
     <Compile Include="Processing\IntegerRoundingMode.cs" />
     <Compile Include="Processing\ExchangeRateCalculator.cs" />
@@ -89,15 +89,8 @@
     <Compile Include="Processing\MoneyConverter.cs" />
     <Compile Include="Processing\MoneyMath.cs" />
     <Compile Include="Processing\MoneyRounding.cs" />
+    <Compile Include="Processing\ProcessingSettings.cs" />
     <Compile Include="Processing\ProcessingExtensions.cs" />
-    <Compile Include="Processing\Processors\Abstract\IOperationProcessor.cs" />
-    <Compile Include="Processing\Processors\Abstract\ITransactionProcessor.cs" />
-    <Compile Include="Processing\Processors\Abstract\OperationProcessorResult.cs" />
-    <Compile Include="Processing\Processors\Abstract\TransactionProcessorResult.cs" />
-    <Compile Include="Processing\Processors\CentralProcessor.cs" />
-    <Compile Include="Processing\Processors\OperationProcessorBase.cs" />
-    <Compile Include="Processing\Processors\TransactionProcessorBase.cs" />
-    <Compile Include="Processing\Processors\TransferProcessor.cs" />
     <Compile Include="Processing\Repositories\ExchangeRateKey.cs" />
     <Compile Include="Processing\Entities\ExchangeRate.cs" />
     <Compile Include="Accounting\Factories\CardAccountFactory.cs" />
@@ -153,6 +146,13 @@
     <Compile Include="Common\IUnitOfWork.cs" />
     <Compile Include="Membership\Validators.cs" />
     <Compile Include="Processing\Repositories\IExchangeRateRepository.cs" />
+    <Compile Include="Processing\Resources\Descriptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Descriptions.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Processing\Resources\TransactionName.cs" />
+    <Compile Include="Processing\Resources\TransactionReferenceBook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +168,10 @@
     <EmbeddedResource Include="Membership\Resources\Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Processing\Resources\Descriptions.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Descriptions.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

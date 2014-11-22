@@ -73,6 +73,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
+    <Compile Include="CardTransferServiceTest.cs" />
     <Compile Include="Fakes\SecurityCodeCommand.cs" />
     <Compile Include="Modules\CoreModule.cs" />
     <Compile Include="Modules\DataAccessModule.cs" />
