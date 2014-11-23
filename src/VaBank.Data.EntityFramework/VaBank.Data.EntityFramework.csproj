@@ -101,6 +101,7 @@
     <Compile Include="Processing\Mappings\TransactionMap.cs" />
     <Compile Include="Processing\Mappings\CardTransactionMap.cs" />
     <Compile Include="Processing\Mappings\TransferMap.cs" />
+    <Compile Include="Processing\Mappings\UserBankOperationMap.cs" />
     <Compile Include="VaBankContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -6,6 +6,7 @@ using VaBank.Core.Common;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Common.Exceptions;
+using VaBank.Services.Common.Security;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Processing;
@@ -29,12 +30,15 @@ namespace VaBank.Services.Processing
         public BankOperationModel Transfer(PersonalCardTransferCommand command)
         {
             EnsureIsValid(command);
+            EnsureIsSecure<AuthenticatedSecurityValidator>();
             try
             {
                 var fromCard = _deps.UserCards.SurelyFind(command.FromCardId);
                 var toCard = _deps.UserCards.SurelyFind(command.ToCardId);
                 var transfer = _deps.CardTransferFactory.Create(fromCard, toCard, command.Amount);
                 _deps.CardTransfers.Create(transfer);
+                var userOperation = new UserBankOperation(transfer, Identity.User);
+                _deps.UserBankOperations.Create(userOperation);
                 Commit();
                 var model = transfer.ToModel<BankOperation, BankOperationModel>();
                 Publish(new OperationProgressEvent(Operation.Id, model));
@@ -52,7 +56,8 @@ namespace VaBank.Services.Processing
 
         public BankOperationModel Transfer(InterbankCardTransferCommand command)
         {
-            EnsureIsValid(command);            
+            EnsureIsValid(command);
+            EnsureIsSecure<AuthenticatedSecurityValidator>();
             try
             {
                 var fromCard = _deps.UserCards.SurelyFind(command.FromCardId);                
@@ -63,6 +68,8 @@ namespace VaBank.Services.Processing
                 }
                 var transfer = _deps.CardTransferFactory.Create(fromCard, toCard, command.Amount);
                 _deps.CardTransfers.Create(transfer);
+                var userOperation = new UserBankOperation(transfer, Identity.User);
+                _deps.UserBankOperations.Create(userOperation);
                 Commit();
                 var model = transfer.ToModel<BankOperation, BankOperationModel>();
                 Publish(new OperationProgressEvent(Operation.Id, model));

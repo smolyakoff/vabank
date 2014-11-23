@@ -12,6 +12,8 @@ namespace VaBank.Services.Processing
 
         public IRepository<CardTransfer> CardTransfers { get; set; }
 
+        public IRepository<UserBankOperation> UserBankOperations { get; set; }
+
         public CardTransferFactory CardTransferFactory { get; set; }
     }
 }

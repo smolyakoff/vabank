@@ -6,6 +6,8 @@ namespace VaBank.Core.Processing.Entities
 {
     public class UserBankOperation : Entity
     {
+        private BankOperation _operation;
+
         public UserBankOperation(BankOperation operation, User user)
         {
             Argument.NotNull(operation, "operation");
@@ -16,9 +18,28 @@ namespace VaBank.Core.Processing.Entities
             OperationId = operation.Id;
         }
 
+        protected UserBankOperation()
+        {
+        }
+
         public long OperationId { get; set; }
 
-        public virtual BankOperation Operation { get; private set; }
+        public virtual BankOperation Operation
+        {
+            get { return _operation; }
+            set
+            {
+                if (value == null)
+                {
+                    _operation = null;
+                }
+                else
+                {
+                    _operation = value;
+                    OperationId = _operation.Id;
+                }
+            }
+        }
 
         public virtual User User { get; private set; }
     }
