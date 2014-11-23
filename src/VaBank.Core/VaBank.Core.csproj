@@ -58,7 +58,9 @@
     <Compile Include="Common\History\IHistoricalEntitySpecification%271.cs" />
     <Compile Include="Common\IReferenceEntity.cs" />
     <Compile Include="Common\IVersionedEntity.cs" />
+    <Compile Include="Common\SettingsManager.cs" />
     <Compile Include="Common\Validators.cs" />
+    <Compile Include="Processing\BankingSystemSchedule.cs" />
     <Compile Include="Processing\ConversionRate.cs" />
     <Compile Include="Processing\CurrencyConverter.cs" />
     <Compile Include="Processing\CurrencyConversion.cs" />

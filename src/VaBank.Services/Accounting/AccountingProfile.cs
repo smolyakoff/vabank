@@ -37,6 +37,17 @@ namespace VaBank.Services.Accounting
                 .ForMember(x => x.Balance, cfg => cfg.MapFrom(x => x.Account.Balance))
                 .ForMember(x => x.FriendlyName, cfg => cfg.MapFrom(x => x.Settings.FriendlyName))
                 .ForMember(x => x.CardLimits, cfg => cfg.MapFrom(x => x.Settings.Limits));
+
+            CreateMap<UserCard, CustomerCardBriefModel>()
+                .ForMember(x => x.CardId, cfg => cfg.MapFrom(x => x.Id))
+                .ForMember(x => x.AccountNo, cfg => cfg.MapFrom(x => x.Account.AccountNo))
+                .ForMember(x => x.SecureCardNo, cfg => cfg.MapFrom(x => x.CardNo.Substring(0, 6) + "__" + x.CardNo.Substring(11, 4)))
+                .ForMember(x => x.CardholderFirstName, cfg => cfg.MapFrom(x => x.HolderFirstName))
+                .ForMember(x => x.CardholderLastName, cfg => cfg.MapFrom(x => x.HolderLastName))
+                .ForMember(x => x.Currency, cfg => cfg.MapFrom(x => x.Account.Currency))
+                .ForMember(x => x.Balance, cfg => cfg.MapFrom(x => x.Account.Balance))
+                .ForMember(x => x.FriendlyName, cfg => cfg.MapFrom(x => x.Settings.FriendlyName))
+                .ForMember(x => x.Owner, cfg => cfg.MapFrom(x => x.Owner));
             
             CreateMap<Transaction, CardAccountStatementItemModel>()
                 .ForMember(x => x.TransactionId, cfg => cfg.MapFrom(x => x.Id))

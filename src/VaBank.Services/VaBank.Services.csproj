@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounting\AccountingExtensions.cs" />
     <Compile Include="Accounting\AccountingProfile.cs" />
     <Compile Include="Accounting\AccountingDependencies.cs" />
     <Compile Include="Accounting\CardAccountService.cs" />
@@ -167,13 +168,15 @@
     <Compile Include="Processing\Operations\IOperationProcessor.cs" />
     <Compile Include="Processing\IProcessor.cs" />
     <Compile Include="Processing\Operations\BaseOperationProcessor.cs" />
-    <Compile Include="Processing\Transactions\BankingSystemSchedule.cs" />
     <Compile Include="Processing\Transactions\Policies\DefaultPolicy.cs" />
     <Compile Include="Processing\Transactions\Policies\CompletePolicy.cs" />
     <Compile Include="Processing\Transactions\Policies\DisallowPolicy.cs" />
     <Compile Include="Processing\Transactions\Policies\PostponePolicy.cs" />
     <Compile Include="Processing\Transactions\Policies\IPolicy.cs" />
     <Compile Include="Processing\Transactions\ITransactionProcessor.cs" />
+    <Compile Include="Processing\Transactions\Policies\Card\UserCardExpiredPolicy.cs" />
+    <Compile Include="Processing\Transactions\Policies\Card\UserCardBlockedPolicy.cs" />
+    <Compile Include="Processing\Transactions\Policies\Card\UserCardLimitsPolicy.cs" />
     <Compile Include="Processing\Transactions\PolicyTransactionProcessor.cs" />
     <Compile Include="Processing\Transactions\TransactionProcessorCommand.cs" />
     <Compile Include="Processing\Operations\TransferProcessor.cs" />
@@ -223,8 +226,9 @@
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Processing\Messages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

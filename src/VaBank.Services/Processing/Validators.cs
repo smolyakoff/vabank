@@ -1,67 +1,78 @@
-﻿using FluentValidation;
-using System;
+﻿using System;
+using FluentValidation;
+using FluentValidation.Results;
+using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
-using VaBank.Core.Accounting.Factories;
+using VaBank.Services.Common;
+using VaBank.Services.Common.Security;
 using VaBank.Services.Contracts.Processing.Commands;
 
 namespace VaBank.Services.Processing
 {
-    internal class CardCommandValidator : AbstractValidator<ICardCommand>
+    internal class CardSecurityValidator : SecurityValidator<ICardWithdrawalCommand>
     {
-        private readonly IRepository<UserCard> _userCards;
-        private readonly CardLimitsFactory _cardLimitsFactory;
+        private readonly IRepository<UserCard> _userCards; 
 
-        public CardCommandValidator(IRepository<UserCard> userCards,
-            CardLimitsFactory cardLimitsFactory)
+        public CardSecurityValidator(VaBankIdentity identity, 
+            IRepository<UserCard> userCardRepository) : base(identity)
         {
-            Argument.NotNull(userCards, "userCards");
-            Argument.NotNull(cardLimitsFactory, "cardLimitsFactory");
+            Argument.NotNull(userCardRepository, "userCardRepository");
+            _userCards = userCardRepository;
+            Inherit(new AuthenticatedSecurityValidator(identity));
+            Custom(NotBlocked);
+            Custom(NotExpired);
+        }
+
+        private ValidationFailure NotExpired(ICardWithdrawalCommand command)
+        {
+            var card = _userCards.SurelyFind(command.FromCardId);
+            return card.IsExpired ? new ValidationFailure(RootPropertyName, Messages.CardExpired) : null;
+        }
+
+        private ValidationFailure NotBlocked(ICardWithdrawalCommand command)
+        {
+            var card = _userCards.SurelyFind(command.FromCardId);
+            return card.Settings.Blocked ? new ValidationFailure(RootPropertyName, Messages.CardBlocked) : null;
+        }
+    }
+
+    internal class PersonalTransferCommandValidator : AbstractValidator<PersonalCardTransferCommand>
+    {
+        public PersonalTransferCommandValidator()
+        {
+            RuleFor(x => x.FromCardId).NotEqual(Guid.Empty);
+            RuleFor(x => x.ToCardId).NotEqual(Guid.Empty);
+            //TODO: add minimum amounts
+            RuleFor(x => x.Amount);
+        }
+    }
+
+    internal class InterbankTransferCommandValidator : AbstractValidator<InterbankCardTransferCommand>
+    {
+        private readonly IQueryRepository<UserCard> _userCards;
+
+        public InterbankTransferCommandValidator(IQueryRepository<UserCard> userCards)
+        {
+            Argument.NotNull(userCards, "cards");
             _userCards = userCards;
-            _cardLimitsFactory = cardLimitsFactory;
-            
-            //TODO: add validation rules
-            RuleFor(x => x.Amount).GreaterThan(0);
-            RuleFor(x => x.FromCardId).Must(CardExists)
-                .WithLocalizedMessage(() => Messages.CardDoesNotExistError);
-            RuleFor(x => x.FromCardId).Must(CardIsNotBlocked)
-                .WithLocalizedMessage(() => Messages.CardIsBlockedError);
-            RuleFor(x => x.FromCardId).Must(CardIsNotExpired)
-                .WithLocalizedMessage(() => Messages.CardIsInvalidError);
+            RuleFor(x => x.FromCardId).NotEqual(Guid.Empty);
+            RuleFor(x => x.ToCardNo).NotEmpty();
+            RuleFor(x => x.ToCardExpirationDateUtc).GreaterThan(x => DateTime.UtcNow);
+
+            //TODO: add minimum amounts
+            //RuleFor(x => x.Amount).GreaterThan()
+            RuleFor(x => x.ToCardNo)
+                .Must(DestinationCardExists)
+                .WithLocalizedMessage(() => Messages.DestinationCardNotFound);
         }
 
-        private bool CardExists(Guid cardId)
+        private bool DestinationCardExists(InterbankCardTransferCommand command, string cardNo)
         {
-            var card = _userCards.Find(cardId);
+            var card = _userCards.QueryOne(DbQuery.For<UserCard>()
+                .FilterBy(UserCard.Spec.ByCardNumberAndExpiration(command.ToCardNo, command.ToCardExpirationDateUtc)));
             return card != null;
-        }
-
-        //TODO: move to security validator
-        private bool CardIsNotBlocked(Guid cardId)
-        {
-            var card = _userCards.Find(cardId);
-            if (card != null)
-            {
-                return !card.Settings.Blocked;
-            }
-            return true;
-        }
-
-        private bool CardIsNotExpired(Guid cardId)
-        {
-            //TODO: check month only
-            var card = _userCards.Find(cardId);
-            if (card != null)
-            {
-                return card.ExpirationDateUtc > DateTime.UtcNow;
-            }
-            return true;
-        }
-
-        private bool AmmountSatisfiesLimits(ICardCommand command, decimal amount)
-        {
-            throw new NotImplementedException();        
         }
     }
 }

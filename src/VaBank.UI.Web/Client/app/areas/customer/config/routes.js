@@ -83,12 +83,10 @@
                 templateUrl: '/Client/app/areas/customer/my-cards/account-statement.html',
                 controller: 'accountStatementController',
                 resolve: {
-                    data: ['myCardsService', 'profileService', 'routingResolve',
-                        function (myCardsService, profileService, routingResolve) {
-                            var cards = myCardsService.Card.query().$promise;
-                            var profile = profileService.Profile.get().$promise;
-                            return routingResolve.resolveAll([cards, profile], ['cards', 'profile']);
-                        }]
+                    data: ['myCardsService', function(myCardsService) {
+                        var cards = myCardsService.Card.query().$promise;
+                        return cards;
+                    }]
                 }
             })
             .state('customer.cards.transfer', {

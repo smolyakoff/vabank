@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using VaBank.Common.Data.Filtering;
+using VaBank.Common.Data.Linq;
 using VaBank.Common.Data.Sorting;
 
 namespace VaBank.Common.Data

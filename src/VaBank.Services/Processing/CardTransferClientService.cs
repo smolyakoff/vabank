@@ -30,7 +30,7 @@ namespace VaBank.Services.Processing
         public BankOperationModel Transfer(PersonalCardTransferCommand command)
         {
             EnsureIsValid(command);
-            EnsureIsSecure<AuthenticatedSecurityValidator>();
+            EnsureIsSecure<PersonalCardTransferCommand, CodeSecurityValidator>(command);
             try
             {
                 var fromCard = _deps.UserCards.SurelyFind(command.FromCardId);
@@ -57,7 +57,7 @@ namespace VaBank.Services.Processing
         public BankOperationModel Transfer(InterbankCardTransferCommand command)
         {
             EnsureIsValid(command);
-            EnsureIsSecure<AuthenticatedSecurityValidator>();
+            EnsureIsSecure<InterbankCardTransferCommand, CodeSecurityValidator>(command);
             try
             {
                 var fromCard = _deps.UserCards.SurelyFind(command.FromCardId);                

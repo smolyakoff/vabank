@@ -70,6 +70,13 @@ namespace VaBank.Services.Common
             return Mapper.Map<TModel, TEntity>(model);
         }
 
+        public static IEnumerable<TDestination> Map<TDestination>(this IEnumerable<object> enumerable)
+        {
+            return enumerable == null
+                ? null
+                : enumerable.Select(Mapper.Map<TDestination>);
+        }
+
         public static IEnumerable<TDestination> Map<TSource, TDestination>(this IEnumerable<TSource> enumerable)
         {
             return enumerable == null 

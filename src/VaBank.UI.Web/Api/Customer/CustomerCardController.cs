@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Http;
 using VaBank.Common.Data;
+using VaBank.Common.Util;
 using VaBank.Services.Contracts.Accounting;
 using VaBank.Services.Contracts.Accounting.Commands;
 using VaBank.Services.Contracts.Processing.Queries;
@@ -49,9 +50,13 @@ namespace VaBank.UI.Web.Api.Customer
 
         [Route("api/cards/{id:guid}/statement")]
         [HttpGet]
-        public IHttpActionResult Statement([FromUri]Guid id, CardAccountStatementQuery query)
+        public IHttpActionResult Statement(Guid id, DateTime from, DateTime to)
         {
-            query.CardId = id;
+            var query = new CardAccountStatementQuery
+            {
+                CardId = id,
+                DateRange = new Range<DateTime>(from.ToUniversalTime(), to.ToUniversalTime())
+            };
             return Ok(_cardAccountService.GetCardAccountStatement(query));
         }
     }

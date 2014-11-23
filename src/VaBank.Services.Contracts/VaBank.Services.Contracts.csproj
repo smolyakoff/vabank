@@ -57,8 +57,9 @@
     <Compile Include="Accounting\Events\UserCardLimitChanged.cs" />
     <Compile Include="Accounting\Models\CardAccountStatementItemModel.cs" />
     <Compile Include="Accounting\Models\CardAccountStatementModel.cs" />
+    <Compile Include="Accounting\Models\CustomerCardBriefModel.cs" />
     <Compile Include="Common\Commands\IOperationCommand.cs" />
-    <Compile Include="Processing\Commands\ICardCommand.cs" />
+    <Compile Include="Processing\Commands\ICardWithdrawalCommand.cs" />
     <Compile Include="Common\Commands\ISecurityCodeCommand.cs" />
     <Compile Include="Common\Events\IApplicationEvent.cs" />
     <Compile Include="Common\Events\INotifiedEvent.cs" />
@@ -94,7 +95,6 @@
     <Compile Include="Processing\IProcessingService.cs" />
     <Compile Include="Processing\Models\ExchangeRateModel.cs" />
     <Compile Include="Accounting\Models\UserCardModel.cs" />
-    <Compile Include="Accounting\Models\CardAccountModel.cs" />
     <Compile Include="Accounting\Models\CardLimitsModel.cs" />
     <Compile Include="Accounting\Models\CardVendorModel.cs" />
     <Compile Include="Accounting\Models\CurrencyModel.cs" />

@@ -2,7 +2,7 @@
 
 namespace VaBank.Services.Contracts.Processing.Commands
 {
-    public interface ICardCommand
+    public interface ICardWithdrawalCommand
     {
         Guid FromCardId { get; set; }
 

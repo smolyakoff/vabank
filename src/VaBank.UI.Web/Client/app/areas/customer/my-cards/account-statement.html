@@ -1,71 +1,202 @@
-﻿<section class="row offset-bottom my-cards-content">
-    <div class="col-xs-10">
-        <div class="form-inline">
-            <div class="form-group heading-bank-statement">
-                <label>Карта для выписки</label>
-                <ui-select ng-model="card.selected" ng-disabled="disabled">
-                    <ui-select-match placeholder="Выберите карту из списка">{{$select.selected.friendlyName || $select.selected.cardVendor.name}}</ui-select-match>
-                    <ui-select-choices repeat="card in cards | filter: $select.search">
+﻿<section class="row offset-bottom">
+    <div class="col-lg-4 col-md-5 card-statement-filters">
+        <div class="row" data-ng-if="statement">
+            <div class="col-xs-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Выписка по карте {{statement.card.friendlyName || statement.card.cardVendor.name}}
+                        </h3>
+                    </div>
+                    <div class="panel-body">
                         <div class="row">
-                            <div class="col-xs-3">
-                                <img class="img bank-statement-card" ng-src="{{card.cardVendor.image}}" />
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-7">
+                                        <b>Период</b><br />
+                                        C {{toLocalDate(statement.dateRange.lowerBound) | amDateFormat:'LL' }} по
+                                        {{toLocalDate(statement.dateRange.upperBound) | amDateFormat:'LL' }}
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <b>Дата и время создания</b><br />
+                                        {{toLocalDate(statement.createdDateUtc) | amDateFormat:'LLL' }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <b>Клиент</b><br />
+                                        {{statement.card.owner.firstName}} {{statement.card.owner.lastName}}
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <b>Номер счета</b><br />
+                                        {{statement.card.accountNo}}
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <b>Валюта</b><br />
+                                        {{statement.card.currency.isoName}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <b class="text-primary">Балансовая активность</b>
+                                        <div class="row">
+                                            <div class="col-xs-8">
+                                                <b>Списано:</b>
+                                                {{-statement.statementWithdrawals | extcurrency:'':statement.card.currency.precision}}
+                                                {{statement.card.currency.isoName}}<br />
+                                                <b>Начислено:</b>
+                                                {{statement.statementDeposits | extcurrency:'':statement.card.currency.precision}}
+                                                {{statement.card.currency.isoName}}
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <b>Баланс за период:</b><br />
+                                                <b data-ng-class="{'text-success': statement.statementBalance > 0, 'text-danger': statement.statementBalance < 0}">
+                                                    {{statement.statementBalance | extcurrency:'':statement.card.currency.precision}}
+                                                    {{statement.card.currency.isoName}}
+                                                </b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-xs-9">
-                                <span ng-bind-html="card.friendlyName || card.cardVendor.name | highlight: $select.search"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <b>Период</b>
+                <ui-select ng-model="selectedRange" search-enabled="false" on-select="rangeSelected($item)">
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="range in ranges">
+                        {{range.name}}
+                    </ui-select-choices>
+                </ui-select>
+                <div class="row date-range">
+                    <div class="col-xs-6">
+                        <vb-datepicker ng-model="fromDate"
+                                       placeholder="С"
+                                       data-config="{minView: 'day'}"
+                                       data-date-format="LL">
+                        </vb-datepicker>
+                    </div>
+                    <div class="col-xs-6">
+                        <vb-datepicker ng-model="toDate"
+                                       placeholder="По"
+                                       data-config="{minView: 'day'}"
+                                       data-date-format="LL">
+                        </vb-datepicker>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <b>Карта</b>
+                <ui-select ng-model="card.selected" search-enabled="false">
+                    <ui-select-match placeholder="Выберите карту">
+                        {{$select.selected.friendlyName || $select.selected.cardVendor.name}}
+                        <span class="text-info">
+                            {{$select.selected.balance | extcurrency:'':$select.selected.currency.precision }}
+                            {{$select.selected.currency.isoName}}
+                        </span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="card in cards">
+                        <div class="row">
+                            <div class="col-xs-1">
+                                <img class="img card-statement-card"
+                                     ng-src="{{card.cardVendor.image}}" />
+                            </div>
+                            <div class="col-xs-11">
+                                {{card.friendlyName || card.cardVendor.name}}
                             </div>
                         </div>
                     </ui-select-choices>
                 </ui-select>
             </div>
-            <div class="form-group heading-bank-statement">
-                <label>Выписка за дату</label>
-                <ui-select ng-model="date.selected" ng-disabled="disabled">
-                    <ui-select-match placeholder="Выберите дату из списка">{{$select.selected.name}}</ui-select-match>
-                    <ui-select-choices repeat="date in dates | filter: $select.search">
-                        <span ng-bind-html="date.name | highlight: $select.search"></span>
-                    </ui-select-choices>
-                </ui-select>
-            </div>
-            <div class="form-group from-filter">
-                <label>От</label>
-                <vb-datepicker data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
-            </div>
-            <div class="form-group to-filter">
-                <label>До</label>
-                <vb-datepicker data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-primary" ng-click="loadStatement()">Сформировать</button>
             </div>
         </div>
     </div>
-    <div class="col-xs-2">
-        <div class="btn-toolbar pull-right" role="toolbar">
-            <button class="btn btn-primary" ng-click="show()">Показать</button>
-        </div>
-    </div>
-</section>
-<section class="row">
-    <div class="col-xs-12">
-        <table class="table table-responsive" st-table="" st-safe-src="">
-            <thead>
-                <tr>
-                    <th st-sort="timeTransaction">Дата транзакции</th>
-                    <th st-sort="timeOperation">Дата операции</th>
-                    <th st-sort="amount">Сумма</th>
-                    <th st-sort="currency">Валюта</th>
-                    <th st-sort="">Обороты</th>
-                </tr>
-            </thead>
-            <tbody ng-show="loading.active()">
-                <tr><td colspan="5"><div class="table-content" data-us-spinner=""></div></td></tr>
-            </tbody>
-            <tbody ng-show="!loading.active()">
-                <tr>
-                    <td>{{}}</td>
-                    <td>{{}}</td>
-                    <td>{{}}</td>
-                    <td>{{}}</td>
-                    <td>{{}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="col-lg-8 col-md-7">
+        <section class="row" data-ng-show="loading.active()">
+            <div class="col-xs-12">
+                <div data-us-spinner="" style="height: 300px"></div>
+            </div>
+        </section>
+        <section data-ng-if="!loading.active() && statement" class="row">
+            <div class="col-xs-12">
+                <table class="table table-responsive card-statement-table" st-table="displayedTransactions" st-safe-src="statement.transactions">
+                    <thead>
+                        <tr>
+                            <th st-sort="status" st-skip-natural="true" style="max-width: 60px">Статус</th>
+                            <th st-sort="createdDateUtc" st-sort-default="reverse">Дата совершения транзакции</th>
+                            <th st-sort="postDateUtc">Дата отражения по счету</th>
+                            <th st-sort="descritpion">Описание транзакции</th>
+                            <th>+/-</th>
+                            <th st-sort="transactionAmount">Сумма в валюте операции</th>
+                            <th st-sort="accountAmount">Сумма в валюте счета</th>
+                            <th st-sort="remainingBalance">Остаток</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="transaction in displayedTransactions">
+                            <td>
+                                <i class="glyphicon glyphicon-ok-circle text-success"
+                                   data-ng-if="transaction.status === 'Completed'" tooltip="Завершена">
+                                </i>
+                                <i class="glyphicon glyphicon-time text-warning"
+                                   data-ng-if="transaction.status === 'Pending'" tooltip="Сумма блокирована">
+                                </i>
+                                <i class="glyphicon glyphicon-remove-circle text-danger"
+                                   data-ng-if="transaction.status === 'Failed'" tooltip="Ошибка: {{transaction.errorMessage}}">
+                                </i>
+                            </td>
+                            <td>
+                                <b>{{ toLocalDate(transaction.createdDateUtc) | amDateFormat: 'L'}}</b><br />
+                                {{ toLocalDate(transaction.createdDateUtc) | amDateFormat: 'HH:mm:ss'}}
+                            </td>
+                            <td>
+                                <b data-ng-if="transaction.postDateUtc">
+                                    {{toLocalDate(transaction.postDateUtc) | amDateFormat: 'L'}}
+                                </b>
+                            </td>
+                            <td>
+                                {{transaction.description}}<br />
+                                <span class="text-muted">{{transaction.location}}</span>
+                            </td>
+                            <td>
+                                <i class="glyphicon"
+                                   data-ng-class="{'glyphicon-plus': transaction.transactionAmount > 0, 'glyphicon-minus': transaction.transactionAmount < 0}">
+                                </i>
+                            </td>
+                            <td>
+                                {{abs(transaction.transactionAmount)| extcurrency:'':transaction.currency.precision}}<br />
+                                <span class="text-muted">{{transaction.currency.isoName}}</span>
+                            </td>
+                            <td>
+                                {{abs(transaction.accountAmount)| extcurrency:'':statement.card.currency.precision}}<br />
+                                <span class="text-muted">{{statement.card.currency.isoName}}</span>
+                            </td>
+                            <td>
+                                {{abs(transaction.remainingBalance)| extcurrency:'':statement.card.currency.precision}}<br />
+                                <span class="text-muted">{{statement.card.currency.isoName}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="9">
+                                <div st-pagination="" st-items-by-page="8" st-displayed-pages="7"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
     </div>
 </section>

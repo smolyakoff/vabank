@@ -12,7 +12,6 @@ namespace VaBank.Services.Processing
             CreateMap<ExchangeRate, ExchangeRateModel>()
                 .ForMember(x => x.BaseCurrency, cfg => cfg.MapFrom(x => x.Base))
                 .ForMember(x => x.ForeignCurrency, cfg => cfg.MapFrom(x => x.Foreign));
-            CreateMap<ProcessStatus, ProcessStatusModel>();
             CreateMap<BankOperation, BankOperationModel>()
                 .ForMember(x => x.CategoryCode, cfg => cfg.MapFrom(x => x.Category.Code));
             CreateMap<Transaction, TransactionModel>();

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Configuration;
+using System.Linq;
 using System.Reflection;
 using Autofac;
 using VaBank.Common.IoC;
@@ -11,9 +12,15 @@ namespace VaBank.UI.Web.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var injectables = typeof (Entity).Assembly.GetTypes()
+            LoadInjectables(builder);
+            LoadSettings(builder);
+        }
+
+        private static void LoadInjectables(ContainerBuilder builder)
+        {
+            var injectables = typeof(Entity).Assembly.GetTypes()
                 .Where(t => t.GetCustomAttribute<InjectableAttribute>() != null)
-                .Select(t => new {Lifetime = t.GetCustomAttribute<InjectableAttribute>().Lifetime, Type = t})
+                .Select(t => new { Lifetime = t.GetCustomAttribute<InjectableAttribute>().Lifetime, Type = t })
                 .ToList();
 
             foreach (var injectable in injectables)
@@ -28,6 +35,20 @@ namespace VaBank.UI.Web.Modules
                         registration.InstancePerDependency();
                         break;
                 }
+            }
+        }
+
+        private static void LoadSettings(ContainerBuilder builder)
+        {
+            var settings = typeof(Entity).Assembly.GetTypes()
+                .Where(t => t.GetCustomAttribute<SettingAttribute>() != null)
+                .ToList();
+            foreach (var setting in settings)
+            {
+                var copied = setting;
+                builder.Register(c => c.Resolve<SettingsManager>().Load(copied))
+                    .AsSelf()
+                    .InstancePerLifetimeScope();
             }
         }
     }

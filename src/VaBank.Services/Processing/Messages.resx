@@ -117,14 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CardDoesNotExistError" xml:space="preserve">
-    <value>Карта {0} не существует.</value>
+  <data name="CardBlocked" xml:space="preserve">
+    <value>Карта заблокирована.</value>
   </data>
-  <data name="CardIsBlockedError" xml:space="preserve">
-    <value>Карта {0} заблокирована.</value>
+  <data name="CardExpired" xml:space="preserve">
+    <value>Истек срок действия карты.</value>
   </data>
-  <data name="CardIsInvalidError" xml:space="preserve">
-    <value>Карта {0} не валидна.</value>
+  <data name="CardLimitsExceeded" xml:space="preserve">
+    <value>Превышены лимиты по карте.</value>
+  </data>
+  <data name="DestinationCardNotFound" xml:space="preserve">
+    <value>Не найдена карта получателя.</value>
   </data>
   <data name="TransferFailed" xml:space="preserve">
     <value>Ошибка обработки перевода: {0}.</value>

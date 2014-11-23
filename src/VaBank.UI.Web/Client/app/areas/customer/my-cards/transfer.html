@@ -193,7 +193,11 @@
                         </div>
                         <div class="panel-body">
                             <p>Во время операции произошла ошибка: </p>
-                            <p class="text-danger">{{errorMessage}}</p>
+                            <div class="text-danger">
+                                <div data-ng-repeat="message in errorMessages">
+                                    {{message}}
+                                </div>
+                            </div>
                             <div class="btn-group pull-right">
                                 <button class="btn btn-default" ui-sref="customer.cards.list">
                                     Перейти к моим картам

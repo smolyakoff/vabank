@@ -13,7 +13,7 @@
             return authService.getUser().id;
         };
 
-        var Card = $resource('/api/cards/:cardId', {}, {
+        var Card = $resource('/api/cards/:cardId', {cardId: '@cardId'}, {
             query: {
                 url: '/api/users/:userId/cards',
                 isArray: true,
@@ -26,6 +26,10 @@
             block: {
                 url: '/api/cards/:cardId/block',
                 method: 'POST',
+            },
+            statement: {
+                url: '/api/cards/:cardId/statement',
+                method: 'GET'
             }
         });
         Card.queryNotBlocked = function() {

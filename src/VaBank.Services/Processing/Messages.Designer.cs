@@ -22,7 +22,7 @@ namespace VaBank.Services.Processing {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Messages {
+    public class Messages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace VaBank.Services.Processing {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VaBank.Services.Processing.Messages", typeof(Messages).Assembly);
@@ -51,7 +51,7 @@ namespace VaBank.Services.Processing {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,36 +61,45 @@ namespace VaBank.Services.Processing {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Карта {0} не существует..
+        ///   Looks up a localized string similar to Карта заблокирована..
         /// </summary>
-        internal static string CardDoesNotExistError {
+        public static string CardBlocked {
             get {
-                return ResourceManager.GetString("CardDoesNotExistError", resourceCulture);
+                return ResourceManager.GetString("CardBlocked", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Карта {0} заблокирована..
+        ///   Looks up a localized string similar to Истек срок действия карты..
         /// </summary>
-        internal static string CardIsBlockedError {
+        public static string CardExpired {
             get {
-                return ResourceManager.GetString("CardIsBlockedError", resourceCulture);
+                return ResourceManager.GetString("CardExpired", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Карта {0} не валидна..
+        ///   Looks up a localized string similar to Превышены лимиты по карте..
         /// </summary>
-        internal static string CardIsInvalidError {
+        public static string CardLimitsExceeded {
             get {
-                return ResourceManager.GetString("CardIsInvalidError", resourceCulture);
+                return ResourceManager.GetString("CardLimitsExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не найдена карта получателя..
+        /// </summary>
+        public static string DestinationCardNotFound {
+            get {
+                return ResourceManager.GetString("DestinationCardNotFound", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ошибка обработки перевода: {0}..
         /// </summary>
-        internal static string TransferFailed {
+        public static string TransferFailed {
             get {
                 return ResourceManager.GetString("TransferFailed", resourceCulture);
             }
@@ -99,7 +108,7 @@ namespace VaBank.Services.Processing {
         /// <summary>
         ///   Looks up a localized string similar to Денежный перевод №{0} не может быть выполнен. Обратитесь в службу поддержки..
         /// </summary>
-        internal static string TransferFailedUnknownReason {
+        public static string TransferFailedUnknownReason {
             get {
                 return ResourceManager.GetString("TransferFailedUnknownReason", resourceCulture);
             }

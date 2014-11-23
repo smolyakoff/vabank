@@ -44,16 +44,20 @@
     }
 }
 
-.from-filter, .to-filter {
-    .input-group {
-        width: 150px;
-    }
-}
-
-.bank-statement-card {
+img.card-statement-card {
     max-height: 20px;
 }
 
-.heading-bank-statement {
-    padding-right: 10px;
+.card-statement-filters {
+    div.row {
+        margin-bottom: 10px;
+    }
+}
+
+.card-statement-table {
+    thead {
+        tr th {
+            vertical-align: top;
+        }
+    }
 }

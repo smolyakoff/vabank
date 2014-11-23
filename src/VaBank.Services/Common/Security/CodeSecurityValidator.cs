@@ -22,7 +22,11 @@ namespace VaBank.Services.Common.Security
         private ValidationFailure IsSecure(ISecurityCodeCommand command)
         {
             var shouldValidateSecurityCode = Identity.User.Profile != null && Identity.User.Profile.SmsConfirmationEnabled;
-            if (shouldValidateSecurityCode && command.SecurityCode == null)
+            if (!shouldValidateSecurityCode)
+            {
+                return null;
+            }
+            if (command.SecurityCode == null)
             {
                 return new ValidationFailure(RootPropertyName, Messages.MissingSecurityCode);
             }

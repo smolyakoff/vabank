@@ -1,6 +1,7 @@
 ﻿using System;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
+using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Services.Processing.Transactions.Policies

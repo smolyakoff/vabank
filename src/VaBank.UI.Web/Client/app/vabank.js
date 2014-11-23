@@ -3,6 +3,7 @@
     var webapp = angular.module('vabank.webapp', [
         'ngResource',
         'ngSanitize',
+        'ngAnimate',
         'ui.router',
         'ui.mask',
         'LocalStorageModule',

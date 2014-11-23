@@ -10,6 +10,13 @@ namespace VaBank.Core.Accounting.Entities
         public static class Spec
         {
             public static LinqSpec<UserCard> Linked = LinqSpec.For<UserCard>(x => x.Account != null);
+
+            public static LinqSpec<UserCard> ByCardNumberAndExpiration(string cardNumber, DateTime expirationDateUtc)
+            {
+                return Linked && LinqSpec.For<UserCard>(x => x.CardNo == cardNumber); // && 
+                //x.ExpirationDateUtc.Month == expirationDateUtc.Month && 
+                //x.ExpirationDateUtc.Year == expirationDateUtc.Year);
+            } 
         }
 
         internal UserCard(Card card, User owner, CardSettings settings) 
@@ -43,6 +50,15 @@ namespace VaBank.Core.Accounting.Entities
         public virtual CardSettings Settings { get; private set; }
 
         public virtual CardAccount Account { get; private set; }
+
+        public bool IsExpired
+        {
+            get
+            {
+                var now = DateTime.UtcNow;
+                return now.Year >= ExpirationDateUtc.Year && now.Month >= ExpirationDateUtc.Month;
+            }
+        }
 
         public void LinkTo(CardAccount account)
         {

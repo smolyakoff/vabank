@@ -321,6 +321,8 @@
     <Content Include="Client\app\modules\vabank-ui\templates\vb-datepicker.html" />
     <Content Include="Client\app\modules\vabank-ui\vabank-ui.js" />
     <Content Include="Client\app\vabank.js" />
+    <Content Include="Client\bower_components\angular-animate\angular-animate.js" />
+    <Content Include="Client\bower_components\angular-animate\angular-animate.min.js" />
     <Content Include="Client\bower_components\angular-bootstrap-datetimepicker\.bower.json" />
     <Content Include="Client\bower_components\angular-bootstrap-datetimepicker\bower.json" />
     <Content Include="Client\bower_components\angular-bootstrap-datetimepicker\karma.conf.js" />
@@ -1904,6 +1906,11 @@
     <Content Include="Client\bower_components\angular-i18n\bower.json" />
     <Content Include="Client\bower_components\angular-i18n\package.json" />
     <Content Include="Client\bower_components\angular-i18n\README.md" />
+    <Content Include="Client\bower_components\angular-animate\.bower.json" />
+    <Content Include="Client\bower_components\angular-animate\angular-animate.min.js.map" />
+    <Content Include="Client\bower_components\angular-animate\bower.json" />
+    <Content Include="Client\bower_components\angular-animate\package.json" />
+    <Content Include="Client\bower_components\angular-animate\README.md" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>

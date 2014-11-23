@@ -66,6 +66,7 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("angular-i18n/angular-locale_ru.js"))
                 .Add(BowerPath("angular-sanitize/angular-sanitize.js"))
                 .Add(BowerPath("angular-resource/angular-resource.js"))
+                .Add(BowerPath("angular-animate/angular-animate.js"))
                 .Add(BowerPath("angular-local-storage/dist/angular-local-storage.js"))
                 .Add(BowerPath("angular-ui-router/release/angular-ui-router.js"))
                 .Add(BowerPath("angular-ui-utils/mask.js"))

@@ -14,6 +14,10 @@ namespace VaBank.Core.App.Entities
             IsActive = true;
         }
 
+        protected SecurityCode()
+        {
+        }
+
         public DateTime ExpirationDateUtc { get; internal set; }
 
         public string CodeHash { get; private set; }

@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Configuration;
 using System.Reflection;
 using Autofac;
-using Autofac.Core;
 using AutoMapper;
 using FluentValidation;
 using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.IoC;
-using VaBank.Common.Resources;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
 using VaBank.Services.Common;
@@ -22,24 +20,8 @@ namespace VaBank.UI.Web.Modules
         protected override void Load(ContainerBuilder builder)
         {
             //Register injectables
-            var injectables = typeof(BaseService).Assembly.GetTypes()
-                .Where(t => t.GetCustomAttribute<InjectableAttribute>() != null)
-                .Select(t => new { Lifetime = t.GetCustomAttribute<InjectableAttribute>().Lifetime, Type = t })
-                .ToList();
-
-            foreach (var injectable in injectables)
-            {
-                var registration = builder.RegisterType(injectable.Type).AsImplementedInterfaces().AsSelf();
-                switch (injectable.Lifetime)
-                {
-                    case Lifetime.Singleton:
-                        registration.SingleInstance();
-                        break;
-                    case Lifetime.PerDependency:
-                        registration.InstancePerDependency();
-                        break;
-                }
-            }
+            LoadInjectables(builder);
+            LoadSettings(builder);
 
             //Regiser auto mapper profiles
             builder.RegisterAssemblyTypes(typeof (BaseService).Assembly)
@@ -94,6 +76,42 @@ namespace VaBank.UI.Web.Modules
             builder.RegisterType<ApplicationStartup>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+        }
+
+        private static void LoadInjectables(ContainerBuilder builder)
+        {
+            var injectables = typeof(BaseService).Assembly.GetTypes()
+                .Where(t => t.GetCustomAttribute<InjectableAttribute>() != null)
+                .Select(t => new { Lifetime = t.GetCustomAttribute<InjectableAttribute>().Lifetime, Type = t })
+                .ToList();
+
+            foreach (var injectable in injectables)
+            {
+                var registration = builder.RegisterType(injectable.Type).AsImplementedInterfaces().AsSelf();
+                switch (injectable.Lifetime)
+                {
+                    case Lifetime.Singleton:
+                        registration.SingleInstance();
+                        break;
+                    case Lifetime.PerDependency:
+                        registration.InstancePerDependency();
+                        break;
+                }
+            }
+        }
+
+        private static void LoadSettings(ContainerBuilder builder)
+        {
+            var settings = typeof(BaseService).Assembly.GetTypes()
+                .Where(t => t.GetCustomAttribute<SettingAttribute>() != null)
+                .ToList();
+            foreach (var setting in settings)
+            {
+                var copied = setting;
+                builder.Register(c => c.Resolve<SettingsManager>().Load(copied))
+                    .AsSelf()
+                    .InstancePerLifetimeScope();
+            }
         }
     }
 }

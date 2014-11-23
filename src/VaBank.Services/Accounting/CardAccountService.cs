@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Membership.Entities;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Accounting;
@@ -287,18 +288,28 @@ namespace VaBank.Services.Accounting
 
         public CardAccountStatementModel GetCardAccountStatement(CardAccountStatementQuery query)
         {
-            //TODO: should check logic
             EnsureIsValid(query);
             try
             {
-                var statementModel = _deps.UserCards.SurelyFind(query.CardId).ToModel<UserCard, CardAccountStatementModel>();
-                statementModel.DateRange = query.DateRange;
-                statementModel.Transactions.AddRange(_deps.CardTransactions
-                    .Project<CardAccountStatementItemModel>(DbQuery.For<CardTransaction>()
-                    .FilterBy(x => x.Card.Id == query.CardId
-                        && x.PostDateUtc <= query.DateRange.UpperBound
-                        && x.PostDateUtc >= query.DateRange.LowerBound)));
-                return statementModel;
+                var userCard = _deps.UserCards.SurelyFind(query.CardId);
+                if (userCard.Account == null)
+                {
+                    throw new InvalidOperationException("Card is not bound to account.");
+                }
+                var transactions = _deps.CardTransactions.Query(query.ToDbQuery(userCard));
+                var statement = new CardAccountStatementModel
+                {
+                    AccountCurrency = userCard.Account.Currency.ToModel<CurrencyModel>(),
+                    AccountNo = userCard.Account.AccountNo,
+                    Card = userCard.ToModel<CustomerCardBriefModel>(),
+                    CreatedDateUtc = DateTime.UtcNow,
+                    DateRange = query.DateRange,
+                    StatementBalance = transactions.Sum(x => x.AccountAmount),
+                    StatementDeposits = transactions.Where(x => x.AccountAmount > 0).Sum(x => x.AccountAmount),
+                    StatementWithdrawals = transactions.Where(x => x.AccountAmount < 0).Sum(x => x.AccountAmount),
+                    Transactions = transactions.Map<CardAccountStatementItemModel>().ToList()
+                };
+                return statement;
             }
             catch (Exception ex)
             {

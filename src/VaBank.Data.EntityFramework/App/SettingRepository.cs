@@ -40,12 +40,34 @@ namespace VaBank.Data.EntityFramework.App
             }
         }
 
+        public object GetOrDefault(string key, Type settingsType)
+        {
+            try
+            {
+                var keyParam = new SqlParameter("@Key", key);
+                const string sql = "SELECT [Value] FROM [App].[Setting] WHERE [Key] = @Key";
+                var json = Context.Database.SqlQuery<string>(sql, keyParam).ToList().FirstOrDefault();
+                return Deserialize(json, settingsType);
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryException(ex.Message, ex);
+            }
+        }
+
         public T GetOrDefault<T>() where T : class
         {
             var settingsType = typeof (T);
             var settingsAttribute = settingsType.GetCustomAttribute(typeof (SettingsAttribute)) as SettingsAttribute;
             var key = settingsAttribute == null ? settingsType.FullName : settingsAttribute.GetKey(settingsType);
             return GetOrDefault<T>(key);
+        }
+
+        public object GetOrDefault(Type settingsType)
+        {
+            var settingsAttribute = settingsType.GetCustomAttribute(typeof(SettingsAttribute)) as SettingsAttribute;
+            var key = settingsAttribute == null ? settingsType.FullName : settingsAttribute.GetKey(settingsType);
+            return GetOrDefault(key, settingsType);
         }
 
         public void Set<T>(string key, T value)
@@ -99,10 +121,24 @@ namespace VaBank.Data.EntityFramework.App
             return JsonConvert.DeserializeObject<T>(json);
         }
 
+        private static object Deserialize(string json, Type type)
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                return GetDefaultValue(type);
+            }
+            return JsonConvert.DeserializeObject(json, type);
+        }
+
         private static string Serialize<T>(T obj)
         {
             var @object = obj as object;
             return @object == null ? null : JsonConvert.SerializeObject(obj);
+        }
+
+        private static object GetDefaultValue(Type t)
+        {
+            return t.IsValueType ? Activator.CreateInstance(t) : null;
         }
 
         private class KeyValue

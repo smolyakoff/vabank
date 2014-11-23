@@ -4,7 +4,7 @@ using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Contracts.Processing.Commands
 {
-    public class InterbankCardTransferCommand : ICardCommand, ISecurityCodeCommand
+    public class InterbankCardTransferCommand : ICardWithdrawalCommand, ISecurityCodeCommand
     {
         public Guid FromCardId { get; set; }
 

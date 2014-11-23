@@ -45,7 +45,8 @@
             amount: 5,
             securityCode: {}
         };
-        
+
+        $scope.errorMessages = [];
         $scope.smsConfirmationEnabled = data.profile.smsConfirmationEnabled;
         $scope.smsCodeSent = false;
         $scope.transferFormController = {};
@@ -153,7 +154,11 @@
                 wizardHandler.wizard('transferWizard').goTo(stepIndex);
             }
             function onError(response) {
-                $scope.errorMessage = response.data.message;
+                if (response.status === 400 && response.data.errorType === 'validation') {
+                    $scope.errorMessages = _.pluck(response.data.faults, 'message');
+                } else {
+                    $scope.errorMessages = ['Невозможно выполнить операцию'];
+                }
                 stepIndex = 3;
                 wizardHandler.wizard('transferWizard').goTo(stepIndex);
             }
@@ -170,7 +175,9 @@
                 transfer.toCardId = $scope.transferForm.toCardId;
             } else {
                 transfer.toCardNo = $scope.transferForm.toCard.cardNumber;
-                transfer.toCardExpirationDateUtc = $scope.transferForm.toCard.expiration;
+                var month = parseInt($scope.transferForm.toCard.expiration.substr(0, 2));
+                var year = 2000 + parseInt($scope.transferForm.toCard.expiration.substr(2, 2));
+                transfer.toCardExpirationDateUtc = moment.utc([year, month]).toJSON();
             }
             var promise = Transfer.create(transfer).$promise;
             promise.then(onSuccess, onError);
