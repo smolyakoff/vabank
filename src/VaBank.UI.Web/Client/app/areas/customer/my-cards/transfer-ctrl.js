@@ -32,6 +32,8 @@
             return model.cardSource == 'vabank';
         };
 
+        var minimalAmounts = data.lookup.minimalAmountsByCurrency;
+
         $scope.cards = data.cards;
         $scope.cannotDoPersonalTransfer = data.cards.length == 1 || _.all(data.cards, function(x) {
             return x.accountNo === $scope.cards[0].accountNo;
@@ -83,7 +85,9 @@
             amount: {
                 custom: validate.combineValidators([
                     validate.getValidator('min', {
-                        value: 5,
+                        value: function() {
+                            return minimalAmounts[$scope.getSourceCard().currency.isoName.toLowerCase()];
+                        },
                         message: 'Минимальная сумма перевода: {0}.'
                     }),
                     validate.getValidator('max', {
@@ -98,12 +102,12 @@
 
         $scope.sendSmsCode = function () {
             function onSuccess(code) {
-                $scope.smsCodeSent = true;
                 $scope.transferForm.securityCode.id = code.id;
                 uiTools.notify({
                    type: 'info',
                    message: 'Введите код подтверждения в поле смс-код' 
                 });
+                $scope.smsCodeSent = true;
             };
             SecurityCode.generate().then(onSuccess);
         };
@@ -154,10 +158,13 @@
                 wizardHandler.wizard('transferWizard').goTo(stepIndex);
             }
             function onError(response) {
+                var defaultMessage = 'Невозможно выполнить операцию';
                 if (response.status === 400 && response.data.errorType === 'validation') {
                     $scope.errorMessages = _.pluck(response.data.faults, 'message');
+                } else if (response.status !== 500) {
+                    $scope.errorMessages = [response.data.message || defaultMessage];
                 } else {
-                    $scope.errorMessages = ['Невозможно выполнить операцию'];
+                    $scope.errorMessages = [defaultMessage];
                 }
                 stepIndex = 3;
                 wizardHandler.wizard('transferWizard').goTo(stepIndex);

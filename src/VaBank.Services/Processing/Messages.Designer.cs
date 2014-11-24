@@ -88,6 +88,15 @@ namespace VaBank.Services.Processing {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сумма перевода должна превышать {MinimalAmount} {CurrencyISOName}..
+        /// </summary>
+        public static string CardTransferSmallAmount {
+            get {
+                return ResourceManager.GetString("CardTransferSmallAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Не найдена карта получателя..
         /// </summary>
         public static string DestinationCardNotFound {

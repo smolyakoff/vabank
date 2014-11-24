@@ -1,5 +1,6 @@
 ﻿using VaBank.Common.Data.Repositories;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
 using VaBank.Core.Processing.Factories;
 using VaBank.Services.Common;
@@ -15,5 +16,7 @@ namespace VaBank.Services.Processing
         public IRepository<UserBankOperation> UserBankOperations { get; set; }
 
         public CardTransferFactory CardTransferFactory { get; set; }
+
+        public CardTransferSettings CardTransferSettings { get; set; }
     }
 }

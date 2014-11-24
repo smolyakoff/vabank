@@ -39,6 +39,7 @@
                 _.each(validators, function (v, k) {
                     ngModelCtrl.$setValidity(k, v(value));
                 });
+                value = _.isString(value) ? accounting.unformat(value, $scope.decimal) : value;
                 return accounting.formatMoney(value, '', $scope.precision, $scope.thousand, $scope.decimal);
             };
 

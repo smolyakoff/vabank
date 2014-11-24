@@ -6,7 +6,6 @@ using VaBank.Core.Common;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Common.Exceptions;
-using VaBank.Services.Common.Security;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Processing;
@@ -30,7 +29,7 @@ namespace VaBank.Services.Processing
         public BankOperationModel Transfer(PersonalCardTransferCommand command)
         {
             EnsureIsValid(command);
-            EnsureIsSecure<PersonalCardTransferCommand, CodeSecurityValidator>(command);
+            EnsureIsSecure<PersonalCardTransferCommand, CardSecurityValidator>(command);
             try
             {
                 var fromCard = _deps.UserCards.SurelyFind(command.FromCardId);
@@ -57,7 +56,7 @@ namespace VaBank.Services.Processing
         public BankOperationModel Transfer(InterbankCardTransferCommand command)
         {
             EnsureIsValid(command);
-            EnsureIsSecure<InterbankCardTransferCommand, CodeSecurityValidator>(command);
+            EnsureIsSecure<InterbankCardTransferCommand, CardSecurityValidator>(command);
             try
             {
                 var fromCard = _deps.UserCards.SurelyFind(command.FromCardId);                
@@ -82,6 +81,22 @@ namespace VaBank.Services.Processing
             catch (Exception ex)
             {
                 throw new ServiceException("Can't create transfer.", ex);
+            }
+        }
+
+        public CardTransferLookupModel GetLookup()
+        {
+            try
+            {
+                var lookup = new CardTransferLookupModel
+                {
+                    MinimalAmountsByCurrency = _deps.CardTransferSettings.MinimalAmounts
+                };
+                return lookup;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get card transfer lookup.", ex);
             }
         }
     }

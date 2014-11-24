@@ -19,6 +19,13 @@ namespace VaBank.UI.Web.Api.Customer
             _transferService = transferService;
         }
 
+        [HttpGet]
+        [Route("lookup")]
+        public IHttpActionResult Lookup()
+        {
+            return Ok(_transferService.GetLookup());
+        }
+
         [HttpPost]
         [Route("personal")]
         [Transaction]

@@ -13,6 +13,10 @@
             create: {
                 method: 'POST',
             },
+            lookup: {
+                url: '/api/transfers/lookup',
+                method: 'GET'
+            }
         });
 
         return {

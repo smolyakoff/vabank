@@ -6,6 +6,7 @@ using FluentValidation;
 using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.IoC;
+using VaBank.Common.Util;
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
 using VaBank.Jobs.Common;
@@ -92,13 +93,13 @@ namespace VaBank.Jobs.Modules
         private static void LoadSettings(ContainerBuilder builder)
         {
             var settings = typeof(BaseService).Assembly.GetTypes()
-                .Where(t => t.GetCustomAttribute<SettingAttribute>() != null)
+                .Where(t => t.GetCustomAttribute<SettingsAttribute>() != null)
                 .ToList();
             foreach (var setting in settings)
             {
                 var copied = setting;
                 builder.Register(c => c.Resolve<SettingsManager>().Load(copied))
-                    .AsSelf()
+                    .As(copied)
                     .InstancePerLifetimeScope();
             }
         }

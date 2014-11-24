@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using VaBank.Common.IoC;
+using VaBank.Common.Util;
 using VaBank.Core.Common;
 using Module = Autofac.Module;
 
@@ -41,14 +42,14 @@ namespace VaBank.UI.Web.Modules
         private static void LoadSettings(ContainerBuilder builder)
         {
             var settings = typeof(Entity).Assembly.GetTypes()
-                .Where(t => t.GetCustomAttribute<SettingAttribute>() != null)
+                .Where(t => t.GetCustomAttribute<SettingsAttribute>() != null)
                 .ToList();
             foreach (var setting in settings)
             {
                 var copied = setting;
                 builder.Register(c => c.Resolve<SettingsManager>().Load(copied))
-                    .AsSelf()
-                    .InstancePerLifetimeScope();
+                    .As(copied)
+                    .InstancePerRequest();
             }
         }
     }

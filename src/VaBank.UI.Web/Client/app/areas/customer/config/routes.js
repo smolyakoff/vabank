@@ -90,7 +90,7 @@
                 }
             })
             .state('customer.cards.transfer', {
-                url: '/transfer',
+                url: '/transfer?from',
                 templateUrl: '/Client/app/areas/customer/my-cards/transfer.html',
                 controller: 'transferController',
                 resolve: {
@@ -98,7 +98,8 @@
                         function (myCardsService, profileService, routingResolve) {
                             var cards = myCardsService.Card.queryNotBlocked();
                             var profile = profileService.Profile.get().$promise;
-                            return routingResolve.resolveAll([cards, profile], ['cards', 'profile']);
+                            var lookup = myCardsService.Transfer.lookup().$promise;
+                            return routingResolve.resolveAll([cards, profile, lookup], ['cards', 'profile', 'lookup']);
                         }]
                 }
             });

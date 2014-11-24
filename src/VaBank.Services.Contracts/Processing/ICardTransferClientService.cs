@@ -8,5 +8,7 @@ namespace VaBank.Services.Contracts.Processing
         BankOperationModel Transfer(PersonalCardTransferCommand command);
 
         BankOperationModel Transfer(InterbankCardTransferCommand command);
+
+        CardTransferLookupModel GetLookup();
     }
 }

@@ -33,12 +33,18 @@ namespace VaBank.Jobs.Processing
                 {
                     transaction.Rollback();
                 }
+                else
+                {
+                    transaction.Commit();
+                }
                 OnError(context.Data, ex);
+                throw;
             }
             catch (Exception ex)
             {
                 transaction.Rollback();
                 OnError(context.Data, ex);
+                throw;
             }
             finally
             {

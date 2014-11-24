@@ -9,13 +9,13 @@ namespace VaBank.Core.Processing.Entities
     {
         public static class Spec
         {
-            public static LinqSpec<CardTransaction> ForToday(TimeZoneInfo timeZone)
+            public static LinqSpec<CardTransaction> ForToday(Guid cardId, TimeZoneInfo timeZone)
             {
                 var now = DateTime.UtcNow;
                 var localTime = TimeZoneInfo.ConvertTimeFromUtc(now, timeZone);
                 var startOfDay = localTime.Date;
                 var endOfDay = localTime.Date.AddDays(1);
-                return LinqSpec.For<CardTransaction>(x => x.CreatedDateUtc >= startOfDay && x.CreatedDateUtc < endOfDay);
+                return LinqSpec.For<CardTransaction>(x => x.Card.Id == cardId && x.CreatedDateUtc >= startOfDay && x.CreatedDateUtc < endOfDay);
             }
 
             public static LinqSpec<CardTransaction> NotFailed = LinqSpec.For<CardTransaction>(x => x.Status != ProcessStatus.Failed);

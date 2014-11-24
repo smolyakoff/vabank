@@ -126,6 +126,9 @@
   <data name="CardLimitsExceeded" xml:space="preserve">
     <value>Превышены лимиты по карте.</value>
   </data>
+  <data name="CardTransferSmallAmount" xml:space="preserve">
+    <value>Сумма перевода должна превышать {MinimalAmount} {CurrencyISOName}.</value>
+  </data>
   <data name="DestinationCardNotFound" xml:space="preserve">
     <value>Не найдена карта получателя.</value>
   </data>
