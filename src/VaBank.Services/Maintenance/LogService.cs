@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PagedList;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.App.Entities;
@@ -172,11 +173,13 @@ namespace VaBank.Services.Maintenance
             }
         }
 
-        public IList<TransactionLogEntryBriefModel> GetTransactionLogEntries()
+        public IList<TransactionLogEntryBriefModel> GetTransactionLogEntries(TransactionLogQuery query)
         {
+            EnsureIsValid(query);
             try
             {
-                return _db.Transactions.ProjectAll<TransactionLogEntryBriefModel>();
+                var dbQuery = query.ToDbQuery<TransactionLogEntryBriefModel>();
+                return _db.Transactions.ProjectThenQuery<TransactionLogEntryBriefModel>(dbQuery);
             }
             catch (Exception ex)
             {

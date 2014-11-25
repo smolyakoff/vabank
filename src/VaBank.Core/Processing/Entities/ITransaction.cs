@@ -1,5 +1,4 @@
 ﻿using System;
-using VaBank.Core.Accounting.Entities;
 
 namespace VaBank.Core.Processing.Entities
 {
@@ -7,7 +6,6 @@ namespace VaBank.Core.Processing.Entities
     {
         Guid Id { get; }
         string AccountNo { get; }
-        Currency Currency { get; }
         decimal TransactionAmount { get; }
         decimal AccountAmount { get; }
         decimal RemainingBalance { get; }

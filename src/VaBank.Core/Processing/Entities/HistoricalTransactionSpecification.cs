@@ -13,7 +13,8 @@ namespace VaBank.Core.Processing.Entities
             Argument.Satisfies(keys, x => x.Length == 1, "keys");
             Argument.Satisfies(keys[0], x => x is Guid);
 
-            return LinqSpec.For<HistoricalTransaction>(x => x.Id == (Guid)keys[0]);
+            var key = (Guid) keys[0];
+            return LinqSpec.For<HistoricalTransaction>(x => x.Id == key);
         }
     }
 }

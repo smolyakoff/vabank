@@ -61,6 +61,15 @@ namespace VaBank.Services.Processing {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Запрещен доступ к карте..
+        /// </summary>
+        public static string CardAccessDenied {
+            get {
+                return ResourceManager.GetString("CardAccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Карта заблокирована..
         /// </summary>
         public static string CardBlocked {

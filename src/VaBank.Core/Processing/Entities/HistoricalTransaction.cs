@@ -1,5 +1,4 @@
 ﻿using System;
-using VaBank.Core.Accounting.Entities;
 using VaBank.Core.App.Entities;
 using VaBank.Core.Common.History;
 
@@ -18,15 +17,13 @@ namespace VaBank.Core.Processing.Entities
 
         public Guid HistoryOperationId { get; internal set; }
 
-        public char HistoryAction { get; internal set; }
+        public string HistoryAction { get; internal set; }
 
         public Guid Id { get; internal set; }
 
-        public virtual Operation HistoryOperation { get; internal set; }
-
         public string AccountNo { get; internal set; }
 
-        public virtual Currency Currency { get; internal set; }
+        public string CurrencyISOName { get; internal set; }
 
         public decimal TransactionAmount { get; internal set; }
 
@@ -47,5 +44,7 @@ namespace VaBank.Core.Processing.Entities
         public string ErrorMessage { get; internal set; }
 
         public ProcessStatus Status { get; internal set; }
+
+        public virtual Operation HistoryOperation { get; internal set; }
     }
 }

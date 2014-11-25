@@ -2,6 +2,7 @@
 using VaBank.Core.App.Entities;
 using VaBank.Core.Maintenance.Entitities;
 using VaBank.Core.Processing.Entities;
+using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Maintenance.Commands;
 using VaBank.Services.Contracts.Maintenance.Models;
 
@@ -42,9 +43,11 @@ namespace VaBank.Services.Maintenance
 
             CreateMap<ITransaction, TransactionLogEntryBriefModel>()
                 .ForMember(x => x.TransactionId, cfg => cfg.MapFrom(x => x.Id))
+                .ForMember(x => x.Status, cfg => cfg.MapFrom(x => (ProcessStatusModel)x.Status))
                 .Include<Transaction, TransactionLogEntryBriefModel>()
                 .Include<HistoricalTransaction, TransactionLogEntryHistoricalModel>();
-            CreateMap<Transaction, TransactionLogEntryBriefModel>();
+            CreateMap<Transaction, TransactionLogEntryBriefModel>()
+                .ForMember(x => x.CurrencyISOName, cfg => cfg.MapFrom(x => x.Currency.ISOName));
             CreateMap<HistoricalTransaction, TransactionLogEntryHistoricalModel>()
                 .ForMember(x => x.TimestampUtc, cfg => cfg.MapFrom(x => x.HistoryTimestampUtc))
                 .ForMember(x => x.ChangeOwnerUserId, cfg => cfg.MapFrom(x => x.HistoryOperation.UserId));

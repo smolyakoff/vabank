@@ -8,6 +8,6 @@ namespace VaBank.Core.Common.History
         long HistoryId { get; }
         DateTime HistoryTimestampUtc { get; }
         Guid HistoryOperationId { get; }
-        char HistoryAction { get; }
+        string HistoryAction { get; }
     }
 }

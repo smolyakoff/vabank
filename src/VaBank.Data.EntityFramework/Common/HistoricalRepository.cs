@@ -41,7 +41,7 @@ namespace VaBank.Data.EntityFramework.Common
                 var spec = LoadSpec<THistoricalEntity>();
                 var version = Context.Set<THistoricalEntity>()
                     .Where(spec.OriginalKey(originalKeys).Expression)
-                    .Where(x => x.HistoryAction != 'D')
+                    .Where(x => x.HistoryAction != "D")
                     .OrderByDescending(x => x.HistoryTimestampUtc)
                     .FirstOrDefault();
                 return version;

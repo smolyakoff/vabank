@@ -15,6 +15,10 @@ namespace VaBank.Services.Contracts.Maintenance.Models
 
         public DateTime? PostDateUtc { get; set; }
 
+        public string CurrencyISOName { get; set; }
+
+        public string Code { get; set; }
+
         public string Description { get; set; }
 
         public string Location { get; set; }
@@ -24,5 +28,7 @@ namespace VaBank.Services.Contracts.Maintenance.Models
         public decimal AccountAmount { get; set; }
 
         public decimal RemainingBalance { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }

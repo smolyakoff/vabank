@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading;
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VaBank.Common.Data.Repositories;
@@ -18,6 +19,8 @@ namespace VaBank.Services.Tests
         [TestCategory("Development")]
         public void Can_Submit_Card_Transfer()
         {
+            var user = AuthenticateTerminator();
+            user.Profile.SmsConfirmationEnabled = false;
             var transferService = Scope.Resolve<ICardTransferClientService>();
             var cardAccountService = Scope.Resolve<ICardAccountService>();
 
@@ -26,8 +29,8 @@ namespace VaBank.Services.Tests
                 .ToList();
             var command = new InterbankCardTransferCommand
             {
-                FromCardId = cards[0].CardId,
-                ToCardNo = cards[1].CardNo,
+                FromCardId = cards.First(x => x.Owner.UserId == user.Id).CardId,
+                ToCardNo = cards.First(x => x.Owner.UserId != user.Id).CardNo,
                 ToCardExpirationDateUtc = cards[1].ExpirationDateUtc,
                 Amount = 10
             };
@@ -39,6 +42,8 @@ namespace VaBank.Services.Tests
         [TestCategory("Development")]
         public void Can_Submit_And_Process_Card_Transfer()
         {
+            var user = AuthenticateTerminator();
+            user.Profile.SmsConfirmationEnabled = false;
             var transferService = Scope.Resolve<ICardTransferClientService>();
             var cardAccountService = Scope.Resolve<ICardAccountService>();
             var transferRepository = Scope.Resolve<IRepository<Transfer>>();
@@ -49,8 +54,8 @@ namespace VaBank.Services.Tests
                 .ToList();
             var command = new InterbankCardTransferCommand
             {
-                FromCardId = cards[0].CardId,
-                ToCardNo = cards[1].CardNo,
+                FromCardId = cards.First(x => x.Owner.UserId == user.Id).CardId,
+                ToCardNo = cards.First(x => x.Owner.UserId != user.Id).CardNo,
                 ToCardExpirationDateUtc = cards[1].ExpirationDateUtc,
                 Amount = 10
             };

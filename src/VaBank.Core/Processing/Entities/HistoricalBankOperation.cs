@@ -25,6 +25,6 @@ namespace VaBank.Core.Processing.Entities
 
         public Guid HistoryOperationId { get; internal set; }
 
-        public char HistoryAction { get; internal set; }
+        public string HistoryAction { get; internal set; }
     }
 }

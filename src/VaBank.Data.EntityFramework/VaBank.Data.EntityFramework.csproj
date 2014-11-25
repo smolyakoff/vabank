@@ -94,8 +94,10 @@
     <Compile Include="Membership\Mappings\UserProfileMap.cs" />
     <Compile Include="Common\Repository`1.cs" />
     <Compile Include="Processing\ExchangeRateRepository.cs" />
+    <Compile Include="Processing\Mappings\BaseTransactionMap.cs" />
     <Compile Include="Processing\Mappings\CardTransferMap.cs" />
     <Compile Include="Processing\Mappings\ExchangeRateMap.cs" />
+    <Compile Include="Processing\Mappings\HistoricalTransactionMap.cs" />
     <Compile Include="Processing\Mappings\OperationCategoryMap.cs" />
     <Compile Include="Processing\Mappings\OperationMap.cs" />
     <Compile Include="Processing\Mappings\TransactionMap.cs" />

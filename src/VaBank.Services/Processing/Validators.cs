@@ -26,8 +26,17 @@ namespace VaBank.Services.Processing
 
             _userCards = userCardRepository;
             Inherit(new CodeSecurityValidator(identity, securityCodeRepository));
+            Custom(UserOwnsCard);
             Custom(NotBlocked);
             Custom(NotExpired);
+        }
+
+        public ValidationFailure UserOwnsCard(ICardWithdrawalCommand command)
+        {
+            var card = _userCards.SurelyFind(command.FromCardId);
+            return card.Owner.Id == Identity.UserId
+                ? null
+                : new ValidationFailure(RootPropertyName, Messages.CardAccessDenied);
         }
 
         private ValidationFailure NotExpired(ICardWithdrawalCommand command)
