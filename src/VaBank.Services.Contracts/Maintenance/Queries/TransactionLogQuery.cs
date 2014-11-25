@@ -1,7 +1,6 @@
-﻿using System;
-using VaBank.Common.Data.Filtering;
-using VaBank.Common.Data.Paging;
+﻿using VaBank.Common.Data.Filtering;
 using VaBank.Common.Data.Sorting;
+using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Contracts.Maintenance.Queries
 {
@@ -9,14 +8,15 @@ namespace VaBank.Services.Contracts.Maintenance.Queries
     {
         public TransactionLogQuery()
         {
+            Status = new ProcessStatusModel[0];
             ClientFilter = new AlwaysTrueFilter();
             ClientSort = new DynamicLinqSort("CreatedDateUtc DESC");
         }
 
         public IFilter ClientFilter { get; set; }
 
-        public Guid? UserId { get; set; }
-
         public ISort ClientSort { get; set; }
+
+        public ProcessStatusModel[] Status { get; set; } 
     }
 }

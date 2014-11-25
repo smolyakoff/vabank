@@ -1,0 +1,84 @@
+﻿<section class="row offset-bottom">
+    <div class="col-xs-10">
+        <div class="form-inline log-filters">
+            <div class="form-group from-filter">
+                <label>От</label>
+                <vb-datepicker data-ng-model="filter.from" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
+            </div>
+            <div class="form-group to-filter">
+                <label>До</label>
+                <vb-datepicker data-ng-model="filter.to" data-config="{minView: 'day'}" data-date-format="YYYY-MM-DD"></vb-datepicker>
+            </div>
+            <div class="form-group">
+                <label>Статус</label>
+                <div data-multi-select
+                     input-model="statuses"
+                     default-label="Любой"
+                     button-label="label"
+                     item-label="label"
+                     tick-property="ticked"
+                     helper-elements="all none"
+                     max-labels="1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Владелец карт-счета</label>
+                <ui-select class="transaction-user-search" ng-model="filter.accountNo">
+                    <ui-select-match placeholder="Найти...">{{$select.selected.userName || $select.selected.label }}</ui-select-match>
+                    <ui-select-choices repeat="user.accounts as user in users track by $index"
+                                       refresh="searchAccounts($select.search)">
+                        <div class="text-info" ng-bind-html="user.userName | highlight: $select.search">
+                        </div>
+                        <div data-ng-if="user.email" ng-bind-html="formatUser(user) | highlight: $select.search">
+                        </div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <div class="btn-toolbar pull-right" role="toolbar">
+            <button class="btn btn-primary" ng-click="show()">Показать</button>
+        </div>
+    </div>
+</section>
+<section>
+    <table data-st-table="displayedLogs" data-st-safe-src="logs" class="table table-responsive">
+        <thead>
+            <tr>
+                <th style="max-width: 60px">Статус</th>
+                <th>Дата создания</th>
+                <th>Дата отражения по счету</th>
+                <th>Код / описание</th>
+                <th>Номер счета</th>
+                <th>Сумма в валюте операции</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="log in displayedLogs">
+                <td>
+                    <i class="glyphicon glyphicon-ok-circle text-success"
+                       data-ng-if="log.status === 'Completed'" tooltip="Завершена">
+                    </i>
+                    <i class="glyphicon glyphicon-time text-warning"
+                       data-ng-if="log.status === 'Pending'" tooltip="Сумма блокирована">
+                    </i>
+                    <i class="glyphicon glyphicon-remove-circle text-danger"
+                       data-ng-if="log.status === 'Failed'" tooltip="Ошибка: {{log.errorMessage}}">
+                    </i>
+                </td>
+                <td>{{log.createdDateUtc | localdate | amDateFormat:'YYYY-MM-DD HH:mm:ss' }}</td>
+                <td>{{log.postDateUtc| localdate | amDateFormat:'YYYY-MM-DD'}}</td>
+                <td>
+                    <span class="text-info">{{log.code}}</span>
+                    <div>
+                        {{log.description}}<br/>
+                        <span class="text-muted">{{log.location}}</span>
+                    </div>
+                </td>
+                <td>{{log.accountNo}}</td>
+                <td>{{log.transactionAmount | extcurrency:''}} {{log.currencyISOName}}</td>
+            </tr>
+        </tbody>
+    </table>
+</section>

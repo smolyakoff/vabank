@@ -178,8 +178,7 @@ namespace VaBank.Services.Maintenance
             EnsureIsValid(query);
             try
             {
-                var dbQuery = query.ToDbQuery<TransactionLogEntryBriefModel>();
-                return _db.Transactions.ProjectThenQuery<TransactionLogEntryBriefModel>(dbQuery);
+                return _db.Transactions.Project<TransactionLogEntryBriefModel>(query.ToDbQuery());
             }
             catch (Exception ex)
             {

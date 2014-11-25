@@ -120,6 +120,15 @@
                             ['lookup']);
                     }]
                 }
+            }).state('admin.transactionLog', {
+                url: '/log/transaction',
+                templateUrl: '/Client/app/areas/admin/transaction-log/transaction-log.html',
+                controller: 'transactionLogController',
+                resolve: {
+                    data: ['transactionLogService', function(transactionLogService) {
+                        return transactionLogService.LogEntry.query().$promise;
+                    }]
+                }
             });
     }
 

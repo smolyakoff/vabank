@@ -222,6 +222,9 @@
     <Content Include="Client\app\areas\admin\scheduler\scheduler.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log-ctrl.js" />
+    <Content Include="Client\app\areas\admin\transaction-log\transaction-log-service.js" />
+    <Content Include="Client\app\areas\admin\transaction-log\transaction-log-ctrl.js" />
+    <Content Include="Client\app\areas\admin\transaction-log\transaction-log.html" />
     <Content Include="Client\app\areas\admin\user-management\edit-user-ctrl.js" />
     <Content Include="Client\app\areas\admin\user-management\edit-user.html" />
     <Content Include="Client\app\areas\admin\user-management\user-list-ctrl.js" />
@@ -303,6 +306,7 @@
     <Content Include="Client\app\modules\vabank-ui\directives\vb-datepicker.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\exp-date.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\card-number.js" />
+    <Content Include="Client\app\modules\vabank-ui\filters\local-date.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\string-format.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\ext-currency.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\truncate.js" />
@@ -1911,6 +1915,7 @@
     <Content Include="Client\bower_components\angular-animate\bower.json" />
     <Content Include="Client\bower_components\angular-animate\package.json" />
     <Content Include="Client\bower_components\angular-animate\README.md" />
+    <Content Include="Client\app\areas\admin\transaction-log\transaction-log.scss" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
