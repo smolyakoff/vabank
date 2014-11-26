@@ -107,6 +107,8 @@
     <Compile Include="M3-Processing\41_TransactionProcessingHistory.cs" />
     <Compile Include="M3-Processing\42_SeedTransferCategories.cs" />
     <Compile Include="M3-Processing\43_SeedMinimalCardTransferAmounts.cs" />
+    <Compile Include="M3-Processing\44_SeedUserWithAccountAndCards.cs" />
+    <Compile Include="M3-Processing\M3User.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
