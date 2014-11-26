@@ -14,7 +14,11 @@
     <tbody>
         <tr ng-repeat="card in cards">
             <td>
-                <button class="btn btn-xs" ng-click="unassign(card)"><i class="glyphicon glyphicon-remove"></i></button>
+                <button class="btn btn-xs"
+                        ng-click="unassign(card)"
+                        vb-confirm="Вы действительно хотите отвязать карту?">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </button>
             </td>
             <td>{{card.cardNo}}</td>
             <td>{{card.cardVendor.name}}</td>
