@@ -1,14 +1,21 @@
 ﻿using System;
+using System.Linq;
 using Autofac;
 using VaBank.Common.Data;
 using VaBank.Jobs.Common;
 using VaBank.Services.Contracts.Accounting.Events;
+using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Infrastructure.Sms;
+using VaBank.Services.Contracts.Membership.Models;
+using VaBank.Services.Contracts.Processing.Events;
 
 namespace VaBank.Jobs.Infrastructure
 {
     public class SmsNotificationJob : EventListenerJob<SmsNotificationJobContext, ISmsEvent>
     {
+        private readonly TimeZoneInfo _timezone = 
+            TimeZoneInfo.CreateCustomTimeZone("BY", TimeSpan.FromHours(3), "MINSK - BY", "MINSK - BY");
+
         public SmsNotificationJob(ILifetimeScope scope) : base(scope)
         {
         }
@@ -21,25 +28,15 @@ namespace VaBank.Jobs.Infrastructure
 
         private void Handle(SmsNotificationJobContext context, SmsCodeCreated smsCodeCreated)
         {
-            if (!smsCodeCreated.UserId.HasValue)
-            {
-                Logger.Error("Sms code event didn't contain user id.");
-                return;
-            }
-            var profile = context.UserService.GetProfile(new IdentityQuery<Guid>(smsCodeCreated.UserId.Value));
+            var profile = VerifyProfile(context, smsCodeCreated.UserId);
             if (profile == null)
             {
-                Logger.Error("Sms code was created for user without a profile.");
                 return;
             }
             if (!profile.SmsConfirmationEnabled)
             {
                 Logger.Error("Sms code was created for user with sms confirmation feature disabled.");
                 return;
-            }
-            if (!profile.PhoneNumberConfirmed)
-            {
-                Logger.Error("Sms code was created for user with not confirmed phone number.");
             }
             var sms = new SendSmsCommand
             {
@@ -51,15 +48,9 @@ namespace VaBank.Jobs.Infrastructure
 
         private void Handle(SmsNotificationJobContext context, UserCardBlocked cardBlocked)
         {
-            if (!cardBlocked.UserId.HasValue)
-            {
-                Logger.Error("Card blocked event event didn't contain user id.");
-                return;
-            }
-            var profile = context.UserService.GetProfile(new IdentityQuery<Guid>(cardBlocked.UserId.Value));
+            var profile = VerifyProfile(context, cardBlocked.UserId);
             if (profile == null)
             {
-                Logger.Error("Sms event was created for user without a profile.");
                 return;
             }
             if (!profile.SmsNotificationEnabled)
@@ -75,6 +66,99 @@ namespace VaBank.Jobs.Infrastructure
                 Text = string.Format(SmsMessages.CardBlocked, cardName)
             };
             context.SmsService.SendSms(sms);
+        }
+
+        private void Handle(SmsNotificationJobContext context, TransactionProcessedEvent smsEvent)
+        {
+            var transaction = context.ProcessingService.GetCardTransaction(new IdentityQuery<Guid>(smsEvent.TransactionId));
+            if (transaction == null)
+            {
+                return;
+            }
+            if (transaction.Status == ProcessStatusModel.Pending)
+            {
+                return;
+            }
+            var account = context.CardAccountService.GetCardAccountBrief(new IdentityQuery<string>(transaction.AccountNo));
+            if (account == null)
+            {
+                Logger.Error("Couldn't find account for card transaction #{0}.", smsEvent.TransactionId);
+                return;
+            }
+            var profile = VerifyProfile(context, account.Owner.UserId);
+            if (profile == null || !profile.SmsNotificationEnabled)
+            {
+                return;
+            }
+            var sms = new SendSmsCommand { RecipientPhoneNumber = profile.PhoneNumber };
+            var secureCardNo = string.Format(
+                    "{0}****{1}",
+                    new string(transaction.CardNo.Take(8).ToArray()),
+                    new string(transaction.CardNo.Skip(12).ToArray()));
+            if (transaction.Status == ProcessStatusModel.Failed)
+            {
+
+                var message = string.Format(
+                    SmsMessages.CardError,
+                    secureCardNo,
+                    string.Format("{0:F2} {1}", transaction.TransactionAmount, transaction.Currency.ISOName),
+                    transaction.Location,
+                    TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _timezone),
+                    string.Format("{0:F2} {1}", account.Balance, account.Currency.ISOName));
+                sms.Text = message;
+                context.SmsService.SendSms(sms);
+                return;
+            }
+            if (transaction.TransactionAmount < 0)
+            {
+                var message = string.Format(
+                    SmsMessages.CardWithdrawal,
+                    secureCardNo,
+                    string.Format("{0:F2} {1}", - transaction.TransactionAmount, transaction.Currency.ISOName),
+                    transaction.Location,
+                    TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _timezone),
+                    string.Format("{0:F2} {1}", account.Balance, account.Currency.ISOName));
+                sms.Text = message;
+                context.SmsService.SendSms(sms);
+            }
+            else
+            {
+                var message = string.Format(
+                    SmsMessages.CardDeposit,
+                    secureCardNo,
+                    string.Format("{0:F2} {1}", transaction.TransactionAmount, transaction.Currency.ISOName),
+                    transaction.Location,
+                    TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _timezone),
+                    string.Format("{0:F2} {1}", account.Balance, account.Currency.ISOName));
+                sms.Text = message;
+                context.SmsService.SendSms(sms);
+            }
+        }
+
+        private UserProfileModel VerifyProfile(SmsNotificationJobContext context, Guid? userId)
+        {
+            if (!userId.HasValue)
+            {
+                Logger.Error("Sms event didn't contain user id.");
+                return null;
+            }
+            var profile = context.UserService.GetProfile(new IdentityQuery<Guid>(userId.Value));
+            if (profile == null)
+            {
+                Logger.Error("Profile was not found for sms event.");
+                return null;
+            }
+            if (!profile.PhoneNumberConfirmed)
+            {
+                Logger.Error("Phone number not confirmed.");
+                return null;
+            }
+            if (string.IsNullOrEmpty(profile.PhoneNumber))
+            {
+                Logger.Error("Tried to send sms to user without phone number.");
+                return null;
+            }
+            return profile;
         }
 
         private void Handle(SmsNotificationJobContext context, ISmsEvent smsEvent)

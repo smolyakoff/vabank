@@ -86,6 +86,7 @@
     <Compile Include="Common\Events\PostponedEvent.cs" />
     <Compile Include="Processing\Events\ITransactionEvent.cs" />
     <Compile Include="Processing\Events\OperationProgressEvent.cs" />
+    <Compile Include="Processing\Events\TransactionProcessedEvent.cs" />
     <Compile Include="Processing\Events\TransactionProgressEvent.cs" />
     <Compile Include="Processing\ICurrencyRateService.cs" />
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Accounting\Models\CardModel.cs" />
     <Compile Include="Processing\ICardTransferClientService.cs" />
     <Compile Include="Processing\IProcessingService.cs" />
+    <Compile Include="Processing\Models\CardTransactionModel.cs" />
     <Compile Include="Processing\Models\ExchangeRateModel.cs" />
     <Compile Include="Accounting\Models\UserCardModel.cs" />
     <Compile Include="Accounting\Models\CardLimitsModel.cs" />

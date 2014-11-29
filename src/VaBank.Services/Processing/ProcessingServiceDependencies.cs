@@ -8,7 +8,9 @@ namespace VaBank.Services.Processing
     {
         public IRepository<BankOperation> BankOperations { get; set; }
 
-        public IRepository<Transaction> Transactions { get; set; } 
+        public IRepository<Transaction> Transactions { get; set; }
+
+        public IRepository<CardTransaction> CardTransactions { get; set; } 
  
         public CentralProcessor CentralProcessor { get; set; }
     }

@@ -91,6 +91,10 @@ namespace VaBank.Core.Processing.Entities
         public virtual void Fail(string message)
         {
             Argument.NotNull(message, "message");
+            if (Status != ProcessStatus.Pending)
+            {
+                throw new DomainException("Current state is already final.");
+            }
 
             if (Type == TransactionType.Withdrawal)
             {
@@ -104,6 +108,10 @@ namespace VaBank.Core.Processing.Entities
         public virtual void Complete(DateTime postDateUtc)
         {
             Argument.EnsureIsValid<FutureDateValidator, DateTime>(postDateUtc, "postDateUtc");
+            if (Status != ProcessStatus.Pending)
+            {
+                throw new DomainException("Current state is already final.");
+            }
 
             if (Type == TransactionType.Deposit)
             {

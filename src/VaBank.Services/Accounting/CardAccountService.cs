@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using VaBank.Common.Data;
+using VaBank.Common.Data.Repositories;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Membership.Entities;
 using VaBank.Core.Processing.Entities;
@@ -283,6 +284,20 @@ namespace VaBank.Services.Accounting
             catch (Exception ex)
             {
                 throw new ServiceException("Cannot update card settings.", ex);
+            }
+        }
+
+        public CardAccountBriefModel GetCardAccountBrief(IdentityQuery<string> accountNo)
+        {
+            EnsureIsValid(accountNo);
+            try
+            {
+                var account = _deps.CardAccounts.QueryIdentity(accountNo);
+                return account == null ? null : account.ToModel<CardAccountBriefModel>();
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get card account brief information.", ex);
             }
         }
 

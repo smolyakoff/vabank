@@ -10,7 +10,7 @@ using VaBank.Services.Contracts.Processing.Events;
 namespace VaBank.Jobs.Processing
 {
     [JobName("OperationProcessing")]
-    public class OperationProcessingJob : EventListenerJob<OperationProcessingJobContext, IBankOperationEvent>
+    public class OperationProcessingJob : EventListenerJob<OperationProcessingJobContext, OperationProgressEvent>
     {
         public OperationProcessingJob(ILifetimeScope scope)
             : base(scope)

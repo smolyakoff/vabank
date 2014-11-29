@@ -1,5 +1,8 @@
 ﻿using System;
 using NLog;
+
+using VaBank.Common.Data;
+using VaBank.Common.Data.Repositories;
 using VaBank.Common.Validation;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
@@ -64,6 +67,20 @@ namespace VaBank.Services.Processing
             catch (Exception ex)
             {
                 throw new ServiceException("Can't process transaction.", ex);
+            }
+        }
+
+        public CardTransactionModel GetCardTransaction(IdentityQuery<Guid> id)
+        {
+            EnsureIsValid(id);
+            try
+            {
+                var transaction = _deps.CardTransactions.QueryIdentity(id);
+                return transaction == null ? null : transaction.ToModel<CardTransactionModel>();
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get card transaction.", ex);
             }
         }
     }

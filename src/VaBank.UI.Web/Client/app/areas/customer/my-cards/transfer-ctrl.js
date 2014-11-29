@@ -44,7 +44,7 @@
             fromCardId: data.cards[0].cardId,
             toCard: {},
             toCardId: null,
-            amount: 5,
+            amount: minimalAmounts[data.cards[0].currency.isoName.toLowerCase()],
             securityCode: {}
         };
 

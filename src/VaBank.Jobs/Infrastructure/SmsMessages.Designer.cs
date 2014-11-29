@@ -70,6 +70,33 @@ namespace VaBank.Jobs.Infrastructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Карта: {0}. На ваш счет зачислено {1}. {2}, {3}. Остаток: {4}..
+        /// </summary>
+        internal static string CardDeposit {
+            get {
+                return ResourceManager.GetString("CardDeposit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Карта: {0}. Ошибка операции: {1}. {2}, {3}. Остаток: {4}..
+        /// </summary>
+        internal static string CardError {
+            get {
+                return ResourceManager.GetString("CardError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Карта: {0}. С вашего счета списано {1}. {2}, {3}. Остаток: {4}..
+        /// </summary>
+        internal static string CardWithdrawal {
+            get {
+                return ResourceManager.GetString("CardWithdrawal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ваш одноразовый пароль для интернет-банкинга: {0}..
         /// </summary>
         internal static string SecurityCode {
