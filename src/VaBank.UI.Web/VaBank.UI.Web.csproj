@@ -232,6 +232,8 @@
     <Content Include="Client\app\areas\admin\user-management\user-list.html" />
     <Content Include="Client\app\areas\customer\cabinet\cabinet-ctrl.js" />
     <Content Include="Client\app\areas\customer\cabinet\cabinet-service.js" />
+    <Content Include="Client\app\areas\customer\cabinet\my-cards-widget-ctrl.js" />
+    <Content Include="Client\app\areas\customer\cabinet\my-cards-widget.html" />
     <Content Include="Client\app\areas\customer\my-cards\transfer-service.js" />
     <Content Include="Client\app\areas\customer\security-code-service.js" />
     <Content Include="Client\app\areas\customer\my-cards\customer-card-ctrl.js" />
@@ -297,6 +299,7 @@
     <Content Include="Client\app\modules\vabank-ui\config\toastr-config.js" />
     <Content Include="Client\app\modules\vabank-ui\config\local-storage-config.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\currency-field.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\disable-animate.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\dropdown-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\date-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\masked-field.js" />
@@ -1252,6 +1255,8 @@
     <Content Include="Client\bower_components\angular-resource\angular-resource.min.js.map" />
     <Content Include="Client\bower_components\angular-resource\bower.json" />
     <Content Include="Client\bower_components\angular-resource\README.md" />
+    <Content Include="Client\bower_components\angular-responsive\src\responsive-directive.js" />
+    <Content Include="Client\bower_components\angular-responsive\src\responsive.js" />
     <Content Include="Client\bower_components\angular-sanitize\angular-sanitize.js" />
     <Content Include="Client\bower_components\angular-sanitize\angular-sanitize.min.js" />
     <Content Include="Client\bower_components\angular-smart-table\.bower.json" />
@@ -1916,6 +1921,10 @@
     <Content Include="Client\bower_components\angular-animate\package.json" />
     <Content Include="Client\bower_components\angular-animate\README.md" />
     <Content Include="Client\app\areas\admin\transaction-log\transaction-log.scss" />
+    <Content Include="Client\bower_components\angular-responsive\.bower.json" />
+    <Content Include="Client\bower_components\angular-responsive\bower.json" />
+    <Content Include="Client\bower_components\angular-responsive\LICENSE" />
+    <Content Include="Client\bower_components\angular-responsive\README.md" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>

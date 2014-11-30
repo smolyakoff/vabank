@@ -20,6 +20,7 @@
         'formFor', 
         'formFor.bootstrapTemplates',
         'mgo-angular-wizard',
+        'angular-responsive',
         
         'vabank.ui',
         'vabank.auth'

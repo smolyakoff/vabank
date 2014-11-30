@@ -84,7 +84,8 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("angular-smart-table/dist/smart-table.debug.js"))
                 .Add(BowerPath("angular-form-for/dist/form-for.js"))
                 .Add(BowerPath("angular-form-for/dist/form-for.bootstrap-templates.js"))
-                .Add(BowerPath("angular-wizard/dist/angular-wizard.js"));
+                .Add(BowerPath("angular-wizard/dist/angular-wizard.js"))
+                .Add(BowerPath("angular-responsive/src/responsive-directive.js"));
 
             bundle
                 .Add(ApplicationPath("modules/vabank-ui/vabank-ui.js"))

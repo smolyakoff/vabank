@@ -1,0 +1,25 @@
+{
+  "name": "angular-responsive",
+  "version": "0.3.0",
+  "homepage": "https://github.com/lavinjj/angular-responsive",
+  "main": "src/responsive-directive.js",
+  "authors": [
+    "Jim Lavin"
+  ],
+  "description": "angularjs responsive directives",
+  "keywords": [
+    "angularjs",
+    "responsive"
+  ],
+  "license": "Apache-2",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "samples",
+    ".gitignore",
+    "package.json"
+  ],
+  "dependencies": {
+    "angular-route": "~1.2.13"
+  }
+}
