@@ -39,7 +39,7 @@
     "angular-ui-utils": "bower-mask",
     "angular-moment": "~0.8.2",
     "angular-i18n": "~1.3.2",
-    "angular-responsive": "*"
+    "angular-media-queries": "~0.3.0"
   },
   "resolutions": {
     "angular-resource": "~1.2.25",

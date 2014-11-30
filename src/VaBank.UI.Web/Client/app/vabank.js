@@ -20,7 +20,7 @@
         'formFor', 
         'formFor.bootstrapTemplates',
         'mgo-angular-wizard',
-        'angular-responsive',
+        'matchMedia',
         
         'vabank.ui',
         'vabank.auth'

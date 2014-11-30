@@ -5,9 +5,9 @@
         .module('vabank.webapp')
         .controller('transferController', transferController);
 
-    transferController.$inject = ['$scope', '$timeout', '$state', 'uiTools', 'WizardHandler', 'myCardsService', 'data'];
+    transferController.$inject = ['$scope', '$timeout', '$state', '$stateParams', 'uiTools', 'WizardHandler', 'myCardsService', 'data'];
 
-    function transferController($scope, $timeout, $state, uiTools, wizardHandler, myCardsService, data) {
+    function transferController($scope, $timeout, $state, $stateParams, uiTools, wizardHandler, myCardsService, data) {
         
         if (data.cards.length === 0) {
             uiTools.notify({
@@ -32,6 +32,14 @@
             return model.cardSource == 'vabank';
         };
 
+        var getSourceCard = function() {
+            var fromCardId = $scope.transferForm.fromCardId;
+            if (!fromCardId) {
+                return { currency: {} };
+            }
+            return _.findWhere($scope.cards, { cardId: fromCardId });
+        };
+
         var minimalAmounts = data.lookup.minimalAmountsByCurrency;
 
         $scope.cards = data.cards;
@@ -41,7 +49,7 @@
         
         var defaultForm = {
             cardSource: $scope.cannotDoPersonalTransfer ? 'vabank' : 'my',
-            fromCardId: data.cards[0].cardId,
+            fromCardId: $stateParams.from || data.cards[0].cardId,
             toCard: {},
             toCardId: null,
             amount: minimalAmounts[data.cards[0].currency.isoName.toLowerCase()],
@@ -67,7 +75,8 @@
             return _.isString(smsCode) && smsCode.length === 6;
         };
 
-        $scope.transferForm = angular.copy(defaultForm); 
+        $scope.transferForm = angular.copy(defaultForm);
+        $scope.transferForm.amount = minimalAmounts[getSourceCard().currency.isoName.toLowerCase()];
 
         $scope.validationRules = {
             toCardId: { custom: validate.getConditionalValidator('required', _.negate(isVabankTransfer)) },
@@ -112,13 +121,7 @@
             SecurityCode.generate().then(onSuccess);
         };
 
-        $scope.getSourceCard = function () {
-            var fromCardId = $scope.transferForm.fromCardId;
-            if (!fromCardId) {
-                return {currency: {}};
-            }
-            return _.findWhere($scope.cards, { cardId: fromCardId });
-        };
+        $scope.getSourceCard = getSourceCard;
 
         $scope.canBeDestinationCard = function(card) {
             var source = $scope.getSourceCard();
@@ -198,6 +201,5 @@
                 });
             }
         });
-
     }
 })();

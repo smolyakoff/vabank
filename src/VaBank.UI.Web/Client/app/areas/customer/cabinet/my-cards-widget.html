@@ -1,77 +1,44 @@
-﻿<div class="panel tile light-gray" data-ng-controller="myCardsWidgetController">
+﻿<div class="panel tile orange" data-ng-controller="myCardsWidgetController">
     <div class="panel-heading">
         <div class="row">
             <div class="col-xs-10">
                 <h4 class="title">Платежные карты</h4>
             </div>
             <div class="col-xs-2 spinner-container">
-                <div data-us-spinner="{lines:7, radius:3, length: 4, width:4, color:'white', left:'initial'}"></div>
+                <div data-ng-show="loading.active()"
+                     data-us-spinner="{lines:7, radius:3, length: 4, width:4, color:'white', left:'initial'}"></div>
             </div>
         </div>
     </div>
     <div class="panel-body tile-body">
         <carousel data-disable-animate="" class="cards-carousel">
-            <!--<slide data-ng-repeat="card in cards | $index "></slide>-->
-            <!--<slide>
-                <div class="row active">
-                    <div class="col-xs-6">
-                        <div class="initialism screen-lg">
-                            <span class="text-vinous">Дружеское имя </span>
-                            <span class="text-darkgreen">987654__4236 </span>
-                        </div>
-                        <div class="img-center img-card">
-                            <img class="img img-responsive card-logo" src="/Client/app/images/icons/cards/visa-curved-128px.png">
-                        </div>
-                        <div class="text-center screen-lg">
-                            <p class="text-vinous">100.000 BYR</p>
-                        </div>
-                        <div class="footer-card text-center">
-                            <a class="action-link text-darkgreen" data-ui-sref="customer.cards.transfer">
-                                Перевод между картами
-                                <i class="glyphicon glyphicon-chevron-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="initialism screen-lg">
-                            <span class="text-vinous">Дружеское имя </span>
-                            <span class="text-darkgreen">987654__4236 </span>
-                        </div>
-                        <div class="img-center img-card">
-                            <img class="img img-responsive card-logo" src="/Client/app/images/icons/cards/visa-curved-128px.png">
-                        </div>
-                        <div class="text-center screen-lg">
-                            <p class="text-vinous">100.000 BYR</p>
-                        </div>
-                        <div class="footer-card text-center">
-                            <a class="action-link text-darkgreen" data-ui-sref="customer.cards.transfer)">
-                                Перевод между картами
-                                <i class="glyphicon glyphicon-chevron-right"></i>
-                            </a>
+            <slide data-ng-repeat="slide in slides">
+                <div class="slide-wrapper">
+                    <div class="row cards-slide">
+                        <div data-ng-class="'col-xs-' + 12 / slide.cards.length" data-ng-repeat="card in slide.cards">
+                            <div class="row">
+                                <div class="col-xs-12 text-center initialism">
+                                    <img class="card-logo card-logo-lg"
+                                         data-ng-src="{{card.cardVendor.image}}" />
+                                    <div class="card-header">
+                                        <b class="card-header-1 text-vinous">
+                                            {{card.friendlyName || card.cardVendor.name}}
+                                            <a data-ui-sref="customer.cards.transfer({from: card.cardId})" tooltip="Перевод с этой карты"
+                                               tooltip-append-to-body="true">
+                                                <i class="glyphicon glyphicon-share-alt"></i>
+                                            </a>
+                                        </b>
+                                        <p class="card-header-2">
+                                            <span class="text-danger">{{card.balance | extcurrency:'':card.currency.precision}} {{card.currency.isoName}}</span>
+                                            <span class="text-white">{{card.secureCardNo}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </slide>
-            <slide>
-                <div class="row">
-                    <div class="initialism screen-md">
-                        <span class="text-vinous">Дружеское имя </span>
-                        <span class="text-darkgreen">987654__4236 </span>
-                    </div>
-                    <div class="img-center img-card">
-                        <img class="img img-responsive card-logo" src="/Client/app/images/icons/cards/visa-curved-128px.png">
-                    </div>
-                    <div class="text-center screen-lg">
-                        <p class="text-vinous">100.000 BYR</p>
-                    </div>
-                    <div class="footer-card text-center">
-                        <a class="action-link text-darkgreen" data-ui-sref="customer.cards.transfer">
-                            Перевод между картами
-                            <i class="glyphicon glyphicon-chevron-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </slide>-->
         </carousel>
     </div>
 </div>

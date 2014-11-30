@@ -1235,6 +1235,7 @@
     <Content Include="Client\bower_components\angular-local-storage\LICENSE" />
     <Content Include="Client\bower_components\angular-local-storage\package.json" />
     <Content Include="Client\bower_components\angular-local-storage\README.md" />
+    <Content Include="Client\bower_components\angular-media-queries\match-media.js" />
     <Content Include="Client\bower_components\angular-moment\.gitignore" />
     <Content Include="Client\bower_components\angular-moment\angular-moment.js" />
     <Content Include="Client\bower_components\angular-moment\angular-moment.min.js" />
@@ -1255,8 +1256,6 @@
     <Content Include="Client\bower_components\angular-resource\angular-resource.min.js.map" />
     <Content Include="Client\bower_components\angular-resource\bower.json" />
     <Content Include="Client\bower_components\angular-resource\README.md" />
-    <Content Include="Client\bower_components\angular-responsive\src\responsive-directive.js" />
-    <Content Include="Client\bower_components\angular-responsive\src\responsive.js" />
     <Content Include="Client\bower_components\angular-sanitize\angular-sanitize.js" />
     <Content Include="Client\bower_components\angular-sanitize\angular-sanitize.min.js" />
     <Content Include="Client\bower_components\angular-smart-table\.bower.json" />
@@ -1921,10 +1920,10 @@
     <Content Include="Client\bower_components\angular-animate\package.json" />
     <Content Include="Client\bower_components\angular-animate\README.md" />
     <Content Include="Client\app\areas\admin\transaction-log\transaction-log.scss" />
-    <Content Include="Client\bower_components\angular-responsive\.bower.json" />
-    <Content Include="Client\bower_components\angular-responsive\bower.json" />
-    <Content Include="Client\bower_components\angular-responsive\LICENSE" />
-    <Content Include="Client\bower_components\angular-responsive\README.md" />
+    <Content Include="Client\bower_components\angular-media-queries\.bower.json" />
+    <Content Include="Client\bower_components\angular-media-queries\bower.json" />
+    <Content Include="Client\bower_components\angular-media-queries\LICENSE.md" />
+    <Content Include="Client\bower_components\angular-media-queries\README.md" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
