@@ -97,6 +97,7 @@
     <Compile Include="Processing\MoneyConverter.cs" />
     <Compile Include="Processing\MoneyMath.cs" />
     <Compile Include="Processing\MoneyRounding.cs" />
+    <Compile Include="Processing\NationalExchangeRateRoundingSettings.cs" />
     <Compile Include="Processing\ProcessingSettings.cs" />
     <Compile Include="Processing\ProcessingExtensions.cs" />
     <Compile Include="Processing\Repositories\ExchangeRateKey.cs" />
