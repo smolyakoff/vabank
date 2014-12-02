@@ -1,6 +1,6 @@
 ﻿using VaBank.Common.Validation;
 
-namespace VaBank.Core.Processing
+namespace VaBank.Common.Util.Math
 {
     public struct IntegerRounding
     {

@@ -1,4 +1,4 @@
-﻿namespace VaBank.Core.Processing
+﻿namespace VaBank.Common.Util.Math
 {
     public enum IntegerRoundingMode
     {

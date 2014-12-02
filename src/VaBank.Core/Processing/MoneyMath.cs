@@ -1,10 +1,11 @@
 ﻿using System;
+using VaBank.Common.Util.Math;
 
 namespace VaBank.Core.Processing
 {
     internal static class MoneyMath
     {
-        public static decimal Round(decimal amount, MoneyRounding rounding)
+        public static decimal Round(decimal amount, Rounding rounding)
         {
             var floatRounded = Math.Round(amount, rounding.FloatPrecision, MidpointRounding.AwayFromZero);
             return rounding.IntegerRounding != null 

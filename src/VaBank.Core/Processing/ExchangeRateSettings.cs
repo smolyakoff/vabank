@@ -17,12 +17,13 @@ namespace VaBank.Core.Processing
             };
             BuyRateCoefficientRange = new Range<double>(0.999, 1);
             SellRateCoefficientRange = new Range<double>(1.006, 1.01);
-            NationalExchangeRateRounding = new MoneyRounding(new IntegerRounding(IntegerRoundingMode.Ceiling, 10));
+            //NationalExchangeRateRounding = new Rounding(new IntegerRounding(IntegerRoundingMode.Ceiling, 10));
         }
 
         public string NationalCurrency { get; private set; }
 
-        public MoneyRounding NationalExchangeRateRounding { get; private set; }
+        //TODO: Should be deleted
+        //public Rounding NationalExchangeRateRounding { get; private set; }
 
         public SortedList<string, int> CurrencyPriority { get; private set; }
 

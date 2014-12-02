@@ -2,6 +2,7 @@
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.IoC;
 using VaBank.Common.Util;
+using VaBank.Common.Util.Math;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Processing.Entities;
@@ -14,11 +15,15 @@ namespace VaBank.Core.Processing
         private readonly IRepository<Currency> _currencyRepository;
 
         private readonly ExchangeRateSettings _settings;
+        private readonly NationalExchangeRateRoundingSettings _roundingSettings;
 
-        public ExchangeRateCalculator(IRepository<Currency> currencyRepository)
+        public ExchangeRateCalculator(IRepository<Currency> currencyRepository, 
+            NationalExchangeRateRoundingSettings roundingSettings)
         {
             Argument.NotNull(currencyRepository, "currencyRepository");
+            Argument.NotNull(roundingSettings, "roundingSettings");
 
+            _roundingSettings = roundingSettings;
             _currencyRepository = currencyRepository;
             _settings = new ExchangeRateSettings();
         }
@@ -30,10 +35,10 @@ namespace VaBank.Core.Processing
             Argument.Satisfies(rate, x => x > 0, "rate");
 
             var conversionRate = new ConversionRate(new CurrencyConversion(_settings.NationalCurrency, foreignCurrencyISOName), rate);
-            return CalculateFromConversionRate(conversionRate, timestampUtc, _settings.NationalExchangeRateRounding);
+            return CalculateFromConversionRate(conversionRate, timestampUtc, _roundingSettings.GetRounding(foreignCurrencyISOName));
         }
 
-        public ExchangeRate CalculateFromConversionRate(ConversionRate conversionRate, DateTime timstampUtc, MoneyRounding rounding)
+        public ExchangeRate CalculateFromConversionRate(ConversionRate conversionRate, DateTime timstampUtc, Rounding rounding)
         {
             Argument.NotNull(conversionRate, "conversionRate");
 

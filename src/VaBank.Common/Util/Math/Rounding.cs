@@ -1,14 +1,14 @@
 ﻿using VaBank.Common.Validation;
 
-namespace VaBank.Core.Processing
+namespace VaBank.Common.Util.Math
 {
-    public struct MoneyRounding
+    public struct Rounding
     {
         private readonly IntegerRounding? _integerRounding;
 
         private readonly int _floatPrecision;
 
-        public MoneyRounding(int floatPrecision, IntegerRounding? integerRounding)
+        public Rounding(int floatPrecision, IntegerRounding? integerRounding)
         {
             Argument.Satisfies(floatPrecision, x => x >= 0 && x <= 28, "floatPrecision");
 
@@ -16,12 +16,12 @@ namespace VaBank.Core.Processing
             _integerRounding = integerRounding;
         }
 
-        public MoneyRounding(int floatPrecision = 2)
+        public Rounding(int floatPrecision = 2)
             :this(floatPrecision, null)
         {            
         }
 
-        public MoneyRounding(IntegerRounding integerRounding)
+        public Rounding(IntegerRounding integerRounding)
             : this(0, integerRounding)
         {
         }
