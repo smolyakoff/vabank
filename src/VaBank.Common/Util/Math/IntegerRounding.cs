@@ -1,28 +1,22 @@
-﻿using VaBank.Common.Validation;
+﻿using Newtonsoft.Json;
+using VaBank.Common.Validation;
 
 namespace VaBank.Common.Util.Math
 {
     public struct IntegerRounding
     {
-        private readonly IntegerRoundingMode _mode;
-
-        private readonly int _minimalAmount;
-
-        public IntegerRounding(IntegerRoundingMode mode, int minimalAmount)
+        public IntegerRounding(IntegerRoundingMode mode, int minimalAmount) 
+            : this()
         {
             Argument.Satisfies(minimalAmount, x => x >= 1, "precision");
-            _mode = mode;
-            _minimalAmount = minimalAmount;
+            Mode = mode;
+            MinimalAmount = minimalAmount;
         }
 
-        public IntegerRoundingMode Mode
-        {
-            get { return _mode; }
-        }
+        [JsonProperty]
+        public IntegerRoundingMode Mode { get; private set; }
 
-        public int MinimalAmount
-        {
-            get { return _minimalAmount; }
-        }
+        [JsonProperty]
+        public int MinimalAmount { get; private set; }
     }
 }

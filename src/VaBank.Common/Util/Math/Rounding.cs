@@ -1,19 +1,16 @@
-﻿using VaBank.Common.Validation;
+﻿using Newtonsoft.Json;
+using VaBank.Common.Validation;
 
 namespace VaBank.Common.Util.Math
 {
     public struct Rounding
     {
-        private readonly IntegerRounding? _integerRounding;
-
-        private readonly int _floatPrecision;
-
-        public Rounding(int floatPrecision, IntegerRounding? integerRounding)
+        public Rounding(int floatPrecision, IntegerRounding? integerRounding) 
+            : this()
         {
             Argument.Satisfies(floatPrecision, x => x >= 0 && x <= 28, "floatPrecision");
-
-            _floatPrecision = floatPrecision;
-            _integerRounding = integerRounding;
+            FloatPrecision = floatPrecision;
+            IntegerRounding = integerRounding;
         }
 
         public Rounding(int floatPrecision = 2)
@@ -26,14 +23,10 @@ namespace VaBank.Common.Util.Math
         {
         }
 
-        public int FloatPrecision
-        {
-            get { return _floatPrecision; }
-        }
+        [JsonProperty]
+        public int FloatPrecision { get; private set; }
 
-        public IntegerRounding? IntegerRounding
-        {
-            get { return _integerRounding; }
-        }
+        [JsonProperty]
+        public IntegerRounding? IntegerRounding { get; private set; }
     }
 }

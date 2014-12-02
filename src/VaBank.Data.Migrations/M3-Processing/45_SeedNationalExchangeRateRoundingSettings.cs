@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FluentMigrator;
+using Newtonsoft.Json;
 using VaBank.Common.Util.Math;
 
 namespace VaBank.Data.Migrations
@@ -10,7 +11,14 @@ namespace VaBank.Data.Migrations
     {
         public override void Up()
         {
-            
+            Insert.IntoTable("Setting")
+                .InSchema("App")
+                .Row(
+                    new
+                    {
+                        Key = "VaBank.Core.Processing.NationalExchangeRateRoundingSettings", 
+                        Value = JsonConvert.SerializeObject(GetSettings())
+                    });
         }
 
         public override void Down()

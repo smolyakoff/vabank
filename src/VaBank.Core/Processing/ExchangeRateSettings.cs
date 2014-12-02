@@ -15,7 +15,7 @@ namespace VaBank.Core.Processing
                 { NationalCurrency, 0 },
                 { "EUR", 1}
             };
-            BuyRateCoefficientRange = new Range<double>(0.999, 1);
+            BuyRateCoefficientRange = new Range<double>(0.99, 1);
             SellRateCoefficientRange = new Range<double>(1.006, 1.01);
             //NationalExchangeRateRounding = new Rounding(new IntegerRounding(IntegerRoundingMode.Ceiling, 10));
         }
