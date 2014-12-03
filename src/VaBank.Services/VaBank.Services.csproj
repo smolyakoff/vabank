@@ -177,6 +177,7 @@
     <Compile Include="Processing\Transactions\Policies\Card\UserCardExpiredPolicy.cs" />
     <Compile Include="Processing\Transactions\Policies\Card\UserCardBlockedPolicy.cs" />
     <Compile Include="Processing\Transactions\Policies\Card\UserCardLimitsPolicy.cs" />
+    <Compile Include="Processing\Transactions\Policies\Privileged\ChuckNorrisPolicy.cs" />
     <Compile Include="Processing\Transactions\PolicyTransactionProcessor.cs" />
     <Compile Include="Processing\Transactions\TransactionProcessorCommand.cs" />
     <Compile Include="Processing\Operations\TransferProcessor.cs" />
