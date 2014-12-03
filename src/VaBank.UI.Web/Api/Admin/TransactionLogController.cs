@@ -8,7 +8,7 @@ using VaBank.Services.Contracts.Maintenance.Queries;
 namespace VaBank.UI.Web.Api.Admin
 {
     [RoutePrefix("api/logs/transaction")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class TransactionLogController : ApiController
     {
         private readonly ILogService _logService;

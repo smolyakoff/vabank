@@ -9,6 +9,7 @@ using VaBank.Core.Maintenance.Entitities;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Common.Exceptions;
+using VaBank.Services.Contracts.Accounting.Models;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Maintenance;
@@ -193,9 +194,15 @@ namespace VaBank.Services.Maintenance
             {
                 var versions = _db.HistoricalRepository.GetAllVersions<HistoricalTransaction>(transactionId.Id)
                     .Select(x => x.ToClass<HistoricalTransaction, TransactionLogEntryHistoricalModel>()).ToList();
+                if (versions.Count == 0)
+                {
+                    return null;
+                }
+                var account = _db.CardAccounts.FindAndProject<CardAccountBriefModel>(versions.First().AccountNo);
                 return new TransactionLogEntryModel
                 {
                     TransactionId = transactionId.Id,
+                    Account = account,
                     Versions = versions
                 };
             }

@@ -1,4 +1,5 @@
 ﻿using VaBank.Common.Data.Repositories;
+using VaBank.Core.Accounting.Entities;
 using VaBank.Core.App.Repositories;
 using VaBank.Core.Common.History;
 using VaBank.Core.Maintenance.Entitities;
@@ -19,5 +20,7 @@ namespace VaBank.Services.Maintenance
         public IQueryRepository<Transaction> Transactions { get; set; }
 
         public IHistoricalRepository HistoricalRepository { get; set; }
+
+        public IRepository<CardAccount> CardAccounts { get; set; } 
     }
 }
