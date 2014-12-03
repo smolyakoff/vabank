@@ -110,6 +110,9 @@
     <Compile Include="M3-Processing\44_SeedUserWithAccountAndCards.cs" />
     <Compile Include="M3-Processing\45_SeedNationalExchangeRateRoundingSettings.cs" />
     <Compile Include="M3-Processing\M3User.cs" />
+    <Compile Include="M4-Payments\46_AddBankCodeToAccount.cs" />
+    <Compile Include="M4-Payments\47_AddPSNToUser_Account.cs" />
+    <Compile Include="M4-Payments\48_Payments.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
