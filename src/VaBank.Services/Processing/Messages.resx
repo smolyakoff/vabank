@@ -132,6 +132,9 @@
   <data name="CardTransferSmallAmount" xml:space="preserve">
     <value>Сумма перевода должна превышать {MinimalAmount} {CurrencyISOName}.</value>
   </data>
+  <data name="ChuckNorrisPolicy" xml:space="preserve">
+    <value>Это счёт Чака Норриса, с него нельзя снять более $10 или положить менее $100. Во избежании УЧНСНСРВСС, просим придерживаться данному правилу.</value>
+  </data>
   <data name="DestinationCardNotFound" xml:space="preserve">
     <value>Не найдена карта получателя.</value>
   </data>
