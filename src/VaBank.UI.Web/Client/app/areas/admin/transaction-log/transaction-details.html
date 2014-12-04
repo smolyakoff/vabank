@@ -1,0 +1,129 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">Транзакция №{{entry.transactionId}}</h5>
+</div>
+<div class="modal-body transaction-details-content">
+    <section class="row">
+        <div class="col-xs-12">
+            <tabset justified="true">
+                <tab heading="Текущее состояние">
+                    <table class="table table-responsive table-striped table-condensed transaction-details-table">
+                        <tbody>
+                            <tr>
+                                <td>Статус</td>
+                                <td>
+                                    <span class="label"
+                                          data-ng-class="{'label-warning': lastVersion.status === 'Pending',
+                                                          'label-danger': lastVersion.status === 'Failed',
+                                                          'label-success': lastVersion.status === 'Completed'}">
+                                        {{lastVersion.status}}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Дата создания</td>
+                                <td>{{lastVersion.createdDateUtc | localdate | amDateFormat:'YYYY-MM-DD HH:mm:ss' }}</td>
+                            </tr>
+                            <tr>
+                                <td>Дата отражения по счету</td>
+                                <td>{{lastVersion.postDateUtc | localdate | amDateFormat: 'YYYY-MM-DD'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Код</td>
+                                <td>{{lastVersion.code}}</td>
+                            </tr>
+                            <tr>
+                                <td>Описание</td>
+                                <td>{{lastVersion.description}}</td>
+                            </tr>
+                            <tr>
+                                <td>Место совершения транзакции</td>
+                                <td>{{lastVersion.location || '-'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Валюта</td>
+                                <td>{{lastVersion.currencyISOName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Сумма в валюте транзакции</td>
+                                <td>{{lastVersion.transactionAmount | extcurrency:'':transactionCurrency.precision}} {{transactionCurrency.isoName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Сумма в валюте счета</td>
+                                <td>{{lastVersion.accountAmount | extcurrency:'':account.currency.precision}} {{account.currency.isoName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Остаток</td>
+                                <td>{{lastVersion.remainingBalance | extcurrency:'':account.currency.precision}} {{account.currency.isoName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Сообщение об ошибке</td>
+                                <td class="text-danger">{{lastVersion.errorMessage}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tab>
+                <tab heading="Счет">
+                    <table class="table table-responsive table-striped table-condensed transaction-details-table">
+                        <tbody>
+                            <tr>
+                                <td>Номер счета</td>
+                                <td>{{account.accountNo}}</td>
+                            </tr>
+                            <tr>
+                                <td>Дата открытия</td>
+                                <td>{{account.openDateUtc | localdate | amDateFormat:'YYYY-MM-DD'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Срок действия</td>
+                                <td>{{account.expirationDateUtc | localdate | amDateFormat:'YYYY-MM-DD'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Владелец</td>
+                                <td>{{account.owner.firstName}} {{account.owner.lastName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Валюта</td>
+                                <td>{{account.currency.isoName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Баланс</td>
+                                <td>{{account.balance | extcurrency:'':account.currency.precision}} {{account.currency.isoName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tab>
+                <tab heading="Версии">
+                    <table class="table table-responsive table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Время изменения</th>
+                                <th>Статус</th>
+                                <th>Остаток</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="version in entry.versions">
+                                <td>
+                                    {{version.timestampUtc | localdate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}
+                                </td>
+                                <td>
+                                    <span class="label" 
+                                          data-ng-class="{'label-warning': version.status === 'Pending', 
+                                                          'label-danger': version.status === 'Failed',
+                                                          'label-success': version.status === 'Completed'}">
+                                        {{version.status}}
+                                    </span>
+                                </td>
+                                <td>
+                                   {{version.remainingBalance | extcurrency:'':account.currency.precision}} {{account.currency.isoName}} 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </tab>
+            </tabset>
+        </div>
+    </section>
+
+</div>

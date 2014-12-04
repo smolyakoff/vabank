@@ -23,9 +23,13 @@ namespace VaBank.Jobs.Processing
             {
                 var command = Mapper.Map<ProcessTransactionCommand>(context.Data);
                 context.CancellationToken.ThrowIfCancellationRequested();
-                context.ProcessingService.ProcessTransaction(command);
-                context.CancellationToken.ThrowIfCancellationRequested();
+                var result = context.ProcessingService.ProcessTransaction(command);
+                context.CancellationToken.ThrowIfCancellationRequested();                
                 transaction.Commit();
+                foreach (var transactionalEvent in result.TransactionalEvents)
+                {
+                    context.ServiceBus.Publish(transactionalEvent);
+                }
             }
             catch (ServiceException ex)
             {

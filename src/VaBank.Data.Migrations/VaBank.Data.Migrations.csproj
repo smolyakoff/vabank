@@ -112,7 +112,7 @@
     <Compile Include="M3-Processing\M3User.cs" />
     <Compile Include="M4-Payments\48_AddBankCodeToAccount.cs" />
     <Compile Include="M4-Payments\46_Payments.cs" />
-    <Compile Include="M4-Payments\47_SeedVaBank.cs" />
+    <Compile Include="M4-Payments\47_SeedBanks.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

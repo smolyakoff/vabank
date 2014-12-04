@@ -106,7 +106,7 @@ namespace VaBank.Services.Processing {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Это счёт Чака Норриса, с него нельзя снять более $10 или положить менее $100. Во избежании УЧНСНСРВСС, просим придерживаться данному правилу..
+        ///   Looks up a localized string similar to Вы попытались произвести операцию со счётом Чака Норриса, к сожалению с него нельзя снять более $10 или положить менее $100. Во избежании УЧНСНСРВСС, просим придерживаться данному правилу..
         /// </summary>
         public static string ChuckNorrisPolicy {
             get {

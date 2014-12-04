@@ -1,9 +1,5 @@
 ﻿using Microsoft.Owin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace VaBank.UI.Web.Middleware
 {
@@ -23,8 +19,8 @@ namespace VaBank.UI.Web.Middleware
             {
                 var secureUri = context.Request.Uri.ToString().Replace("http", "https");
                 context.Response.Redirect(secureUri);
+                return Task.FromResult(new object());
             }
-
             return _next.Invoke(context);
         }
     }

@@ -27,6 +27,7 @@
                 ngModel: '=',
                 config: '=',
                 dateFormat: '@?',
+                dateDisplayFormat: '@?',
                 placeholder: '@?'
             }
         };

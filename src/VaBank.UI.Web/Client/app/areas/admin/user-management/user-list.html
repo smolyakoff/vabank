@@ -52,7 +52,10 @@
                 </tbody>
                 <tbody ng-show="!loading.active()">
                     <tr st-select-row="user" ng-repeat="user in users" ng-dblclick="edit(user)">
-                        <td>{{user.userName}}</td>
+                        <td>
+                            {{user.userName}} 
+                            <i class="glyphicon glyphicon-lock" data-ng-if="user.lockoutEnabled" data-tooltip="Пользователь заблокирован"></i>
+                        </td>
                         <td>{{getRole(user)}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.firstName}} {{user.lastName}}</td>

@@ -88,7 +88,7 @@
     <Compile Include="Processing\Events\OperationProgressEvent.cs" />
     <Compile Include="Processing\Events\TransactionProcessedEvent.cs" />
     <Compile Include="Processing\Events\TransactionProgressEvent.cs" />
-    <Compile Include="Processing\ICurrencyRateService.cs" />
+    <Compile Include="Processing\IExchangeRateService.cs" />
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardLookupModel.cs" />
     <Compile Include="Accounting\Models\CardModel.cs" />
@@ -169,8 +169,11 @@
     <Compile Include="Membership\Queries\UsersQuery.cs" />
     <Compile Include="Processing\Models\BankOperationModel.cs" />
     <Compile Include="Common\Models\ProcessStatusModel.cs" />
+    <Compile Include="Processing\Models\OperationProcessingResult.cs" />
+    <Compile Include="Processing\Models\ProcessingResult.cs" />
     <Compile Include="Processing\Models\TransactionModel.cs" />
     <Compile Include="Processing\Models\CardTransferLookupModel.cs" />
+    <Compile Include="Processing\Models\TransactionProcessingResult.cs" />
     <Compile Include="Processing\Queries\CardAccountStatementQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Validation\ValidationException.cs" />
