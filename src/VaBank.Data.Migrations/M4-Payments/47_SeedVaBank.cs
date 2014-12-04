@@ -13,7 +13,7 @@ namespace VaBank.Data.Migrations.M4_Payments
     {
         public override void Up()
         {
-            Insert.IntoTable("Bank").InSchema("Payments").Row(new { Code = "153001966", Name = "VaBank" });
+            Insert.IntoTable("Bank").InSchema("Accounting").Row(new { Code = "153001966", Name = "VaBank" });
         }
 
         public override void Down()

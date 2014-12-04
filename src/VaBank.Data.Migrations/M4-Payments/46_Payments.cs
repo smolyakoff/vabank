@@ -16,10 +16,10 @@ namespace VaBank.Data.Migrations
         {
             Create.Schema(SchemaName);
 
-            Create.Table("Bank").InSchema(SchemaName)
+            Create.Table("Bank").InSchema("Accounting")
                 .WithColumn("Code").AsBankCode().PrimaryKey("PK_Bank")
                 .WithColumn("Name").AsName().NotNullable()
-                .WithColumn("Parent").AsBankCode().ForeignKey("FK_Bank_To_ParentBank", SchemaName, "Bank", "Code").Nullable();
+                .WithColumn("Parent").AsBankCode().ForeignKey("FK_Bank_To_ParentBank", "Accounting", "Bank", "Code").Nullable();
 
             Create.Table("PaymentOrder").InSchema(SchemaName)
                 .WithColumn("PaymentOrderNo").AsInt64().PrimaryKey("PK_PaymentOrder").Identity()

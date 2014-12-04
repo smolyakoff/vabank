@@ -13,7 +13,7 @@ namespace VaBank.Data.Migrations
 
         public override void Up()
         {
-            Alter.Table("Account").InSchema("Accounting").AddColumn("BankCode").AsString(9).ForeignKey("FK_Account_To_Bank", "Payments", "Bank", "Code").Nullable();
+            Alter.Table("Account").InSchema("Accounting").AddColumn("BankCode").AsString(9).ForeignKey("FK_Account_To_Bank", "Accounting", "Bank", "Code").Nullable();
             Update.Table("Account").InSchema("Accounting").Set(new { BankCode = "153001966" }).AllRows();
             Alter.Table("Account").InSchema("Accounting").AlterColumn("BankCode").AsString(9).NotNullable();
         }
