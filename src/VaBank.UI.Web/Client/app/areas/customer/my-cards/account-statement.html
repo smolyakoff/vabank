@@ -73,7 +73,7 @@
                         {{range.name}}
                     </ui-select-choices>
                 </ui-select>
-                <div class="row date-range">
+                <div class="row date-range" data-ng-show="selectedRange.isCustom">
                     <div class="col-xs-6">
                         <vb-datepicker ng-model="fromDate"
                                        placeholder="С"
@@ -120,7 +120,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <button class="btn btn-primary" ng-click="loadStatement()">Сформировать</button>
+                <button class="btn btn-primary" ng-click="loadStatement()" data-ng-disabled="!canLoadStatement()">Сформировать</button>
             </div>
         </div>
     </div>
