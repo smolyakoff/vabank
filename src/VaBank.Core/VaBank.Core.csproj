@@ -60,6 +60,14 @@
     <Compile Include="Common\IVersionedEntity.cs" />
     <Compile Include="Common\SettingsManager.cs" />
     <Compile Include="Common\Validators.cs" />
+    <Compile Include="Accounting\Entities\Bank.cs" />
+    <Compile Include="Payments\Entities\IPaymentOrder.cs" />
+    <Compile Include="Payments\Entities\Payment.cs" />
+    <Compile Include="Payments\Entities\PaymentOrder.cs" />
+    <Compile Include="Payments\Entities\PaymentOrderTemplate.cs" />
+    <Compile Include="Payments\Entities\PaymentTemplate.cs" />
+    <Compile Include="Payments\Entities\PaymentTransaction.cs" />
+    <Compile Include="Payments\Entities\UserPaymentProfile.cs" />
     <Compile Include="Processing\BankingSystemSchedule.cs" />
     <Compile Include="Processing\CardTransferSettings.cs" />
     <Compile Include="Processing\ConversionRate.cs" />
@@ -95,7 +103,7 @@
     <Compile Include="Processing\MoneyConverter.cs" />
     <Compile Include="Processing\MoneyMath.cs" />
     <Compile Include="Processing\NationalExchangeRateRoundingSettings.cs" />
-    <Compile Include="Processing\ProcessingSettings.cs" />
+    <Compile Include="Processing\BankSettings.cs" />
     <Compile Include="Processing\ProcessingExtensions.cs" />
     <Compile Include="Processing\Repositories\ExchangeRateKey.cs" />
     <Compile Include="Processing\Entities\ExchangeRate.cs" />

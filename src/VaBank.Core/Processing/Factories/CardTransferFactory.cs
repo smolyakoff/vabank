@@ -16,7 +16,7 @@ namespace VaBank.Core.Processing.Factories
 
         private readonly IRepository<OperationCategory> _operationCategories;
         private readonly TransactionReferenceBook _transactionReferenceBook;
-        private readonly ProcessingSettings _settings;
+        private readonly BankSettings _settings;
         private readonly MoneyConverter _moneyConverter;
 
         public CardTransferFactory(IRepository<OperationCategory> operationCategories, 
@@ -29,7 +29,7 @@ namespace VaBank.Core.Processing.Factories
             _operationCategories = operationCategories;
             _transactionReferenceBook = transactionReferenceBook;
             _moneyConverter = moneyConverter;
-            _settings = new ProcessingSettings();
+            _settings = new BankSettings();
         }
 
         public CardTransfer Create(UserCard from, UserCard to, decimal amount)
