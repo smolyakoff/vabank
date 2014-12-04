@@ -6,7 +6,6 @@ using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Accounting.Entities;
-using VaBank.Core.Membership.Entities;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Accounting;
@@ -319,9 +318,15 @@ namespace VaBank.Services.Accounting
                     Card = userCard.ToModel<CustomerCardBriefModel>(),
                     CreatedDateUtc = DateTime.UtcNow,
                     DateRange = query.DateRange,
-                    StatementBalance = transactions.Sum(x => x.AccountAmount),
-                    StatementDeposits = transactions.Where(x => x.AccountAmount > 0).Sum(x => x.AccountAmount),
-                    StatementWithdrawals = transactions.Where(x => x.AccountAmount < 0).Sum(x => x.AccountAmount),
+                    StatementBalance = transactions.AsQueryable()
+                        .Where(CardTransaction.Spec.CalculatedDeposits || CardTransaction.Spec.CalculatedWithdrawals)
+                        .Sum(x => x.AccountAmount),
+                    StatementDeposits = transactions.AsQueryable()
+                        .Where(CardTransaction.Spec.CalculatedDeposits)
+                        .Sum(x => x.AccountAmount),
+                    StatementWithdrawals = transactions.AsQueryable()
+                        .Where(CardTransaction.Spec.CalculatedWithdrawals)
+                        .Sum(x => x.AccountAmount),
                     Transactions = transactions.Map<CardAccountStatementItemModel>().ToList()
                 };
                 return statement;

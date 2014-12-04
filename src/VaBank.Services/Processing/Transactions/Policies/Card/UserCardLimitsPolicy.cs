@@ -52,7 +52,7 @@ namespace VaBank.Services.Processing.Transactions.Policies.Card
                 return false;
             }
             var query = DbQuery.For<CardTransaction>()
-                .FilterBy(CardTransaction.Spec.NotFailed && CardTransaction.Spec.ForToday(userCard.Id, _schedule.TimeZone));
+                .FilterBy(!CardTransaction.Spec.Failed && CardTransaction.Spec.ForToday(userCard.Id, _schedule.TimeZone));
             var transactionsForToday = _cardTransactionRepository.Query(query);
             var countForToday = transactionsForToday.Count;
             var amountForToday = transactionsForToday
