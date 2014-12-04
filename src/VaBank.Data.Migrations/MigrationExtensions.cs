@@ -1,7 +1,8 @@
-﻿using FluentMigrator.Builders.Alter.Column;
+﻿
+
+using FluentMigrator.Builders.Alter.Column;
 using FluentMigrator.Builders.Create.Column;
 using FluentMigrator.Builders.Create.Table;
-
 namespace VaBank.Data.Migrations
 {
     internal static class MigrationExtensions
@@ -95,9 +96,21 @@ namespace VaBank.Data.Migrations
             return syntax.AsString(length);
         }
 
-        public static ICreateTableColumnOptionOrWithColumnSyntax AsPSN(this ICreateTableColumnAsTypeSyntax syntax)
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsTIN(this ICreateTableColumnAsTypeSyntax syntax)
         {
             const int length = 9;
+            return syntax.AsString(length);
+        }
+
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsPaymentCode(this ICreateTableColumnAsTypeSyntax syntax)
+        {
+            const int length = 4;
+            return syntax.AsString(length);
+        }
+
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsPaymentTemplateCode(this ICreateTableColumnAsTypeSyntax syntax)
+        {
+            const int length = 10;
             return syntax.AsString(length);
         }
 
@@ -192,9 +205,21 @@ namespace VaBank.Data.Migrations
             return syntax.AsString(length);
         }
 
-        public static ICreateColumnOptionSyntax AsPSN(this ICreateColumnAsTypeSyntax syntax)
+        public static ICreateColumnOptionSyntax AsTIN(this ICreateColumnAsTypeSyntax syntax)
         {
             const int length = 9;
+            return syntax.AsString(length);
+        }
+
+        public static ICreateColumnOptionSyntax AsPaymentCode(this ICreateColumnAsTypeSyntax syntax)
+        {
+            const int length = 4;
+            return syntax.AsString(length);
+        }
+
+        public static ICreateColumnOptionSyntax AsPaymentTemplateCode(this ICreateColumnAsTypeSyntax syntax)
+        {
+            const int length = 10;
             return syntax.AsString(length);
         }
 
@@ -283,9 +308,21 @@ namespace VaBank.Data.Migrations
             return syntax.AsString(length);
         }
 
-        public static IAlterColumnOptionSyntax AsPSN(this IAlterColumnAsTypeSyntax syntax)
+        public static IAlterColumnOptionSyntax AsTIN(this IAlterColumnAsTypeSyntax syntax)
         {
             const int length = 9;
+            return syntax.AsString(length);
+        }
+
+        public static IAlterColumnOptionSyntax AsPaymentCode(this IAlterColumnAsTypeSyntax syntax)
+        {
+            const int length = 4;
+            return syntax.AsString(length);
+        }
+
+        public static IAlterColumnOptionSyntax AsPaymentTemplateCode(this IAlterColumnAsTypeSyntax syntax)
+        {
+            const int length = 10;
             return syntax.AsString(length);
         }
 
