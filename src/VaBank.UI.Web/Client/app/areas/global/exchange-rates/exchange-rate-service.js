@@ -12,8 +12,13 @@
         var ExchangeRate = $resource('/api/exchange-rates', null, {
         });
 
+        var Currency = $resource('/api/currencies', null, {            
+            
+        });
+
         return {            
-          ExchangeRate: ExchangeRate  
+            ExchangeRate: ExchangeRate,
+            Currency: Currency
         };
 
     }

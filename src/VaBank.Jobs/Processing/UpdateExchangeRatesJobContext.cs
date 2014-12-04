@@ -5,6 +5,6 @@ namespace VaBank.Jobs.Processing
 {
     public class UpdateExchangeRatesJobContext : DefaultJobContext
     {
-        public ICurrencyRateService CurrencyRateService { get; set; }
+        public IExchangeRateService CurrencyRateService { get; set; }
     }
 }
