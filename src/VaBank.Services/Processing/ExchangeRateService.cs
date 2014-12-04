@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting;
 using MoreLinq;
-using VaBank.Common.Validation;
 using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
+using VaBank.Services.Contracts.Accounting.Models;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Processing;
 using VaBank.Services.Contracts.Processing.Models;
 
 namespace VaBank.Services.Processing
 {
-    public class ExchangeRateService : BaseService, ICurrencyRateService
+    public class ExchangeRateService : BaseService, IExchangeRateService
     {
         private readonly ExchangeRateServiceDependencies _deps;
 
@@ -82,6 +82,18 @@ namespace VaBank.Services.Processing
             finally
             {
                 nationalBankClient.Dispose();
+            }
+        }
+
+        public IList<CurrencyModel> GetSupportedCurrencies()
+        {
+            try
+            {
+                return _deps.Currencies.ProjectAll<CurrencyModel>();
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get supported currencies.", ex);
             }
         }
     }

@@ -5,9 +5,9 @@
         .module('vabank.webapp')
         .factory('transactionLogService', transactionLogService);
 
-    transactionLogService.$inject = ['$resource', 'dataUtil', 'cardManagementService'];
+    transactionLogService.$inject = ['$resource', 'dataUtil', 'cardManagementService', 'exchangeRateService'];
 
-    function transactionLogService($resource, dataUtil, cardManagementService) {
+    function transactionLogService($resource, dataUtil, cardManagementService, exchangeRateService) {
 
         var LogEntry = (function () {
 
@@ -74,7 +74,8 @@
 
         return {            
             LogEntry: LogEntry,
-            CardAccount: cardManagementService.CardAccount 
+            CardAccount: cardManagementService.CardAccount,
+            Currency: exchangeRateService.Currency
         };
     }
 })();

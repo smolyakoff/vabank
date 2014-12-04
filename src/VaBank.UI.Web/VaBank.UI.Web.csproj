@@ -222,6 +222,8 @@
     <Content Include="Client\app\areas\admin\scheduler\scheduler.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log-ctrl.js" />
+    <Content Include="Client\app\areas\admin\transaction-log\transaction-details-ctrl.js" />
+    <Content Include="Client\app\areas\admin\transaction-log\transaction-details.html" />
     <Content Include="Client\app\areas\admin\transaction-log\transaction-log-service.js" />
     <Content Include="Client\app\areas\admin\transaction-log\transaction-log-ctrl.js" />
     <Content Include="Client\app\areas\admin\transaction-log\transaction-log.html" />
@@ -306,6 +308,7 @@
     <Content Include="Client\app\modules\vabank-ui\directives\st-table-force-pipe.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-confirm.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-currency.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\vb-dateinput.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-datepicker.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\exp-date.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\card-number.js" />
@@ -1946,9 +1949,10 @@
     <Compile Include="Api\Admin\MaintenanceController.cs" />
     <Compile Include="Api\Admin\TransactionLogController.cs" />
     <Compile Include="Api\Admin\UserAdminController.cs" />
+    <Compile Include="Api\Common\CurrencyController.cs" />
     <Compile Include="Api\Common\UserController.cs" />
     <Compile Include="Api\Common\ValidationController.cs" />
-    <Compile Include="Api\Common\CurrencyRateController.cs" />
+    <Compile Include="Api\Common\ExchangeRateController.cs" />
     <Compile Include="Api\Customer\CardTransferController.cs" />
     <Compile Include="Api\Customer\CustomerCardController.cs" />
     <Compile Include="Api\Customer\SecurityCodeController.cs" />
@@ -2022,7 +2026,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57378</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

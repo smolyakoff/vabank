@@ -8,9 +8,9 @@ namespace VaBank.Services.Contracts.Processing
 {
     public interface IProcessingService
     {
-        BankOperationModel ProcessBankOperation(ProcessBankOperationCommand command);
+        OperationProcessingResult ProcessBankOperation(ProcessBankOperationCommand command);
 
-        TransactionModel ProcessTransaction(ProcessTransactionCommand command);
+        TransactionProcessingResult ProcessTransaction(ProcessTransactionCommand command);
 
         CardTransactionModel GetCardTransaction(IdentityQuery<Guid> id);
     }

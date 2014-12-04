@@ -31,7 +31,16 @@
                         </ul>
                     </li>
                 </ul>
-                <p class="navbar-text navbar-right">Зашел как {{user.name}}</p>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle">
+                            <div class="text-primary">{{user.name}} <span class="caret"></span></div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li data-ng-click="logout()"><a>Выйти из системы</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </nav>
     </div>

@@ -41,7 +41,7 @@ namespace VaBank.Core.Processing
             var time = localTime.TimeOfDay;
             if (WorkingHours.Contains(time))
             {
-                return TimeZoneInfo.ConvertTimeToUtc(localTime.Date);
+                return TimeZoneInfo.ConvertTimeToUtc(localTime);
             }
             if (localTime.DayOfWeek == WorkingDays.Last())
             {
