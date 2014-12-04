@@ -2,6 +2,7 @@
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Services.Processing.Transactions.Policies.Privileged
@@ -10,20 +11,27 @@ namespace VaBank.Services.Processing.Transactions.Policies.Privileged
     public class ChuckNorrisPolicy : DisallowPolicy
     {
         private readonly IRepository<UserAccount> _userAccounts;
+        private readonly MoneyConverter _converter;
 
-        public ChuckNorrisPolicy(IRepository<UserAccount> userAccounts)
+        public ChuckNorrisPolicy(IRepository<UserAccount> userAccounts, MoneyConverter converter)
         {
             Argument.NotNull(userAccounts, "userAccounts");
-
+            Argument.NotNull(converter, "converter");
+            _converter = converter;
             _userAccounts = userAccounts;
         }
 
         public override bool AppliesTo(Transaction transaction, BankOperation operation)
         {            
-            if (_userAccounts.Find(transaction.AccountNo).Owner.UserName == "chuck" && transaction.Currency.ISOName == "USD")
+            if (_userAccounts.Find(transaction.AccountNo).Owner.UserName == "chuck")
             {
-                if ((transaction.Type == TransactionType.Withdrawal && transaction.TransactionAmount < -10)
-                    || (transaction.Type == TransactionType.Deposit && transaction.TransactionAmount < 100))
+                var amount = transaction.TransactionAmount;
+                if (transaction.Currency.ISOName != "USD")
+                {
+                    amount = _converter.Convert(new Money(transaction.Currency, amount), "USD").Amount;
+                }
+                if ((transaction.Type == TransactionType.Withdrawal && amount < -10)
+                    || (transaction.Type == TransactionType.Deposit && amount < 100))
                     return true;
             }
 
