@@ -19,8 +19,9 @@ namespace VaBank.UI.Web.Middleware
             {
                 var secureUri = context.Request.Uri.ToString().Replace("http", "https");
                 context.Response.Redirect(secureUri);
+                return Task.FromResult(new object());
             }
-            return Task.FromResult(new object());
+            return _next.Invoke(context);
         }
     }
 }
