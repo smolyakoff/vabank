@@ -308,6 +308,7 @@
     <Content Include="Client\app\modules\vabank-ui\directives\st-table-force-pipe.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-confirm.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-currency.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\vb-dateinput.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-datepicker.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\exp-date.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\card-number.js" />
