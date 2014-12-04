@@ -150,8 +150,8 @@ namespace VaBank.Jobs.Infrastructure
             }
             if (!profile.PhoneNumberConfirmed)
             {
-                Logger.Error("Phone number not confirmed.");
-                return null;
+                //TODO: should not send sms here but for now it's ok to ignore confirmation state
+                Logger.Warn("Phone number not confirmed.");
             }
             if (string.IsNullOrEmpty(profile.PhoneNumber))
             {

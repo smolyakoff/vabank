@@ -8,7 +8,7 @@ namespace VaBank.Core.Common
     {
         public override IRuleBuilderOptions<TContainer, DateTime> Validate<TContainer>(IRuleBuilderOptions<TContainer, DateTime> builder)
         {
-            return builder.GreaterThan(x => DateTime.UtcNow);
+            return builder.GreaterThanOrEqualTo(x => DateTime.UtcNow);
         }
     }
 }

@@ -4,11 +4,12 @@
     var app = angular.module('vabank.webapp');
     app.controller('transactionLogController', transactionLog);
 
-    transactionLog.$inject = ['$scope', 'uiTools', 'transactionLogService', 'userManagementService', 'data'];
+    transactionLog.$inject = ['$scope', '$modal', '$q', 'uiTools', 'transactionLogService', 'userManagementService', 'data'];
 
-    function transactionLog($scope, uiTools, transactionLogService, userService, data) {
+    function transactionLog($scope, $modal, $q, uiTools, transactionLogService, userService, data) {
         var LogEntry = transactionLogService.LogEntry;
         var CardAccount = transactionLogService.CardAccount;
+        var Currency = transactionLogService.Currency;
         var User = userService.User;
 
         var filters = uiTools.manipulate.filters;
@@ -57,6 +58,21 @@
             $scope.loading.addPromise(promise);
             promise.then(function (logs) {
                 $scope.logs = logs;
+            });
+        };
+
+        $scope.details = function(log) {
+            LogEntry.get({ transactionId: log.transactionId }).$promise.then(function(details) {
+                $modal.open({
+                    templateUrl: '/Client/app/areas/admin/transaction-log/transaction-details.html',
+                    controller: 'transactionDetailsController',
+                    size: 'lg',
+                    resolve: {
+                        data: function() {
+                            return $q.all({ entry: details, currencies: Currency.query().$promise });
+                        }
+                    }
+                });
             });
         };
     }

@@ -19,14 +19,18 @@ namespace VaBank.Jobs.Processing
         
         protected override void Execute(OperationProcessingJobContext context)
         {
-            var transaction = context.TransactionFactory.BeginTransaction(IsolationLevel.ReadCommitted);
+            var transaction = context.TransactionFactory.BeginTransaction(IsolationLevel.RepeatableRead);
             try
             {
                 var command = Mapper.Map<ProcessBankOperationCommand>(context.Data);
                 context.CancellationToken.ThrowIfCancellationRequested();
-                context.ProcessingService.ProcessBankOperation(command);
+                var result = context.ProcessingService.ProcessBankOperation(command);
                 context.CancellationToken.ThrowIfCancellationRequested();
                 transaction.Commit();
+                foreach (var transactionalEvent in result.TransactionalEvents)
+                {
+                    context.ServiceBus.Publish(transactionalEvent);
+                }
             }
             catch (ServiceException ex)
             {

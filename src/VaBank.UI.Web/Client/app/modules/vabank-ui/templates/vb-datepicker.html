@@ -2,7 +2,7 @@
     <a class="dropdown-toggle" role="button" data-toggle="dropdown">
         <div class="input-group">
             <span class="input-group-addon" ng-if="iconPlacement == 'left'"><i class="glyphicon glyphicon-calendar"></i></span>
-            <input type="text" class="form-control" data-ng-model="ngModel" data-date-time-input="{{dateFormat}}" placeholder="{{placeholder}}">
+            <input type="text" class="form-control" data-ng-model="ngModel" vb-date-input="" data-display-format="{{dateDisplayFormat}}" data-input-format="{{dateFormat}}" placeholder="{{placeholder}}">
             <span class="input-group-addon" ng-if="iconPlacement == 'right'"><i class="glyphicon glyphicon-calendar"></i></span>
         </div>
     </a>
