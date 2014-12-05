@@ -17,6 +17,7 @@ namespace VaBank.Data.EntityFramework.Accounting.Mappings
             Property(x => x.RowVersion).IsRowVersion();
 
             HasRequired(x => x.Currency).WithMany().Map(x => x.MapKey("CurrencyISOName"));
+            HasRequired(x => x.Bank).WithMany().Map(x => x.MapKey("BankCode"));
         }
     }
 }

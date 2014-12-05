@@ -6,10 +6,9 @@ namespace VaBank.Core.Payments.Entities
     {
         internal PaymentOrder()
         {
-
         }
         
-        public string No { get; private set; }
+        public long No { get; private set; }
 
         public string PayerName { get; private set; }
 

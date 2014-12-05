@@ -3,7 +3,7 @@ using VaBank.Common.Validation;
 
 namespace VaBank.Core.Processing
 {
-    [Settings("VaBank.Core.Processing.ProcessingSettings")]
+    [Settings("VaBank.Core.Processing.BankSettings")]
     public class BankSettings
     {
         public BankSettings()

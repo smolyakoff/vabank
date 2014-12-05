@@ -1,4 +1,5 @@
-﻿using VaBank.Common.Validation;
+﻿using System.Collections.Generic;
+using VaBank.Common.Validation;
 using VaBank.Core.Common;
 
 namespace VaBank.Core.Accounting.Entities
@@ -15,6 +16,7 @@ namespace VaBank.Core.Accounting.Entities
             Code = code;
             Name = name;
             Parent = parent;
+            ChildrenBanks = new List<Bank>();
         }
 
         protected Bank()
@@ -23,7 +25,9 @@ namespace VaBank.Core.Accounting.Entities
 
         public string Code { get; protected set; }
 
-        public Bank Parent { get; protected set; }
+        public virtual Bank Parent { get; set; }
+
+        public virtual ICollection<Bank> ChildrenBanks { get; set; }
 
         public string Name { get; set; }
     }

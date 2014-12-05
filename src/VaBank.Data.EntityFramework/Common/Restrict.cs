@@ -11,6 +11,7 @@
             public const int BigString = 1024;
             public const int SecurityString = 256;
             public const int Url = 256;
+            public const int BankCode = 9;
         }
     }
 }
