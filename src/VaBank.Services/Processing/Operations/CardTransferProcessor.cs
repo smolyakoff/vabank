@@ -4,6 +4,7 @@ using VaBank.Common.IoC;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
+using VaBank.Core.Transfers.Entities;
 
 namespace VaBank.Services.Processing.Operations
 {

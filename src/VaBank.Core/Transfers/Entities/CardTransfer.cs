@@ -1,7 +1,8 @@
 ﻿using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Processing.Entities;
 
-namespace VaBank.Core.Processing.Entities
+namespace VaBank.Core.Transfers.Entities
 {
     public class CardTransfer : Transfer
     {

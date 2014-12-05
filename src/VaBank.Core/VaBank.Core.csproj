@@ -74,8 +74,8 @@
     <Compile Include="Processing\CurrencyConverter.cs" />
     <Compile Include="Processing\CurrencyConversion.cs" />
     <Compile Include="Processing\Entities\CardTransaction.cs" />
-    <Compile Include="Processing\Entities\CardTransfer.cs" />
-    <Compile Include="Processing\Entities\CardTransferType.cs" />
+    <Compile Include="Transfers\Entities\CardTransfer.cs" />
+    <Compile Include="Transfers\Entities\CardTransferType.cs" />
     <Compile Include="Processing\Entities\BankOperation.cs" />
     <Compile Include="Processing\Entities\HistoricalBankOperation.cs" />
     <Compile Include="Processing\Entities\HistoricalTransaction.cs" />
@@ -89,7 +89,7 @@
     <Compile Include="Processing\Entities\Transfer.cs" />
     <Compile Include="Processing\Entities\UserBankOperation.cs" />
     <Compile Include="Processing\Exceptions\InsufficientFundsException.cs" />
-    <Compile Include="Processing\Factories\CardTransferFactory.cs" />
+    <Compile Include="Transfers\Factories\CardTransferFactory.cs" />
     <Compile Include="Processing\ICurrencyConverter.cs" />
     <Compile Include="Processing\ExchangeRateCalculator.cs" />
     <Compile Include="Processing\ExchangeRateSettings.cs" />

@@ -1,8 +1,8 @@
 ﻿using System;
-using VaBank.Services.Contracts.Common.Commands;
 using VaBank.Services.Contracts.Common.Models;
+using VaBank.Services.Contracts.Processing.Commands;
 
-namespace VaBank.Services.Contracts.Processing.Commands
+namespace VaBank.Services.Contracts.Transfers.Commands
 {
     public class PersonalCardTransferCommand : ICardWithdrawalCommand
     {

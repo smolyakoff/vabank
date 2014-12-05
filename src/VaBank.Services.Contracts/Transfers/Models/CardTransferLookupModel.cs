@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace VaBank.Services.Contracts.Processing.Models
+namespace VaBank.Services.Contracts.Transfers.Models
 {
     public class CardTransferLookupModel
     {

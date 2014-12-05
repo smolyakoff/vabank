@@ -1,4 +1,4 @@
-﻿namespace VaBank.Core.Processing.Entities
+﻿namespace VaBank.Core.Transfers.Entities
 {
     public enum CardTransferType
     {

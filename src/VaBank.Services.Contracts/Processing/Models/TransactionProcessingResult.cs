@@ -6,7 +6,7 @@ namespace VaBank.Services.Contracts.Processing.Models
 {
     public class TransactionProcessingResult : ProcessingResult
     {
-        private readonly TransactionModel _transaction;
+         readonly TransactionModel _transaction;
 
         public TransactionProcessingResult(TransactionModel transaction, IEnumerable<IEvent> transactionalEvents) : base(transactionalEvents)
         {
