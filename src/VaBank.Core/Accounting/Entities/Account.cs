@@ -7,11 +7,13 @@ namespace VaBank.Core.Accounting.Entities
 {
     public abstract class Account : Entity, IVersionedEntity
     {
-        protected Account(Currency currency)
+        protected Account(Currency currency, Bank bank)
             :this()
         {
             Argument.NotNull(currency, "currency");
+            Argument.NotNull(bank, "bank");
             Currency = currency;
+            Bank = bank;
         }
 
         protected Account()
@@ -32,6 +34,8 @@ namespace VaBank.Core.Accounting.Entities
         public string Type { get; protected set; }
 
         public byte[] RowVersion { get; protected set; }
+
+        public virtual Bank Bank { get; protected set; }
 
         internal virtual Account Deposit(decimal amount)
         {

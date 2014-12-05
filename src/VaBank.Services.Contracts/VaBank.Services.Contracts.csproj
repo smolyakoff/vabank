@@ -57,8 +57,17 @@
     <Compile Include="Accounting\Events\UserCardLimitChanged.cs" />
     <Compile Include="Accounting\Models\CardAccountStatementItemModel.cs" />
     <Compile Include="Accounting\Models\CardAccountStatementModel.cs" />
+    <Compile Include="Accounting\Models\CardNameModel.cs" />
     <Compile Include="Accounting\Models\CustomerCardBriefModel.cs" />
     <Compile Include="Common\Commands\IOperationCommand.cs" />
+    <Compile Include="Payments\Commands\SubmitPaymentCommand.cs" />
+    <Compile Include="Payments\IPaymentClientService.cs" />
+    <Compile Include="Payments\Models\PaymentArchiveDetailsModel.cs" />
+    <Compile Include="Payments\Models\PaymentArchiveItemModel.cs" />
+    <Compile Include="Payments\Models\PaymentFormModel.cs" />
+    <Compile Include="Payments\Models\PaymentOrderModel.cs" />
+    <Compile Include="Payments\Models\PaymentTemplateModel.cs" />
+    <Compile Include="Payments\Queries\PaymentArchiveQuery.cs" />
     <Compile Include="Processing\Commands\ICardWithdrawalCommand.cs" />
     <Compile Include="Common\Commands\ISecurityCodeCommand.cs" />
     <Compile Include="Common\Events\IApplicationEvent.cs" />
@@ -78,8 +87,8 @@
     <Compile Include="Maintenance\Models\TransactionLogEntryHistoricalModel.cs" />
     <Compile Include="Maintenance\Models\TransactionLogEntryModel.cs" />
     <Compile Include="Maintenance\Queries\TransactionLogQuery.cs" />
-    <Compile Include="Processing\Commands\PersonalCardTransferCommand.cs" />
-    <Compile Include="Processing\Commands\InterbankCardTransferCommand.cs" />
+    <Compile Include="Transfers\Commands\PersonalCardTransferCommand.cs" />
+    <Compile Include="Transfers\Commands\InterbankCardTransferCommand.cs" />
     <Compile Include="Processing\Commands\ProcessBankOperationCommand.cs" />
     <Compile Include="Processing\Commands\ProcessTransactionCommand.cs" />
     <Compile Include="Processing\Events\IBankOperationEvent.cs" />
@@ -92,7 +101,7 @@
     <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardLookupModel.cs" />
     <Compile Include="Accounting\Models\CardModel.cs" />
-    <Compile Include="Processing\ICardTransferClientService.cs" />
+    <Compile Include="Transfers\ICardTransferClientService.cs" />
     <Compile Include="Processing\IProcessingService.cs" />
     <Compile Include="Processing\Models\CardTransactionModel.cs" />
     <Compile Include="Processing\Models\ExchangeRateModel.cs" />
@@ -172,7 +181,7 @@
     <Compile Include="Processing\Models\OperationProcessingResult.cs" />
     <Compile Include="Processing\Models\ProcessingResult.cs" />
     <Compile Include="Processing\Models\TransactionModel.cs" />
-    <Compile Include="Processing\Models\CardTransferLookupModel.cs" />
+    <Compile Include="Transfers\Models\CardTransferLookupModel.cs" />
     <Compile Include="Processing\Models\TransactionProcessingResult.cs" />
     <Compile Include="Processing\Queries\CardAccountStatementQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

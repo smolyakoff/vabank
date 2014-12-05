@@ -2,10 +2,11 @@
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
-using VaBank.Core.Processing.Factories;
+using VaBank.Core.Transfers.Entities;
+using VaBank.Core.Transfers.Factories;
 using VaBank.Services.Common;
 
-namespace VaBank.Services.Processing
+namespace VaBank.Services.Transfers
 {
     public class CardTransferClientServiceDependencies : IDependencyCollection
     {

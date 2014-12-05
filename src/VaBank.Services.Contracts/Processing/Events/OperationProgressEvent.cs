@@ -26,28 +26,28 @@ namespace VaBank.Services.Contracts.Processing.Events
         }
 
         [JsonProperty]
-        public Guid OperationId { get; private set; }
+        public Guid OperationId { get;  set; }
 
         [JsonProperty]
-        public long BankOperationId { get; private set; }
+        public long BankOperationId { get;  set; }
 
         [JsonProperty]
-        public string Code { get; private set; }
+        public string Code { get;  set; }
 
         [JsonProperty]
-        public string Description { get; private set; }
+        public string Description { get;  set; }
 
         [JsonProperty]
-        public object Data { get; private set; }
+        public object Data { get;  set; }
 
-        private static string FormatCode(BankOperationModel bankOperation)
+         static string FormatCode(BankOperationModel bankOperation)
         {
             const string pattern = "OP_{0}";
             var code = string.Format(pattern, bankOperation.CategoryCode.Replace('-','_')).ToUpperInvariant();
             return code;
         }
 
-        private static string FormatDescription(BankOperationModel bankOperation)
+         static string FormatDescription(BankOperationModel bankOperation)
         {
             var description = string.Format("Bank operation #{0}[{1}] is in progress.", bankOperation.Id,
                 bankOperation.CategoryCode);

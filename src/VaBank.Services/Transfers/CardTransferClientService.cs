@@ -8,12 +8,14 @@ using VaBank.Services.Common;
 using VaBank.Services.Common.Exceptions;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Models;
-using VaBank.Services.Contracts.Processing;
-using VaBank.Services.Contracts.Processing.Commands;
 using VaBank.Services.Contracts.Processing.Events;
 using VaBank.Services.Contracts.Processing.Models;
+using VaBank.Services.Contracts.Transfers;
+using VaBank.Services.Contracts.Transfers.Commands;
+using VaBank.Services.Contracts.Transfers.Models;
+using VaBank.Services.Processing;
 
-namespace VaBank.Services.Processing
+namespace VaBank.Services.Transfers
 {
     public class CardTransferClientService : BaseService, ICardTransferClientService
     {

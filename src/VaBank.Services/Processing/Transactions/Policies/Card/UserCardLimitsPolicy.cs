@@ -19,7 +19,7 @@ namespace VaBank.Services.Processing.Transactions.Policies.Card
 
         private readonly BankingSystemSchedule _schedule;
 
-        private readonly ProcessingSettings _settings;
+        private readonly BankSettings _settings;
 
         public UserCardLimitsPolicy(IRepository<UserCard> userCardRepository,
             IQueryRepository<CardTransaction> cardTransactionRepository,
@@ -32,7 +32,7 @@ namespace VaBank.Services.Processing.Transactions.Policies.Card
             _userCardRepository = userCardRepository;
             _cardTransactionRepository = cardTransactionRepository;
             _schedule = schedule;
-            _settings = new ProcessingSettings();
+            _settings = new BankSettings();
         }
 
         public override bool AppliesTo(Transaction transaction, BankOperation operation)

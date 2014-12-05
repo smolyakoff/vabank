@@ -21,7 +21,7 @@ namespace VaBank.Services.Processing.Operations
 
         protected readonly TransactionReferenceBook TransactionReferenceBook;
 
-        protected readonly ProcessingSettings Settings;
+        protected readonly BankSettings Settings;
 
         internal BaseOperationProcessor(BaseOperationProcessorDependencies baseDependencies)
         {
@@ -31,7 +31,7 @@ namespace VaBank.Services.Processing.Operations
 
             MoneyConverter = baseDependencies.MoneyConverter;
             TransactionReferenceBook = baseDependencies.TransactionReferenceBook;
-            Settings = new ProcessingSettings();
+            Settings = new BankSettings();
         }
 
         public IEnumerable<ApplicationEvent> Process(BankOperationProcessorCommand command)

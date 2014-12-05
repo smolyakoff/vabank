@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Web.Http;
 using VaBank.Common.Validation;
-using VaBank.Services.Contracts.Processing;
-using VaBank.Services.Contracts.Processing.Commands;
+using VaBank.Services.Contracts.Transfers;
+using VaBank.Services.Contracts.Transfers.Commands;
 using VaBank.UI.Web.Api.Infrastructure.Filters;
 
 namespace VaBank.UI.Web.Api.Customer
