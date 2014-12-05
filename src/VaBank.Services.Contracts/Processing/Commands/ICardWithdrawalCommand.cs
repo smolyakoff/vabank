@@ -5,8 +5,8 @@ namespace VaBank.Services.Contracts.Processing.Commands
 {
     public interface ICardWithdrawalCommand : ISecurityCodeCommand
     {
-        Guid FromCardId { get; set; }
+        Guid FromCardId { get; }
 
-        decimal Amount { get; set; }
+        decimal Amount { get; }
     }
 }

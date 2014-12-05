@@ -31,24 +31,24 @@ namespace VaBank.Services.Contracts.Processing.Events
         }
 
         [JsonProperty]
-        public Guid OperationId { get; private set; }
+        public Guid OperationId { get;  set; }
 
         [JsonProperty]
-        public string Code { get; private set; }
+        public string Code { get;  set; }
 
         [JsonProperty]
-        public string Description { get; private set; }
+        public string Description { get;  set; }
 
         [JsonProperty]
-        public object Data { get; private set; }
+        public object Data { get;  set; }
 
         [JsonProperty]
-        public Guid TransactionId { get; private set; }
+        public Guid TransactionId { get;  set; }
 
         [JsonProperty]
-        public long? BankOperationId { get; private set; }
+        public long? BankOperationId { get;  set; }
 
-        private static string FormatCode(TransactionModel transaction, long? bankOperationId)
+         static string FormatCode(TransactionModel transaction, long? bankOperationId)
         {
             const string pattern = "TRAN_{0}_{1}";
             var prefix = bankOperationId != null ? "OP_" : string.Empty;
@@ -59,7 +59,7 @@ namespace VaBank.Services.Contracts.Processing.Events
             return code;
         }
 
-        private static string FormatDescription(TransactionModel transaction, long? bankOperationId)
+         static string FormatDescription(TransactionModel transaction, long? bankOperationId)
         {
             const string operationalPattern = "Transaction #{0}({1})[OP-{2}] is {3}.";
             const string pattern = "Transaction #{0}({1}) is {2}.";

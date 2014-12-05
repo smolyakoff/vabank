@@ -3,10 +3,12 @@ using VaBank.Common.Data.Repositories;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
 using VaBank.Core.Processing.Resources;
+using VaBank.Core.Transfers.Entities;
 
-namespace VaBank.Core.Processing.Factories
+namespace VaBank.Core.Transfers.Factories
 {
     [Injectable]
     public class CardTransferFactory
