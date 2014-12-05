@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Entities\CardLimitsRange.cs" />
+    <Compile Include="Accounting\Entities\CorrespondentAccount.cs" />
     <Compile Include="App\Entities\PublicSecurityCode.cs" />
     <Compile Include="App\Entities\SecurityCode.cs" />
     <Compile Include="App\Entities\SecurityCodePair.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Common\SettingsManager.cs" />
     <Compile Include="Common\Validators.cs" />
     <Compile Include="Accounting\Entities\Bank.cs" />
+    <Compile Include="Payments\Entities\CardPayment.cs" />
     <Compile Include="Payments\Entities\IPaymentOrder.cs" />
     <Compile Include="Payments\Entities\Payment.cs" />
     <Compile Include="Payments\Entities\PaymentOrder.cs" />

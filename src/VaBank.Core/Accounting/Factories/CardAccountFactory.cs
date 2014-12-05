@@ -5,30 +5,21 @@ using VaBank.Common.Util;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Membership.Entities;
-using VaBank.Core.Processing;
 
 namespace VaBank.Core.Accounting.Factories
 {
     [Injectable]
     public class CardAccountFactory
     {
-        private readonly IRepository<CardAccount> _cardAccountRepository;
-        private readonly IRepository<Bank> _bankRepository;
-
-        private readonly BankSettings _bankSettings;
+        private readonly IRepository<CardAccount> _cardAccountRepository;        
 
         private const string IndividualAccountPrefix = "3014";
 
-        public CardAccountFactory(IRepository<CardAccount> cardAccountRepository, 
-            IRepository<Bank> bankRepository)
+        public CardAccountFactory(IRepository<CardAccount> cardAccountRepository)
         {
             Argument.NotNull(cardAccountRepository, "cardAccountRepository");
-            Argument.NotNull(bankRepository, "bankRepository");
 
-            _bankRepository = bankRepository;
             _cardAccountRepository = cardAccountRepository;
-
-            _bankSettings = new BankSettings();
         }
 
         public CardAccount Create(Currency currency, User owner, decimal initalBalance, DateTime expirationDateUtc)
@@ -46,12 +37,8 @@ namespace VaBank.Core.Accounting.Factories
                     break;
                 }
             }
-            
-            var bank = _bankRepository.Find(_bankSettings.VaBankCode);
-            if (bank == null)
-                throw new InvalidOperationException("VaBank bank doesn't exist at the database. Please, check VaBank bank code or create it.");
-            
-            var account = new CardAccount(accountNo, currency, owner, bank)
+                        
+            var account = new CardAccount(accountNo, currency, owner)
             {
                 ExpirationDateUtc = expirationDateUtc
             };

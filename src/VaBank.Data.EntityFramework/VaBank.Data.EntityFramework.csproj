@@ -67,7 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Mappings\AccountMap.cs" />
-    <Compile Include="Accounting\Mappings\BankMap.cs" />
     <Compile Include="Accounting\Mappings\CardAccountMap.cs" />
     <Compile Include="Accounting\Mappings\CardLimitsMap.cs" />
     <Compile Include="Accounting\Mappings\CardMap.cs" />
@@ -94,8 +93,6 @@
     <Compile Include="Membership\Mappings\UserMap.cs" />
     <Compile Include="Membership\Mappings\UserProfileMap.cs" />
     <Compile Include="Common\Repository`1.cs" />
-    <Compile Include="Payments\Mappings\PaymentMap.cs" />
-    <Compile Include="Payments\Mappings\PaymentOrderMap.cs" />
     <Compile Include="Processing\ExchangeRateRepository.cs" />
     <Compile Include="Processing\Mappings\BaseTransactionMap.cs" />
     <Compile Include="Processing\Mappings\CardTransferMap.cs" />
@@ -113,7 +110,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Payments\Mappings\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VaBank.Common\VaBank.Common.csproj">
       <Project>{E06FB03E-8249-4F94-9568-EC1247769273}</Project>
