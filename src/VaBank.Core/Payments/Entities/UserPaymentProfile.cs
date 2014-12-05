@@ -12,13 +12,18 @@ namespace VaBank.Core.Payments.Entities
             Argument.NotNull(user, "user");
             Argument.NotEmpty(fullName, "fullName");
             Argument.NotEmpty(payerTIN, "payerTIN");
-            Argument.NotEmpty(address, "address")
+            Argument.NotEmpty(address, "address");
 
             User = user;
             UserId = user.Id;
             FullName = fullName;
             PayerTIN = payerTIN;
             Address = address;
+        }
+
+        protected UserPaymentProfile()
+        {
+
         }
 
         public Guid UserId { get; private set; }

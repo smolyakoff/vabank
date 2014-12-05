@@ -10,6 +10,8 @@ namespace VaBank.Core.Payments.Entities
 
         public string PaymentTemplateCode { get; private set; }
 
+        public virtual PaymentTemplate PaymentTemplate { get; internal set; }
+
         public string PayerName { get; internal set; }
 
         public string PayerBankCode { get; internal set; }

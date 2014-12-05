@@ -11,6 +11,10 @@ namespace VaBank.Core.Accounting.Entities
             Bank = bank;
         }
 
+        protected CorrespondentAccount()
+        {
+        }
+
         public virtual Bank Bank { get; private set; }
     }
 }

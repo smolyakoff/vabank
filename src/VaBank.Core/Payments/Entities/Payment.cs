@@ -8,6 +8,8 @@ namespace VaBank.Core.Payments.Entities
     {
         internal Payment(
             PaymentOrder order,
+            PaymentTemplate template,
+            string name,
             string form,
             OperationCategory category, 
             Account from, 
@@ -17,17 +19,25 @@ namespace VaBank.Core.Payments.Entities
         {
             Argument.NotNull(order, "order");
             Argument.NotEmpty(form, "form");
+            Argument.NotNull(template, "template");
+            Argument.NotEmpty(name, "name");
             
-            PaymentOrder = order;
+            Order = order;
             Form = form;
+            Template = template;
+            Name = name;
         }
 
         protected Payment()
         {
         }
 
-        public virtual PaymentOrder PaymentOrder { get; protected set; }
+        public string Name { get; protected set; }
+
+        public virtual PaymentOrder Order { get; protected set; }
 
         public string Form { get; protected set; }
+
+        public virtual PaymentTemplate Template { get; protected set; }
     }
 }

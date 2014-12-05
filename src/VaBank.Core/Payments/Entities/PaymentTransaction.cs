@@ -23,6 +23,10 @@ namespace VaBank.Core.Payments.Entities
             Order = order;
         }
 
+        protected PaymentTransaction()
+        {
+        }
+
         public PaymentOrder Order { get; protected set; }
     }
 }

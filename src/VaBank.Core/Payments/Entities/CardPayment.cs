@@ -9,16 +9,22 @@ namespace VaBank.Core.Payments.Entities
         internal CardPayment(
             Card card, 
             PaymentOrder order,
+            PaymentTemplate template,
+            string name,
             string form,
             OperationCategory category,
             Account from,
             Account to,
             Currency currency,
             decimal amount
-            ) : base(order, form, category, from, to, currency, amount)
+            ) : base(order, template, name, form, category, from, to, currency, amount)
         {
             Argument.NotNull(card, "card");
             Card = card;
+        }
+
+        protected CardPayment()
+        {
         }
         
         public Card Card { get; protected set; } 

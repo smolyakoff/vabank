@@ -6,11 +6,12 @@ namespace VaBank.Core.Accounting.Entities
 {
     public class Bank : Entity
     {
+        private Bank _parent;
+        
         internal Bank(string code, string name)
         {
             Argument.NotEmpty(code, "code");
             Argument.NotEmpty(name, "name");
-            Argument.Satisfies(parent.Code, x => x != code, "parent", "Parent bank code can't be the same as creating bank code.");
 
             Code = code;
             Name = name;
