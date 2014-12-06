@@ -1,0 +1,138 @@
+﻿<section class="row">
+    <div class="col-xs-12">
+        <wizard hide-indicators="true" name="paymentWizard">
+            <wz-step>
+                <div class="panel panel-wizard panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Выбор услуги</h3>
+                    </div>
+                    <div class="panel-body" data-ng-include="'/Client/app/areas/customer/payments/payments-tree.html'">
+                    </div>
+                </div>
+            </wz-step>
+            <form data-form-for="payment">
+                <wz-step>
+                    <div class="panel panel-wizard panel-warning">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Мобильная связь / Velcom / По номеру телефона</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h6 class="text-primary wizard-subtitle">Карта</h6>
+                                    <div class="row grid-center" ng-repeat="card in cards">
+                                        <div class="col-xs-1 text-center">
+                                            <radio-field attribute="fromCardId" value="{{card.cardId}}"></radio-field>
+                                        </div>
+                                        <div class="col-xs-11">
+                                            <div class="row">
+                                                <div class="col-lg-2">
+                                                    <img class="img img-responsive card-logo" ng-src="{{card.cardVendor.image}}" />
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <b class="initialism">
+                                                        {{card.friendlyName || card.cardVendor.name}}
+                                                    </b>
+                                                    <span class="text-muted">{{card.secureCardNo}}</span>
+                                                    <p>{{card.balance | extcurrency:card.currency.symbol:card.currency.precision }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <h6 class="text-primary wizard-subtitle">Параметры платежа</h6>
+                                    <ng-include data-ng-if="template" src="template.templateUrl">
+                                    </ng-include>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <currency-field label="Сумма платежа"
+                                                    attribute="form.amount.value">
+                                    </currency-field>
+                                </div>
+                            </div>
+                            <a class="btn btn-default pull-left" ng-click="back()"><i class="glyphicon glyphicon-chevron-left"></i> Назад</a>
+                            <a class="btn btn-primary pull-right" ng-click="continue()">Продолжить <i class="glyphicon glyphicon-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </wz-step>
+                <wz-step>
+                    <div class="panel panel-wizard panel-warning">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Подтверждение операции</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h6 class="text-primary wizard-subtitle">
+                                        Карта <span class="text-muted">{{card.cardholderFirstName}} {{card.cardholderLastName}}</span>
+                                    </h6>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <img class="img img-responsive card-logo" ng-src="{{card.cardVendor.image}}" />
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <b class="initialism">
+                                                {{card.friendlyName || card.cardVendor.name}}
+                                            </b>
+                                            <span class="text-muted">{{card.secureCardNo}}</span>
+                                            <p>{{card.balance | extcurrency:card.currency.symbol:card.currency.precision }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-if="smsConfirmationEnabled">
+                                        <div class="col-xs-12">
+                                            <h6 class="wizard-subtitle text-warning">
+                                                Включено смс-подтверждение операций
+                                                <span ng-show="!smsCodeSent">(<a class="action-link" ng-click="sendSmsCode()">выслать код</a>)</span>
+                                            </h6>
+                                            <masked-field disable="!smsCodeSent"
+                                                          icon-before="glyphicon glyphicon-envelope"
+                                                          attribute="securityCode.code"
+                                                          label="СМС-код"
+                                                          mask="999999"
+                                                          placeholder="******">
+                                            </masked-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <h6 class="text-primary wizard-subtitle">
+                                        Информация о платеже
+                                    </h6>
+                                    <table class="table table-responsive">
+                                        <tr data-ng-repeat="(key, property) in payment.form">
+                                            <td>{{property.name}}</td>
+                                            <td>{{property.value}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <a class="btn btn-default" ng-show="!smsConfirmationEnabled || !smsCodeSent" ng-click="back()">
+                                        <i class="glyphicon glyphicon-chevron-left"></i> Назад
+                                    </a>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="pull-right">
+                                        <a class="btn btn-warning" ng-click="cancel()">Отменить</a>
+                                        <submit-button button-class="btn btn-danger"
+                                                       label="Подтвердить"
+                                                       disable="!canApprove()">
+                                        </submit-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                        
+</wz-step>
+            </form>
+        </wizard>
+    </div>
+</section>

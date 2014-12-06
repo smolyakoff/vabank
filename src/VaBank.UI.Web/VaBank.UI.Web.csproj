@@ -237,6 +237,16 @@
     <Content Include="Client\app\areas\customer\cabinet\my-cards-widget-ctrl.js" />
     <Content Include="Client\app\areas\customer\cabinet\my-cards-widget.html" />
     <Content Include="Client\app\areas\customer\my-cards\transfer-service.js" />
+    <Content Include="Client\app\areas\customer\payments\payments-service.js" />
+    <Content Include="Client\app\areas\customer\payments\payment-ctrl.js" />
+    <Content Include="Client\app\areas\customer\payments\payments-tree-ctrl.js" />
+    <Content Include="Client\app\areas\customer\payments\payment.html" />
+    <Content Include="Client\app\areas\customer\payments\payments-tree.html" />
+    <Content Include="Client\app\areas\customer\payments\payments-tree.js" />
+    <Content Include="Client\app\areas\customer\payments\payments.html" />
+    <Content Include="Client\app\areas\customer\payments\templates\payment-cell-velcom-phoneno.html" />
+    <Content Include="Client\app\areas\customer\payments\templates\payment-custom-paymentorder.html" />
+    <Content Include="Client\app\areas\customer\payments\templates\velcom-phoneno-ctrl.js" />
     <Content Include="Client\app\areas\customer\security-code-service.js" />
     <Content Include="Client\app\areas\customer\my-cards\customer-card-ctrl.js" />
     <Content Include="Client\app\areas\customer\my-cards\limits-form.html" />
@@ -1927,6 +1937,7 @@
     <Content Include="Client\bower_components\angular-media-queries\bower.json" />
     <Content Include="Client\bower_components\angular-media-queries\LICENSE.md" />
     <Content Include="Client\bower_components\angular-media-queries\README.md" />
+    <Content Include="Client\app\areas\customer\payments\payments.scss" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>

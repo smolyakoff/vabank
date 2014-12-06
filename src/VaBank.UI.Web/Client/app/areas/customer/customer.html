@@ -12,7 +12,9 @@
                 ng-class="{active: $state.includes('customer.cards')}">
                 <a><i class="glyphicon glyphicon-credit-card"></i> Мои карточки</a>
             </li>
-            <li><a href="#"><i class="glyphicon glyphicon-usd"></i> Платежи</a></li>
+            <li data-ui-sref="customer.payments.payment" data-ng-class="{active: $state.includes('customer.payments')}">
+                <a><i class="glyphicon glyphicon-usd"></i> Платежи <sup class="text-muted initialism" style="font-size: 10px">beta</sup></a>
+            </li>
             <li data-ui-sref="customer.profile.edit"
                 ng-class="{active: $state.includes('customer.profile')}">
                 <a><i class="glyphicon glyphicon-user"></i> Профиль</a>

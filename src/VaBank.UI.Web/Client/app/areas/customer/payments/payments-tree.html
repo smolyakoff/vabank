@@ -1,0 +1,46 @@
+﻿<section class="row payments-tree" data-ng-controller="paymentsTreeController">
+    <div class="col-xs-4">
+        <div class="list-group">
+            <a class="list-group-item"
+               data-ng-repeat="category in tree.children"
+               data-ng-click="choose(category, 0)"
+               data-ng-class="{'list-group-item-success': isSelected(category)}">
+                {{category.name}}
+                <div class="pull-right">
+                    <i data-ng-show="isSelected(category)" class="glyphicon glyphicon-chevron-right"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-xs-4" data-disable-animate="">
+        <button class="btn btn-sm btn-default offset-bottom" data-ng-show="start > 0" data-ng-click="up()">
+            <i class="glyphicon glyphicon-arrow-left"></i> Назад
+        </button>
+        <div class="list-group">
+            <a class="list-group-item"
+               data-ng-repeat="category in selected[start].children"
+               data-ng-click="choose(category, 1)"
+               data-ng-class="{'list-group-item-success': isSelected(category)}">
+                {{category.name}}
+                <div class="pull-right">
+                    <i data-ng-show="isSelected(category)" class="glyphicon glyphicon-chevron-right"></i>
+                    <i data-ng-show="isLeaf(category)" class="glyphicon glyphicon-ok-sign"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-xs-4" data-disable-animate="">
+        <div class="list-group">
+            <a class="list-group-item"
+               data-ng-repeat="category in selected[start + 1].children"
+               data-ng-click="choose(category, 2)"
+               data-ng-class="{'list-group-item-success': isSelected(category)}">
+                {{category.name}}
+                <div class="pull-right">
+                    <i data-ng-show="isSelected(category)" class="glyphicon glyphicon-chevron-right"></i>
+                    <i data-ng-show="isLeaf(category)" class="glyphicon glyphicon-ok-sign"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
