@@ -314,6 +314,7 @@
     <Content Include="Client\app\modules\vabank-ui\directives\disable-animate.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\dropdown-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\date-field.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\dynamic-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\masked-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\st-table-force-pipe.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-confirm.js" />
@@ -334,6 +335,7 @@
     <Content Include="Client\app\modules\vabank-ui\templates\forms\date-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\dropdown-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\currency-field.html" />
+    <Content Include="Client\app\modules\vabank-ui\templates\forms\dynamic-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\masked-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\radio-field.html" />
     <Content Include="Client\app\modules\vabank-ui\templates\forms\text-field.html" />

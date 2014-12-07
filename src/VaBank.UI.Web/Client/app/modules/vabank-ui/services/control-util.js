@@ -97,8 +97,26 @@
         })();
 
 
+        var form = (function () {
+
+            var create = function (template) {
+                if (!_.isObject(template)) {
+                    return {};
+                }
+                return _.object(_.map(template, function(v, k) {
+                    return [k, v.value];
+                }));
+            };
+
+            return {                
+                create: create
+            };
+        })();
+
+
         return {
-            multiselect: multiselect
+            multiselect: multiselect,
+            form: form
         };
     }
 })();

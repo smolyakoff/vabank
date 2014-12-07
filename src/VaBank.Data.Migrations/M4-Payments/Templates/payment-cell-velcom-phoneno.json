@@ -1,5 +1,6 @@
 ﻿{
     "amount": {
+        "name": "Сумма платежа",
         "value": 0,
         "visibility": "visible",
         "editor": {
@@ -16,6 +17,7 @@
         "visibility": "hidden"
     },
     "phoneNo": {
+        "name": "Номер телефона",
         "value": "",
         "visibility": "visible",
         "editor": {

@@ -1,0 +1,20 @@
+﻿<div data-ng-switch="template">
+    <currency-field ng-switch-when="currency"
+                    attribute="{{attribute}}"
+                    label="{{options.label}}"
+                    symbol="{{options.symbol}}"
+                    precision="{{options.precision}}">
+    </currency-field>
+    <masked-field ng-switch-when="masked-text"
+                attribute="{{attribute}}"
+                label="{{options.label}}"
+                mask="{{options.mask}}"
+                placeholder="{{options.placeholder}}"
+                help="{{options.help}}">
+    </masked-field>
+    <text-field ng-switch-default
+                attribute="{{attribute}}"
+                label="{{options.label}}"
+                help="{{options.help}}">
+    </text-field>
+</div>

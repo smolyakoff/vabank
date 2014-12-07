@@ -43,8 +43,12 @@
                                 </div>
                                 <div class="col-xs-6">
                                     <h6 class="text-primary wizard-subtitle">Параметры платежа</h6>
-                                    <ng-include data-ng-if="template" src="template.templateUrl">
-                                    </ng-include>
+                                    <dynamic-field attribute="phoneNo" 
+                                                   template="masked-text" 
+                                                   options="{label: 'Имя платежа', placeholder: '*** *******', mask: '999 9999999'}">
+                                    </dynamic-field>
+                                    <!--<ng-include data-ng-if="template" src="template.templateUrl">
+                                    </ng-include>-->
                                 </div>
                             </div>
                             <div class="row">
