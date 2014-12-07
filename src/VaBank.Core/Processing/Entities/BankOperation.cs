@@ -30,6 +30,10 @@ namespace VaBank.Core.Processing.Entities
         public void Fail(string message)
         {
             Argument.NotEmpty(message, "message");
+            if (Status != ProcessStatus.Pending)
+            {
+                throw new DomainException("Current state is already final.");
+            }
 
             ErrorMessage = message;
             Status = ProcessStatus.Failed;
@@ -37,6 +41,11 @@ namespace VaBank.Core.Processing.Entities
 
         public void Complete()
         {
+            if (Status != ProcessStatus.Pending)
+            {
+                throw new DomainException("Current state is already final.");
+            }
+
             CompletedDateUtc = DateTime.UtcNow;
             Status = ProcessStatus.Completed;
         }

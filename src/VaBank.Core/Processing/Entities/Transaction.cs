@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Common;
@@ -34,12 +35,8 @@ namespace VaBank.Core.Processing.Entities
             if (Type == TransactionType.Withdrawal)
             {
                 Account.Withdraw(-AccountAmount);
-                RemainingBalance = account.Balance;
             }
-            else
-            {
-                RemainingBalance = account.Balance + accountAmount;
-            }
+            RemainingBalance = account.Balance;
         }
 
         protected Transaction()
@@ -91,6 +88,10 @@ namespace VaBank.Core.Processing.Entities
         public virtual void Fail(string message)
         {
             Argument.NotNull(message, "message");
+            if (Status != ProcessStatus.Pending)
+            {
+                throw new DomainException("Current state is already final.");
+            }
 
             if (Type == TransactionType.Withdrawal)
             {
@@ -103,7 +104,11 @@ namespace VaBank.Core.Processing.Entities
 
         public virtual void Complete(DateTime postDateUtc)
         {
-            Argument.EnsureIsValid<FutureDateValidator, DateTime>(postDateUtc, "postDateUtc");
+            Argument.Satisfies(postDateUtc, x => x >= DateTime.UtcNow.Date, "postDateUtc", "Post date should be today or later.");
+            if (Status != ProcessStatus.Pending)
+            {
+                throw new DomainException("Current state is already final.");
+            }
 
             if (Type == TransactionType.Deposit)
             {

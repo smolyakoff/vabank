@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using VaBank.Core.Processing.Entities;
-using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Processing.Models;
 
 namespace VaBank.Services.Processing
@@ -15,6 +14,8 @@ namespace VaBank.Services.Processing
             CreateMap<BankOperation, BankOperationModel>()
                 .ForMember(x => x.CategoryCode, cfg => cfg.MapFrom(x => x.Category.Code));
             CreateMap<Transaction, TransactionModel>();
+            CreateMap<CardTransaction, CardTransactionModel>()
+                .ForMember(x => x.CardNo, cfg => cfg.MapFrom(x => x.Card.CardNo));
         }
     }
 }

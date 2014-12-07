@@ -145,7 +145,13 @@ namespace VaBank.Services.Membership
                 {
                     throw NotFound.ExceptionFor<UserProfile>(command.UserId);
                 }
+                
                 Mapper.Map(command, user.Profile);
+                //TODO: When phone number is changing should validate sms code
+                if (!string.IsNullOrEmpty(command.PhoneNumber))
+                {
+                    user.Profile.PhoneNumberConfirmed = true;
+                }
                 _db.UserProfiles.Update(user.Profile);
                 Commit();
                 Publish(new UserProfileUpdated(Operation.Id, user.Profile.ToModel<UserProfile, UserProfileModel>()));

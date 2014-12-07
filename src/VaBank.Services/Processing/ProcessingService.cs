@@ -1,5 +1,8 @@
 ﻿using System;
 using NLog;
+
+using VaBank.Common.Data;
+using VaBank.Common.Data.Repositories;
 using VaBank.Common.Validation;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
@@ -27,7 +30,7 @@ namespace VaBank.Services.Processing
             _deps = processingServiceDependencies;
         }
 
-        public BankOperationModel ProcessBankOperation(ProcessBankOperationCommand command)
+        public OperationProcessingResult ProcessBankOperation(ProcessBankOperationCommand command)
         {
             try
             {
@@ -35,11 +38,8 @@ namespace VaBank.Services.Processing
                 var appOperationId = Operation.Id;
                 var events = _deps.CentralProcessor.Process(new BankOperationProcessorCommand(appOperationId, operation));
                 Commit();
-                foreach (var @event in events)
-                {
-                    Publish(@event);
-                }
-                return operation.ToModel<BankOperation, BankOperationModel>();
+                var operationModel = operation.ToModel<BankOperation, BankOperationModel>();
+                return new OperationProcessingResult(operationModel, events);
             }
             catch (Exception ex)
             {
@@ -47,7 +47,7 @@ namespace VaBank.Services.Processing
             }
         }
 
-        public TransactionModel ProcessTransaction(ProcessTransactionCommand command)
+        public TransactionProcessingResult ProcessTransaction(ProcessTransactionCommand command)
         {
             try
             {
@@ -55,15 +55,26 @@ namespace VaBank.Services.Processing
                 var operation = _deps.BankOperations.Find(command.OperationId);
                 var events = _deps.CentralProcessor.Process(new TransactionProcessorCommand(Operation.Id, transaction, operation));
                 Commit();
-                foreach (var @event in events)
-                {
-                    Publish(@event);
-                }
-                return transaction.ToModel<Transaction, TransactionModel>();
+                var transactionModel = transaction.ToModel<TransactionModel>();
+                return new TransactionProcessingResult(transactionModel, events);
             }
             catch (Exception ex)
             {
                 throw new ServiceException("Can't process transaction.", ex);
+            }
+        }
+
+        public CardTransactionModel GetCardTransaction(IdentityQuery<Guid> id)
+        {
+            EnsureIsValid(id);
+            try
+            {
+                var transaction = _deps.CardTransactions.QueryIdentity(id);
+                return transaction == null ? null : transaction.ToModel<CardTransactionModel>();
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get card transaction.", ex);
             }
         }
     }

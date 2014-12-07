@@ -29,16 +29,23 @@
 }
 
 .cards-carousel {
+
+    .slide-wrapper {
+        padding: 0 50px 0 50px;
+    }
+
+    .cards-slide {
+        height: 200px;
+    }
+
     .carousel-control.left {
         background-image: inherit;
         color: black;
-        margin-left: -25px;
     }
 
     .carousel-control.right {
         background-image: inherit;
         color: black;
-        margin-right: -25px;
     }
 
     .carousel-indicators {
@@ -46,32 +53,28 @@
     }
 
     .card-logo {
-        max-height: 64px;
         margin: auto;
+        margin-top: 10px;
     }
 
-    .img-card {
-        padding-top: 15px;
+    .card-logo-lg {
+        max-height: 96px;
     }
 
-    .screen-lg {
-        font-size: 18px;
+    .card-logo-sm {
+        max-height: 64px;
     }
 
-    .screen-md {
-        font-size: 12px;
+    .card-header {
+        margin-top: 10px;
     }
 
-    .carousel-control .glyphicon-chevron-left {
-        margin-top: -35px;
+    .card-header-1 {
+        font-size: 16px;
     }
 
-    .carousel-control .glyphicon-chevron-right {
-        margin-top: -35px;
-    }
-
-    .text-vinous {
-        margin: 0;
+    .card-header-2 {
+        font-size: 14px;
     }
 }
 

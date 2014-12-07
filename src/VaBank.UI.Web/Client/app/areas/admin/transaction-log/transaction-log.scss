@@ -4,3 +4,15 @@
         min-width: 200px;
     }
 }
+
+.transaction-details-table {
+    tbody tr {
+        td:first-child {
+            font-weight: bold;
+        }
+    }
+}
+
+.transaction-details-content {
+    padding-top: 0;
+}

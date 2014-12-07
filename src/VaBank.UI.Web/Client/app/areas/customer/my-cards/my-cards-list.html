@@ -58,8 +58,10 @@
                         <span ng-if="!card.blocked" class="text-success">Активна</span>
                         <span ng-if="card.blocked" class="text-danger">Заблокирована</span>
                         <div>
-                            <a class="action-link text-muted" ng-click="setCardBlock(!card.blocked)">
-                                {{card.blocked == false ? 'Блокировать' : 'Разблокировать'}}
+                            <a class="action-link text-muted"
+                                vb-confirm-click="setCardBlock(!card.blocked)"
+                                vb-confirm="Вы действительно хотите {{card.blocked ? 'разблокировать': 'заблокировать'}} карту?">
+                            {{card.blocked == false ? 'Блокировать' : 'Разблокировать'}}
                             </a>
                         </div>
                     </td>

@@ -43,8 +43,8 @@ img.center {
         background: $brand-primary;
     }
 
-    &.light-gray {
-        background: $state-warning-bg;
+    &.orange {
+        background: darken($state-warning-bg, 20%);
     }
 
     &.vinous {

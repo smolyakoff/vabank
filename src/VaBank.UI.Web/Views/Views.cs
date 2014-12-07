@@ -38,6 +38,13 @@ namespace VaBank.UI.Web.Views
         {
             var bundle = Bundle.Css();
 
+            var info = new ServerInfo();
+            if (!info.IsDebug)
+            {
+                //HACK: to make fonts work in production
+                bundle.AddRemote(null, "//fonts.googleapis.com/css?family=Roboto:300,400,500");
+            }
+
             bundle
                 .Add(BowerPath("angular-bootstrap-datetimepicker/src/css/datetimepicker.css"))
                 .Add(BowerPath("angular-ui-select/dist/select.css"))
@@ -46,6 +53,7 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("angular-toastr/dist/angular-toastr.css"))
                 .Add(BowerPath("angular-wizard/dist/angular-wizard.min.css"))
                 .Add(ApplicationPath("styles/vabank.scss"));
+                
 
             return bundle.Render("~/Client/styles_#.css");
         }
@@ -84,7 +92,8 @@ namespace VaBank.UI.Web.Views
                 .Add(BowerPath("angular-smart-table/dist/smart-table.debug.js"))
                 .Add(BowerPath("angular-form-for/dist/form-for.js"))
                 .Add(BowerPath("angular-form-for/dist/form-for.bootstrap-templates.js"))
-                .Add(BowerPath("angular-wizard/dist/angular-wizard.js"));
+                .Add(BowerPath("angular-wizard/dist/angular-wizard.js"))
+                .Add(BowerPath("angular-media-queries/match-media.js"));
 
             bundle
                 .Add(ApplicationPath("modules/vabank-ui/vabank-ui.js"))

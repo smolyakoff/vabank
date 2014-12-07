@@ -19,7 +19,7 @@ namespace VaBank.Services.Processing.Transactions.Policies.Card
 
         private readonly BankingSystemSchedule _schedule;
 
-        private readonly ProcessingSettings _settings;
+        private readonly BankSettings _settings;
 
         public UserCardLimitsPolicy(IRepository<UserCard> userCardRepository,
             IQueryRepository<CardTransaction> cardTransactionRepository,
@@ -32,7 +32,7 @@ namespace VaBank.Services.Processing.Transactions.Policies.Card
             _userCardRepository = userCardRepository;
             _cardTransactionRepository = cardTransactionRepository;
             _schedule = schedule;
-            _settings = new ProcessingSettings();
+            _settings = new BankSettings();
         }
 
         public override bool AppliesTo(Transaction transaction, BankOperation operation)
@@ -52,7 +52,7 @@ namespace VaBank.Services.Processing.Transactions.Policies.Card
                 return false;
             }
             var query = DbQuery.For<CardTransaction>()
-                .FilterBy(CardTransaction.Spec.NotFailed && CardTransaction.Spec.ForToday(userCard.Id, _schedule.TimeZone));
+                .FilterBy(!CardTransaction.Spec.Failed && CardTransaction.Spec.ForToday(userCard.Id, _schedule.TimeZone));
             var transactionsForToday = _cardTransactionRepository.Query(query);
             var countForToday = transactionsForToday.Count;
             var amountForToday = transactionsForToday

@@ -151,6 +151,9 @@
     <Compile Include="IoC\InjectableAttribute.cs" />
     <Compile Include="IoC\IObjectFactory.cs" />
     <Compile Include="IoC\Lifetime.cs" />
+    <Compile Include="Util\Math\IntegerRounding.cs" />
+    <Compile Include="Util\Math\IntegerRoundingMode.cs" />
+    <Compile Include="Util\Math\Rounding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\CompositeUriProvider.cs" />
     <Compile Include="Resources\DefaultUriProvider.cs" />

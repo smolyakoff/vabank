@@ -67,11 +67,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Mappings\AccountMap.cs" />
+    <Compile Include="Accounting\Mappings\BankMap.cs" />
     <Compile Include="Accounting\Mappings\CardAccountMap.cs" />
     <Compile Include="Accounting\Mappings\CardLimitsMap.cs" />
     <Compile Include="Accounting\Mappings\CardMap.cs" />
     <Compile Include="Accounting\Mappings\CardSettingsMap.cs" />
     <Compile Include="Accounting\Mappings\CardVendorMap.cs" />
+    <Compile Include="Accounting\Mappings\CorrespondentAccountMap.cs" />
     <Compile Include="Accounting\Mappings\CurrencyMap.cs" />
     <Compile Include="Accounting\Mappings\UserAccountMap.cs" />
     <Compile Include="Accounting\Mappings\UserCardMap.cs" />
@@ -93,6 +95,14 @@
     <Compile Include="Membership\Mappings\UserMap.cs" />
     <Compile Include="Membership\Mappings\UserProfileMap.cs" />
     <Compile Include="Common\Repository`1.cs" />
+    <Compile Include="Payments\Mappings\BasePaymentOrderMap.cs" />
+    <Compile Include="Payments\Mappings\CardPaymentMap.cs" />
+    <Compile Include="Payments\Mappings\PaymentMap.cs" />
+    <Compile Include="Payments\Mappings\PaymentOrderMap.cs" />
+    <Compile Include="Payments\Mappings\PaymentOrderTemplateMap.cs" />
+    <Compile Include="Payments\Mappings\PaymentTemplateMap.cs" />
+    <Compile Include="Payments\Mappings\PaymentTransactionMap.cs" />
+    <Compile Include="Payments\Mappings\UserPaymentProfileMap.cs" />
     <Compile Include="Processing\ExchangeRateRepository.cs" />
     <Compile Include="Processing\Mappings\BaseTransactionMap.cs" />
     <Compile Include="Processing\Mappings\CardTransferMap.cs" />

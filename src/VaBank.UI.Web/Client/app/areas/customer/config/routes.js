@@ -102,6 +102,28 @@
                             return routingResolve.resolveAll([cards, profile, lookup], ['cards', 'profile', 'lookup']);
                         }]
                 }
+            })
+            .state('customer.payments', {
+                url: 'payments',
+                'abstract': true,
+                templateUrl: '/Client/app/areas/customer/payments/payments.html',
+                data: {
+                    title: 'VaBank - Платежи',
+                    subtitle: 'Оплата услуг'
+                }
+            })
+            .state('customer.payments.payment', {
+                url: '/pay',
+                templateUrl: '/Client/app/areas/customer/payments/payment.html',
+                controller: 'paymentController',
+                resolve: {
+                    data: ['$q', 'paymentService', 'profileService', function($q, paymentService, profileService) {
+                        return $q.all({
+                            cards: paymentService.Card.queryNotBlocked(),
+                            profile: profileService.Profile.get().$promise
+                        });
+                    }]
+                }
             });
     }
 

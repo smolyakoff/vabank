@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Common;
+using System.Data.SqlClient;
 using FluentValidation;
 using VaBank.Common.Data.Database;
 using VaBank.Common.Events;

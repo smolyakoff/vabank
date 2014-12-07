@@ -1,0 +1,44 @@
+﻿<div class="panel tile orange" data-ng-controller="myCardsWidgetController">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-10">
+                <h4 class="title">Платежные карты</h4>
+            </div>
+            <div class="col-xs-2 spinner-container">
+                <div data-ng-show="loading.active()"
+                     data-us-spinner="{lines:7, radius:3, length: 4, width:4, color:'white', left:'initial'}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body tile-body">
+        <carousel data-disable-animate="" class="cards-carousel">
+            <slide data-ng-repeat="slide in slides">
+                <div class="slide-wrapper">
+                    <div class="row cards-slide">
+                        <div data-ng-class="'col-xs-' + 12 / slide.cards.length" data-ng-repeat="card in slide.cards">
+                            <div class="row">
+                                <div class="col-xs-12 text-center initialism">
+                                    <img class="card-logo card-logo-lg"
+                                         data-ng-src="{{card.cardVendor.image}}" />
+                                    <div class="card-header">
+                                        <b class="card-header-1 text-vinous">
+                                            {{card.friendlyName || card.cardVendor.name}}
+                                            <a data-ui-sref="customer.cards.transfer({from: card.cardId})" tooltip="Перевод с этой карты"
+                                               tooltip-append-to-body="true">
+                                                <i class="glyphicon glyphicon-share-alt"></i>
+                                            </a>
+                                        </b>
+                                        <p class="card-header-2">
+                                            <span class="text-danger">{{card.balance | extcurrency:'':card.currency.precision}} {{card.currency.isoName}}</span>
+                                            <span class="text-white">{{card.secureCardNo}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </slide>
+        </carousel>
+    </div>
+</div>

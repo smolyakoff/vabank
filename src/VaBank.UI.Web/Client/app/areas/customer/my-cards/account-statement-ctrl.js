@@ -23,10 +23,12 @@
         $scope.loading = uiTools.promiseTracker();
 
         $scope.ranges = [
+            { name: 'По указанным датам', range: dateRange(0, 'month', 1), isCustom: true },
             { name: 'Сегодня', range: dateRange(0, 'day', 1) },
             { name: 'Вчера', range: dateRange(1, 'day', 0) },
             { name: 'За последние 7 дней', range: dateRange(7, 'day', 1) },
             { name: 'За последний месяц', range: dateRange(0, 'month', 1) }
+            
         ];
         
         $scope.cards = cards;
@@ -49,13 +51,27 @@
             return moment.utc(date).local();
         };
 
-        $scope.rangeSelected = function(item) {
-            var range = item.range();
-            $scope.fromDate = range.from;
-            $scope.toDate = range.to;
+        $scope.rangeSelected = function (item) {
+            $scope.selectedRange = item;
+            if (!item.isCustom) {
+                var range = item.range();
+                $scope.fromDate = range.from;
+                $scope.toDate = range.to;
+            }
+        };
+
+        $scope.canLoadStatement = function() {
+            return moment($scope.fromDate).isBefore($scope.toDate);
         };
 
         $scope.loadStatement = function () {
+            if (moment($scope.fromDate).isAfter($scope.toDate)) {
+                uiTools.notify({
+                    type: 'error',
+                    message: 'Период для формирования выписки задан неверно.'
+                });
+                return;
+            }
             var promise = Card.statement({
                 cardId: $scope.card.selected.cardId,
                 from: $scope.fromDate.toJSON(),

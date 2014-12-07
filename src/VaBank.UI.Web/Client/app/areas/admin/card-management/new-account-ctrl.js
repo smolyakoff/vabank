@@ -28,11 +28,20 @@
                 required: true
             },
             accountExpirationDateUtc: {
-                required: true
+                required: true,
+                custom: uiTools.validate.createValidator(function (value, model) {
+                    if(moment(value).isBefore(Date.now())) {
+                        return 'Неверный срок действия счета.';
+                    }
+                    return null;
+                })
             },
             cardExpirationDateUtc: {
                 required: true,
                 custom: uiTools.validate.createValidator(function (value, model) {
+                    if (moment(value).isBefore(Date.now())) {
+                        return 'Неверный срок действия карты.';
+                    }
                     if (moment(value).isBefore(model.accountExpirationDate)) {
                         return 'Срок действия карты не может быть больше срока действия карт-счета.';
                     }

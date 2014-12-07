@@ -52,6 +52,7 @@
                 <th>Код / описание</th>
                 <th>Номер счета</th>
                 <th>Сумма в валюте операции</th>
+                <th>Подробно</th>
             </tr>
         </thead>
         <tbody>
@@ -78,6 +79,11 @@
                 </td>
                 <td>{{log.accountNo}}</td>
                 <td>{{log.transactionAmount | extcurrency:''}} {{log.currencyISOName}}</td>
+                <td>
+                    <button class="btn btn-default btn-xs" data-ng-click="details(log)">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>

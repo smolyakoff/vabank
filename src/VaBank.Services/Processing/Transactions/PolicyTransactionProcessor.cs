@@ -29,6 +29,11 @@ namespace VaBank.Services.Processing.Transactions
         public IEnumerable<ApplicationEvent> Process(TransactionProcessorCommand command)
         {
             var policy = _policies.FirstOrDefault(x => x.AppliesTo(command.Transaction, command.BankOperation));
+            if (command.Transaction.Status != ProcessStatus.Pending)
+            {
+                _logger.Warn("Transaction #{0} was passed to processor in invalid state.", command.Transaction.Id);
+                return Enumerable.Empty<ApplicationEvent>();
+            }
             if (policy == null)
             {
                 throw new ArgumentException("Can't process transaction. No policy found.", "command");
@@ -50,9 +55,11 @@ namespace VaBank.Services.Processing.Transactions
                 return Enumerable.Empty<ApplicationEvent>();
             }
             var operation = command.BankOperation.ToModel<BankOperation, BankOperationModel>();
+            var transaction = command.Transaction.ToModel<TransactionModel>();
             return new List<ApplicationEvent>()
             {
-                new OperationProgressEvent(command.OperationId, operation)
+                new OperationProgressEvent(command.OperationId, operation),
+                new TransactionProcessedEvent(command.OperationId, transaction, command.BankOperation.Id)
             };
         }
 
@@ -64,9 +71,11 @@ namespace VaBank.Services.Processing.Transactions
                 return Enumerable.Empty<ApplicationEvent>();
             }
             var operation = command.BankOperation.ToModel<BankOperation, BankOperationModel>();
+            var transaction = command.Transaction.ToModel<TransactionModel>();
             return new List<ApplicationEvent>()
             {
-                new OperationProgressEvent(command.OperationId, operation)
+                new OperationProgressEvent(command.OperationId, operation),
+                new TransactionProcessedEvent(command.OperationId, transaction, command.BankOperation.Id)
             };
         }
 

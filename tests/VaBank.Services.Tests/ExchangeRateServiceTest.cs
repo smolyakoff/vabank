@@ -25,7 +25,7 @@ namespace VaBank.Services.Tests
         [TestCategory("Development")]
         public void CanUpdate_Currency_Exchange_Rates()
         {
-            var service = base.Scope.Resolve<ICurrencyRateService>();
+            var service = base.Scope.Resolve<IExchangeRateService>();
             service.UpdateRates();
         }
     }

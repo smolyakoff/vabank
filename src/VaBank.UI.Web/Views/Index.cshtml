@@ -4,8 +4,8 @@
 @inherits VaBank.UI.Web.Views.IndexBase
 <!DOCTYPE html>
 <html data-ng-app="vabank.webapp" lang="ru">
-    <head data-ng-init="title = 'VaBank - Онлайн'">
-        <title>{{title}}</title>
+    <head>
+        <title data-ng-bind="title">VaBank - Онлайн</title>
         <meta charset="utf-8">
         <link rel="shortcut icon" type="image/x-icon" href="/Client/app/images/favicon.ico" /> 
         @Styles()

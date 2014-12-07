@@ -33,5 +33,7 @@ namespace VaBank.Services.Contracts.Accounting
         UserMessage UpdateCardSettings(UpdateCardSettingsCommand command);
 
         CardAccountStatementModel GetCardAccountStatement(CardAccountStatementQuery query);
+
+        CardAccountBriefModel GetCardAccountBrief(IdentityQuery<string> accountNo);
     }
 }

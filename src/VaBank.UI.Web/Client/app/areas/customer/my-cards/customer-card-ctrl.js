@@ -66,10 +66,18 @@
         };
 
         $scope.updateLimits = function () {
-            var promise = Card.updateSettings(
-                { cardId: card.cardId },
-                $scope.settingsForm).$promise;
-            return uiTools.validate.handleServerResponse(promise);
+            return uiTools.dialog.confirmation({
+                message: 'Вы действительно хотите обновить лимиты по карте?',
+                title: 'Необходимо подтверждение действия'
+            }).result.then(function(isConfirmed) {
+                if (isConfirmed) {
+                    var promise = Card.updateSettings(
+                        { cardId: card.cardId },
+                        $scope.settingsForm).$promise;
+                    return uiTools.validate.handleServerResponse(promise);
+                }
+                return null;
+            });
         };
 
         $scope.onLimitsUpdated = function (data) {

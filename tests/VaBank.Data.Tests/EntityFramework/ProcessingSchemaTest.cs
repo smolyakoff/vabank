@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Accounting.Factories;
 using VaBank.Core.Processing.Entities;
+using VaBank.Core.Transfers.Entities;
 using VaBank.Data.Tests.EntityFramework.Mocks;
 
 namespace VaBank.Data.Tests.EntityFramework

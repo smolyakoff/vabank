@@ -14,9 +14,9 @@
     <tbody>
         <tr ng-repeat="card in cards">
             <td>
-                <button class="btn btn-xs"
-                        ng-click="unassign(card)"
-                        vb-confirm="Вы действительно хотите отвязать карту?">
+                <button class="btn btn-xs" 
+                        vb-confirm-click="unassign(card)" 
+                        vb-confirm="Вы действительно хотите отвязать эту карту от счета?">
                     <i class="glyphicon glyphicon-remove"></i>
                 </button>
             </td>

@@ -13,7 +13,7 @@ namespace VaBank.Core.Accounting.Entities
             Argument.EnsureIsValid<AccountNumberValidator, string>(accountNo, "accountNo");
             AccountNo = accountNo;
             Type = "CardAccount";
-            Cards = new Collection<UserCard>();
+            Cards = new Collection<UserCard>();            
         }
 
         protected CardAccount()

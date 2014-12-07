@@ -11,13 +11,14 @@ namespace VaBank.Core.Accounting.Factories
     [Injectable]
     public class CardAccountFactory
     {
-        private readonly IRepository<CardAccount> _cardAccountRepository;
+        private readonly IRepository<CardAccount> _cardAccountRepository;        
 
         private const string IndividualAccountPrefix = "3014";
 
         public CardAccountFactory(IRepository<CardAccount> cardAccountRepository)
         {
             Argument.NotNull(cardAccountRepository, "cardAccountRepository");
+
             _cardAccountRepository = cardAccountRepository;
         }
 
@@ -36,6 +37,7 @@ namespace VaBank.Core.Accounting.Factories
                     break;
                 }
             }
+                        
             var account = new CardAccount(accountNo, currency, owner)
             {
                 ExpirationDateUtc = expirationDateUtc

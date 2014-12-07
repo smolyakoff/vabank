@@ -9,6 +9,8 @@ using VaBank.Services.Contracts.Accounting.Queries;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Processing;
 using VaBank.Services.Contracts.Processing.Commands;
+using VaBank.Services.Contracts.Transfers;
+using VaBank.Services.Contracts.Transfers.Commands;
 
 namespace VaBank.Services.Tests
 {

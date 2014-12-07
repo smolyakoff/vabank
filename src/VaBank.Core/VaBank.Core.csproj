@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Entities\CardLimitsRange.cs" />
+    <Compile Include="Accounting\Entities\CorrespondentAccount.cs" />
     <Compile Include="App\Entities\PublicSecurityCode.cs" />
     <Compile Include="App\Entities\SecurityCode.cs" />
     <Compile Include="App\Entities\SecurityCodePair.cs" />
@@ -60,14 +61,23 @@
     <Compile Include="Common\IVersionedEntity.cs" />
     <Compile Include="Common\SettingsManager.cs" />
     <Compile Include="Common\Validators.cs" />
+    <Compile Include="Accounting\Entities\Bank.cs" />
+    <Compile Include="Payments\Entities\CardPayment.cs" />
+    <Compile Include="Payments\Entities\IPaymentOrder.cs" />
+    <Compile Include="Payments\Entities\Payment.cs" />
+    <Compile Include="Payments\Entities\PaymentOrder.cs" />
+    <Compile Include="Payments\Entities\PaymentOrderTemplate.cs" />
+    <Compile Include="Payments\Entities\PaymentTemplate.cs" />
+    <Compile Include="Payments\Entities\PaymentTransaction.cs" />
+    <Compile Include="Payments\Entities\UserPaymentProfile.cs" />
     <Compile Include="Processing\BankingSystemSchedule.cs" />
     <Compile Include="Processing\CardTransferSettings.cs" />
     <Compile Include="Processing\ConversionRate.cs" />
     <Compile Include="Processing\CurrencyConverter.cs" />
     <Compile Include="Processing\CurrencyConversion.cs" />
     <Compile Include="Processing\Entities\CardTransaction.cs" />
-    <Compile Include="Processing\Entities\CardTransfer.cs" />
-    <Compile Include="Processing\Entities\CardTransferType.cs" />
+    <Compile Include="Transfers\Entities\CardTransfer.cs" />
+    <Compile Include="Transfers\Entities\CardTransferType.cs" />
     <Compile Include="Processing\Entities\BankOperation.cs" />
     <Compile Include="Processing\Entities\HistoricalBankOperation.cs" />
     <Compile Include="Processing\Entities\HistoricalTransaction.cs" />
@@ -81,11 +91,9 @@
     <Compile Include="Processing\Entities\Transfer.cs" />
     <Compile Include="Processing\Entities\UserBankOperation.cs" />
     <Compile Include="Processing\Exceptions\InsufficientFundsException.cs" />
-    <Compile Include="Processing\Factories\CardTransferFactory.cs" />
+    <Compile Include="Transfers\Factories\CardTransferFactory.cs" />
     <Compile Include="Processing\ICurrencyConverter.cs" />
-    <Compile Include="Processing\IntegerRoundingMode.cs" />
     <Compile Include="Processing\ExchangeRateCalculator.cs" />
-    <Compile Include="Processing\IntegerRounding.cs" />
     <Compile Include="Processing\ExchangeRateSettings.cs" />
     <Compile Include="Processing\Factories\CurrencyConverterFactory.cs" />
     <Compile Include="Processing\Messages.Designer.cs">
@@ -96,8 +104,8 @@
     <Compile Include="Processing\Money.cs" />
     <Compile Include="Processing\MoneyConverter.cs" />
     <Compile Include="Processing\MoneyMath.cs" />
-    <Compile Include="Processing\MoneyRounding.cs" />
-    <Compile Include="Processing\ProcessingSettings.cs" />
+    <Compile Include="Processing\NationalExchangeRateRoundingSettings.cs" />
+    <Compile Include="Processing\BankSettings.cs" />
     <Compile Include="Processing\ProcessingExtensions.cs" />
     <Compile Include="Processing\Repositories\ExchangeRateKey.cs" />
     <Compile Include="Processing\Entities\ExchangeRate.cs" />
@@ -189,7 +197,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Membership\Resources\Top_500_Worst_Passwords.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Payments\Factories\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
