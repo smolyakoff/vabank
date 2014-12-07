@@ -1,0 +1,40 @@
+﻿{
+    "amount": {
+        "value": 0,
+        "visibility": "visible",
+        "editor": {
+            "name": "currency",
+            "options": {
+                "isoName": "BYR",
+                "symbol": "Br",
+                "precision": 0
+            }
+        }
+    },
+    "currency": {
+        "value": "BYR",
+        "visibility": "none"
+    },
+    "beneficiaryAccountNo": {
+        "value": "",
+        "visibility": "visible",
+        "editor": {
+            "name": "masked-text",
+            "options": {
+                "required": true,
+                "mask": "9999999999999",
+                "placeholder": "             "
+            }
+        }
+    },
+    "beneficiaryName": {
+        "value": "",
+        "visibility": "visible",
+        "editor": {
+            "name": "text",
+            "options": { 
+                "required": true
+            }
+        }
+    }
+}

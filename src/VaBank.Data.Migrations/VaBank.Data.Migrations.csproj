@@ -118,6 +118,8 @@
     <Compile Include="Seed.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="M4-Payments\Templates\payment-cell-velcom-phoneno.json" />
+    <None Include="M4-Payments\Templates\payment-custom-paymentorder.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

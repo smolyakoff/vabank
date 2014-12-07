@@ -1,0 +1,31 @@
+﻿{
+    "amount": {
+        "value": 0,
+        "visibility": "visible",
+        "editor": {
+            "name": "currency",
+            "options": {
+                "isoName": "BYR",
+                "symbol": "Br",
+                "precision": 0
+            }
+        }
+    },
+    "currency": {
+        "value": "BYR",
+        "visibility": "hidden"
+    },
+    "phoneNo": {
+        "value": "",
+        "visibility": "visible",
+        "editor": {
+            "name": "masked-text",
+            "options": {
+                "required": true,
+                "mask": "999 9999999",
+                "placeholder": "*** *******",
+                "help": "Введите 9 цифр номера телефона в формате: 29ххххххх, 44ххххххх, 25ххххххх, 33ххххххх"
+            }
+        }
+    }
+}
