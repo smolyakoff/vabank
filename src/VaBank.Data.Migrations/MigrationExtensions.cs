@@ -110,8 +110,7 @@ namespace VaBank.Data.Migrations
 
         public static ICreateTableColumnOptionOrWithColumnSyntax AsPaymentTemplateCode(this ICreateTableColumnAsTypeSyntax syntax)
         {
-            const int length = 10;
-            return syntax.AsString(length);
+            return syntax.AsBigString();
         }
 
         #endregion
@@ -219,8 +218,7 @@ namespace VaBank.Data.Migrations
 
         public static ICreateColumnOptionSyntax AsPaymentTemplateCode(this ICreateColumnAsTypeSyntax syntax)
         {
-            const int length = 10;
-            return syntax.AsString(length);
+            return syntax.AsBigString();
         }
 
         #endregion

@@ -1,9 +1,4 @@
 ﻿using FluentMigrator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VaBank.Data.Migrations
 {
@@ -17,22 +12,22 @@ namespace VaBank.Data.Migrations
             Create.Schema(SchemaName);
 
             Create.Table("Bank").InSchema("Accounting")
-                .WithColumn("Code").AsBankCode().PrimaryKey("PK_Bank")
+                .WithColumn("Code").AsBankCode()
+                    .PrimaryKey("PK_Bank")
                 .WithColumn("Name").AsName().NotNullable()
-                .WithColumn("Parent").AsBankCode().ForeignKey("FK_Bank_To_ParentBank", "Accounting", "Bank", "Code").Nullable();
+                .WithColumn("Parent").AsBankCode().Nullable()
+                    .ForeignKey("FK_Bank_To_ParentBank", "Accounting", "Bank", "Code");
 
             Create.Table("CorrespondentAccount").InSchema("Accounting")
-                .WithColumn("AccountNo")
-                    .AsAccountNumber()
+                .WithColumn("AccountNo").AsAccountNumber()
                     .PrimaryKey("PK_CorrespondentAccount")
                     .ForeignKey("FK_CorrespondentAccount_To_Account", "Accounting", "Account", "AccountNo")
-                .WithColumn("BankCode")
-                    .AsBankCode()
-                    .ForeignKey("FK_CorrespondentAccount_To_Bank", "Accounting", "Bank", "Code")
-                    .NotNullable();
-
+                .WithColumn("BankCode").AsBankCode().NotNullable()
+                    .ForeignKey("FK_CorrespondentAccount_To_Bank", "Accounting", "Bank", "Code");
+                    
             Create.Table("PaymentOrder").InSchema(SchemaName)
-                .WithColumn("PaymentOrderNo").AsInt64().PrimaryKey("PK_PaymentOrder").Identity()
+                .WithColumn("No").AsInt64()
+                    .PrimaryKey("PK_PaymentOrder").Identity()
                 .WithColumn("PayerName").AsName().NotNullable()
                 .WithColumn("PayerBankCode").AsBankCode().NotNullable()
                 .WithColumn("PayerAccountNo").AsAccountNumber().NotNullable()
@@ -43,51 +38,49 @@ namespace VaBank.Data.Migrations
                 .WithColumn("BeneficiaryTIN").AsTIN().NotNullable()
                 .WithColumn("Purpose").AsBigString().NotNullable()
                 .WithColumn("Amount").AsDecimal().NotNullable()
-                .WithColumn("CurrencyISOName").AsCurrencyISOName()
+                .WithColumn("CurrencyISOName").AsCurrencyISOName().NotNullable()
                 .WithColumn("PaymentCode").AsPaymentCode().NotNullable();
 
             Create.Table("PaymentTransaction").InSchema(SchemaName)
-                .WithColumn("TransactionId")
-                    .AsGuid()
+                .WithColumn("TransactionId").AsGuid()
                     .PrimaryKey("PK_PaymentTransaction")
                     .ForeignKey("FK_PaymentTransaction_To_Transaction", "Processing", "Transaction", "TransactionID")
                 .WithColumn("PaymentOrderNo").AsInt64().ForeignKey("FK_PaymentTransaction_To_PaymentOrder", SchemaName, "PaymentOrder", "PaymentOrderNo");
 
             Create.Table("PaymentTemplate").InSchema(SchemaName)
-                .WithColumn("Code").AsPaymentTemplateCode().PrimaryKey("PK_PaymentTemplate")
-                .WithColumn("CategoryCode").AsName().ForeignKey("FK_PaymentTemplate_To_OperationCategory", "Processing", "OperationCategory", "Code").NotNullable()
-                .WithColumn("AccountNo").AsAccountNumber().ForeignKey("PaymentTemplate_To_Account", "Accounting", "Account", "AccountNo").NotNullable()
-                .WithColumn("CurrencyISOName").AsCurrencyISOName().ForeignKey("FK_PaymentTemplate_To_Currency", "Accounting", "Currency", "CurrencyISOName").NotNullable()
+                .WithColumn("Code").AsPaymentTemplateCode()
+                    .PrimaryKey("PK_PaymentTemplate")
+                .WithColumn("CategoryCode").AsName()
+                    .ForeignKey("FK_PaymentTemplate_To_OperationCategory", "Processing", "OperationCategory", "Code").NotNullable()
+                .WithColumn("AccountNo").AsAccountNumber()
+                    .ForeignKey("PaymentTemplate_To_Account", "Accounting", "Account", "AccountNo").NotNullable()
+                .WithColumn("CurrencyISOName").AsCurrencyISOName()
+                    .ForeignKey("FK_PaymentTemplate_To_Currency", "Accounting", "Currency", "CurrencyISOName").NotNullable()
                 .WithColumn("Name").AsName().NotNullable()
-                .WithColumn("ValidatorName").AsName().NotNullable();
+                .WithColumn("Form").AsText().NotNullable();
 
             Create.Table("Payment").InSchema(SchemaName)
-                .WithColumn("OperationId")
-                    .AsInt64()
+                .WithColumn("OperationId").AsInt64().NotNullable()
                     .PrimaryKey("PK_Payment")
                     .ForeignKey("FK_Payment_To_Transfer", "Processing", "Transfer", "OperationId")
-                    .NotNullable()
-               .WithColumn("OrderNo").AsInt64().ForeignKey("FK_Payment_To_PaymentOrder", SchemaName, "PaymentOrder", "PaymentOrderNo")
-               .WithColumn("TemplateCode")
-                   .AsPaymentTemplateCode().ForeignKey("FK_Payment_To_PaymentTemplate", SchemaName, "PaymentTemplate", "Code")
+               .WithColumn("OrderNo").AsInt64().NotNullable()
+                    .ForeignKey("FK_Payment_To_PaymentOrder", SchemaName, "PaymentOrder", "PaymentOrderNo")
+               .WithColumn("TemplateCode").AsPaymentTemplateCode()
+                    .ForeignKey("FK_Payment_To_PaymentTemplate", SchemaName, "PaymentTemplate", "Code")
                .WithColumn("Name").AsBigString().NotNullable()
-               .WithColumn("Form").AsString(int.MaxValue).NotNullable();
+               .WithColumn("Form").AsText().NotNullable();
 
             Create.Table("CardPayment").InSchema(SchemaName)
-                .WithColumn("OperationId")
-                    .AsInt64()
+                .WithColumn("OperationId").AsInt64()
                     .PrimaryKey("PK_CardPayment")
                     .ForeignKey("FK_CardPayment_To_Payment", SchemaName, "Payment", "OperationId")
-                .WithColumn("CardId")
-                    .AsCardId()
-                    .ForeignKey("FK_CardPayment_To_Card", "Accounting", "Card", "CardID")
-                    .NotNullable();
-
+                .WithColumn("CardId").AsCardId().NotNullable()
+                    .ForeignKey("FK_CardPayment_To_Card", "Accounting", "Card", "CardID");
+                    
             Create.Table("PaymentOrderTemplate").InSchema(SchemaName)
                 .WithColumn("PaymentTemplateCode")
-                    .AsPaymentTemplateCode()
-                    .PrimaryKey("PK_PaymentOrderTemplate")
-                    .ForeignKey("FK_PK_PaymentOrderTemplate_To_PaymentTemplate", SchemaName, "PaymentTemplate", "Code")
+                    .AsPaymentTemplateCode().PrimaryKey("PK_PaymentOrderTemplate")
+                    .ForeignKey("FK_PaymentOrderTemplate_To_PaymentTemplate", SchemaName, "PaymentTemplate", "Code")
                 .WithColumn("PayerName").AsBigString().NotNullable()
                 .WithColumn("PayerBankCode").AsBigString().NotNullable()
                 .WithColumn("PayerAccountNo").AsBigString().NotNullable()
@@ -98,11 +91,10 @@ namespace VaBank.Data.Migrations
                 .WithColumn("BeneficiaryTIN").AsBigString().NotNullable()
                 .WithColumn("Purpose").AsBigString().NotNullable()
                 .WithColumn("Amount").AsBigString().NotNullable()
-                .WithColumn("CurrencyISOName").AsCurrencyISOName().NotNullable();
+                .WithColumn("CurrencyISOName").AsBigString().NotNullable();
 
             Create.Table("UserPaymentProfile").InSchema(SchemaName)
-                .WithColumn("UserId")
-                    .AsUserId()
+                .WithColumn("UserId").AsUserId()
                     .PrimaryKey("PK_UserPaymentProfile")
                     .ForeignKey("FK_UserPaymentProfile_To_User", "Membership", "User", "UserID")
                 .WithColumn("FullName").AsName().NotNullable()
