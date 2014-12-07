@@ -51,10 +51,8 @@ namespace VaBank.Data.Migrations
                 .WithColumn("Code").AsName()
                     .PrimaryKey("PK_PaymentTemplate")
                     .ForeignKey("FK_PaymentTemplate_To_OperationCategory", "Processing", "OperationCategory", "Code")
-                .WithColumn("AccountNo").AsAccountNumber().NotNullable()
-                    .ForeignKey("PaymentTemplate_To_Account", "Accounting", "Account", "AccountNo")
-                .WithColumn("CurrencyISOName").AsCurrencyISOName().NotNullable()
-                    .ForeignKey("FK_PaymentTemplate_To_Currency", "Accounting", "Currency", "CurrencyISOName")
+                .WithColumn("AccountNo").AsBigString().NotNullable()
+                .WithColumn("CurrencyISOName").AsBigString().NotNullable()
                 .WithColumn("FormTemplate").AsText().NotNullable();
 
             Create.Table("Payment").InSchema(SchemaName)

@@ -24,7 +24,6 @@
     },
     "beneficiaryName": {
         "value": "",
-        "visibility": "visible",
         "editor": {
             "name": "text",
             "options": { 
