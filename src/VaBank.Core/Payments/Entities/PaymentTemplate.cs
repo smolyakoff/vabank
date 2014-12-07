@@ -20,6 +20,6 @@ namespace VaBank.Core.Payments.Entities
 
         public string Name { get; protected set; }
 
-        public string ValidatorName { get; protected set; }
+        public string Form { get; protected set; }
     }
 }
