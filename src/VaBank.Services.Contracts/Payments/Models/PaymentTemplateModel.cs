@@ -1,4 +1,4 @@
-﻿using VaBank.Services.Contracts.Accounting.Models;
+﻿using Newtonsoft.Json.Linq;
 
 namespace VaBank.Services.Contracts.Payments.Models
 {
@@ -8,6 +8,6 @@ namespace VaBank.Services.Contracts.Payments.Models
 
         public string Name { get; set; }
 
-        public CurrencyModel Currency { get; set; }
+        public JObject FormTemplate { get; set; }
     }
 }

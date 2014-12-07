@@ -61,6 +61,7 @@
     <Compile Include="Accounting\Models\CustomerCardBriefModel.cs" />
     <Compile Include="Common\Commands\IOperationCommand.cs" />
     <Compile Include="Payments\Commands\SubmitPaymentCommand.cs" />
+    <Compile Include="Payments\Commands\ValidateFormCommand.cs" />
     <Compile Include="Payments\IPaymentClientService.cs" />
     <Compile Include="Payments\Models\PaymentArchiveDetailsModel.cs" />
     <Compile Include="Payments\Models\PaymentArchiveItemModel.cs" />
