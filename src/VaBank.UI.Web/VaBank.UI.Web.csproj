@@ -1966,6 +1966,7 @@
     <Compile Include="Api\Common\ExchangeRateController.cs" />
     <Compile Include="Api\Customer\CardTransferController.cs" />
     <Compile Include="Api\Customer\CustomerCardController.cs" />
+    <Compile Include="Api\Customer\PaymentController.cs" />
     <Compile Include="Api\Customer\SecurityCodeController.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankAuthorizationServerProvider.cs" />
     <Compile Include="Api\Infrastructure\Auth\VabankRefreshTokenProvider.cs" />
