@@ -108,11 +108,6 @@ namespace VaBank.Data.Migrations
             return syntax.AsString(length);
         }
 
-        public static ICreateTableColumnOptionOrWithColumnSyntax AsPaymentTemplateCode(this ICreateTableColumnAsTypeSyntax syntax)
-        {
-            return syntax.AsBigString();
-        }
-
         #endregion
 
         #region CreateColumnSyntax
@@ -216,11 +211,6 @@ namespace VaBank.Data.Migrations
             return syntax.AsString(length);
         }
 
-        public static ICreateColumnOptionSyntax AsPaymentTemplateCode(this ICreateColumnAsTypeSyntax syntax)
-        {
-            return syntax.AsBigString();
-        }
-
         #endregion
 
         #region AlterColumnSyntax
@@ -315,12 +305,6 @@ namespace VaBank.Data.Migrations
         public static IAlterColumnOptionSyntax AsPaymentCode(this IAlterColumnAsTypeSyntax syntax)
         {
             const int length = 4;
-            return syntax.AsString(length);
-        }
-
-        public static IAlterColumnOptionSyntax AsPaymentTemplateCode(this IAlterColumnAsTypeSyntax syntax)
-        {
-            const int length = 10;
             return syntax.AsString(length);
         }
 

@@ -48,16 +48,14 @@ namespace VaBank.Data.Migrations
                 .WithColumn("PaymentOrderNo").AsInt64().ForeignKey("FK_PaymentTransaction_To_PaymentOrder", SchemaName, "PaymentOrder", "No");
 
             Create.Table("PaymentTemplate").InSchema(SchemaName)
-                .WithColumn("Code").AsPaymentTemplateCode()
+                .WithColumn("Code").AsName()
                     .PrimaryKey("PK_PaymentTemplate")
-                .WithColumn("CategoryCode").AsName()
-                    .ForeignKey("FK_PaymentTemplate_To_OperationCategory", "Processing", "OperationCategory", "Code").NotNullable()
-                .WithColumn("AccountNo").AsAccountNumber()
-                    .ForeignKey("PaymentTemplate_To_Account", "Accounting", "Account", "AccountNo").NotNullable()
-                .WithColumn("CurrencyISOName").AsCurrencyISOName()
-                    .ForeignKey("FK_PaymentTemplate_To_Currency", "Accounting", "Currency", "CurrencyISOName").NotNullable()
-                .WithColumn("Name").AsName().NotNullable()
-                .WithColumn("Form").AsText().NotNullable();
+                    .ForeignKey("FK_PaymentTemplate_To_OperationCategory", "Processing", "OperationCategory", "Code")
+                .WithColumn("AccountNo").AsAccountNumber().NotNullable()
+                    .ForeignKey("PaymentTemplate_To_Account", "Accounting", "Account", "AccountNo")
+                .WithColumn("CurrencyISOName").AsCurrencyISOName().NotNullable()
+                    .ForeignKey("FK_PaymentTemplate_To_Currency", "Accounting", "Currency", "CurrencyISOName")
+                .WithColumn("FormTemplate").AsText().NotNullable();
 
             Create.Table("Payment").InSchema(SchemaName)
                 .WithColumn("OperationId").AsInt64().NotNullable()
@@ -65,9 +63,6 @@ namespace VaBank.Data.Migrations
                     .ForeignKey("FK_Payment_To_Transfer", "Processing", "Transfer", "OperationId")
                .WithColumn("OrderNo").AsInt64().NotNullable()
                     .ForeignKey("FK_Payment_To_PaymentOrder", SchemaName, "PaymentOrder", "No")
-               .WithColumn("TemplateCode").AsPaymentTemplateCode()
-                    .ForeignKey("FK_Payment_To_PaymentTemplate", SchemaName, "PaymentTemplate", "Code")
-               .WithColumn("Name").AsBigString().NotNullable()
                .WithColumn("Form").AsText().NotNullable();
 
             Create.Table("CardPayment").InSchema(SchemaName)
@@ -79,7 +74,8 @@ namespace VaBank.Data.Migrations
                     
             Create.Table("PaymentOrderTemplate").InSchema(SchemaName)
                 .WithColumn("PaymentTemplateCode")
-                    .AsPaymentTemplateCode().PrimaryKey("PK_PaymentOrderTemplate")
+                    .AsName()
+                    .PrimaryKey("PK_PaymentOrderTemplate")
                     .ForeignKey("FK_PaymentOrderTemplate_To_PaymentTemplate", SchemaName, "PaymentTemplate", "Code")
                 .WithColumn("PayerName").AsBigString().NotNullable()
                 .WithColumn("PayerBankCode").AsBigString().NotNullable()
