@@ -104,6 +104,7 @@
     <Compile Include="Infrastructure\Sms\SmsServiceSettings.cs" />
     <Compile Include="Infrastructure\Sms\TwilioClientFactory.cs" />
     <Compile Include="Infrastructure\Sms\TwilioClientSettings.cs" />
+    <Compile Include="Payments\PaymentProcessor.cs" />
     <Compile Include="Transfers\CardTransferClientService.cs" />
     <Compile Include="Transfers\CardTransferClientServiceDependencies.cs" />
     <Compile Include="Processing\ExchangeRateService.cs" />
@@ -254,9 +255,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Payments\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
