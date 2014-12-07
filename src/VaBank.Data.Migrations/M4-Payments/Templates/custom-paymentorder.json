@@ -16,9 +16,11 @@
         "editor": {
             "name": "masked-text",
             "options": {
+                "label": "Номер счёта получателя",
                 "required": true,
-                "mask": "9999999999999",
-                "placeholder": "             "
+                "mask": "9999 99999999 9",
+                "placeholder": "**** ******** *", 
+                "help": "Введите номер счета получателя (13 цифр)."
             }
         }
     },
@@ -27,6 +29,41 @@
         "editor": {
             "name": "text",
             "options": { 
+                "label": "Получатель",
+                "required": true
+            }
+        }
+    },
+    "beneficiayTIN": {
+        "value": "",
+        "editor":{
+            "name": "text",
+            "options": {
+                "label": "УНП получателя",
+                "required": true,
+                "help": "УНП должен состоять из 9 цифр."
+            }
+        }
+    },
+    "beneficiaryBankCode": {
+        "value": "",
+        "editor": {
+            "name": "masked-text",
+            "options": {
+                "label": "Код банка получателя",
+                "required": true,
+                "mask": "153000000",
+                "placeholder": "*********", 
+                "help": "Введите код банка получателя (9 цифр)."
+            }
+        }
+    },
+    "purpose": {
+        "value": "",
+        "editor": {
+            "name": "text",
+            "options": {
+                "label": "Назначение платежа",
                 "required": true
             }
         }
