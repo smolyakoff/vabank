@@ -1,0 +1,35 @@
+﻿{
+    "amount": {
+        "value": 0,
+        "editor": {
+            "name": "currency",
+            "options": {
+                "label": "Сумма платежа",
+                "required": true,
+                "symbol": "Br",
+                "precision": 0
+            }
+        }
+    },
+    "beneficiaryAccountNo": {
+        "value": "",
+        "editor": {
+            "name": "masked-text",
+            "options": {
+                "required": true,
+                "mask": "9999999999999",
+                "placeholder": "             "
+            }
+        }
+    },
+    "beneficiaryName": {
+        "value": "",
+        "visibility": "visible",
+        "editor": {
+            "name": "text",
+            "options": { 
+                "required": true
+            }
+        }
+    }
+}
