@@ -2,7 +2,7 @@
 
 namespace VaBank.Data.Migrations
 {
-    [Migration(48, "Seed VaBank bank.")]
+    [Migration(48, "Seed payments data.")]
     [Tags("Development", "Test", "Production")]
     public class SeedPaymentsData : Migration
     {
