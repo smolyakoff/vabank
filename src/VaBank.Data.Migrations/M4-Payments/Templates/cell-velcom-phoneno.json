@@ -1,0 +1,27 @@
+﻿{
+    "amount": {
+        "value": 0,
+        "editor": {
+            "name": "currency",
+            "options": {
+                "label": "Сумма платежа",
+                "required": true,
+                "symbol": "Br",
+                "precision": 0
+            }
+        }
+    },
+    "phoneNo": {
+        "value": "",
+        "editor": {
+            "name": "masked-text",
+            "options": {
+                "label": "Номер телефона",
+                "required": true,
+                "mask": "99 9999999",
+                "placeholder": "** *******",
+                "help": "Введите 9 цифр номера телефона в формате: 29ххххххх, 44ххххххх, 25ххххххх, 33ххххххх"
+            }
+        }
+    }
+}
