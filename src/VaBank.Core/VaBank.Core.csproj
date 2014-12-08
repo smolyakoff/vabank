@@ -68,7 +68,7 @@
     <Compile Include="Payments\Entities\PaymentOrder.cs" />
     <Compile Include="Payments\Entities\PaymentOrderTemplate.cs" />
     <Compile Include="Payments\Entities\PaymentTemplate.cs" />
-    <Compile Include="Payments\Entities\PaymentTransaction.cs" />
+    <Compile Include="Payments\Entities\CardPaymentTransaction.cs" />
     <Compile Include="Payments\Entities\UserPaymentProfile.cs" />
     <Compile Include="Processing\BankingSystemSchedule.cs" />
     <Compile Include="Processing\CardTransferSettings.cs" />

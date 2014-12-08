@@ -30,7 +30,7 @@ namespace VaBank.Services.Processing.Operations
 
         protected override Transaction Compensate(Account account, Transfer transfer, string code, string description)
         {
-            var cardTransfer = (CardTransfer)transfer;
+            var cardTransfer = (CardTransfer) transfer;
             return account.Deposit(cardTransfer.SourceCard, code, description, Settings.Location,
                 new Money(transfer.Currency, transfer.Amount), this.MoneyConverter);
         }

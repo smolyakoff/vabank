@@ -115,7 +115,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Names.resx</DependentUpon>
     </Compile>
-    <Compile Include="Payments\PaymentProcessor.cs" />
+    <Compile Include="Payments\CardPaymentProcessor.cs" />
     <Compile Include="Transfers\CardTransferClientService.cs" />
     <Compile Include="Transfers\CardTransferClientServiceDependencies.cs" />
     <Compile Include="Processing\ExchangeRateService.cs" />
