@@ -25,7 +25,7 @@ namespace VaBank.Services.Accounting
 
             CreateMap<Card, CardNameModel>()
                 .ForMember(x => x.CardId, cfg => cfg.MapFrom(x => x.Id))
-                .ForMember(x => x.SecureCardNo, cfg => cfg.MapFrom(x => x.CardNo.Substring(0, 6) + "__" + x.CardNo.Substring(11, 4)))
+                .ForMember(x => x.SecureCardNo, cfg => cfg.MapFrom(x => x.CardNo.Substring(0, 6) + "__" + x.CardNo.Substring(12, 4)))
                 .Include<UserCard, CardNameModel>();
 
             CreateMap<UserCard, CardNameModel>()
@@ -37,7 +37,7 @@ namespace VaBank.Services.Accounting
             CreateMap<UserCard, CustomerCardModel>()
                 .ForMember(x => x.CardId, cfg => cfg.MapFrom(x => x.Id))
                 .ForMember(x => x.AccountNo, cfg => cfg.MapFrom(x => x.Account.AccountNo))
-                .ForMember(x => x.SecureCardNo, cfg => cfg.MapFrom(x => x.CardNo.Substring(0, 6) + "__" + x.CardNo.Substring(11, 4)))
+                .ForMember(x => x.SecureCardNo, cfg => cfg.MapFrom(x => x.CardNo.Substring(0, 6) + "__" + x.CardNo.Substring(12, 4)))
                 .ForMember(x => x.CardholderFirstName, cfg => cfg.MapFrom(x => x.HolderFirstName))
                 .ForMember(x => x.CardholderLastName, cfg => cfg.MapFrom(x => x.HolderLastName))
                 .ForMember(x => x.Blocked, cfg => cfg.MapFrom(x => x.Settings.Blocked))
@@ -49,7 +49,7 @@ namespace VaBank.Services.Accounting
             CreateMap<UserCard, CustomerCardBriefModel>()
                 .ForMember(x => x.CardId, cfg => cfg.MapFrom(x => x.Id))
                 .ForMember(x => x.AccountNo, cfg => cfg.MapFrom(x => x.Account.AccountNo))
-                .ForMember(x => x.SecureCardNo, cfg => cfg.MapFrom(x => x.CardNo.Substring(0, 6) + "__" + x.CardNo.Substring(11, 4)))
+                .ForMember(x => x.SecureCardNo, cfg => cfg.MapFrom(x => x.CardNo.Substring(0, 6) + "__" + x.CardNo.Substring(12, 4)))
                 .ForMember(x => x.CardholderFirstName, cfg => cfg.MapFrom(x => x.HolderFirstName))
                 .ForMember(x => x.CardholderLastName, cfg => cfg.MapFrom(x => x.HolderLastName))
                 .ForMember(x => x.Currency, cfg => cfg.MapFrom(x => x.Account.Currency))
