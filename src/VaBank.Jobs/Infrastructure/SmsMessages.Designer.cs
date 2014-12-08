@@ -61,7 +61,7 @@ namespace VaBank.Jobs.Infrastructure {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ваша карта {0} заблокирована через интернет-банкинг &quot;Ва-Банк&quot;..
+        ///   Looks up a localized string similar to Vasha karta {0} zablokirovana cherez internet-banking &quot;Va-bank&quot;..
         /// </summary>
         internal static string CardBlocked {
             get {
@@ -70,7 +70,7 @@ namespace VaBank.Jobs.Infrastructure {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Карта: {0}. На ваш счет зачислено {1}. {2}, {3}. Остаток: {4}..
+        ///   Looks up a localized string similar to Karta: {0}. Na vash schet zachisleno {1}. {2}, {3}. Ostatok: {4}..
         /// </summary>
         internal static string CardDeposit {
             get {
@@ -79,7 +79,7 @@ namespace VaBank.Jobs.Infrastructure {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Карта: {0}. Ошибка операции: {1}. {2}, {3}. Остаток: {4}..
+        ///   Looks up a localized string similar to Karta: {0}. Oshibka operacii: {1}. {2}, {3}. Ostatok: {4}..
         /// </summary>
         internal static string CardError {
             get {
@@ -88,7 +88,7 @@ namespace VaBank.Jobs.Infrastructure {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Карта: {0}. С вашего счета списано {1}. {2}, {3}. Остаток: {4}..
+        ///   Looks up a localized string similar to Karta: {0}. S vashego scheta spisano {1}. {2}, {3}. Ostatok: {4}..
         /// </summary>
         internal static string CardWithdrawal {
             get {
@@ -97,7 +97,7 @@ namespace VaBank.Jobs.Infrastructure {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ваш одноразовый пароль для интернет-банкинга: {0}..
+        ///   Looks up a localized string similar to Vash odnorazovyj parol dlya internet-bankinga: {0}..
         /// </summary>
         internal static string SecurityCode {
             get {

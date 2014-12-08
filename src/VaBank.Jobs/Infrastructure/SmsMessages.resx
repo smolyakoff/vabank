@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CardBlocked" xml:space="preserve">
-    <value>Ваша карта {0} заблокирована через интернет-банкинг "Ва-Банк".</value>
+    <value>Vasha karta {0} zablokirovana cherez internet-banking "Va-bank".</value>
   </data>
   <data name="CardDeposit" xml:space="preserve">
-    <value>Карта: {0}. На ваш счет зачислено {1}. {2}, {3}. Остаток: {4}.</value>
+    <value>Karta: {0}. Na vash schet zachisleno {1}. {2}, {3}. Ostatok: {4}.</value>
   </data>
   <data name="CardError" xml:space="preserve">
-    <value>Карта: {0}. Ошибка операции: {1}. {2}, {3}. Остаток: {4}.</value>
+    <value>Karta: {0}. Oshibka operacii: {1}. {2}, {3}. Ostatok: {4}.</value>
   </data>
   <data name="CardWithdrawal" xml:space="preserve">
-    <value>Карта: {0}. С вашего счета списано {1}. {2}, {3}. Остаток: {4}.</value>
+    <value>Karta: {0}. S vashego scheta spisano {1}. {2}, {3}. Ostatok: {4}.</value>
   </data>
   <data name="SecurityCode" xml:space="preserve">
-    <value>Ваш одноразовый пароль для интернет-банкинга: {0}.</value>
+    <value>Vash odnorazovyj parol dlya internet-bankinga: {0}.</value>
   </data>
 </root>
