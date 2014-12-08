@@ -25,5 +25,17 @@ namespace VaBank.Data.Migrations
                 .Row(new { Code = "PAYMENT-CELL-VELCOM", Name = "Velcom", Parent = "PAYMENT-CELL" })
                 .Row(new { Code = "PAYMENT-CELL-VELCOM-PHONENO", Name = new ExplicitUnicodeString("По номеру телефона"), Parent = "PAYMENT-CELL-VELCOM" });
         }
+
+        private void SeedPaymentTemplates()
+        {
+            
+        }
+
+        private void SeedPaymentOrderTemplates()
+        {
+            Insert.IntoTable("PaymentOrderTemplate").InSchema("Payment")
+                .Row(new {});
+        }
+
     }
 }

@@ -14,10 +14,6 @@ namespace VaBank.Core.Payments.Entities
 
         public virtual OperationCategory Category { get; protected set; }
 
-        public virtual Account Account { get; protected set; }
-
-        public virtual Currency Currency { get; protected set; }
-
         public string Form { get; protected set; }
     }
 }
