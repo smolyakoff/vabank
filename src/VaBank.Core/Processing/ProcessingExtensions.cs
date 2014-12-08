@@ -85,9 +85,10 @@ namespace VaBank.Core.Processing
             return new Transaction(account, money.Currency, - money.Amount, - convertedMoney.Amount, code, description, location);
         }
 
-        public static PaymentTransaction Withdraw(
+        public static CardPaymentTransaction Withdraw(
             this Account account,
             PaymentOrder order,
+            Card card,
             string code,
             string description,
             string location,
@@ -103,13 +104,14 @@ namespace VaBank.Core.Processing
             Argument.Satisfies(money, x => x.Amount >= 0, "money", "Money amount should be 0 or greater.");
 
             var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
-            return new PaymentTransaction(order, account, money.Currency, -money.Amount, -convertedMoney.Amount, code,
+            return new CardPaymentTransaction(order, card, account, money.Currency, -money.Amount, -convertedMoney.Amount, code,
                 description, location);
         }
 
-        public static PaymentTransaction Deposit(
+        public static CardPaymentTransaction Deposit(
             this Account account,
             PaymentOrder order,
+            Card card,
             string code,
             string description,
             string location,
@@ -125,7 +127,7 @@ namespace VaBank.Core.Processing
             Argument.Satisfies(money, x => x.Amount >= 0, "money", "Money amount should be 0 or greater.");
 
             var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
-            return new PaymentTransaction(order, account, money.Currency, money.Amount, convertedMoney.Amount, code,
+            return new CardPaymentTransaction(order, card, account, money.Currency, money.Amount, convertedMoney.Amount, code,
                             description, location);
         }
     }

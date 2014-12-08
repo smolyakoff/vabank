@@ -1,4 +1,7 @@
-﻿using VaBank.Common.Validation;
+﻿using FluentValidation;
+using VaBank.Common.Validation;
+using VaBank.Core.Membership.Resources;
+
 
 namespace VaBank.Services.Payments.Forms
 {
@@ -8,14 +11,22 @@ namespace VaBank.Services.Payments.Forms
     {
         public VelcomByPhoneNumberPaymentValidator()
         {
-            //TODO: write real rules
+            RuleFor(x => x.Amount)
+                .GreaterThan(0)
+                .LessThan(5000000)
+                .WithLocalizedName(() => Names.Amount);
+            RuleFor(x => x.PhoneNo)
+                .NotEmpty()
+                .Matches(@"^\(?(29|33|44|25)\)? *\d{7}$")
+                .WithLocalizedName(() => Names.Phone)
+                .WithLocalizedMessage(() => Messages.CheckNumberPhone);
         }
 
         internal class Form
         {
-             public decimal Amount { get; set; }
+            public decimal Amount { get; set; }
 
-             public string PhoneNo { get; set; }
+            public string PhoneNo { get; set; }
         }
     }
 }

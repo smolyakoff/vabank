@@ -101,7 +101,7 @@
     <Compile Include="Payments\Mappings\PaymentOrderMap.cs" />
     <Compile Include="Payments\Mappings\PaymentOrderTemplateMap.cs" />
     <Compile Include="Payments\Mappings\PaymentTemplateMap.cs" />
-    <Compile Include="Payments\Mappings\PaymentTransactionMap.cs" />
+    <Compile Include="Payments\Mappings\CardPaymentTransactionMap.cs" />
     <Compile Include="Payments\Mappings\UserPaymentProfileMap.cs" />
     <Compile Include="Processing\ExchangeRateRepository.cs" />
     <Compile Include="Processing\Mappings\BaseTransactionMap.cs" />

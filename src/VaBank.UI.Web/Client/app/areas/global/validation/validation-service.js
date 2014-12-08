@@ -274,12 +274,9 @@
             return deferred.promise;
         };
 
-        var setFormErrors = function(formForController, errorMap) {
-            _.each(errorMap, function (map) {
-                var properties = nested.flattenObjectKeys(map);
-                _.each(properties, function (x) {
-                    formForController.setFieldError(x, nested.readAttribute(map, x));
-                });
+        var setFormErrors = function(formForController, faults) {
+            _.each(faults, function (fault) {
+                formForController.setFieldError(camelCase(fault.propertyName), fault.message);
             });
         };
 

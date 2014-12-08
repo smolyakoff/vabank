@@ -67,7 +67,7 @@ namespace VaBank.Services.Infrastructure.Validation
                 IList<ValidationFault> result = validator.Validate(objectToValidate);
                 return new ValidationResultModel
                 {
-                    ValidationFaults = result.Select(x => new ValidationFault(validationCommand.ValidatorName, x.Message)).ToList(),
+                    ValidationFaults = result,
                     IsValidatorFound = true
                 };
             }

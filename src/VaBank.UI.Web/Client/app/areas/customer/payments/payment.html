@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </wz-step>
-            <form data-form-for="payment" data-controller="paymentController">
+            <form data-form-for="payment" data-controller="paymentController" data-validation-rules="validators">
                 <wz-step>
                     <div class="panel panel-wizard panel-warning">
                         <div class="panel-heading">
@@ -45,7 +45,7 @@
                                     <h6 class="text-primary wizard-subtitle">Параметры платежа</h6>
                                     <dynamic-field data-ng-repeat="(attribute, field) in template.form" 
                                                    data-ng-if="attribute !== 'amount'"
-                                                   attribute="{{attribute}}"
+                                                   attribute="form.{{attribute}}"
                                                    template="{{field.editor.name}}"
                                                    options="field.editor.options">
                                     </dynamic-field>
@@ -54,7 +54,7 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <dynamic-field template="currency"
-                                                   attribute="payment.form.amount"
+                                                   attribute="form.amount"
                                                    options="template.form.amount.editor.options">
                                     </dynamic-field>
                                 </div>

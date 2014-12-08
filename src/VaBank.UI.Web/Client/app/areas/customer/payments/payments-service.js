@@ -16,10 +16,7 @@
                     url: '/api/validate/' + templateCode,
                     data: form
                 }).then(function(response) {
-                    if (response.isValid) {
-                        return null;
-                    }
-                    return validationService.toValidationMap(response.faults);
+                    return response.data;
                 });
             };
             return {                

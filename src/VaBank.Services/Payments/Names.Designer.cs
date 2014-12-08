@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VaBank.Jobs.Infrastructure {
+namespace VaBank.Services.Payments {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace VaBank.Jobs.Infrastructure {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class SmsMessages {
+    public class Names {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal SmsMessages() {
+        internal Names() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VaBank.Jobs.Infrastructure.SmsMessages", typeof(SmsMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VaBank.Services.Payments.Names", typeof(Names).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace VaBank.Jobs.Infrastructure {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,47 +61,65 @@ namespace VaBank.Jobs.Infrastructure {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vasha karta {0} zablokirovana cherez internet-banking &quot;Va-bank&quot;..
+        ///   Looks up a localized string similar to Сумма платежа.
         /// </summary>
-        internal static string CardBlocked {
+        public static string Amount {
             get {
-                return ResourceManager.GetString("CardBlocked", resourceCulture);
+                return ResourceManager.GetString("Amount", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Karta: {0}. Na vash schet zachisleno {1}. {2}, {3}. Ostatok: {4}..
+        ///   Looks up a localized string similar to Счет получателя.
         /// </summary>
-        internal static string CardDeposit {
+        public static string BeneficiaryAccountNo {
             get {
-                return ResourceManager.GetString("CardDeposit", resourceCulture);
+                return ResourceManager.GetString("BeneficiaryAccountNo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Karta: {0}. Oshibka operacii: {1}. {2}, {3}. Ostatok: {4}..
+        ///   Looks up a localized string similar to Код банка получателя.
         /// </summary>
-        internal static string CardError {
+        public static string BeneficiaryBankCode {
             get {
-                return ResourceManager.GetString("CardError", resourceCulture);
+                return ResourceManager.GetString("BeneficiaryBankCode", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Karta: {0}. S vashego scheta spisano {1}. {2}, {3}. Ostatok: {4}..
+        ///   Looks up a localized string similar to Получатель.
         /// </summary>
-        internal static string CardWithdrawal {
+        public static string BeneficiaryName {
             get {
-                return ResourceManager.GetString("CardWithdrawal", resourceCulture);
+                return ResourceManager.GetString("BeneficiaryName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vash odnorazovyj parol dlya internet-bankinga: {0}..
+        ///   Looks up a localized string similar to УНП получателя.
         /// </summary>
-        internal static string SecurityCode {
+        public static string BeneficiayTIN {
             get {
-                return ResourceManager.GetString("SecurityCode", resourceCulture);
+                return ResourceManager.GetString("BeneficiayTIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Номер телефона.
+        /// </summary>
+        public static string Phone {
+            get {
+                return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Назначение платежа.
+        /// </summary>
+        public static string Purpose {
+            get {
+                return ResourceManager.GetString("Purpose", resourceCulture);
             }
         }
     }

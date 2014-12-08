@@ -64,10 +64,15 @@
 
         $scope.payment = {
             fromCardId: $scope.cards[0].cardId,
-            form: {}
+            form: {
+                phoneNo: null,
+                amount: 0
+            }
         };
 
         $scope.validators = {
+            amount: { custom: angular.noop },
+            phoneNo: { custom: angular.noop }
         };
 
         $scope.back = function() {
@@ -83,8 +88,12 @@
 
         $scope.continueToApproval = function () {
             PaymentForm.validate($scope.template.code, $scope.payment.form).then(function(result) {
-                if (_.isObject(result)) {
-                    uiTools.validate.setFormErrors($scope.paymentController);
+                if (!result.isValid) {
+                    var faults = _.map(result.faults, function(x) {
+                        x.propertyName = 'form.' + x.propertyName;
+                        return x;
+                    });
+                    uiTools.validate.setFormErrors($scope.paymentController, faults);
                 } else {
                     $scope.card = _.findWhere($scope.cards, { cardId: $scope.payment.fromCardId });
                     next();

@@ -3,9 +3,9 @@ using VaBank.Core.Payments.Entities;
 
 namespace VaBank.Data.EntityFramework.Payments.Mappings
 {
-    public class PaymentTransactionMap : EntityTypeConfiguration<PaymentTransaction>
+    public class CardPaymentTransactionMap : EntityTypeConfiguration<CardPaymentTransaction>
     {
-        public PaymentTransactionMap()
+        public CardPaymentTransactionMap()
         {
             ToTable("PaymentTransaction", "Payments").HasKey(x => x.Id);
             Property(x => x.Id).HasColumnName("TransactionId");
