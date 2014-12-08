@@ -4,10 +4,11 @@ using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Core.Payments.Entities
 {
-    public class PaymentTransaction : Transaction
+    public class CardPaymentTransaction : CardTransaction
     {
-        internal PaymentTransaction(
+        internal CardPaymentTransaction(
             PaymentOrder order,
+            Card card,
             Account account,
             Currency transactionCurrency,
             decimal transactionAmount,
@@ -16,14 +17,13 @@ namespace VaBank.Core.Payments.Entities
             string description,
             string location
             )
-            : base(account, transactionCurrency, transactionAmount,
-                accountAmount, code, description, location)
+            : base(code, description, location, account, card, transactionCurrency, transactionAmount, accountAmount)
         {
             Argument.NotNull(order, "order");
             Order = order;
         }
 
-        protected PaymentTransaction()
+        protected CardPaymentTransaction()
         {
         }
 

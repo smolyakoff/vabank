@@ -110,7 +110,7 @@
     <Compile Include="Infrastructure\Sms\TwilioClientSettings.cs" />
     <Compile Include="Payments\Forms\CustomPaymentOrderPaymentValidator.cs" />
     <Compile Include="Payments\Forms\VelcomByPhoneNumberPaymentValidator.cs" />
-    <Compile Include="Payments\PaymentProcessor.cs" />
+    <Compile Include="Payments\CardPaymentProcessor.cs" />
     <Compile Include="Transfers\CardTransferClientService.cs" />
     <Compile Include="Transfers\CardTransferClientServiceDependencies.cs" />
     <Compile Include="Processing\ExchangeRateService.cs" />

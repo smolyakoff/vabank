@@ -1,5 +1,6 @@
 ﻿using System;
 using VaBank.Common.Data.Repositories;
+using VaBank.Common.IoC;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing;
@@ -8,16 +9,17 @@ using VaBank.Services.Processing.Operations;
 
 namespace VaBank.Services.Payments
 {
-    internal class PaymentProcessor : TransferProcessor
+    [Injectable]
+    internal class CardPaymentProcessor : TransferProcessor
     {
-        public PaymentProcessor(BaseOperationProcessorDependencies baseDependencies, IRepository<Transfer> transferRepository)
+        public CardPaymentProcessor(BaseOperationProcessorDependencies baseDependencies, IRepository<Transfer> transferRepository)
             : base(baseDependencies, transferRepository)
         {
         }
 
         public override bool CanProcess(BankOperation operation)
         {
-            return operation.Category.Code.StartsWith("PAYMENT");
+            return operation.Category.Code.StartsWith("PAYMENT-CARD");
         }
 
         protected override DateTime? PostponeDateOrNull(BankOperation operation)
@@ -27,15 +29,15 @@ namespace VaBank.Services.Payments
 
         protected override Transaction Deposit(Account account, Transfer transfer, string code, string description)
         {
-            var payment = (Payment) transfer;
-            return account.Deposit(payment.Order, code, description, Settings.Location,
+            var payment = (CardPayment) transfer;
+            return account.Deposit(payment.Order, payment.Card, code, description, Settings.Location,
                 new Money(transfer.Currency, transfer.Amount), MoneyConverter);
         }
 
         protected override Transaction Compensate(Account account, Transfer transfer, string code, string description)
         {
-            var payment = (Payment) transfer;
-            return account.Deposit(payment.Order, code, description, Settings.Location,
+            var payment = (CardPayment) transfer;
+            return account.Deposit(payment.Order, payment.Card, code, description, Settings.Location,
                 new Money(transfer.Currency, transfer.Amount), MoneyConverter);
         }
     }
