@@ -6,7 +6,7 @@ namespace VaBank.Core.Accounting
 {
     [ValidatorName("cardExpirationDate")]
     [StaticValidator]
-    public class CardExpirationDateValidator : ObjectValidator<DateTime>
+    public class CardExpirationDateValidator : PropertyValidator<DateTime>
     {
         public override IRuleBuilderOptions<TContainer, DateTime> Validate<TContainer>(IRuleBuilderOptions<TContainer, DateTime> builder)
         {
@@ -18,7 +18,7 @@ namespace VaBank.Core.Accounting
 
     [StaticValidator]
     [ValidatorName("accountNumber")]
-    public class AccountNumberValidator : ObjectValidator<string>
+    public class AccountNumberValidator : PropertyValidator<string>
     {
         public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
         {

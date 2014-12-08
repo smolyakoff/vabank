@@ -4,7 +4,7 @@ using VaBank.Common.Validation;
 
 namespace VaBank.Core.Common
 {
-    public class FutureDateValidator : ObjectValidator<DateTime>
+    public class FutureDateValidator : PropertyValidator<DateTime>
     {
         public override IRuleBuilderOptions<TContainer, DateTime> Validate<TContainer>(IRuleBuilderOptions<TContainer, DateTime> builder)
         {
