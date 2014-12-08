@@ -116,6 +116,9 @@
       <DependentUpon>Names.resx</DependentUpon>
     </Compile>
     <Compile Include="Payments\CardPaymentProcessor.cs" />
+    <Compile Include="Payments\PaymentClientService.cs" />
+    <Compile Include="Payments\PaymentClientServiceDependencies.cs" />
+    <Compile Include="Payments\PaymentsProfile.cs" />
     <Compile Include="Transfers\CardTransferClientService.cs" />
     <Compile Include="Transfers\CardTransferClientServiceDependencies.cs" />
     <Compile Include="Processing\ExchangeRateService.cs" />
