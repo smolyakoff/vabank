@@ -106,6 +106,24 @@ namespace VaBank.Services.Membership {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вы не ввели имя пользователя..
+        /// </summary>
+        public static string NotEmptyLogin {
+            get {
+                return ResourceManager.GetString("NotEmptyLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы не ввели пароль..
+        /// </summary>
+        public static string NotEmptyPassword {
+            get {
+                return ResourceManager.GetString("NotEmptyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Поле должно содержать только буквы.
         /// </summary>
         public static string OnlyLetters {

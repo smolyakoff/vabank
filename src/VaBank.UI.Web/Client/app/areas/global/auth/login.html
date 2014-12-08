@@ -2,16 +2,18 @@
     <div class="row">
         <div class="login-wrapper">
             <img class="img img-responsive center login-logo" src="/Client/app/images/logo/vabank-logo-big.png" />
-            <form data-form-for="loginForm" 
-                  data-submit-with="login()"
-                  data-validation-rules="validationRules">
+            <form data-form-for="loginForm"
+                  data-validate-on="'submit'"
+                  data-validation-rules="validationRules"
+                  data-submit-with="login()">
                 <text-field icon-before="glyphicon glyphicon-user" attribute="login" placeholder="Имя пользователя" autofocus></text-field>
                 <text-field icon-before="glyphicon glyphicon-lock" attribute="password" placeholder="Пароль" type="password"></text-field>
                 <div class="text-center">
-                    <submit-button label="Войти в систему" button-class="btn btn-primary login-button"></submit-button>
+                    <submit-button label="Войти в систему"
+                                   button-class="btn btn-primary login-button">
+                    </submit-button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-

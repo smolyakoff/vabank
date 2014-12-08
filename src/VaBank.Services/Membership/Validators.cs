@@ -18,8 +18,8 @@ namespace VaBank.Services.Membership
     {        
         public LoginCommandValidator()
         {
-            RuleFor(x => x.Login).NotEmpty();
-            RuleFor(x => x.Password).NotEmpty();
+            RuleFor(x => x.Login).NotEmpty().WithLocalizedMessage(() => Messages.NotEmptyLogin);
+            RuleFor(x => x.Password).NotEmpty().WithLocalizedMessage(() =>Messages.NotEmptyPassword);
         }
     }
 
