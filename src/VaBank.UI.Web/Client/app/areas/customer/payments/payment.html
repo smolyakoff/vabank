@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </wz-step>
-            <form data-form-for="payment">
+            <form data-form-for="payment" data-controller="paymentController">
                 <wz-step>
                     <div class="panel panel-wizard panel-warning">
                         <div class="panel-heading">
@@ -43,19 +43,24 @@
                                 </div>
                                 <div class="col-xs-6">
                                     <h6 class="text-primary wizard-subtitle">Параметры платежа</h6>
-                                    <ng-include data-ng-if="template" src="template.templateUrl">
-                                    </ng-include>
+                                    <dynamic-field data-ng-repeat="(attribute, field) in template.form" 
+                                                   data-ng-if="attribute !== 'amount'"
+                                                   attribute="{{attribute}}"
+                                                   template="{{field.editor.name}}"
+                                                   options="field.editor.options">
+                                    </dynamic-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <currency-field label="Сумма платежа"
-                                                    attribute="form.amount.value">
-                                    </currency-field>
+                                    <dynamic-field template="currency"
+                                                   attribute="payment.form.amount"
+                                                   options="template.form.amount.editor.options">
+                                    </dynamic-field>
                                 </div>
                             </div>
                             <a class="btn btn-default pull-left" ng-click="back()"><i class="glyphicon glyphicon-chevron-left"></i> Назад</a>
-                            <a class="btn btn-primary pull-right" ng-click="continue()">Продолжить <i class="glyphicon glyphicon-chevron-right"></i></a>
+                            <a class="btn btn-primary pull-right" ng-click="continueToApproval()">Продолжить <i class="glyphicon glyphicon-chevron-right"></i></a>
                         </div>
                     </div>
                 </wz-step>

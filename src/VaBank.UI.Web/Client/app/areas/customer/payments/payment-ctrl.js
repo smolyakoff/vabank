@@ -3,9 +3,11 @@
 
     angular.module('vabank.webapp').controller('paymentController', paymentController);
 
-    paymentController.$inject = ['$scope', 'uiTools', 'WizardHandler', 'data'];
+    paymentController.$inject = ['$scope', 'uiTools', 'WizardHandler', 'paymentService', 'data'];
 
-    function paymentController($scope, uiTools, wizardHandler, data) {
+    function paymentController($scope, uiTools, wizardHandler, paymentService, data) {
+
+        var PaymentForm = paymentService.PaymentForm;
 
         var init = function() {
             if (data.cards.length === 0) {
@@ -21,25 +23,51 @@
             wizardHandler.wizard('paymentWizard').next();
         };
         
+        
         $scope.cards = data.cards;
         $scope.card = data.cards[0];
-        $scope.template = null;
         $scope.smsConfirmationEnabled = data.profile.smsConfirmationEnabled;
         $scope.smsCodeSent = false;
-
-        $scope.payment = {
-            fromCardId: $scope.cards[0].cardId,
+        
+        $scope.template = {
+            code: 'PAYMENT-CELL-VELCOM-PHONENO',
             form: {
-                amount: { name: 'Сумма платежа', value: 0 },
+                "amount": {
+                    "value": 0,
+                    "editor": {
+                        "name": "currency",
+                        "options": {
+                            "label": "Сумма платежа",
+                            "required": true,
+                            "symbol": "Br",
+                            "precision": 0
+                        }
+                    }
+                },
+                "phoneNo": {
+                    "value": "",
+                    "editor": {
+                        "name": "masked-text",
+                        "options": {
+                            "label": "Номер телефона",
+                            "required": true,
+                            "mask": "99 9999999",
+                            "placeholder": "** *******",
+                            "help": "Введите 9 цифр номера телефона в формате: 29ххххххх, 44ххххххх, 25ххххххх, 33ххххххх"
+                        }
+                    }
+                }
             }
         };
 
+        $scope.paymentController = {};
+
+        $scope.payment = {
+            fromCardId: $scope.cards[0].cardId,
+            form: {}
+        };
+
         $scope.validators = {
-            form: {
-                amount: {
-                    value: { custom: function (a){} }
-                }
-            }
         };
 
         $scope.back = function() {
@@ -47,15 +75,21 @@
         };
 
         $scope.selectTemplate = function(template) {
-            $scope.template = template;
-            $scope.template.templateUrl = '/Client/app/areas/customer/payments/templates/' +
-                template.code.toLowerCase() + '.html';
+            //$scope.template = template;
+            //$scope.template.templateUrl = '/Client/app/areas/customer/payments/templates/' +
+            //    template.code.toLowerCase() + '.html';
             next();
         };
 
-        $scope.continue = function () {
-            $scope.card = _.findWhere($scope.cards, { cardId: $scope.payment.fromCardId });
-            next();
+        $scope.continueToApproval = function () {
+            PaymentForm.validate($scope.template.code, $scope.payment.form).then(function(result) {
+                if (_.isObject(result)) {
+                    uiTools.validate.setFormErrors($scope.paymentController);
+                } else {
+                    $scope.card = _.findWhere($scope.cards, { cardId: $scope.payment.fromCardId });
+                    next();
+                }
+            });
         };
 
         $scope.approve = function() {

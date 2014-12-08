@@ -274,6 +274,15 @@
             return deferred.promise;
         };
 
+        var setFormErrors = function(formForController, errorMap) {
+            _.each(errorMap, function (map) {
+                var properties = nested.flattenObjectKeys(map);
+                _.each(properties, function (x) {
+                    formForController.setFieldError(x, nested.readAttribute(map, x));
+                });
+            });
+        };
+
         var combineValidators = function (validatorArray) {
             if (!_.isArray(validatorArray)) {
                 throw new TypeError("Array expected!");
@@ -300,7 +309,8 @@
             combineValidators: combineValidators,
             toValidationMap: toValidationMap,
             handleServerResponse: handleServerResponse,
-            handleManualValidation: handleManualValidation
+            handleManualValidation: handleManualValidation,
+            setFormErrors: setFormErrors
         };
     }
 })();
