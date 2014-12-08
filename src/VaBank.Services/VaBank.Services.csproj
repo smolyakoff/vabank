@@ -110,6 +110,11 @@
     <Compile Include="Infrastructure\Sms\TwilioClientSettings.cs" />
     <Compile Include="Payments\Forms\CustomPaymentOrderPaymentValidator.cs" />
     <Compile Include="Payments\Forms\VelcomByPhoneNumberPaymentValidator.cs" />
+    <Compile Include="Payments\Names.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Names.resx</DependentUpon>
+    </Compile>
     <Compile Include="Payments\CardPaymentProcessor.cs" />
     <Compile Include="Transfers\CardTransferClientService.cs" />
     <Compile Include="Transfers\CardTransferClientServiceDependencies.cs" />
@@ -233,6 +238,10 @@
     <EmbeddedResource Include="Membership\Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payments\Names.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Names.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Processing\Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -117,19 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CardBlocked" xml:space="preserve">
-    <value>Vasha karta {0} zablokirovana cherez internet-banking "Va-bank".</value>
+  <data name="Amount" xml:space="preserve">
+    <value>Сумма платежа</value>
   </data>
-  <data name="CardDeposit" xml:space="preserve">
-    <value>Karta: {0}. Na vash schet zachisleno {1}. {2}, {3}. Ostatok: {4}.</value>
+  <data name="BeneficiaryAccountNo" xml:space="preserve">
+    <value>Счет получателя</value>
   </data>
-  <data name="CardError" xml:space="preserve">
-    <value>Karta: {0}. Oshibka operacii: {1}. {2}, {3}. Ostatok: {4}.</value>
+  <data name="BeneficiaryBankCode" xml:space="preserve">
+    <value>Код банка получателя</value>
   </data>
-  <data name="CardWithdrawal" xml:space="preserve">
-    <value>Karta: {0}. S vashego scheta spisano {1}. {2}, {3}. Ostatok: {4}.</value>
+  <data name="BeneficiaryName" xml:space="preserve">
+    <value>Получатель</value>
   </data>
-  <data name="SecurityCode" xml:space="preserve">
-    <value>Vash odnorazovyj parol dlya internet-bankinga: {0}.</value>
+  <data name="BeneficiayTIN" xml:space="preserve">
+    <value>УНП получателя</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
+  <data name="Purpose" xml:space="preserve">
+    <value>Назначение платежа</value>
   </data>
 </root>

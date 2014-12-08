@@ -16,10 +16,9 @@
         };
 
         $scope.validationRules = {
-            login: { required: true },
-            password: { required: true }
+            login: { custom: uiTools.validate.getValidator('required') },
+            password: { custom: uiTools.validate.getValidator('required') }
         };
-
 
         $scope.login = function () {
            
