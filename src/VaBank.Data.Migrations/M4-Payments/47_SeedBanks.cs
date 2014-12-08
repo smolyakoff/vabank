@@ -37,7 +37,15 @@ namespace VaBank.Data.Migrations.M4_Payments
                 .Row(new { Code = "153001742", Name = new ExplicitUnicodeString("ОАО 'БЕЛГАЗПРОМБАНК'") })
                 .Row(new { Code = "153001749", Name = new ExplicitUnicodeString("ОАО 'ПРИОРБАНК'") })
                 .Row(new { Code = "153001755", Name = new ExplicitUnicodeString("ЗАО 'ИДЕЯ БАНК'") })
-                .Row(new { Code = "153001765", Name = new ExplicitUnicodeString("ОАО 'БНБ-БАНК'") });
+                .Row(new { Code = "153001765", Name = new ExplicitUnicodeString("ОАО 'БНБ-БАНК'") })
+                .Row(new { Code = "153001777", Name = new ExplicitUnicodeString("ЗАО 'БИТ-БАНК'") })
+                .Row(new { Code = "153001782", Name = new ExplicitUnicodeString("ОАО 'ПАРИТЕТБАНК'") })
+                .Row(new { Code = "153001820", Name = new ExplicitUnicodeString("ЗАО 'ЦЕПТЕР БАНК'") })
+                .Row(new { Code = "153001830", Name = new ExplicitUnicodeString("ЗАО 'Н.Е.Б. БАНК'") })
+                .Row(new { Code = "153001840", Name = new ExplicitUnicodeString("ЗАО 'БАНК ББМБ'") })
+                .Row(new { Code = "153001888", Name = new ExplicitUnicodeString("ЗАО 'ЕВРОБАНК'") })
+                .Row(new { Code = "153001898", Name = new ExplicitUnicodeString("ЗАО 'АБСОЛЮТБАНК'") })
+                .Row(new { Code = "153001964", Name = new ExplicitUnicodeString("ОАО 'БЕЛАГРОПРОМБАНК'") });
         }
 
         public override void Down()
