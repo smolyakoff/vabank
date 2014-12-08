@@ -18,8 +18,6 @@ namespace VaBank.Core.Payments.Entities
 
         public virtual Currency Currency { get; protected set; }
 
-        public string Name { get; protected set; }
-
         public string Form { get; protected set; }
     }
 }
