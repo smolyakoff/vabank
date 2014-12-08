@@ -13,7 +13,7 @@ namespace VaBank.Core.Membership
 {
     [ValidatorName("userName")]
     [StaticValidator]
-    public class UserNameValidator : ObjectValidator<string>
+    public class UserNameValidator : PropertyValidator<string>
     {
         public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
         {
@@ -24,7 +24,7 @@ namespace VaBank.Core.Membership
 
     [ValidatorName("password")]
     [StaticValidator]
-    public class PasswordValidator : ObjectValidator<string>
+    public class PasswordValidator : PropertyValidator<string>
     {
         private static readonly HashSet<string> WorstPasswords;
 
@@ -49,7 +49,7 @@ namespace VaBank.Core.Membership
 
     [ValidatorName("phone")]
     [StaticValidator]
-    public class PhoneNumberValidator : ObjectValidator<string>
+    public class PhoneNumberValidator : PropertyValidator<string>
     {
         public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
         {
@@ -59,7 +59,7 @@ namespace VaBank.Core.Membership
 
     [ValidatorName("role")]
     [StaticValidator]
-    public class RoleValidator : ObjectValidator<string>
+    public class RoleValidator : PropertyValidator<string>
     {
         public override IRuleBuilderOptions<TContainer, string> Validate<TContainer>(IRuleBuilderOptions<TContainer, string> builder)
         {

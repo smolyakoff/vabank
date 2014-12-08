@@ -28,7 +28,7 @@ namespace VaBank.Common.Validation
         }
 
         public static IRuleBuilderOptions<TContainer, TProperty> UseValidator<TContainer, TProperty>(
-            this IRuleBuilderOptions<TContainer, TProperty> options, ObjectValidator<TProperty> validator)
+            this IRuleBuilderOptions<TContainer, TProperty> options, PropertyValidator<TProperty> validator)
         {
             if (validator == null)
             {
@@ -38,7 +38,7 @@ namespace VaBank.Common.Validation
         }
 
         public static IRuleBuilderOptions<TContainer, TProperty> UseValidator<TContainer, TProperty>(
-            this IRuleBuilderInitial<TContainer, TProperty> options, ObjectValidator<TProperty> validator)
+            this IRuleBuilderInitial<TContainer, TProperty> options, PropertyValidator<TProperty> validator)
         {
             if (validator == null)
             {
@@ -48,13 +48,13 @@ namespace VaBank.Common.Validation
         }
 
         public static IRuleBuilderOptions<TContainer, TProperty> UseValidator<TContainer, TProperty, T>(
-            this IRuleBuilderInitial<TContainer, TProperty> options, Func<TContainer, T> selector, ObjectValidator<T> validator)
+            this IRuleBuilderInitial<TContainer, TProperty> options, Func<TContainer, T> selector, PropertyValidator<T> validator)
         {
             return options.SetValidator(new AdapterValidator<TContainer, T>(selector, validator));
         }
 
         public static IRuleBuilderOptions<TContainer, TProperty> UseValidator<TContainer, TProperty, T>(
-            this IRuleBuilderOptions<TContainer, TProperty> options, Func<TContainer, T> selector, ObjectValidator<T> validator)
+            this IRuleBuilderOptions<TContainer, TProperty> options, Func<TContainer, T> selector, PropertyValidator<T> validator)
         {
             return options.SetValidator(new AdapterValidator<TContainer, T>(selector, validator));
         }

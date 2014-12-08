@@ -20,7 +20,7 @@ namespace VaBank.Services.Infrastructure.Validation
             var validators = Assembly.GetExecutingAssembly().GetTypes()
                 .Union(typeof(Entity).Assembly.GetTypes())
                 .Where(t => t.IsDefined(typeof (ValidatorNameAttribute), false))
-                .Where(t => IsSubclassOfRawGeneric(typeof(ObjectValidator<>), t))
+                .Where(IsValidator)
                 .Select(t => new {type = t, name = t.GetCustomAttribute<ValidatorNameAttribute>().Name})
                 .ToDictionary(x => x.name, x => x.type, StringComparer.OrdinalIgnoreCase);
             Validators = validators;
@@ -78,18 +78,9 @@ namespace VaBank.Services.Infrastructure.Validation
             
         }
 
-        private static bool IsSubclassOfRawGeneric(Type generic, Type toCheck)
+        private static bool IsValidator(Type type)
         {
-            while (toCheck != null && toCheck != typeof (object))
-            {
-                var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
-                if (generic == cur)
-                {
-                    return true;
-                }
-                toCheck = toCheck.BaseType;
-            }
-            return false;
+            return type.GetInterfaces().Contains(typeof (IObjectValidator)) && !type.IsAbstract;
         }
     }
 }

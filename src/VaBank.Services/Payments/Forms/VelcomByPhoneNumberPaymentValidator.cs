@@ -6,7 +6,8 @@ using VaBank.Common.Validation;
 namespace VaBank.Services.Payments.Forms
 {
     [StaticValidator]
-    public class VelcomByPhoneNumberPaymentValidator : AbstractValidator<JObject>
+    [ValidatorName("payment-cell-velcom-phoneno")]
+    public class VelcomByPhoneNumberPaymentValidator : ObjectValidator<JObject>
     {
         public VelcomByPhoneNumberPaymentValidator()
         {

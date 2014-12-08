@@ -8,9 +8,9 @@ namespace VaBank.Common.Validation.Validators
     {
         private readonly Func<TInstance, T> _selector;
 
-        private readonly ObjectValidator<T> _validator;  
+        private readonly PropertyValidator<T> _validator;  
 
-        public AdapterValidator(Func<TInstance, T> selector, ObjectValidator<T> validator) : base("{ValidationMessage}")
+        public AdapterValidator(Func<TInstance, T> selector, PropertyValidator<T> validator) : base("{ValidationMessage}")
         {
             if (selector == null)
             {

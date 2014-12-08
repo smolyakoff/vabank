@@ -171,13 +171,14 @@
     <Compile Include="Util\Randomizer.cs" />
     <Compile Include="Util\Range.cs" />
     <Compile Include="Util\SettingsAttribute.cs" />
+    <Compile Include="Validation\ObjectValidator%271.cs" />
     <Compile Include="Validation\Validators\AdapterValidator.cs" />
     <Compile Include="Validation\Validators\AlwaysTrueValidator.cs" />
     <Compile Include="Validation\Argument.cs" />
     <Compile Include="Validation\ValidationFault.cs" />
     <Compile Include="Validation\IObjectValidator%271.cs" />
     <Compile Include="Validation\IObjectValidator.cs" />
-    <Compile Include="Validation\ObjectValidator%271.cs" />
+    <Compile Include="Validation\PropertyValidator%271.cs" />
     <Compile Include="Validation\StaticValidatorAttribute.cs" />
     <Compile Include="Validation\ValidationExtensions.cs" />
     <Compile Include="Validation\ValidatorNameAttribute.cs" />
