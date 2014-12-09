@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 using VaBank.Core.Payments.Entities;
-using VaBank.Data.EntityFramework.Common;
 
 namespace VaBank.Data.EntityFramework.Payments.Mappings
 {
@@ -13,7 +12,7 @@ namespace VaBank.Data.EntityFramework.Payments.Mappings
             Property(x => x.Form).IsRequired().IsMaxLength();
             //Property(x => x.Name).IsRequired().HasMaxLength(Restrict.Length.BigString);
 
-            HasRequired(x => x.Order).WithRequiredPrincipal().Map(x => x.MapKey("OrderNo"));
+            HasRequired(x => x.Order).WithOptional().Map(x => x.MapKey("OrderNo"));
             HasRequired(x => x.Template).WithMany().Map(x => x.MapKey("TemplateCode"));
         }
     }
