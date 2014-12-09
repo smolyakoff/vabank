@@ -1,9 +1,10 @@
-﻿using VaBank.Core.Payments.Entities;
+﻿using System.Data.Entity.ModelConfiguration;
+using VaBank.Core.Payments.Entities;
 using VaBank.Data.EntityFramework.Common;
 
 namespace VaBank.Data.EntityFramework.Payments.Mappings
 {
-    internal class PaymentOrderMap : BasePaymentOrderMap<PaymentOrder>
+    internal class PaymentOrderMap : EntityTypeConfiguration<PaymentOrder>
     {
         public PaymentOrderMap()
         {

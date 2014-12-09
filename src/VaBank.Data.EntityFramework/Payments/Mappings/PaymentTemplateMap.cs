@@ -10,7 +10,7 @@ namespace VaBank.Data.EntityFramework.Payments.Mappings
             ToTable("PaymentTemplate", "Payments");
             HasKey(x => x.Code);
             Property(x => x.Form).IsRequired().IsMaxLength();
-            HasRequired(x => x.Category).WithRequiredPrincipal();
+            HasRequired(x => x.Category).WithOptional();
         }
     }
 }

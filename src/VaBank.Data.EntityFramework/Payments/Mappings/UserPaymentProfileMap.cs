@@ -12,7 +12,7 @@ namespace VaBank.Data.EntityFramework.Payments.Mappings
             Property(x => x.Address).IsRequired().HasMaxLength(Restrict.Length.BigString);
             Property(x => x.FullName).IsRequired().HasMaxLength(Restrict.Length.Name);
             Property(x => x.PayerTIN).IsRequired().HasMaxLength(Restrict.Length.TIN);
-            HasRequired(x => x.User).WithRequiredPrincipal().Map(x => x.MapKey("UserId"));
+            HasRequired(x => x.User).WithOptional();
         }
     }
 }

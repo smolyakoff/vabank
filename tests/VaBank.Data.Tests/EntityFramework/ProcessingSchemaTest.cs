@@ -16,7 +16,6 @@ namespace VaBank.Data.Tests.EntityFramework
     public class ProcessingSchemaTest: EntityFrameworkTest
     {        
         [TestCategory("Development")]
-        [TestMethod]
         public void Can_VaBank_Context_Save_OperationCategory()
         {
             var context = Context;

@@ -1,9 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Membership.Entities;
 using VaBank.Core.Payments.Entities;
@@ -12,11 +9,9 @@ using VaBank.Data.Tests.EntityFramework.Mocks;
 namespace VaBank.Data.Tests.EntityFramework
 {
     [TestClass]
-    public class PaymentsSchemaTest: EntityFrameworkTest
+    public class PaymentsSchemaTest : EntityFrameworkTest
     {
         [TestCategory("Development")]
-        [TestMethod]
-
         public void Can_VaBank_Context_Save_Payments_Schema_Tables()
         {
             var priorBank = Context.Set<Bank>().Single(x => x.Code == "153001749");
@@ -27,7 +22,7 @@ namespace VaBank.Data.Tests.EntityFramework
             //var 
             long paymentNumber = 123;
 
-            var paymentOrder = new PaymentOrderMock(
+            var paymentOrder = new PaymentOrder(
                 paymentNumber,
                 user.Profile.FirstName + " " + user.Profile.LastName,
                 "153001966",
@@ -40,9 +35,9 @@ namespace VaBank.Data.Tests.EntityFramework
                 String.Format("Пополнение счета. Номер телефона: {0}", user.Profile.PhoneNumber),
                 100000,
                 "BYR",
-                "PAYMENT-CELL-VELCOM-PHONENO");
+                "1234");
 
-            Context.Set<PaymentOrder>().Add(paymentOrder);
+            Context.Set<PaymentOrder>().Add((PaymentOrder)paymentOrder);
             Context.SaveChanges();
 
             //    "153001966",
