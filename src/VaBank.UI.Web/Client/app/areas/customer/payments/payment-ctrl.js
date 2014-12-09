@@ -71,8 +71,10 @@
         };
 
         $scope.validators = {
-            amount: { custom: angular.noop },
-            phoneNo: { custom: angular.noop }
+            form: {
+                amount: { required: true },
+                phoneNo:{ required: true }
+            }
         };
 
         $scope.back = function() {
@@ -80,9 +82,6 @@
         };
 
         $scope.selectTemplate = function(template) {
-            //$scope.template = template;
-            //$scope.template.templateUrl = '/Client/app/areas/customer/payments/templates/' +
-            //    template.code.toLowerCase() + '.html';
             next();
         };
 
