@@ -46,7 +46,7 @@
             if (error.status === 403 && error.data.errorType === 'security') {
                 uiTools.notify({
                     type: 'error',
-                    message: error.data.message
+                    message: "Cтарый пароль введен неверно."
                 });
             }
         };
