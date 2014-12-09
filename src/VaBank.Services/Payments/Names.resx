@@ -129,7 +129,7 @@
   <data name="BeneficiaryName" xml:space="preserve">
     <value>Получатель</value>
   </data>
-  <data name="BeneficiayTIN" xml:space="preserve">
+  <data name="BeneficiaryTIN" xml:space="preserve">
     <value>УНП получателя</value>
   </data>
   <data name="Phone" xml:space="preserve">
