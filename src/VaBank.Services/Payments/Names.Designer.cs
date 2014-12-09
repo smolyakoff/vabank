@@ -99,9 +99,9 @@ namespace VaBank.Services.Payments {
         /// <summary>
         ///   Looks up a localized string similar to УНП получателя.
         /// </summary>
-        public static string BeneficiayTIN {
+        public static string BeneficiaryTIN {
             get {
-                return ResourceManager.GetString("BeneficiayTIN", resourceCulture);
+                return ResourceManager.GetString("BeneficiaryTIN", resourceCulture);
             }
         }
         

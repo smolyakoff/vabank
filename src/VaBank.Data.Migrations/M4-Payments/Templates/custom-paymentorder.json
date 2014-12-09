@@ -34,7 +34,7 @@
             }
         }
     },
-    "beneficiayTIN": {
+    "beneficiaryTIN": {
         "value": "",
         "editor":{
             "name": "text",

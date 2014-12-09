@@ -12,33 +12,42 @@ namespace VaBank.Services.Payments.Forms
             RuleFor(x => x["amount"].Value<decimal>())
                    .GreaterThan(0)
                    .LessThan(5000000)
-                   .WithLocalizedName(() => Names.Amount)
-                   .WithName("Amount");
+                   .WithLocalizedName(() => Names.Amount);
             RuleFor(x => x["beneficiaryAccountNo"].Value<string>())
                 .NotEmpty()
                 .Matches(@"^\d{13}$")
-                .WithLocalizedName(() => Names.BeneficiaryAccountNo)
-                .WithName("BeneficiaryAccountNo");
+                .WithLocalizedName(() => Names.BeneficiaryAccountNo);
             RuleFor(x => x["beneficiaryName"].Value<string>())
                 .NotEmpty()
-                .WithLocalizedName(() => Names.BeneficiaryName)
-                .WithName("BeneficiaryName");
-            RuleFor(x => x["beneficiayTIN"].Value<string>())
+                .WithLocalizedName(() => Names.BeneficiaryName);
+            RuleFor(x => x["beneficiaryTIN"].Value<string>())
                 .NotEmpty()
                 .Matches(@"^\d{9}$")
-                .WithLocalizedName(() => Names.BeneficiayTIN)
-                .WithName("BeneficiayTIN");
+                .WithLocalizedName(() => Names.BeneficiaryTIN);
             RuleFor(x => x["beneficiaryBankCode"].Value<string>())
                 .NotEmpty()
                 .Matches(@"^\d{9}$")
-                .WithLocalizedName(() => Names.BeneficiaryBankCode)
-                .WithName("BeneficiaryBankCode");
+                .WithLocalizedName(() => Names.BeneficiaryBankCode);
             RuleFor(x => x["purpose"].Value<string>())
                 .NotEmpty()
                 .Length(256)
-                .WithLocalizedName(() => Names.Purpose)
-                .WithName("Purpose");
+                .WithLocalizedName(() => Names.Purpose);
 
+        }
+
+        internal class Form
+        {
+            public decimal Amount { get; set; }
+
+            public string BeneficiaryAccountNo { get; set; }
+
+            public string BeneficiaryName { get; set; }
+
+            public string BeneficiaryTIN { get; set; }
+
+            public string BeneficiaryBankCode { get; set; }
+
+            public string Purpose { get; set; }
         }
     }
 }
