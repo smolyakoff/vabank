@@ -5,12 +5,10 @@ using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
-using VaBank.Services.Processing.Operations;
 
-namespace VaBank.Services.Payments
+namespace VaBank.Services.Processing.Operations
 {
     [Injectable]
-    //TODO: move this to processing namespace
     internal class CardPaymentProcessor : TransferProcessor
     {
         public CardPaymentProcessor(BaseOperationProcessorDependencies baseDependencies, IRepository<Transfer> transferRepository)
