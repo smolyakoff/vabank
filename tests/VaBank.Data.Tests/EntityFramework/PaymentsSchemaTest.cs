@@ -12,14 +12,12 @@ namespace VaBank.Data.Tests.EntityFramework
     public class PaymentsSchemaTest : EntityFrameworkTest
     {
         [TestCategory("Development")]
-        public void Can_VaBank_Context_Save_Payments_Schema_Tables()
+        //[TestMethod]
+        public void Can_VaBank_Context_Save_PaymentOrder_And_PaymentTransaction()
         {
             var priorBank = Context.Set<Bank>().Single(x => x.Code == "153001749");
             var priorCorrAcc = Context.Set<CorrespondentAccount>().Single(x => x.AccountNo == "3014153001749");
             var user = Context.Set<User>().Single(x => x.UserName == "terminator");
-            //var payerAccountNo = "3014077960602";
-            //var payerName = "Арнольд Шварцнеггер";
-            //var 
             long paymentNumber = 123;
 
             var paymentOrder = new PaymentOrder(
@@ -37,23 +35,85 @@ namespace VaBank.Data.Tests.EntityFramework
                 "BYR",
                 "1234");
 
-            Context.Set<PaymentOrder>().Add((PaymentOrder)paymentOrder);
+            var cardAccount = Context.Set<CardAccount>().Single(x => x.Owner.Id == user.Id);
+            var card = cardAccount.Cards.First();
+            var currency = Context.Set<Currency>().Single(x => x.ISOName == "BYR");
+
+            var paymentTransaction = new CardPaymentTransaction(
+                paymentOrder,
+                cardAccount.Cards.First(),
+                card.Account,
+                currency,
+                10000,
+                card.Account.Balance,
+                "PAYMENT-CELL-VELCOM-PHONENO",
+                "Пополнение счета. Номер телефона",
+                "location");
+
+            Context.Set<PaymentOrder>().Add(paymentOrder);
+            Context.Set<CardPaymentTransaction>().Add(paymentTransaction);
             Context.SaveChanges();
 
-            //    "153001966",
-            //    "3014077960602",
-            //    "payerTIN",
-            //    "Velcom",
-            //    "153001749",
-            //    "beneficiaryAccountNo",
-            //    "101528843",
-            //    "Мобильная связь",
-            //     100000,
-            //    "BYR",
-            //    "paymentCode"
-            //);
 
+        }
 
+        [TestCategory("Development")]
+        //[TestMethod]
+        public void Can_VaBank_Context_Save_Payment_And_CardPayment()
+        {
+            var priorBank = Context.Set<Bank>().Single(x => x.Code == "153001749");
+            var priorCorrAcc = Context.Set<CorrespondentAccount>().Single(x => x.AccountNo == "3014153001749");
+            long paymentNumber = 123;
+            var user = Context.Set<User>().Single(x => x.UserName == "terminator");
+            var cardAccount = Context.Set<CardAccount>().Single(x => x.Owner.Id == user.Id);
+            var card = cardAccount.Cards.First();
+            var paymentOrder = new PaymentOrder(
+                paymentNumber,
+                user.Profile.FirstName + " " + user.Profile.LastName,
+                "153001966",
+                "3014077960602",
+                "MA1953684",
+                "Velcom",
+                priorBank.Code,
+                "3012202410089",
+                "101528843",
+                String.Format("Пополнение счета. Номер телефона: {0}", user.Profile.PhoneNumber),
+                100000,
+                "BYR",
+                "1234");
+            var paymentTemplate = Context.Set<PaymentTemplate>().Single(x => x.Code == "PAYMENT-CELL-VELCOM-PHONENO");
+            var currency = Context.Set<Currency>().Single(x => x.ISOName == "BYR");
+            var cardPayment = new CardPayment(
+                card,
+                paymentOrder,
+                paymentTemplate,
+                "Арнольд Шварценегерр",
+                paymentTemplate.Code,
+                paymentTemplate.Category,
+                card.Account,
+                priorCorrAcc,
+                currency,
+                100000);
+            Context.Set<CardPayment>().Add(cardPayment);
+            Context.SaveChanges();
+        }
+
+        [TestCategory("Development")]
+        [TestMethod]
+        public void Can_VaBank_Context_Get_PaymentTemplates_And_Can_VaBank_Context_Get_PaymentOrderTemplates_And_()
+        {
+            var paymentTemplates = Context.Set<PaymentTemplate>().ToList();
+            var paymentOrderTemplates = Context.Set<PaymentOrderTemplate>().ToList();
+        }
+
+        [TestCategory("Development")]
+        //[TestMethod]
+        public void Can_VaBank_Context_Save_UserPaymentProfile()
+        {
+            var user = Context.Set<User>().Single(x => x.UserName == "terminator");
+            var userPaymentProfile = new UserPaymentProfile(user, "Арнольд Шварценегерр", "123456789", "Калифорния");
+            Context.Set<UserPaymentProfile>().Add(userPaymentProfile);
+            Context.SaveChanges();
         }
     }
 }
