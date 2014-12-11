@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VaBank.Core.Accounting.Entities;
-using VaBank.Core.Accounting.Factories;
 using VaBank.Core.Processing.Entities;
 using VaBank.Core.Transfers.Entities;
 using VaBank.Data.Tests.EntityFramework.Mocks;
@@ -24,8 +19,8 @@ namespace VaBank.Data.Tests.EntityFramework
             var operatonCategory2 = new OperationCategoryMock("code2", "oc2", "operation category 2");
             var operatonCategory3 = new OperationCategoryMock("code3", "oc3", "operation category 3");
 
-            operatonCategory2.ParentCategory = operatonCategory1;
-            operatonCategory3.ParentCategory = operatonCategory1;
+            operatonCategory2.Parent = operatonCategory1;
+            operatonCategory3.Parent = operatonCategory1;
 
             context.Set<OperationCategory>().Add(operatonCategory1);
             context.Set<OperationCategory>().Add(operatonCategory2);

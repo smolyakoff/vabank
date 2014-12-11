@@ -5,11 +5,9 @@ namespace VaBank.Core.Processing.Entities
 {
     public class OperationCategory : Entity, IReferenceEntity
     {
-        //TODO: children collection
-
         protected OperationCategory()
         {
-            ChildrenCategories = new List<OperationCategory>();
+            Children = new List<OperationCategory>();
         }
 
         public string Code { get; protected set; }
@@ -18,8 +16,8 @@ namespace VaBank.Core.Processing.Entities
 
         public string Description { get; protected set; }
 
-        public virtual OperationCategory ParentCategory { get; set; }
+        public virtual OperationCategory Parent { get; set; }
 
-        public virtual ICollection<OperationCategory> ChildrenCategories { get; set; }
+        public virtual ICollection<OperationCategory> Children { get; set; }
     }
 }

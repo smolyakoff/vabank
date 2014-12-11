@@ -11,7 +11,7 @@ namespace VaBank.Services.Payments
         protected override void Configure()
         {
             CreateMap<PaymentTemplate, PaymentTemplateModel>()
-                .ForMember(x => x.FormTemplate, cfg => cfg.MapFrom(x => JObject.Parse(x.Form)))
+                .ForMember(x => x.FormTemplate, cfg => cfg.MapFrom(x => JObject.Parse(x.FormTemplate)))
                 .ForMember(x => x.Name, cfg => cfg.ResolveUsing(Constructors.PaymentTemplateModelName));
         }
 
@@ -21,12 +21,12 @@ namespace VaBank.Services.Payments
             {
                 var sb = new StringBuilder();
                 var category = obj.Category;
-                while (category.ParentCategory.ParentCategory != null)
+                while (category.Parent.Parent != null)
                 {
                     sb.Insert(0, category.Name);
-                    if (category.ParentCategory != null)
+                    if (category.Parent != null)
                         sb.Insert(0, " / ");
-                    category = category.ParentCategory;
+                    category = category.Parent;
                 }
                 return sb.ToString();
             }

@@ -89,7 +89,7 @@ namespace VaBank.Data.Tests.EntityFramework
                 paymentTemplate,
                 "Арнольд Шварценегерр",
                 paymentTemplate.Code,
-                paymentTemplate.Category,
+                paymentTemplate,
                 card.Account,
                 priorCorrAcc,
                 currency,
@@ -100,14 +100,16 @@ namespace VaBank.Data.Tests.EntityFramework
 
         [TestCategory("Development")]
         [TestMethod]
-        public void Can_VaBank_Context_Get_PaymentTemplates_And_Can_VaBank_Context_Get_PaymentOrderTemplates_And_()
+        public void Can_VaBank_Context_Get_PaymentTemplates_And_PaymentOrderTemplates()
         {
             var paymentTemplates = Context.Set<PaymentTemplate>().ToList();
             var paymentOrderTemplates = Context.Set<PaymentOrderTemplate>().ToList();
+
+            Assert.IsTrue(paymentTemplates.Count > 0);
         }
 
         [TestCategory("Development")]
-        //[TestMethod]
+        [TestMethod]
         public void Can_VaBank_Context_Save_UserPaymentProfile()
         {
             var user = Context.Set<User>().Single(x => x.UserName == "terminator");
