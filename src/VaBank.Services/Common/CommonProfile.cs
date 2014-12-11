@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json.Linq;
 using VaBank.Common.Resources;
 using VaBank.Core.App.Entities;
 using VaBank.Core.Membership.Entities;
@@ -10,6 +11,7 @@ namespace VaBank.Services.Common
     {
         protected override void Configure()
         {
+            CreateMap<string, JObject>().ConvertUsing<JsonTypeConverter>();
             CreateMap<FileLink, Link>();
 
             CreateMap<User, UserNameModel>()

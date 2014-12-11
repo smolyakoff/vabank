@@ -83,6 +83,7 @@
     <Compile Include="Accounting\AccountingProfile.cs" />
     <Compile Include="Accounting\AccountingDependencies.cs" />
     <Compile Include="Accounting\CardAccountService.cs" />
+    <Compile Include="Common\JsonTypeConverter.cs" />
     <Compile Include="Common\Security\AuthenticatedSecurityValidator.cs" />
     <Compile Include="Common\Security\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
