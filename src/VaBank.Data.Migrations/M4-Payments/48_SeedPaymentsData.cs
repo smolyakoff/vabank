@@ -3,12 +3,11 @@ using FluentMigrator;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Resources;
 using System.Text;
-using System.Collections.Generic;
 
 namespace VaBank.Data.Migrations
 {

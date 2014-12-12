@@ -8,7 +8,7 @@ namespace VaBank.Data.EntityFramework.Processing.Mappings
     {
         public OperationCategoryMap()
         {
-            ToTable("OperationCategory", "Processing");
+            ToTable("OperationCategory", "Accounting");
             HasKey(x => x.Code).Property(x => x.Code).HasColumnName("Code");
 
             HasOptional(x => x.Parent).WithMany(x => x.Children).Map(y => y.MapKey("Parent"));

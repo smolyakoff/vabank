@@ -113,6 +113,7 @@
     <Compile Include="M4-Payments\46_Payments.cs" />
     <Compile Include="M4-Payments\47_SeedBanks.cs" />
     <Compile Include="M4-Payments\48_SeedPaymentsData.cs" />
+    <Compile Include="M4-Payments\49_OperationCategoryChanges.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
