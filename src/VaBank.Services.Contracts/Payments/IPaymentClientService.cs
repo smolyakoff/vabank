@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using VaBank.Common.Data;
-using VaBank.Services.Contracts.Infrastructure.Validation;
 using VaBank.Services.Contracts.Payments.Commands;
 using VaBank.Services.Contracts.Payments.Models;
 using VaBank.Services.Contracts.Payments.Queries;
@@ -10,11 +9,7 @@ namespace VaBank.Services.Contracts.Payments
 {
     public interface IPaymentClientService
     {
-        //Need this ASAP
         PaymentTemplateModel GetTemplate(IdentityQuery<string> code);
-
-        //Need this ASAP
-        ValidationResultModel Validate(ValidateFormCommand command);
  
         BankOperationModel Submit(SubmitPaymentCommand command);
 

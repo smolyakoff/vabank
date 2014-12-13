@@ -1,6 +1,5 @@
 ﻿{
     "amount": {
-        "value": 0,
         "editor": {
             "name": "currency",
             "options": {
@@ -12,7 +11,6 @@
         }
     },
     "phoneNo": {
-        "value": "",
         "editor": {
             "name": "masked-text",
             "options": {

@@ -6,7 +6,7 @@ namespace VaBank.Services.Contracts.Payments.Models
     {
         public string Code { get; set; }
 
-        public string Name { get; set; }
+        public string HierarchicalName { get; set; }
 
         public JObject FormTemplate { get; set; }
     }

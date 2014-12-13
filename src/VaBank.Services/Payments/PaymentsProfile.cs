@@ -9,7 +9,7 @@ namespace VaBank.Services.Payments
         protected override void Configure()
         {  
             CreateMap<PaymentTemplate, PaymentTemplateModel>()
-                .ForMember(x => x.Name, cfg => cfg.MapFrom(x => x.HierarchicalName));
+                .ForMember(x => x.HierarchicalName, cfg => cfg.MapFrom(x => x.HierarchicalName));
         }
     }
 }

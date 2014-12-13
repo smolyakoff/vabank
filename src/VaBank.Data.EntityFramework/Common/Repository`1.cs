@@ -18,6 +18,8 @@ namespace VaBank.Data.EntityFramework.Common
     {
         protected readonly DbContext Context;
 
+        protected readonly string[] Includes;
+
         public Repository(DbContext context)
         {
             if (context == null)
@@ -25,6 +27,10 @@ namespace VaBank.Data.EntityFramework.Common
                 throw new ArgumentNullException("context", "DbContext should not be empty");
             }
             Context = context;
+            var includeAttribute = typeof (TEntity).GetCustomAttribute<IncludeAttribute>();
+            Includes = includeAttribute == null 
+                ? new string[0] 
+                : includeAttribute.Included;
         }
 
         public virtual TEntity Find(params object[] keys)
@@ -33,20 +39,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("keys");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().Find(keys));
-        }
-
-        public TEntity FindWithInclude(params object[] keys)
-        {
-            if (keys == null)
-            {
-                throw new ArgumentNullException("keys");
-            }
-            return EnsureRepositoryException(() =>
-            {
-                var entity = Context.Set<TEntity>().Find(keys);
-                return entity == null ? null : WithIncludeProperties(entity);
-            });
+            return EnsureRepositoryException(() => Context.Find<TEntity>(Includes, keys));
         }
 
         public virtual TModel FindAndProject<TModel>(params object[] keys) where TModel : class
@@ -55,7 +48,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("keys");
             }
-            return EnsureRepositoryException(() => Mapper.Map<TEntity, TModel>(Context.Set<TEntity>().Find(keys)));
+            return EnsureRepositoryException(() => Mapper.Map<TEntity, TModel>(Context.Find<TEntity>(Includes, keys)));
         }
 
         public virtual void Create(TEntity entity)
@@ -88,12 +81,12 @@ namespace VaBank.Data.EntityFramework.Common
 
         public virtual IList<TEntity> FindAll()
         {
-            return EnsureRepositoryException(() => Context.Set<TEntity>().ToList());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).ToList());
         }
 
         public virtual IList<TModel> ProjectAll<TModel>() where TModel : class
         {
-            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Project().To<TModel>().ToList());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).AsQueryable().Project().To<TModel>().ToList());
         }
 
         public virtual IList<T> SelectAll<T>(Expression<Func<TEntity, T>> selector)
@@ -102,7 +95,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("selector");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().Select(selector).ToList());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).Select(selector).ToList());
         } 
 
         public virtual IList<TEntity> Query(IQuery query)
@@ -111,7 +104,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).ToList());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).AsQueryable().Query(query).ToList());
         }
 
         public virtual long Delete(IQuery query)
@@ -120,7 +113,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).Delete());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).AsQueryable().Query(query).Delete());
         }
 
         public virtual long Count(IQuery query)
@@ -129,12 +122,12 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).Count());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).AsQueryable().Query(query).Count());
         }
 
         public virtual long Count()
         {
-            return EnsureRepositoryException(() => Context.Set<TEntity>().Count());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).Count());
         }
 
         public virtual IPagedList<TEntity> QueryPage(IQuery query)
@@ -143,7 +136,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().QueryPage(query));
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).AsQueryable().QueryPage(query));
         }
 
         public virtual IList<TModel> Project<TModel>(IQuery query) where TModel : class
@@ -152,7 +145,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).Project().To<TModel>().ToList());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).AsQueryable().Query(query).Project().To<TModel>().ToList());
         }
 
         public virtual IList<T> Select<T>(IQuery query, Expression<Func<TEntity, T>> selector)
@@ -161,7 +154,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Query(query).Select(selector).ToList());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).AsQueryable().Query(query).Select(selector).ToList());
         } 
 
         public virtual IPagedList<TModel> ProjectPage<TModel>(IQuery query) where TModel : class
@@ -170,7 +163,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => MapPage<TModel>(Context.Set<TEntity>().AsQueryable().QueryPage(query)));
+            return EnsureRepositoryException(() => MapPage<TModel>(Context.SetIncluding<TEntity>(Includes).AsQueryable().QueryPage(query)));
         }
 
         public virtual IList<TModel> ProjectThenQuery<TModel>(IQuery query) where TModel : class
@@ -179,7 +172,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Project().To<TModel>().Query(query).ToList());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).AsQueryable().Project().To<TModel>().Query(query).ToList());
         }
 
         public virtual IPagedList<TModel> ProjectThenQueryPage<TModel>(IQuery query) where TModel : class
@@ -188,7 +181,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().AsQueryable().Project().To<TModel>().QueryPage(query));
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).AsQueryable().Project().To<TModel>().QueryPage(query));
         }
 
         private IPagedList<TModel> MapPage<TModel>(IPagedList<TEntity> page) where TModel : class
@@ -207,7 +200,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().Where(filter).Query(query).ToList());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).Where(filter).Query(query).ToList());
         }
 
         public IPagedList<TEntity> PartialQueryPage(Expression<Func<TEntity, bool>> filter, IQuery query)
@@ -220,7 +213,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().Where(filter).QueryPage(query));
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).Where(filter).QueryPage(query));
         }
 
         public IList<TModel> PartialProject<TModel>(Expression<Func<TEntity, bool>> filter, IQuery query) where TModel : class
@@ -233,7 +226,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().Where(filter).Query(query).Project().To<TModel>().ToList());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).Where(filter).Query(query).Project().To<TModel>().ToList());
         }
 
         public IPagedList<TModel> PartialProjectPage<TModel>(Expression<Func<TEntity, bool>> filter, IQuery query) where TModel : class
@@ -246,7 +239,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => MapPage<TModel>(Context.Set<TEntity>().Where(filter).QueryPage(query)));
+            return EnsureRepositoryException(() => MapPage<TModel>(Context.SetIncluding<TEntity>(Includes).Where(filter).QueryPage(query)));
         }
 
         public IList<TModel> PartialProjectThenQuery<TModel>(Expression<Func<TEntity, bool>> filter, IQuery query) where TModel : class
@@ -259,7 +252,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().Where(filter).Project().To<TModel>().Query(query).ToList());
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).Where(filter).Project().To<TModel>().Query(query).ToList());
         }
 
         public IPagedList<TModel> PartialProjectThenQueryPage<TModel>(Expression<Func<TEntity, bool>> filter, IQuery query) where TModel : class
@@ -272,7 +265,7 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new ArgumentNullException("query");
             }
-            return EnsureRepositoryException(() => Context.Set<TEntity>().Where(filter).Project().To<TModel>().QueryPage(query));
+            return EnsureRepositoryException(() => Context.SetIncluding<TEntity>(Includes).Where(filter).Project().To<TModel>().QueryPage(query));
         }
 
         protected T EnsureRepositoryException<T>(Func<T> call)
@@ -289,40 +282,6 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new RepositoryException(ex.Message, ex);
             }
-        }
-
-        private TEntity WithIncludeProperties(TEntity entity)
-        {
-            var type = typeof (TEntity);
-            var attribute = type.GetCustomAttribute<IncludeAttribute>();
-            if (attribute == null) return entity;
-            var entry = Context.Entry(entity);
-            
-            foreach (var propertyName in attribute.IncludedProperies)
-            {
-                var propertyType = type.GetRuntimeProperty(propertyName).PropertyType;
-                bool isCollection;
-                if (propertyType.IsInterface && propertyType.IsGenericType)
-                {
-                    isCollection = propertyType.GetGenericTypeDefinition() == typeof (ICollection<>);
-                }
-                else
-                {
-                    isCollection =
-                        propertyType.GetInterfaces()
-                            .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof (ICollection<>));
-                }
-
-                if (isCollection)
-                {
-                    entry.Collection(propertyName).Load();
-                }
-                else
-                {
-                    entry.Reference(propertyName).Load();
-                }
-            }
-            return entry.Entity;
         }
     }
 }
