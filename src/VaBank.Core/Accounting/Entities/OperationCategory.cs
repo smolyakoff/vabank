@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using VaBank.Core.Common;
 
-namespace VaBank.Core.Processing.Entities
+namespace VaBank.Core.Accounting.Entities
 {
     public class OperationCategory : Entity, IReferenceEntity
     {

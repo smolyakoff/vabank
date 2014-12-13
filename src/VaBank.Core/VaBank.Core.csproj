@@ -84,7 +84,7 @@
     <Compile Include="Processing\Entities\HistoricalTransactionSpecification.cs" />
     <Compile Include="Processing\Entities\IBankOperation.cs" />
     <Compile Include="Processing\Entities\ITransaction.cs" />
-    <Compile Include="Processing\Entities\OperationCategory.cs" />
+    <Compile Include="Accounting\Entities\OperationCategory.cs" />
     <Compile Include="Processing\Entities\ProcessStatus.cs" />
     <Compile Include="Processing\Entities\Transaction.cs" />
     <Compile Include="Processing\Entities\TransactionType.cs" />

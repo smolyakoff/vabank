@@ -1,8 +1,9 @@
 ﻿using System.Data.Entity.ModelConfiguration;
+using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Processing.Entities;
 using VaBank.Data.EntityFramework.Common;
 
-namespace VaBank.Data.EntityFramework.Processing.Mappings
+namespace VaBank.Data.EntityFramework.Accounting.Mappings
 {
     public class OperationCategoryMap: EntityTypeConfiguration<OperationCategory>
     {

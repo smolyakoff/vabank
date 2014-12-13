@@ -108,7 +108,7 @@
     <Compile Include="Processing\Mappings\CardTransferMap.cs" />
     <Compile Include="Processing\Mappings\ExchangeRateMap.cs" />
     <Compile Include="Processing\Mappings\HistoricalTransactionMap.cs" />
-    <Compile Include="Processing\Mappings\OperationCategoryMap.cs" />
+    <Compile Include="Accounting\Mappings\OperationCategoryMap.cs" />
     <Compile Include="Processing\Mappings\OperationMap.cs" />
     <Compile Include="Processing\Mappings\TransactionMap.cs" />
     <Compile Include="Processing\Mappings\CardTransactionMap.cs" />

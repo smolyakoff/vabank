@@ -1,4 +1,5 @@
-﻿using VaBank.Core.Processing.Entities;
+﻿using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Data.Tests.EntityFramework.Mocks
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using VaBank.Common.Validation;
+using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Common;
 
 namespace VaBank.Core.Processing.Entities

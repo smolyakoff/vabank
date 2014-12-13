@@ -1,4 +1,5 @@
 ﻿using System;
+using VaBank.Core.Accounting.Entities;
 
 namespace VaBank.Core.Processing.Entities
 {
