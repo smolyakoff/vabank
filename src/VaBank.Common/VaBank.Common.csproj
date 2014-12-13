@@ -75,6 +75,7 @@
     <Compile Include="Data\PagedDbQuery.cs" />
     <Compile Include="Data\Paging\ClientPage.cs" />
     <Compile Include="Data\Repositories\ConcurrencyException.cs" />
+    <Compile Include="Data\Repositories\IncludeAttribute.cs" />
     <Compile Include="Data\Repositories\IPartialQueryRepository.cs" />
     <Compile Include="Data\Repositories\IQueryRepository%271.cs" />
     <Compile Include="Data\Repositories\IRepository`1.cs" />

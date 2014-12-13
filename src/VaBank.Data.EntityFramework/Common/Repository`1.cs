@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using EntityFramework.Extensions;
@@ -33,6 +34,19 @@ namespace VaBank.Data.EntityFramework.Common
                 throw new ArgumentNullException("keys");
             }
             return EnsureRepositoryException(() => Context.Set<TEntity>().Find(keys));
+        }
+
+        public TEntity FindWithInclude(params object[] keys)
+        {
+            if (keys == null)
+            {
+                throw new ArgumentNullException("keys");
+            }
+            return EnsureRepositoryException(() =>
+            {
+                var entity = Context.Set<TEntity>().Find(keys);
+                return entity == null ? null : WithIncludeProperties(entity);
+            });
         }
 
         public virtual TModel FindAndProject<TModel>(params object[] keys) where TModel : class
@@ -275,6 +289,40 @@ namespace VaBank.Data.EntityFramework.Common
             {
                 throw new RepositoryException(ex.Message, ex);
             }
+        }
+
+        private TEntity WithIncludeProperties(TEntity entity)
+        {
+            var type = typeof (TEntity);
+            var attribute = type.GetCustomAttribute<IncludeAttribute>();
+            if (attribute == null) return entity;
+            var entry = Context.Entry(entity);
+            
+            foreach (var propertyName in attribute.IncludedProperies)
+            {
+                var propertyType = type.GetRuntimeProperty(propertyName).PropertyType;
+                bool isCollection;
+                if (propertyType.IsInterface && propertyType.IsGenericType)
+                {
+                    isCollection = propertyType.GetGenericTypeDefinition() == typeof (ICollection<>);
+                }
+                else
+                {
+                    isCollection =
+                        propertyType.GetInterfaces()
+                            .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof (ICollection<>));
+                }
+
+                if (isCollection)
+                {
+                    entry.Collection(propertyName).Load();
+                }
+                else
+                {
+                    entry.Reference(propertyName).Load();
+                }
+            }
+            return entry.Entity;
         }
     }
 }

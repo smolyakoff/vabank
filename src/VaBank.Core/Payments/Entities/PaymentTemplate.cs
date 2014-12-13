@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using VaBank.Common.Data.Repositories;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Core.Payments.Entities
 {
+    [Include("Parent", "Children")]
     public class PaymentTemplate : OperationCategory
     {
         internal PaymentTemplate()
