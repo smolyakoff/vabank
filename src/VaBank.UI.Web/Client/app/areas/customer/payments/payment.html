@@ -10,14 +10,13 @@
                     </div>
                 </div>
             </wz-step>
-            <form data-form-for="payment" data-controller="paymentController" data-validation-rules="validators">
+            <form data-form-for="payment" data-controller="paymentController" data-validation-rules="validators" data-submit-with="approve()">
                 <wz-step>
                     <div class="panel panel-wizard panel-warning">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Мобильная связь / Velcom / По номеру телефона</h3>
+                            <h3 class="panel-title">{{template.hierarchicalName}}</h3>
                         </div>
                         <div class="panel-body">
-
                             <div class="row">
                                 <div class="col-xs-6">
                                     <h6 class="text-primary wizard-subtitle">Карта</h6>
@@ -28,7 +27,7 @@
                                         <div class="col-xs-11">
                                             <div class="row">
                                                 <div class="col-lg-2">
-                                                    <img class="img img-responsive card-logo" ng-src="{{card.cardVendor.image}}" />
+                                                    <img class="img img-responsive card-logo" ng-src="{{card.cardVendor.image}}"/>
                                                 </div>
                                                 <div class="col-lg-8">
                                                     <b class="initialism">
@@ -43,7 +42,7 @@
                                 </div>
                                 <div class="col-xs-6">
                                     <h6 class="text-primary wizard-subtitle">Параметры платежа</h6>
-                                    <dynamic-field data-ng-repeat="(attribute, field) in template.form" 
+                                    <dynamic-field data-ng-repeat="(attribute, field) in template.formTemplate"
                                                    data-ng-if="attribute !== 'amount'"
                                                    attribute="form.{{attribute}}"
                                                    template="{{field.editor.name}}"
@@ -55,7 +54,7 @@
                                 <div class="col-xs-12">
                                     <dynamic-field template="currency"
                                                    attribute="form.amount"
-                                                   options="template.form.amount.editor.options">
+                                                   options="template.formTemplate.amount.editor.options">
                                     </dynamic-field>
                                 </div>
                             </div>
@@ -77,7 +76,7 @@
                                     </h6>
                                     <div class="row">
                                         <div class="col-lg-2">
-                                            <img class="img img-responsive card-logo" ng-src="{{card.cardVendor.image}}" />
+                                            <img class="img img-responsive card-logo" ng-src="{{card.cardVendor.image}}"/>
                                         </div>
                                         <div class="col-lg-8">
                                             <b class="initialism">
@@ -107,15 +106,27 @@
                                     <h6 class="text-primary wizard-subtitle">
                                         Информация о платеже
                                     </h6>
-                                    <table class="table table-responsive">
-                                        <tr data-ng-repeat="(key, property) in payment.form">
-                                            <td>{{property.name}}</td>
-                                            <td>{{property.value}}</td>
+                                    <table class="table table-responsive payment-fields">
+                                        <tr>
+                                            <td colspan="2" class="text-muted">
+                                                {{template.hierarchicalName}}
+                                            </td>
+                                        </tr>
+                                        <tr data-ng-repeat="(key, property) in template.formTemplate"
+                                            data-ng-switch="property.editor.name">
+                                            <td>
+                                                {{property.editor.options.label}}
+                                            </td>
+                                            <td data-ng-switch-when="currency">
+                                                {{payment.form[key] | extcurrency:'':property.editor.options.precision}}
+                                                {{property.editor.options.isoName}}
+                                            </td>
+                                            <td data-ng-switch-default="">{{payment.form[key]}}</td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-xs-6">
                                     <a class="btn btn-default" ng-show="!smsConfirmationEnabled || !smsCodeSent" ng-click="back()">
@@ -134,10 +145,46 @@
                             </div>
                         </div>
                     </div>
-
-                        
-</wz-step>
+                </wz-step>
             </form>
+            <wz-step>
+                <div class="panel panel-wizard panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Операция подписана</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>Операция подписана. В течение 3-х минут будет произведена попытка ее выполнить.</p>
+                        <p>Просмотреть статус операции можно с <a ui-sref="customer.cards.accountStatement">выписке по счету</a>.</p>
+                        <button class="btn btn-primary" ui-sref="customer.cards.list">
+                            Перейти к моим картам
+                        </button>
+                    </div>
+                </div>
+            </wz-step>
+            <wz-step>
+                <div class="panel panel-wizard panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Ошибка операции</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>Во время операции произошла ошибка: </p>
+                        <div class="text-danger">
+                            <div data-ng-repeat="message in errorMessages">
+                                {{message}}
+                            </div>
+                        </div>
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-default" ui-sref="customer.cards.list">
+                                Перейти к моим картам
+                            </button>
+                            <button class="btn btn-primary" data-ng-click="cancel()">
+                                Попробовать заново
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </wz-step>
         </wizard>
     </div>
 </section>

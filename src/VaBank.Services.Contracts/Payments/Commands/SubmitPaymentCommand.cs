@@ -17,7 +17,7 @@ namespace VaBank.Services.Contracts.Payments.Commands
 
         public decimal Amount
         {
-            get { return Form["amount"]["value"].Value<decimal>(); }
+            get { return Form["amount"].Value<decimal>(); }
         }
     }
 }

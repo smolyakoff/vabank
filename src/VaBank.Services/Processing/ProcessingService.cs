@@ -1,11 +1,11 @@
 ﻿using System;
-using NLog;
-
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.Validation;
+using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
+using VaBank.Services.Contracts.Accounting.Models;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Processing;
 using VaBank.Services.Contracts.Processing.Commands;
@@ -18,8 +18,6 @@ namespace VaBank.Services.Processing
     public class ProcessingService : BaseService, IProcessingService
     {
         private readonly ProcessingServiceDependencies _deps;
-
-        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public ProcessingService(BaseServiceDependencies baseDepenendencies, ProcessingServiceDependencies processingServiceDependencies) 
             : base(baseDepenendencies)

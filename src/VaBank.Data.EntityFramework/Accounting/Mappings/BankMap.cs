@@ -9,7 +9,7 @@ namespace VaBank.Data.EntityFramework.Accounting.Mappings
         public BankMap()
         {
             ToTable("Bank", "Accounting").HasKey(x => x.Code);
-            HasOptional(x => x.Parent).WithMany(x => x.ChildrenBanks).Map(x => x.MapKey("Parent"));
+            HasOptional(x => x.Parent).WithMany(x => x.Departments).Map(x => x.MapKey("Parent"));
             Property(x => x.Name).IsRequired().HasMaxLength(Restrict.Length.Name);
         }
     }

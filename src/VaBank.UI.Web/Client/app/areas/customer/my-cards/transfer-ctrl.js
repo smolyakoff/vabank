@@ -29,7 +29,7 @@
         };
 
         var isVabankTransfer = function (value, model) {
-            return model.cardSource == 'vabank';
+            return model.cardSource === 'vabank';
         };
 
         var getSourceCard = function() {
@@ -43,7 +43,7 @@
         var minimalAmounts = data.lookup.minimalAmountsByCurrency;
 
         $scope.cards = data.cards;
-        $scope.cannotDoPersonalTransfer = data.cards.length == 1 || _.all(data.cards, function(x) {
+        $scope.cannotDoPersonalTransfer = data.cards.length === 1 || _.all(data.cards, function(x) {
             return x.accountNo === $scope.cards[0].accountNo;
         });
         
@@ -87,7 +87,7 @@
             securityCode: {
                 code: {
                     custom: validate.getConditionalValidator('required', function () {
-                        return $scope.smsConfirmationEnabled && currentStep() == 'approve';
+                        return $scope.smsConfirmationEnabled && currentStep() === 'approve';
                     })
                 }
             },
@@ -174,7 +174,7 @@
             }
 
             var transfer = {
-                type: $scope.transferForm.cardSource == 'my' ? 'personal' : 'interbank',
+                type: $scope.transferForm.cardSource === 'my' ? 'personal' : 'interbank',
                 fromCardId: $scope.transferForm.fromCardId,
                 amount: $scope.transferForm.amount
             };

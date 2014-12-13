@@ -132,6 +132,9 @@
   <data name="BeneficiaryTIN" xml:space="preserve">
     <value>УНП получателя</value>
   </data>
+  <data name="PaymentCode" xml:space="preserve">
+    <value>Код платежа</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>Номер телефона</value>
   </data>

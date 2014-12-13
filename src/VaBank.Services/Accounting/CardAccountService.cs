@@ -6,6 +6,7 @@ using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Accounting;
@@ -16,7 +17,7 @@ using VaBank.Services.Contracts.Accounting.Queries;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Common.Models;
-using VaBank.Services.Contracts.Processing.Queries;
+using VaBank.Services.Contracts.Processing.Models;
 
 namespace VaBank.Services.Accounting
 {
@@ -334,6 +335,40 @@ namespace VaBank.Services.Accounting
             catch (Exception ex)
             {
                 throw new ServiceException("Can't get card account statement.", ex);
+            }
+        }
+
+        public AccountBalanceModel GetCardBalance(CardBalanceQuery query)
+        {
+            EnsureIsValid(query);
+            try
+            {
+                var account = _deps.UserCards.SurelyFind(query.Id).Account;
+                if (account == null)
+                {
+                    throw new InvalidOperationException("Card should be bound to the account.");
+                }
+                var currency = string.IsNullOrEmpty(query.CurrencyISOName)
+                    ? account.Currency
+                    : _deps.Currencies.Find(query.CurrencyISOName);
+                var balanceMoney = new Money(account.Currency, account.Balance);
+                var balance = new AccountBalanceModel
+                {
+                    AccountNo = account.AccountNo,
+                    AccountBalance = account.Balance,
+                    AccountCurrency = account.Currency.ToModel<CurrencyModel>(),
+                    RequestedCurrency = currency.ToModel<CurrencyModel>(),
+                    RequestedBalance = _deps.MoneyConverter.Convert(balanceMoney, currency.ISOName).Amount
+                };
+                return balance;
+            }
+            catch (ServiceException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get account balance.", ex);
             }
         }
     }

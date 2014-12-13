@@ -1,5 +1,4 @@
 ﻿using System;
-
 using VaBank.Common.Data;
 using VaBank.Services.Contracts.Processing.Commands;
 using VaBank.Services.Contracts.Processing.Models;

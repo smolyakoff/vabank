@@ -4,7 +4,8 @@ using VaBank.Common.Data;
 using VaBank.Common.Util;
 using VaBank.Services.Contracts.Accounting;
 using VaBank.Services.Contracts.Accounting.Commands;
-using VaBank.Services.Contracts.Processing.Queries;
+using VaBank.Services.Contracts.Accounting.Models;
+using VaBank.Services.Contracts.Accounting.Queries;
 using VaBank.UI.Web.Api.Infrastructure.Filters;
 
 namespace VaBank.UI.Web.Api.Customer
@@ -58,6 +59,13 @@ namespace VaBank.UI.Web.Api.Customer
                 DateRange = new Range<DateTime>(from.ToUniversalTime(), to.ToUniversalTime())
             };
             return Ok(_cardAccountService.GetCardAccountStatement(query));
+        }
+
+        [Route("api/cards/{id:guid}/balance/{currencyISOName}")]
+        [HttpGet]
+        public IHttpActionResult Balance([FromUri] CardBalanceQuery query)
+        {
+            return Ok(_cardAccountService.GetCardBalance(query));
         }
     }
 }

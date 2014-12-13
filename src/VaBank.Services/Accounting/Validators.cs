@@ -8,6 +8,7 @@ using VaBank.Core.Accounting;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Accounting.Factories;
 using VaBank.Services.Contracts.Accounting.Commands;
+using VaBank.Services.Contracts.Accounting.Models;
 
 namespace VaBank.Services.Accounting
 {
@@ -167,6 +168,15 @@ namespace VaBank.Services.Accounting
         public SetCardBlockCommandValidator()
         {
             RuleFor(x => x.CardId).NotEqual(Guid.Empty);
+        }
+    }
+
+    internal class CardBalanceQueryValidator : AbstractValidator<CardBalanceQuery>
+    {
+        public CardBalanceQueryValidator()
+        {
+            RuleFor(x => x.Id).NotEqual(Guid.Empty);
+            RuleFor(x => x.CurrencyISOName).Length(3).When(x => x.CurrencyISOName != null);
         }
     }
 }

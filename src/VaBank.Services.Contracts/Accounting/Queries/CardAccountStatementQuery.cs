@@ -1,7 +1,7 @@
 ﻿using System;
 using VaBank.Common.Util;
 
-namespace VaBank.Services.Contracts.Processing.Queries
+namespace VaBank.Services.Contracts.Accounting.Queries
 {
     public class CardAccountStatementQuery
     {

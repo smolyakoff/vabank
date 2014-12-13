@@ -7,3 +7,13 @@
         padding: 8px;
     }
 }
+
+.payment-fields {
+    tbody > tr > td {
+        border-top: none;
+        border-bottom: 1px solid $table-border-color;
+        &:first-child {
+            font-weight: bold;
+        }
+    }
+}

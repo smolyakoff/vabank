@@ -3,7 +3,7 @@ using VaBank.Common.Data;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Processing.Entities;
-using VaBank.Services.Contracts.Processing.Queries;
+using VaBank.Services.Contracts.Accounting.Queries;
 
 namespace VaBank.Services.Accounting
 {

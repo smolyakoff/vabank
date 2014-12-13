@@ -25,5 +25,12 @@ namespace VaBank.UI.Web.Api.Customer
             var template = _paymentService.GetTemplate(id);
             return Ok(template);
         }
+
+        [HttpPost]
+        [Route]
+        public IHttpActionResult Submit(SubmitPaymentCommand command)
+        {
+            return Ok(_paymentService.Submit(command));
+        }
     }
 }

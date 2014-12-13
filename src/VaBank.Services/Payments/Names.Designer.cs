@@ -106,6 +106,15 @@ namespace VaBank.Services.Payments {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Код платежа.
+        /// </summary>
+        public static string PaymentCode {
+            get {
+                return ResourceManager.GetString("PaymentCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Номер телефона.
         /// </summary>
         public static string Phone {

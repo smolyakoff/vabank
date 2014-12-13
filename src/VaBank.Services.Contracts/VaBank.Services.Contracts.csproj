@@ -55,6 +55,7 @@
     <Compile Include="Accounting\Commands\SetCardBlockCommand.cs" />
     <Compile Include="Accounting\Commands\UpdateCardSettingsCommand.cs" />
     <Compile Include="Accounting\Events\UserCardLimitChanged.cs" />
+    <Compile Include="Accounting\Models\AccountBalanceModel.cs" />
     <Compile Include="Accounting\Models\CardAccountStatementItemModel.cs" />
     <Compile Include="Accounting\Models\CardAccountStatementModel.cs" />
     <Compile Include="Accounting\Models\CardNameModel.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Maintenance\Models\TransactionLogEntryHistoricalModel.cs" />
     <Compile Include="Maintenance\Models\TransactionLogEntryModel.cs" />
     <Compile Include="Maintenance\Queries\TransactionLogQuery.cs" />
+    <Compile Include="Accounting\Models\CardBalanceQuery.cs" />
     <Compile Include="Transfers\Commands\PersonalCardTransferCommand.cs" />
     <Compile Include="Transfers\Commands\InterbankCardTransferCommand.cs" />
     <Compile Include="Processing\Commands\ProcessBankOperationCommand.cs" />
@@ -184,7 +186,7 @@
     <Compile Include="Processing\Models\TransactionModel.cs" />
     <Compile Include="Transfers\Models\CardTransferLookupModel.cs" />
     <Compile Include="Processing\Models\TransactionProcessingResult.cs" />
-    <Compile Include="Processing\Queries\CardAccountStatementQuery.cs" />
+    <Compile Include="Accounting\Queries\CardAccountStatementQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Validation\ValidationException.cs" />
   </ItemGroup>
@@ -199,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\Queries\" />
+    <Folder Include="Processing\Queries\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Common\Resources\Messages.resx">

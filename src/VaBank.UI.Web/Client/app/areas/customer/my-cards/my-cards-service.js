@@ -17,18 +17,22 @@
             query: {
                 url: '/api/users/:userId/cards',
                 isArray: true,
-                params: { userId: getUserId },
+                params: { userId: getUserId }
             },
             updateSettings : {
                 url: '/api/cards/:cardId/settings',
-                method: 'PUT',
+                method: 'PUT'
             },
             block: {
                 url: '/api/cards/:cardId/block',
-                method: 'POST',
+                method: 'POST'
             },
             statement: {
                 url: '/api/cards/:cardId/statement',
+                method: 'GET'
+            },
+            balance: {
+                url: '/api/cards/:cardId/balance/:currencyIsoName',
                 method: 'GET'
             }
         });

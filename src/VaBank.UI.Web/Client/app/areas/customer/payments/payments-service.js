@@ -9,7 +9,11 @@
 
     function paymentService($q, $resource, $http, validationService, myCardsService) {
 
-        var Payment = $resource('/api/payments/:code', { code: '@code' }, {            
+        var Payment = $resource('/api/payments/:code', { code: '@code' }, {
+           create: {
+               method: 'POST',
+               url: '/api/payments'
+           },
            getTemplate: {
                url: '/api/payments/:code/template',
                method: 'GET'
@@ -17,13 +21,21 @@
         });
 
         var PaymentForm = (function () {
+            var parseValidator = function(options, key) {
+                if (key === 'pattern') {
+                    options.rule = new RegExp(options.rule);
+                }
+                return [key, options];
+            }
+
             var create = function (formTemplate) {
                 var form = {};
                 var validators = {};
-                _.each(formTemplate, function(template, key) {
-                    form[key] = template.value;
-                    if (_.isObject(template.editor.validation)) {
-                        validators[key] = template.editor.validation;
+                _.each(formTemplate, function (template, key) {
+                    form[key] = template.default;
+                    var validation = template.editor.options.validation;
+                    if (_.isObject(validation)) {
+                        validators[key] = _.object(_.map(validation, parseValidator));
                     }
                 });
                 return {

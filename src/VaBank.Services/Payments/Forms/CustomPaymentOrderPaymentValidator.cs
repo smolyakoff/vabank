@@ -1,41 +1,45 @@
 ﻿using FluentValidation;
-using Newtonsoft.Json.Linq;
 using VaBank.Common.Validation;
 
 namespace VaBank.Services.Payments.Forms
 {
     [ValidatorName("payment-custom-paymentorder")]
-    public class CustomPaymentOrderPaymentValidator : AbstractValidator<JObject>
+    public class CustomPaymentOrderPaymentValidator : ObjectValidator<CustomPaymentOrderPaymentValidator.Form>
     {
         public CustomPaymentOrderPaymentValidator()
         {
-            RuleFor(x => x["amount"].Value<decimal>())
+            RuleFor(x => x.Amount)
                    .GreaterThan(0)
                    .LessThan(5000000)
                    .WithLocalizedName(() => Names.Amount);
-            RuleFor(x => x["beneficiaryAccountNo"].Value<string>())
+            RuleFor(x => x.BeneficiaryAccountNo)
                 .NotEmpty()
                 .Matches(@"^\d{13}$")
                 .WithLocalizedName(() => Names.BeneficiaryAccountNo);
-            RuleFor(x => x["beneficiaryName"].Value<string>())
+            RuleFor(x => x.BeneficiaryName)
                 .NotEmpty()
+                .Length(1, 256)
                 .WithLocalizedName(() => Names.BeneficiaryName);
-            RuleFor(x => x["beneficiaryTIN"].Value<string>())
+            RuleFor(x => x.BeneficiaryTIN)
                 .NotEmpty()
                 .Matches(@"^\d{9}$")
                 .WithLocalizedName(() => Names.BeneficiaryTIN);
-            RuleFor(x => x["beneficiaryBankCode"].Value<string>())
+            RuleFor(x => x.BeneficiaryBankCode)
                 .NotEmpty()
                 .Matches(@"^\d{9}$")
                 .WithLocalizedName(() => Names.BeneficiaryBankCode);
-            RuleFor(x => x["purpose"].Value<string>())
+            RuleFor(x => x.PaymentCode)
+                .Matches(@"^\d{4}")
+                .When(x => x.PaymentCode == null)
+                .WithLocalizedName(() => Names.PaymentCode);
+            RuleFor(x => x.Purpose)
                 .NotEmpty()
-                .Length(256)
+                .Length(1, 256)
                 .WithLocalizedName(() => Names.Purpose);
 
         }
 
-        internal class Form
+        public class Form
         {
             public decimal Amount { get; set; }
 
@@ -46,6 +50,8 @@ namespace VaBank.Services.Payments.Forms
             public string BeneficiaryTIN { get; set; }
 
             public string BeneficiaryBankCode { get; set; }
+
+            public string PaymentCode { get; set; }
 
             public string Purpose { get; set; }
         }

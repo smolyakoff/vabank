@@ -2,6 +2,7 @@
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Accounting.Factories;
 using VaBank.Core.Membership.Entities;
+using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
 
@@ -24,5 +25,7 @@ namespace VaBank.Services.Accounting
         public CardAccountFactory CardAccountFactory { get; set; }
 
         public IQueryRepository<CardTransaction> CardTransactions { get; set; }
+
+        public MoneyConverter MoneyConverter { get; set; }
     }
 }

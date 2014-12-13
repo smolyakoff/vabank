@@ -12,6 +12,13 @@
                   placeholder="{{options.placeholder}}"
                   help="{{options.help}}">
     </masked-field>
+    <text-field ng-switch-when="textarea"
+                multiline
+                rows="{{options.rows}}"
+                attribute="{{attribute}}"
+                label="{{options.label}}"
+                help="{{options.help}}">
+    </text-field>
     <text-field ng-switch-default
                 attribute="{{attribute}}"
                 label="{{options.label}}"

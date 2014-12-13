@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using VaBank.Common.Data;
-using VaBank.Common.Data.Repositories;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common;
-using VaBank.Services.Contracts.Infrastructure.Validation;
 using VaBank.Services.Contracts.Payments;
 using VaBank.Services.Contracts.Payments.Commands;
 using VaBank.Services.Contracts.Payments.Models;
@@ -36,11 +34,6 @@ namespace VaBank.Services.Payments
             {
                 throw new ServiceException("Can't get payment template.", ex);
             }
-        }
-
-        public ValidationResultModel Validate(ValidateFormCommand command)
-        {
-            throw new NotImplementedException();
         }
 
         public BankOperationModel Submit(SubmitPaymentCommand command)
