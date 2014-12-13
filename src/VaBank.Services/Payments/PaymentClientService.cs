@@ -29,7 +29,7 @@ namespace VaBank.Services.Payments
             EnsureIsValid(code);
             try
             {
-                var template = _deps.PaymentTemplates.FindWithInclude(code.Id);
+                var template = _deps.PaymentTemplates.Find(code.Id);
                 return template == null ? null : template.ToModel<PaymentTemplateModel>();
             }
             catch (Exception ex)

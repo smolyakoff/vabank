@@ -85,6 +85,7 @@
     <Compile Include="App\Mappings\SecurityCodeMap.cs" />
     <Compile Include="App\OperationRepository.cs" />
     <Compile Include="App\SettingRepository.cs" />
+    <Compile Include="Common\EntityFrameworkExtensions.cs" />
     <Compile Include="Common\HistoricalRepository.cs" />
     <Compile Include="Membership\ApplicationTokenRepository.cs" />
     <Compile Include="Membership\Mappings\ApplicationClientMap.cs" />

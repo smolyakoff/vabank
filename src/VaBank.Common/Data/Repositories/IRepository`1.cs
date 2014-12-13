@@ -9,7 +9,6 @@ namespace VaBank.Common.Data.Repositories
         where TEntity : class 
     {
         TEntity Find(params object[] keys);
-        TEntity FindWithInclude(params object[] keys);
         TModel FindAndProject<TModel>(params object[] keys) where TModel : class;
         void Create(TEntity entity);
         void Update(TEntity entity);
