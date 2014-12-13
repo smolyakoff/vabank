@@ -138,4 +138,7 @@
   <data name="CardUnlinked" xml:space="preserve">
     <value>Карта была успешно отвязана от счета.</value>
   </data>
+  <data name="LessThanAccountExpirationDate" xml:space="preserve">
+    <value>Срок действия карты не может быть больше срока действия карт-счета.</value>
+  </data>
 </root>

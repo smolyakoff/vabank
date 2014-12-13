@@ -98,7 +98,8 @@ namespace VaBank.Services.Accounting
                 .NotEmpty();
             RuleFor(x => x.CardExpirationDateUtc)
                 .GreaterThan(DateTime.UtcNow.Date)
-                .Must(LessThanAccountExpirationDate);
+                .Must(LessThanAccountExpirationDate)
+                .WithLocalizedMessage(() => Messages.LessThanAccountExpirationDate);
         }
 
         private static bool LessThanAccountExpirationDate(CreateCardAccountCommand command, DateTime cardExpirationDate)

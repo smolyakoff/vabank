@@ -42,7 +42,7 @@
                     if (moment(value).isBefore(Date.now())) {
                         return 'Неверный срок действия карты.';
                     }
-                    if (moment(value).isBefore(model.accountExpirationDate)) {
+                    if (moment(value).isAfter(model.accountExpirationDateUtc)) {
                         return 'Срок действия карты не может быть больше срока действия карт-счета.';
                     }
                     return null;
