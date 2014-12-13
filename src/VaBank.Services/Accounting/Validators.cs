@@ -135,19 +135,23 @@ namespace VaBank.Services.Accounting
             RuleFor(x => x.CardLimits.AmountPerDayLocal).InclusiveBetween(
                 limitsRange.AmountPerDayLocal.LowerBound, 
                 limitsRange.AmountPerDayLocal.UpperBound)
-                .When(x => x.CardLimits != null);
+                .When(x => x.CardLimits != null)
+                .WithLocalizedMessage(() => Messages.CardLimitsAmount, command.CardLimits.AmountPerDayLocal);
             RuleFor(x => x.CardLimits.AmountPerDayAbroad).InclusiveBetween(
                 limitsRange.AmountPerDayAbroad.LowerBound,
                 limitsRange.AmountPerDayAbroad.UpperBound)
-                .When(x => x.CardLimits != null); ;
+                .When(x => x.CardLimits != null)
+                .WithLocalizedMessage(() => Messages.CardLimitsAmount, command.CardLimits.AmountPerDayAbroad);
             RuleFor(x => x.CardLimits.OperationsPerDayLocal).InclusiveBetween(
                 limitsRange.OperationsPerDayLocal.LowerBound,
                 limitsRange.OperationsPerDayLocal.UpperBound)
-                .When(x => x.CardLimits != null); ;
+                .When(x => x.CardLimits != null)
+                .WithLocalizedMessage(() => Messages.CardLimitsDays, command.CardLimits.OperationsPerDayLocal);
             RuleFor(x => x.CardLimits.OperationsPerDayAbroad).InclusiveBetween(
                 limitsRange.OperationsPerDayAbroad.LowerBound,
                 limitsRange.OperationsPerDayAbroad.UpperBound)
-                .When(x => x.CardLimits != null); ;
+                .When(x => x.CardLimits != null)
+                .WithLocalizedMessage(() => Messages.CardLimitsDays, command.CardLimits.OperationsPerDayAbroad);
             return base.Validate(command);
         }
 

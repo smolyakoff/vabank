@@ -88,6 +88,24 @@ namespace VaBank.Services.Accounting {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Диапазон должен быть от 5 до 100.000. Вы ввели {0}..
+        /// </summary>
+        public static string CardLimitsAmount {
+            get {
+                return ResourceManager.GetString("CardLimitsAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Диапазон должен быть от 0 до 500. Вы ввели {0}..
+        /// </summary>
+        public static string CardLimitsDays {
+            get {
+                return ResourceManager.GetString("CardLimitsDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Карта была успешно привязана к карт-счету..
         /// </summary>
         public static string CardLinked {

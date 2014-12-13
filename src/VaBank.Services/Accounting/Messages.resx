@@ -126,6 +126,12 @@
   <data name="CardEmitted" xml:space="preserve">
     <value>Была успешно выпущена карта с номером: {0}.</value>
   </data>
+  <data name="CardLimitsAmount" xml:space="preserve">
+    <value>Диапазон должен быть от 5 до 100.000. Вы ввели {0}.</value>
+  </data>
+  <data name="CardLimitsDays" xml:space="preserve">
+    <value>Диапазон должен быть от 0 до 500. Вы ввели {0}.</value>
+  </data>
   <data name="CardLinked" xml:space="preserve">
     <value>Карта была успешно привязана к карт-счету.</value>
   </data>
