@@ -25,21 +25,5 @@ namespace VaBank.UI.Web.Api.Customer
             var template = _paymentService.GetTemplate(id);
             return Ok(template);
         }
-
-        [HttpPost]
-        [Route("{code}/validate")]
-        public IHttpActionResult Validate(ValidateFormCommand command)
-        {
-            var result = _paymentService.Validate(command);
-            if (result == null || !result.IsValidatorFound)
-            {
-                return NotFound();
-            }
-            return Ok(new
-            {
-                Faults = result.ValidationFaults, 
-                IsValid = result.IsValid
-            });
-        }
     }
 }
