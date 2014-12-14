@@ -61,6 +61,8 @@
             lastName: { required: true},
             phoneNumber: { custom: uiTools.validate.getOptionalValidator('phone') },
             secretPhrase: { required: true },
+            fullName: { required: true },
+            address: {required: true}
         };
     }
 })();

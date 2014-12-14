@@ -8,5 +8,6 @@ namespace VaBank.Services.Contracts.Membership.Commands
         public Guid UserId { get; set; }
 
         public bool ChangePassword { get; set; }
+
     }
 }
