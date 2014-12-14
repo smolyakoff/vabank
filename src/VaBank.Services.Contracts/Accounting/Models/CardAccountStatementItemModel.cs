@@ -9,6 +9,8 @@ namespace VaBank.Services.Contracts.Accounting.Models
 
         public string AccountNo { get; set; }
 
+        public CustomerCardBriefModel Card { get; set; }
+
         public ProcessStatusModel Status { get; set; }
 
         public DateTime CreatedDateUtc { get; set; }

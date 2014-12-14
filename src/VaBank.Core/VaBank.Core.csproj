@@ -92,6 +92,7 @@
     <Compile Include="Processing\CurrencyConverter.cs" />
     <Compile Include="Processing\CurrencyConversion.cs" />
     <Compile Include="Processing\Entities\CardTransaction.cs" />
+    <Compile Include="Processing\Specs.cs" />
     <Compile Include="Transfers\Entities\CardTransfer.cs" />
     <Compile Include="Transfers\Entities\CardTransferType.cs" />
     <Compile Include="Processing\Entities\BankOperation.cs" />

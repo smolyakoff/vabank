@@ -1967,6 +1967,7 @@
     <Compile Include="Api\Common\ValidationController.cs" />
     <Compile Include="Api\Common\ExchangeRateController.cs" />
     <Compile Include="Api\Customer\CardTransferController.cs" />
+    <Compile Include="Api\Customer\CustomerCardAccountController.cs" />
     <Compile Include="Api\Customer\CustomerCardController.cs" />
     <Compile Include="Api\Customer\PaymentController.cs" />
     <Compile Include="Api\Customer\SecurityCodeController.cs" />

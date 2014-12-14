@@ -17,7 +17,6 @@ using VaBank.Services.Contracts.Accounting.Queries;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Common.Models;
-using VaBank.Services.Contracts.Processing.Models;
 
 namespace VaBank.Services.Accounting
 {
@@ -305,27 +304,23 @@ namespace VaBank.Services.Accounting
             EnsureIsValid(query);
             try
             {
-                var userCard = _deps.UserCards.SurelyFind(query.CardId);
-                if (userCard.Account == null)
-                {
-                    throw new InvalidOperationException("Card is not bound to account.");
-                }
-                var transactions = _deps.CardTransactions.Query(query.ToDbQuery(userCard));
+                var cardAccount = _deps.CardAccounts.SurelyFind(query.AccountNo);
+                var transactions = _deps.Transactions.Query(query.ToDbQuery(cardAccount));
                 var statement = new CardAccountStatementModel
                 {
-                    AccountCurrency = userCard.Account.Currency.ToModel<CurrencyModel>(),
-                    AccountNo = userCard.Account.AccountNo,
-                    Card = userCard.ToModel<CustomerCardBriefModel>(),
+                    AccountCurrency = cardAccount.Currency.ToModel<CurrencyModel>(),
+                    AccountNo = cardAccount.AccountNo,
+                    AccountOwner = cardAccount.Owner.ToModel<UserNameModel>(),
                     CreatedDateUtc = DateTime.UtcNow,
                     DateRange = query.DateRange,
                     StatementBalance = transactions.AsQueryable()
-                        .Where(CardTransaction.Spec.CalculatedDeposits || CardTransaction.Spec.CalculatedWithdrawals)
+                        .Where(Specs.ForTransaction.CalculatedDeposits || Specs.ForTransaction.CalculatedWithdrawals)
                         .Sum(x => x.AccountAmount),
                     StatementDeposits = transactions.AsQueryable()
-                        .Where(CardTransaction.Spec.CalculatedDeposits)
+                        .Where(Specs.ForTransaction.CalculatedDeposits)
                         .Sum(x => x.AccountAmount),
                     StatementWithdrawals = transactions.AsQueryable()
-                        .Where(CardTransaction.Spec.CalculatedWithdrawals)
+                        .Where(Specs.ForTransaction.CalculatedWithdrawals)
                         .Sum(x => x.AccountAmount),
                     Transactions = transactions.Map<CardAccountStatementItemModel>().ToList()
                 };

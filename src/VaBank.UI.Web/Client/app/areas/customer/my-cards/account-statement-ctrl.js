@@ -7,9 +7,9 @@
 
     accountStatementController.$inject = ['$scope', 'myCardsService', 'uiTools', 'data'];
 
-    function accountStatementController($scope, myCardsService, uiTools, cards) {
+    function accountStatementController($scope, myCardsService, uiTools, accounts) {
         
-        var Card = myCardsService.Card;
+        var CardAccount = myCardsService.CardAccount;
 
         var dateRange = function (ago, dim, to) {
             return function() {
@@ -31,8 +31,8 @@
             
         ];
         
-        $scope.cards = cards;
-        $scope.card = { selected: cards[0] };
+        $scope.accounts = accounts;
+        $scope.account = { selected: accounts[0] };
         $scope.selectedRange = $scope.ranges[0];
 
         var initialRange = $scope.selectedRange.range();
@@ -72,8 +72,8 @@
                 });
                 return;
             }
-            var promise = Card.statement({
-                cardId: $scope.card.selected.cardId,
+            var promise = CardAccount.statement({
+                accountNo: $scope.account.selected.accountNo,
                 from: $scope.fromDate.toJSON(),
                 to: $scope.toDate.toJSON()
             }).$promise.then(function (statement) {

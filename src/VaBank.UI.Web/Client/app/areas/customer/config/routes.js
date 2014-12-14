@@ -84,8 +84,8 @@
                 controller: 'accountStatementController',
                 resolve: {
                     data: ['myCardsService', function(myCardsService) {
-                        var cards = myCardsService.Card.query().$promise;
-                        return cards;
+                        var accounts = myCardsService.CardAccount.query();
+                        return accounts;
                     }]
                 }
             })

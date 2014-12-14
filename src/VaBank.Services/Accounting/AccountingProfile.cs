@@ -68,7 +68,6 @@ namespace VaBank.Services.Accounting
             CreateMap<CardTransaction, CardAccountStatementItemModel>();
             CreateMap<UserCard, CardAccountStatementModel>()
                 .ForMember(x => x.AccountCurrency, cfg => cfg.MapFrom(x => x.Account.Currency))
-                .ForMember(x => x.Card, cfg => cfg.MapFrom(x => Mapper.Map<CustomerCardModel>(x)))
                 .ForMember(x => x.CreatedDateUtc, cfg => cfg.UseValue(DateTime.UtcNow))
                 .ForMember(x => x.StatementBalance, cfg => cfg.MapFrom(x => x.Account.Balance));
         }

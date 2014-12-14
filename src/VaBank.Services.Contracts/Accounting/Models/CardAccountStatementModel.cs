@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using VaBank.Common.Util;
+using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Contracts.Accounting.Models
 {
@@ -11,9 +12,9 @@ namespace VaBank.Services.Contracts.Accounting.Models
             Transactions = new List<CardAccountStatementItemModel>();
         }
 
-        public CustomerCardBriefModel Card { get; set; }
-
         public string AccountNo { get; set; }
+
+        public UserNameModel AccountOwner { get; set; }
 
         public DateTime CreatedDateUtc { get; set; }
 

@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using VaBank.Common.Data;
-using VaBank.Common.Data.Filtering;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
@@ -52,7 +51,7 @@ namespace VaBank.Services.Processing.Transactions.Policies.Card
                 return false;
             }
             var query = DbQuery.For<CardTransaction>()
-                .FilterBy(!CardTransaction.Spec.Failed && CardTransaction.Spec.ForToday(userCard.Id, _schedule.TimeZone));
+                .FilterBy(!Specs.ForCardTransaction.Failed && Specs.ForCardTransaction.ForToday(userCard.Id, _schedule.TimeZone));
             var transactionsForToday = _cardTransactionRepository.Query(query);
             var countForToday = transactionsForToday.Count;
             var amountForToday = transactionsForToday
