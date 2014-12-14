@@ -126,4 +126,7 @@
   <data name="InvalidPhoneNo" xml:space="preserve">
     <value>Номер телефона указан некорректно.</value>
   </data>
+  <data name="MinAmountPayment" xml:space="preserve">
+    <value>Минимальная сумма платежа составляет {0} рублей.</value>
+  </data>
 </root>
