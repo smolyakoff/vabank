@@ -13,7 +13,7 @@ namespace VaBank.Services.Contracts.Maintenance.Models
 
         public Guid TransactionId { get; set; }
 
-        public CardAccountBriefModel Account { get; set; }
+        public AccountBriefModel Account { get; set; }
 
         public List<TransactionLogEntryHistoricalModel> Versions { get; set; } 
     }

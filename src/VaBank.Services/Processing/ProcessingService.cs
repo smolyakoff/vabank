@@ -67,7 +67,8 @@ namespace VaBank.Services.Processing
             EnsureIsValid(id);
             try
             {
-                var transaction = _deps.CardTransactions.QueryIdentity(id);
+                var query = DbQuery.For<CardTransaction>().FilterBy(x => x.Id == id.Id);
+                var transaction = _deps.CardTransactions.QueryOne(query);
                 return transaction == null ? null : transaction.ToModel<CardTransactionModel>();
             }
             catch (Exception ex)

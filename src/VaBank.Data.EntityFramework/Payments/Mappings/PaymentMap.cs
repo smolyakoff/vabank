@@ -9,11 +9,11 @@ namespace VaBank.Data.EntityFramework.Payments.Mappings
         {
             ToTable("Payment", "Payments");
             HasKey(x => x.Id).Property(x => x.Id).HasColumnName("OperationId");
+
             Property(x => x.Form).IsRequired().IsMaxLength();
-            //Property(x => x.Name).IsRequired().HasMaxLength(Restrict.Length.BigString);
+            Ignore(x => x.TemplateCode);
 
             HasRequired(x => x.Order).WithOptional().Map(x => x.MapKey("OrderNo"));
-            HasRequired(x => x.Template).WithMany().Map(x => x.MapKey("TemplateCode"));
         }
     }
 }

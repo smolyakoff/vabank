@@ -39,19 +39,19 @@
                     value: ''
                 },
                 firstName: {
-                    propertyName: 'owner.firstName',
+                    propertyName: 'owner.profile.FirstName',
                     type: 'string',
                     operator: dataUtil.filters.operator.Contains,
                     value: ''
                 },
                 lastName: {
-                    propertyName: 'owner.lastName',
+                    propertyName: 'owner.profile.LastName',
                     type: 'string',
                     operator: dataUtil.filters.operator.Contains,
                     value: ''
                 },
                 email: {
-                    propertyName: 'owner.email',
+                    propertyName: 'owner.profile.email',
                     type: 'string',
                     operator: dataUtil.filters.operator.Contains,
                     value: ''

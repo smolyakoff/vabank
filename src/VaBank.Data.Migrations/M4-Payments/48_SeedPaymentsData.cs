@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using VaBank.Common.Util;
 
 namespace VaBank.Data.Migrations
 {
@@ -70,10 +71,10 @@ namespace VaBank.Data.Migrations
                 .Row(new 
                 {
                     PaymentTemplateCode = "PAYMENT-CELL-VELCOM-PHONENO",
-                    PayerName = "{{payer.name}}",
-                    PayerTIN = "{{payer.tin}}",
-                    PayerBankCode = "{{payer.bankCode}}",
-                    PayerAccountNo = "{{payer.accountNo}}",
+                    PayerName = "{{form.payerName}}",
+                    PayerTIN = "{{form.payerTin}}",
+                    PayerBankCode = "{{form.payerBankCode}}",
+                    PayerAccountNo = "{{form.payerAccountNo}}",
                     BeneficiaryName =  new ExplicitUnicodeString("Унитарное предприятие по оказанию услуг \"Велком\""),
                     BeneficiaryBankCode = "153001749",
                     BeneficiaryAccountNo = "3012202410089",
@@ -85,10 +86,10 @@ namespace VaBank.Data.Migrations
                 .Row(new 
                 {
                     PaymentTemplateCode = "PAYMENT-CUSTOM-PAYMENTORDER",
-                    PayerName = "{{payer.name}}",
-                    PayerTIN = "{{payer.tin}}",
-                    PayerBankCode = "{{payer.bankCode}}",
-                    PayerAccountNo = "{{payer.accountNo}}",
+                    PayerName = "{{form.payerName}}",
+                    PayerTIN = "{{form.payerTin}}",
+                    PayerBankCode = "{{form.payerBankCode}}",
+                    PayerAccountNo = "{{form.payerAccountNo}}",
                     BeneficiaryName =  "{{form.beneficiaryName}}",
                     BeneficiaryBankCode = "{{form.beneficiaryBankCode}}",
                     BeneficiaryAccountNo = "{{form.beneficiaryAccountNo}}",
@@ -111,73 +112,13 @@ namespace VaBank.Data.Migrations
                     {
                         UserId = userProfile.UserID,
                         FullName = userProfile.GetFullName(),
-                        Address = "Minsk, Belarus",
-                        PayerTIN = GenerateTIN(ref num)
+                        Address = "г.Минск ул. Тестовая д.2 кв.66",
+                        PayerTIN = Randomizer.NumericString(9)
                     };
                     connection.Execute("INSERT INTO [Payments].[UserPaymentProfile] ([UserId],[FullName],[Address],[PayerTIN]) VALUES (@UserId,@FullName,@Address,@PayerTIN)", param, transaction);
                     ++num;
                 }
             });
-        }
-
-        private string GenerateTIN(ref int number)
-        {
-            if ((number / 100000000) > 1)
-                throw new InvalidOperationException("All TINs are already in use.");
-
-            var sb = new StringBuilder();
-            var coffs = new[] { 23, 19, 17, 13, 7, 5, 3 };
-            var dict = new Dictionary<int, char>
-            {
-                {0, 'A'},
-                {1, 'B'},
-                {2, 'C'},
-                {3, 'E'},
-                {4, 'H'},
-                {5, 'K'},
-                {6, 'M'},
-                {7, 'O'},
-                {8, 'P'},
-                {9, 'T'}
-            };
-
-            while (true)
-            {
-                sb.Append("A");
-                var str = number.ToString();
-                for (int i = 0; i < 7 - str.Length; i++)
-                {
-                    sb.Append('0');
-                }
-                sb.Append(str);
-
-                str = sb.ToString();
-                var sum = 10 * 29;
-
-                for (int i = 1; i < str.Length; i++)
-                {
-                    sum += coffs[i - 1] * (int)char.GetNumericValue(str[i]);
-                }
-                sum %= 11;
-
-                if (sum == 10)
-                {
-                    ++number;
-                    if ((number / 100000000) > 1)
-                        throw new InvalidOperationException("All TINs are already in use.");
-                    sb.Clear();
-                    continue;
-                }
-                else
-                {
-                    str = sb.ToString();
-                    sb.Append(sum.ToString());
-                    sb.Replace(str[1], dict[sum], 1, 1);
-                    break;
-                }
-            }        
-
-            return sb.ToString();
         }
 
         private class PartialUserProfile
@@ -188,7 +129,7 @@ namespace VaBank.Data.Migrations
 
             public string GetFullName()
             {
-                return string.Format("{0} {1}", FirstName, LastName);
+                return string.Format("{0} {1} {2}", FirstName, LastName, "<Отчество>");
             }
         }
     }

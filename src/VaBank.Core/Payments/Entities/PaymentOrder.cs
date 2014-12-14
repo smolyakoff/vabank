@@ -2,9 +2,9 @@
 
 namespace VaBank.Core.Payments.Entities
 {
-    public class PaymentOrder : Entity, IPaymentOrder
+    public class PaymentOrder : Entity
     {
-        protected PaymentOrder()
+        internal PaymentOrder()
         {
         }
 
@@ -41,28 +41,28 @@ namespace VaBank.Core.Payments.Entities
 
         public long No { get; protected set; }
 
-        public string PayerName { get; protected set; }
+        public string PayerName { get; internal set; }
 
-        public string PayerBankCode { get; protected set; }
+        public string PayerBankCode { get; internal set; }
 
-        public string PayerAccountNo { get; protected set; }
+        public string PayerAccountNo { get; internal set; }
 
-        public string PayerTIN { get; protected set; }
+        public string PayerTIN { get; internal set; }
 
-        public string BeneficiaryName { get; protected set; }
+        public string BeneficiaryName { get; internal set; }
 
-        public string BeneficiaryBankCode { get; protected set; }
+        public string BeneficiaryBankCode { get; internal set; }
 
-        public string BeneficiaryAccountNo { get; protected set; }
+        public string BeneficiaryAccountNo { get; internal set; }
 
-        public string BeneficiaryTIN { get; protected set; }
+        public string BeneficiaryTIN { get; internal set; }
 
-        public string Purpose { get; protected set; }
+        public string Purpose { get; internal set; }
 
-        public decimal Amount { get; protected set; }
+        public decimal Amount { get; internal set; }
 
-        public string CurrencyISOName { get; protected set; }
+        public string CurrencyISOName { get; internal set; }
 
-        public string PaymentCode { get; protected set; }
+        public string PaymentCode { get; internal set; }
     }
 }

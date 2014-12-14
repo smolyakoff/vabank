@@ -117,28 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CardAccessDenied" xml:space="preserve">
-    <value>Запрещен доступ к карте.</value>
+  <data name="AccountDoesntExist" xml:space="preserve">
+    <value>Указанный счет не существует.</value>
   </data>
-  <data name="CardBlocked" xml:space="preserve">
-    <value>Карта заблокирована.</value>
+  <data name="InsufficientFunds" xml:space="preserve">
+    <value>Недостаточно средств на счете.</value>
   </data>
-  <data name="CardExpired" xml:space="preserve">
-    <value>Истек срок действия карты.</value>
-  </data>
-  <data name="CardLimitsExceeded" xml:space="preserve">
-    <value>Превышены лимиты по карте.</value>
-  </data>
-  <data name="ChuckNorrisPolicy" xml:space="preserve">
-    <value>Вы попытались произвести операцию со счётом Чака Норриса, к сожалению с него нельзя снять более $10 или положить менее $100. Во избежании УЧНСНСРВСС, просим придерживаться данному правилу.</value>
-  </data>
-  <data name="TransferFailed" xml:space="preserve">
-    <value>Ошибка обработки перевода: {0}.</value>
-  </data>
-  <data name="TransferFailedUnknownReason" xml:space="preserve">
-    <value>Денежный перевод №{0} не может быть выполнен. Обратитесь в службу поддержки.</value>
-  </data>
-  <data name="UnknownTransactionError" xml:space="preserve">
-    <value>Произошла ошибка. Обратитесь в службу поддержки.</value>
+  <data name="InvalidPhoneNo" xml:space="preserve">
+    <value>Номер телефона указан некорректно.</value>
   </data>
 </root>

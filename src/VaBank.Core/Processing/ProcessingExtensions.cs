@@ -1,6 +1,5 @@
 ﻿using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
-using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Core.Processing
@@ -83,52 +82,6 @@ namespace VaBank.Core.Processing
 
             var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
             return new Transaction(account, money.Currency, - money.Amount, - convertedMoney.Amount, code, description, location);
-        }
-
-        public static CardPaymentTransaction Withdraw(
-            this Account account,
-            PaymentOrder order,
-            Card card,
-            string code,
-            string description,
-            string location,
-            Money money,
-            MoneyConverter moneyConverter)
-        {
-            Argument.NotNull(account, "account");
-            Argument.NotNull(order, "order");
-            Argument.NotEmpty(code, "code");
-            Argument.NotEmpty(description, "description");
-            Argument.NotNull(money, "money");
-            Argument.NotNull(moneyConverter, "moneyConverter");
-            Argument.Satisfies(money, x => x.Amount >= 0, "money", "Money amount should be 0 or greater.");
-
-            var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
-            return new CardPaymentTransaction(order, card, account, money.Currency, -money.Amount, -convertedMoney.Amount, code,
-                description, location);
-        }
-
-        public static CardPaymentTransaction Deposit(
-            this Account account,
-            PaymentOrder order,
-            Card card,
-            string code,
-            string description,
-            string location,
-            Money money,
-            MoneyConverter moneyConverter)
-        {
-            Argument.NotNull(account, "account");
-            Argument.NotNull(order, "order");
-            Argument.NotEmpty(code, "code");
-            Argument.NotEmpty(description, "description");
-            Argument.NotNull(money, "money");
-            Argument.NotNull(moneyConverter, "moneyConverter");
-            Argument.Satisfies(money, x => x.Amount >= 0, "money", "Money amount should be 0 or greater.");
-
-            var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
-            return new CardPaymentTransaction(order, card, account, money.Currency, money.Amount, convertedMoney.Amount, code,
-                            description, location);
         }
     }
 }

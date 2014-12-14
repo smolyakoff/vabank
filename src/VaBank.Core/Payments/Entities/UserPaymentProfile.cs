@@ -11,7 +11,7 @@ namespace VaBank.Core.Payments.Entities
         {
             Argument.NotNull(user, "user");
             Argument.NotEmpty(fullName, "fullName");
-            Argument.NotEmpty(payerTIN, "payerTIN");
+            Argument.EnsureIsValid<TINValidator, string>(payerTIN, "payerTIN");
             Argument.NotEmpty(address, "address");
 
             User = user;
@@ -23,7 +23,6 @@ namespace VaBank.Core.Payments.Entities
 
         protected UserPaymentProfile()
         {
-
         }
 
         public Guid UserId { get; private set; }
@@ -32,8 +31,13 @@ namespace VaBank.Core.Payments.Entities
 
         public string FullName { get; protected set; }
 
+        public string Address { get; protected set; }
+
         public string PayerTIN { get; protected set; }
 
-        public string Address { get; protected set; }
+        public string PayerName
+        {
+            get { return string.Format("{0}, {1}", FullName, Address); }
+        }
     }
 }

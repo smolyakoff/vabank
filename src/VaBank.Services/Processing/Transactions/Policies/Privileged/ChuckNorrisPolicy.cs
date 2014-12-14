@@ -1,5 +1,4 @@
-﻿using VaBank.Common.Data.Repositories;
-using VaBank.Common.IoC;
+﻿using VaBank.Common.IoC;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Processing;
@@ -10,20 +9,22 @@ namespace VaBank.Services.Processing.Transactions.Policies.Privileged
     [Injectable]
     public class ChuckNorrisPolicy : DisallowPolicy
     {
-        private readonly IRepository<UserAccount> _userAccounts;
         private readonly MoneyConverter _converter;
 
-        public ChuckNorrisPolicy(IRepository<UserAccount> userAccounts, MoneyConverter converter)
+        public ChuckNorrisPolicy(MoneyConverter converter)
         {
-            Argument.NotNull(userAccounts, "userAccounts");
             Argument.NotNull(converter, "converter");
             _converter = converter;
-            _userAccounts = userAccounts;
         }
 
         public override bool AppliesTo(Transaction transaction, BankOperation operation)
-        {            
-            if (_userAccounts.Find(transaction.AccountNo).Owner.UserName == "chuck")
+        {
+            var userAccount = transaction.Account as UserAccount;
+            if (userAccount == null)
+            {
+                return false;
+            }
+            if (userAccount.Owner.UserName == "chuck")
             {
                 var amount = transaction.TransactionAmount;
                 if (transaction.Currency.ISOName != "USD")
@@ -32,14 +33,16 @@ namespace VaBank.Services.Processing.Transactions.Policies.Privileged
                 }
                 if ((transaction.Type == TransactionType.Withdrawal && amount < -10)
                     || (transaction.Type == TransactionType.Deposit && amount < 100))
+                {
                     return true;
+                }
             }
-
             return false;
         }
 
         public override int Priority
         {
+            //whatta fuck?
             get { return int.MaxValue/2; }
         }
 

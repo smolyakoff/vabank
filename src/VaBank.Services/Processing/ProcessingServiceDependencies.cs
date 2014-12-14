@@ -10,7 +10,7 @@ namespace VaBank.Services.Processing
 
         public IRepository<Transaction> Transactions { get; set; }
 
-        public IRepository<CardTransaction> CardTransactions { get; set; }
+        public IQueryRepository<CardTransaction> CardTransactions { get; set; }
  
         public CentralProcessor CentralProcessor { get; set; }
     }

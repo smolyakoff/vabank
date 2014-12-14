@@ -1,7 +1,5 @@
 ﻿using FluentValidation;
 using VaBank.Common.Validation;
-using VaBank.Core.Membership.Resources;
-
 
 namespace VaBank.Services.Payments.Forms
 {
@@ -19,7 +17,7 @@ namespace VaBank.Services.Payments.Forms
                 .NotEmpty()
                 .Matches(@"^\(?(29|33|44|25)\)? *\d{7}$")
                 .WithLocalizedName(() => Names.Phone)
-                .WithLocalizedMessage(() => Messages.CheckNumberPhone);
+                .WithLocalizedMessage(() => Messages.InvalidPhoneNo);
         }
 
         internal class Form

@@ -2,11 +2,10 @@
 using System.Linq;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Accounting.Entities;
-using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Core.Payments.Entities
 {
-    [Include("Parent", "Children")]
+    [Include("Parent", "Children", "OrderTemplate")]
     public class PaymentTemplate : OperationCategory
     {
         internal PaymentTemplate()
@@ -19,6 +18,8 @@ namespace VaBank.Core.Payments.Entities
         }
 
         public string FormTemplate { get; protected set; }
+
+        public virtual PaymentOrderTemplate OrderTemplate { get; set; }
 
         private string GetHierarchicalName()
         {

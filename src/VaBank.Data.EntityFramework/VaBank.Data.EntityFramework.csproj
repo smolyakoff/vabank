@@ -96,13 +96,12 @@
     <Compile Include="Membership\Mappings\UserMap.cs" />
     <Compile Include="Membership\Mappings\UserProfileMap.cs" />
     <Compile Include="Common\Repository`1.cs" />
-    <Compile Include="Payments\Mappings\BasePaymentOrderMap.cs" />
     <Compile Include="Payments\Mappings\CardPaymentMap.cs" />
     <Compile Include="Payments\Mappings\PaymentMap.cs" />
     <Compile Include="Payments\Mappings\PaymentOrderMap.cs" />
     <Compile Include="Payments\Mappings\PaymentOrderTemplateMap.cs" />
     <Compile Include="Payments\Mappings\PaymentTemplateMap.cs" />
-    <Compile Include="Payments\Mappings\CardPaymentTransactionMap.cs" />
+    <Compile Include="Payments\Mappings\PaymentTransactionLinkMap.cs" />
     <Compile Include="Payments\Mappings\UserPaymentProfileMap.cs" />
     <Compile Include="Processing\ExchangeRateRepository.cs" />
     <Compile Include="Processing\Mappings\BaseTransactionMap.cs" />

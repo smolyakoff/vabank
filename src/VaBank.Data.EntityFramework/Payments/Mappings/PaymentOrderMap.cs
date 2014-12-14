@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.ModelConfiguration;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using VaBank.Core.Payments.Entities;
 using VaBank.Data.EntityFramework.Common;
 
@@ -8,7 +9,10 @@ namespace VaBank.Data.EntityFramework.Payments.Mappings
     {
         public PaymentOrderMap()
         {
-            ToTable("PaymentOrder", "Payments").HasKey(x => x.No);
+            ToTable("PaymentOrder", "Payments");
+            HasKey(x => x.No);
+
+            Property(x => x.No).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(x => x.PayerName).HasMaxLength(Restrict.Length.Name).IsRequired();
             Property(x => x.PayerBankCode).HasMaxLength(Restrict.Length.BankCode).IsRequired();
             Property(x => x.PayerAccountNo).HasMaxLength(Restrict.Length.AccountNo).IsRequired();
@@ -20,7 +24,7 @@ namespace VaBank.Data.EntityFramework.Payments.Mappings
             Property(x => x.Purpose).HasMaxLength(Restrict.Length.BigString).IsRequired();
             Property(x => x.Amount).IsRequired();
             Property(x => x.CurrencyISOName).HasMaxLength(Restrict.Length.CurrencyISO).IsRequired();
-            Property(x => x.PaymentCode).HasMaxLength(Restrict.Length.PaymentCode).IsRequired();
+            Property(x => x.PaymentCode).HasMaxLength(Restrict.Length.PaymentCode).IsOptional();
         }
     }
 }

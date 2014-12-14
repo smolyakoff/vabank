@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using System;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Common;
+using VaBank.Core.Membership.Entities;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Contracts.Accounting.Models;
+using VaBank.Services.Contracts.Common.Models;
 
 namespace VaBank.Services.Accounting
 {
@@ -13,7 +16,25 @@ namespace VaBank.Services.Accounting
             CreateMap<Currency, CurrencyModel>();
             CreateMap<CardVendor, CardVendorModel>();
 
-            CreateMap<CardAccount, CardAccountBriefModel>();
+            CreateMap<Entity, IOwnerModel>()
+                .Include<User, UserOwnerModel>()
+                .Include<Bank, BankOwnerModel>();
+
+            CreateMap<User, UserOwnerModel>()
+                .ForMember(x => x.UserId, cfg => cfg.MapFrom(x => x.Id))
+                .ForMember(x => x.FirstName, cfg => cfg.MapFrom(x => x.Profile.FirstName))
+                .ForMember(x => x.LastName, cfg => cfg.MapFrom(x => x.Profile.LastName))
+                .ForMember(x => x.Email, cfg => cfg.MapFrom(x => x.Profile.Email));
+            CreateMap<Bank, BankOwnerModel>();
+
+            CreateMap<Account, AccountBriefModel>()
+                .Include<CardAccount, AccountBriefModel>()
+                .Include<CorrespondentAccount, AccountBriefModel>();
+            CreateMap<CardAccount, AccountBriefModel>()
+                .ForMember(x => x.Owner, cfg => cfg.MapFrom(x => x.Owner));
+            CreateMap<CorrespondentAccount, AccountBriefModel>()
+                .ForMember(x => x.Owner, cfg => cfg.MapFrom(x => x.Bank));
+            
             CreateMap<UserCard, CardModel>()
                 .ForMember(x => x.CardId, cfg => cfg.MapFrom(x => x.Id))
                 .ForMember(x => x.CardholderFirstName, cfg => cfg.MapFrom(x => x.HolderFirstName))

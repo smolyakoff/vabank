@@ -39,7 +39,7 @@ namespace VaBank.Data.Migrations
                 .WithColumn("Purpose").AsBigString().NotNullable()
                 .WithColumn("Amount").AsDecimal().NotNullable()
                 .WithColumn("CurrencyISOName").AsCurrencyISOName().NotNullable()
-                .WithColumn("PaymentCode").AsPaymentCode().NotNullable();
+                .WithColumn("PaymentCode").AsPaymentCode().Nullable();
 
             Create.Table("PaymentTransaction").InSchema(SchemaName)
                 .WithColumn("TransactionId").AsGuid()
@@ -81,6 +81,7 @@ namespace VaBank.Data.Migrations
                 .WithColumn("BeneficiaryBankCode").AsBigString().NotNullable()
                 .WithColumn("BeneficiaryAccountNo").AsBigString().NotNullable()
                 .WithColumn("BeneficiaryTIN").AsBigString().NotNullable()
+                .WithColumn("PaymentCode").AsBigString().Nullable()
                 .WithColumn("Purpose").AsBigString().NotNullable()
                 .WithColumn("Amount").AsBigString().NotNullable()
                 .WithColumn("CurrencyISOName").AsBigString().NotNullable();
@@ -91,7 +92,8 @@ namespace VaBank.Data.Migrations
                     .ForeignKey("FK_UserPaymentProfile_To_User", "Membership", "User", "UserID")
                 .WithColumn("FullName").AsName().NotNullable()
                 .WithColumn("Address").AsBigString().NotNullable()
-                .WithColumn("PayerTIN").AsTIN().NotNullable();
+                .WithColumn("PayerTIN").AsTIN().NotNullable()
+                    .Unique("UQ_UserPaymentProfile_PayerTIN");
         }
 
         public override void Down()

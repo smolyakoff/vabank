@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
+using PagedList;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Common;
@@ -68,6 +69,13 @@ namespace VaBank.Services.Common
             where TEntity : Entity
         {
             return Mapper.Map<TModel, TEntity>(model);
+        }
+
+        public static IPagedList<TDestination> Map<TDestination>(this IPagedList<object> enumerable)
+        {
+            return enumerable == null
+                ? null
+                : new StaticPagedList<TDestination>(enumerable.Select(Mapper.Map<TDestination>), enumerable);
         }
 
         public static IEnumerable<TDestination> Map<TDestination>(this IEnumerable<object> enumerable)

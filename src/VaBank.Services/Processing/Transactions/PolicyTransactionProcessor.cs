@@ -39,8 +39,16 @@ namespace VaBank.Services.Processing.Transactions
                 throw new ArgumentException("Can't process transaction. No policy found.", "command");
             }
             var dynamicPolicy = (dynamic) policy;
-            return Process(dynamicPolicy, command);
+            try
+            {
+                return Process(dynamicPolicy, command);
+            }
+            catch (Exception ex)
+            {
+                return OnFatalError(command, ex);
+            }
         }
+        
 
         public bool CanProcess(Transaction transaction, BankOperation operation)
         {
@@ -50,33 +58,39 @@ namespace VaBank.Services.Processing.Transactions
         private IEnumerable<ApplicationEvent> Process(CompletePolicy policy, TransactionProcessorCommand command)
         {
             command.Transaction.Complete(policy.GetPostDateUtc(command.Transaction, command.BankOperation));
-            if (command.BankOperation == null)
-            {
-                return Enumerable.Empty<ApplicationEvent>();
-            }
-            var operation = command.BankOperation.ToModel<BankOperation, BankOperationModel>();
+            var bankOperationId = command.BankOperation == null ? null : (long?)command.BankOperation.Id;
+            var operation = command.BankOperation == null
+                ? null
+                : command.BankOperation.ToModel<BankOperation, BankOperationModel>();
             var transaction = command.Transaction.ToModel<TransactionModel>();
-            return new List<ApplicationEvent>()
+            var events = new List<ApplicationEvent>()
             {
-                new OperationProgressEvent(command.OperationId, operation),
-                new TransactionProcessedEvent(command.OperationId, transaction, command.BankOperation.Id)
+                new TransactionProcessedEvent(command.OperationId, transaction, bankOperationId)
             };
+            if (operation != null)
+            {
+                events.Add(new OperationProgressEvent(command.OperationId, operation));
+            }
+            return events;
         }
 
         private IEnumerable<ApplicationEvent> Process(DisallowPolicy policy, TransactionProcessorCommand command)
         {
             command.Transaction.Fail(policy.GetErrorMessage(command.Transaction, command.BankOperation));
-            if (command.BankOperation == null)
-            {
-                return Enumerable.Empty<ApplicationEvent>();
-            }
-            var operation = command.BankOperation.ToModel<BankOperation, BankOperationModel>();
+            var bankOperationId = command.BankOperation == null ? null : (long?)command.BankOperation.Id;
+            var operation = command.BankOperation == null 
+                ? null
+                : command.BankOperation.ToModel<BankOperation, BankOperationModel>();
             var transaction = command.Transaction.ToModel<TransactionModel>();
-            return new List<ApplicationEvent>()
+            var events = new List<ApplicationEvent>()
             {
-                new OperationProgressEvent(command.OperationId, operation),
-                new TransactionProcessedEvent(command.OperationId, transaction, command.BankOperation.Id)
+                new TransactionProcessedEvent(command.OperationId, transaction, bankOperationId)
             };
+            if (operation != null)
+            {
+                events.Add(new OperationProgressEvent(command.OperationId, operation));
+            }
+            return events;
         }
 
         private IEnumerable<ApplicationEvent> Process(PostponePolicy policy, TransactionProcessorCommand command)
@@ -88,6 +102,25 @@ namespace VaBank.Services.Processing.Transactions
             {
                 new PostponedEvent(@event, policy.GetScheduledDateUtc(command.Transaction, command.BankOperation))
             };
+        }
+
+        private IEnumerable<ApplicationEvent> OnFatalError(TransactionProcessorCommand command, Exception exception)
+        {
+            command.Transaction.Fail(Messages.UnknownTransactionError);
+            var bankOperationId = command.BankOperation == null ? null : (long?)command.BankOperation.Id;
+            var operation = command.BankOperation == null
+                ? null
+                : command.BankOperation.ToModel<BankOperation, BankOperationModel>();
+            var transaction = command.Transaction.ToModel<TransactionModel>();
+            var events = new List<ApplicationEvent>()
+            {
+                new TransactionProcessedEvent(command.OperationId, transaction, bankOperationId)
+            };
+            if (operation != null)
+            {
+                events.Add(new OperationProgressEvent(command.OperationId, operation));
+            }
+            return events;
         }
     }
 }

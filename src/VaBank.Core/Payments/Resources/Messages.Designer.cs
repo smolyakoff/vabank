@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VaBank.Services.Processing {
+namespace VaBank.Core.Payments.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace VaBank.Services.Processing {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VaBank.Services.Processing.Messages", typeof(Messages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VaBank.Core.Payments.Resources.Messages", typeof(Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,74 +61,38 @@ namespace VaBank.Services.Processing {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Запрещен доступ к карте..
+        ///   Looks up a localized string similar to Код банка должен содержать 9 цифр..
         /// </summary>
-        public static string CardAccessDenied {
+        public static string BankCodeFormat {
             get {
-                return ResourceManager.GetString("CardAccessDenied", resourceCulture);
+                return ResourceManager.GetString("BankCodeFormat", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Карта заблокирована..
+        ///   Looks up a localized string similar to Неверный код банка. Обратитесь к справочнику кодов банков..
         /// </summary>
-        public static string CardBlocked {
+        public static string BankCodeInvalid {
             get {
-                return ResourceManager.GetString("CardBlocked", resourceCulture);
+                return ResourceManager.GetString("BankCodeInvalid", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Истек срок действия карты..
+        ///   Looks up a localized string similar to Код платежа должен содержать 4 цифры..
         /// </summary>
-        public static string CardExpired {
+        public static string PaymentCodeFormat {
             get {
-                return ResourceManager.GetString("CardExpired", resourceCulture);
+                return ResourceManager.GetString("PaymentCodeFormat", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Превышены лимиты по карте..
+        ///   Looks up a localized string similar to УНП должен содержать 9 цифр..
         /// </summary>
-        public static string CardLimitsExceeded {
+        public static string TINFormat {
             get {
-                return ResourceManager.GetString("CardLimitsExceeded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Вы попытались произвести операцию со счётом Чака Норриса, к сожалению с него нельзя снять более $10 или положить менее $100. Во избежании УЧНСНСРВСС, просим придерживаться данному правилу..
-        /// </summary>
-        public static string ChuckNorrisPolicy {
-            get {
-                return ResourceManager.GetString("ChuckNorrisPolicy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ошибка обработки перевода: {0}..
-        /// </summary>
-        public static string TransferFailed {
-            get {
-                return ResourceManager.GetString("TransferFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Денежный перевод №{0} не может быть выполнен. Обратитесь в службу поддержки..
-        /// </summary>
-        public static string TransferFailedUnknownReason {
-            get {
-                return ResourceManager.GetString("TransferFailedUnknownReason", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Произошла ошибка. Обратитесь в службу поддержки..
-        /// </summary>
-        public static string UnknownTransactionError {
-            get {
-                return ResourceManager.GetString("UnknownTransactionError", resourceCulture);
+                return ResourceManager.GetString("TINFormat", resourceCulture);
             }
         }
     }

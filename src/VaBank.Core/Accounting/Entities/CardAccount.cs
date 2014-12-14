@@ -8,11 +8,10 @@ namespace VaBank.Core.Accounting.Entities
     public class CardAccount : UserAccount
     {
         internal CardAccount(string accountNo, Currency currency, User owner)
-            :base(currency, owner)
+            :base(currency, owner, "CardAccount")
         {
             Argument.EnsureIsValid<AccountNumberValidator, string>(accountNo, "accountNo");
             AccountNo = accountNo;
-            Type = "CardAccount";
             Cards = new Collection<UserCard>();            
         }
 

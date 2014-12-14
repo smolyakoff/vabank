@@ -36,6 +36,9 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="DotLiquid">
+      <HintPath>..\..\packages\DotLiquid.1.8.0\lib\NET45\DotLiquid.dll</HintPath>
+    </Reference>
     <Reference Include="FluentValidation">
       <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
@@ -111,11 +114,17 @@
     <Compile Include="Infrastructure\Sms\TwilioClientSettings.cs" />
     <Compile Include="Payments\Forms\CustomPaymentOrderPaymentValidator.cs" />
     <Compile Include="Payments\Forms\VelcomByPhoneNumberPaymentValidator.cs" />
+    <Compile Include="Payments\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Payments\Names.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Names.resx</DependentUpon>
     </Compile>
+    <Compile Include="Payments\Validators.cs" />
     <Compile Include="Processing\Operations\CardPaymentProcessor.cs" />
     <Compile Include="Payments\PaymentClientService.cs" />
     <Compile Include="Payments\PaymentClientServiceDependencies.cs" />
@@ -204,6 +213,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Transfers\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Transfers\Validators.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +257,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Payments\Messages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Payments\Names.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Names.Designer.cs</LastGenOutput>
@@ -251,6 +269,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transfers\Messages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

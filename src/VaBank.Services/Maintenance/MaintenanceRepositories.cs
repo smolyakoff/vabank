@@ -21,6 +21,6 @@ namespace VaBank.Services.Maintenance
 
         public IHistoricalRepository HistoricalRepository { get; set; }
 
-        public IRepository<CardAccount> CardAccounts { get; set; } 
+        public IRepository<Account> Accounts { get; set; }
     }
 }

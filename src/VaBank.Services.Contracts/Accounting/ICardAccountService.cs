@@ -18,7 +18,7 @@ namespace VaBank.Services.Contracts.Accounting
 
         AccountBalanceModel GetCardBalance(CardBalanceQuery query);
 
-        IPagedList<CardAccountBriefModel> GetCardAccounts(AccountQuery query);
+        IPagedList<AccountBriefModel> GetCardAccounts(AccountQuery query);
 
         IList<UserCardModel> GetUserCards(CardQuery query); 
             
@@ -36,6 +36,6 @@ namespace VaBank.Services.Contracts.Accounting
 
         CardAccountStatementModel GetCardAccountStatement(CardAccountStatementQuery query);
 
-        CardAccountBriefModel GetCardAccountBrief(IdentityQuery<string> accountNo);
+        AccountBriefModel GetCardAccountBrief(IdentityQuery<string> accountNo);
     }
 }

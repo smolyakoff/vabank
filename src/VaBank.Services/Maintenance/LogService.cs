@@ -198,11 +198,11 @@ namespace VaBank.Services.Maintenance
                 {
                     return null;
                 }
-                var account = _db.CardAccounts.FindAndProject<CardAccountBriefModel>(versions.First().AccountNo);
+                var account = _db.Accounts.Find(versions.First().AccountNo);
                 return new TransactionLogEntryModel
                 {
                     TransactionId = transactionId.Id,
-                    Account = account,
+                    Account = account.ToModel<AccountBriefModel>(),
                     Versions = versions
                 };
             }

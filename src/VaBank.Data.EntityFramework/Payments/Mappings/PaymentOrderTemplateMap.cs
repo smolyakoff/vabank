@@ -8,9 +8,10 @@ namespace VaBank.Data.EntityFramework.Payments.Mappings
     {
         public PaymentOrderTemplateMap()
         {
-            ToTable("PaymentOrderTemplate", "Payments").HasKey(x => x.PaymentTemplateCode);
-            HasRequired(x => x.PaymentTemplate).WithOptional();
-            
+            ToTable("PaymentOrderTemplate", "Payments");
+            HasKey(x => x.TemplateCode);
+
+            Property(x => x.TemplateCode).HasColumnName("PaymentTemplateCode");
             Property(x => x.PayerName).HasMaxLength(Restrict.Length.BigString).IsRequired();
             Property(x => x.PayerBankCode).HasMaxLength(Restrict.Length.BigString).IsRequired();
             Property(x => x.PayerAccountNo).HasMaxLength(Restrict.Length.BigString).IsRequired();
@@ -20,9 +21,9 @@ namespace VaBank.Data.EntityFramework.Payments.Mappings
             Property(x => x.BeneficiaryAccountNo).HasMaxLength(Restrict.Length.BigString).IsRequired();
             Property(x => x.BeneficiaryTIN).HasMaxLength(Restrict.Length.BigString).IsRequired();
             Property(x => x.Purpose).HasMaxLength(Restrict.Length.BigString).IsRequired();
-            Property(x => x.Amount).IsRequired();
+            Property(x => x.Amount).HasMaxLength(Restrict.Length.BigString).IsRequired();
             Property(x => x.CurrencyISOName).HasMaxLength(Restrict.Length.BigString).IsRequired();
-            Property(x => x.PaymentCode).HasMaxLength(Restrict.Length.BigString).IsRequired();
+            Property(x => x.PaymentCode).HasMaxLength(Restrict.Length.BigString).IsOptional();
         }
     }
 }

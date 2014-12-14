@@ -1,6 +1,7 @@
 ﻿using System;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.IoC;
+using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing;
@@ -11,14 +12,20 @@ namespace VaBank.Services.Processing.Operations
     [Injectable]
     internal class CardPaymentProcessor : TransferProcessor
     {
-        public CardPaymentProcessor(BaseOperationProcessorDependencies baseDependencies, IRepository<Transfer> transferRepository)
+        private readonly IRepository<PaymentTransactionLink> _paymentTransactionLinkRepository;
+
+        public CardPaymentProcessor(BaseOperationProcessorDependencies baseDependencies, 
+            IRepository<Transfer> transferRepository,
+            IRepository<PaymentTransactionLink> paymentTransactionLinkRepository)
             : base(baseDependencies, transferRepository)
         {
+            Argument.NotNull(paymentTransactionLinkRepository, "paymentTransactionLinkRepository");
+            _paymentTransactionLinkRepository = paymentTransactionLinkRepository;
         }
 
         public override bool CanProcess(BankOperation operation)
         {
-            return operation.Category.Code.StartsWith("PAYMENT-CARD");
+            return operation.Category.Code.StartsWith("PAYMENT") && operation is CardPayment;
         }
 
         protected override DateTime? PostponeDateOrNull(BankOperation operation)
@@ -29,15 +36,20 @@ namespace VaBank.Services.Processing.Operations
         protected override Transaction Deposit(Account account, Transfer transfer, string code, string description)
         {
             var payment = (CardPayment) transfer;
-            return account.Deposit(payment.Order, payment.Card, code, description, Settings.Location,
-                new Money(transfer.Currency, transfer.Amount), MoneyConverter);
+            var depositTransaction = account.Deposit(code, description, Settings.Location, new Money(transfer.Currency, transfer.Amount), MoneyConverter);
+            var paymentLink = new PaymentTransactionLink(depositTransaction, payment.Order);
+            _paymentTransactionLinkRepository.Create(paymentLink);
+            return depositTransaction;
         }
 
         protected override Transaction Compensate(Account account, Transfer transfer, string code, string description)
         {
             var payment = (CardPayment) transfer;
-            return account.Deposit(payment.Order, payment.Card, code, description, Settings.Location,
+            var compensatingTransaction = account.Deposit(payment.Card, code, description, Settings.Location,
                 new Money(transfer.Currency, transfer.Amount), MoneyConverter);
+            var paymentLink = new PaymentTransactionLink(compensatingTransaction, payment.Order);
+            _paymentTransactionLinkRepository.Create(paymentLink);
+            return compensatingTransaction;
         }
     }
 }

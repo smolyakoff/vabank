@@ -1,4 +1,5 @@
-﻿using VaBank.Common.Validation;
+﻿using Newtonsoft.Json.Linq;
+using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Processing.Entities;
 
@@ -7,37 +8,32 @@ namespace VaBank.Core.Payments.Entities
     public class Payment : Transfer
     {
         internal Payment(
-            PaymentOrder order,
             PaymentTemplate template,
-            string name,
-            string form,
-            OperationCategory category, 
+            JObject submittedForm,
+            PaymentOrder order,
+            Currency currency,
             Account from, 
-            Account to, 
-            Currency currency, 
-            decimal amount) : base(category, from, to, currency, amount)
+            Account to) : base(template, from, to, currency, order.Amount)
         {
-            Argument.NotNull(order, "order");
-            Argument.NotEmpty(form, "form");
+            Argument.NotNull(submittedForm, "submittedForm");
             Argument.NotNull(template, "template");
-            Argument.NotEmpty(name, "name");
-            
+            Argument.NotNull(order, "order");
+
             Order = order;
-            Form = form;
-            Template = template;
-            Name = name;
+            Form = submittedForm.ToString();
         }
 
         protected Payment()
         {
         }
 
-        public string Name { get; protected set; }
+        public string TemplateCode
+        {
+            get { return Category.Code; }
+        }
 
         public virtual PaymentOrder Order { get; protected set; }
 
         public string Form { get; protected set; }
-
-        public virtual PaymentTemplate Template { get; protected set; }
     }
 }

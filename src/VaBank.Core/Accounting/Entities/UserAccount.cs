@@ -5,8 +5,8 @@ namespace VaBank.Core.Accounting.Entities
 {
     public abstract class UserAccount : Account
     {
-        protected UserAccount(Currency currency, User owner)
-            :base(currency)
+        protected UserAccount(Currency currency, User owner, string type)
+            :base(currency, type ?? "CustomerAccount")
         {
             Argument.NotNull(owner, "user");
             Owner = owner;

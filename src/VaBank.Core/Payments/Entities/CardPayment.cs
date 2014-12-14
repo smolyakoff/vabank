@@ -1,6 +1,6 @@
-﻿using VaBank.Common.Validation;
+﻿using Newtonsoft.Json.Linq;
+using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
-using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Core.Payments.Entities
 {
@@ -8,16 +8,13 @@ namespace VaBank.Core.Payments.Entities
     {
         internal CardPayment(
             Card card, 
-            PaymentOrder order,
             PaymentTemplate template,
-            string name,
-            string form,
-            OperationCategory category,
+            PaymentOrder order,
+            JObject submittedForm,
             Account from,
             Account to,
-            Currency currency,
-            decimal amount
-            ) : base(order, template, name, form, category, from, to, currency, amount)
+            Currency currency) 
+            : base(template, submittedForm, order, currency, from, to)
         {
             Argument.NotNull(card, "card");
             Card = card;
@@ -27,6 +24,6 @@ namespace VaBank.Core.Payments.Entities
         {
         }
         
-        public Card Card { get; protected set; } 
+        public virtual Card Card { get; protected set; } 
     }
 }

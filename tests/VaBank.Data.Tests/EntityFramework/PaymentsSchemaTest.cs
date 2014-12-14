@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Membership.Entities;
@@ -102,8 +103,7 @@ namespace VaBank.Data.Tests.EntityFramework
         [TestMethod]
         public void Can_VaBank_Context_Get_PaymentTemplates_And_PaymentOrderTemplates()
         {
-            var paymentTemplates = Context.Set<PaymentTemplate>().ToList();
-            var paymentOrderTemplates = Context.Set<PaymentOrderTemplate>().ToList();
+            var paymentTemplates = Context.Set<PaymentTemplate>().Include(x => x.OrderTemplate).ToList();
 
             Assert.IsTrue(paymentTemplates.Count > 0);
         }

@@ -7,10 +7,11 @@ namespace VaBank.Core.Accounting.Entities
 {
     public abstract class Account : Entity, IVersionedEntity
     {
-        protected Account(Currency currency)
+        protected Account(Currency currency, string type)
             :this()
         {
             Argument.NotNull(currency, "currency");
+            Argument.NotNull(type, "type");
             Currency = currency;
         }
 

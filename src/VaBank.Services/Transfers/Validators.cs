@@ -58,7 +58,7 @@ namespace VaBank.Services.Transfers
             IRepository<UserCard> userCardRepository) :
             base(settings, userCardRepository)
         {
-            RuleFor(x => x.ToCardId).NotEqual(Guid.Empty);
+            RuleFor(x => x.ToCardId).NotEqual(Guid.Empty).NotEqual(x => x.FromCardId);
         }
     }
 
@@ -78,7 +78,15 @@ namespace VaBank.Services.Transfers
             RuleFor(x => x.ToCardExpirationDateUtc).GreaterThan(x => DateTime.UtcNow);
             RuleFor(x => x.ToCardNo)
                 .Must(DestinationCardExists)
-                .WithLocalizedMessage(() => Messages.DestinationCardNotFound);
+                .WithLocalizedMessage(() => Messages.DestinationCardNotFound)
+                .Must(NotEqualToFromCardNo)
+                .WithLocalizedMessage(() => Messages.DestinationCardNotEqualToSource);
+        }
+
+        private bool NotEqualToFromCardNo(InterbankCardTransferCommand command, string toCardNo)
+        {
+            var fromCard = _userCards.Find(command.FromCardId);
+            return fromCard.CardNo != toCardNo;
         }
 
         private bool DestinationCardExists(InterbankCardTransferCommand command, string cardNo)
