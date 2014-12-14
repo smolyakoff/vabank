@@ -30,7 +30,8 @@ namespace VaBank.Services.Payments.Forms
             _accountRepository = accountRepository;
 
             RuleFor(x => x.Amount)
-                   .GreaterThan(0)
+                   .GreaterThanOrEqualTo(100)
+                   .WithLocalizedMessage(() => Messages.MinAmountPayment, 100)
                    .LessThan(5000000)
                    .WithLocalizedName(() => Names.Amount);
             RuleFor(x => x.BeneficiaryAccountNo)
