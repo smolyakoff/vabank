@@ -86,5 +86,14 @@ namespace VaBank.Services.Transfers {
                 return ResourceManager.GetString("DestinationCardNotFound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Недостаточно средств на счете для проведения перевода..
+        /// </summary>
+        public static string InsufficientFunds {
+            get {
+                return ResourceManager.GetString("InsufficientFunds", resourceCulture);
+            }
+        }
     }
 }
