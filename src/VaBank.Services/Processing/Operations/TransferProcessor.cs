@@ -71,7 +71,7 @@ namespace VaBank.Services.Processing.Operations
             return Enumerable.Empty<ApplicationEvent>();
         }
 
-        private IEnumerable<ApplicationEvent> WhenWithdrawalPending(Guid appOperationId, Transfer transfer)
+        protected virtual IEnumerable<ApplicationEvent> WhenWithdrawalPending(Guid appOperationId, Transfer transfer)
         {
             var transactionModel = transfer.Withdrawal.ToModel<Transaction, TransactionModel>();
             return new List<ApplicationEvent>()
@@ -80,7 +80,7 @@ namespace VaBank.Services.Processing.Operations
             };
         }
 
-        private IEnumerable<ApplicationEvent> WhenWithdrawalCompleted(Guid appOperationId, Transfer transfer)
+        protected virtual IEnumerable<ApplicationEvent> WhenWithdrawalCompleted(Guid appOperationId, Transfer transfer)
         {
             var transactionName = TransactionReferenceBook.ForOperation(transfer);
             var depositTransaction = Deposit(transfer.To, transfer, transactionName.Code, transactionName.Description);
@@ -93,21 +93,21 @@ namespace VaBank.Services.Processing.Operations
             };
         }
 
-        private IEnumerable<ApplicationEvent> WhenWithdrawalFailed(Guid appOperationId, Transfer transfer)
+        protected virtual IEnumerable<ApplicationEvent> WhenWithdrawalFailed(Guid appOperationId, Transfer transfer)
         {
             transfer.Fail(string.Format(Messages.TransferFailed, transfer.Withdrawal.ErrorMessage));
             TransferRepository.Update(transfer);
             return Enumerable.Empty<ApplicationEvent>();
         }
 
-        private IEnumerable<ApplicationEvent> WhenDepositCompleted(Guid appOperationId, Transfer transfer)
+        protected virtual IEnumerable<ApplicationEvent> WhenDepositCompleted(Guid appOperationId, Transfer transfer)
         {
             transfer.Complete();
             TransferRepository.Update(transfer);
             return Enumerable.Empty<ApplicationEvent>();
         }
 
-        private IEnumerable<ApplicationEvent> WhenDepositFailed(Guid appOperationId, Transfer transfer)
+        protected virtual IEnumerable<ApplicationEvent> WhenDepositFailed(Guid appOperationId, Transfer transfer)
         {
             transfer.Fail(string.Format(Messages.TransferFailed, transfer.Deposit.ErrorMessage));
             var transactionName = TransactionReferenceBook.CompensationFor(transfer.Withdrawal);

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using VaBank.Common.Data.Repositories;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
@@ -6,12 +8,15 @@ using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
+using VaBank.Services.Contracts.Common.Events;
 
 namespace VaBank.Services.Processing.Operations
 {
     [Injectable]
     internal class CardPaymentProcessor : TransferProcessor
     {
+        private const int DelaySecons = 15;
+
         private readonly IRepository<PaymentTransactionLink> _paymentTransactionLinkRepository;
 
         public CardPaymentProcessor(BaseOperationProcessorDependencies baseDependencies, 
@@ -50,6 +55,18 @@ namespace VaBank.Services.Processing.Operations
             var paymentLink = new PaymentTransactionLink(compensatingTransaction, payment.Order);
             _paymentTransactionLinkRepository.Create(paymentLink);
             return compensatingTransaction;
+        }
+
+        protected override IEnumerable<ApplicationEvent> WhenWithdrawalPending(Guid appOperationId, Transfer transfer)
+        {
+            Task.Delay(TimeSpan.FromSeconds(DelaySecons)).Wait();
+            return base.WhenWithdrawalPending(appOperationId, transfer);
+        }
+
+        protected override IEnumerable<ApplicationEvent> WhenWithdrawalCompleted(Guid appOperationId, Transfer transfer)
+        {
+            Task.Delay(TimeSpan.FromSeconds(DelaySecons)).Wait();
+            return base.WhenWithdrawalCompleted(appOperationId, transfer);
         }
     }
 }
