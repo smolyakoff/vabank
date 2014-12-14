@@ -20,7 +20,7 @@
                         allowAnonymous: false,
                         roles: ['Customer']
                     }
-                },
+                }
             })
             .state('customer.cabinet', {
                 url: '',
@@ -124,6 +124,11 @@
                         });
                     }]
                 }
+            })
+            .state('customer.payments.archive', {
+                url: '/archive',
+                templateUrl: '/Client/app/areas/customer/payments/payments-archive.html',
+                controller: 'paymentsArchiveController'
             });
     }
 
