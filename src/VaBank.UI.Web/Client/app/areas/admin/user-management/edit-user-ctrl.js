@@ -10,7 +10,7 @@
     function editUserController($scope, $q, $state, $stateParams, userManager, uiTools, data) {
 
         var createForm = function(data) {
-            var form = angular.extend({}, data.user, data.profile);
+            var form = angular.extend({}, data.user, data.profile, data.paymentProfile);
             form.role = form.role || _.find(data.user.claims, function(x) {
                 return x.type.indexOf('role') > 0;
             }).value;

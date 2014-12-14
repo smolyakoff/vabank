@@ -1,6 +1,5 @@
-﻿using System;
-using AutoMapper;
-using VaBank.Core.Membership;
+﻿using AutoMapper;
+using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Membership.Entities;
 using VaBank.Services.Contracts.Membership.Commands;
 using VaBank.Services.Contracts.Membership.Models;
@@ -24,6 +23,9 @@ namespace VaBank.Services.Membership
                 .ForMember(x => x.FirstName, cfg => cfg.MapFrom(y => y.Profile == null ? null : y.Profile.FirstName))
                 .ForMember(x => x.LastName, cfg => cfg.MapFrom(y => y.Profile == null ? null : y.Profile.LastName));
             CreateMap<UserProfile, UserProfileModel>();
+            CreateMap<UserPaymentProfile, UserPaymentProfileModel>();
+
+            //Create User
             CreateMap<CreateUserCommand, UserProfile>()
                 .ForMember(x => x.PhoneNumber, cfg => cfg.MapFrom(x => string.IsNullOrWhiteSpace(x.PhoneNumber) ? null : x.PhoneNumber));
             CreateMap<CreateUserCommand, User>()
@@ -34,10 +36,14 @@ namespace VaBank.Services.Membership
                     return user;
                 })
                 .ForMember(x => x.Profile, cfg => cfg.MapFrom(x => x));
+
+            //Update User
             CreateMap<UpdateUserCommand, UserProfile>()
                 .ConstructUsing(c => new UserProfile(c.UserId));
             CreateMap<UpdateUserCommand, User>()
                 .ForMember(x => x.Profile, cfg => cfg.MapFrom(x => x));
+            CreateMap<UpdateUserCommand, UserPaymentProfile>();
+
             CreateMap<UpdateProfileCommand, UserProfile>();
         }
     }

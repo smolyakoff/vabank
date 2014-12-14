@@ -16,6 +16,8 @@ namespace VaBank.Services.Contracts.Membership
 
         UserProfileModel GetProfile(IdentityQuery<Guid> id);
 
+        FullUserProfileModel GetFullProfile(IdentityQuery<Guid> id);
+
         UserBriefModel CreateUser(CreateUserCommand command);
 
         void UpdateUser(UpdateUserCommand command);

@@ -5,6 +5,7 @@ using VaBank.Common.Data.Repositories;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Membership.Entities;
 using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing;
 using VaBank.Core.Processing.Resources;

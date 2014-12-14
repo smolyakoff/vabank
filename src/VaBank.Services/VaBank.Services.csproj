@@ -180,7 +180,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Membership\UserManagementRepositories.cs" />
+    <Compile Include="Membership\UserManagementDependencies.cs" />
     <Compile Include="Membership\UserService.cs" />
     <Compile Include="Membership\Validators.cs" />
     <Compile Include="Processing\Operations\BankOperationProcessorCommand.cs" />

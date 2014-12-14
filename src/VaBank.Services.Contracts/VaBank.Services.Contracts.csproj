@@ -65,6 +65,8 @@
     <Compile Include="Common\Commands\IOperationCommand.cs" />
     <Compile Include="Maintenance\Models\IOwnerModel.cs" />
     <Compile Include="Maintenance\Models\UserOwnerModel.cs" />
+    <Compile Include="Membership\Models\FullUserProfileModel.cs" />
+    <Compile Include="Membership\Models\UserPaymentProfileModel.cs" />
     <Compile Include="Payments\Commands\SubmitPaymentCommand.cs" />
     <Compile Include="Payments\Commands\ValidateFormCommand.cs" />
     <Compile Include="Payments\IPaymentClientService.cs" />

@@ -34,11 +34,19 @@ namespace VaBank.UI.Web.Api.Admin
         }
 
         [HttpGet]
-        [Route("{id}", Name = "GetUser")]
+        [Route("{id:guid}", Name = "GetUser")]
         public IHttpActionResult Get([FromUri] IdentityQuery<Guid> query)
         {
             var user = _userService.GetUser(query);
             return user == null ? (IHttpActionResult) NotFound() : Ok(user);
+        }
+
+        [HttpGet]
+        [Route("{id:guid}/profile/full")]
+        public IHttpActionResult GetFullProfile([FromUri] IdentityQuery<Guid> query)
+        {
+            var profile = _userService.GetFullProfile(query);
+            return profile == null ? (IHttpActionResult)NotFound() : Ok(profile);
         }
 
         [HttpPost]
@@ -51,7 +59,7 @@ namespace VaBank.UI.Web.Api.Admin
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:guid}")]
         [Transaction]
         public IHttpActionResult Update([FromUri] Guid id, UpdateUserCommand command)
         {

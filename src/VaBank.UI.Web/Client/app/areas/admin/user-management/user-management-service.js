@@ -95,13 +95,25 @@
             return userString;
         };
 
-        var Profile = $resource('/api/users/:userId/profile', { userId: '@userId' });
+        var Profile = $resource('/api/users/:userId/profile', { userId: '@userId' }, {
+            getFull: {
+                url: '/api/users/:userId/profile/full',
+                method: 'GET'
+            }
+        });
         Profile.defaults = {};
         Profile.defaults.new = {};
 
+        var PaymentProfile = {
+            defaults: {
+                new: {}
+            }
+        }
+
         return {            
             User: User,
-            Profile: Profile
+            Profile: Profile,
+            PaymentProfile: PaymentProfile
         };
     }
 })();

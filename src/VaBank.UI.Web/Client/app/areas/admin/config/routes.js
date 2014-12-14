@@ -74,17 +74,19 @@
                 templateUrl: '/Client/app/areas/admin/user-management/edit-user.html',
                 controller: 'editUserController',
                 resolve: {
-                    data: ['$stateParams', 'routingResolve', 'userManagementService', function ($stateParams, routingResolve, userManager) {
+                    data: ['$stateParams', 'userManagementService', function ($stateParams, userManager) {
                         var User = userManager.User;
                         var Profile = userManager.Profile;
+                        var PaymentProfile = userManager.PaymentProfile;
                         if ($stateParams.id === 'add') {
-                            return {user: User.defaults.new, profile: Profile.defaults.new};
+                            return {
+                                user: User.defaults.new,
+                                profile: Profile.defaults.new,
+                                paymentProfile: PaymentProfile.defaults.new
+                            };
                         } else {
                             var params = { userId: $stateParams.id };
-                            return routingResolve.resolveAll(
-                                [User.get(params).$promise, routingResolve.resolveOrDefault(Profile.get(params).$promise, {})],
-                                ['user', 'profile']
-                            );
+                            return Profile.getFull(params).$promise;
                         }
                     }]
                 }

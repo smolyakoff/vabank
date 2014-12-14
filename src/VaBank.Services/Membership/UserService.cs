@@ -21,13 +21,13 @@ namespace VaBank.Services.Membership
 {
     public class UserService : BaseService, IUserService
     {
-        private readonly UserManagementRepositories _db;
+        private readonly UserManagementDependencies _deps;
 
-        public UserService(BaseServiceDependencies dependencies, UserManagementRepositories repositories) 
+        public UserService(BaseServiceDependencies dependencies, UserManagementDependencies deps) 
             : base(dependencies)
         {
-            repositories.EnsureIsResolved();
-            _db = repositories;
+            dependencies.EnsureIsResolved();
+            _deps = deps;
         }
 
         public IPagedList<UserBriefModel> GetUsers(UsersQuery query)
@@ -35,7 +35,7 @@ namespace VaBank.Services.Membership
             EnsureIsValid(query);
             try
             {
-                var usersPage = _db.Users.PartialProjectThenQueryPage<UserBriefModel>(
+                var usersPage = _deps.Users.PartialProjectThenQueryPage<UserBriefModel>(
                     User.Spec.Active,
                     query.ToDbQuery());
                 return usersPage;
@@ -51,7 +51,7 @@ namespace VaBank.Services.Membership
             EnsureIsValid(id);
             try
             {
-                var user = _db.Users.PartialQueryIdentity(User.Spec.Active, id);
+                var user = _deps.Users.PartialQueryIdentity(User.Spec.Active, id);
                 return user == null ? null : user.ToModel<User, UserBriefModel>();
             }
             catch (Exception ex)
@@ -65,7 +65,7 @@ namespace VaBank.Services.Membership
             EnsureIsValid(id);
             try
             {
-                var user = _db.Users.PartialQueryIdentity(User.Spec.Active, id);
+                var user = _deps.Users.PartialQueryIdentity(User.Spec.Active, id);
                 if (user == null || user.Profile == null)
                 {
                     return null;
@@ -79,13 +79,39 @@ namespace VaBank.Services.Membership
             }
         }
 
+        public FullUserProfileModel GetFullProfile(IdentityQuery<Guid> id)
+        {
+            EnsureIsValid(id);
+            try
+            {
+                var user = _deps.Users.PartialQueryIdentity(User.Spec.Active, id);
+                if (user == null || user.Profile == null)
+                {
+                    return null;
+                }
+                var paymentProfile = _deps.PaymentProfiles.SurelyFind(id.Id);
+                return new FullUserProfileModel
+                {
+                    User = user.ToModel<UserBriefModel>(),
+                    Profile = user.Profile.ToModel<UserProfileModel>(),
+                    PaymentProfile = paymentProfile.ToModel<UserPaymentProfileModel>()
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get full profile.", ex);
+            }
+        }
+
         public UserBriefModel CreateUser(CreateUserCommand command)
         {
             EnsureIsValid(command);
             try
             {
                 var user = command.ToEntity<CreateUserCommand, User>();
-                _db.Users.Create(user);
+                _deps.Users.Create(user);
+                var paymentProfile = _deps.UserPaymentProfileFactory.Create(user, command.Address, command.FullName);
+                _deps.PaymentProfiles.Create(paymentProfile);
                 Commit();
                 return user.ToModel<User, UserBriefModel>();
             }
@@ -100,11 +126,12 @@ namespace VaBank.Services.Membership
             EnsureIsValid(command);
             try
             {
-                var user = _db.Users.Find(command.UserId);
+                var user = _deps.Users.Find(command.UserId);
                 if (user == null || user.Deleted)
                 {
                     throw NotFound.ExceptionFor<User>(command.UserId);
                 }
+                var paymentProfile = _deps.PaymentProfiles.SurelyFind(command.UserId);
                 Mapper.Map(command, user);
                 var role = UserClaim.CreateRole(command.UserId, command.Role);
                 var existingRoles = user.Claims.Where(x => x.Type == ClaimTypes.Role).ToList();
@@ -118,6 +145,8 @@ namespace VaBank.Services.Membership
                     user.UpdatePassword(command.Password);
                 }
                 Mapper.Map(command, user.Profile);
+                Mapper.Map(command, paymentProfile);
+                _deps.PaymentProfiles.Update(paymentProfile);
                 Commit();
             }
             catch (ServiceException)
@@ -136,7 +165,7 @@ namespace VaBank.Services.Membership
             EnsureIsSecure(command, new UserCommandValidator(Identity));
             try
             {
-                var user = _db.Users.Find(command.UserId);
+                var user = _deps.Users.Find(command.UserId);
                 if (user == null || user.Deleted)
                 {
                     throw NotFound.ExceptionFor<User>(command.UserId);
@@ -152,7 +181,7 @@ namespace VaBank.Services.Membership
                 {
                     user.Profile.PhoneNumberConfirmed = true;
                 }
-                _db.UserProfiles.Update(user.Profile);
+                _deps.UserProfiles.Update(user.Profile);
                 Commit();
                 Publish(new UserProfileUpdated(Operation.Id, user.Profile.ToModel<UserProfile, UserProfileModel>()));
             }
@@ -171,7 +200,7 @@ namespace VaBank.Services.Membership
             EnsureIsValid(command);
             try
             {
-                var user = _db.Users.Find(command.UserId);
+                var user = _deps.Users.Find(command.UserId);
                 if (user == null || user.Deleted)
                 {
                     throw NotFound.ExceptionFor<User>(command.UserId);
@@ -181,7 +210,7 @@ namespace VaBank.Services.Membership
                     throw AccessFailure.ExceptionBecause(AccessFailureReason.BadCredentials);
                 }
                 user.UpdatePassword(command.NewPassword);
-                _db.Tokens.Delete(DbQuery.For<ApplicationToken>().FilterBy(x => x.User.Id == command.UserId));
+                _deps.Tokens.Delete(DbQuery.For<ApplicationToken>().FilterBy(x => x.User.Id == command.UserId));
                 Commit();
                 return UserMessage.Resource(() => Messages.PasswordChanged);
             }
