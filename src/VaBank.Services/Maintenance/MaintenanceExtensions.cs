@@ -31,6 +31,7 @@ namespace VaBank.Services.Maintenance
                 var statuses = query.Status.Map<ProcessStatusModel, ProcessStatus>().ToList();
                 dbQuery.AndFilterBy(x => statuses.Contains(x.Status));
             }
+            dbQuery.SortBy(x => x.OrderByDescending(t => t.CreatedDateUtc));
             return dbQuery;
         } 
     }

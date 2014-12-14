@@ -1,7 +1,7 @@
 ﻿using System;
-using VaBank.Services.Contracts.Common.Models;
+using VaBank.Services.Contracts.Accounting.Models;
 
-namespace VaBank.Services.Contracts.Accounting.Models
+namespace VaBank.Services.Contracts.Maintenance.Models
 {
     public class AccountBriefModel
     {

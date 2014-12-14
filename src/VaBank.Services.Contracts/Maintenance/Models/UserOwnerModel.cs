@@ -1,4 +1,6 @@
-﻿namespace VaBank.Services.Contracts.Common.Models
+﻿using VaBank.Services.Contracts.Common.Models;
+
+namespace VaBank.Services.Contracts.Maintenance.Models
 {
     public class UserOwnerModel : UserNameModel, IOwnerModel
     {

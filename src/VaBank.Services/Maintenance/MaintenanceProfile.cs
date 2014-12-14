@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
+using VaBank.Core.Accounting.Entities;
 using VaBank.Core.App.Entities;
+using VaBank.Core.Common;
 using VaBank.Core.Maintenance.Entitities;
+using VaBank.Core.Membership.Entities;
 using VaBank.Core.Processing.Entities;
+using VaBank.Services.Contracts.Accounting.Models;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Maintenance.Commands;
 using VaBank.Services.Contracts.Maintenance.Models;
@@ -41,6 +45,7 @@ namespace VaBank.Services.Maintenance
 
             CreateMap<LogAppActionCommand, ApplicationAction>();
 
+            //Transaction Log
             CreateMap<ITransaction, TransactionLogEntryBriefModel>()
                 .ForMember(x => x.TransactionId, cfg => cfg.MapFrom(x => x.Id))
                 .ForMember(x => x.Status, cfg => cfg.MapFrom(x => (ProcessStatusModel)x.Status))
@@ -51,6 +56,25 @@ namespace VaBank.Services.Maintenance
             CreateMap<HistoricalTransaction, TransactionLogEntryHistoricalModel>()
                 .ForMember(x => x.TimestampUtc, cfg => cfg.MapFrom(x => x.HistoryTimestampUtc))
                 .ForMember(x => x.ChangeOwnerUserId, cfg => cfg.MapFrom(x => x.HistoryOperation.UserId));
+
+            CreateMap<Entity, IOwnerModel>()
+                .Include<User, UserOwnerModel>()
+                .Include<Bank, BankOwnerModel>();
+
+            CreateMap<User, UserOwnerModel>()
+                .ForMember(x => x.UserId, cfg => cfg.MapFrom(x => x.Id))
+                .ForMember(x => x.FirstName, cfg => cfg.MapFrom(x => x.Profile.FirstName))
+                .ForMember(x => x.LastName, cfg => cfg.MapFrom(x => x.Profile.LastName))
+                .ForMember(x => x.Email, cfg => cfg.MapFrom(x => x.Profile.Email));
+            CreateMap<Bank, BankOwnerModel>();
+
+            CreateMap<Account, AccountBriefModel>()
+                .Include<CardAccount, AccountBriefModel>()
+                .Include<CorrespondentAccount, AccountBriefModel>();
+            CreateMap<CardAccount, AccountBriefModel>()
+                .ForMember(x => x.Owner, cfg => cfg.MapFrom(x => x.Owner));
+            CreateMap<CorrespondentAccount, AccountBriefModel>()
+                .ForMember(x => x.Owner, cfg => cfg.MapFrom(x => x.Bank));
         }
     }
 }

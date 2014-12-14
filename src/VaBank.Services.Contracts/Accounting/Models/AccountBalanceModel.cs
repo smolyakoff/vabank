@@ -1,6 +1,4 @@
-﻿using VaBank.Services.Contracts.Accounting.Models;
-
-namespace VaBank.Services.Contracts.Processing.Models
+﻿namespace VaBank.Services.Contracts.Accounting.Models
 {
     public class AccountBalanceModel
     {

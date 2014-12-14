@@ -1,4 +1,4 @@
-﻿namespace VaBank.Services.Contracts.Common.Models
+﻿namespace VaBank.Services.Contracts.Maintenance.Models
 {
     public interface IOwnerModel
     {

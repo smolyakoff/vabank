@@ -66,13 +66,13 @@ namespace VaBank.Services.Accounting
             }
         }
 
-        public IPagedList<AccountBriefModel> GetCardAccounts(AccountQuery query)
+        public IPagedList<CardAccountBriefModel> GetCardAccounts(AccountQuery query)
         {
             EnsureIsValid(query);
             try
             {
                 var accounts = _deps.CardAccounts.QueryPage(query.ToDbQuery<CardAccount>());
-                return accounts.Map<AccountBriefModel>();
+                return accounts.Map<CardAccountBriefModel>();
             }
             catch (Exception ex)
             {
@@ -285,14 +285,14 @@ namespace VaBank.Services.Accounting
             }
         }
 
-        public AccountBriefModel GetCardAccountBrief(IdentityQuery<string> accountNo)
+        public CardAccountBriefModel GetCardAccountBrief(IdentityQuery<string> accountNo)
         {
             EnsureIsValid(accountNo);
             try
             {
                 var query = DbQuery.For<CardAccount>().FilterBy(x => x.AccountNo == accountNo.Id);
                 var account = _deps.CardAccounts.QueryOne(query);
-                return account == null ? null : account.ToModel<AccountBriefModel>();
+                return account == null ? null : account.ToModel<CardAccountBriefModel>();
             }
             catch (Exception ex)
             {

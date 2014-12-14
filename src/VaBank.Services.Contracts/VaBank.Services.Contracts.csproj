@@ -57,13 +57,14 @@
     <Compile Include="Accounting\Events\UserCardLimitChanged.cs" />
     <Compile Include="Accounting\Models\AccountBalanceModel.cs" />
     <Compile Include="Accounting\Models\BankOwnerModel.cs" />
+    <Compile Include="Accounting\Models\CardAccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardAccountStatementItemModel.cs" />
     <Compile Include="Accounting\Models\CardAccountStatementModel.cs" />
     <Compile Include="Accounting\Models\CardNameModel.cs" />
     <Compile Include="Accounting\Models\CustomerCardBriefModel.cs" />
     <Compile Include="Common\Commands\IOperationCommand.cs" />
-    <Compile Include="Common\Models\IOwnerModel.cs" />
-    <Compile Include="Common\Models\UserOwnerModel.cs" />
+    <Compile Include="Maintenance\Models\IOwnerModel.cs" />
+    <Compile Include="Maintenance\Models\UserOwnerModel.cs" />
     <Compile Include="Payments\Commands\SubmitPaymentCommand.cs" />
     <Compile Include="Payments\Commands\ValidateFormCommand.cs" />
     <Compile Include="Payments\IPaymentClientService.cs" />
@@ -104,7 +105,7 @@
     <Compile Include="Processing\Events\TransactionProcessedEvent.cs" />
     <Compile Include="Processing\Events\TransactionProgressEvent.cs" />
     <Compile Include="Processing\IExchangeRateService.cs" />
-    <Compile Include="Accounting\Models\AccountBriefModel.cs" />
+    <Compile Include="Maintenance\Models\AccountBriefModel.cs" />
     <Compile Include="Accounting\Models\CardLookupModel.cs" />
     <Compile Include="Accounting\Models\CardModel.cs" />
     <Compile Include="Transfers\ICardTransferClientService.cs" />

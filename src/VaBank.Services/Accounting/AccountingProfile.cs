@@ -15,25 +15,7 @@ namespace VaBank.Services.Accounting
         {
             CreateMap<Currency, CurrencyModel>();
             CreateMap<CardVendor, CardVendorModel>();
-
-            CreateMap<Entity, IOwnerModel>()
-                .Include<User, UserOwnerModel>()
-                .Include<Bank, BankOwnerModel>();
-
-            CreateMap<User, UserOwnerModel>()
-                .ForMember(x => x.UserId, cfg => cfg.MapFrom(x => x.Id))
-                .ForMember(x => x.FirstName, cfg => cfg.MapFrom(x => x.Profile.FirstName))
-                .ForMember(x => x.LastName, cfg => cfg.MapFrom(x => x.Profile.LastName))
-                .ForMember(x => x.Email, cfg => cfg.MapFrom(x => x.Profile.Email));
-            CreateMap<Bank, BankOwnerModel>();
-
-            CreateMap<Account, AccountBriefModel>()
-                .Include<CardAccount, AccountBriefModel>()
-                .Include<CorrespondentAccount, AccountBriefModel>();
-            CreateMap<CardAccount, AccountBriefModel>()
-                .ForMember(x => x.Owner, cfg => cfg.MapFrom(x => x.Owner));
-            CreateMap<CorrespondentAccount, AccountBriefModel>()
-                .ForMember(x => x.Owner, cfg => cfg.MapFrom(x => x.Bank));
+            CreateMap<CardAccount, CardAccountBriefModel>();
             
             CreateMap<UserCard, CardModel>()
                 .ForMember(x => x.CardId, cfg => cfg.MapFrom(x => x.Id))
@@ -55,6 +37,7 @@ namespace VaBank.Services.Accounting
             CreateMap<CardLimits, CardLimitsModel>();
             CreateMap<CardLimitsModel, CardLimits>();
 
+            // Customer Cards
             CreateMap<UserCard, CustomerCardModel>()
                 .ForMember(x => x.CardId, cfg => cfg.MapFrom(x => x.Id))
                 .ForMember(x => x.AccountNo, cfg => cfg.MapFrom(x => x.Account.AccountNo))
@@ -78,6 +61,7 @@ namespace VaBank.Services.Accounting
                 .ForMember(x => x.FriendlyName, cfg => cfg.MapFrom(x => x.Settings.FriendlyName))
                 .ForMember(x => x.Owner, cfg => cfg.MapFrom(x => x.Owner));
             
+            // Account Statement
             CreateMap<Transaction, CardAccountStatementItemModel>()
                 .ForMember(x => x.TransactionId, cfg => cfg.MapFrom(x => x.Id))
                 .Include<CardTransaction, CardAccountStatementItemModel>();

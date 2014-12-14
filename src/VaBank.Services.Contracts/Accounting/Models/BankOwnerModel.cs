@@ -1,4 +1,5 @@
 ﻿using VaBank.Services.Contracts.Common.Models;
+using VaBank.Services.Contracts.Maintenance.Models;
 
 namespace VaBank.Services.Contracts.Accounting.Models
 {

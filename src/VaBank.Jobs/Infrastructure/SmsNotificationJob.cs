@@ -28,7 +28,7 @@ namespace VaBank.Jobs.Infrastructure
 
         private void Handle(SmsNotificationJobContext context, SmsCodeCreated smsCodeCreated)
         {
-            var profile = VerifyProfile(context, smsCodeCreated.UserId.ToString());
+            var profile = VerifyProfile(context, smsCodeCreated.UserId);
             if (profile == null)
             {
                 return;
@@ -48,7 +48,7 @@ namespace VaBank.Jobs.Infrastructure
 
         private void Handle(SmsNotificationJobContext context, UserCardBlocked cardBlocked)
         {
-            var profile = VerifyProfile(context, cardBlocked.UserId.ToString());
+            var profile = VerifyProfile(context, cardBlocked.UserId);
             if (profile == null)
             {
                 return;
@@ -85,7 +85,7 @@ namespace VaBank.Jobs.Infrastructure
                 Logger.Info("Couldn't find account for card transaction #{0}.", smsEvent.TransactionId);
                 return;
             }
-            var profile = VerifyProfile(context, account.Owner.Id);
+            var profile = VerifyProfile(context, account.Owner.UserId);
             if (profile == null || !profile.SmsNotificationEnabled)
             {
                 return;
@@ -135,21 +135,14 @@ namespace VaBank.Jobs.Infrastructure
             }
         }
 
-        private UserProfileModel VerifyProfile(SmsNotificationJobContext context, string ownerId)
+        private UserProfileModel VerifyProfile(SmsNotificationJobContext context, Guid? userId)
         {
-            if (string.IsNullOrEmpty(ownerId))
+            if (!userId.HasValue)
             {
-                Logger.Error("No owner information specified for sms event.");
+                Logger.Error("Sms event didn't contain user id.");
                 return null;
             }
-            Guid userId;
-            var isGuid = Guid.TryParse(ownerId, out userId);
-            if (!isGuid)
-            {
-                Logger.Info("Account owner id is not a guid.");
-                return null;
-            }
-            var profile = context.UserService.GetProfile(new IdentityQuery<Guid>(userId));
+            var profile = context.UserService.GetProfile(new IdentityQuery<Guid>(userId.Value));
             if (profile == null)
             {
                 Logger.Error("Profile was not found for sms event.");
