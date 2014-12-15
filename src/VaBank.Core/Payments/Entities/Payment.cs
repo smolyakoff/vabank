@@ -35,5 +35,7 @@ namespace VaBank.Core.Payments.Entities
         public virtual PaymentOrder Order { get; protected set; }
 
         public string Form { get; protected set; }
+
+        public string Info { get; internal set; }
     }
 }

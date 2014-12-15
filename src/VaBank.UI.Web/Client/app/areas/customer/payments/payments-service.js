@@ -5,21 +5,60 @@
         .module('vabank.webapp')
         .service('paymentService', paymentService);
 
-    paymentService.$inject = ['$q', '$resource', '$http', 'validationService', 'myCardsService'];
+    paymentService.$inject = ['$q', '$resource', '$http', 'dataUtil', 'authService', 'validationService', 'myCardsService'];
 
-    function paymentService($q, $resource, $http, validationService, myCardsService) {
+    function paymentService($q, $resource, $http, dataUtil, authService, validationService, myCardsService) {
 
-        var Payment = $resource('/api/payments/:code', { code: '@code' }, {
-           create: {
-               method: 'POST',
-               url: '/api/payments'
-           },
-           getTemplate: {
-               url: '/api/payment-templates/:code',
-               method: 'GET'
-           } 
-        });
+        var Payment = (function () {
 
+            var getUserId = function () {
+                return authService.getUser().id;
+            }
+
+            var defaults = {
+                filter: function() {
+                    return {
+                        from: {
+                            propertyName: 'createdDateUtc',
+                            operator: dataUtil.filters.operator.GreaterThanOrEqual,
+                            value: moment().startOf('month'),
+                            propertyType: 'datetime'
+                        },
+                        to: {
+                            propertyName: 'createdDateUtc',
+                            operator: dataUtil.filters.operator.LessThan,
+                            value: moment().startOf('day').add(1, 'day'),
+                            propertyType: 'datetime'
+                        }
+                    }
+                }
+            }
+
+            var PaymentImpl = $resource('/api/payments/:operationId', { operationId: '@operationId' }, {
+                query: {
+                    url: '/api/users/:userId/payments',
+                    isArray: true,
+                    params: {
+                        userId: getUserId,
+                        filter: dataUtil.filters.combine(defaults.filter(), dataUtil.filters.logic.And).toLINQ()
+                    }
+                },
+                create: {
+                    method: 'POST',
+                    url: '/api/payments'
+                },
+                getTemplate: {
+                    url: '/api/payment-templates/:code',
+                    method: 'GET'
+                }
+            });
+            PaymentImpl.defaults = defaults;
+
+            return PaymentImpl;
+
+        })();
+
+            
         var PaymentForm = (function () {
             var parseValidator = function(options, key) {
                 if (key === 'pattern') {

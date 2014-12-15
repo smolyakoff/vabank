@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using VaBank.Common.Data.Repositories;
+using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
 
 namespace VaBank.Core.Payments.Entities
@@ -19,7 +20,17 @@ namespace VaBank.Core.Payments.Entities
 
         public string FormTemplate { get; protected set; }
 
+        public string InfoTemplate { get; protected set; }
+
         public virtual PaymentOrderTemplate OrderTemplate { get; set; }
+
+        internal void FillInfo(Payment payment, PaymentForm paymentForm)
+        {
+            Argument.NotNull(payment, "payment");
+            Argument.NotNull(paymentForm, "paymentForm");
+
+            payment.Info = paymentForm.RenderValueOrDefault<string>(InfoTemplate);
+        }
 
         private string GetHierarchicalName()
         {

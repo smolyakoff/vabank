@@ -1,0 +1,9 @@
+﻿Получатель: {{form.beneficiaryName}}
+Номер счета получателя: {{form.beneficiaryAccountNo}}
+Код банка получателя: {{form.beneficiaryBankCode}}
+УНП получателя: {{form.beneficiaryTIN}}
+{% if paymentCode != null -%}
+Код платежа: {{form.paymentCode}}
+{% endif -%}
+Назначение платежа: 
+{{form.purpose}}

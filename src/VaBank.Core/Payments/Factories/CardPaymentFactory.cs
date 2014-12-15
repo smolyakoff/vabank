@@ -5,7 +5,6 @@ using VaBank.Common.Data.Repositories;
 using VaBank.Common.IoC;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
-using VaBank.Core.Membership.Entities;
 using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing;
 using VaBank.Core.Processing.Resources;
@@ -90,6 +89,7 @@ namespace VaBank.Core.Payments.Factories
                 throw new InvalidOperationException(message);
             }
             var payment = new CardPayment(card, template, paymentOrder, form, card.Account, to, currency);
+            template.FillInfo(payment, paymentForm);
             var transactionName = _transactionReferenceBook.ForOperation(payment);
             payment.Withdrawal = card.Account.Withdraw(
                 card,

@@ -2,5 +2,63 @@
 
 </section>
 <section class="row">
-    Архив платежей здесь
+    <div class="col-xs-12">
+        <table class="table table-responsive payments-table"
+               data-st-table="payments"
+               data-st-safe-src="displayedPayments">
+            <thead>
+            <tr class="initialism warning">
+                <th>Название платежа / Реквизиты</th>
+                <th class="text-center">Карта</th>
+                <th class="text-center">Дата платежа</th>
+                <th class="text-center">Сумма</th>
+                <th class="text-center">Статус</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="payment in displayedPayments">
+                <td>
+                    <div><strong>{{payment.paymentName}}</strong>
+                    </div>
+                    <div class="text-muted">
+                        <pre class="payment-info">{{payment.info}}</pre>
+                    </div>
+                </td>
+                <td class="text-warning text-center">
+                    <div>{{payment.card.secureCardNo}}</div>
+                    <div data-ng-if="payment.card.friendlyName" class="text-muted">{{payment.card.friendlyName}}</div>
+                </td>
+                <td class="text-center">
+                    <b>{{payment.dateUtc | localdate | amDateFormat: 'L'}}</b>
+                </td>
+                <td class="text-center">
+                    <b>
+                        {{payment.amount | extcurrency:'':payment.currency.precision }}
+                        {{payment.currency.isoName}}
+                    </b>
+                </td>
+                <td class="text-center" data-ng-switch="payment.status">
+                    <div data-ng-switch-when="Pending" class="text-warning">
+                        <i class="glyphicon glyphicon-time"></i> Принят банком
+                    </div>
+                    <div data-ng-switch-when="Completed" class="text-success">
+                        <i class="glyphicon glyphicon-ok-circle"></i> Завершен
+                    </div>
+                    <div data-ng-switch-when="Failed" class="text-danger">
+                        <i class="glyphicon glyphicon-ok-circle"></i> Ошибка
+                    </div>
+                </td>
+                <td class="text-center">
+                    <div>
+                        <a><i class="glyphicon glyphicon-repeat"></i> Повторить</a>
+                    </div>
+                    <div>
+                        <a><i class="glyphicon glyphicon-info-sign"></i> Информация</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </section>

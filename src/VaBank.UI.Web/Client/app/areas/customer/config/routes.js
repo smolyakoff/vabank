@@ -128,7 +128,12 @@
             .state('customer.payments.archive', {
                 url: '/archive',
                 templateUrl: '/Client/app/areas/customer/payments/payments-archive.html',
-                controller: 'paymentsArchiveController'
+                controller: 'paymentsArchiveController',
+                resolve: {
+                    data: ['paymentService', function(paymentService) {
+                        return paymentService.Payment.query().$promise;
+                    }]
+                }
             });
     }
 

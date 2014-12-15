@@ -114,9 +114,11 @@
     <Compile Include="M4-Payments\47_SeedBanks.cs" />
     <Compile Include="M4-Payments\48_SeedPaymentsData.cs" />
     <Compile Include="M4-Payments\49_MoveOperationCategoryAndPaymentProfile.cs" />
+    <Compile Include="M4-Payments\50_AddDisplayInfoForPayments.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource.cs" />
     <Compile Include="Seed.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +155,10 @@
   <ItemGroup>
     <EmbeddedResource Include="M2-Accounting\PROC_CurrentTransactionId_Azure.sql" />
     <EmbeddedResource Include="M2-Accounting\PROC_CurrentTransactionId.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="M4-Payments\Templates\cell-velcom-phoneno.info.txt" />
+    <EmbeddedResource Include="M4-Payments\Templates\custom-paymentorder.info.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json.Linq;
 using VaBank.Services.Contracts.Accounting.Models;
 using VaBank.Services.Contracts.Common.Models;
 
@@ -21,6 +20,6 @@ namespace VaBank.Services.Contracts.Payments.Models
 
         public ProcessStatusModel Status { get; set; }
 
-        public JObject Form { get; set; }
+        public string Info { get; set; }
     }
 }

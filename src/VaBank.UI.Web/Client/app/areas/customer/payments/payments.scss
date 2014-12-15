@@ -17,3 +17,19 @@
         }
     }
 }
+
+.payments-table {
+    thead > tr > th {
+        vertical-align: top;
+    }
+
+    tbody > tr > td {
+        vertical-align: middle;
+
+        .payment-info {
+            background-color: inherit;
+            border: none;
+            color: inherit;
+        }
+    }
+}
