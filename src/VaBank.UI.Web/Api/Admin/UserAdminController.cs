@@ -67,5 +67,13 @@ namespace VaBank.UI.Web.Api.Admin
             _userService.UpdateUser(command);
             return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
         }
+
+        [HttpPut]
+        [Route("{id:guid}/unblock")]
+        [Transaction]
+        public IHttpActionResult Unblock([FromUri] IdentityQuery<Guid> query)
+        {
+            return Ok(_userService.UnblockUser(query));
+        }
     }
 }

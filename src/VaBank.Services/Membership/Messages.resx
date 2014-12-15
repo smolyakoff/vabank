@@ -159,4 +159,7 @@
   <data name="UserNameUnique" xml:space="preserve">
     <value>Пользователь с таким именем уже зарегистрирован в системе.</value>
   </data>
+  <data name="UserSuccessfullyUnblocked" xml:space="preserve">
+    <value>Пользователь успешно разблокирован</value>
+  </data>
 </root>

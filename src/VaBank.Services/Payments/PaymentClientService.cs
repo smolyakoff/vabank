@@ -69,7 +69,17 @@ namespace VaBank.Services.Payments
 
         public PaymentArchiveFormModel GetForm(IdentityQuery<long> operationId)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(operationId);
+            EnsureIsSecure<IdentityQuery<long>, UserBankOperationSecurityValidator>(operationId);
+            try
+            {
+                var formModel = _deps.Payments.FindAndProject<PaymentArchiveFormModel>(operationId.Id);
+                return formModel;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get payment archive form.", ex);
+            }
         }
 
         public IList<PaymentArchiveItemModel> QueryArchive(PaymentArchiveQuery query)
