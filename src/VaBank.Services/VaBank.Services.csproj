@@ -98,6 +98,7 @@
     <Compile Include="Common\Security\CodeSecurityValidator.cs" />
     <Compile Include="Common\Security\SecurityValidator%271.cs" />
     <Compile Include="Common\Security\SecurityValidatorException.cs" />
+    <Compile Include="Common\Security\UserQueryValidator.cs" />
     <Compile Include="Common\Security\UserCommandValidator.cs" />
     <Compile Include="Infrastructure\Email\EmailService.cs" />
     <Compile Include="Infrastructure\Email\EmailServiceDependencies.cs" />
@@ -180,7 +181,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Membership\UserManagementRepositories.cs" />
+    <Compile Include="Membership\UserManagementDependencies.cs" />
     <Compile Include="Membership\UserService.cs" />
     <Compile Include="Membership\Validators.cs" />
     <Compile Include="Processing\Operations\BankOperationProcessorCommand.cs" />

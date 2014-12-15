@@ -2,7 +2,7 @@
 
 namespace VaBank.Services.Contracts.Payments.Models
 {
-    public class PaymentFormModel
+    public class PaymentArchiveFormModel
     {
         public JObject Form { get; set; }
 

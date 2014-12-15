@@ -2,8 +2,9 @@
 using VaBank.Common.Validation;
 using VaBank.Core.Common;
 using VaBank.Core.Membership.Entities;
+using VaBank.Core.Payments;
 
-namespace VaBank.Core.Payments.Entities
+namespace VaBank.Core.Accounting.Entities
 {
     public class UserPaymentProfile : Entity
     {
@@ -29,9 +30,9 @@ namespace VaBank.Core.Payments.Entities
 
         public virtual User User { get; protected set; }
 
-        public string FullName { get; protected set; }
+        public string FullName { get; set; }
 
-        public string Address { get; protected set; }
+        public string Address { get; set; }
 
         public string PayerTIN { get; protected set; }
 

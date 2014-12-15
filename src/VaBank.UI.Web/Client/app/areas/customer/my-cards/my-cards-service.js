@@ -42,12 +42,35 @@
             });
         };
 
+        var CardAccount = $resource('/api/accounts/card/:accountNo', { accountNo: '@accountNo' }, {
+            statement: {
+                url: '/api/accounts/card/:accountNo/statement',
+                method: 'GET',
+                isArray: false
+            }
+        });
+        CardAccount.query = function () {
+            return Card.query().$promise.then(function(cards) {
+                return _.chain(cards)
+                    .groupBy('accountNo')
+                    .map(function (value, key) {
+                        return {
+                            accountNo: key,
+                            balance: value[0].balance,
+                            currency: value[0].currency,
+                            cards: value
+                        }
+                    }).value();
+            });
+        };
+
         var SecurityCode = securityCodeService;
 
         var Transfer = transferService.Transfer;
 
         return {
             Card: Card,
+            CardAccount: CardAccount,
             SecurityCode: SecurityCode,
             Transfer: Transfer
         };

@@ -13,7 +13,7 @@ namespace VaBank.Services.Common.Security
         {
             return Identity.IsAuthenticated 
                 ? null 
-                : new ValidationFailure("{root}", RootPropertyName);
+                : new ValidationFailure("{root}", Messages.NotAuthenticated);
         }
     }
 }

@@ -1,21 +1,20 @@
 ﻿using FluentValidation.Results;
 using VaBank.Core.Membership.Entities;
-using VaBank.Services.Contracts.Common.Commands;
 using VaBank.Services.Contracts.Common.Queries;
 
 namespace VaBank.Services.Common.Security
 {
-    public class UserCommandValidator : SecurityValidator<IUserCommand>
+    public class UserQueryValidator : SecurityValidator<IUserQuery>
     {
-        public UserCommandValidator(VaBankIdentity identity) : base(identity)
+        public UserQueryValidator(VaBankIdentity identity) : base(identity)
         {
             Inherit(new AuthenticatedSecurityValidator(identity));
             Custom(IsSecure);
         }
 
-        private ValidationFailure IsSecure(IUserCommand command)
+        private ValidationFailure IsSecure(IUserQuery query)
         {
-            if (Identity.IsInRole(UserClaim.Roles.Customer) && command.UserId != Identity.UserId)
+            if (Identity.IsInRole(UserClaim.Roles.Customer) && query.UserId != Identity.UserId)
             {
                 return new ValidationFailure(RootPropertyName, Messages.InsufficientRights);
             }

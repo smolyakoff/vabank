@@ -126,4 +126,7 @@
   <data name="MissingSecurityCode" xml:space="preserve">
     <value>Не задан код подтверждения операции.</value>
   </data>
+  <data name="NotAuthenticated" xml:space="preserve">
+    <value>Пользователь не аутентифицирован.</value>
+  </data>
 </root>

@@ -86,5 +86,14 @@ namespace VaBank.Services.Payments {
                 return ResourceManager.GetString("InvalidPhoneNo", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Минимальная сумма платежа составляет {0} рублей..
+        /// </summary>
+        public static string MinAmountPayment {
+            get {
+                return ResourceManager.GetString("MinAmountPayment", resourceCulture);
+            }
+        }
     }
 }

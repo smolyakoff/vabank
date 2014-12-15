@@ -26,6 +26,8 @@ namespace VaBank.Services.Accounting
 
         public IQueryRepository<CardTransaction> CardTransactions { get; set; }
 
+        public IQueryRepository<Transaction> Transactions { get; set; } 
+
         public MoneyConverter MoneyConverter { get; set; }
     }
 }

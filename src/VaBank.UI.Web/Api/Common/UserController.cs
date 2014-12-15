@@ -5,7 +5,6 @@ using System.Web.Http;
 using VaBank.Common.Data;
 using VaBank.Services.Contracts.Membership;
 using VaBank.Services.Contracts.Membership.Commands;
-using VaBank.Services.Contracts.Membership.Queries;
 using VaBank.UI.Web.Api.Infrastructure.Filters;
 
 namespace VaBank.UI.Web.Api.Common

@@ -1,11 +1,11 @@
 ﻿<section class="row offset-bottom">
-    <div class="col-lg-4 col-md-5 card-statement-filters">
+    <div class="col-lg-4 col-md-12 card-statement-filters">
         <div class="row" data-ng-if="statement">
             <div class="col-xs-12">
                 <div class="panel panel-warning">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Выписка по карте {{statement.card.friendlyName || statement.card.cardVendor.name}} {{statement.card.secureCardNo}}
+                            Выписка по карт-счету №{{statement.accountNo}}
                         </h3>
                     </div>
                     <div class="panel-body">
@@ -25,15 +25,15 @@
                                 <div class="row">
                                     <div class="col-xs-4">
                                         <b>Клиент</b><br />
-                                        {{statement.card.owner.firstName}} {{statement.card.owner.lastName}}
+                                        {{statement.accountOwner.firstName}} {{statement.accountOwner.lastName}}
                                     </div>
                                     <div class="col-xs-4">
                                         <b>Номер счета</b><br />
-                                        {{statement.card.accountNo}}
+                                        {{statement.accountNo}}
                                     </div>
                                     <div class="col-xs-4">
                                         <b>Валюта</b><br />
-                                        {{statement.card.currency.isoName}}
+                                        {{statement.accountCurrency.isoName}}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -42,17 +42,17 @@
                                         <div class="row">
                                             <div class="col-xs-8">
                                                 <b>Списано:</b>
-                                                {{-statement.statementWithdrawals | extcurrency:'':statement.card.currency.precision}}
-                                                {{statement.card.currency.isoName}}<br />
+                                                {{-statement.statementWithdrawals | extcurrency:'':statement.accountCurrency.precision}}
+                                                {{statement.accountCurrency.isoName}}<br />
                                                 <b>Начислено:</b>
-                                                {{statement.statementDeposits | extcurrency:'':statement.card.currency.precision}}
-                                                {{statement.card.currency.isoName}}
+                                                {{statement.statementDeposits | extcurrency:'':statement.accountCurrency.precision}}
+                                                {{statement.accountCurrency.isoName}}
                                             </div>
                                             <div class="col-xs-4">
                                                 <b>Баланс за период:</b><br />
                                                 <b data-ng-class="{'text-success': statement.statementBalance > 0, 'text-danger': statement.statementBalance < 0}">
-                                                    {{statement.statementBalance | extcurrency:'':statement.card.currency.precision}}
-                                                    {{statement.card.currency.isoName}}
+                                                    {{statement.statementBalance | extcurrency:'':statement.accountCurrency.precision}}
+                                                    {{statement.accountCurrency.isoName}}
                                                 </b>
                                             </div>
                                         </div>
@@ -95,23 +95,36 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <b>Карта</b>
-                <ui-select ng-model="card.selected" search-enabled="false">
-                    <ui-select-match placeholder="Выберите карту">
-                        {{$select.selected.friendlyName || $select.selected.cardVendor.name}}
+                <b>Карт-счет</b>
+                <ui-select ng-model="account.selected" search-enabled="false">
+                    <ui-select-match placeholder="Выберите счет">
+                        {{$select.selected.accountNo}}
                         <span class="text-info">
                             {{$select.selected.balance | extcurrency:'':$select.selected.currency.precision }}
                             {{$select.selected.currency.isoName}}
                         </span>
+                        (<ng-pluralize count="$select.selected.cards.length"
+                                       when="{'one': '1 карта', 'few': '{} карты', 'many': '{} карт'}">
+                        </ng-pluralize>)
                     </ui-select-match>
-                    <ui-select-choices repeat="card in cards">
+                    <ui-select-choices repeat="account in accounts">
                         <div class="row">
-                            <div class="col-xs-1">
-                                <img class="img card-statement-card"
-                                     ng-src="{{card.cardVendor.image}}" />
+                            <div class="col-xs-12">
+                                <b>
+                                    Счет №{{account.accountNo}}
+                                </b>
+                                <span class="label label-warning">{{account.currency.isoName}}</span>
                             </div>
-                            <div class="col-xs-11">
-                                {{card.friendlyName || card.cardVendor.name}}
+                        </div>
+                        <div class="row" data-ng-repeat="card in account.cards">
+                            <div class="col-xs-2">
+                                <img class="img-responsive" data-ng-src="{{card.cardVendor.image}}" />
+                            </div>
+                            <div class="col-xs-10 vertical">
+                                <div>{{card.secureCardNo}}</div>
+                                <div data-ng-if="card.friendlyName" class="text-muted">
+                                    {{card.friendlyName}}
+                                </div>
                             </div>
                         </div>
                     </ui-select-choices>
@@ -124,7 +137,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-8 col-md-7">
+    <div class="col-lg-8 col-md-12">
         <section class="row" data-ng-show="loading.active()">
             <div class="col-xs-12">
                 <div data-us-spinner="" style="height: 300px"></div>
@@ -138,6 +151,7 @@
                             <th st-sort="status" st-skip-natural="true" style="max-width: 60px">Статус</th>
                             <th st-sort="createdDateUtc" st-sort-default="reverse">Дата совершения транзакции</th>
                             <th st-sort="postDateUtc">Дата отражения по счету</th>
+                            <th st-sort="card.secureCardNo">Карта</th>
                             <th st-sort="descritpion">Описание транзакции</th>
                             <th>+/-</th>
                             <th st-sort="transactionAmount">Сумма в валюте операции</th>
@@ -168,6 +182,10 @@
                                 </b>
                             </td>
                             <td>
+                                <span class="text-warning">{{transaction.card.secureCardNo}}</span>
+                                <div class="text-muted">{{transaction.card.friendlyName}}</div>
+                            </td>
+                            <td>
                                 {{transaction.description}}<br />
                                 <span class="text-muted">{{transaction.location}}</span>
                             </td>
@@ -181,12 +199,12 @@
                                 <span class="text-muted">{{transaction.currency.isoName}}</span>
                             </td>
                             <td>
-                                {{abs(transaction.accountAmount)| extcurrency:'':statement.card.currency.precision}}<br />
-                                <span class="text-muted">{{statement.card.currency.isoName}}</span>
+                                {{abs(transaction.accountAmount)| extcurrency:'':statement.accountCurrency.precision}}<br />
+                                <span class="text-muted">{{statement.accountCurrency.isoName}}</span>
                             </td>
                             <td>
-                                {{abs(transaction.remainingBalance)| extcurrency:'':statement.card.currency.precision}}<br />
-                                <span class="text-muted">{{statement.card.currency.isoName}}</span>
+                                {{abs(transaction.remainingBalance)| extcurrency:'':statement.accountCurrency.precision}}<br />
+                                <span class="text-muted">{{statement.accountCurrency.isoName}}</span>
                             </td>
                         </tr>
                     </tbody>

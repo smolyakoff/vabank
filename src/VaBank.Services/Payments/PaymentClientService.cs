@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
+using VaBank.Services.Common.Security;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Payments;
 using VaBank.Services.Contracts.Payments.Commands;
@@ -65,14 +67,45 @@ namespace VaBank.Services.Payments
             }
         }
 
-        public IList<PaymentArchiveItemModel> QueryArchive(PaymentArchiveQuery query)
+        public PaymentArchiveFormModel GetForm(IdentityQuery<long> operationId)
         {
             throw new NotImplementedException();
         }
 
+        public IList<PaymentArchiveItemModel> QueryArchive(PaymentArchiveQuery query)
+        {
+            EnsureIsValid(query);
+            EnsureIsSecure<PaymentArchiveQuery, UserQueryValidator>(query);
+            try
+            {
+                var operationsByUser = DbQuery.For<UserBankOperation>()
+                    .FilterBy(x => x.User.Id == query.UserId && x.Operation is CardPayment);
+                var operations = _deps.UserBankOperations.Query(operationsByUser);
+                var payments = operations.Select(x => x.Operation)
+                    .Cast<CardPayment>()
+                    .Map<CardPayment, PaymentArchiveItemModel>()
+                    .ToList();
+                return payments;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get payments archive.", ex);
+            }
+        }
+
         public PaymentArchiveDetailsModel GetArchiveDetails(IdentityQuery<long> operationId)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(operationId);
+            EnsureIsSecure<IdentityQuery<long>, UserBankOperationSecurityValidator>(operationId);
+            try
+            {
+                var payment = _deps.CardPayments.FindAndProject<PaymentArchiveDetailsModel>(operationId.Id);
+                return payment;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get payment details.", ex);
+            }
         }
     }
 }

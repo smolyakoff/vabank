@@ -126,4 +126,7 @@
   <data name="DestinationCardNotFound" xml:space="preserve">
     <value>Не найдена карта получателя.</value>
   </data>
+  <data name="InsufficientFunds" xml:space="preserve">
+    <value>Недостаточно средств на счете для проведения перевода.</value>
+  </data>
 </root>

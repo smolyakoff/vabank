@@ -3,10 +3,11 @@ using VaBank.Common.Data;
 using VaBank.Common.Validation;
 using VaBank.Services.Contracts.Payments;
 using VaBank.Services.Contracts.Payments.Commands;
+using VaBank.Services.Contracts.Payments.Queries;
 
 namespace VaBank.UI.Web.Api.Customer
 {
-    [RoutePrefix("api/payments")]
+    [Authorize(Roles = "Customer")]
     public class PaymentController : ApiController
     {
         private readonly IPaymentClientService _paymentService;
@@ -18,7 +19,22 @@ namespace VaBank.UI.Web.Api.Customer
         }
 
         [HttpGet]
-        [Route("{code}/template")]
+        [Route("api/users/{userId:guid}/payments")]
+        public IHttpActionResult Query([FromUri] PaymentArchiveQuery query)
+        {
+            return Ok(_paymentService.QueryArchive(query));
+        }
+
+        [HttpGet]
+        [Route("api/payments/{id:long}")]
+        public IHttpActionResult Get([FromUri] IdentityQuery<long> query)
+        {
+            var payment = _paymentService.GetArchiveDetails(query);
+            return payment == null ? (IHttpActionResult)NotFound() : Ok(payment);
+        }
+
+        [HttpGet]
+        [Route("api/payment-templates/{code}")]
         public IHttpActionResult GetTemplate(string code)
         {
             var id = new IdentityQuery<string>(code);
@@ -27,7 +43,7 @@ namespace VaBank.UI.Web.Api.Customer
         }
 
         [HttpPost]
-        [Route]
+        [Route("api/payments")]
         public IHttpActionResult Submit(SubmitPaymentCommand command)
         {
             return Ok(_paymentService.Submit(command));

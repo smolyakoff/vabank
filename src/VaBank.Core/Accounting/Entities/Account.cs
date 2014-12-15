@@ -13,6 +13,7 @@ namespace VaBank.Core.Accounting.Entities
             Argument.NotNull(currency, "currency");
             Argument.NotNull(type, "type");
             Currency = currency;
+            Type = type;
         }
 
         protected Account()

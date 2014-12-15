@@ -27,8 +27,19 @@ namespace VaBank.Services.Transfers
             Argument.NotNull(userCardRepository, "userCardRepository");
 
             RuleFor(x => x.FromCardId).NotEqual(Guid.Empty);
-            RuleFor(x => x.Amount).Must(GreaterThanOrEqualToMinimumAmount)
-                .WithLocalizedMessage(() => Messages.CardTransferSmallAmount);
+            RuleFor(x => x.Amount)
+                .Must(GreaterThanOrEqualToMinimumAmount).WithLocalizedMessage(() => Messages.CardTransferSmallAmount)
+                .Must(LessThanOrEqualToAccountBalance).WithLocalizedMessage(() => Messages.InsufficientFunds);
+        }
+
+        private bool LessThanOrEqualToAccountBalance(TCommand command, decimal amount)
+        {
+            var userCard = _userCardRepository.SurelyFind(command.FromCardId);
+            if (userCard.Account == null)
+            {
+                throw new InvalidOperationException("User card is not bound to the account.");
+            }
+            return userCard.Account.Balance >= amount;
         }
 
         private bool GreaterThanOrEqualToMinimumAmount(TCommand command, decimal amount, PropertyValidatorContext context)

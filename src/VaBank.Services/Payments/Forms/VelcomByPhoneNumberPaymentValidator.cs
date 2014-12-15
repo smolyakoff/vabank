@@ -10,7 +10,8 @@ namespace VaBank.Services.Payments.Forms
         public VelcomByPhoneNumberPaymentValidator()
         {
             RuleFor(x => x.Amount)
-                .GreaterThan(0)
+                .GreaterThanOrEqualTo(1000)
+                .WithLocalizedMessage(() => Messages.MinAmountPayment, 1000)
                 .LessThan(5000000)
                 .WithLocalizedName(() => Names.Amount);
             RuleFor(x => x.PhoneNo)

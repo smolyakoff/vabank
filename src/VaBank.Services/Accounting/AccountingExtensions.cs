@@ -9,15 +9,14 @@ namespace VaBank.Services.Accounting
 {
     internal static class AccountingExtensions
     {
-        public static DbQuery<CardTransaction> ToDbQuery(this CardAccountStatementQuery query, UserCard card)
+        public static DbQuery<Transaction> ToDbQuery(this CardAccountStatementQuery query, Account account)
         {
             Argument.NotNull(query, "query");
 
-            return DbQuery.For<CardTransaction>()
+            return DbQuery.For<Transaction>()
                 .FilterBy(x => x.CreatedDateUtc >= query.DateRange.LowerBound &&
                                x.CreatedDateUtc <= query.DateRange.UpperBound &&
-                               x.Card.Id == query.CardId &&
-                               x.AccountNo == card.Account.AccountNo)
+                               x.AccountNo == account.AccountNo)
                 .SortBy(x => x.OrderByDescending(y => y.CreatedDateUtc));
         }
     }
