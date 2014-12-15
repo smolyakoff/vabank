@@ -98,6 +98,7 @@
     <Compile Include="Common\Security\CodeSecurityValidator.cs" />
     <Compile Include="Common\Security\SecurityValidator%271.cs" />
     <Compile Include="Common\Security\SecurityValidatorException.cs" />
+    <Compile Include="Common\Security\UserQueryValidator.cs" />
     <Compile Include="Common\Security\UserCommandValidator.cs" />
     <Compile Include="Infrastructure\Email\EmailService.cs" />
     <Compile Include="Infrastructure\Email\EmailServiceDependencies.cs" />

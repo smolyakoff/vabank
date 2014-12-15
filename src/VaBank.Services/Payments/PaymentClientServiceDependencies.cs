@@ -17,7 +17,7 @@ namespace VaBank.Services.Payments
 
         public IQueryRepository<CardPayment> CardPayments { get; set; }
 
-        public IRepository<UserBankOperation> UserBankOperations { get; set; }
+        public IQueryRepository<UserBankOperation> UserBankOperations { get; set; }
 
         public IRepository<PaymentTransactionLink> PaymentTransactionLinks { get; set; }
 

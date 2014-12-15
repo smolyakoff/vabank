@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json.Linq;
 using VaBank.Core.Payments.Entities;
 using VaBank.Services.Contracts.Payments.Models;
 
@@ -12,13 +11,17 @@ namespace VaBank.Services.Payments
             CreateMap<PaymentTemplate, PaymentTemplateModel>()
                 .ForMember(x => x.HierarchicalName, cfg => cfg.MapFrom(x => x.HierarchicalName));
             CreateMap<CardPayment, PaymentArchiveItemModel>()
-                .ForMember(x => x.DateUtc, cfg => cfg.MapFrom(x => x.CompletedDateUtc))
-                .ForMember(x => x.Form, cfg => cfg.MapFrom(x => JObject.Parse(x.Form)))
+                .ForMember(x => x.DateUtc, cfg => cfg.MapFrom(x => x.CreatedDateUtc))
                 .ForMember(x => x.OperationId, cfg => cfg.MapFrom(x => x.Id))
                 .ForMember(x => x.PaymentName, cfg => cfg.MapFrom(x => x.Category.Name))
                 .ForMember(x => x.Status, cfg => cfg.MapFrom(x => x.Status));
             CreateMap<PaymentOrder, PaymentOrderModel>();
-            CreateMap<CardPayment, PaymentArchiveDetailsModel>();
+            CreateMap<CardPayment, PaymentArchiveDetailsModel>()
+                .ForMember(x => x.DateUtc, cfg => cfg.MapFrom(x => x.CompletedDateUtc))
+                .ForMember(x => x.OperationId, cfg => cfg.MapFrom(x => x.Id))
+                .ForMember(x => x.PaymentName, cfg => cfg.MapFrom(x => x.Category.Name))
+                .ForMember(x => x.Status, cfg => cfg.MapFrom(x => x.Status));
+                
         }
     }
 }

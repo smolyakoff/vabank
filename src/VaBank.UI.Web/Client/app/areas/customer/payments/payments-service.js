@@ -15,7 +15,7 @@
                url: '/api/payments'
            },
            getTemplate: {
-               url: '/api/payments/:code/template',
+               url: '/api/payment-templates/:code',
                method: 'GET'
            } 
         });

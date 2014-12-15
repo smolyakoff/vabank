@@ -63,6 +63,7 @@
     <Compile Include="Accounting\Models\CardNameModel.cs" />
     <Compile Include="Accounting\Models\CustomerCardBriefModel.cs" />
     <Compile Include="Common\Commands\IOperationCommand.cs" />
+    <Compile Include="Common\Queries\IUserQuery.cs" />
     <Compile Include="Maintenance\Models\IOwnerModel.cs" />
     <Compile Include="Maintenance\Models\UserOwnerModel.cs" />
     <Compile Include="Membership\Models\FullUserProfileModel.cs" />
@@ -206,7 +207,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\Queries\" />
     <Folder Include="Processing\Queries\" />
   </ItemGroup>
   <ItemGroup>

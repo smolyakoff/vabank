@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using VaBank.Common.Data;
 using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
+using VaBank.Services.Common.Security;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Payments;
 using VaBank.Services.Contracts.Payments.Commands;
@@ -68,9 +70,17 @@ namespace VaBank.Services.Payments
         public IList<PaymentArchiveItemModel> QueryArchive(PaymentArchiveQuery query)
         {
             EnsureIsValid(query);
+            EnsureIsSecure<PaymentArchiveQuery, UserQueryValidator>(query);
             try
             {
-                return _deps.CardPayments.Project<PaymentArchiveItemModel>(DbQuery.For<CardPayment>().FromClientQuery(query));
+                var operationsByUser = DbQuery.For<UserBankOperation>()
+                    .FilterBy(x => x.User.Id == query.UserId && x.Operation is CardPayment);
+                var operations = _deps.UserBankOperations.Query(operationsByUser);
+                var payments = operations.Select(x => x.Operation)
+                    .Cast<CardPayment>()
+                    .Map<CardPayment, PaymentArchiveItemModel>()
+                    .ToList();
+                return payments;
             }
             catch (Exception ex)
             {
@@ -81,9 +91,11 @@ namespace VaBank.Services.Payments
         public PaymentArchiveDetailsModel GetArchiveDetails(IdentityQuery<long> operationId)
         {
             EnsureIsValid(operationId);
+            EnsureIsSecure<IdentityQuery<long>, UserBankOperationSecurityValidator>(operationId);
             try
             {
-                return _deps.CardPayments.FindAndProject<PaymentArchiveDetailsModel>(operationId.Id);
+                var payment = _deps.CardPayments.FindAndProject<PaymentArchiveDetailsModel>(operationId.Id);
+                return payment;
             }
             catch (Exception ex)
             {
