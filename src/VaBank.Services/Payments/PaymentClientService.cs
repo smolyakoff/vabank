@@ -67,6 +67,11 @@ namespace VaBank.Services.Payments
             }
         }
 
+        public PaymentArchiveFormModel GetForm(IdentityQuery<long> operationId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IList<PaymentArchiveItemModel> QueryArchive(PaymentArchiveQuery query)
         {
             EnsureIsValid(query);
