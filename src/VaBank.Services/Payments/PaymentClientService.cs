@@ -67,12 +67,28 @@ namespace VaBank.Services.Payments
 
         public IList<PaymentArchiveItemModel> QueryArchive(PaymentArchiveQuery query)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(query);
+            try
+            {
+                return _deps.CardPayments.Project<PaymentArchiveItemModel>(DbQuery.For<CardPayment>().FromClientQuery(query));
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get payments archive.", ex);
+            }
         }
 
         public PaymentArchiveDetailsModel GetArchiveDetails(IdentityQuery<long> operationId)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(operationId);
+            try
+            {
+                return _deps.CardPayments.FindAndProject<PaymentArchiveDetailsModel>(operationId.Id);
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get payment details.", ex);
+            }
         }
     }
 }
