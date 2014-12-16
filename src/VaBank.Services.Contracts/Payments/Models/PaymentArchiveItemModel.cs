@@ -10,7 +10,11 @@ namespace VaBank.Services.Contracts.Payments.Models
 
         public CardNameModel Card { get; set; }
 
+        public string PaymentCode { get; set; }
+
         public string PaymentName { get; set; }
+
+        public string ParentCategoryName { get; set; }
 
         public DateTime DateUtc { get; set; }
 

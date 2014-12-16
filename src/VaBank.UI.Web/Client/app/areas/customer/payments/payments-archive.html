@@ -1,8 +1,70 @@
 ﻿<section class="row">
-
-</section>
-<section class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+        <div class="row offset-bottom">
+            <div class="col-xs-12">
+                <b>Период</b>
+                <ui-select ng-model="selectedRange" search-enabled="false" on-select="rangeSelected($item)">
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="range in ranges">
+                        {{range.name}}
+                    </ui-select-choices>
+                </ui-select>
+                <div class="row date-range" data-ng-show="selectedRange.isCustom">
+                    <div class="col-xs-6">
+                        <vb-datepicker ng-model="filters.from"
+                                       placeholder="С"
+                                       data-config="{minView: 'day'}"
+                                       data-date-format="DD.MM.YYYY"
+                                       data-date-display-format="DD.MM.YYYY">
+                        </vb-datepicker>
+                    </div>
+                    <div class="col-xs-6">
+                        <vb-datepicker ng-model="filters.to"
+                                       placeholder="По"
+                                       data-config="{minView: 'day'}"
+                                       data-date-format="DD.MM.YYYY"
+                                       data-date-display-format="DD.MM.YYYY">
+                        </vb-datepicker>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row offset-bottom">
+            <div class="col-xs-12">
+                <b>Название платежа</b>
+                <ui-select ng-model="filters.paymentCode" search-enabled="false">
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="item.code as item in paymentNames">
+                        {{item.name}}
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+        <div class="row offset-bottom">
+            <div class="col-xs-12">
+                <b>Сумма платежа</b>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <ui-select ng-model="filters.amountOperator" search-enabled="false">
+                            <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="item.value as item in amountOperators">
+                                {{item.name}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-xs-7">
+                        <vb-currency data-ng-model="filters.amount" symbol="у.е."></vb-currency>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row offset-bottom">
+            <div class="col-xs-12">
+                <button class="btn btn-primary">Показать</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-nd-12 col-lg-9">
         <table class="table table-responsive payments-table"
                data-st-table="payments"
                data-st-safe-src="displayedPayments">
@@ -43,7 +105,7 @@
                         <i class="glyphicon glyphicon-time"></i> Принят банком
                     </div>
                     <div data-ng-switch-when="Completed" class="text-success">
-                        <i class="glyphicon glyphicon-ok-circle"></i> Завершен
+                        <i class="glyphicon glyphicon-ok-circle"></i> Исполнен
                     </div>
                     <div data-ng-switch-when="Failed" class="text-danger">
                         <i class="glyphicon glyphicon-ok-circle"></i> Ошибка
@@ -51,10 +113,12 @@
                 </td>
                 <td class="text-center">
                     <div>
-                        <a><i class="glyphicon glyphicon-repeat"></i> Повторить</a>
+                        <a href="#"><i class="glyphicon glyphicon-repeat"></i> Повторить</a>
                     </div>
                     <div>
-                        <a><i class="glyphicon glyphicon-info-sign"></i> Информация</a>
+                        <a href="#" data-ng-click="details(payment)">
+                            <i class="glyphicon glyphicon-info-sign"></i> Информация
+                        </a>
                     </div>
                 </td>
             </tr>

@@ -14,6 +14,7 @@ namespace VaBank.Services.Payments
                 .ForMember(x => x.DateUtc, cfg => cfg.MapFrom(x => x.CreatedDateUtc))
                 .ForMember(x => x.OperationId, cfg => cfg.MapFrom(x => x.Id))
                 .ForMember(x => x.PaymentName, cfg => cfg.MapFrom(x => x.Category.Name))
+                .ForMember(x => x.PaymentCode, cfg => cfg.MapFrom(x => x.Category.Code))
                 .ForMember(x => x.Status, cfg => cfg.MapFrom(x => x.Status));
             CreateMap<PaymentOrder, PaymentOrderModel>();
             CreateMap<CardPayment, PaymentArchiveDetailsModel>()

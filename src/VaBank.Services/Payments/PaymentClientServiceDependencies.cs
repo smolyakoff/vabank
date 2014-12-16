@@ -22,5 +22,7 @@ namespace VaBank.Services.Payments
         public IRepository<PaymentTransactionLink> PaymentTransactionLinks { get; set; }
 
         public CardPaymentFactory CardPaymentFactory { get; set; }
+
+        public IRepository<OperationCategory> OperationCategories { get; set; } 
     }
 }

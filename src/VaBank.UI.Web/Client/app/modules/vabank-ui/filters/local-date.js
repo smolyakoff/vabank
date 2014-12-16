@@ -6,10 +6,10 @@
     module.filter('localdate', [function () {
 
         return function (input) {
-            if (!_.isString(input) || !_.isDate(input)) {
-                return input;
+            if (_.isString(input) || _.isDate(input)) {
+                return moment.utc(input).local();
             }
-            return moment.utc(input).local();
+            return input;
         };
 
     }]);

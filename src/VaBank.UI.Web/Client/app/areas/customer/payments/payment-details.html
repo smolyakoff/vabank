@@ -1,0 +1,72 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">Платежный документ №{{details.order.no}}</h4>
+</div>
+<div class="modal-body">
+    <div class=" row text-primary offset-bottom" data-ng-switch="details.status">
+        <div class="col-xs-6">
+            <div data-ng-switch-when="Pending" class="text-warning">
+                <i class="glyphicon glyphicon-time"></i> Принят банком
+            </div>
+            <div data-ng-switch-when="Completed" class="text-success">
+                <i class="glyphicon glyphicon-ok-circle"></i> Исполнен
+            </div>
+            <div data-ng-switch-when="Failed" class="text-danger">
+                <i class="glyphicon glyphicon-ok-circle"></i> Ошибка
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="pull-right">
+                {{details.dateUtc | localdate | amDateFormat: 'L'}}
+            </div>
+        </div>
+    </div>
+    <table class="table table-responsive table-condensed table-striped payment-order">
+        <tbody>
+        <tr>
+            <td>Получатель</td>
+            <td>{{details.order.beneficiaryName}}</td>
+        </tr>
+        <tr>
+            <td>Номер счета получателя</td>
+            <td>{{details.order.beneficiaryAccountNo}}</td>
+        </tr>
+        <tr>
+            <td>Код банка получателя</td>
+            <td>{{details.order.beneficiaryBankCode}}</td>
+        </tr>
+        <tr>
+            <td>УНП получателя</td>
+            <td>{{details.order.beneficiaryTIN}}</td>
+        </tr>
+        <tr>
+            <td>Плательщик</td>
+            <td>{{details.order.payerName}}</td>
+        </tr>
+        <tr>
+            <td>Код банка плательщика</td>
+            <td>{{details.order.payerBankCode}}</td>
+        </tr>
+        <tr>
+            <td>Счет плательщика</td>
+            <td>{{details.order.payerAccountNo}}</td>
+        </tr>
+        <tr>
+            <td>УНП плательщика</td>
+            <td>{{details.order.payerTIN}}</td>
+        </tr>
+        <tr>
+            <td>Сумма платежа</td>
+            <td>{{details.order.amount}}</td>
+        </tr>
+        <tr>
+            <td>Код валюты</td>
+            <td>{{details.order.currencyISOName}}</td>
+        </tr>
+        <tr>
+            <td>Назначение платежа</td>
+            <td>{{details.order.purpose}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

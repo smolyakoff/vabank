@@ -237,6 +237,8 @@
     <Content Include="Client\app\areas\customer\cabinet\my-cards-widget-ctrl.js" />
     <Content Include="Client\app\areas\customer\cabinet\my-cards-widget.html" />
     <Content Include="Client\app\areas\customer\my-cards\transfer-service.js" />
+    <Content Include="Client\app\areas\customer\payments\payment-details-ctrl.js" />
+    <Content Include="Client\app\areas\customer\payments\payment-details.html" />
     <Content Include="Client\app\areas\customer\payments\payments-archive-ctrl.js" />
     <Content Include="Client\app\areas\customer\payments\payments-archive.html" />
     <Content Include="Client\app\areas\customer\payments\payments-service.js" />
