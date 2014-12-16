@@ -68,6 +68,7 @@ namespace VaBank.Core.Membership.Entities
             if (!LockoutEnabled) return false;
             LockoutEndDateUtc = null;
             LockoutEnabled = false;
+            AccessFailedCount = 0;
             return true;
         }
     }
