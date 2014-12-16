@@ -68,12 +68,12 @@ namespace VaBank.UI.Web.Api.Admin
             return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
         }
 
-        [HttpPut]
-        [Route("{id:guid}/unblock")]
+        [HttpPost]
+        [Route("{id:guid}/unlock")]
         [Transaction]
-        public IHttpActionResult Unblock([FromUri] IdentityQuery<Guid> query)
+        public IHttpActionResult Unlock([FromUri] IdentityQuery<Guid> query)
         {
-            return Ok(_userService.UnblockUser(query));
+            return Ok(_userService.UnlockUser(query));
         }
     }
 }

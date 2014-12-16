@@ -26,6 +26,6 @@ namespace VaBank.Services.Contracts.Membership
 
         void UpdateProfile(UpdateProfileCommand command);
 
-        UserMessage UnblockUser(IdentityQuery<Guid> userId);
+        UserMessage UnlockUser(IdentityQuery<Guid> userId);
     }
 }

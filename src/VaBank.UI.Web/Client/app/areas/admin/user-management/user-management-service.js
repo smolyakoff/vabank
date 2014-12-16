@@ -5,9 +5,9 @@
         .module('vabank.webapp')
         .service('userManagementService', userManagementService);
 
-    userManagementService.$inject = ['$resource', 'dataUtil', 'uiTools'];
+    userManagementService.$inject = ['$resource', '$q', 'dataUtil', 'uiTools'];
 
-    function userManagementService($resource, dataUtil, uiTools) {
+    function userManagementService($resource, $q, dataUtil, uiTools) {
 
         var User = $resource('/api/users/:userId', { userId: '@userId' }, {
             save: {
@@ -24,6 +24,10 @@
             create: {
                 url: '/api/users',
                 method: 'POST',
+            },
+            unlock: {
+                url: '/api/users/:userId/unlock',
+                method: 'POST'
             },
         });
 
@@ -101,6 +105,17 @@
                 method: 'GET'
             }
         });
+        Profile.getOrDefault = function (params) {
+            var deferred = $q.defer();
+            Profile.get(params).$promise.then(deferred.resolve, function(response) {
+                if (response.status === 404) {
+                    deferred.resolve(Profile.defaults.new);
+                } else {
+                    deferred.reject(params);
+                }
+            });
+            return deferred.promise;
+        };
         Profile.defaults = {};
         Profile.defaults.new = {};
 
@@ -108,7 +123,7 @@
             defaults: {
                 new: {}
             }
-        }
+        };
 
         return {            
             User: User,

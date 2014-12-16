@@ -1,5 +1,6 @@
 ﻿using VaBank.Common.Data.Repositories;
 using VaBank.Core.Accounting.Entities;
+using VaBank.Core.Membership.Access;
 using VaBank.Core.Membership.Entities;
 using VaBank.Core.Membership.Factories;
 using VaBank.Services.Common;
@@ -18,6 +19,8 @@ namespace VaBank.Services.Membership
 
         public IQueryRepository<ApplicationToken> Tokens { get; set; } 
 
-        public IRepository<UserPaymentProfile> PaymentProfiles { get; set; } 
+        public IRepository<UserPaymentProfile> PaymentProfiles { get; set; }
+
+        public IUserLockoutPolicy UserLockoutPolicy { get; set; }
     }
 }

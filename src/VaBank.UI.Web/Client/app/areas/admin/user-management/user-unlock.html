@@ -1,0 +1,17 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title ng-binding">Необходимо подтверждение действия</h5>
+</div>
+<div class="modal-body user-unlock-content">
+    <b>
+        Вы действительно хотите разблокировать пользователя
+    </b>
+    <b data-ng-if="user.firstName">
+        {{user.firstName}} {{user.lastName}}?
+    </b>
+    <b data-ng-if="!user.firstName">{{user.userName}}?</b>
+    <div class="text-danger" data-ng-if="profile.secretPhrase" >Секретная фраза: {{profile.secretPhrase}}</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" data-ng-click="ok()">Да</button>
+    <button type="button" class="btn btn-primary" ng-click="$dismiss()">Нет</button>
+</div>

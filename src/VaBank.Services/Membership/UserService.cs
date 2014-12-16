@@ -195,7 +195,7 @@ namespace VaBank.Services.Membership
             }
         }
 
-        public UserMessage UnblockUser(IdentityQuery<Guid> userId)
+        public UserMessage UnlockUser(IdentityQuery<Guid> userId)
         {
             EnsureIsValid(userId);
             try
@@ -205,10 +205,8 @@ namespace VaBank.Services.Membership
                 {
                     throw NotFound.ExceptionFor<User>(userId.Id);
                 }
-                if (user.Unblock())
-                {
-                    Commit();
-                }
+                _deps.UserLockoutPolicy.Unblock(user);
+                Commit();
                 return UserMessage.Resource(() => Messages.UserSuccessfullyUnblocked);
             }
             catch (Exception ex)

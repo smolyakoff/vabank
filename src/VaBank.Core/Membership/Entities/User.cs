@@ -62,14 +62,5 @@ namespace VaBank.Core.Membership.Entities
             PasswordHash = password.PasswordHash;
             PasswordSalt = password.PasswordSalt;
         }
-
-        public bool Unblock()
-        {
-            if (!LockoutEnabled) return false;
-            LockoutEndDateUtc = null;
-            LockoutEnabled = false;
-            AccessFailedCount = 0;
-            return true;
-        }
     }
 }

@@ -53,8 +53,13 @@
                 <tbody ng-show="!loading.active()">
                     <tr st-select-row="user" ng-repeat="user in users" ng-dblclick="edit(user)">
                         <td>
-                            {{user.userName}} 
-                            <i class="glyphicon glyphicon-lock" data-ng-if="user.lockoutEnabled" data-tooltip="Пользователь заблокирован"></i>
+                            {{user.userName}}
+                            <button class="btn btn-default btn-xs"
+                                    data-ng-if="user.lockoutEnabled"
+                                    data-ng-click="unlock(user)"
+                                    data-tooltip="Пользователь заблокирован">
+                                <i class="glyphicon glyphicon-lock"></i>
+                            </button>
                         </td>
                         <td>{{getRole(user)}}</td>
                         <td>{{user.email}}</td>
