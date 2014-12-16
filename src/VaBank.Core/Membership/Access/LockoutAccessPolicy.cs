@@ -44,6 +44,10 @@ namespace VaBank.Core.Membership.Access
                 _lockoutPolicy.Block(user);
                 return AccessStatus.Blocked;
             }
+            if (passwordValid && user.AccessFailedCount != 0)
+            {
+                user.AccessFailedCount = 0;
+            }
             return !passwordValid 
                 ? AccessStatus.BadCredentials 
                 : AccessStatus.Allowed;
