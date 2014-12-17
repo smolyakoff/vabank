@@ -18,6 +18,8 @@ namespace VaBank.Core.Payments.Entities
             get { return GetHierarchicalName(); }
         }
 
+        public string DisplayName { get; protected set; }
+
         public string FormTemplate { get; protected set; }
 
         public string InfoTemplate { get; protected set; }

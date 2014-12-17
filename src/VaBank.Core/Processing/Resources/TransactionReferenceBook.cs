@@ -1,5 +1,6 @@
 ﻿using VaBank.Common.IoC;
 using VaBank.Common.Validation;
+using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing.Entities;
 
 namespace VaBank.Core.Processing.Resources
@@ -17,6 +18,12 @@ namespace VaBank.Core.Processing.Resources
         {
             Argument.NotNull(operation, "operation");
             return new TransactionName(operation.Category.Code, operation.Category.Name);
+        }
+
+        public TransactionName ForPayment(PaymentTemplate template)
+        {
+            Argument.NotNull(template, "template");
+            return new TransactionName(template.Code, template.DisplayName);
         }
     }
 }

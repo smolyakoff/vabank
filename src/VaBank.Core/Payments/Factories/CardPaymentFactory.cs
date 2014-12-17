@@ -90,7 +90,7 @@ namespace VaBank.Core.Payments.Factories
             }
             var payment = new CardPayment(card, template, paymentOrder, form, card.Account, to, currency);
             template.FillInfo(payment, paymentForm);
-            var transactionName = _transactionReferenceBook.ForOperation(payment);
+            var transactionName = _transactionReferenceBook.ForPayment(template);
             payment.Withdrawal = card.Account.Withdraw(
                 card,
                 transactionName.Code,
@@ -98,7 +98,6 @@ namespace VaBank.Core.Payments.Factories
                 _settings.Location,
                 payment.MoneyAmount,
                 _moneyConverter);
-            
             return payment;
         }
     }

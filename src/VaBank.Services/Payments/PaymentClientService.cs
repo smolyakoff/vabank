@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
-using VaBank.Core.App.Entities;
 using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
@@ -89,19 +87,11 @@ namespace VaBank.Services.Payments
                 };
             }
             catch (Exception ex)
-        {
-            EnsureIsValid(operationId);
-            EnsureIsSecure<IdentityQuery<long>, UserBankOperationSecurityValidator>(operationId);
-            try
-            {
-                var formModel = _deps.Payments.FindAndProject<PaymentArchiveFormModel>(operationId.Id);
-                return formModel;
-            }
-            catch (Exception ex)
             {
                 throw new ServiceException("Can't get payment archive form.", ex);
             }
         }
+
 
         public IList<PaymentArchiveItemModel> QueryArchive(PaymentArchiveQuery query)
         {

@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 using VaBank.Core.Payments.Entities;
+using VaBank.Data.EntityFramework.Common;
 
 namespace VaBank.Data.EntityFramework.Payments.Mappings
 {
@@ -9,6 +10,7 @@ namespace VaBank.Data.EntityFramework.Payments.Mappings
         {
             ToTable("PaymentTemplate", "Payments");
             HasKey(x => x.Code);
+            Property(x => x.DisplayName).IsRequired().HasMaxLength(Restrict.Length.Name);
             Property(x => x.FormTemplate).IsRequired().IsMaxLength();
             Property(x => x.InfoTemplate).IsOptional().IsMaxLength();
 

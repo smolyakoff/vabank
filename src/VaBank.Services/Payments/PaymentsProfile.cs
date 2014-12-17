@@ -15,14 +15,14 @@ namespace VaBank.Services.Payments
             CreateMap<CardPayment, PaymentArchiveItemModel>()
                 .ForMember(x => x.DateUtc, cfg => cfg.MapFrom(x => x.CreatedDateUtc))
                 .ForMember(x => x.OperationId, cfg => cfg.MapFrom(x => x.Id))
-                .ForMember(x => x.PaymentName, cfg => cfg.MapFrom(x => x.Category.Name))
+                .ForMember(x => x.PaymentName, cfg => cfg.MapFrom(x => x.Withdrawal.Description))
                 .ForMember(x => x.PaymentCode, cfg => cfg.MapFrom(x => x.Category.Code))
                 .ForMember(x => x.Status, cfg => cfg.MapFrom(x => (ProcessStatusModel)x.Status));
             CreateMap<PaymentOrder, PaymentOrderModel>();
             CreateMap<CardPayment, PaymentArchiveDetailsModel>()
-                .ForMember(x => x.DateUtc, cfg => cfg.MapFrom(x => x.CompletedDateUtc))
+                .ForMember(x => x.DateUtc, cfg => cfg.MapFrom(x => x.CreatedDateUtc))
                 .ForMember(x => x.OperationId, cfg => cfg.MapFrom(x => x.Id))
-                .ForMember(x => x.PaymentName, cfg => cfg.MapFrom(x => x.Category.Name))
+                .ForMember(x => x.PaymentName, cfg => cfg.MapFrom(x => x.Withdrawal.Description))
                 .ForMember(x => x.Status, cfg => cfg.MapFrom(x => x.Status));
             CreateMap<Payment, PaymentArchiveFormModel>()
                 .ForMember(x => x.Form, cfg => cfg.MapFrom(x => JObject.Parse(x.Form)))
