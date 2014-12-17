@@ -195,6 +195,26 @@ namespace VaBank.Services.Membership
             }
         }
 
+        public UserMessage UnlockUser(IdentityQuery<Guid> userId)
+        {
+            EnsureIsValid(userId);
+            try
+            {
+                var user = _deps.Users.Find(userId.Id);
+                if (user == null || user.Deleted)
+                {
+                    throw NotFound.ExceptionFor<User>(userId.Id);
+                }
+                _deps.UserLockoutPolicy.Unblock(user);
+                Commit();
+                return UserMessage.Resource(() => Messages.UserSuccessfullyUnblocked);
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't unblock user.", ex);
+            }
+        }
+
         public UserMessage ChangePassword(ChangePasswordCommand command)
         {
             EnsureIsValid(command);

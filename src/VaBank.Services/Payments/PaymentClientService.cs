@@ -89,8 +89,17 @@ namespace VaBank.Services.Payments
                 };
             }
             catch (Exception ex)
+        {
+            EnsureIsValid(operationId);
+            EnsureIsSecure<IdentityQuery<long>, UserBankOperationSecurityValidator>(operationId);
+            try
             {
-                throw new ServiceException("Can't get form.", ex);
+                var formModel = _deps.Payments.FindAndProject<PaymentArchiveFormModel>(operationId.Id);
+                return formModel;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get payment archive form.", ex);
             }
         }
 

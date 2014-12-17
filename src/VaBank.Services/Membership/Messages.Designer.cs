@@ -185,5 +185,14 @@ namespace VaBank.Services.Membership {
                 return ResourceManager.GetString("UserNameUnique", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пользователь успешно разблокирован.
+        /// </summary>
+        public static string UserSuccessfullyUnblocked {
+            get {
+                return ResourceManager.GetString("UserSuccessfullyUnblocked", resourceCulture);
+            }
+        }
     }
 }
