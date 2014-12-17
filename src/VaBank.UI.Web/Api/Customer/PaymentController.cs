@@ -20,7 +20,7 @@ namespace VaBank.UI.Web.Api.Customer
 
         [HttpGet]
         [Route("api/users/{userId:guid}/payments")]
-        public IHttpActionResult Query([FromUri] PaymentArchiveQuery query)
+        public IHttpActionResult Query(PaymentArchiveQuery query)
         {
             return Ok(_paymentService.QueryArchive(query));
         }

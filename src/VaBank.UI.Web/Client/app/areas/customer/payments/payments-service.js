@@ -19,13 +19,13 @@
                 filter: function() {
                     return {
                         from: {
-                            propertyName: 'createdDateUtc',
+                            propertyName: 'dateUtc',
                             operator: dataUtil.filters.operator.GreaterThanOrEqual,
                             value: moment().startOf('month'),
                             propertyType: 'datetime'
                         },
                         to: {
-                            propertyName: 'createdDateUtc',
+                            propertyName: 'dateUtc',
                             operator: dataUtil.filters.operator.LessThan,
                             value: moment().startOf('day').add(1, 'day'),
                             propertyType: 'datetime'

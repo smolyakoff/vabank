@@ -53,28 +53,28 @@
                         </ui-select>
                     </div>
                     <div class="col-xs-7">
-                        <vb-currency data-ng-model="filters.amount" symbol="у.е."></vb-currency>
+                        <vb-currency data-ng-model="filters.amount" symbol="ед."></vb-currency>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row offset-bottom">
             <div class="col-xs-12">
-                <button class="btn btn-primary">Показать</button>
+                <button class="btn btn-primary" data-ng-click="show()">Показать</button>
             </div>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-nd-12 col-lg-9">
         <table class="table table-responsive payments-table"
-               data-st-table="payments"
-               data-st-safe-src="displayedPayments">
+               data-st-table="displayedPayments"
+               data-st-safe-src="payments">
             <thead>
             <tr class="initialism warning">
-                <th>Название платежа / Реквизиты</th>
-                <th class="text-center">Карта</th>
-                <th class="text-center">Дата платежа</th>
-                <th class="text-center">Сумма</th>
-                <th class="text-center">Статус</th>
+                <th st-sort="paymentName">Название платежа / Реквизиты</th>
+                <th class="text-center" st-sort="card.secureCardNo">Карта</th>
+                <th class="text-center" st-sort="dateUtc">Дата платежа</th>
+                <th class="text-center" st-sort="amount">Сумма</th>
+                <th class="text-center" st-sort="status">Статус</th>
                 <th></th>
             </tr>
             </thead>
@@ -123,6 +123,13 @@
                 </td>
             </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <div st-pagination="" st-items-by-page="5" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </section>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using VaBank.Core.Payments.Entities;
+using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Payments.Models;
 
 namespace VaBank.Services.Payments
@@ -15,7 +16,7 @@ namespace VaBank.Services.Payments
                 .ForMember(x => x.OperationId, cfg => cfg.MapFrom(x => x.Id))
                 .ForMember(x => x.PaymentName, cfg => cfg.MapFrom(x => x.Category.Name))
                 .ForMember(x => x.PaymentCode, cfg => cfg.MapFrom(x => x.Category.Code))
-                .ForMember(x => x.Status, cfg => cfg.MapFrom(x => x.Status));
+                .ForMember(x => x.Status, cfg => cfg.MapFrom(x => (ProcessStatusModel)x.Status));
             CreateMap<PaymentOrder, PaymentOrderModel>();
             CreateMap<CardPayment, PaymentArchiveDetailsModel>()
                 .ForMember(x => x.DateUtc, cfg => cfg.MapFrom(x => x.CompletedDateUtc))

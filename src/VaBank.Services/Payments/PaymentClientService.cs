@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using VaBank.Common.Data;
+using VaBank.Core.App.Entities;
 using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
@@ -80,10 +81,14 @@ namespace VaBank.Services.Payments
             {
                 var operationsByUser = DbQuery.For<UserBankOperation>()
                     .FilterBy(x => x.User.Id == query.UserId && x.Operation is CardPayment);
-                var operations = _deps.UserBankOperations.Query(operationsByUser);
-                var payments = operations.Select(x => x.Operation)
-                    .Cast<CardPayment>()
-                    .Map<CardPayment, PaymentArchiveItemModel>()
+                var operationIds =_deps.UserBankOperations
+                    .Select(operationsByUser, x => x.OperationId)
+                    .ToList();
+                var paymentsQuery = DbQuery.For<PaymentArchiveItemModel>()
+                    .FromClientQuery(query)
+                    .AndFilterBy(x => operationIds.Contains(x.OperationId));
+                var payments = _deps.CardPayments
+                    .ProjectThenQuery<PaymentArchiveItemModel>(paymentsQuery)
                     .ToList();
                 return payments;
             }

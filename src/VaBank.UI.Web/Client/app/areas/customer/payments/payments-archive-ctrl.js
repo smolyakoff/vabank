@@ -7,6 +7,7 @@
     function paymentsArchiveController($scope, $state, $modal, uiTools, paymentService, data) {
 
         var Payment = paymentService.Payment;
+        var Filters = uiTools.manipulate.filters;
 
         var dateRange = function(ago, dim, to) {
             return function() {
@@ -47,7 +48,6 @@
             { name: 'Меньше', value: '<' }
         ];
 
-
         $scope.filters = {
             from: initialRange.from,
             to: initialRange.to,
@@ -58,6 +58,38 @@
 
         $scope.payments = data;
         $scope.displayedPayments = angular.copy(data);
+
+        $scope.show = function () {
+            var filter = Filters.combine({
+                from: {
+                    propertyName: 'dateUtc',
+                    operator: '>=',
+                    value: $scope.filters.from,
+                    propertyType: 'datetime'
+                },
+                to: {
+                    propertyName: 'dateUtc',
+                    operator: '<=',
+                    value: $scope.filters.to,
+                    propertyType: 'datetime'
+                },
+                paymentCode: {
+                    propertyName: 'paymentCode',
+                    operator: '==',
+                    value: $scope.filters.paymentCode,
+                    propertyType: 'string'
+                },
+                amount: {
+                    propertyName: 'amount',
+                    operator: $scope.filters.amountOperator,
+                    value: $scope.filters.amount,
+                    propertyType: 'decimal'
+                }
+            }, 'and').toLINQ();
+            Payment.query({ filter: filter }).$promise.then(function (payments) {
+                $scope.payments = payments;
+            });
+        }
 
         $scope.details = function (payment) {
             $modal.open({
@@ -72,7 +104,4 @@
         }
 
     }
-    
-
-
 })();
