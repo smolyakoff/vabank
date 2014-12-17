@@ -50,6 +50,10 @@
                 getTemplate: {
                     url: '/api/payment-templates/:code',
                     method: 'GET'
+                },
+                getPrototype: {
+                    url: '/api/payments/:operationId/form',
+                    method: 'GET'
                 }
             });
             PaymentImpl.defaults = defaults;

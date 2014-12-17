@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 using VaBank.Common.Data;
+using VaBank.Common.Data.Repositories;
 using VaBank.Core.App.Entities;
 using VaBank.Core.Payments.Entities;
 using VaBank.Core.Processing.Entities;
@@ -68,9 +71,27 @@ namespace VaBank.Services.Payments
             }
         }
 
-        public PaymentArchiveFormModel GetForm(IdentityQuery<long> operationId)
+        public PaymentArchiveFormModel GetFormWithTemplate(IdentityQuery<long> operationId)
         {
-            throw new NotImplementedException();
+            EnsureIsValid(operationId);
+            try
+            {
+                var payment = _deps.CardPayments.QueryIdentity(operationId);
+                if (payment == null)
+                {
+                    return null;
+                }
+                var template = _deps.PaymentTemplates.SurelyFind(payment.Category.Code);
+                return new PaymentArchiveFormModel
+                {
+                    Form = JObject.Parse(payment.Form),
+                    Template = template.ToModel<PaymentTemplateModel>()
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get form.", ex);
+            }
         }
 
         public IList<PaymentArchiveItemModel> QueryArchive(PaymentArchiveQuery query)

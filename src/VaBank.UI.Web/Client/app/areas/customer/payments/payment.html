@@ -27,7 +27,7 @@
                                         <div class="col-xs-11">
                                             <div class="row">
                                                 <div class="col-lg-2">
-                                                    <img class="img img-responsive card-logo" ng-src="{{card.cardVendor.image}}"/>
+                                                    <img class="img img-responsive card-logo" ng-src="{{card.cardVendor.image}}" />
                                                 </div>
                                                 <div class="col-lg-8">
                                                     <b class="initialism">
@@ -58,7 +58,12 @@
                                     </dynamic-field>
                                 </div>
                             </div>
-                            <a class="btn btn-default pull-left" ng-click="back()"><i class="glyphicon glyphicon-chevron-left"></i> Назад</a>
+                            <a class="btn btn-default pull-left" ng-click="back()" data-ng-if="!isReplay">
+                                <i class="glyphicon glyphicon-chevron-left"></i> Назад
+                            </a>
+                            <a class="btn btn-warning pull-left" data-ui-sref="customer.payments.archive" data-ng-if="isReplay">
+                                Отмена
+                            </a>
                             <a class="btn btn-primary pull-right" ng-click="continueToApproval()">Продолжить <i class="glyphicon glyphicon-chevron-right"></i></a>
                         </div>
                     </div>
@@ -76,7 +81,7 @@
                                     </h6>
                                     <div class="row">
                                         <div class="col-xs-2">
-                                            <img class="img-responsive card-logo" ng-src="{{card.cardVendor.image}}"/>
+                                            <img class="img-responsive card-logo" ng-src="{{card.cardVendor.image}}" />
                                         </div>
                                         <div class="col-xs-8">
                                             <b class="initialism">
@@ -126,7 +131,6 @@
                                     </table>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-xs-6">
                                     <a class="btn btn-default" ng-show="!smsConfirmationEnabled || !smsCodeSent" ng-click="back()">

@@ -34,6 +34,14 @@ namespace VaBank.UI.Web.Api.Customer
         }
 
         [HttpGet]
+        [Route("api/payments/{id:long}/form")]
+        public IHttpActionResult GetForm([FromUri] IdentityQuery<long> query)
+        {
+            var payment = _paymentService.GetFormWithTemplate(query);
+            return payment == null ? (IHttpActionResult)NotFound() : Ok(payment);
+        }
+
+        [HttpGet]
         [Route("api/payment-templates/{code}")]
         public IHttpActionResult GetTemplate(string code)
         {

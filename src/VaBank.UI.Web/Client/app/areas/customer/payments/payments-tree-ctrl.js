@@ -17,7 +17,6 @@
        
         $scope.choose = function (item, column) {
             if ($scope.isLeaf(item)) {
-                //continue is function from parent scope
                 $scope.selectPaymentCategory(item);
                 return;
             }

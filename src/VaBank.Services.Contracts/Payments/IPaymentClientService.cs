@@ -13,7 +13,7 @@ namespace VaBank.Services.Contracts.Payments
  
         BankOperationModel Submit(SubmitPaymentCommand command);
 
-        PaymentArchiveFormModel GetForm(IdentityQuery<long> operationId);
+        PaymentArchiveFormModel GetFormWithTemplate(IdentityQuery<long> operationId);
 
         IList<PaymentArchiveItemModel> QueryArchive(PaymentArchiveQuery query);
 

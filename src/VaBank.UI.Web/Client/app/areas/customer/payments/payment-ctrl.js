@@ -3,9 +3,9 @@
 
     angular.module('vabank.webapp').controller('paymentController', paymentController);
 
-    paymentController.$inject = ['$scope', '$q', 'uiTools', 'WizardHandler', 'paymentService', 'data'];
+    paymentController.$inject = ['$scope', '$q', '$timeout', 'uiTools', 'WizardHandler', 'paymentService', 'data'];
 
-    function paymentController($scope, $q, uiTools, wizardHandler, paymentService, data) {
+    function paymentController($scope, $q, $timeout, uiTools, wizardHandler, paymentService, data) {
 
         var PaymentForm = paymentService.PaymentForm;
         var Payment = paymentService.Payment;
@@ -13,16 +13,6 @@
         var Card = paymentService.Card;
 
         var stepIndex = 0;
-
-        var init = function() {
-            if (data.cards.length === 0) {
-                uiTools.notify({
-                    type: 'warning',
-                    message: 'Нет карт с которых разрешен платеж.'
-                });
-                $state.go('customer.cards.list');
-            }
-        };
 
         var getSourceCard = function() {
             var cardId = $scope.payment.fromCardId;
@@ -136,8 +126,8 @@
                 $scope.template = template;
                 var formDescription = PaymentForm.create(template.formTemplate);
                 $scope.payment.templateCode = template.code;
-                _.extend($scope.payment.form, formDescription.form);
-                _.extend($scope.validators.form, formDescription.validators);
+                $scope.payment.form = formDescription.form;
+                $scope.validators.form = formDescription.validators;
                 $scope.validators.form.amount.custom = validateAmount;
                 $scope.paymentController.resetErrors();
                 next();
@@ -181,6 +171,22 @@
             }
             var promise = Payment.create($scope.payment).$promise;
             promise.then(onSuccess, onError);
+        };
+
+        var init = function () {
+            if (data.cards.length === 0) {
+                uiTools.notify({
+                    type: 'warning',
+                    message: 'Нет карт с которых разрешен платеж.'
+                });
+                $state.go('customer.cards.list');
+            }
+            if (data.prototype) {
+                $scope.isReplay = true;
+                $scope.template = data.prototype.template;
+                $scope.payment.form = data.prototype.form;
+                $timeout(next, 0);
+            }
         };
 
         init();

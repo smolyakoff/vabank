@@ -66,7 +66,7 @@
                 data: {
                     title: 'VaBank - Платежные карты',
                     subtitle: 'Мои платежные карты'
-                },
+                }
             })
             .state('customer.cards.list', {
                 url: '',
@@ -113,14 +113,17 @@
                 }
             })
             .state('customer.payments.payment', {
-                url: '/pay',
+                url: '/pay/:paymentId',
                 templateUrl: '/Client/app/areas/customer/payments/payment.html',
                 controller: 'paymentController',
                 resolve: {
-                    data: ['$q', 'paymentService', 'profileService', function($q, paymentService, profileService) {
+                    data: ['$q', '$stateParams', 'paymentService', 'profileService', function($q, $stateParams, paymentService, profileService) {
                         return $q.all({
                             cards: paymentService.Card.queryNotBlocked(),
-                            profile: profileService.Profile.get().$promise
+                            profile: profileService.Profile.get().$promise,
+                            prototype: $stateParams.paymentId 
+                                ? paymentService.Payment.getPrototype({operationId: $stateParams.paymentId}).$promise
+                                : null
                         });
                     }]
                 }

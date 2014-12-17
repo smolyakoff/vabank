@@ -113,7 +113,9 @@
                 </td>
                 <td class="text-center">
                     <div>
-                        <a href="#"><i class="glyphicon glyphicon-repeat"></i> Повторить</a>
+                        <a href="#" data-ui-sref="customer.payments.payment({paymentId: payment.operationId})">
+                            <i class="glyphicon glyphicon-repeat"></i> Повторить
+                        </a>
                     </div>
                     <div>
                         <a href="#" data-ng-click="details(payment)">
