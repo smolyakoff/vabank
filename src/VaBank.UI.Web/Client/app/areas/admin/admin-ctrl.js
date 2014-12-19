@@ -12,9 +12,16 @@
         $scope.user = authService.getUser();
 
         $scope.logout = function() {
-            authService.logout();
             $state.go('login');
+            authService.logout();
         };
 
+        $scope.isDataManagementRoute = function () {
+            return /management/i.test($state.current.name);
+        };
+
+        $scope.isLogRoute = function() {
+            return /log/i.test($state.current.name);
+        };
     }
 })();

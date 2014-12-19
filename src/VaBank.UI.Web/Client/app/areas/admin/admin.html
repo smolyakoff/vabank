@@ -15,7 +15,7 @@
             <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
                 <ul class="nav navbar-nav">
                     <li ui-sref-active="active"><a data-ui-sref="admin.scheduler">Планировщик</a></li>
-                    <li ui-sref-active="active" class="dropdown">
+                    <li class="dropdown" data-ng-class="{active: isLogRoute()}">
                         <a href="#" class="dropdown-toggle">Логи <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a data-ui-sref="admin.systemLog">Системный лог</a></li>
@@ -23,7 +23,7 @@
                             <li><a data-ui-sref="admin.transactionLog">Лог транзакций</a></li>
                         </ul>
                     </li>
-                    <li ui-sref-active="active" class="dropdown">
+                    <li class="dropdown" data-ng-class="{active: isDataManagementRoute()}">
                         <a href="#" class="dropdown-toggle">Управление данными <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a data-ui-sref="admin.userManagement.list">Пользователи</a></li>
