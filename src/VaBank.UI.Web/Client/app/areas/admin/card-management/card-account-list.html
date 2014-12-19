@@ -26,11 +26,11 @@
             <table class="table table-responsive">
                 <thead>
                     <tr>
-                        <th>Номер счета</th>
-                        <th>Владелец</th>
-                        <th>Баланс</th>
-                        <th>Валюта</th>
-                        <th>Срок действия</th>
+                        <th st-sort="accountNo">Номер счета</th>
+                        <th st-sort="owner.profile.lastName">Владелец</th>
+                        <th st-sort="balance">Баланс</th>
+                        <th st-sort="currency.isoName">Валюта</th>
+                        <th st-sort="expirationDateUtc">Срок действия</th>
                     </tr>
                 </thead>
                 <tbody ng-show="loading.active()">
