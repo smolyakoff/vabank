@@ -31,36 +31,18 @@ namespace VaBank.Services.Payments
             try
             {
                 var card = _deps.UserCards.SurelyFind(query.CardId);
-                var cardPayments =
-                    _deps.CardPayments.Query(
-                        DbQuery.For<CardPayment>()
-                            .FilterBy(x => x.Card.Id == query.CardId)
-                            .AndFilterBy(
-                                x =>
-                                    x.CompletedDateUtc.HasValue && x.CompletedDateUtc >= query.From &&
-                                    x.CompletedDateUtc <= query.To)).GroupBy(x => x.Category);
-                
+                var groups = _deps.CardPayments.Query(query.ToCardPaymentQuery()).GroupBy(x => x.Category);
                 var model = new PaymentCategoryCostsModel
                 {
                     Card = card.ToModel<CardNameModel>(),
-                    Currency = card.Account.Currency.ToModel<CurrencyModel>()
-                };
-
-                var total = 0m;
-                foreach (var cardPayment in cardPayments)
-                {
-                    var spent = cardPayment.Aggregate(0m,
-                        (cost, payment) => cost + payment.Withdrawal.TransactionAmount);
-                    total += spent;
-                    var itemModel = new PaymentCategoryCostsItemModel
+                    Currency = card.Account.Currency.ToModel<CurrencyModel>(),
+                    Data = groups.Select(x => new PaymentCategoryCostsItemModel()
                     {
-                        Category = cardPayment.First().ToModel<PaymentCategoryModel>(),
-                        Spent = spent
-                    };
-                    model.Data.Add(itemModel);
-                }
-                model.TotalSpent = total;
-                
+                        Category = x.First().ToModel<PaymentCategoryModel>(),
+                        Amount = - x.Sum(y => y.Withdrawal.AccountAmount)
+                    }).ToList()
+                };
+                model.Total = model.Data.Sum(x => x.Amount);
                 return model;
             }
             catch (Exception ex)
@@ -75,21 +57,16 @@ namespace VaBank.Services.Payments
             EnsureIsSecure<MostlyUsedPaymentsQuery, UserQueryValidator>(query);
             try
             {
-                var cardIds = _deps.UserCards.Select(DbQuery.For<UserCard>().FilterBy(x => x.Owner.Id == query.UserId),
-                    x => x.Id);
-                var cardPayments =
-                    _deps.CardPayments.Query(
-                        DbQuery.For<CardPayment>().FilterBy(x => cardIds.Contains(x.Card.Id)).AndFilterBy(x =>
-                            x.CompletedDateUtc.HasValue && x.CompletedDateUtc >= query.From &&
-                            x.CompletedDateUtc <= query.To)).GroupBy(x => x.Category);
-
-                return (from cardPayment in cardPayments
-                    let count = cardPayment.Count()
-                    select new PaymentCategoryUsagesModel
-                    {
-                        Category = cardPayment.First().ToModel<PaymentCategoryModel>(),
-                        Usages = count
-                    }).OrderBy(x => x.Usages).Take(query.MaxResults).ToList();
+                //TODO: of course it will be great to group in database first
+                var cardIds = _deps.UserCards.Select(DbQuery.For<UserCard>().FilterBy(x => x.Owner.Id == query.UserId), x => x.Id);
+                var cardPayments = _deps.CardPayments.Query(query.ToCardPaymentQuery(cardIds));
+                var groups = cardPayments.GroupBy(x => x.Category);
+                var usages = groups.Select(g => new PaymentCategoryUsagesModel()
+                {
+                    Category = g.First().ToModel<PaymentCategoryModel>(),
+                    Usages = g.Count()
+                });
+                return usages.OrderByDescending(x => x.Usages).Take(query.MaxResults).ToList();
             }
             catch (Exception ex)
             {

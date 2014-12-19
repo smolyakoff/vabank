@@ -12,10 +12,14 @@ namespace VaBank.UI.Web.Api.Customer
     {
         private readonly IPaymentClientService _paymentService;
 
-        public PaymentController(IPaymentClientService paymentService)
+        private readonly IPaymentStatisticsService _paymentStatisticsService;
+
+        public PaymentController(IPaymentClientService paymentService, IPaymentStatisticsService paymentStatisticsService)
         {
             Argument.NotNull(paymentService, "paymentService");
+            Argument.NotNull(paymentStatisticsService, "paymentStatisticsService");
             _paymentService = paymentService;
+            _paymentStatisticsService = paymentStatisticsService;
         }
 
         [HttpGet]
@@ -23,6 +27,14 @@ namespace VaBank.UI.Web.Api.Customer
         public IHttpActionResult Query(PaymentArchiveQuery query)
         {
             return Ok(_paymentService.QueryArchive(query));
+        }
+
+        [HttpGet]
+        [Route("api/users/{userId:guid}/payments/mostly-used")]
+        public IHttpActionResult StatsMostlyUsed([FromUri]MostlyUsedPaymentsQuery query)
+        {
+            var stats = _paymentStatisticsService.GetMostlyUsedPayments(query);
+            return Ok(stats);
         }
 
         [HttpGet]
@@ -49,6 +61,7 @@ namespace VaBank.UI.Web.Api.Customer
             var template = _paymentService.GetTemplate(id);
             return Ok(template);
         }
+
 
         [HttpPost]
         [Route("api/payments")]

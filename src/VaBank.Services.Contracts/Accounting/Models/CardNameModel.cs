@@ -9,5 +9,7 @@ namespace VaBank.Services.Contracts.Accounting.Models
         public string SecureCardNo { get; set; }
 
         public string FriendlyName { get; set; }
+
+        public CardVendorModel CardVendor { get; set; }
     }
 }

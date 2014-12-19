@@ -3,9 +3,9 @@
 
     angular.module('vabank.webapp').controller('paymentController', paymentController);
 
-    paymentController.$inject = ['$scope', '$q', '$timeout', 'uiTools', 'WizardHandler', 'paymentService', 'data'];
+    paymentController.$inject = ['$scope', '$q', '$timeout', '$window', 'uiTools', 'WizardHandler', 'paymentService', 'data'];
 
-    function paymentController($scope, $q, $timeout, uiTools, wizardHandler, paymentService, data) {
+    function paymentController($scope, $q, $timeout, $window, uiTools, wizardHandler, paymentService, data) {
 
         var PaymentForm = paymentService.PaymentForm;
         var Payment = paymentService.Payment;
@@ -65,11 +65,22 @@
             return deferred.promise;
         };
 
+        var chooseTemplate = function(template) {
+            $scope.template = template;
+            var formDescription = PaymentForm.create(template.formTemplate);
+            $scope.payment.templateCode = template.code;
+            $scope.payment.form = formDescription.form;
+            $scope.validators.form = formDescription.validators;
+            $scope.validators.form.amount.custom = validateAmount;
+            $scope.paymentController.resetErrors();
+        };
+
         var next = function () {
             stepIndex++;
             wizardHandler.wizard('paymentWizard').next();
         };
 
+        $scope.showTree = true;
         $scope.errorMessages = [];
         $scope.cards = data.cards;
         $scope.card = data.cards[0];
@@ -79,6 +90,8 @@
         $scope.template = null;
 
         $scope.paymentController = {};
+
+        $scope.loading = uiTools.promiseTracker();
 
         var defaults = {
             payment: {
@@ -113,23 +126,25 @@
         };
 
         $scope.cancel = function () {
-            stepIndex = 0;
-            $scope.payment = angular.copy(defaults.payment);
-            $scope.validators = angular.copy(defaults.validators);
-            wizardHandler.wizard('paymentWizard').goTo(0);
-            $scope.smsCodeSent = false;
-            $scope.paymentController.resetErrors();
+            stepIndex = $scope.showTree ? 0 : 1;
+            if ($scope.showTree) {
+                $scope.payment = angular.copy(defaults.payment);
+                $scope.validators = angular.copy(defaults.validators);
+                wizardHandler.wizard('paymentWizard').goTo(0);
+                $scope.smsCodeSent = false;
+                $scope.paymentController.resetErrors();
+            } else {
+                $window.history.back();
+            }
         };
 
         $scope.selectPaymentCategory = function (category) {
+            if ($scope.template && $scope.template.code === category.code) {
+                next();
+                return;
+            }
             Payment.getTemplate({ code: category.code }).$promise.then(function (template) {
-                $scope.template = template;
-                var formDescription = PaymentForm.create(template.formTemplate);
-                $scope.payment.templateCode = template.code;
-                $scope.payment.form = formDescription.form;
-                $scope.validators.form = formDescription.validators;
-                $scope.validators.form.amount.custom = validateAmount;
-                $scope.paymentController.resetErrors();
+                chooseTemplate(template);
                 next();
             });
         };
@@ -180,13 +195,30 @@
                     message: 'Нет карт с которых разрешен платеж.'
                 });
                 $state.go('customer.cards.list');
+                return;
             }
+            var deferred = $q.defer();
+            $scope.loading.addPromise(deferred.promise);
             if (data.prototype) {
-                $scope.isReplay = true;
+                $scope.showTree = false;
                 $scope.template = data.prototype.template;
                 $scope.payment.form = data.prototype.form;
-                $timeout(next, 0);
+                $timeout(function() {
+                    next();
+                    deferred.resolve();
+                }, 0);
+                return;
             }
+            if (data.template) {
+                $scope.showTree = false;
+                $timeout(function() {
+                    chooseTemplate(data.template);
+                    next();
+                    deferred.resolve();
+                }, 0);
+                return;
+            }
+            deferred.resolve();
         };
 
         init();

@@ -34,6 +34,19 @@
             balance: {
                 url: '/api/cards/:cardId/balance/:currencyIsoName',
                 method: 'GET'
+            },
+            costsByPaymentCategory: {
+                url: '/api/cards/:cardId/costs',
+                method: 'GET',
+                isArray: false,
+                params: {
+                    from: function () {
+                        return moment().utc().subtract(3, 'month').startOf('month').toJSON();
+                    },
+                    to: function () {
+                        return moment().utc().toJSON();
+                    }
+                }
             }
         });
         Card.queryNotBlocked = function() {

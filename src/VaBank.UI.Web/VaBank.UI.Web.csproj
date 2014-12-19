@@ -238,6 +238,8 @@
     <Content Include="Client\app\areas\customer\cabinet\cabinet-service.js" />
     <Content Include="Client\app\areas\customer\cabinet\my-cards-widget-ctrl.js" />
     <Content Include="Client\app\areas\customer\cabinet\my-cards-widget.html" />
+    <Content Include="Client\app\areas\customer\cabinet\payments-widget-ctrl.js" />
+    <Content Include="Client\app\areas\customer\cabinet\payments-widget.html" />
     <Content Include="Client\app\areas\customer\my-cards\transfer-service.js" />
     <Content Include="Client\app\areas\customer\payments\payment-details-ctrl.js" />
     <Content Include="Client\app\areas\customer\payments\payment-details.html" />
@@ -301,10 +303,13 @@
     <Content Include="Client\app\images\icons\cards\visa-curved-32px.png" />
     <Content Include="Client\app\images\icons\cards\visa-curved-64px.png" />
     <Content Include="Client\app\images\icons\common\consultant.png" />
+    <Content Include="Client\app\images\icons\common\sad.png" />
     <Content Include="Client\app\images\icons\common\profile.png" />
     <Content Include="Client\app\images\icons\currency\eur.png" />
     <Content Include="Client\app\images\icons\currency\rub.png" />
     <Content Include="Client\app\images\icons\currency\usd.png" />
+    <Content Include="Client\app\images\icons\payments\payment-cell-velcom-phoneno.png" />
+    <Content Include="Client\app\images\icons\payments\payment-custom-paymentorder.png" />
     <Content Include="Client\app\images\logo\vabank-logo-big.png" />
     <Content Include="Client\app\images\logo\vabank-logo-middle.png" />
     <Content Include="Client\app\images\logo\vabank-logo-small.png" />
@@ -501,6 +506,16 @@
     <Content Include="Client\bower_components\angular-form-for\templates\default\text-field.html" />
     <Content Include="Client\bower_components\angular-form-for\templates\default\text-field\_input.html" />
     <Content Include="Client\bower_components\angular-form-for\templates\default\text-field\_textarea.html" />
+    <Content Include="Client\bower_components\angular-google-chart\index.html" />
+    <Content Include="Client\bower_components\angular-google-chart\ng-google-chart.js" />
+    <Content Include="Client\bower_components\angular-google-chart\partials\annotation.html" />
+    <Content Include="Client\bower_components\angular-google-chart\partials\annotation.js" />
+    <Content Include="Client\bower_components\angular-google-chart\partials\fat.html" />
+    <Content Include="Client\bower_components\angular-google-chart\partials\fat.js" />
+    <Content Include="Client\bower_components\angular-google-chart\partials\generic.html" />
+    <Content Include="Client\bower_components\angular-google-chart\partials\generic.js" />
+    <Content Include="Client\bower_components\angular-google-chart\sample.js" />
+    <Content Include="Client\bower_components\angular-google-chart\style.css" />
     <Content Include="Client\bower_components\angular-i18n\angular-locale_aa-dj.js" />
     <Content Include="Client\bower_components\angular-i18n\angular-locale_aa-er.js" />
     <Content Include="Client\bower_components\angular-i18n\angular-locale_aa-et.js" />
@@ -1946,6 +1961,10 @@
     <Content Include="Client\bower_components\angular-media-queries\LICENSE.md" />
     <Content Include="Client\bower_components\angular-media-queries\README.md" />
     <Content Include="Client\app\areas\customer\payments\payments.scss" />
+    <Content Include="Client\bower_components\angular-google-chart\.bower.json" />
+    <Content Include="Client\bower_components\angular-google-chart\bower.json" />
+    <Content Include="Client\bower_components\angular-google-chart\package.json" />
+    <Content Include="Client\bower_components\angular-google-chart\README.md" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>

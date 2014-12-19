@@ -16,6 +16,6 @@ namespace VaBank.Services.Contracts.Payments.Models
 
         public List<PaymentCategoryCostsItemModel> Data { get; set; }
 
-        public decimal TotalSpent { get; set; }
+        public decimal Total { get; set; }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Web.Http;
 using VaBank.Common.Data;
+using VaBank.Common.Validation;
 using VaBank.Services.Contracts.Accounting;
 using VaBank.Services.Contracts.Accounting.Commands;
 using VaBank.Services.Contracts.Accounting.Models;
+using VaBank.Services.Contracts.Payments;
+using VaBank.Services.Contracts.Payments.Queries;
 using VaBank.UI.Web.Api.Infrastructure.Filters;
 
 namespace VaBank.UI.Web.Api.Customer
@@ -13,13 +16,17 @@ namespace VaBank.UI.Web.Api.Customer
     {
         private readonly ICardAccountService _cardAccountService;
 
-        public CustomerCardController(ICardAccountService cardAccountService)
+        private readonly IPaymentStatisticsService _paymentStatisticsService;
+
+        public CustomerCardController(ICardAccountService cardAccountService, IPaymentStatisticsService paymentStatisticsService)
         {
+            Argument.NotNull(paymentStatisticsService, "paymentStatisticsService");
             if (cardAccountService == null)
             {
                 throw new ArgumentNullException("cardAccountService");
             }
             _cardAccountService = cardAccountService;
+            _paymentStatisticsService = paymentStatisticsService;
         }
 
         [Route("api/users/{id:guid}/cards")]
@@ -52,6 +59,14 @@ namespace VaBank.UI.Web.Api.Customer
         public IHttpActionResult Balance([FromUri] CardBalanceQuery query)
         {
             return Ok(_cardAccountService.GetCardBalance(query));
+        }
+
+        [Route("api/cards/{cardId:guid}/costs")]
+        [HttpGet]
+        public IHttpActionResult GetCostsByPaymentCategory([FromUri] PaymentCategoryCostsQuery query)
+        {
+            var stats = _paymentStatisticsService.GetCostsByPaymentCategory(query);
+            return Ok(stats);
         }
     }
 }

@@ -54,6 +54,21 @@
                 getPrototype: {
                     url: '/api/payments/:operationId/form',
                     method: 'GET'
+                },
+                getMostlyUsed: {
+                    url: '/api/users/:userId/payments/mostly-used',
+                    method: 'GET',
+                    isArray: true,
+                    params: {
+                        userId: getUserId,
+                        maxResults: 3,
+                        from: function() {
+                            return moment().utc().subtract(3, 'month').startOf('month').toJSON();
+                        },
+                        to: function() {
+                            return moment().utc().toJSON();
+                        }
+                    }
                 }
             });
             PaymentImpl.defaults = defaults;

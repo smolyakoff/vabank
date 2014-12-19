@@ -126,6 +126,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Names.resx</DependentUpon>
     </Compile>
+    <Compile Include="Payments\PaymentsExtensions.cs" />
     <Compile Include="Payments\PaymentStatisticsService.cs" />
     <Compile Include="Payments\PaymentStatisticsServiceDependencies.cs" />
     <Compile Include="Payments\Validators.cs" />

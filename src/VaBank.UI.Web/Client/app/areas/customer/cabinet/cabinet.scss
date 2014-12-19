@@ -94,3 +94,49 @@
     max-height: 124px;
     margin: auto;
 }
+
+.costs-chart-legend {
+    margin-top: 30px;
+}
+
+.payments-widget {
+    .spinner {
+        position: absolute; 
+        top: 20px; 
+        right: 7px
+    }
+
+    .no-payments-data {
+        padding: 10px 50px 50px 50px;
+        .media-image {
+            margin-right: 50px;
+        }
+        .btn-go-pay {
+            margin-top: 20px;
+        }
+    }
+
+    .payment-links-container {
+        padding-top: 0;
+        color: $gray-dark;
+
+        li {
+            padding: 5px;
+
+            &:hover {
+                background-color: $state-warning-bg;
+                cursor: pointer;
+            }
+        }
+
+        .payment-image {
+            width: 64px;
+            height: 40px;
+        }
+
+        .payment-name {
+            font-size: 16px;
+            padding: 10px;
+        }
+    }
+}

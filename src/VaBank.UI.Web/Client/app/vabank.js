@@ -21,6 +21,7 @@
         'formFor.bootstrapTemplates',
         'mgo-angular-wizard',
         'matchMedia',
+        'googlechart',
         
         'vabank.ui',
         'vabank.auth'

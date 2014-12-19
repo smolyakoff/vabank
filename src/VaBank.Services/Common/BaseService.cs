@@ -148,6 +148,7 @@ namespace VaBank.Services.Common
 
         private void EnsureIsValid<T>(T obj, Type validatorType)
         {
+            Argument.NotNull((object)obj, "obj");
             if (!_objectFactory.CanCreate(validatorType))
             {
                 return;

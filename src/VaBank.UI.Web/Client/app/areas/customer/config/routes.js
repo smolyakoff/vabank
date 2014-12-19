@@ -113,7 +113,7 @@
                 }
             })
             .state('customer.payments.payment', {
-                url: '/pay/:paymentId',
+                url: '/pay/:code?paymentId',
                 templateUrl: '/Client/app/areas/customer/payments/payment.html',
                 controller: 'paymentController',
                 resolve: {
@@ -123,6 +123,9 @@
                             profile: profileService.Profile.get().$promise,
                             prototype: $stateParams.paymentId 
                                 ? paymentService.Payment.getPrototype({operationId: $stateParams.paymentId}).$promise
+                                : null,
+                            template: $stateParams.code 
+                                ? paymentService.Payment.getTemplate({code: $stateParams.code}).$promise
                                 : null
                         });
                     }]
