@@ -9,7 +9,7 @@ namespace VaBank.Services.Common
         public RangeQueryValidator()
         {
             RuleFor(x => x.From).Must((query, from) => from <= query.To)
-                .WithLocalizedMessage(() => "From value can't be bigger than IssuedUtc value.");
+                .WithLocalizedMessage(() => "From value can't be bigger than To value.");
         }
     }
 }
