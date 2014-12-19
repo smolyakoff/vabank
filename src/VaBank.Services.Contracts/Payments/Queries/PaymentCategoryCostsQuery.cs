@@ -1,4 +1,5 @@
 ﻿using System;
+using VaBank.Services.Contracts.Common.Queries;
 
 namespace VaBank.Services.Contracts.Payments.Queries
 {

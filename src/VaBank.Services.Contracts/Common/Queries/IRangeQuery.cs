@@ -1,4 +1,4 @@
-﻿namespace VaBank.Services.Contracts.Payments.Queries
+﻿namespace VaBank.Services.Contracts.Common.Queries
 {
     public interface IRangeQuery<out T>
     {

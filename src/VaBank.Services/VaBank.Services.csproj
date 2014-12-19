@@ -100,6 +100,7 @@
     <Compile Include="Common\Security\SecurityValidatorException.cs" />
     <Compile Include="Common\Security\UserQueryValidator.cs" />
     <Compile Include="Common\Security\UserCommandValidator.cs" />
+    <Compile Include="Common\Validators.cs" />
     <Compile Include="Infrastructure\Email\EmailService.cs" />
     <Compile Include="Infrastructure\Email\EmailServiceDependencies.cs" />
     <Compile Include="Infrastructure\Email\SendGridClientFactory.cs" />
@@ -125,6 +126,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Names.resx</DependentUpon>
     </Compile>
+    <Compile Include="Payments\PaymentStatisticsService.cs" />
+    <Compile Include="Payments\PaymentStatisticsServiceDependencies.cs" />
     <Compile Include="Payments\Validators.cs" />
     <Compile Include="Processing\Operations\CardPaymentProcessor.cs" />
     <Compile Include="Payments\PaymentClientService.cs" />

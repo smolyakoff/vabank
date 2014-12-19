@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json.Linq;
+using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Payments.Entities;
 using VaBank.Services.Contracts.Common.Models;
 using VaBank.Services.Contracts.Payments.Models;
@@ -27,6 +28,10 @@ namespace VaBank.Services.Payments
             CreateMap<Payment, PaymentArchiveFormModel>()
                 .ForMember(x => x.Form, cfg => cfg.MapFrom(x => JObject.Parse(x.Form)))
                 .ForMember(x => x.Template, cfg => cfg.MapFrom(x => (PaymentTemplate) x.Category));
+            CreateMap<CardPayment, PaymentCategoryModel>()
+                .ForMember(x => x.Code, cfg => cfg.MapFrom(x => x.Category.Code))
+                .ForMember(x => x.DisplayName, cfg => cfg.MapFrom(x => x.Withdrawal.Description))
+                .ForMember(x => x.Name, cfg => cfg.MapFrom(x => x.Category.Name));
         }
     }
 }
