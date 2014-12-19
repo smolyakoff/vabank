@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace VaBank.Data.Migrations.M4_Payments
+namespace VaBank.Data.Migrations
 {
     [Migration(47, "Seed banks.")]
     [Tags("Development", "Test", "Production")]

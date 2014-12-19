@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace VaBank.Data.Migrations.M1_Authentication
+namespace VaBank.Data.Migrations
 {
     [Migration(11, "Changed protected ticket length in application token")]
     public class ChangeProtectedTicketLength : Migration

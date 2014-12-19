@@ -2,7 +2,7 @@
 using FluentMigrator;
 using Newtonsoft.Json;
 
-namespace VaBank.Data.Migrations.M3_Processing
+namespace VaBank.Data.Migrations
 {
     [Migration(43, "Seed minimal card transfer amounts.")]
     [Tags("Development", "Production", "Test")]

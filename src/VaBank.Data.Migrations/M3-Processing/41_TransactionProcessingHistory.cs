@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace VaBank.Data.Migrations.M3_Processing
+namespace VaBank.Data.Migrations
 {
     [Migration(41, "Generate history tables for transaction processing tables.")]
     [Tags("Development", "Production", "Test")]

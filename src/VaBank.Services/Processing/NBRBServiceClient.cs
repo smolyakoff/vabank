@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using VaBank.Core.Processing;
-using VaBank.Services.NBRBWebService;
+using VaBank.Services.Service_References.NBRBWebService;
 
 namespace VaBank.Services.Processing
 {

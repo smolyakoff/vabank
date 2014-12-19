@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace VaBank.Data.Migrations.M3_Processing
+namespace VaBank.Data.Migrations
 {
     [Migration(42, "Seed default transfer categories.")]
     [Tags("Development", "Production", "Test")]

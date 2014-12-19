@@ -8,10 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VaBank.Services.NBRBWebService {
-    using System.Data;
-    
-    
+namespace VaBank.Services.Service_References.NBRBWebService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://www.nbrb.by/", ConfigurationName="NBRBWebService.ExRatesSoap")]
     internal interface ExRatesSoap {
@@ -144,12 +141,12 @@ namespace VaBank.Services.NBRBWebService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal interface ExRatesSoapChannel : VaBank.Services.NBRBWebService.ExRatesSoap, System.ServiceModel.IClientChannel {
+    internal interface ExRatesSoapChannel : ExRatesSoap, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    internal partial class ExRatesSoapClient : System.ServiceModel.ClientBase<VaBank.Services.NBRBWebService.ExRatesSoap>, VaBank.Services.NBRBWebService.ExRatesSoap {
+    internal partial class ExRatesSoapClient : System.ServiceModel.ClientBase<ExRatesSoap>, ExRatesSoap {
         
         public ExRatesSoapClient() {
         }
