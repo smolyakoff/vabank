@@ -107,7 +107,6 @@
     <Compile Include="Maintenance\Queries\TransactionLogQuery.cs" />
     <Compile Include="Accounting\Models\CardBalanceQuery.cs" />
     <Compile Include="Statistics\IVaBankStatisticsService.cs" />
-    <Compile Include="Statistics\Models\DatabaseInfoModel.cs" />
     <Compile Include="Statistics\Models\OverallSystemInfoModel.cs" />
     <Compile Include="Statistics\Models\ProcessedTransactionStatsModel.cs" />
     <Compile Include="Transfers\Commands\PersonalCardTransferCommand.cs" />

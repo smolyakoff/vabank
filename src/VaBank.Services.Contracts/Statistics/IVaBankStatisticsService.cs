@@ -1,4 +1,5 @@
-﻿using VaBank.Services.Contracts.Common.Queries;
+﻿using System.Collections.Generic;
+using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Statistics.Models;
 
 namespace VaBank.Services.Contracts.Statistics
@@ -7,6 +8,6 @@ namespace VaBank.Services.Contracts.Statistics
     {
         OverallSystemInfoModel GetSystemInfo();
 
-        ProcessedTransactionStatsModel GetProcessedTransactionStatistics(DateTimeRangeQuery query);
+        IList<ProcessedTransactionStatsModel> GetProcessedTransactionStatistics(DateTimeRangeQuery query);
     }
 }

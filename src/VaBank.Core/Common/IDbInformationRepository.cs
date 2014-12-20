@@ -4,8 +4,6 @@ namespace VaBank.Core.Common
 {
     public interface IDbInformationRepository : IRepository
     {
-        string GetVersion();
-
-        string GetType();
+        string GetServerVersion();
     }
 }

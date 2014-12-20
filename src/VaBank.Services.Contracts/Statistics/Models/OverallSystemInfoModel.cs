@@ -2,9 +2,9 @@
 {
     public class OverallSystemInfoModel
     {
-        public int UsersCount { get; set; }
+        public long UsersCount { get; set; }
 
-        public DatabaseInfoModel Database { get; set; }
+        public string ServerVersion { get; set; }
 
         public long ProcessedTransactionsCount { get; set; }
     }
