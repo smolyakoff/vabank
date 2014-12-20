@@ -26,14 +26,14 @@ namespace VaBank.Services.Statistics
         {
             try
             {
-                var serverVersion = _deps.DbInformation.GetServerVersion();
+                var serverVersion = _deps.DbInformation.GetDbVersion();
                 var transactionsCount = _deps.Transactions.Count(
                     DbQuery.For<Transaction>().FilterBy(x => x.Status == ProcessStatus.Completed));
                 var usersCount = _deps.Users.Count();
                 return new OverallSystemInfoModel
                 {
                     ProcessedTransactionsCount = transactionsCount,
-                    ServerVersion = serverVersion,
+                    DbVersion = serverVersion,
                     UsersCount = usersCount
                 };
             }
@@ -52,14 +52,14 @@ namespace VaBank.Services.Statistics
                     DbQuery.For<Transaction>()
                         .FilterBy(x => x.Status == ProcessStatus.Completed)
                         .AndFilterBy(
-                            x => x.PostDateUtc.HasValue && x.PostDateUtc >= query.From && x.PostDateUtc <= query.To),
-                    x => x.PostDateUtc).GroupBy(x => x.Value);
+                            x => x.CreatedDateUtc >= query.From && x.CreatedDateUtc <= query.To),
+                    x => x.CreatedDateUtc).GroupBy(x => x);
                 return (from @group in groups
-                    select new ProcessedTransactionStatsModel
-                    {
-                        Date = @group.Key,
-                        TransactionsCount = @group.Count()
-                    }).ToList();
+                        select new ProcessedTransactionStatsModel
+                        {
+                            Date = @group.Key,
+                            TransactionsCount = @group.Count()
+                        }).ToList();
             }
             catch (Exception ex)
             {

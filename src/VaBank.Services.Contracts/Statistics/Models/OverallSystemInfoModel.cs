@@ -4,7 +4,7 @@
     {
         public long UsersCount { get; set; }
 
-        public string ServerVersion { get; set; }
+        public long DbVersion { get; set; }
 
         public long ProcessedTransactionsCount { get; set; }
     }

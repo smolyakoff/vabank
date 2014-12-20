@@ -8,11 +8,10 @@ namespace VaBank.Data.Tests.EntityFramework
     public class CommonTest : BaseTest
     {
         [TestMethod]
-        public void Can_Get_Server_Version()
+        public void Can_Get_Db_Version()
         {
             var dbInformationRepository = Container.Resolve<IDbInformationRepository>();
-            var server = dbInformationRepository.GetServerVersion();
-            Assert.IsNotNull(server);
+            var version = dbInformationRepository.GetDbVersion();
         }
     }
 }

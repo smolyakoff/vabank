@@ -15,9 +15,9 @@ namespace VaBank.Data.EntityFramework.Common
             _context = context;
         }
 
-        public string GetServerVersion()
+        public long GetDbVersion()
         {
-            return _context.Database.SqlQuery<string>("SELECT @@VERSION").First();
+            return _context.Database.SqlQuery<long>("SELECT MAX([Version]) FROM [Maintenance].[DbVersions]").First();
         }
     }
 }
