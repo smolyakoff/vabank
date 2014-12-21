@@ -70,7 +70,7 @@
                data-st-safe-src="payments">
             <thead>
             <tr class="initialism warning">
-                <th st-sort="paymentName">Название платежа / Реквизиты</th>
+                <th st-sort="paymentName" >Название платежа / Реквизиты</th>
                 <th class="text-center" st-sort="card.secureCardNo">Карта</th>
                 <th class="text-center" st-sort="dateUtc" st-sort-default="reverse">Дата платежа</th>
                 <th class="text-center" st-sort="amount">Сумма</th>
@@ -80,11 +80,11 @@
             </thead>
             <tbody>
             <tr data-ng-repeat="payment in displayedPayments">
-                <td>
-                    <div><strong>{{payment.paymentName}}</strong>
+                <td style="max-width: 300px">
+                    <div>
+                        <strong>{{payment.paymentName}}</strong>
                     </div>
-                    <div class="text-muted">
-                        <pre class="payment-info">{{payment.info}}</pre>
+                    <div class="text-muted payment-info" data-ng-bind-html="payment.info | linebreaks">
                     </div>
                 </td>
                 <td class="text-warning text-center">

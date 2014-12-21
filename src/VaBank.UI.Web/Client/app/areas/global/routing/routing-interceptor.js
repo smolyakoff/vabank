@@ -31,7 +31,6 @@
                     }
                 }
             }
-            
         };
 
         var onStateChangeSuccess = function (event, toState, toParams, fromState, fromParams) {
@@ -51,6 +50,13 @@
         var onStateChangeError = function (event, toState, toParams, fromState, fromParams, error) {
             $rootScope.stateChanging = false;
             cfpLoadingBar.complete();
+            if (error.name && error.name === 'TransitionError') {
+                if (error.notification) {
+                    notificationService.notify(error.notification);
+                }
+                $state.go(error.redirectState);
+                return;
+            }
             if (error.status === 401) {
                 $timeout(angular.noop, 1000).then(function() {
                     authService.refreshToken().then(function () {

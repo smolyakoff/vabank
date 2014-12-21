@@ -42,7 +42,7 @@ namespace VaBank.Services.Payments.Forms
                 .WithLocalizedMessage(() => Messages.AccountDoesntExist);
             RuleFor(x => x.BeneficiaryName)
                 .NotEmpty()
-                .Length(1, 256)
+                .Length(1, 100)
                 .WithLocalizedName(() => Names.BeneficiaryName);
             RuleFor(x => x.BeneficiaryTIN)
                 .NotEmpty()

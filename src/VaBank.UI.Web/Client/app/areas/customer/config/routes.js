@@ -20,6 +20,14 @@
                         allowAnonymous: false,
                         roles: ['Customer']
                     }
+                },
+                resolve: {
+                    hasCards: ['myCardsService', function(myCardsService) {
+                        var Card = myCardsService.Card;
+                        return Card.query().$promise.then(function(cards) {
+                            return cards.length > 0;
+                        });
+                    }]
                 }
             })
             .state('customer.cabinet', {
@@ -29,7 +37,7 @@
                 resolve: {
                     data: ['myCardsService', 'profileService', 'routingResolve',
                         function (myCardsService, profileService, routingResolve) {
-                            var cards = myCardsService.Card.query.$promise;
+                            var cards = myCardsService.Card.query().$promise;
                             var profile = profileService.Profile.get().$promise;
                             return routingResolve.resolveAll([cards, profile], ['cards', 'profile']);
                         }]
@@ -94,12 +102,28 @@
                 templateUrl: '/Client/app/areas/customer/my-cards/transfer.html',
                 controller: 'transferController',
                 resolve: {
-                    data: ['myCardsService', 'profileService', 'routingResolve',
-                        function (myCardsService, profileService, routingResolve) {
+                    data: ['$q','myCardsService', 'profileService',
+                        function ($q, myCardsService, profileService) {
                             var cards = myCardsService.Card.queryAllowed();
                             var profile = profileService.Profile.get().$promise;
                             var lookup = myCardsService.Transfer.lookup().$promise;
-                            return routingResolve.resolveAll([cards, profile, lookup], ['cards', 'profile', 'lookup']);
+                            var deferred = $q.defer();
+                            $q.all({ cards: cards, profile: profile, lookup: lookup }).then(function(result) {
+                                if (result.cards.length === 0) {
+                                    var error = new Error('Transition disabled');
+                                    error.name = 'TransitionError';
+                                    error.notification = {
+                                        type: 'warning',
+                                        label: 'Нет доступных карт',
+                                        message: 'Нет разрешенных карт для проведения перевода'
+                                    }
+                                    error.redirectState = 'customer.cards.list';
+                                    deferred.reject(error);
+                                } else {
+                                    deferred.resolve(result);
+                                }
+                            });
+                            return deferred.promise;
                         }]
                 }
             })
@@ -117,8 +141,9 @@
                 templateUrl: '/Client/app/areas/customer/payments/payment.html',
                 controller: 'paymentController',
                 resolve: {
-                    data: ['$q', '$stateParams', 'paymentService', 'profileService', function($q, $stateParams, paymentService, profileService) {
-                        return $q.all({
+                    data: ['$q', '$stateParams', 'paymentService', 'profileService', function ($q, $stateParams, paymentService, profileService) {
+                        var deferred = $q.defer();
+                        $q.all({
                             cards: paymentService.Card.queryAllowed(),
                             profile: profileService.Profile.get().$promise,
                             prototype: $stateParams.paymentId 
@@ -127,7 +152,22 @@
                             template: $stateParams.code 
                                 ? paymentService.Payment.getTemplate({code: $stateParams.code}).$promise
                                 : null
+                        }).then(function(result) {
+                            if (result.cards.length === 0) {
+                                var error = new Error('Transition disabled');
+                                error.name = 'TransitionError';
+                                error.notification = {
+                                    type: 'warning',
+                                    label: 'Нет доступных карт',
+                                    message: 'Нет разрешенных карт для совершения платежа'
+                                }
+                                error.redirectState = 'customer.payments.archive';
+                                deferred.reject(error);
+                            } else {
+                                deferred.resolve(result);
+                            }
                         });
+                        return deferred.promise;
                     }]
                 }
             })

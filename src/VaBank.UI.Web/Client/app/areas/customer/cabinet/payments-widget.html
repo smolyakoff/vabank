@@ -24,7 +24,7 @@
                 </ul>
             </div>
         </div>
-        <div class="hidden-xs hidden-sm hidden-md col-lg-2 text-right costs-chart-legend" data-ng-if="costs">
+        <div class="hidden-xs hidden-sm hidden-md col-lg-2 text-right costs-chart-legend" data-ng-if="costs && costs.data.length > 0">
             <h5>Платежи за последние 3 месяца</h5>
             <b class="text-primary">Карта "{{costs.card.friendlyName || costs.card.cardVendor.name}}" {{costs.currency.isoName}}</b>
             <p>{{costs.card.secureCardNo}}</p>
@@ -32,7 +32,7 @@
                 {{costs.total | extcurrency:'':costs.currency.precision}} {{costs.currency.isoName}}
             </h5>
         </div>
-        <div class="hidden-xs hidden-sm hidden-md col-lg-5" data-ng-if="costs">
+        <div class="hidden-xs hidden-sm hidden-md col-lg-5" data-ng-if="costs && costs.data.length > 0">
             <div google-chart="" chart="chart"></div>
         </div>
     </section>
