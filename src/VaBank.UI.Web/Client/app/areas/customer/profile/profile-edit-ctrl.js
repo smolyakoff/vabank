@@ -20,6 +20,7 @@
             firstName: { required: true },
             lastName: { required: true },
             phoneNumber: { custom: uiTools.validate.getValidator('phone') },
+            secretPhrase: { required: true }
         };
 
         $scope.save = function() {

@@ -30,14 +30,14 @@
                 url: '/scheduler',
                 templateUrl: '/Client/app/areas/admin/scheduler/scheduler.html',
                 data: {
-                    title: 'VaDmin - Планировщик',
+                    title: 'VaDmin - Планировщик'
                 }
                 
             }).state('admin.systemLog', {
                 url: '/logs/system',
                 templateUrl: '/Client/app/areas/admin/system-log/system-log.html',
                 data: {
-                    title: 'VaDmin - Системный лог',
+                    title: 'VaDmin - Системный лог'
                 },
                 controller: 'systemLogController',
                 resolve: {
@@ -70,12 +70,12 @@
                 'abstract': true,
                 template: '<div data-ui-view=""></div>',
                 data: {
-                    title: 'VaDmin - Управление пользователями',
-                },
+                    title: 'VaDmin - Управление пользователями'
+                }
             }).state('admin.userManagement.list', {
                 url: '',
                 templateUrl: '/Client/app/areas/admin/user-management/user-list.html',
-                controller: 'userListController',
+                controller: 'userListController'
             }).state('admin.userManagement.editUser', {
                 url: '/:id',
                 templateUrl: '/Client/app/areas/admin/user-management/edit-user.html',
@@ -102,7 +102,7 @@
                 'abstract': true,
                 template: '<div data-ui-view=""></div>',
                 data: {
-                    title: 'VaDmin - Карт-счета',
+                    title: 'VaDmin - Карт-счета'
                 },
             }).state('admin.cardManagement.list', {
                 url: '',

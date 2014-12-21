@@ -47,6 +47,10 @@
                     method: 'POST',
                     url: '/api/payments'
                 },
+                getTree: {
+                    url: '/api/payments/tree',
+                    method: 'GET'
+                },
                 getTemplate: {
                     url: '/api/payment-templates/:code',
                     method: 'GET'
