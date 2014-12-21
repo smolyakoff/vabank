@@ -18,7 +18,7 @@
             initialBalance: 0,
             cardVendorId: data.lookup.cardVendors[0].id,
             currencyISOName: data.lookup.currencies[0].isoName,
-            cardExpirationDateUtc: moment().add(3, 'years').toDate(),
+            cardExpirationDateUtc: moment().add(3, 'years').endOf('month').toDate(),
             accountExpirationDateUtc: moment().add(3, 'years').add(1, 'month').toDate()
         };
 
@@ -31,8 +31,8 @@
             },
             accountExpirationDateUtc: {
                 required: true,
-                custom: uiTools.validate.createValidator(function (value, model) {
-                    if(moment(value).isBefore(Date.now())) {
+                custom: uiTools.validate.createValidator(function (value) {
+                    if(moment(value).isBefore(moment())) {
                         return 'Неверный срок действия счета.';
                     }
                     return null;
@@ -41,13 +41,12 @@
             cardExpirationDateUtc: {
                 required: true,
                 custom: uiTools.validate.createValidator(function (value, model) {
-                    if (moment(value).isBefore(Date.now())) {
-                        return 'Неверный срок действия карты.';
+                    var cardExpires = moment(value);
+                    var accountExpires = moment.utc(model.accountExpirationDateUtc).startOf('month');
+                    if (cardExpires.isBefore(accountExpires)) {
+                        return null;
                     }
-                    if (moment(value).isAfter(model.accountExpirationDateUtc)) {
-                        return 'Срок действия карты не может быть больше срока действия карт-счета.';
-                    }
-                    return null;
+                    return 'Срок действия карты не может быть больше срока действия карт-счета.';
                 })
             },
             cardholderLastName: {
@@ -91,5 +90,12 @@
             });
             $state.go('admin.cardManagement.list');
         };
+
+        $scope.$watch('cardAccountForm.cardExpirationDateUtc', function (newVal, oldVal) {
+            if (oldVal === newVal) {
+                return;
+            }
+            $scope.cardAccountForm.cardExpirationDateUtc = moment(newVal).endOf('month');
+        });
     }
 })();

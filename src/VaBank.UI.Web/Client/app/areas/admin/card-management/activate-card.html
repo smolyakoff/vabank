@@ -20,7 +20,7 @@
             <td>{{card.cardVendor.name}}</td>
             <td>{{card.cardholderFirstName}} {{card.cardholderLastName}}</td>
             <td>
-                <span data-ng-show="!card.isExpired()">{{card.expirationDateUtc | date:'MM/yy' }}</span>
+                <span data-ng-show="!card.isExpired()">{{card.expirationDateUtc | date:'dd.MM.yyyy' }}</span>
                 <span data-ng-show="card.isExpired()" class="label label-danger">Истекла {{card.expirationDateUtc | date:'MM/yy' }}</span>
             </td>
         </tr>

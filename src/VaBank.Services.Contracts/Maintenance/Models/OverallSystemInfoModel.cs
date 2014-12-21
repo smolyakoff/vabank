@@ -1,4 +1,4 @@
-﻿namespace VaBank.Services.Contracts.Statistics.Models
+﻿namespace VaBank.Services.Contracts.Maintenance.Models
 {
     public class OverallSystemInfoModel
     {
@@ -6,6 +6,6 @@
 
         public long DbVersion { get; set; }
 
-        public long ProcessedTransactionsCount { get; set; }
+        public long CompletedBankOperationsCount { get; set; }
     }
 }

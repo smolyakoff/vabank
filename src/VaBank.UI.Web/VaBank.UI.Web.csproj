@@ -214,6 +214,9 @@
     <Content Include="Client\app\areas\admin\card-management\new-account-ctrl.js" />
     <Content Include="Client\app\areas\admin\card-management\new-account.html" />
     <Content Include="Client\app\areas\admin\card-management\new-card.html" />
+    <Content Include="Client\app\areas\admin\dashboard\dashboard-ctrl.js" />
+    <Content Include="Client\app\areas\admin\dashboard\dashboard.html" />
+    <Content Include="Client\app\areas\admin\dashboard\system-stats-service.js" />
     <Content Include="Client\app\areas\admin\system-log\exception-details-ctrl.js" />
     <Content Include="Client\app\areas\admin\system-log\exception-details.html" />
     <Content Include="Client\app\areas\admin\system-log\system-log-service.js" />
@@ -329,6 +332,7 @@
     <Content Include="Client\app\modules\vabank-ui\directives\date-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\dynamic-field.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\masked-field.js" />
+    <Content Include="Client\app\modules\vabank-ui\directives\ng-model-on-blur.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\st-table-force-pipe.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-confirm.js" />
     <Content Include="Client\app\modules\vabank-ui\directives\vb-currency.js" />
@@ -1968,6 +1972,7 @@
     <Content Include="Client\bower_components\angular-google-chart\bower.json" />
     <Content Include="Client\bower_components\angular-google-chart\package.json" />
     <Content Include="Client\bower_components\angular-google-chart\README.md" />
+    <Content Include="Client\app\areas\admin\dashboard\dashboard.scss" />
     <None Include="Configs\NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1988,6 +1993,7 @@
     <Compile Include="Api\Admin\CardAdminController.cs" />
     <Compile Include="Api\Admin\SystemLogController.cs" />
     <Compile Include="Api\Admin\MaintenanceController.cs" />
+    <Compile Include="Api\Admin\SystemStatisticsController.cs" />
     <Compile Include="Api\Admin\TransactionLogController.cs" />
     <Compile Include="Api\Admin\UserAdminController.cs" />
     <Compile Include="Api\Common\CurrencyController.cs" />
