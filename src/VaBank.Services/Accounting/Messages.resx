@@ -132,11 +132,17 @@
   <data name="CardEmitted" xml:space="preserve">
     <value>Была успешно выпущена карта с номером: {0}.</value>
   </data>
-  <data name="CardLimitsAmount" xml:space="preserve">
-    <value>Диапазон должен быть от 5 до 100.000. Вы ввели {0}.</value>
+  <data name="CardLimitsAmountAbroad" xml:space="preserve">
+    <value>Диапазон должен быть от {From} до {To}. Вы ввели {0}.</value>
   </data>
-  <data name="CardLimitsDays" xml:space="preserve">
-    <value>Диапазон должен быть от 0 до 500. Вы ввели {0}.</value>
+  <data name="CardLimitsAmountLocal" xml:space="preserve">
+    <value>Диапазон должен быть от {From} до {To}. Вы ввели {0}.</value>
+  </data>
+  <data name="CardLimitsDaysAbroad" xml:space="preserve">
+    <value>Диапазон должен быть от {From} до {To}. Вы ввели {0}.</value>
+  </data>
+  <data name="CardLimitsDaysLocal" xml:space="preserve">
+    <value>Диапазон должен быть от {From} до {To}. Вы ввели {0}.</value>
   </data>
   <data name="CardSettingsUpdated" xml:space="preserve">
     <value>Настройки карты были успешно обновлены.</value>
