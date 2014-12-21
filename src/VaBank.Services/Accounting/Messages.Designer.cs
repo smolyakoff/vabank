@@ -106,20 +106,38 @@ namespace VaBank.Services.Accounting {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Диапазон должен быть от 5 до 100.000. Вы ввели {0}..
+        ///   Looks up a localized string similar to Диапазон должен быть от {From} до {To}. Вы ввели {0}..
         /// </summary>
-        public static string CardLimitsAmount {
+        public static string CardLimitsAmountAbroad {
             get {
-                return ResourceManager.GetString("CardLimitsAmount", resourceCulture);
+                return ResourceManager.GetString("CardLimitsAmountAbroad", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Диапазон должен быть от 0 до 500. Вы ввели {0}..
+        ///   Looks up a localized string similar to Диапазон должен быть от {From} до {To}. Вы ввели {0}..
         /// </summary>
-        public static string CardLimitsDays {
+        public static string CardLimitsAmountLocal {
             get {
-                return ResourceManager.GetString("CardLimitsDays", resourceCulture);
+                return ResourceManager.GetString("CardLimitsAmountLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Диапазон должен быть от {From} до {To}. Вы ввели {0}..
+        /// </summary>
+        public static string CardLimitsDaysAbroad {
+            get {
+                return ResourceManager.GetString("CardLimitsDaysAbroad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Диапазон должен быть от {From} до {To}. Вы ввели {0}..
+        /// </summary>
+        public static string CardLimitsDaysLocal {
+            get {
+                return ResourceManager.GetString("CardLimitsDaysLocal", resourceCulture);
             }
         }
         
