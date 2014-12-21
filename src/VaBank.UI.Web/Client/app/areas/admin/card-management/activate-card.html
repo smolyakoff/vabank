@@ -14,15 +14,18 @@
     <tbody>
         <tr ng-repeat="card in cards">
             <td>
-                <button class="btn btn-xs" ng-click="assign(card)"><i class="glyphicon glyphicon-link"></i></button>
+                <button class="btn btn-xs" ng-click="activate(card)" tooltip="Подключить интернет-банкинг"><i class="glyphicon glyphicon-link"></i></button>
             </td>
             <td>{{card.cardNo}}</td>
             <td>{{card.cardVendor.name}}</td>
             <td>{{card.cardholderFirstName}} {{card.cardholderLastName}}</td>
-            <td>{{card.expirationDateUtc | date:'MM/yy' }}</td>
+            <td>
+                <span data-ng-show="!card.isExpired()">{{card.expirationDateUtc | date:'MM/yy' }}</span>
+                <span data-ng-show="card.isExpired()" class="label label-danger">Истекла {{card.expirationDateUtc | date:'MM/yy' }}</span>
+            </td>
         </tr>
     </tbody>
 </table>
 <div ng-show="cards.length == 0">
-    Нет непривязанных карт.
+    Нет отключенных карт.
 </div>

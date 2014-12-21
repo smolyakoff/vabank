@@ -2,12 +2,10 @@
 
 namespace VaBank.Services.Contracts.Accounting.Commands
 {
-    public class SetCardAssignmentCommand
+    public class SetCardActivationCommand
     {
-        public string AccountNo { get; set; }
-
         public Guid CardId { get; set; }
 
-        public bool Assigned { get; set; }
+        public bool IsActive { get; set; }
     }
 }

@@ -53,11 +53,14 @@
                     <td class="balance">
                         {{card.balance | extcurrency:'':card.currency.precision}} {{card.currency.isoName}}
                     </td>
-                    <td class="text-center">{{card.expirationDateUtc | date:'MM/yy'}}</td>
+                    <td class="text-center">
+                        <span ng-show="!card.isExpired()">{{card.expirationDateUtc | date:'MM/yy':'UTC'}}</span>
+                        <span ng-show="card.isExpired()" class="label label-danger">Истекла {{card.expirationDateUtc | date:'MM/yy':'UTC'}}</span>
+                    </td>
                     <td class="text-center">
                         <span ng-if="!card.blocked" class="text-success">Активна</span>
                         <span ng-if="card.blocked" class="text-danger">Заблокирована</span>
-                        <div>
+                        <div data-ng-show="!card.isExpired()">
                             <a class="action-link text-muted"
                                 vb-confirm-click="setCardBlock(!card.blocked)"
                                 vb-confirm="Вы действительно хотите {{card.blocked ? 'разблокировать': 'заблокировать'}} карту?">

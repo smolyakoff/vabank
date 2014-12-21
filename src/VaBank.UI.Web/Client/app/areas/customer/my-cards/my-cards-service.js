@@ -49,9 +49,16 @@
                 }
             }
         });
-        Card.queryNotBlocked = function() {
-            return Card.query().$promise.then(function(cards) {
-                return _.where(cards, { blocked: false });
+        Card.prototype.isExpired = function() {
+            var now = moment().utc().startOf('day');
+            var expires = moment.utc(this.expirationDateUtc).startOf('day');
+            return expires.isSame(now) || expires.isBefore(now);
+        };
+        Card.queryAllowed = function() {
+            return Card.query().$promise.then(function (cards) {
+                return _.chain(cards).where({ blocked: false }).filter(function filterExpired(card) {
+                    return !card.isExpired();
+                }).value();
             });
         };
 

@@ -10,6 +10,10 @@
         var Payment = paymentService.Payment;
         var Card = paymentService.Card;
 
+        var getRandomInt = function(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
         $scope.loading = uiTools.promiseTracker();
 
         $scope.chart = {
@@ -46,7 +50,7 @@
             });
             $scope.loading.addPromise(mostlyUsed);
             var costsByCategory = Card.query().$promise.then(function chooseRandomCard(cards) {
-                var idx = Math.floor(Math.random() * (cards.length - 1));
+                var idx = getRandomInt(0, cards.length - 1);
                 return Card.costsByPaymentCategory({ cardId: cards[idx].cardId }).$promise;
             }).then(function (costs) {
                 $scope.costs = costs;

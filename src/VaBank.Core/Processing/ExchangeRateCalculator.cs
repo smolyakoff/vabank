@@ -72,8 +72,8 @@ namespace VaBank.Core.Processing
             {
                 throw new ArgumentException("Can't calculate cross rate for rates with same foreign currencies.");
             }
-            var buyRate = rate1.BuyRate / rate2.SellRate;
-            var sellRate = rate1.SellRate / rate2.BuyRate;
+            var buyRate = rate2.BuyRate / rate1.SellRate;
+            var sellRate = rate2.SellRate / rate1.BuyRate;
 
             return ExchangeRate.Create(rate1.Foreign, rate2.Foreign, buyRate, sellRate, timestampUtc);
         }

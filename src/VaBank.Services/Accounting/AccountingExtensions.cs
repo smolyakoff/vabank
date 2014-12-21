@@ -19,5 +19,16 @@ namespace VaBank.Services.Accounting
                                x.AccountNo == account.AccountNo)
                 .SortBy(x => x.OrderByDescending(y => y.CreatedDateUtc));
         }
+
+        public static DbQuery<UserCard> ToDbQuery(this AccountCardsQuery query)
+        {
+            Argument.NotNull(query, "query");
+            var dbQuery = DbQuery.For<UserCard>().FilterBy(x => x.Account.AccountNo == query.AccountNo);
+            if (query.IsActive.HasValue)
+            {
+                dbQuery.AndFilterBy(x => x.IsActive == query.IsActive.Value);
+            }
+            return dbQuery;
+        }
     }
 }

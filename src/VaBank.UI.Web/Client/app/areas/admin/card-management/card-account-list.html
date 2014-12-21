@@ -42,7 +42,10 @@
                         <td>{{account.owner.firstName}} {{account.owner.lastName}}</td>
                         <td>{{account.balance | currency:account.currency.symbol}}</td>
                         <td>{{account.currency.isoName}}</td>
-                        <td>{{account.expirationDateUtc | date}}</td>
+                        <td>
+                            <span data-ng-show="!account.isExpired()">{{account.expirationDateUtc | date}}</span>
+                            <span data-ng-show="account.isExpired()" class="label label-danger">Истек {{account.expirationDateUtc | date}}</span>
+                        </td>
                     </tr>
                     <tr data-ng-if="account.isSelected" class="active">
                         <td colspan="5">
@@ -52,8 +55,8 @@
                                         <li ng-class="{'active': tab == 'cards'}">
                                             <a ng-click="changeTab('cards')">Карты</a>
                                         </li>
-                                        <li ng-class="{'active': tab == 'assign-card'}">
-                                            <a ng-click="changeTab('assign-card')">Привязать карту</a>
+                                        <li ng-class="{'active': tab == 'activate-card'}">
+                                            <a ng-click="changeTab('activate-card')">Подключить карту</a>
                                         </li>
                                         <li ng-class="{'active': tab == 'new-card'}">
                                             <a ng-click="changeTab('new-card')">Новая карта</a>
@@ -71,11 +74,11 @@
                                              ng-include="'/Client/app/areas/admin/card-management/card-list.html'">
                                         </div>
                                         <div class="tab-pane"
-                                             ng-controller="assignCardController"
-                                             ng-class="{active: tab == 'assign-card'}"
-                                             ng-include="'/Client/app/areas/admin/card-management/assign-card.html'">
+                                             ng-controller="activateCardController"
+                                             ng-class="{active: tab == 'activate-card'}"
+                                             ng-include="'/Client/app/areas/admin/card-management/activate-card.html'">
                                         </div>
-                                        <div class="tab-pane"
+                                        <div class="tab-pane" data-ng-show="!account.isExpired()"
                                              ng-controller="newCardController"
                                              ng-class="{active: tab == 'new-card'}"
                                              ng-include="'/Client/app/areas/admin/card-management/new-card.html'">

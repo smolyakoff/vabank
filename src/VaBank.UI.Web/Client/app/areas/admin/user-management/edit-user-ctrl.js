@@ -47,6 +47,10 @@
             return !$scope.isEdit || model.changePassword;
         };
 
+        var isCustomer = function(value, model) {
+            return model.role === 'Customer';
+        }
+
         $scope.validationRules = {
             userName: {required: true, custom: uiTools.validate.getValidator('userName') },
             password: { custom: uiTools.validate.getConditionalValidator('password', isChangePasswordMode) },
@@ -61,8 +65,12 @@
             lastName: { required: true},
             phoneNumber: { custom: uiTools.validate.getOptionalValidator('phone') },
             secretPhrase: { required: true },
-            fullName: { required: true },
-            address: {required: true}
+            fullName: {
+                custom: uiTools.validate.getConditionalValidator('required', isCustomer)
+            },
+            address: {
+                custom: uiTools.validate.getConditionalValidator('required', isCustomer)
+            }
         };
     }
 })();

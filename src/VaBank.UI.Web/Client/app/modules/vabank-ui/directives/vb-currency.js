@@ -85,12 +85,13 @@
                 thousand: '@?',
                 decimal: '@?',
                 min: '@?',
-                max: '@?'
+                max: '@?',
+                ngDisabled: '='
             },
             compile: compile,
             template: '<div class="input-group vb-currency">' +
                 '<span class="input-group-addon">{{symbol}}</span>' +
-                '<input type="text" class="form-control">' +
+                '<input type="text" class="form-control" data-ng-disabled="ngDisabled">' +
                 '</div>'
         };
     }

@@ -23,6 +23,11 @@
             }
             
         });
+        CardAccount.prototype.isExpired = function () {
+            var now = moment().utc().startOf('day');
+            var expires = moment.utc(this.expirationDateUtc).startOf('day');
+            return expires.isSame(now) || expires.isBefore(now);
+        }
         CardAccount.defaults = {};
         CardAccount.defaults.filter = function() {
             return {                
@@ -93,32 +98,31 @@
         var AccountCard = $resource('/api/accounts/card/:accountNo/cards', { accountNo: '@accountNo' }, {
             create: {
                 url: '/api/accounts/card/:accountNo/cards',
-                method: 'POST',
-            },
-            assign: {
-                url: '/api/accounts/card/:accountNo/assign',
                 method: 'POST'
             }
         });
+        AccountCard.prototype.isExpired = function() {
+            var now = moment().utc().startOf('day');
+            var expires = moment.utc(this.expirationDateUtc).startOf('day');
+            return expires.isSame(now) || expires.isBefore(now);
+        }
 
         var Card = $resource('/api/cards/:cardId', { cardId: '@cardId' }, {
-            queryUnassigned: {
-                params: {
-                    filter: dataUtil.filters.create({
-                        propertyName: 'accountNo',
-                        operator: dataUtil.filters.operator.Equal,
-                        value: null
-                    }).toLINQ()
-                },
-                isArray: true
+            activate: {
+                url: '/api/cards/:cardId/activate',
+                method: 'POST'
             }
         });
-
+        Card.prototype.isExpired = function () {
+            var now = moment().utc().startOf('day');
+            var expires = moment.utc(this.expirationDateUtc).startOf('day');
+            return expires.isSame(now) || expires.isBefore(now);
+        }
 
         return {
+            Card: Card,
             AccountCard: AccountCard,
             CardAccount: CardAccount,
-            Card: Card,
             User: userManagementService.User
         };
     }

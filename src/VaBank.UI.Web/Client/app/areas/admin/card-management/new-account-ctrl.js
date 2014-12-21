@@ -17,7 +17,9 @@
         $scope.cardAccountForm = {
             initialBalance: 0,
             cardVendorId: data.lookup.cardVendors[0].id,
-            currencyISOName: data.lookup.currencies[0].isoName
+            currencyISOName: data.lookup.currencies[0].isoName,
+            cardExpirationDateUtc: moment().add(3, 'years').toDate(),
+            accountExpirationDateUtc: moment().add(3, 'years').add(1, 'month').toDate()
         };
 
         $scope.validationRules = {

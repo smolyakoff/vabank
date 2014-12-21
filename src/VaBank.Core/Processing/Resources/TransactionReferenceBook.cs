@@ -14,6 +14,11 @@ namespace VaBank.Core.Processing.Resources
             return new TransactionName("COMPENSATION", Descriptions.Compensation, transaction.Id);
         }
 
+        public TransactionName ForCashDeposit()
+        {
+            return new TransactionName("CASH-DEPOSIT", Descriptions.CashDeposit);
+        }
+
         public TransactionName ForOperation(BankOperation operation)
         {
             Argument.NotNull(operation, "operation");

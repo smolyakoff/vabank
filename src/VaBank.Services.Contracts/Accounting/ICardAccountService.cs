@@ -6,7 +6,6 @@ using VaBank.Services.Contracts.Accounting.Commands;
 using VaBank.Services.Contracts.Accounting.Models;
 using VaBank.Services.Contracts.Accounting.Queries;
 using VaBank.Services.Contracts.Common.Models;
-using VaBank.Services.Contracts.Processing.Models;
 
 namespace VaBank.Services.Contracts.Accounting
 {
@@ -22,7 +21,7 @@ namespace VaBank.Services.Contracts.Accounting
 
         IList<UserCardModel> GetUserCards(CardQuery query); 
             
-        IList<CardModel> GetAccountCards(IdentityQuery<string> accountNo);
+        IList<CardModel> GetAccountCards(AccountCardsQuery query);
 
         UserMessage CreateCard(CreateCardCommand command);
 
@@ -30,7 +29,7 @@ namespace VaBank.Services.Contracts.Accounting
 
         UserMessage SetCardBlock(SetCardBlockCommand command);
 
-        UserMessage SetCardAssignment(SetCardAssignmentCommand command);
+        UserMessage SetCardActivation(SetCardActivationCommand command);
 
         UserMessage UpdateCardSettings(UpdateCardSettingsCommand command);
 

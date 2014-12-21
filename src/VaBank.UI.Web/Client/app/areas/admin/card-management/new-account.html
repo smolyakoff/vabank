@@ -25,10 +25,11 @@
                     
                     <div class="row">
                         <div class="col-xs-8">
-                            <text-field type="number"
+                            <currency-field type="number"
                                         attribute="initialBalance"
-                                        label="Начальный баланс">
-                            </text-field>
+                                            label="Начальный баланс"
+                                            symbol="{{cardAccountForm.currencyISOName}}">
+                            </currency-field>
                         </div>
                         <div class="col-xs-4">
                             <dropdown-field attribute="currencyISOName"
@@ -65,7 +66,7 @@
                     <date-field attribute="cardExpirationDateUtc"
                                 label="Срок действия"
                                 placeholder="Задайте срок действия карты"
-                                date-format="MM/YY"
+                                date-format="DD.MM.YYYY"
                                 date-config="{minView: 'month', startView: 'month'}">
                     </date-field>
                     <div class="row">

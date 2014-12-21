@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Security.Claims;
 using VaBank.Common.Data.Linq;
 using VaBank.Common.Security;
@@ -44,6 +45,11 @@ namespace VaBank.Core.Membership.Entities
         public virtual ICollection<UserClaim> Claims { get; private set; }
         public virtual UserProfile Profile { get; set; }
         public byte[] RowVersion { get; set; }
+
+        public bool IsAdmin
+        {
+            get { return Claims.Any(x => x.Type == UserClaim.Types.Role && x.Value == UserClaim.Roles.Admin); }
+        }
 
         public bool IsActive
         {

@@ -209,8 +209,8 @@
     <Content Include="Client\app\areas\admin\card-management\card-list-ctrl.js" />
     <Content Include="Client\app\areas\admin\card-management\card-list.html" />
     <Content Include="Client\app\areas\admin\card-management\card-management-service.js" />
-    <Content Include="Client\app\areas\admin\card-management\assign-card.html" />
-    <Content Include="Client\app\areas\admin\card-management\assign-card-ctrl.js" />
+    <Content Include="Client\app\areas\admin\card-management\activate-card.html" />
+    <Content Include="Client\app\areas\admin\card-management\activate-card-ctrl.js" />
     <Content Include="Client\app\areas\admin\card-management\new-account-ctrl.js" />
     <Content Include="Client\app\areas\admin\card-management\new-account.html" />
     <Content Include="Client\app\areas\admin\card-management\new-card.html" />

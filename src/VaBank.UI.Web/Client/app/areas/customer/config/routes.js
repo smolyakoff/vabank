@@ -96,7 +96,7 @@
                 resolve: {
                     data: ['myCardsService', 'profileService', 'routingResolve',
                         function (myCardsService, profileService, routingResolve) {
-                            var cards = myCardsService.Card.queryNotBlocked();
+                            var cards = myCardsService.Card.queryAllowed();
                             var profile = profileService.Profile.get().$promise;
                             var lookup = myCardsService.Transfer.lookup().$promise;
                             return routingResolve.resolveAll([cards, profile, lookup], ['cards', 'profile', 'lookup']);
@@ -119,7 +119,7 @@
                 resolve: {
                     data: ['$q', '$stateParams', 'paymentService', 'profileService', function($q, $stateParams, paymentService, profileService) {
                         return $q.all({
-                            cards: paymentService.Card.queryNotBlocked(),
+                            cards: paymentService.Card.queryAllowed(),
                             profile: profileService.Profile.get().$promise,
                             prototype: $stateParams.paymentId 
                                 ? paymentService.Payment.getPrototype({operationId: $stateParams.paymentId}).$promise

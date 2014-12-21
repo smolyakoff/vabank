@@ -35,6 +35,11 @@ namespace VaBank.Core.Accounting.Entities
 
         public byte[] RowVersion { get; protected set; }
 
+        public bool IsExpired
+        {
+            get { return ExpirationDateUtc.Date <= DateTime.UtcNow; }
+        }
+
         internal virtual Account Deposit(decimal amount)
         {
             Argument.Satisfies(amount, x => x >= 0, "amount", "Deposit amount should be zero or greater.");

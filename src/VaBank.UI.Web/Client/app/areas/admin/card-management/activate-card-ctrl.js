@@ -3,11 +3,11 @@
 
 	angular
         .module('vabank.webapp')
-        .controller('assignCardController', assignCardController);
+        .controller('activateCardController', activateCardController);
 
-	assignCardController.$inject = ['$scope', '$state', 'uiTools', 'cardManagementService'];
+	activateCardController.$inject = ['$scope', '$state', 'uiTools', 'cardManagementService'];
 
-	function assignCardController($scope, $state, uiTools, cardManagementService) {
+	function activateCardController($scope, $state, uiTools, cardManagementService) {
 	    var account = angular.copy($scope.account);
 	    var Card = cardManagementService.Card;
 	    var AccountCard = cardManagementService.AccountCard;
@@ -15,7 +15,7 @@
 	    $scope.loading = uiTools.promiseTracker();
 
 		var loadData = function () {
-		    var promise = Card.queryUnassigned().$promise;
+		    var promise = AccountCard.query({accountNo: account.accountNo, isActive: false}).$promise;
 		    $scope.itemLoading.addPromise(promise);
 		    promise.then(function(cards) {
 		        $scope.cards = cards;
@@ -26,13 +26,12 @@
 
 	    $scope.displayedCards = angular.copy($scope.cards);
 
-	    $scope.assign = function(card) {
-	        var assignment = {
+	    $scope.activate = function(card) {
+	        var params = {
 	            cardId: card.cardId,
-	            accountNo: account.accountNo,
-	            assigned: true
+	            isActive: true
 	        };
-	        var promise = AccountCard.assign(assignment).$promise;
+	        var promise = Card.activate(params).$promise;
 	        $scope.itemLoading.addPromise(promise);
 	        promise.then(function(response) {
 	            $scope.cards = _.without($scope.cards, card);
@@ -44,7 +43,7 @@
 	    };
 
 	    $scope.$on('accountTabChanged', function (e, tabName) {
-			if (tabName === 'assign-card') {
+			if (tabName === 'activate-card') {
 				loadData();
 			}
 	    });

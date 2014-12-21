@@ -9,11 +9,12 @@ namespace VaBank.Core.Accounting.Entities
     {
         public static class Spec
         {
-            public static LinqSpec<UserCard> Linked = LinqSpec.For<UserCard>(x => x.Account != null);
+            public static LinqSpec<UserCard> Active = LinqSpec.For<UserCard>(x => x.IsActive);
 
             public static LinqSpec<UserCard> ByCardNumberAndExpiration(string cardNumber, DateTime expirationDateUtc)
             {
-                return Linked && LinqSpec.For<UserCard>(x => x.CardNo == cardNumber); // && 
+                //TODO: what is here commented??
+                return Active && LinqSpec.For<UserCard>(x => x.CardNo == cardNumber); // && 
                 //x.ExpirationDateUtc.Month == expirationDateUtc.Month && 
                 //x.ExpirationDateUtc.Year == expirationDateUtc.Year);
             } 
@@ -51,44 +52,11 @@ namespace VaBank.Core.Accounting.Entities
 
         public virtual CardAccount Account { get; private set; }
 
+        public bool IsActive { get; set; }
+
         public bool IsExpired
         {
-            get
-            {
-                var now = DateTime.UtcNow;
-                return now.Year >= ExpirationDateUtc.Year && now.Month >= ExpirationDateUtc.Month;
-            }
-        }
-
-        public void LinkTo(CardAccount account)
-        {
-            if (account == null)
-            {
-                throw new ArgumentNullException("account");
-            }
-            if (Account == null)
-            {
-                Account = account;
-                account.Cards.Add(this);
-                return;
-            }
-            if (account.AccountNo == Account.AccountNo)
-            {
-                return;
-            }
-            Account.Cards.Remove(this);
-            Account = account;
-            account.Cards.Add(this);
-        }
-
-        public void Unlink()
-        {
-            if (Account == null)
-            {
-                return;
-            }
-            Account.Cards.Remove(this);
-            Account = null;
+            get { return DateTime.UtcNow.Date >= ExpirationDateUtc.Date; }
         }
 
         public void Block()

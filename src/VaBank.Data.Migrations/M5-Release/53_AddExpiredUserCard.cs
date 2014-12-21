@@ -1,9 +1,9 @@
-﻿using Dapper;
-using FluentMigrator;
-using System;
+﻿using System;
 using System.Linq;
+using Dapper;
+using FluentMigrator;
 
-namespace VaBank.Data.Migrations.M4_Payments
+namespace VaBank.Data.Migrations
 {
     [Migration(53, "AddExpiredUserCard to terminator.")]
     [Tags("Development", "Test", "Production")]
@@ -25,8 +25,8 @@ namespace VaBank.Data.Migrations.M4_Payments
                         AccountNo = "3014" + Seed.RandomStringOfNumbers(9),
                         CurrencyISOName = "USD",
                         Balance = 10000m,
-                        OpenDateUtc = DateTime.UtcNow,
-                        ExpirationDateUtc = DateTime.UtcNow.AddYears(1),
+                        OpenDateUtc = new DateTime(2014, 09, 1),
+                        ExpirationDateUtc = new DateTime(2015, 2, 1),
                         Type = "CardAccount"
                     };
 
@@ -41,7 +41,7 @@ namespace VaBank.Data.Migrations.M4_Payments
                         CardVendorId = "visa",
                         HolderFirstName = "TERMINATOR",
                         HolderLastName = "TERMINATOV",
-                        ExpirationDateUtc = DateTime.UtcNow.AddYears(-1)
+                        ExpirationDateUtc = new DateTime(2014, 12, 1)
                     };
                                                                                                                                     
                     connection.Execute("INSERT INTO [Accounting].[Card] ([CardId], [CardNo], [CardVendorId], [HolderFirstName], [HolderLastName], [ExpirationDateUtc]) " + 

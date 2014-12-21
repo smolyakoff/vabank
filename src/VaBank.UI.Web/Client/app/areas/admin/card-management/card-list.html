@@ -15,18 +15,22 @@
         <tr ng-repeat="card in cards">
             <td>
                 <button class="btn btn-xs" 
-                        vb-confirm-click="unassign(card)" 
-                        vb-confirm="Вы действительно хотите отвязать эту карту от счета?">
+                        vb-confirm-click="deactivate(card)"
+                        vb-confirm="Вы действительно хотите отключить карту от интернет-банкинга?"
+                        tooltip="Отключить интернет-банкинг">
                     <i class="glyphicon glyphicon-remove"></i>
                 </button>
             </td>
             <td>{{card.cardNo}}</td>
             <td>{{card.cardVendor.name}}</td>
             <td>{{card.cardholderFirstName}} {{card.cardholderLastName}}</td>
-            <td>{{card.expirationDateUtc | date:'MM/yy':'UTC' }}</td>
+            <td>
+                <span data-ng-show="isExpired(card)" class="label label-danger">Истекла {{card.expirationDateUtc | date:'dd.MM.yyyy':'UTC' }}</span>
+                <span data-ng-show="!isExpired(card)">{{card.expirationDateUtc | date:'dd.MM.yyyy':'UTC' }}</span>
+            </td>
         </tr>
     </tbody>
 </table>
 <div ng-show="cards.length == 0">
-    Нет привязанных карт
+    Нет подключенных карт
 </div>

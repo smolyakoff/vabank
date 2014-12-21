@@ -61,6 +61,15 @@ namespace VaBank.Services.Processing {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Истек срок действия счета..
+        /// </summary>
+        public static string AccountExpired {
+            get {
+                return ResourceManager.GetString("AccountExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Запрещен доступ к карте..
         /// </summary>
         public static string CardAccessDenied {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Http;
-using VaBank.Common.Data;
 using VaBank.Services.Contracts.Accounting;
 using VaBank.Services.Contracts.Accounting.Commands;
 using VaBank.Services.Contracts.Accounting.Queries;
@@ -46,14 +45,6 @@ namespace VaBank.UI.Web.Api.Admin
         }
 
         [HttpPost]
-        [Route("{id}/assign")]
-        [Transaction]
-        public IHttpActionResult AssignCard(SetCardAssignmentCommand command)
-        {
-            return Ok(_cardAccountService.SetCardAssignment(command));
-        }
-
-        [HttpPost]
         [Route("{id}/cards")]
         [Transaction]
         public IHttpActionResult CreateCard(CreateCardCommand command)
@@ -62,10 +53,10 @@ namespace VaBank.UI.Web.Api.Admin
         }
 
         [HttpGet]
-        [Route("{id}/cards")]
-        public IHttpActionResult Cards([FromUri] IdentityQuery<string> accountNo)
+        [Route("{accountNo}/cards")]
+        public IHttpActionResult Cards([FromUri] AccountCardsQuery query)
         {
-            return Ok(_cardAccountService.GetAccountCards(accountNo));
+            return Ok(_cardAccountService.GetAccountCards(query));
         }
         
     }

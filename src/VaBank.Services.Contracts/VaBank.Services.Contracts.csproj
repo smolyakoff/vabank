@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Commands\CreateCardCommand.cs" />
-    <Compile Include="Accounting\Commands\SetCardAssignmentCommand.cs" />
+    <Compile Include="Accounting\Commands\SetCardActivationCommand.cs" />
     <Compile Include="Accounting\Commands\CreateCardAccountCommand.cs" />
     <Compile Include="Accounting\Commands\SetCardBlockCommand.cs" />
     <Compile Include="Accounting\Commands\UpdateCardSettingsCommand.cs" />
@@ -62,6 +62,7 @@
     <Compile Include="Accounting\Models\CardAccountStatementModel.cs" />
     <Compile Include="Accounting\Models\CardNameModel.cs" />
     <Compile Include="Accounting\Models\CustomerCardBriefModel.cs" />
+    <Compile Include="Accounting\Queries\AccountCardsQuery.cs" />
     <Compile Include="Common\Commands\IOperationCommand.cs" />
     <Compile Include="Common\Queries\DateTimeRangeQuery.cs" />
     <Compile Include="Common\Queries\IUserQuery.cs" />

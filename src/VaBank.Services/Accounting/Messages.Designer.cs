@@ -70,11 +70,29 @@ namespace VaBank.Services.Accounting {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Карта была успешно подключена к онлайн-банкингу..
+        /// </summary>
+        public static string CardActivated {
+            get {
+                return ResourceManager.GetString("CardActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Карта {0} была заблокирована!.
         /// </summary>
         public static string CardBlocked {
             get {
                 return ResourceManager.GetString("CardBlocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Карта отключена от онлайн-банкинга.
+        /// </summary>
+        public static string CardDeactivated {
+            get {
+                return ResourceManager.GetString("CardDeactivated", resourceCulture);
             }
         }
         
@@ -106,15 +124,6 @@ namespace VaBank.Services.Accounting {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Карта была успешно привязана к карт-счету..
-        /// </summary>
-        public static string CardLinked {
-            get {
-                return ResourceManager.GetString("CardLinked", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Настройки карты были успешно обновлены..
         /// </summary>
         public static string CardSettingsUpdated {
@@ -129,15 +138,6 @@ namespace VaBank.Services.Accounting {
         public static string CardUnblocked {
             get {
                 return ResourceManager.GetString("CardUnblocked", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Карта была успешно отвязана от счета..
-        /// </summary>
-        public static string CardUnlinked {
-            get {
-                return ResourceManager.GetString("CardUnlinked", resourceCulture);
             }
         }
         

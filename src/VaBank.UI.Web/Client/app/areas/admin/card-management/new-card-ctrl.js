@@ -16,7 +16,7 @@
 
 	    var defaults = {
 	        accountNo: account.accountNo,
-	        expirationDateUtc: account.expirationDateUtc,
+	        expirationDateUtc: moment(account.expirationDateUtc).toDate(),
 	        userId: account.owner.userId,
 	        cardVendorId: lookup.cardVendors[0].id
 	    };

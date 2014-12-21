@@ -62,8 +62,12 @@ namespace VaBank.Services.Membership
             RuleFor(x => x.PhoneNumber).UseValidator(new PhoneNumberValidator()).When(x => !string.IsNullOrWhiteSpace(x.PhoneNumber));
             RuleFor(x => x.PhoneNumberConfirmed).Equal(false).When(x => string.IsNullOrWhiteSpace(x.PhoneNumber)).WithLocalizedMessage(() => Messages.EmptyPhoneNumberConfirmed);
             RuleFor(x => x.SecretPhrase).NotEmpty().Length(5, 1024);
-            RuleFor(x => x.FullName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty).Length(1, 100);
-            RuleFor(x => x.Address).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty).Length(1, 1024);
+            RuleFor(x => x.FullName)
+                .NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty).When(x => x.Role == "Customer")
+                .Length(1, 100).When(x => x.Role == "Customer");
+            RuleFor(x => x.Address)
+                .NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty).When(x => x.Role == "Customer")
+                .Length(1, 1024).When(x => x.Role == "Customer");
         }
         private bool IsUserNameUnique(CreateUserCommand command, string userName)
         {
@@ -112,8 +116,12 @@ namespace VaBank.Services.Membership
             RuleFor(x => x.PhoneNumber).UseValidator(new PhoneNumberValidator()).When(x => !string.IsNullOrWhiteSpace(x.PhoneNumber));
             RuleFor(x => x.PhoneNumberConfirmed).Equal(false).When(x => string.IsNullOrWhiteSpace(x.PhoneNumber)).WithLocalizedMessage(() => Messages.EmptyPhoneNumberConfirmed);
             RuleFor(x => x.SecretPhrase).NotEmpty().Length(5, 1024);
-            RuleFor(x => x.FullName).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty).Length(1, 100);
-            RuleFor(x => x.Address).NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty).Length(1, 1024);
+            RuleFor(x => x.FullName)
+                .NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty).When(x => x.Role == "Customer")
+                .Length(1, 100).When(x => x.Role == "Customer");
+            RuleFor(x => x.Address)
+                .NotEmpty().WithLocalizedMessage(() => Messages.NotEmpty).When(x => x.Role == "Customer")
+                .Length(1, 1024).When(x => x.Role == "Customer");
         }
         private bool IsUserNameUnique(UpdateUserCommand command, string userName)
         {

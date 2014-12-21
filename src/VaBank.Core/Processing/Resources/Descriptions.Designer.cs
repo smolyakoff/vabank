@@ -61,6 +61,15 @@ namespace VaBank.Core.Processing.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пополнение счета - наличные.
+        /// </summary>
+        internal static string CashDeposit {
+            get {
+                return ResourceManager.GetString("CashDeposit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Компенсация за тр. №{0}. .
         /// </summary>
         internal static string Compensation {

@@ -1,5 +1,6 @@
-﻿<form form-for="settingsForm" 
+﻿<form form-for="settingsForm"
       validation-rules="limitValidationRules"
+      disable="card.isExpired()"
       submit-with="updateLimits()" 
       submit-complete="onLimitsUpdated(data)">
     <div class="row">
@@ -42,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="row" style="margin-top: 10px">
+    <div class="row" style="margin-top: 10px" data-ng-show="!isExpired(card)">
         <div class="col-xs-12">
             <div class="pull-right">
                 <a class="btn btn-default btn-sm " ng-click="cancelLimits()">Отмена</a>

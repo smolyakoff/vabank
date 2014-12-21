@@ -4,6 +4,7 @@ using VaBank.Core.Accounting.Factories;
 using VaBank.Core.Membership.Entities;
 using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
+using VaBank.Core.Processing.Resources;
 using VaBank.Services.Common;
 
 namespace VaBank.Services.Accounting
@@ -29,5 +30,7 @@ namespace VaBank.Services.Accounting
         public IQueryRepository<Transaction> Transactions { get; set; } 
 
         public MoneyConverter MoneyConverter { get; set; }
+
+        public TransactionReferenceBook TransactionReferenceBook { get; set; }
     }
 }

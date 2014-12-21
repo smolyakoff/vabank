@@ -9,6 +9,8 @@ namespace VaBank.Data.EntityFramework.Accounting.Mappings
         {
             ToTable("User_Card_Account", "Accounting");
 
+            Property(x => x.IsActive).IsRequired();
+
             HasRequired(x => x.Owner).WithMany().Map(x => x.MapKey("UserID"));
             HasRequired(x => x.Settings).WithRequiredPrincipal();
         }

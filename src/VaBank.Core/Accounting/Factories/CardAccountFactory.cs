@@ -22,7 +22,7 @@ namespace VaBank.Core.Accounting.Factories
             _cardAccountRepository = cardAccountRepository;
         }
 
-        public CardAccount Create(Currency currency, User owner, decimal initalBalance, DateTime expirationDateUtc)
+        public CardAccount Create(Currency currency, User owner, DateTime expirationDateUtc)
         {
             Argument.NotNull(currency, "currency");
             Argument.NotNull(owner, "owner");
@@ -37,12 +37,10 @@ namespace VaBank.Core.Accounting.Factories
                     break;
                 }
             }
-                        
             var account = new CardAccount(accountNo, currency, owner)
             {
                 ExpirationDateUtc = expirationDateUtc
             };
-            account.Deposit(initalBalance);
             return account;
         }
 

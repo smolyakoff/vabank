@@ -17,12 +17,16 @@ using VaBank.Services.Contracts.Accounting.Queries;
 using VaBank.Services.Contracts.Common;
 using VaBank.Services.Contracts.Common.Events;
 using VaBank.Services.Contracts.Common.Models;
+using VaBank.Services.Contracts.Processing.Events;
+using VaBank.Services.Contracts.Processing.Models;
 
 namespace VaBank.Services.Accounting
 {
     public class CardAccountService : BaseService, ICardAccountService
     {
         private readonly AccountingDependencies _deps;
+
+        private readonly BankSettings _bankSettings = new BankSettings();
 
         public CardAccountService(BaseServiceDependencies dependencies,
             AccountingDependencies accountingDependencies)
@@ -55,7 +59,7 @@ namespace VaBank.Services.Accounting
             try
             {
                 var cards = _deps.UserCards.PartialQuery(
-                    UserCard.Spec.Linked,
+                    UserCard.Spec.Active,
                     userId.ToPropertyQuery<UserCard, Guid>(x => x.Owner.Id));
                 return cards.Map<UserCard, CustomerCardModel>().ToList();
             }
@@ -95,14 +99,12 @@ namespace VaBank.Services.Accounting
         }
 
 
-        public IList<CardModel> GetAccountCards(IdentityQuery<string> accountNo)
+        public IList<CardModel> GetAccountCards(AccountCardsQuery query)
         {
-            EnsureIsValid(accountNo);
+            EnsureIsValid(query);
             try
             {
-                var userCards = _deps.UserCards.PartialProject<CardModel>(
-                    UserCard.Spec.Linked,
-                    accountNo.ToDbQuery<UserCard, string>(x => x.Account.AccountNo));
+                var userCards = _deps.UserCards.Project<CardModel>(query.ToDbQuery());
                 return userCards;
             }
             catch (Exception ex)
@@ -165,7 +167,6 @@ namespace VaBank.Services.Accounting
                 var cardAccount = _deps.CardAccountFactory.Create(
                     currency,
                     user,
-                    command.InitialBalance,
                     command.AccountExpirationDateUtc);
                 _deps.CardAccounts.Create(cardAccount);
                 var userCard = _deps.UserCardFactory.Create(
@@ -176,7 +177,12 @@ namespace VaBank.Services.Accounting
                     command.CardholderLastName,
                     command.CardExpirationDateUtc);
                 _deps.UserCards.Create(userCard);
+                var name = _deps.TransactionReferenceBook.ForCashDeposit();
+                var money = new Money(currency, command.InitialBalance);
+                var deposit = cardAccount.Deposit(userCard, name.Code, name.Description, _bankSettings.Location, money, _deps.MoneyConverter);
+                _deps.Transactions.Create(deposit);
                 Commit();
+                Publish(new TransactionProgressEvent(Operation.Id, deposit.ToModel<TransactionModel>()));
                 return UserMessage.ResourceFormat(() => Messages.AccountOpened, cardAccount.AccountNo);
             }
             catch (ServiceException)
@@ -223,24 +229,16 @@ namespace VaBank.Services.Accounting
             }
         }
 
-        public UserMessage SetCardAssignment(SetCardAssignmentCommand command)
+        public UserMessage SetCardActivation(SetCardActivationCommand command)
         {
             EnsureIsValid(command);
             try
             {
                 var userCard = _deps.UserCards.SurelyFind(command.CardId);
-                UserMessage message;
-                if (!command.Assigned)
-                {
-                    userCard.Unlink();
-                    message = UserMessage.Resource(() => Messages.CardUnlinked);
-                }
-                else
-                {
-                    var cardAccount = _deps.CardAccounts.SurelyFind(command.AccountNo);
-                    userCard.LinkTo(cardAccount);
-                    message = UserMessage.Resource(() => Messages.CardLinked);
-                }
+                var message = command.IsActive
+                    ? UserMessage.Resource(() => Messages.CardActivated)
+                    : UserMessage.Resource(() => Messages.CardDeactivated);
+                userCard.IsActive = command.IsActive;
                 Commit();
                 return message;
             }

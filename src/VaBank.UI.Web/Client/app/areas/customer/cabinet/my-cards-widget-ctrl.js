@@ -33,6 +33,10 @@
         $scope.loading = uiTools.promiseTracker();
 
         $scope.slides = [];
+
+        $scope.isExpired = function(card) {
+            
+        };
         
         var init = function () {
             var promise = Card.query().$promise.then(function (data) {

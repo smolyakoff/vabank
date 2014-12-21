@@ -9,6 +9,7 @@ using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Accounting.Factories;
 using VaBank.Services.Contracts.Accounting.Commands;
 using VaBank.Services.Contracts.Accounting.Models;
+using VaBank.Services.Contracts.Accounting.Queries;
 
 namespace VaBank.Services.Accounting
 {
@@ -52,29 +53,21 @@ namespace VaBank.Services.Accounting
         }
     }
 
-    internal class SetCardAssignmentCommandValidator : AbstractValidator<SetCardAssignmentCommand>
+    [StaticValidator]
+    internal class SetCardActivationCommandValidator : AbstractValidator<SetCardActivationCommand>
     {
-        private readonly IRepository<UserCard> _userCardRepository;
-
-        public SetCardAssignmentCommandValidator(IRepository<UserCard> userCardRepository)
+        public SetCardActivationCommandValidator()
         {
-            if (userCardRepository == null)
-            {
-                throw new ArgumentNullException("userCardRepository");
-            }
-            _userCardRepository = userCardRepository;
-
-            RuleFor(x => x.AccountNo)
-                .NotEmpty()
-                .When(x => !x.Assigned).Must(IsAssignedToSpecifiedAccount);
-            RuleFor(x => x.CardId)
-                .NotEqual(Guid.Empty);
+            RuleFor(x => x.CardId).NotEqual(Guid.Empty);
         }
+    }
 
-        private bool IsAssignedToSpecifiedAccount(SetCardAssignmentCommand command, string accountNo)
+    [StaticValidator]
+    internal class AccountCardsQueryValidator : AbstractValidator<AccountCardsQuery>
+    {
+        public AccountCardsQueryValidator()
         {
-            var userCard = _userCardRepository.Find(command.CardId);
-            return userCard.Account == null || userCard.Account.AccountNo == command.AccountNo;
+            RuleFor(x => x.AccountNo).UseValidator(new AccountNumberValidator());
         }
     }
 

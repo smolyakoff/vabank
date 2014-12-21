@@ -24,7 +24,7 @@
                                         <b class="card-header-1 text-vinous">
                                             {{card.friendlyName || card.cardVendor.name}}
                                             <a data-ui-sref="customer.cards.transfer({from: card.cardId})" tooltip="Перевод с этой карты"
-                                               tooltip-append-to-body="true">
+                                               tooltip-append-to-body="true" data-ng-show="!card.isExpired()">
                                                 <i class="glyphicon glyphicon-share-alt"></i>
                                             </a>
                                         </b>

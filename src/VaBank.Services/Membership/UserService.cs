@@ -85,16 +85,16 @@ namespace VaBank.Services.Membership
             try
             {
                 var user = _deps.Users.PartialQueryIdentity(User.Spec.Active, id);
-                if (user == null || user.Profile == null)
+                if (user == null)
                 {
                     return null;
                 }
-                var paymentProfile = _deps.PaymentProfiles.SurelyFind(id.Id);
+                var paymentProfile = _deps.PaymentProfiles.Find(id.Id);
                 return new FullUserProfileModel
                 {
                     User = user.ToModel<UserBriefModel>(),
-                    Profile = user.Profile.ToModel<UserProfileModel>(),
-                    PaymentProfile = paymentProfile.ToModel<UserPaymentProfileModel>()
+                    Profile = user.Profile == null ? null : user.Profile.ToModel<UserProfileModel>(),
+                    PaymentProfile = paymentProfile == null ? null : paymentProfile.ToModel<UserPaymentProfileModel>()
                 };
             }
             catch (Exception ex)
@@ -110,8 +110,11 @@ namespace VaBank.Services.Membership
             {
                 var user = command.ToEntity<CreateUserCommand, User>();
                 _deps.Users.Create(user);
-                var paymentProfile = _deps.UserPaymentProfileFactory.Create(user, command.Address, command.FullName);
-                _deps.PaymentProfiles.Create(paymentProfile);
+                if (!user.IsAdmin)
+                {
+                    var paymentProfile = _deps.UserPaymentProfileFactory.Create(user, command.Address, command.FullName);
+                    _deps.PaymentProfiles.Create(paymentProfile);
+                }
                 Commit();
                 return user.ToModel<User, UserBriefModel>();
             }
@@ -131,7 +134,21 @@ namespace VaBank.Services.Membership
                 {
                     throw NotFound.ExceptionFor<User>(command.UserId);
                 }
-                var paymentProfile = _deps.PaymentProfiles.SurelyFind(command.UserId);
+                var paymentProfile = _deps.PaymentProfiles.Find(command.UserId);
+                if (command.Role == UserClaim.Roles.Admin && paymentProfile != null)
+                {
+                    _deps.PaymentProfiles.Delete(paymentProfile);
+                }
+                else if (paymentProfile == null)
+                {
+                    paymentProfile = _deps.UserPaymentProfileFactory.Create(user, command.Address, command.FullName);
+                    _deps.PaymentProfiles.Create(paymentProfile);
+                }
+                else
+                {
+                    Mapper.Map(command, paymentProfile);
+                    _deps.PaymentProfiles.Update(paymentProfile);
+                }
                 Mapper.Map(command, user);
                 var role = UserClaim.CreateRole(command.UserId, command.Role);
                 var existingRoles = user.Claims.Where(x => x.Type == ClaimTypes.Role).ToList();
@@ -145,8 +162,6 @@ namespace VaBank.Services.Membership
                     user.UpdatePassword(command.Password);
                 }
                 Mapper.Map(command, user.Profile);
-                Mapper.Map(command, paymentProfile);
-                _deps.PaymentProfiles.Update(paymentProfile);
                 Commit();
             }
             catch (ServiceException)
