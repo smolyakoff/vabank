@@ -37,8 +37,10 @@
                 _.each(validators, function (v, k) {
                     ngModelCtrl.$setValidity(k, v(modelValue));
                 });
-                if (modelValue.isValid()) {
+                if (modelValue.isValid() && modelValue.year() > 2000) {
                     return modelValue.toDate();
+                } else {
+                    return ngModelCtrl.$modelValue;
                 }
             };
             
