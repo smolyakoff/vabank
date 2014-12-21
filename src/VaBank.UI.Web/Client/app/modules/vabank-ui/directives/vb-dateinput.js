@@ -29,8 +29,11 @@
                 return viewValue;
             };
 
-            var parse = function (viewValue) {          
+            var parse = function (viewValue) {
                 var modelValue = moment(viewValue, formats.inputFormat);
+                if (!modelValue.isValid() || modelValue.year() < 2000) {
+                    modelValue = moment(viewValue, formats.displayFormat);
+                }
                 _.each(validators, function (v, k) {
                     ngModelCtrl.$setValidity(k, v(modelValue));
                 });
@@ -40,7 +43,7 @@
             };
             
 
-            ngModelCtrl.$render = function (override) {
+            ngModelCtrl.$render = function () {
                 $input.val(ngModelCtrl.$viewValue);
             };
 

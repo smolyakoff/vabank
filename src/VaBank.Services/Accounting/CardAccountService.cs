@@ -98,6 +98,20 @@ namespace VaBank.Services.Accounting
             }
         }
 
+        public CardModel GetCard(IdentityQuery<Guid> cardId)
+        {
+            EnsureIsValid(cardId);
+            try
+            {
+                var card = _deps.UserCards.QueryIdentity(cardId);
+                return card == null ? null : card.ToModel<CardModel>();
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get card.", ex);
+            }
+        }
+
 
         public IList<CardModel> GetAccountCards(AccountCardsQuery query)
         {

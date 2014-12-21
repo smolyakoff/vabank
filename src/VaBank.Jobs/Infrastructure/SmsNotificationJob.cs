@@ -57,8 +57,17 @@ namespace VaBank.Jobs.Infrastructure
             {
                 return;
             }
+            var card = context.CardAccountService.GetCard(new IdentityQuery<Guid>(cardBlocked.Card.CardId));
+            if (card == null)
+            {
+                throw new InvalidOperationException("Can't find card.");
+            }
+            var secureCardNo = string.Format(
+                    "{0}****{1}",
+                    new string(card.CardNo.Take(8).ToArray()),
+                    new string(card.CardNo.Skip(12).ToArray()));
             var cardName = string.Format("{0}('{1}')", 
-                cardBlocked.Card.SecureCardNo, 
+                secureCardNo, 
                 cardBlocked.Card.FriendlyName ?? cardBlocked.Card.CardVendor.Name);
             var sms = new SendSmsCommand
             {
