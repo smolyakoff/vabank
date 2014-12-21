@@ -65,73 +65,80 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
-        <table class="table table-responsive payments-table"
-               data-st-table="displayedPayments"
-               data-st-safe-src="payments">
-            <thead>
-            <tr class="initialism warning">
-                <th st-sort="paymentName" >Название платежа / Реквизиты</th>
-                <th class="text-center" st-sort="card.secureCardNo">Карта</th>
-                <th class="text-center" st-sort="dateUtc" st-sort-default="reverse">Дата платежа</th>
-                <th class="text-center" st-sort="amount">Сумма</th>
-                <th class="text-center" st-sort="status">Статус</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr data-ng-repeat="payment in displayedPayments">
-                <td style="max-width: 300px">
-                    <div>
-                        <strong>{{payment.paymentName}}</strong>
-                    </div>
-                    <div class="text-muted payment-info" data-ng-bind-html="payment.info | linebreaks">
-                    </div>
-                </td>
-                <td class="text-warning text-center">
-                    <div>{{payment.card.secureCardNo}}</div>
-                    <div data-ng-if="payment.card.friendlyName" class="text-muted">{{payment.card.friendlyName}}</div>
-                </td>
-                <td class="text-center">
-                    <b>{{payment.dateUtc | localdate | amDateFormat: 'L'}}</b>
-                </td>
-                <td class="text-center">
-                    <b>
-                        {{payment.amount | extcurrency:'':payment.currency.precision }}
-                        {{payment.currency.isoName}}
-                    </b>
-                </td>
-                <td class="text-center" data-ng-switch="payment.status">
-                    <div data-ng-switch-when="Pending" class="text-warning">
-                        <i class="glyphicon glyphicon-time"></i> Принят банком
-                    </div>
-                    <div data-ng-switch-when="Completed" class="text-success">
-                        <i class="glyphicon glyphicon-ok-circle"></i> Исполнен
-                    </div>
-                    <div data-ng-switch-when="Failed" class="text-danger">
-                        <i class="glyphicon glyphicon-ok-circle"></i> Ошибка
-                    </div>
-                </td>
-                <td class="text-center">
-                    <div>
-                        <a href="#" data-ui-sref="customer.payments.payment({paymentId: payment.operationId})">
-                            <i class="glyphicon glyphicon-repeat"></i> Повторить
-                        </a>
-                    </div>
-                    <div>
-                        <a href="#" data-ng-click="details(payment)">
-                            <i class="glyphicon glyphicon-info-sign"></i> Информация
-                        </a>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="6">
-                        <div st-pagination="" st-items-by-page="5" st-displayed-pages="7"></div>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+        <section class="row" data-ng-show="loading.active()">
+            <div class="col-xs-12">
+                <div data-us-spinner="" style="height: 300px"></div>
+            </div>
+        </section>
+        <section data-ng-if="!loading.active() && displayedPayments">
+            <table class="table table-responsive payments-table"
+                   data-st-table="displayedPayments"
+                   data-st-safe-src="payments">
+                <thead>
+                    <tr class="initialism warning">
+                        <th st-sort="paymentName">Название платежа / Реквизиты</th>
+                        <th class="text-center" st-sort="card.secureCardNo">Карта</th>
+                        <th class="text-center" st-sort="dateUtc" st-sort-default="reverse">Дата платежа</th>
+                        <th class="text-center" st-sort="amount">Сумма</th>
+                        <th class="text-center" st-sort="status">Статус</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="payment in displayedPayments">
+                        <td style="max-width: 300px">
+                            <div>
+                                <strong>{{payment.paymentName}}</strong>
+                            </div>
+                            <div class="text-muted payment-info" data-ng-bind-html="payment.info | linebreaks">
+                            </div>
+                        </td>
+                        <td class="text-warning text-center">
+                            <div>{{payment.card.secureCardNo}}</div>
+                            <div data-ng-if="payment.card.friendlyName" class="text-muted">{{payment.card.friendlyName}}</div>
+                        </td>
+                        <td class="text-center">
+                            <b>{{payment.dateUtc | localdate | amDateFormat: 'L'}}</b>
+                        </td>
+                        <td class="text-center">
+                            <b>
+                                {{payment.amount | extcurrency:'':payment.currency.precision }}
+                                {{payment.currency.isoName}}
+                            </b>
+                        </td>
+                        <td class="text-center" data-ng-switch="payment.status">
+                            <div data-ng-switch-when="Pending" class="text-warning">
+                                <i class="glyphicon glyphicon-time"></i> Принят банком
+                            </div>
+                            <div data-ng-switch-when="Completed" class="text-success">
+                                <i class="glyphicon glyphicon-ok-circle"></i> Исполнен
+                            </div>
+                            <div data-ng-switch-when="Failed" class="text-danger">
+                                <i class="glyphicon glyphicon-ok-circle"></i> Ошибка
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div>
+                                <a href="#" data-ui-sref="customer.payments.payment({paymentId: payment.operationId})">
+                                    <i class="glyphicon glyphicon-repeat"></i> Повторить
+                                </a>
+                            </div>
+                            <div>
+                                <a href="#" data-ng-click="details(payment)">
+                                    <i class="glyphicon glyphicon-info-sign"></i> Информация
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <div st-pagination="" st-items-by-page="5" st-displayed-pages="7"></div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>    
     </div>
 </section>

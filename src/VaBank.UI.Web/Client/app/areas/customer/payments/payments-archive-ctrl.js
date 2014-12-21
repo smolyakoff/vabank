@@ -18,6 +18,8 @@
             };
         };
 
+        $scope.loading = uiTools.promiseTracker();
+
         $scope.ranges = [
             { name: 'По указанным датам', range: dateRange(0, 'month', 1), isCustom: true },
             { name: 'Сегодня', range: dateRange(0, 'day', 1) },
@@ -86,9 +88,10 @@
                     propertyType: 'decimal'
                 }
             }, 'and').toLINQ();
-            Payment.query({ filter: filter }).$promise.then(function (payments) {
+            var promise = Payment.query({ filter: filter }).$promise.then(function (payments) {
                 $scope.payments = payments;
             });
+            $scope.loading.addPromise(promise);
         }
 
         $scope.details = function (payment) {
