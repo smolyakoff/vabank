@@ -86,12 +86,20 @@ namespace VaBank.Services.Transfers
             _userCards = userCards;
 
             RuleFor(x => x.ToCardNo).NotEmpty();
-            RuleFor(x => x.ToCardExpirationDateUtc).GreaterThan(x => DateTime.UtcNow);
+            RuleFor(x => x.ToCardExpirationDateUtc)
+                .Must(IsValidExpirationDate);
             RuleFor(x => x.ToCardNo)
                 .Must(DestinationCardExists)
                 .WithLocalizedMessage(() => Messages.DestinationCardNotFound)
                 .Must(NotEqualToFromCardNo)
                 .WithLocalizedMessage(() => Messages.DestinationCardNotEqualToSource);
+        }
+
+        private static bool IsValidExpirationDate(DateTime expirationDateUtc)
+        {
+            var now = DateTime.UtcNow;
+            var firstDay = new DateTime(now.Year, now.Month, 1);
+            return expirationDateUtc >= firstDay;
         }
 
         private bool NotEqualToFromCardNo(InterbankCardTransferCommand command, string toCardNo)

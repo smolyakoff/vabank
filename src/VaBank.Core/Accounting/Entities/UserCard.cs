@@ -13,10 +13,9 @@ namespace VaBank.Core.Accounting.Entities
 
             public static LinqSpec<UserCard> ByCardNumberAndExpiration(string cardNumber, DateTime expirationDateUtc)
             {
-                //TODO: what is here commented??
-                return Active && LinqSpec.For<UserCard>(x => x.CardNo == cardNumber); // && 
-                //x.ExpirationDateUtc.Month == expirationDateUtc.Month && 
-                //x.ExpirationDateUtc.Year == expirationDateUtc.Year);
+                return Active && LinqSpec.For<UserCard>(x => x.CardNo == cardNumber &&
+                    x.ExpirationDateUtc.Month == expirationDateUtc.Month && 
+                    x.ExpirationDateUtc.Year == expirationDateUtc.Year);
             } 
         }
 

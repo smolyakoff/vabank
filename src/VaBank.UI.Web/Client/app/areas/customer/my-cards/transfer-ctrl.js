@@ -187,7 +187,7 @@
                 transfer.toCardNo = $scope.transferForm.toCard.cardNumber;
                 var month = parseInt($scope.transferForm.toCard.expiration.substr(0, 2));
                 var year = 2000 + parseInt($scope.transferForm.toCard.expiration.substr(2, 2));
-                transfer.toCardExpirationDateUtc = moment.utc([year, month]).toJSON();
+                transfer.toCardExpirationDateUtc = moment.utc({year: year, month: month - 1});
             }
             var promise = Transfer.create(transfer).$promise;
             promise.then(onSuccess, onError);
