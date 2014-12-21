@@ -79,6 +79,10 @@ namespace VaBank.Services.Payments
 
         private bool OrderTemplateExists(string templateCode)
         {
+            if (string.IsNullOrEmpty(templateCode))
+            {
+                return false;
+            }
             return _paymentOrderTemplateRepository.Find(templateCode) != null;
         }
 

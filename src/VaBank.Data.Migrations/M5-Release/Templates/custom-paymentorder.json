@@ -1,0 +1,130 @@
+﻿{
+    "amount": {
+        "default": 0,
+        "editor": {
+            "name": "currency",
+            "options": {
+                "label": "Сумма платежа",
+                "symbol": "Br",
+                "isoName": "BYR",
+                "precision": 0,
+                "validation": {
+                    "type": {
+                        "rule": "positive",
+                         "message": "Сумма платежа должна быть больше нуля"
+                    }
+                }
+            }
+        }
+    },
+    "beneficiaryAccountNo": {
+        "default": "",
+        "editor": {
+            "name": "masked-text",
+            "options": {
+                "label": "Номер счёта получателя",
+                "required": true,
+                "mask": "9999 99999999 9",
+                "placeholder": "**** ******** *",
+                "help": "Введите номер счета получателя (13 цифр).",
+                "validation": {
+                    "required": true,
+                    "pattern": {
+                        "rule": "^\\d{13}$",
+                        "message": "Некорректный номер счета"
+                    }
+                }
+            }
+        }
+    },
+    "beneficiaryName": {
+        "default": "",
+        "editor": {
+            "name": "textarea",
+            "options": {
+                "label": "Получатель",
+                "validation": {
+                    "required": true,
+                    "rows": 2,
+                    "maxlength": {
+                        "rule": 100,
+                        "message": "Максимальная длина поля - 100 символов"
+                    }
+                }
+            }
+        }
+    },
+    "beneficiaryTIN": {
+        "default": "",
+        "editor": {
+            "name": "masked-text",
+            "options": {
+                "label": "УНП получателя",
+                "help": "УНП должен состоять из 9 цифр.",
+                "mask": "999999999",
+                "placeholder": "*********",
+                "validation": {
+                    "required": true,
+                    "pattern": {
+                        "rule": "^\\d{9}$",
+                        "message": "Некорректный УНП"
+                    }
+                }
+            }
+        }
+    },
+    "beneficiaryBankCode": {
+        "default": "",
+        "editor": {
+            "name": "masked-text",
+            "options": {
+                "label": "Код банка получателя",
+                "mask": "999999999",
+                "placeholder": "*********",
+                "help": "Введите код банка получателя (9 цифр).",
+                "validation": {
+                    "required": true,
+                    "pattern": {
+                        "rule": "^\\d{9}$",
+                        "message": "Некорректный УНП"
+                    }
+                }
+            }
+        }
+    },
+    "paymentCode": {
+        "default": "",
+        "editor": {
+            "name": "masked-text",
+            "options": {
+                "label": "Код платежа",
+                "mask": "9999",
+                "placeholder": "****",
+                "help": "Опционально (4 цифры)",
+                "validation": {
+                    "pattern": {
+                        "rule": "(^$)|(^\\d{4}$)",
+                        "message":  "Некорректный код платежа"
+                    }
+                }
+            }
+        }
+    },
+    "purpose": {
+        "default": "",
+        "editor": {
+            "name": "textarea",
+            "options": {
+                "label": "Назначение платежа",
+                "validation": {
+                    "required": true,
+                    "rows": 3,
+                    "maxlength": {
+                        "rule": 256,
+                        "message": "Максимальная длина поля - 256 символов"
+                    }
+                }
+            }
+        }
+    }
+}

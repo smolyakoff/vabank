@@ -3,9 +3,9 @@
 
     angular.module('vabank.webapp').controller('paymentController', paymentController);
 
-    paymentController.$inject = ['$scope', '$q', '$timeout', '$window', 'uiTools', 'WizardHandler', 'paymentService', 'data'];
+    paymentController.$inject = ['$scope', '$state', '$q', '$timeout', '$window', 'uiTools', 'WizardHandler', 'paymentService', 'data'];
 
-    function paymentController($scope, $q, $timeout, $window, uiTools, wizardHandler, paymentService, data) {
+    function paymentController($scope, $state, $q, $timeout, $window, uiTools, wizardHandler, paymentService, data) {
 
         var PaymentForm = paymentService.PaymentForm;
         var Payment = paymentService.Payment;
@@ -189,21 +189,14 @@
         };
 
         var init = function () {
-            if (data.cards.length === 0) {
-                uiTools.notify({
-                    type: 'warning',
-                    message: 'Нет карт с которых разрешен платеж.'
-                });
-                $state.go('customer.cards.list');
-                return;
-            }
             var deferred = $q.defer();
             $scope.loading.addPromise(deferred.promise);
             if (data.prototype) {
                 $scope.showTree = false;
                 $scope.template = data.prototype.template;
                 $scope.payment.form = data.prototype.form;
-                $timeout(function() {
+                $scope.payment.templateCode = data.prototype.template.code;
+                $timeout(function () {
                     next();
                     deferred.resolve();
                 }, 0);
@@ -211,7 +204,7 @@
             }
             if (data.template) {
                 $scope.showTree = false;
-                $timeout(function() {
+                $timeout(function () {
                     chooseTemplate(data.template);
                     next();
                     deferred.resolve();

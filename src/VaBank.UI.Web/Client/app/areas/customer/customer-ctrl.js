@@ -3,9 +3,9 @@
 
     angular.module('vabank.webapp').controller('customerController', customerController);
 
-    customerController.$inject = ['$window', '$rootScope', '$state', '$scope', 'authService'];
+    customerController.$inject = ['$window', '$rootScope', '$state', '$scope', 'authService', 'hasCards'];
 
-    function customerController($window, $rootScope, $state, $scope, authService) {
+    function customerController($window, $rootScope, $state, $scope, authService, hasCards) {
 
         $scope.$state = $state;
 
@@ -21,6 +21,8 @@
             authService.logout();
             $state.go('login');
         };
+
+        $scope.hasCards = hasCards;
 
         $scope.$on('$stateChangeSuccess', function(event, toState) {
             if ($state.includes('customer')) {

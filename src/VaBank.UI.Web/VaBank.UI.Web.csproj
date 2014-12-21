@@ -236,6 +236,8 @@
     <Content Include="Client\app\areas\admin\user-management\user-unlock.html" />
     <Content Include="Client\app\areas\customer\cabinet\cabinet-ctrl.js" />
     <Content Include="Client\app\areas\customer\cabinet\cabinet-service.js" />
+    <Content Include="Client\app\areas\customer\cabinet\consultant.html" />
+    <Content Include="Client\app\areas\customer\cabinet\exchange-rates.html" />
     <Content Include="Client\app\areas\customer\cabinet\my-cards-widget-ctrl.js" />
     <Content Include="Client\app\areas\customer\cabinet\my-cards-widget.html" />
     <Content Include="Client\app\areas\customer\cabinet\payments-widget-ctrl.js" />
@@ -334,6 +336,7 @@
     <Content Include="Client\app\modules\vabank-ui\directives\vb-datepicker.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\exp-date.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\card-number.js" />
+    <Content Include="Client\app\modules\vabank-ui\filters\linebreaks.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\local-date.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\string-format.js" />
     <Content Include="Client\app\modules\vabank-ui\filters\ext-currency.js" />

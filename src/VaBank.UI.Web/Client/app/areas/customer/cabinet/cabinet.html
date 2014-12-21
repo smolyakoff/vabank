@@ -16,72 +16,21 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5">
+    <div data-ng-if="!noCards" class="col-xs-12 col-sm-12 col-md-6 col-lg-5">
         <div data-ng-include="'/Client/app/areas/customer/cabinet/my-cards-widget.html'"></div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-        <div class="panel tile vinous" ng-controller="localRatesWidgetController">
-            <div class="panel-heading">
-                <div class="col-xs-10">
-                    <h4 class="title">Курсы валют</h4>
-                </div>
-                <div class="col-xs-2 spinner-container">
-                    <div ng-show="loading.active()" 
-                         data-us-spinner="{lines:7, radius:3, length: 4, width:4, color:'white', left:'initial'}">
-                    </div>
-                </div>
-            </div>
-            <div class="panel-body tile-body" ng-if="!loading.active()">
-                <table class="exchange-rates-table">
-                    <thead>
-                        <tr>
-                            <td><span class="badge">{{lastUpdatedUtc | amDateFormat:'L'}}</span></td>
-                            <td>Покупка</td>
-                            <td>Продажа</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="rate in rates">
-                            <td class="currency-col">
-                                <img ng-src="/Client/app/images/icons/currency/{{rate.foreignCurrency.isoName}}.png">
-                                <span>{{rate.foreignCurrency.isoName}}</span>
-                            </td>
-                            <td>{{rate.buyRate | extcurrency:'':rate.baseCurrency.precision}}</td>
-                            <td>{{rate.sellRate | extcurrency:'':rate.baseCurrency.precision}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="footer">Обновлено: {{lastUpdatedUtc | amDateFormat:'LLL'}}</div>
-            </div>
-        </div>
+        <div data-ng-include="'/Client/app/areas/customer/cabinet/exchange-rates.html'"></div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5" data-ng-if="noCards">
+        <div data-ng-include="'/Client/app/areas/customer/cabinet/consultant.html'"></div>
     </div>
 </section>
 <section class="row">
-    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-9">
+    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-9" data-ng-if="!noCards">
         <div data-ng-include="'/Client/app/areas/customer/cabinet/payments-widget.html'"></div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3">
-        <div class="panel tile blue" id="consultant">
-            <div class="consultant">
-                <div class="panel-heading">
-                    <h4 class="title">VaBank - Консультант</h4>
-                </div>
-                <div class="panel-body tile-body">
-                    <span class="phone-big">
-                        911
-                        <i class="glyphicon glyphicon-earphone icon-phone"></i>
-                    </span>
-                    <span class="badge">Круглосуточно</span>
-                </div>
-                <div class="footer">
-                    <ul class="phone-list">
-                        <li>
-                            <p class="phone-number"> + 375 (29)</p>
-                            <p class="phone-number"><b>173-21-50</b></p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-3" data-ng-if="!noCards">
+        <div data-ng-include="'/Client/app/areas/customer/cabinet/consultant.html'"></div>
     </div>
 </section>

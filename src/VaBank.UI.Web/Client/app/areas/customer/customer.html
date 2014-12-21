@@ -8,11 +8,12 @@
                 ng-class="{active: $state.includes('customer.cabinet')}">
                 <a><i class="glyphicon glyphicon-home"></i> Мой кабинет</a>
             </li>
-            <li data-ui-sref="customer.cards.list"
+            <li data-ui-sref="customer.cards.list" data-ng-if="hasCards"
                 ng-class="{active: $state.includes('customer.cards')}">
                 <a><i class="glyphicon glyphicon-credit-card"></i> Мои карточки</a>
             </li>
-            <li data-ui-sref="customer.payments.payment" data-ng-class="{active: $state.includes('customer.payments')}">
+            <li data-ui-sref="customer.payments.payment" data-ng-if="hasCards"
+                data-ng-class="{active: $state.includes('customer.payments')}">
                 <a><i class="glyphicon glyphicon-usd"></i> Платежи <sup class="text-muted initialism" style="font-size: 10px">beta</sup></a>
             </li>
             <li data-ui-sref="customer.profile.edit"
