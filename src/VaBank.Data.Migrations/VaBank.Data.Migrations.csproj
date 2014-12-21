@@ -117,6 +117,7 @@
     <Compile Include="M4-Payments\50_AddDisplayInfoForPayments.cs" />
     <Compile Include="M4-Payments\51_AddCardLimitsForRUB.cs" />
     <Compile Include="M4-Payments\52_AddPaymentNameForPaymentTemplate.cs" />
+    <Compile Include="M4-Payments\53_AddExpiredUserCard.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="MigrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

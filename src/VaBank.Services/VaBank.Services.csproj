@@ -134,6 +134,8 @@
     <Compile Include="Payments\PaymentClientService.cs" />
     <Compile Include="Payments\PaymentClientServiceDependencies.cs" />
     <Compile Include="Payments\PaymentsProfile.cs" />
+    <Compile Include="Statistics\VaBankStatisticsService.cs" />
+    <Compile Include="Statistics\VaBankStatisticsServiceDependencies.cs" />
     <Compile Include="Transfers\CardTransferClientService.cs" />
     <Compile Include="Transfers\CardTransferClientServiceDependencies.cs" />
     <Compile Include="Processing\ExchangeRateService.cs" />

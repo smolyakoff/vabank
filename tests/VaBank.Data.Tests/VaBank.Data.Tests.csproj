@@ -68,6 +68,7 @@
     <Compile Include="EntityFramework\Mocks\OperationCategoryMock.cs" />
     <Compile Include="EntityFramework\PaymentsSchemaTest.cs" />
     <Compile Include="EntityFramework\ProcessingSchemaTest.cs" />
+    <Compile Include="EntityFramework\CommonTest.cs" />
     <Compile Include="SettingRepositoryTests.cs" />
     <Compile Include="EntityFramework\MembershipSchemaTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
