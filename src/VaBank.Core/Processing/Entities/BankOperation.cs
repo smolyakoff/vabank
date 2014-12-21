@@ -1,4 +1,5 @@
 ﻿using System;
+using VaBank.Common.Data.Linq;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Common;
@@ -7,6 +8,12 @@ namespace VaBank.Core.Processing.Entities
 {
     public abstract class BankOperation : Entity<long>, IBankOperation
     { 
+        public static class Spec
+        {
+            public static LinqSpec<BankOperation> Finished = 
+                LinqSpec.For<BankOperation>(x => x.Status == ProcessStatus.Completed || x.Status == ProcessStatus.Failed); 
+        }
+
         protected BankOperation(OperationCategory category) : this()
         {
             Argument.NotNull(category, "category");

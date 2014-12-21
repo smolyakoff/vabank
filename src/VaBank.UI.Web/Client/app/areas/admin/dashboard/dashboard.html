@@ -1,0 +1,37 @@
+﻿<section class="row">
+    <div class="col-xs-4">
+        <div class="panel panel-primary tile tile-admin">
+            <div class="panel-heading">
+                <h4 class="panel-title">Общая информация о системе</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-responsive table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Пользователей в системе</td>
+                            <td>{{overall.usersCount}}</td>
+                        </tr>
+                        <tr>
+                            <td>Версия БД</td>
+                            <td>{{overall.dbVersion}}</td>
+                        </tr>
+                        <tr>
+                            <td>Проведено операций через онлайн-банк</td>
+                            <td>{{overall.completedBankOperationsCount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-8">
+        <div class="panel panel-info tile tile-admin">
+            <div class="panel-heading">
+                <h4 class="panel-title">Количество обработанных транзакций</h4>
+            </div>
+            <div class="panel-body">
+                <div google-chart="" chart="transactions"></div>
+            </div>
+        </div>
+    </div>
+</section>

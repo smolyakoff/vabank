@@ -16,7 +16,7 @@
 
 	    var defaults = {
 	        accountNo: account.accountNo,
-	        expirationDateUtc: moment(account.expirationDateUtc).toDate(),
+	        expirationDateUtc: moment.utc(account.expirationDateUtc).subtract(1, 'month').endOf('month'),
 	        userId: account.owner.userId,
 	        cardVendorId: lookup.cardVendors[0].id
 	    };
@@ -33,12 +33,18 @@
 
 	    $scope.validationRules = {
 	        userId: { required: true },
-            expirationDate: {
+            expirationDateUtc: {
                 custom: uiTools.validate.createValidator(function (value) {
-                   if (moment(value).isAfter(account.expirationDate)) {
-                       return 'Срок действия карты не может быть больше срока действия карт-счета.';
-                   }
-                   return null;
+                    var now = moment();
+                    var cardExpires = moment(value);
+                    if (cardExpires.isBefore(now)) {
+                        return 'Срок действия не может быть раньше текущей даты.';
+                    }
+                    var accountExpires = moment.utc(account.expirationDateUtc).startOf('month');
+                    if (cardExpires.isBefore(accountExpires)) {
+                        return null;
+                    }
+                    return 'Срок действия карты не может быть больше срока действия карт-счета.';
                 })
             },
             cardVendorId: { required: true },
@@ -74,5 +80,13 @@
 	        $scope.formController.resetFields();
 	        $scope.changeTab('cards');
 	    };
+
+	    $scope.$watch('cardForm.expirationDateUtc', function (newVal, oldVal) {
+	        if (oldVal === newVal || !moment(newVal).isValid()) {
+	            return;
+	        }
+	        $scope.cardForm.expirationDateUtc = moment(newVal).endOf('month');
+	    });
+
 	}
 })();

@@ -39,6 +39,10 @@ namespace VaBank.Services.Accounting
 
         private bool IsExpirationDateValid(CreateCardCommand command, DateTime expirationDate)
         {
+            if (expirationDate.AddDays(1).Month == expirationDate.Month)
+            {
+                return false;
+            }
             var account = _cardAccountRepository.Find(command.AccountNo);
             if (account == null)
             {

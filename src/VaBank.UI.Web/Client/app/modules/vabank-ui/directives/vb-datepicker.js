@@ -28,7 +28,8 @@
                 config: '=',
                 dateFormat: '@?',
                 dateDisplayFormat: '@?',
-                placeholder: '@?'
+                placeholder: '@?',
+                modifier: '=?'
             }
         };
         return directive;

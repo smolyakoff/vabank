@@ -12,6 +12,8 @@ namespace VaBank.Core.Processing
 
             public static LinqSpec<Transaction> Completed = LinqSpec.For<Transaction>(x => x.Status == ProcessStatus.Completed);
 
+            public static LinqSpec<Transaction> Finished = Failed || Completed;
+
             public static LinqSpec<Transaction> Withdrawals = LinqSpec.For<Transaction>(x => x.TransactionAmount < 0);
 
             public static LinqSpec<Transaction> Deposits = LinqSpec.For<Transaction>(x => x.TransactionAmount > 0);

@@ -13,7 +13,7 @@
         } else if (user.isInRole('Customer')) {
             $state.go('customer.cabinet');
         } else if (user.isInRole('Admin')) {
-            $state.go('admin');
+            $state.go('admin.dashboard');
         } else {
             $state.go('login');
         }

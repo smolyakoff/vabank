@@ -3,9 +3,9 @@
 
     angular.module('vabank.ui').directive('vbDateInput', vbDateInput);
 
-    vbDateInput.$inject = [];
+    vbDateInput.$inject = ['$timeout'];
 
-    function vbDateInput() {
+    function vbDateInput($timeout) {
 
         function link($scope, $element, $attributes, ngModelCtrl) {
 
@@ -22,43 +22,34 @@
             
             var $input = $element;
 
-            var format = function (value, focused) {
-                var modelValue;
-                if (_.isString(value)) {
-                    modelValue = moment(value, formats.displayFormat);
-                    if (!modelValue.isValid()) {
-                        modelValue = moment(value, formats.inputFormat);
-                    }
-                } else {
-                    modelValue = moment(value);
-                }
-                _.each(validators, function (v, k) {
-                    ngModelCtrl.$setValidity(k, v(modelValue));
-                });
-                var formatString = focused ? formats.inputFormat : formats.displayFormat;
-                return modelValue.isValid() ? modelValue.format(formatString) : '';
+            $input.unbind('input').unbind('keydown').unbind('change');
+
+            var format = function (value) {
+                var viewValue = moment(value).format(formats.displayFormat);
+                return viewValue;
             };
 
             var parse = function (viewValue) {          
                 var modelValue = moment(viewValue, formats.inputFormat);
-                if (!modelValue.isValid()) {
-                    modelValue = moment(viewValue, formats.displayFormat);
-                }
                 _.each(validators, function (v, k) {
                     ngModelCtrl.$setValidity(k, v(modelValue));
                 });
-                return modelValue.isValid() ? modelValue : null;
+                if (modelValue.isValid()) {
+                    return modelValue.toDate();
+                }
             };
-
             
 
-            ngModelCtrl.$render = function () {
+            ngModelCtrl.$render = function (override) {
                 $input.val(ngModelCtrl.$viewValue);
             };
 
             $input.on('blur', function (e) {
-               ngModelCtrl.$viewValue = moment(ngModelCtrl.$modelValue).format(formats.displayFormat);
-               ngModelCtrl.$render();
+                $timeout(function() {
+                    ngModelCtrl.$setViewValue($input.val());
+                    ngModelCtrl.$viewValue = format(ngModelCtrl.$modelValue);
+                    ngModelCtrl.$render();
+                }, 100);
                 
             });
 
@@ -75,6 +66,7 @@
             restrict: 'A',
             require: 'ngModel',
             link: link,
+            priority: 1
         };
     }
 

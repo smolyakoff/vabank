@@ -68,6 +68,7 @@
     <Compile Include="Common\Queries\IUserQuery.cs" />
     <Compile Include="Maintenance\Models\IOwnerModel.cs" />
     <Compile Include="Maintenance\Models\UserOwnerModel.cs" />
+    <Compile Include="Maintenance\Queries\TransactionStatisticsQuery.cs" />
     <Compile Include="Membership\Models\FullUserProfileModel.cs" />
     <Compile Include="Membership\Models\UserPaymentProfileModel.cs" />
     <Compile Include="Payments\Commands\SubmitPaymentCommand.cs" />
@@ -108,9 +109,9 @@
     <Compile Include="Maintenance\Models\TransactionLogEntryModel.cs" />
     <Compile Include="Maintenance\Queries\TransactionLogQuery.cs" />
     <Compile Include="Accounting\Models\CardBalanceQuery.cs" />
-    <Compile Include="Statistics\IVaBankStatisticsService.cs" />
-    <Compile Include="Statistics\Models\OverallSystemInfoModel.cs" />
-    <Compile Include="Statistics\Models\ProcessedTransactionStatsModel.cs" />
+    <Compile Include="Maintenance\ISystemStatisticsService.cs" />
+    <Compile Include="Maintenance\Models\OverallSystemInfoModel.cs" />
+    <Compile Include="Maintenance\Models\ProcessedTransactionStatsModel.cs" />
     <Compile Include="Transfers\Commands\PersonalCardTransferCommand.cs" />
     <Compile Include="Transfers\Commands\InterbankCardTransferCommand.cs" />
     <Compile Include="Processing\Commands\ProcessBankOperationCommand.cs" />
@@ -222,7 +223,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Processing\Queries\" />
-    <Folder Include="Statistics\Queries\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Common\Resources\Messages.resx">

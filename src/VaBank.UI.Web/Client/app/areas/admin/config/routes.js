@@ -11,6 +11,7 @@
             .state('admin', {
                 url: '/admin',
                 templateUrl: '/Client/app/areas/admin/admin.html',
+                'abstract': true,
                 controller: 'adminController',
                 data: {
                     title: 'VaDmin - Панель управления',
@@ -19,7 +20,13 @@
                         roles: ['Admin']
                     }
                 }
-            }).state('admin.scheduler', {
+            })
+            .state('admin.dashboard', {
+                url: '',
+                templateUrl: '/Client/app/areas/admin/dashboard/dashboard.html',
+                controller: 'dashboardController'
+            })
+            .state('admin.scheduler', {
                 url: '/scheduler',
                 templateUrl: '/Client/app/areas/admin/scheduler/scheduler.html',
                 data: {

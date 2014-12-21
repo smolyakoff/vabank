@@ -6,7 +6,9 @@ using VaBank.Core.Maintenance.Entitities;
 using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Common.Models;
+using VaBank.Services.Contracts.Common.Queries;
 using VaBank.Services.Contracts.Maintenance.Commands;
+using VaBank.Services.Contracts.Maintenance.Models;
 using VaBank.Services.Contracts.Maintenance.Queries;
 
 namespace VaBank.Services.Maintenance
@@ -33,6 +35,6 @@ namespace VaBank.Services.Maintenance
             }
             dbQuery.SortBy(x => x.OrderByDescending(t => t.CreatedDateUtc));
             return dbQuery;
-        } 
+        }
     }
 }
