@@ -160,7 +160,7 @@ namespace VaBank.Services.Membership {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ваша учетная запись заблокирована..
+        ///   Looks up a localized string similar to Ваша учетная запись заблокирована. За дополнительной информацией обратитесь по номеру +375291732150..
         /// </summary>
         public static string UserBlocked {
             get {

@@ -151,7 +151,7 @@
     <value>Вы успешно вошел в систему.</value>
   </data>
   <data name="UserBlocked" xml:space="preserve">
-    <value>Ваша учетная запись заблокирована.</value>
+    <value>Ваша учетная запись заблокирована. За дополнительной информацией обратитесь по номеру +375291732150.</value>
   </data>
   <data name="UserDeleted" xml:space="preserve">
     <value>Ваша учетная запись удалена.</value>
