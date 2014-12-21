@@ -191,12 +191,18 @@ namespace VaBank.Services.Accounting
                     command.CardholderLastName,
                     command.CardExpirationDateUtc);
                 _deps.UserCards.Create(userCard);
-                var name = _deps.TransactionReferenceBook.ForCashDeposit();
-                var money = new Money(currency, command.InitialBalance);
-                var deposit = cardAccount.Deposit(userCard, name.Code, name.Description, _bankSettings.Location, money, _deps.MoneyConverter);
-                _deps.Transactions.Create(deposit);
+                var shouldDeposit = command.InitialBalance > 0;
+                var events = new List<ApplicationEvent>();
+                if (shouldDeposit)
+                {
+                    var name = _deps.TransactionReferenceBook.ForCashDeposit();
+                    var money = new Money(currency, command.InitialBalance);
+                    var deposit = cardAccount.Deposit(userCard, name.Code, name.Description, _bankSettings.Location, money, _deps.MoneyConverter);
+                    _deps.Transactions.Create(deposit);
+                    events.Add(new TransactionProgressEvent(Operation.Id, deposit.ToModel<TransactionModel>()));
+                }
                 Commit();
-                Publish(new TransactionProgressEvent(Operation.Id, deposit.ToModel<TransactionModel>()));
+                events.ForEach(Publish);
                 return UserMessage.ResourceFormat(() => Messages.AccountOpened, cardAccount.AccountNo);
             }
             catch (ServiceException)

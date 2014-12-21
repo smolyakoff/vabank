@@ -21,7 +21,7 @@ namespace VaBank.Core.Processing
             Argument.NotEmpty(description, "description");
             Argument.NotNull(money, "money");
             Argument.NotNull(moneyConverter, "moneyConverter");
-            Argument.Satisfies(money, x => x.Amount >= 0, "money", "Money amount should be 0 or greater.");
+            Argument.Satisfies(money, x => x.Amount > 0, "money", "Money amount should be greater than 0.");
 
             var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
             return new CardTransaction(code, description, location, account, card, money.Currency, - money.Amount, - convertedMoney.Amount);
@@ -42,7 +42,7 @@ namespace VaBank.Core.Processing
             Argument.NotEmpty(description, "description");
             Argument.NotNull(money, "money");
             Argument.NotNull(moneyConverter, "moneyConverter");
-            Argument.Satisfies(money, x => x.Amount >= 0, "money", "Money amount should be 0 or greater.");
+            Argument.Satisfies(money, x => x.Amount > 0, "money", "Money amount should be greater than 0.");
 
             var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
             return new CardTransaction(code, description, location, account, card, money.Currency, money.Amount, convertedMoney.Amount);
@@ -60,7 +60,7 @@ namespace VaBank.Core.Processing
             Argument.NotNull(account, "account");
             Argument.NotNull(money, "money");
             Argument.NotNull(moneyConverter, "moneyConverter");
-            Argument.Satisfies(money, x => x.Amount >= 0, "money", "Money amount should be 0 or greater.");
+            Argument.Satisfies(money, x => x.Amount > 0, "money", "Money amount should be greater than 0.");
 
             var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
             return new Transaction(account, money.Currency, money.Amount, convertedMoney.Amount, code, description, location);
@@ -78,7 +78,7 @@ namespace VaBank.Core.Processing
             Argument.NotNull(account, "account");
             Argument.NotNull(money, "money");
             Argument.NotNull(moneyConverter, "moneyConverter");
-            Argument.Satisfies(money, x => x.Amount >= 0, "money", "Money amount should be 0 or greater.");
+            Argument.Satisfies(money, x => x.Amount > 0, "money", "Money amount should be greater than 0.");
 
             var convertedMoney = moneyConverter.Convert(money, account.Currency.ISOName);
             return new Transaction(account, money.Currency, - money.Amount, - convertedMoney.Amount, code, description, location);
