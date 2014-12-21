@@ -73,8 +73,9 @@
                         {{range.name}}
                     </ui-select-choices>
                 </ui-select>
-                <div class="row date-range" data-ng-show="selectedRange.isCustom">
-                    <div class="col-xs-6">
+                <div class="form-inline" data-ng-show="selectedRange.isCustom">
+                    <div class="form-group date-range">
+                        <label>С</label>
                         <vb-datepicker ng-model="fromDate"
                                        placeholder="С"
                                        data-config="{minView: 'day'}"
@@ -82,13 +83,14 @@
                                        data-date-display-format="LL">
                         </vb-datepicker>
                     </div>
-                    <div class="col-xs-6">
-                        <vb-datepicker ng-model="toDate"
-                                       placeholder="По"
-                                       data-config="{minView: 'day'}"
-                                       data-date-format="DD.MM.YYYY"
-                                       data-date-display-format="LL">
-                        </vb-datepicker>
+                    <div class="form-group date-range">
+                        <label>По</label>
+                            <vb-datepicker ng-model="toDate"
+                                           placeholder="По"
+                                           data-config="{minView: 'day'}"
+                                           data-date-format="DD.MM.YYYY"
+                                           data-date-display-format="LL">
+                            </vb-datepicker>
                     </div>
                 </div>
             </div>
