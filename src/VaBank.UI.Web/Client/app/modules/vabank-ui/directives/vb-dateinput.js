@@ -30,9 +30,9 @@
             };
 
             var parse = function (viewValue) {
-                var modelValue = moment(viewValue, formats.inputFormat);
+                var modelValue = moment(viewValue, formats.inputFormat, true);
                 if (!modelValue.isValid() || modelValue.year() < 2000) {
-                    modelValue = moment(viewValue, formats.displayFormat);
+                    modelValue = moment(viewValue, formats.displayFormat, true);
                 }
                 _.each(validators, function (v, k) {
                     ngModelCtrl.$setValidity(k, v(modelValue));
