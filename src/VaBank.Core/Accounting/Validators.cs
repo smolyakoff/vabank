@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentValidation;
 using VaBank.Common.Validation;
+using VaBank.Core.Accounting.Resources;
 
 namespace VaBank.Core.Accounting
 {
@@ -12,7 +13,17 @@ namespace VaBank.Core.Accounting
         {
             var now = DateTime.UtcNow.Date;
             var maxDate = now.AddYears(5);
-            return builder.InclusiveBetween(now, maxDate);
+            ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
+            return builder.InclusiveBetween(now, maxDate)
+                .WithLocalizedMessage(() => Messages.CardExpirationDateInvalid)
+                .Must(IsLastDayOfAMonth)
+                .WithLocalizedMessage(() => Messages.CardExpirationDateIsLastDay);
+        }
+
+        private bool IsLastDayOfAMonth(DateTime date)
+        {
+            var lastDayOfMonth = DateTime.DaysInMonth(date.Year, date.Month);
+            return date.Day == lastDayOfMonth;
         }
     }
 

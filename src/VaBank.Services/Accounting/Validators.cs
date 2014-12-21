@@ -34,7 +34,8 @@ namespace VaBank.Services.Accounting
                 .NotEmpty();
             RuleFor(x => x.ExpirationDateUtc)
                 .UseValidator(new CardExpirationDateValidator())
-                .Must(IsExpirationDateValid);
+                .Must(IsExpirationDateValid)
+                .WithLocalizedMessage(() => Messages.LessThanAccountExpirationDate);
         }
 
         private bool IsExpirationDateValid(CreateCardCommand command, DateTime expirationDate)
@@ -44,7 +45,7 @@ namespace VaBank.Services.Accounting
             {
                 return false;
             }
-            return account.ExpirationDateUtc >= expirationDate;
+            return expirationDate <= account.ExpirationDateUtc;
         }
 
         private bool CardAccountExists(string accountNo)
@@ -85,13 +86,14 @@ namespace VaBank.Services.Accounting
             RuleFor(x => x.InitialBalance)
                 .GreaterThanOrEqualTo(0);
             RuleFor(x => x.AccountExpirationDateUtc)
-                .GreaterThan(DateTime.UtcNow.Date);
+                .GreaterThan(x => DateTime.UtcNow.Date);
             RuleFor(x => x.CardholderFirstName)
                 .NotEmpty();
             RuleFor(x => x.CardholderLastName)
                 .NotEmpty();
             RuleFor(x => x.CardExpirationDateUtc)
-                .GreaterThan(DateTime.UtcNow.Date)
+                .GreaterThan(x => DateTime.UtcNow.Date)
+                .WithLocalizedMessage(() => Messages.LessThanDateTimeNow)
                 .Must(LessThanAccountExpirationDate)
                 .WithLocalizedMessage(() => Messages.LessThanAccountExpirationDate);
         }

@@ -54,6 +54,11 @@
   <ItemGroup>
     <Compile Include="Accounting\Entities\CardLimitsRange.cs" />
     <Compile Include="Accounting\Entities\CorrespondentAccount.cs" />
+    <Compile Include="Accounting\Resources\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Include="App\Entities\PublicSecurityCode.cs" />
     <Compile Include="App\Entities\SecurityCode.cs" />
     <Compile Include="App\Entities\SecurityCodePair.cs" />
@@ -199,6 +204,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Accounting\Resources\Messages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Membership\Resources\Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>

@@ -149,5 +149,14 @@ namespace VaBank.Services.Accounting {
                 return ResourceManager.GetString("LessThanAccountExpirationDate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Срок действия карты не может быть меньше текущего дня..
+        /// </summary>
+        public static string LessThanDateTimeNow {
+            get {
+                return ResourceManager.GetString("LessThanDateTimeNow", resourceCulture);
+            }
+        }
     }
 }
