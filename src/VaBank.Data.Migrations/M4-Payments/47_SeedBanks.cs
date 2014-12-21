@@ -13,8 +13,6 @@ namespace VaBank.Data.Migrations
                 .Row(new { Code = "153001966", Name = "VaBank" })
                 .Row(new { Code = "153001795", Name = new ExplicitUnicodeString("ОАО \"АСБ Беларусбанк\"") })
                 .Row(new { Code = "153001110", Name = new ExplicitUnicodeString("ЗАО \"РРБ Банк\"") })
-                //.Row(new { Code = "153001175", Name = new ExplicitUnicodeString("ЗАО \"БелСвиссБанк\"") })
-
                 .Row(new { Code = "153001108", Name = new ExplicitUnicodeString("ЗАО \"БАНК ВТБ\" (БЕЛАРУСЬ)") })
                 .Row(new { Code = "153001111", Name = new ExplicitUnicodeString("\"МЕЖГОСУДАРСТВЕННЫЙ БАНК\"") })
                 .Row(new { Code = "153001117", Name = new ExplicitUnicodeString("ЗАО \"МТБАНК\"") })

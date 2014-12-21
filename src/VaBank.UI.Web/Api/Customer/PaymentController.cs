@@ -69,5 +69,12 @@ namespace VaBank.UI.Web.Api.Customer
         {
             return Ok(_paymentService.Submit(command));
         }
+
+        [HttpGet]
+        [Route("api/payments/tree")]
+        public IHttpActionResult GetPaymentsTree()
+        {
+            return Ok(_paymentService.GetPaymentsTree());
+        }
     }
 }

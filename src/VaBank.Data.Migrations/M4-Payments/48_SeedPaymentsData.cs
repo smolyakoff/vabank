@@ -3,11 +3,9 @@ using FluentMigrator;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using VaBank.Common.Util;
 
 namespace VaBank.Data.Migrations

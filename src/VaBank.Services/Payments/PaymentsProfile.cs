@@ -32,6 +32,7 @@ namespace VaBank.Services.Payments
                 .ForMember(x => x.Code, cfg => cfg.MapFrom(x => x.Category.Code))
                 .ForMember(x => x.DisplayName, cfg => cfg.MapFrom(x => x.Withdrawal.Description))
                 .ForMember(x => x.Name, cfg => cfg.MapFrom(x => x.Category.Name));
+            CreateMap<OperationCategory, PaymentsTreeItemModel>();
         }
     }
 }

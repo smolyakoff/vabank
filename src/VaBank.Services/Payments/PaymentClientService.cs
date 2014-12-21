@@ -132,5 +132,47 @@ namespace VaBank.Services.Payments
                 throw new ServiceException("Can't get payment details.", ex);
             }
         }
+
+        public PaymentsTreeItemModel GetPaymentsTree()
+        {
+            try
+            {
+                var model = _deps.OperationCategories.SurelyFind("PAYMENT").ToModel<PaymentsTreeItemModel>();
+                //var nodes = new List<PaymentsTreeItemModel>(model.Children);
+                //var level = 1;
+                //var temp = new List<PaymentsTreeItemModel>();
+                //while (nodes.Count != 0)
+                //{
+                //    foreach (var node in nodes)
+                //    {
+                //        node.Level = level;
+                //        if (node.Children != null)
+                //            temp.AddRange(node.Children);
+                //    }
+                //    if (temp.Count == 0)
+                //        break;
+                //    ++level;
+                //    nodes.Clear();
+                //    nodes.AddRange(temp);
+                //    temp.Clear();
+                //}
+                PaymentsTreeLoop(model, 1);
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get payments tree.", ex);
+            }
+        }
+
+        private void PaymentsTreeLoop(PaymentsTreeItemModel node, int level)
+        {
+            foreach (var child in node.Children)
+            {
+                child.Level = level;
+                if (child.Children == null || child.Children.Count == 0) continue;
+                PaymentsTreeLoop(child, level + 1);
+            }
+        }
     }
 }

@@ -18,5 +18,7 @@ namespace VaBank.Services.Contracts.Payments
         IList<PaymentArchiveItemModel> QueryArchive(PaymentArchiveQuery query);
 
         PaymentArchiveDetailsModel GetArchiveDetails(IdentityQuery<long> operationId);
+
+        PaymentsTreeItemModel GetPaymentsTree();
     }
 }

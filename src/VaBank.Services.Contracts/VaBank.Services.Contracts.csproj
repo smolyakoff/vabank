@@ -82,6 +82,7 @@
     <Compile Include="Payments\Models\PaymentCategoryCostsModel.cs" />
     <Compile Include="Payments\Models\PaymentCategoryUsagesModel.cs" />
     <Compile Include="Payments\Models\PaymentOrderModel.cs" />
+    <Compile Include="Payments\Models\PaymentsTreeItemModel.cs" />
     <Compile Include="Payments\Models\PaymentTemplateModel.cs" />
     <Compile Include="Common\Queries\IRangeQuery.cs" />
     <Compile Include="Payments\Queries\MostlyUsedPaymentsQuery.cs" />
