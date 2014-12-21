@@ -139,12 +139,12 @@ namespace VaBank.Services.Membership
                 {
                     _deps.PaymentProfiles.Delete(paymentProfile);
                 }
-                else if (paymentProfile == null)
+                else if (command.Role == UserClaim.Roles.Customer && paymentProfile == null)
                 {
                     paymentProfile = _deps.UserPaymentProfileFactory.Create(user, command.Address, command.FullName);
                     _deps.PaymentProfiles.Create(paymentProfile);
                 }
-                else
+                else if (command.Role == UserClaim.Roles.Customer)
                 {
                     Mapper.Map(command, paymentProfile);
                     _deps.PaymentProfiles.Update(paymentProfile);
