@@ -117,37 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountOpened" xml:space="preserve">
-    <value>Карт-счет №{0} был успешно открыт.</value>
+  <data name="CardExpirationDateInvalid" xml:space="preserve">
+    <value>Срок действия карты может быть от {From} до {To}.</value>
   </data>
-  <data name="CardActivated" xml:space="preserve">
-    <value>Карта была успешно подключена к онлайн-банкингу.</value>
-  </data>
-  <data name="CardBlocked" xml:space="preserve">
-    <value>Карта {0} была заблокирована!</value>
-  </data>
-  <data name="CardDeactivated" xml:space="preserve">
-    <value>Карта отключена от онлайн-банкинга</value>
-  </data>
-  <data name="CardEmitted" xml:space="preserve">
-    <value>Была успешно выпущена карта с номером: {0}.</value>
-  </data>
-  <data name="CardLimitsAmount" xml:space="preserve">
-    <value>Диапазон должен быть от 5 до 100.000. Вы ввели {0}.</value>
-  </data>
-  <data name="CardLimitsDays" xml:space="preserve">
-    <value>Диапазон должен быть от 0 до 500. Вы ввели {0}.</value>
-  </data>
-  <data name="CardSettingsUpdated" xml:space="preserve">
-    <value>Настройки карты были успешно обновлены.</value>
-  </data>
-  <data name="CardUnblocked" xml:space="preserve">
-    <value>Карта {0} разблокирована!</value>
-  </data>
-  <data name="LessThanAccountExpirationDate" xml:space="preserve">
-    <value>Срок действия карты не может быть больше срока действия карт-счета.</value>
-  </data>
-  <data name="LessThanDateTimeNow" xml:space="preserve">
-    <value>Срок действия карты не может быть меньше текущего дня.</value>
+  <data name="CardExpirationDateIsLastDay" xml:space="preserve">
+    <value>Срок действия карты должен заканчиваться последним днем месяца.</value>
   </data>
 </root>

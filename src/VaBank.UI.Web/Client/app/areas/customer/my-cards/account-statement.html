@@ -73,24 +73,24 @@
                         {{range.name}}
                     </ui-select-choices>
                 </ui-select>
-                <div class="form-inline" data-ng-show="selectedRange.isCustom">
-                    <div class="form-group date-range">
-                        <label>С</label>
+                <div class="form-horizontal" data-ng-show="selectedRange.isCustom">
+                    <div class="form-group">
+                        <label class="padding-for-label col-xs-1">С</label>
                         <vb-datepicker ng-model="fromDate"
-                                       placeholder="С"
-                                       data-config="{minView: 'day'}"
-                                       data-date-format="DD.MM.YYYY"
-                                       data-date-display-format="LL">
+                                        placeholder="С"
+                                        data-config="{minView: 'day'}"
+                                        data-date-format="DD.MM.YYYY"
+                                        data-date-display-format="LL">
                         </vb-datepicker>
                     </div>
-                    <div class="form-group date-range">
-                        <label>По</label>
-                            <vb-datepicker ng-model="toDate"
-                                           placeholder="По"
-                                           data-config="{minView: 'day'}"
-                                           data-date-format="DD.MM.YYYY"
-                                           data-date-display-format="LL">
-                            </vb-datepicker>
+                    <div class="form-group">
+                        <label class="padding-for-label col-xs-1">По</label>
+                        <vb-datepicker ng-model="toDate"
+                                        placeholder="По"
+                                        data-config="{minView: 'day'}"
+                                        data-date-format="DD.MM.YYYY"
+                                        data-date-display-format="LL">
+                        </vb-datepicker>
                     </div>
                 </div>
             </div>
