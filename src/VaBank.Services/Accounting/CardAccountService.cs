@@ -7,7 +7,6 @@ using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Processing;
-using VaBank.Core.Processing.Entities;
 using VaBank.Services.Common;
 using VaBank.Services.Contracts.Accounting;
 using VaBank.Services.Contracts.Accounting.Commands;
