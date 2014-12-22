@@ -1,0 +1,39 @@
+﻿{
+    "amount": {
+        "default": 0,
+        "editor": {
+            "name": "currency",
+            "options": {
+                "label": "Сумма платежа",
+                "symbol": "Br",
+                "precision": 0,
+                "isoName": "BYR",
+                "validation": {
+                    "type": {
+                        "rule": "positive",
+                        "message": "Сумма платежа должна быть больше нуля"
+                    }
+                }
+            }
+        }
+    },
+    "phoneNo": {
+        "default": "",
+        "editor": {
+            "name": "masked-text",
+            "options": {
+                "label": "Номер телефона",
+                "mask": "99 9999999",
+                "placeholder": "** *******",
+                "help": "Введите 9 цифр номера телефона в формате: 29ххххххх, 44ххххххх, 25ххххххх, 33ххххххх",
+                "validation": {
+                    "required": true,
+                    "pattern": {
+                        "rule": "^\\(?(29|33|44|25)\\)? *\\d{7}$",
+                        "message": "Вы ввели некорректный номер телефона"
+                    }
+                }
+            }
+        }
+    }
+}
