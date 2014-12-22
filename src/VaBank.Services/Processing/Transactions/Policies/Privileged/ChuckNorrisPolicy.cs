@@ -1,4 +1,5 @@
-﻿using VaBank.Common.IoC;
+﻿using VaBank.Common.Data.Repositories;
+using VaBank.Common.IoC;
 using VaBank.Common.Validation;
 using VaBank.Core.Accounting.Entities;
 using VaBank.Core.Processing;
@@ -11,10 +12,14 @@ namespace VaBank.Services.Processing.Transactions.Policies.Privileged
     {
         private readonly MoneyConverter _converter;
 
-        public ChuckNorrisPolicy(MoneyConverter converter)
+        private readonly IRepository<UserBankOperation> _userBankOperationRepository; 
+
+        public ChuckNorrisPolicy(MoneyConverter converter, IRepository<UserBankOperation> userBankOperationRepository)
         {
             Argument.NotNull(converter, "converter");
+            Argument.NotNull(userBankOperationRepository, "userBankOperationRepository");
             _converter = converter;
+            _userBankOperationRepository = userBankOperationRepository;
         }
 
         public override bool AppliesTo(Transaction transaction, BankOperation operation)
@@ -23,6 +28,14 @@ namespace VaBank.Services.Processing.Transactions.Policies.Privileged
             if (userAccount == null)
             {
                 return false;
+            }
+            if (operation != null)
+            {
+                var userOperation = _userBankOperationRepository.Find(operation.Id);
+                if (userOperation != null && userOperation.User.UserName == "chuck")
+                {
+                    return false;
+                }
             }
             if (userAccount.Owner.UserName == "chuck")
             {
