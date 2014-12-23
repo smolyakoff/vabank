@@ -9,8 +9,8 @@ namespace VaBank.Data.EntityFramework.Processing.Mappings
         {
             ToTable("ExchangeRate", "Processing").HasKey(x => x.Id);
             Property(x => x.Id).HasColumnName("ExchangeRateID");
-            Property(x => x.BuyRate).IsRequired();
-            Property(x => x.SellRate).IsRequired();
+            Property(x => x.BuyRate).IsRequired().HasPrecision(19, 5);
+            Property(x => x.SellRate).IsRequired().HasPrecision(19, 5);
             Property(x => x.TimestampUtc).IsRequired();
             Property(x => x.IsActual).IsRequired();
 
