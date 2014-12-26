@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NLog;
+using VaBank.Common.Data.Repositories;
 using VaBank.Common.Validation;
 using VaBank.Core.Processing;
 using VaBank.Core.Processing.Entities;
@@ -21,6 +22,8 @@ namespace VaBank.Services.Processing.Operations
 
         protected readonly TransactionReferenceBook TransactionReferenceBook;
 
+        protected readonly IRepository<Transaction> TransactionRepository; 
+
         protected readonly BankSettings Settings;
 
         internal BaseOperationProcessor(BaseOperationProcessorDependencies baseDependencies)
@@ -30,6 +33,7 @@ namespace VaBank.Services.Processing.Operations
             Logger = LogManager.GetLogger(GetType().FullName);
 
             MoneyConverter = baseDependencies.MoneyConverter;
+            TransactionRepository = baseDependencies.TransactionRepository;
             TransactionReferenceBook = baseDependencies.TransactionReferenceBook;
             Settings = new BankSettings();
         }

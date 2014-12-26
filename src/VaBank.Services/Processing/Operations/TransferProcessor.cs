@@ -112,6 +112,7 @@ namespace VaBank.Services.Processing.Operations
             transfer.Fail(string.Format(Messages.TransferFailed, transfer.Deposit.ErrorMessage));
             var transactionName = TransactionReferenceBook.CompensationFor(transfer.Withdrawal);
             var compensationTransaction = Compensate(transfer.From, transfer, transactionName.Code, transactionName.Description);
+            TransactionRepository.Create(compensationTransaction);
             TransferRepository.Update(transfer);
             var transactionModel = compensationTransaction.ToModel<Transaction, TransactionModel>();
             return new List<ApplicationEvent>
