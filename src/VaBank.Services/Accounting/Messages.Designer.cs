@@ -106,7 +106,7 @@ namespace VaBank.Services.Accounting {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Диапазон должен быть от {From} до {To}. Вы ввели {0}..
+        ///   Looks up a localized string similar to Сумма должна быть от {From} до {To}. Вы ввели {0}..
         /// </summary>
         public static string CardLimitsAmountAbroad {
             get {
@@ -115,7 +115,7 @@ namespace VaBank.Services.Accounting {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Диапазон должен быть от {From} до {To}. Вы ввели {0}..
+        ///   Looks up a localized string similar to Сумма должна быть от {From} до {To}. Вы ввели {0}..
         /// </summary>
         public static string CardLimitsAmountLocal {
             get {
@@ -124,7 +124,7 @@ namespace VaBank.Services.Accounting {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Диапазон должен быть от {From} до {To}. Вы ввели {0}..
+        ///   Looks up a localized string similar to Количество дней должно быть от {From} до {To}. Вы ввели {0}..
         /// </summary>
         public static string CardLimitsDaysAbroad {
             get {
@@ -133,7 +133,7 @@ namespace VaBank.Services.Accounting {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Диапазон должен быть от {From} до {To}. Вы ввели {0}..
+        ///   Looks up a localized string similar to Количество дней должно быть от {From} до {To}. Вы ввели {0}..
         /// </summary>
         public static string CardLimitsDaysLocal {
             get {
