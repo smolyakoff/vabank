@@ -1,6 +1,6 @@
 ﻿<form form-for="settingsForm"
       validation-rules="limitValidationRules"
-      disable="card.isExpired()"
+      disable="disabled"
       submit-with="updateLimits()" 
       submit-complete="onLimitsUpdated(data)">
     <div class="row">
@@ -9,13 +9,13 @@
                 <div class="form-group">
                     <label class="control-label col-xs-6">Лимит на количество операций в день, в РБ:</label>
                     <div class="col-xs-6">
-                        <text-field type="number" attribute="cardLimits.operationsPerDayLocal" ></text-field>
+                        <text-field type="number" attribute="cardLimits.operationsPerDayLocal" blurred="localCountLimitBlur()"></text-field>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-xs-6">Лимит на количество операций в день, вне РБ:</label>
                     <div class="col-xs-6">
-                        <text-field type="number" attribute="cardLimits.operationsPerDayAbroad"></text-field>
+                        <text-field type="number" attribute="cardLimits.operationsPerDayAbroad" blurred="abroadCountLimitBlur()"></text-field>
                     </div>
                 </div>
             </div>

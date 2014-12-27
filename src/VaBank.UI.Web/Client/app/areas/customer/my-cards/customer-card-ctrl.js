@@ -14,6 +14,8 @@
         var card = $scope.card;
         var pristineCard = angular.copy(card);
 
+        $scope.disabled = card.isExpired();
+
         $scope.settingsForm = {            
           cardLimits: card.cardLimits  
         };
@@ -79,6 +81,18 @@
                 return null;
             });
         };
+
+        $scope.localCountLimitBlur = function () {
+            if (!_.isNumber($scope.settingsForm.cardLimits.operationsPerDayLocal)) {
+                $scope.settingsForm.cardLimits.operationsPerDayLocal = 0;
+            }
+        };
+
+        $scope.abroadCountLimitBlur = function() {
+            if (!_.isNumber($scope.settingsForm.cardLimits.operationsPerDayAbroad)) {
+                $scope.settingsForm.cardLimits.operationsPerDayAbroad = 0;
+            }
+        }
 
         $scope.onLimitsUpdated = function (data) {
             if (!data) {
