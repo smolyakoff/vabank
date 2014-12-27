@@ -22,7 +22,7 @@
 
         $scope.lookup = data.lookup;
 
-        $scope.query = function(tableState) {
+        $scope.query = function (tableState) {
             var params = angular.extend(
                 {},
                 queryService.fromStTable(tableState),
@@ -33,6 +33,7 @@
                 tableState.pagination.start = page.skip;
                 tableState.pagination.numberOfPages = page.totalPages;
                 $scope.accounts = page.items;
+                lastParams = {};
             });
         };
         

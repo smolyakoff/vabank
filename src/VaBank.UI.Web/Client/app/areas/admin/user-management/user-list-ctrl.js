@@ -48,14 +48,15 @@
 
         $scope.query = function(tableState) {
             var params = angular.extend(
-                {},
-                lastParams,
-                queryService.fromStTable(tableState));
+                {},             
+                queryService.fromStTable(tableState),
+                lastParams);
             var promise = User.search(params);
             $scope.loading.addPromise(promise);
             promise.then(function(page) {
                 tableState.pagination.start = page.skip;
                 tableState.pagination.numberOfPages = page.totalPages;
+                lastParams = {};
                 $scope.users = page.items;
             });
         };
