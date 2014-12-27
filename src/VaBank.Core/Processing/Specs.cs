@@ -25,6 +25,8 @@ namespace VaBank.Core.Processing
 
         public static class ForCardTransaction
         {
+            public static LinqSpec<CardTransaction> Withdrawals = LinqSpec.For<CardTransaction>(x => x.TransactionAmount < 0);
+
             public static LinqSpec<CardTransaction> Failed = LinqSpec.For<CardTransaction>(x => x.Status == ProcessStatus.Failed);
 
             public static LinqSpec<CardTransaction> ForToday(Guid cardId, TimeZoneInfo timeZone)

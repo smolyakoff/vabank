@@ -51,11 +51,10 @@ namespace VaBank.Services.Processing.Transactions.Policies.Card
                 return false;
             }
             var query = DbQuery.For<CardTransaction>()
-                .FilterBy(!Specs.ForCardTransaction.Failed && Specs.ForCardTransaction.ForToday(userCard.Id, _schedule.TimeZone));
+                .FilterBy(Specs.ForCardTransaction.Withdrawals && !Specs.ForCardTransaction.Failed && Specs.ForCardTransaction.ForToday(userCard.Id, _schedule.TimeZone));
             var transactionsForToday = _cardTransactionRepository.Query(query);
             var countForToday = transactionsForToday.Count;
             var amountForToday = transactionsForToday
-                .Where(x => x.Type == TransactionType.Withdrawal)
                 .Sum(x => -x.AccountAmount);
             var countLimit = _settings.IsLocalLocation(transaction.Location)
                 ? userCard.Settings.Limits.OperationsPerDayLocal
