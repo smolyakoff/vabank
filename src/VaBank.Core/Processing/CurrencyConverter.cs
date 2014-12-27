@@ -33,12 +33,12 @@ namespace VaBank.Core.Processing
 
         public decimal ConvertFromBase(decimal amount)
         {
-            return amount / _exchangeRate.SellRate;
+            return Decimal.Round(amount / _exchangeRate.SellRate, _exchangeRate.Foreign.Precision, MidpointRounding.AwayFromZero);
         }
 
         public decimal ConvertFromForeign(decimal amount)
         {
-            return amount * _exchangeRate.BuyRate;
+            return Decimal.Round(amount * _exchangeRate.BuyRate, _exchangeRate.Base.Precision, MidpointRounding.AwayFromZero);
         }
     }
 }
