@@ -70,10 +70,10 @@
                 <div data-us-spinner="" style="height: 300px"></div>
             </div>
         </section>
-        <section data-ng-if="!loading.active() && displayedPayments">
+        <section data-ng-if="!loading.active()">
             <table class="table table-responsive payments-table"
-                   data-st-table="displayedPayments"
-                   data-st-safe-src="payments">
+                   st-table="displayedPayments"
+                   st-safe-src="payments">
                 <thead>
                     <tr class="initialism warning">
                         <th st-sort="paymentName">Название платежа / Реквизиты</th>

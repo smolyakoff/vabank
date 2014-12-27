@@ -59,7 +59,7 @@
         };
 
         $scope.payments = data;
-        $scope.displayedPayments = angular.copy(data);
+        $scope.displayedPayments = [].concat(data);
 
         $scope.show = function () {
             var filter = Filters.combine({
@@ -90,6 +90,7 @@
             }, 'and').toLINQ();
             var promise = Payment.query({ filter: filter }).$promise.then(function (payments) {
                 $scope.payments = payments;
+                $scope.displayedPayments = payments;
             });
             $scope.loading.addPromise(promise);
         }
