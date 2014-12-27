@@ -43,6 +43,12 @@
                         filter: dataUtil.filters.combine(defaults.filter(), dataUtil.filters.logic.And).toLINQ()
                     }
                 },
+                lookup: {
+                    url: '/api/users/:userId/payments/lookup',
+                    params: {
+                        userId: getUserId
+                    }
+                },
                 create: {
                     method: 'POST',
                     url: '/api/payments'

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreLinq;
 using Newtonsoft.Json.Linq;
 using VaBank.Common.Data;
 using VaBank.Common.Data.Repositories;
@@ -69,6 +70,29 @@ namespace VaBank.Services.Payments
             }
         }
 
+        public PaymentsLookupModel GetLookup(IIdentityQuery<Guid> userId)
+        {
+            EnsureIsValid(userId);
+            try
+            {
+                var operationsByUser = DbQuery.For<UserBankOperation>()
+                    .FilterBy(x => x.User.Id == userId.Id);
+                var codes = _deps.UserBankOperations
+                    .Select(operationsByUser, x => x.Operation.Category.Code)
+                    .Distinct()
+                    .ToList();
+                var query = DbQuery.For<PaymentCategoryModel>().FilterBy(x => codes.Contains(x.Code));
+                return new PaymentsLookupModel
+                {
+                    Categories = _deps.CardPayments.ProjectThenQuery<PaymentCategoryModel>(query).DistinctBy(x => x.Code).ToList()
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new ServiceException("Can't get payments lookup.", ex);
+            }
+        }
+
         public PaymentArchiveFormModel GetFormWithTemplate(IdentityQuery<long> operationId)
         {
             EnsureIsValid(operationId);
@@ -100,7 +124,7 @@ namespace VaBank.Services.Payments
             try
             {
                 var operationsByUser = DbQuery.For<UserBankOperation>()
-                    .FilterBy(x => x.User.Id == query.UserId && x.Operation is CardPayment);
+                    .FilterBy(x => x.User.Id == query.UserId);
                 var operationIds =_deps.UserBankOperations
                     .Select(operationsByUser, x => x.OperationId)
                     .ToList();

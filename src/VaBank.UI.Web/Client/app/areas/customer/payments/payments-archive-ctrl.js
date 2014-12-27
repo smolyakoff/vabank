@@ -37,12 +37,9 @@
                 $scope.filters.to = range.to;
             }
         };
-        $scope.paymentNames = _.chain(data)
-            .map(function (x) { return { code: x.paymentCode, name: x.paymentName } })
-            .unique(false, function (x){return x.code})
-            .value();
+        $scope.paymentNames = data.lookup.categories;
         $scope.paymentNames.unshift({
-            name: 'Все',
+            displayName: 'Все',
             code: uiTools.manipulate.filters.markers.any('Любой')
         });
         $scope.amountOperators = [
@@ -58,8 +55,8 @@
             amount: 0
         };
 
-        $scope.payments = data;
-        $scope.displayedPayments = [].concat(data);
+        $scope.payments = data.payments;
+        $scope.displayedPayments = [].concat($scope.payments);
 
         $scope.show = function () {
             var filter = Filters.combine({

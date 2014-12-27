@@ -143,6 +143,7 @@
                 resolve: {
                     data: ['$q', '$stateParams', 'paymentService', 'profileService', function ($q, $stateParams, paymentService, profileService) {
                         var deferred = $q.defer();
+                        var Payment = paymentService.Payment;
                         $q.all({
                             cards: paymentService.Card.queryAllowed(),
                             profile: profileService.Profile.get().$promise,
@@ -151,7 +152,10 @@
                                 : null,
                             template: $stateParams.code 
                                 ? paymentService.Payment.getTemplate({code: $stateParams.code}).$promise
-                                : null
+                                : null,
+                            tree: ($stateParams.code || $stateParams.paymentId) 
+                                ? null
+                                : Payment.getTree().$promise
                         }).then(function(result) {
                             if (result.cards.length === 0) {
                                 var error = new Error('Transition disabled');
@@ -176,8 +180,12 @@
                 templateUrl: '/Client/app/areas/customer/payments/payments-archive.html',
                 controller: 'paymentsArchiveController',
                 resolve: {
-                    data: ['paymentService', function(paymentService) {
-                        return paymentService.Payment.query().$promise;
+                    data: ['$q', 'paymentService', function($q, paymentService) {
+                        return $q.all({
+                            payments: paymentService.Payment.query().$promise,
+                            lookup: paymentService.Payment.lookup().$promise
+                        });
+                        
                     }]
                 }
             });

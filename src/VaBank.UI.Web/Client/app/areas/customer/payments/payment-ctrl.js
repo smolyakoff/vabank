@@ -86,7 +86,7 @@
         $scope.card = data.cards[0];
         $scope.smsConfirmationEnabled = data.profile.smsConfirmationEnabled;
         $scope.smsCodeSent = false;
-
+        $scope.tree = data.tree || {};
         $scope.template = null;
 
         $scope.paymentController = {};

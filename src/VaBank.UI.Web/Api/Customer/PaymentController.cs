@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using VaBank.Common.Data;
 using VaBank.Common.Validation;
 using VaBank.Services.Contracts.Payments;
@@ -27,6 +28,14 @@ namespace VaBank.UI.Web.Api.Customer
         public IHttpActionResult Query(PaymentArchiveQuery query)
         {
             return Ok(_paymentService.QueryArchive(query));
+        }
+
+        [HttpGet]
+        [Route("api/users/{userId:guid}/payments/lookup")]
+        public IHttpActionResult Lookup(Guid userId)
+        {
+            var id = new IdentityQuery<Guid>(userId);
+            return Ok(_paymentService.GetLookup(id));
         }
 
         [HttpGet]

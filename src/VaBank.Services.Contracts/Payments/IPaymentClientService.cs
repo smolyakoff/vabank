@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using VaBank.Common.Data;
 using VaBank.Services.Contracts.Payments.Commands;
 using VaBank.Services.Contracts.Payments.Models;
@@ -12,6 +13,8 @@ namespace VaBank.Services.Contracts.Payments
         PaymentTemplateModel GetTemplate(IdentityQuery<string> code);
  
         BankOperationModel Submit(SubmitPaymentCommand command);
+
+        PaymentsLookupModel GetLookup(IIdentityQuery<Guid> userId);
 
         PaymentArchiveFormModel GetFormWithTemplate(IdentityQuery<long> operationId);
 

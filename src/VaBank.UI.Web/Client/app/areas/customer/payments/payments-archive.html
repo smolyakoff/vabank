@@ -33,9 +33,9 @@
             <div class="col-xs-12">
                 <b>Название платежа</b>
                 <ui-select ng-model="filters.paymentCode" search-enabled="false">
-                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-match>{{$select.selected.displayName}}</ui-select-match>
                     <ui-select-choices repeat="item.code as item in paymentNames">
-                        {{item.name}}
+                        {{item.displayName}}
                     </ui-select-choices>
                 </ui-select>
             </div>

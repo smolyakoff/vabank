@@ -3,13 +3,13 @@
 
     angular.module('vabank.webapp').controller('paymentsTreeController', paymentsTreeController);
 
-    paymentsTreeController.$inject = ['$scope', 'paymentsTree'];
+    paymentsTreeController.$inject = ['$scope'];
 
-    function paymentsTreeController($scope, paymentsTree) {
+    function paymentsTreeController($scope) {
 
         var N = 2;
 
-        $scope.tree = angular.copy(paymentsTree);
+        $scope.tree = $scope.tree;
 
         $scope.selected = [];
 
