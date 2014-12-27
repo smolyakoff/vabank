@@ -49,8 +49,8 @@
         $scope.query = function(tableState) {
             var params = angular.extend(
                 {},
-                queryService.fromStTable(tableState),
-                lastParams);
+                lastParams,
+                queryService.fromStTable(tableState));
             var promise = User.search(params);
             $scope.loading.addPromise(promise);
             promise.then(function(page) {
