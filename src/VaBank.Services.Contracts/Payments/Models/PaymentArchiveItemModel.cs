@@ -25,5 +25,7 @@ namespace VaBank.Services.Contracts.Payments.Models
         public ProcessStatusModel Status { get; set; }
 
         public string Info { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }

@@ -23,50 +23,54 @@
     </div>
     <table class="table table-responsive table-condensed table-striped payment-order">
         <tbody>
-        <tr>
-            <td>Получатель</td>
-            <td>{{details.order.beneficiaryName}}</td>
-        </tr>
-        <tr>
-            <td>Номер счета получателя</td>
-            <td>{{details.order.beneficiaryAccountNo}}</td>
-        </tr>
-        <tr>
-            <td>Код банка получателя</td>
-            <td>{{details.order.beneficiaryBankCode}}</td>
-        </tr>
-        <tr>
-            <td>УНП получателя</td>
-            <td>{{details.order.beneficiaryTIN}}</td>
-        </tr>
-        <tr>
-            <td>Плательщик</td>
-            <td>{{details.order.payerName}}</td>
-        </tr>
-        <tr>
-            <td>Код банка плательщика</td>
-            <td>{{details.order.payerBankCode}}</td>
-        </tr>
-        <tr>
-            <td>Счет плательщика</td>
-            <td>{{details.order.payerAccountNo}}</td>
-        </tr>
-        <tr>
-            <td>УНП плательщика</td>
-            <td>{{details.order.payerTIN}}</td>
-        </tr>
-        <tr>
-            <td>Сумма платежа</td>
-            <td>{{details.order.amount}}</td>
-        </tr>
-        <tr>
-            <td>Код валюты</td>
-            <td>{{details.order.currencyISOName}}</td>
-        </tr>
-        <tr>
-            <td>Назначение платежа</td>
-            <td>{{details.order.purpose}}</td>
-        </tr>
+            <tr>
+                <td>Получатель</td>
+                <td>{{details.order.beneficiaryName}}</td>
+            </tr>
+            <tr>
+                <td>Номер счета получателя</td>
+                <td>{{details.order.beneficiaryAccountNo}}</td>
+            </tr>
+            <tr>
+                <td>Код банка получателя</td>
+                <td>{{details.order.beneficiaryBankCode}}</td>
+            </tr>
+            <tr>
+                <td>УНП получателя</td>
+                <td>{{details.order.beneficiaryTIN}}</td>
+            </tr>
+            <tr>
+                <td>Плательщик</td>
+                <td>{{details.order.payerName}}</td>
+            </tr>
+            <tr>
+                <td>Код банка плательщика</td>
+                <td>{{details.order.payerBankCode}}</td>
+            </tr>
+            <tr>
+                <td>Счет плательщика</td>
+                <td>{{details.order.payerAccountNo}}</td>
+            </tr>
+            <tr>
+                <td>УНП плательщика</td>
+                <td>{{details.order.payerTIN}}</td>
+            </tr>
+            <tr>
+                <td>Сумма платежа</td>
+                <td>{{details.order.amount}}</td>
+            </tr>
+            <tr>
+                <td>Код валюты</td>
+                <td>{{details.order.currencyISOName}}</td>
+            </tr>
+            <tr>
+                <td>Назначение платежа</td>
+                <td>{{details.order.purpose}}</td>
+            </tr>
+            <tr class="text-danger" data-ng-if="details.status === 'Failed'">
+                <td>Сообщение об ошибке</td>
+                <td>{{details.errorMessage}}</td>
+            </tr>
         </tbody>
     </table>
 </div>
