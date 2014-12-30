@@ -132,6 +132,7 @@
     <EmbeddedResource Include="M4-Payments\Templates\cell-velcom-phoneno.json" />
     <EmbeddedResource Include="M4-Payments\Templates\custom-paymentorder.json" />
     <EmbeddedResource Include="M5-Release\Templates\custom-paymentorder.json" />
+    <EmbeddedResource Include="M5-Release\Templates\internet-byfly.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +168,9 @@
   <ItemGroup>
     <EmbeddedResource Include="M4-Payments\Templates\cell-velcom-phoneno.info.txt" />
     <EmbeddedResource Include="M4-Payments\Templates\custom-paymentorder.info.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="M5-Release\Templates\internet-byfly.info.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
