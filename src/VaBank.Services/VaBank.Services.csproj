@@ -114,6 +114,7 @@
     <Compile Include="Infrastructure\Sms\SmsServiceSettings.cs" />
     <Compile Include="Infrastructure\Sms\TwilioClientFactory.cs" />
     <Compile Include="Infrastructure\Sms\TwilioClientSettings.cs" />
+    <Compile Include="Payments\Forms\ByFlyInternetPaymentValidator.cs" />
     <Compile Include="Payments\Forms\CustomPaymentOrderPaymentValidator.cs" />
     <Compile Include="Payments\Forms\VelcomByPhoneNumberPaymentValidator.cs" />
     <Compile Include="Payments\Messages.Designer.cs">

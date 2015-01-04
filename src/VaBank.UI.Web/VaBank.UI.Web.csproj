@@ -315,6 +315,7 @@
     <Content Include="Client\app\images\icons\currency\usd.png" />
     <Content Include="Client\app\images\icons\payments\payment-cell-velcom-phoneno.png" />
     <Content Include="Client\app\images\icons\payments\payment-custom-paymentorder.png" />
+    <Content Include="Client\app\images\icons\payments\payment-internet-byfly.png" />
     <Content Include="Client\app\images\logo\vabank-logo-big.png" />
     <Content Include="Client\app\images\logo\vabank-logo-middle.png" />
     <Content Include="Client\app\images\logo\vabank-logo-small.png" />

@@ -17,20 +17,20 @@
             }
         }
     },
-    "accountNo": {
+    "contractNo": {
         "default": "",
         "editor": {
             "name": "masked-text",
             "options": {
-                "label": "Номер счёта",
+                "label": "Номер договора",
                 "mask": "9999999999999",
                 "placeholder": "*************",
-                "help": "Введите номер счета (13 цифр).",
+                "help": "Введите номер договора (13 цифр).",
                 "validation": {
                     "required": true,
                     "pattern": {
                         "rule": "^\\d{13}$",
-                        "message": "Вы ввели некорректный номер счёта"
+                        "message": "Вы ввели некорректный номер договора"
                     }
                 }
             }

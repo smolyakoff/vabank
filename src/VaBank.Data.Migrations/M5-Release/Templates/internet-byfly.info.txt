@@ -1,1 +1,1 @@
-﻿Номер счёта: {{form.accountNo}}
+﻿Номер договора: {{form.contractNo}}

@@ -123,10 +123,16 @@
   <data name="InsufficientFunds" xml:space="preserve">
     <value>Недостаточно средств на счете.</value>
   </data>
+  <data name="InvalidByFlyContractNo" xml:space="preserve">
+    <value>Некорректный номер договора ByFly.</value>
+  </data>
   <data name="InvalidPhoneNo" xml:space="preserve">
     <value>Номер телефона указан некорректно.</value>
   </data>
+  <data name="MaxAmountPayment" xml:space="preserve">
+    <value>Максимальная сумма платежа составляет {0:#,#} рублей.</value>
+  </data>
   <data name="MinAmountPayment" xml:space="preserve">
-    <value>Минимальная сумма платежа составляет {0} рублей.</value>
+    <value>Минимальная сумма платежа составляет {0:#,#} рублей.</value>
   </data>
 </root>

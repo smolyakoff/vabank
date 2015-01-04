@@ -51,7 +51,7 @@ namespace VaBank.Data.Migrations
                                 .ToString(Formatting.None)),
                     InfoTemplate =
                         new ExplicitUnicodeString(Resource.ReadToEnd("M5_Release/Templates/internet-byfly.info.txt")),
-                    DisplayName = "BYFLY"
+                    DisplayName = "Интернет - BYFLY"
                 });
         }
 
@@ -70,7 +70,7 @@ namespace VaBank.Data.Migrations
                     BeneficiaryAccountNo = "3012016182011",
                     BeneficiaryTIN = "191124936",
                     Amount = "{{form.amount}}",
-                    Purpose = new ExplicitUnicodeString("Пополнение счета BYFLY. Номер счёта: {{form.accountNo}}"),
+                    Purpose = new ExplicitUnicodeString("Пополнение счета BYFLY. Номер договора: {{form.contractNo}}"),
                     CurrencyISOName = "BYR"
                 });
         }

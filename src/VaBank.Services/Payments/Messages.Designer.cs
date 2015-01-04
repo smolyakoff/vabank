@@ -79,6 +79,15 @@ namespace VaBank.Services.Payments {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Некорректный номер договора ByFly..
+        /// </summary>
+        public static string InvalidByFlyContractNo {
+            get {
+                return ResourceManager.GetString("InvalidByFlyContractNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Номер телефона указан некорректно..
         /// </summary>
         public static string InvalidPhoneNo {
@@ -88,7 +97,16 @@ namespace VaBank.Services.Payments {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Минимальная сумма платежа составляет {0} рублей..
+        ///   Looks up a localized string similar to Максимальная сумма платежа составляет {0:#,#} рублей..
+        /// </summary>
+        public static string MaxAmountPayment {
+            get {
+                return ResourceManager.GetString("MaxAmountPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Минимальная сумма платежа составляет {0:#,#} рублей..
         /// </summary>
         public static string MinAmountPayment {
             get {
