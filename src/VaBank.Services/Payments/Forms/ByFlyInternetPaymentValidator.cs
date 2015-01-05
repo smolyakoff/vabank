@@ -10,7 +10,7 @@ namespace VaBank.Services.Payments.Forms
         public ByFlyInternetPaymentValidator()
         {
             RuleFor(x => x.Amount)
-                .GreaterThan(1000).WithLocalizedMessage(() => Messages.MinAmountPayment, 1000)
+                .GreaterThanOrEqualTo(1000).WithLocalizedMessage(() => Messages.MinAmountPayment, 1000)
                 .LessThanOrEqualTo(1000000).WithLocalizedMessage(() => Messages.MaxAmountPayment, 1000000);
 
             RuleFor(x => x.ContractNo)
