@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="M5-Release\58_FixedUnicodeForTemplateName.cs" />
     <Compile Include="M0-Initial\01_Logging.cs" />
     <Compile Include="M1-Authentication\04_AddRowVersionColumns.cs" />
     <Compile Include="M1-Authentication\05_ChangeApplicationClientId.cs" />
